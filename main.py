@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
+import os
 import torch
 from typing import Union
-from tokenizers import pre_tokenizers
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from evals.api import CompletionFn, CompletionResult
 from evals.registry import Registry
@@ -105,6 +105,7 @@ def run_eval_set(registry, eval_set_name):
         run_eval(registry, eval.key)
 
 def main():
+    os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
     registry = RegistryWithOpenAssistant()
     run_eval_set(registry, 'test')
 
