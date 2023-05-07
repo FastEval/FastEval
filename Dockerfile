@@ -4,13 +4,14 @@ WORKDIR /workspace
 SHELL ["/bin/bash", "-c"]
 
 RUN apt update && \
-    apt install -y git git-lfs python3.10 python3.10-venv python3.10-dev && \
+    apt install -y git git-lfs vim python3.10 python3.10-venv python3.10-dev && \
     python3.10 -m venv venv && \
     source venv/bin/activate && \
     pip install --upgrade pip && \
     pip install torch==1.13.1 transformers && \
     git clone https://github.com/tju01/evals.git openai-evals && \
-    pip install -e openai-evals
+    pip install -e openai-evals && \
+    python -c "from transformers import AutoModelForCausalLM, AutoTokenizer ; model_name = 'OpenAssistant/stablelm-7b-sft-v7-epoch-3' ; tokenizer = AutoTokenizer.from_pretrained(model_name) ; model = AutoModelForCausalLM.from_pretrained(model_name)"
 
 ENV PATH=/workspace/venv/bin:$PATH
 
