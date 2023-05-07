@@ -83,7 +83,7 @@ class RegistryWithOpenAssistant(Registry):
 def run_eval(registry, eval_name):
     parser = get_parser()
     args = parser.parse_args(['oasst_completion_fn', eval_name,
-        '--record_path', 'runs/' + eval_name + '.jsonl'])
+        '--record_path', 'runs/' + eval_name + '.json'])
 
     import logging
     logging.basicConfig(
