@@ -52,135 +52,86 @@ function createConversationE(conversation) {
 }
 
 function showDataFromModelBasedClassify(finalReport, samples) {
-    const finalReportLines = [
+    return [[
         'Score: ' + finalReport.score,
         '#correct: ' + (finalReport['counts/Y'] ?? 0),
         '#incorrect: ' + (finalReport['counts/N'] ?? 0),
         '#invalid: ' + (finalReport['counts/__invalid__'] ?? 0),
-    ]
+    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
+        createExplanationTextE('The model got the following start of a conversation as input:'),
+        createConversationE(sample.sampling.prompt.input),
 
-    const samplesE = document.createElement('div')
-    for (const [sampleId, sample] of samples.entries()) {
-        const sampleE = document.createElement('div')
-        sampleE.classList.add('sample')
-        samplesE.appendChild(sampleE)
+        createExplanationTextE('The model answered in the following way:'),
+        createConversationE([{ role: 'assistant', content: sample.sampling.sampled.completion }]),
 
-        sampleE.append(
-            createUnderlinedExplanationTextE('ID: ' + sampleId),
+        createExplanationTextE('The model was then asked to evaluate its own answer:'),
+        createConversationE(sample.sampling.info.prompt),
 
-            createExplanationTextE('The model got the following start of a conversation as input:'),
-            createConversationE(sample.sampling.prompt.input),
+        createExplanationTextE('The model responded to this evaluation as follows:'),
+        createConversationE([{ role: 'assistant', content: sample.sampling.info.sampled }]),
 
-            createExplanationTextE('The model answered in the following way:'),
-            createConversationE([{ role: 'assistant', content: sample.sampling.sampled.completion }]),
-
-            createExplanationTextE('The model was then asked to evaluate its own answer:'),
-            createConversationE(sample.sampling.info.prompt),
-
-            createExplanationTextE('The model responded to this evaluation as follows:'),
-            createConversationE([{ role: 'assistant', content: sample.sampling.info.sampled }]),
-
-            createExplanationTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid')
-                + ' response to the evaluation. The resulting score is ' + sample.sampling.info.score + '.')
-        )
-    }
-
-    return [finalReportLines, samplesE]
+        createExplanationTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid')
+            + ' response to the evaluation. The resulting score is ' + sample.sampling.info.score + '.')
+    ]])]
 }
 
 function showDataFromMatch(finalReport, samples) {
-    const finalReportLines = ['Accuracy: ' + finalReport.accuracy]
+    return [[
+        'Accuracy: ' + finalReport.accuracy,
+    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
+        createExplanationTextE('The model answered in the following way:'),
+        createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
 
-    const samplesE = document.createElement('div')
-    for (const [sampleId, sample] of samples) {
-        const sampleE = document.createElement('div')
-        sampleE.classList.add('sample')
-        samplesE.appendChild(sampleE)
+        createExplanationTextE('The following answer'
+            + (sample.match.options.length === 1 ? ' was' : 's were')
+            + ' expected:'),
+        ...sample.match.options.map(e => createConversationE([{ role: 'assistant', content: e }])),
 
-        sampleE.append(
-            createUnderlinedExplanationTextE('ID: ' + sampleId),
-
-            createExplanationTextE('The model answered in the following way:'),
-            createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
-
-            createExplanationTextE('The following answer'
-                + (sample.match.options.length === 1 ? ' was' : 's were')
-                + ' expected:'),
-            ...sample.match.options.map(e => createConversationE([{ role: 'assistant', content: e }])),
-
-            createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
-        )
-    }
-
-    return [finalReportLines, samplesE]
+        createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
+    ]])]
 }
 
 function showDataFromFuzzyMatch(finalReport, samples) {
-    const finalReportLines = [
+    return [[
         'Accuracy: ' + finalReport.accuracy,
         'F1 score: ' + finalReport.f1_score,
-    ]
+    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
+        createExplanationTextE('The model got the following start of a conversation as input:'),
+        createConversationE(sample.match.test_sample.input),
 
-    const samplesE = document.createElement('div')
-    for (const [sampleId, sample] of samples) {
-        const sampleE = document.createElement('div')
-        sampleE.classList.add('sample')
-        samplesE.appendChild(sampleE)
+        createExplanationTextE('The following answer'
+            + (sample.match.test_sample.ideal.length === 1 ? ' was' : 's were')
+            + ' expected:'),
+        ...sample.match.test_sample.ideal.map(e => createConversationE([{ role: 'assistant', content: e }])),
 
-        sampleE.append(
-            createUnderlinedExplanationTextE('ID: ' + sampleId),
+        createExplanationTextE('The model answered in the following way:'),
+        createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
 
-            createExplanationTextE('The model got the following start of a conversation as input:'),
-            createConversationE(sample.match.test_sample.input),
-
-            createExplanationTextE('The following answer'
-                + (sample.match.test_sample.ideal.length === 1 ? ' was' : 's were')
-                + ' expected:'),
-            ...sample.match.test_sample.ideal.map(e => createConversationE([{ role: 'assistant', content: e }])),
-
-            createExplanationTextE('The model answered in the following way:'),
-            createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
-
-            createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
-        )
-    }
-
-    return [finalReportLines, samplesE]
+        createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
+    ]])]
 }
 
 function showDataFromIncludes(finalReport, samples) {
-    const finalReportLines = ['Accuracy: ' + finalReport.accuracy]
+    return [[
+        'Accuracy: ' + finalReport.accuracy
+    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
+        createExplanationTextE('The model got the following start of a conversation as input:'),
+        createConversationE(sample.match.prompt),
 
-    const samplesE = document.createElement('div')
-    for (const [sampleId, sample] of samples) {
-        const sampleE = document.createElement('div')
-        sampleE.classList.add('sample')
-        samplesE.appendChild(sampleE)
+        createExplanationTextE('The following answer'
+            + (typeof sample.match.expected === 'string' ? ' was' : 's were')
+            + ' expected:'),
+        ...(typeof sample.match.expected === 'string' ? [sample.match.expected] : sample.match.expected)
+            .map(e => createConversationE([{ role: 'assistant', content: e }])),
 
-        const expected = typeof sample.match.expected === 'string' ? [sample.match.expected] : sample.match.expected
+        createExplanationTextE('The model answered in the following way:'),
+        createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
 
-        sampleE.append(
-            createUnderlinedExplanationTextE('ID: ' + sampleId),
-
-            createExplanationTextE('The model got the following start of a conversation as input:'),
-            createConversationE(sample.match.prompt),
-
-            createExplanationTextE('The following answer'
-                + (expected.length === 1 ? ' was' : 's were')
-                + ' expected:'),
-            ...expected.map(e => createConversationE([{ role: 'assistant', content: e }])),
-
-            createExplanationTextE('The model answered in the following way:'),
-            createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
-
-            createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
-        )
-    }
-
-    return [finalReportLines, samplesE]
+        createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
+    ]])]
 }
 
-function createDataE(spec, finalReport, samples) {
+function showData(spec, finalReport, samples) {
     switch (spec.run_config.eval_spec.cls) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
             return showDataFromModelBasedClassify(finalReport, samples)
@@ -210,14 +161,25 @@ async function showDataFromReportUrl(reportUrl) {
         reportDataBySampleId.set(event.sample_id, item)
     }
 
-    const [finalReportLines, samplesE] = createDataE(spec, finalReport, reportDataBySampleId)
+    const [finalReportLines, mappedSamples] = showData(spec, finalReport, reportDataBySampleId)
 
     const finalReportInformationE = document.createElement('div')
     finalReportInformationE.classList.add('final-report-information')
     finalReportInformationE.appendChild(createExplanationTextE('Name: ' + spec.base_eval))
     finalReportInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
 
+    const samplesE = document.createElement('div')
     samplesE.classList.add('samples')
+    for (const [sampleId, mappedSample] of mappedSamples) {
+        const sampleE = document.createElement('div')
+        sampleE.classList.add('sample')
+        samplesE.appendChild(sampleE)
+
+        sampleE.append(
+            createUnderlinedExplanationTextE('ID: ' + sampleId),
+            ...mappedSample,
+        )
+    }
 
     return [finalReportInformationE, samplesE]
 }
