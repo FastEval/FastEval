@@ -187,15 +187,36 @@ async function showDataFromReportUrl(reportUrl) {
     return [finalReportInformationE, samplesE]
 }
 
+async function showReportIndex(url) {
+    const reportIndex = await (await fetch(url)).json()
+
+    const reportIndexE = document.createElement('ul')
+    for (const [reportFilename, { spec, final_report: finalReport }] of Object.entries(reportIndex)) {
+        const reportE = document.createElement('li')
+        reportIndexE.appendChild(reportE)
+
+        const reportLinkE = document.createElement('a')
+        reportLinkE.textContent = reportFilename
+        reportLinkE.href = '#https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/' + reportFilename
+        reportE.appendChild(reportLinkE)
+    }
+
+    return [reportIndexE]
+}
+
+function showReportIndexOrUrl(reportE, url) {
+    if (url.endsWith('__index__.json'))
+        showReportIndex(url).then(reportIndexEs => reportE.replaceChildren(...reportIndexEs))
+    else
+        showDataFromReportUrl(url).then(reportEs => reportE.replaceChildren(...reportEs))
+}
+
 function main() {
     const containerE = document.createElement('div')
     document.body.appendChild(containerE)
 
     const urlE = document.createElement('input')
-    // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-closedqa-conciseness.dev.v0.json'
-    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-match.dev.v0.json'
-    // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-fuzzy-match.s1.simple-v0.json'
-    // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-includes-ignore-case.s1.simple-v0.json'
+    urlE.value = location.hash.substring(1) || 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/__index__.json'
     containerE.appendChild(urlE)
 
     const reportE = document.createElement('div')
@@ -203,10 +224,14 @@ function main() {
     containerE.appendChild(reportE)
 
     urlE.addEventListener('change', () => {
-        showDataFromReportUrl(urlE.value).then(reportEs => reportE.replaceChildren(...reportEs))
+        showReportIndexOrUrl(reportE, urlE.value)
     })
 
-    showDataFromReportUrl(urlE.value).then(reportEs => reportE.replaceChildren(...reportEs))
+    showReportIndexOrUrl(reportE, urlE.value)
+
+    window.addEventListener('hashchange', () => {
+        location.reload()
+    })
 }
 
 main()
