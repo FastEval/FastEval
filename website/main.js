@@ -55,12 +55,8 @@ function createConversationE(conversation) {
 }
 
 function showDataFromModelBasedClassify(finalReport, samples) {
-    return [[
-        'Score: ' + finalReport.score,
-        '#correct: ' + (finalReport['counts/Y'] ?? 0),
-        '#incorrect: ' + (finalReport['counts/N'] ?? 0),
-        '#invalid: ' + (finalReport['counts/__invalid__'] ?? 0),
-    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [...(() => {
+    return [Object.entries(finalReport).map(e => e[0] + ': ' + e[1]).sort(), [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
+        ...(() => {
             const usesMultipleInputs = sample.sampling.prompt.input1 !== undefined
 
             const ret = []
