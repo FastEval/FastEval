@@ -86,8 +86,8 @@ function showDataFromModelBasedClassify(finalReport, samples) {
         createExplanationTextE('The model responded to this evaluation as follows:'),
         createConversationE([{ role: 'assistant', content: sample.sampling.info.sampled }]),
 
-        createExplanationTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid')
-            + ' response to the evaluation. The resulting score is ' + sample.sampling.info.score + '.')
+        createExplanationTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid') + ' response to the evaluation.'
+            + (sample.sampling.info.score !== null ? ('The resulting score is ' + sample.sampling.info.score + '.') : '')),
     ]])]
 }
 
@@ -203,6 +203,23 @@ async function showDataFromReportUrl(reportUrl) {
     return [finalReportInformationE, samplesE]
 }
 
+function getScore(spec, finalReport) {
+    switch (spec.run_config.eval_spec.cls) {
+        case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
+            if (finalReport.score)
+                return finalReport.score
+            return null
+        case 'evals.elsuite.basic.match:Match':
+            return finalReport.accuracy
+        case 'evals.elsuite.basic.fuzzy_match:FuzzyMatch':
+            return finalReport.f1_score
+        case 'evals.elsuite.basic.includes:Includes':
+            return finalReport.accuracy
+        default:
+            throw new Error()
+    }
+}
+
 async function showReportIndex(url) {
     const reportIndex = await (await fetch(url)).json()
 
@@ -215,6 +232,10 @@ async function showReportIndex(url) {
         reportLinkE.textContent = reportFilename
         reportLinkE.href = '#https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/' + reportFilename
         reportE.appendChild(reportLinkE)
+
+        const score = getScore(spec, finalReport)
+        if (score !== null)
+            reportE.appendChild(createExplanationTextE(' [' + score + ']'))
     }
 
     return [reportIndexE]
