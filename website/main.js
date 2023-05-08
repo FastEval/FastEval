@@ -115,12 +115,49 @@ function showDataFromMatch(finalReport, samples) {
     return [finalReportLines, samplesE]
 }
 
+function showDataFromFuzzyMatch(finalReport, samples) {
+    const finalReportLines = [
+        'Accuracy: ' + finalReport.accuracy,
+        'F1 score: ' + finalReport.f1_score,
+    ]
+
+    console.log(samples)
+
+    const samplesE = document.createElement('div')
+    for (const [sampleId, sample] of samples) {
+        const sampleE = document.createElement('div')
+        sampleE.classList.add('sample')
+        samplesE.appendChild(sampleE)
+
+        sampleE.append(
+            createUnderlinedExplanationTextE('ID: ' + sampleId),
+
+            createExplanationTextE('The model got the following start of a conversation as input:'),
+            createConversationE(sample.match.test_sample.input),
+
+            createExplanationTextE('The following answer'
+                + (sample.match.test_sample.ideal.length === 1 ? ' was' : 's were')
+                + ' expected:'),
+            ...sample.match.test_sample.ideal.map(e => createConversationE([{ role: 'assistant', content: e }])),
+
+            createExplanationTextE('The model answered in the following way:'),
+            createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
+
+            createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
+        )
+    }
+
+    return [finalReportLines, samplesE]
+}
+
 function createDataE(spec, finalReport, samples) {
     switch (spec.run_config.eval_spec.cls) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
             return showDataFromModelBasedClassify(finalReport, samples)
         case 'evals.elsuite.basic.match:Match':
             return showDataFromMatch(finalReport, samples)
+        case 'evals.elsuite.basic.fuzzy_match:FuzzyMatch':
+            return showDataFromFuzzyMatch(finalReport, samples)
         default:
             throw new Error()
     }
@@ -159,7 +196,8 @@ function main() {
 
     const urlE = document.createElement('input')
     // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-closedqa-conciseness.dev.v0.json'
-    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-match.dev.v0.json'
+    // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-match.dev.v0.json'
+    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-fuzzy-match.s1.simple-v0.json'
     containerE.appendChild(urlE)
 
     const reportE = document.createElement('div')
