@@ -51,67 +51,76 @@ function createConversationE(conversation) {
     return containerE
 }
 
-function showDataFromModelBasedClassify(finalReport, data) {
-    const reportDataBySampleId = new Map()
-    for (const event of data) {
-        const item = reportDataBySampleId.get(event.sample_id) ?? {}
-        item[event.type] = event.data
-        reportDataBySampleId.set(event.sample_id, item)
-    }
-
-    const containerE = document.createElement('div')
-    containerE.classList.add('final-report-with-data')
-
-    console.log(finalReport)
-
-    const finalReportE = document.createElement('div')
-    finalReportE.classList.add('explanations')
-    finalReportE.appendChild(createExplanationTextE('#correct: ' + (finalReport['counts/Y'] ?? 0)))
-    finalReportE.appendChild(createExplanationTextE('#incorrect: ' + (finalReport['counts/N'] ?? 0)))
-    finalReportE.appendChild(createExplanationTextE('#invalid: ' + (finalReport['counts/__invalid__'] ?? 0)))
-    containerE.appendChild(finalReportE)
+function showDataFromModelBasedClassify(finalReport, samples) {
+    const finalReportLines = [
+        'Score: ' + finalReport.score,
+        '#correct: ' + (finalReport['counts/Y'] ?? 0),
+        '#incorrect: ' + (finalReport['counts/N'] ?? 0),
+        '#invalid: ' + (finalReport['counts/__invalid__'] ?? 0),
+    ]
 
     const samplesE = document.createElement('div')
-    samplesE.classList.add('samples')
-    containerE.appendChild(samplesE)
-
-    for (const [sampleId, sample] of reportDataBySampleId.entries()) {
-        const initialPrompt = sample.sampling.prompt.input
-        const initialPromptGeneratedOutput = sample.sampling.sampled.completion
-        const evaluationPrompt = sample.sampling.info.prompt
-        const evaluationGeneratedOutput = sample.sampling.info.sampled
-        const evaluationScore = sample.sampling.info.score
-        const evaluationIsInvalid = sample.sampling.info.invalid_choice
-
+    for (const [sampleId, sample] of samples.entries()) {
         const sampleE = document.createElement('div')
         sampleE.classList.add('sample')
         samplesE.appendChild(sampleE)
 
-        sampleE.appendChild(createUnderlinedExplanationTextE('ID: ' + sampleId))
+        sampleE.append(
+            createUnderlinedExplanationTextE('ID: ' + sampleId),
 
-        sampleE.appendChild(createExplanationTextE('The model got the following start of a conversation as input:'))
-        sampleE.appendChild(createConversationE(initialPrompt))
+            createExplanationTextE('The model got the following start of a conversation as input:'),
+            createConversationE(sample.sampling.prompt.input),
 
-        sampleE.appendChild(createExplanationTextE('The model answered in the following way:'))
-        sampleE.appendChild(createConversationE([{ role: 'assistant', content: initialPromptGeneratedOutput }]))
+            createExplanationTextE('The model answered in the following way:'),
+            createConversationE([{ role: 'assistant', content: sample.sampling.sampled.completion }]),
 
-        sampleE.appendChild(createExplanationTextE('The model was then asked to evaluate its own answer:'))
-        sampleE.appendChild(createConversationE(evaluationPrompt))
+            createExplanationTextE('The model was then asked to evaluate its own answer:'),
+            createConversationE(sample.sampling.info.prompt),
 
-        sampleE.appendChild(createExplanationTextE('The model responded to this evaluation as follows:'))
-        sampleE.appendChild(createConversationE([{ role: 'assistant', content: evaluationGeneratedOutput }]))
+            createExplanationTextE('The model responded to this evaluation as follows:'),
+            createConversationE([{ role: 'assistant', content: sample.sampling.info.sampled }]),
 
-        sampleE.appendChild(createExplanationTextE('This was ' + (evaluationIsInvalid ? 'an invalid' : 'a valid')
-            + ' response to the evaluation. The resulting score is ' + evaluationScore + '.'))
+            createExplanationTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid')
+                + ' response to the evaluation. The resulting score is ' + sample.sampling.info.score + '.')
+        )
     }
 
-    return containerE
+    return [finalReportLines, samplesE]
 }
 
-function createDataE(spec, finalReport, data) {
+function showDataFromMatch(finalReport, samples) {
+    const finalReportLines = ['Accuracy: ' + finalReport.accuracy]
+
+    const samplesE = document.createElement('div')
+    for (const [sampleId, sample] of samples) {
+        const sampleE = document.createElement('div')
+        sampleE.classList.add('sample')
+        samplesE.appendChild(sampleE)
+
+        sampleE.append(
+            createUnderlinedExplanationTextE('ID: ' + sampleId),
+
+            createExplanationTextE('The model answered in the following way:'),
+            createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
+
+            createExplanationTextE('The following answer'
+                + (sample.match.options.length === 1 ? ' was' : 's were')
+                + ' expected:'),
+            ...sample.match.options.map(e => createConversationE([{ role: 'assistant', content: e }])),
+
+            createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
+        )
+    }
+
+    return [finalReportLines, samplesE]
+}
+
+function createDataE(spec, finalReport, samples) {
     switch (spec.run_config.eval_spec.cls) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
-            return showDataFromModelBasedClassify(finalReport, data)
+            return showDataFromModelBasedClassify(finalReport, samples)
+        case 'evals.elsuite.basic.match:Match':
+            return showDataFromMatch(finalReport, samples)
         default:
             throw new Error()
     }
@@ -125,11 +134,23 @@ async function showDataFromReportUrl(reportUrl) {
     const finalReport = JSON.parse(finalReportLine).final_report
     const data = dataLines.filter(dataLine => dataLine.length !== 0).map(dataLine => JSON.parse(dataLine))
 
-    return [
-        createExplanationTextE('Name: ' + spec.base_eval),
-        createExplanationTextE('Score: ' + finalReport.score),
-        createDataE(spec, finalReport, data),
-    ]
+    const reportDataBySampleId = new Map()
+    for (const event of data) {
+        const item = reportDataBySampleId.get(event.sample_id) ?? {}
+        item[event.type] = event.data
+        reportDataBySampleId.set(event.sample_id, item)
+    }
+
+    const [finalReportLines, samplesE] = createDataE(spec, finalReport, reportDataBySampleId)
+
+    const finalReportInformationE = document.createElement('div')
+    finalReportInformationE.classList.add('final-report-information')
+    finalReportInformationE.appendChild(createExplanationTextE('Name: ' + spec.base_eval))
+    finalReportInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
+
+    samplesE.classList.add('samples')
+
+    return [finalReportInformationE, samplesE]
 }
 
 function main() {
@@ -137,7 +158,8 @@ function main() {
     document.body.appendChild(containerE)
 
     const urlE = document.createElement('input')
-    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-closedqa-conciseness.dev.v0.json'
+    // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-closedqa-conciseness.dev.v0.json'
+    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-match.dev.v0.json'
     containerE.appendChild(urlE)
 
     const reportE = document.createElement('div')
