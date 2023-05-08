@@ -30,6 +30,9 @@ function createConversationItemE(role, text) {
 }
 
 function createConversationE(conversation) {
+    if (typeof conversation === 'string')
+        conversation = [{ role: 'user', content: conversation }]
+
     const containerE = document.createElement('div')
 
     for (const conversationItem of conversation) {
@@ -57,14 +60,31 @@ function showDataFromModelBasedClassify(finalReport, samples) {
         '#correct: ' + (finalReport['counts/Y'] ?? 0),
         '#incorrect: ' + (finalReport['counts/N'] ?? 0),
         '#invalid: ' + (finalReport['counts/__invalid__'] ?? 0),
-    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
-        createExplanationTextE('The model got the following start of a conversation as input:'),
-        createConversationE(sample.sampling.prompt.input),
+    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [...(() => {
+            const usesMultipleInputs = sample.sampling.prompt.input1 !== undefined
 
-        createExplanationTextE('The model answered in the following way:'),
-        createConversationE([{ role: 'assistant', content: sample.sampling.sampled.completion }]),
+            const ret = []
+            function add(prompt, completion, i) {
+                const indexIndictator =  (usesMultipleInputs ? ' [' + i + ']' : '') + ':'
+                ret.push(createExplanationTextE('The model got the following start of a conversation as input' + indexIndictator))
+                ret.push(createConversationE(prompt))
+                ret.push(createExplanationTextE('The model answered in the following way:' + indexIndictator))
+                ret.push(createConversationE([{ role: 'assistant', content: completion }]))
+            }
 
-        createExplanationTextE('The model was then asked to evaluate its own answer:'),
+            if (usesMultipleInputs) {
+                for (let i = 1; i <= Object.keys(sample.sampling.prompt).length; i++)
+                    add(sample.sampling.prompt['input' + i], sample.sampling.sampled['completion' + i], i)
+            } else {
+                add(sample.sampling.prompt.input, sample.sampling.sampled.completion)
+            }
+
+            return [
+                ...ret,
+                createExplanationTextE('The model was then asked to evaluate its own answer' + (usesMultipleInputs ? 's' : '') + ':'),
+            ]
+        })(),
+
         createConversationE(sample.sampling.info.prompt),
 
         createExplanationTextE('The model responded to this evaluation as follows:'),
