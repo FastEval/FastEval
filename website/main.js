@@ -121,8 +121,6 @@ function showDataFromFuzzyMatch(finalReport, samples) {
         'F1 score: ' + finalReport.f1_score,
     ]
 
-    console.log(samples)
-
     const samplesE = document.createElement('div')
     for (const [sampleId, sample] of samples) {
         const sampleE = document.createElement('div')
@@ -150,6 +148,38 @@ function showDataFromFuzzyMatch(finalReport, samples) {
     return [finalReportLines, samplesE]
 }
 
+function showDataFromIncludes(finalReport, samples) {
+    const finalReportLines = ['Accuracy: ' + finalReport.accuracy]
+
+    const samplesE = document.createElement('div')
+    for (const [sampleId, sample] of samples) {
+        const sampleE = document.createElement('div')
+        sampleE.classList.add('sample')
+        samplesE.appendChild(sampleE)
+
+        const expected = typeof sample.match.expected === 'string' ? [sample.match.expected] : sample.match.expected
+
+        sampleE.append(
+            createUnderlinedExplanationTextE('ID: ' + sampleId),
+
+            createExplanationTextE('The model got the following start of a conversation as input:'),
+            createConversationE(sample.match.prompt),
+
+            createExplanationTextE('The following answer'
+                + (expected.length === 1 ? ' was' : 's were')
+                + ' expected:'),
+            ...expected.map(e => createConversationE([{ role: 'assistant', content: e }])),
+
+            createExplanationTextE('The model answered in the following way:'),
+            createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
+
+            createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
+        )
+    }
+
+    return [finalReportLines, samplesE]
+}
+
 function createDataE(spec, finalReport, samples) {
     switch (spec.run_config.eval_spec.cls) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
@@ -158,6 +188,8 @@ function createDataE(spec, finalReport, samples) {
             return showDataFromMatch(finalReport, samples)
         case 'evals.elsuite.basic.fuzzy_match:FuzzyMatch':
             return showDataFromFuzzyMatch(finalReport, samples)
+        case 'evals.elsuite.basic.includes:Includes':
+            return showDataFromIncludes(finalReport, samples)
         default:
             throw new Error()
     }
@@ -197,7 +229,8 @@ function main() {
     const urlE = document.createElement('input')
     // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-closedqa-conciseness.dev.v0.json'
     // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-match.dev.v0.json'
-    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-fuzzy-match.s1.simple-v0.json'
+    // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-fuzzy-match.s1.simple-v0.json'
+    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-includes-ignore-case.s1.simple-v0.json'
     containerE.appendChild(urlE)
 
     const reportE = document.createElement('div')
