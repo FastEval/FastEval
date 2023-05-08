@@ -79,6 +79,9 @@ function showDataFromMatch(finalReport, samples) {
     return [[
         'Accuracy: ' + finalReport.accuracy,
     ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
+        createExplanationTextE('The model got the following start of a conversation as input:'),
+        createConversationE(sample.match.prompt),
+
         createExplanationTextE('The model answered in the following way:'),
         createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
 
@@ -190,9 +193,9 @@ function main() {
 
     const urlE = document.createElement('input')
     // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-closedqa-conciseness.dev.v0.json'
-    // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-match.dev.v0.json'
+    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/coqa-match.dev.v0.json'
     // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-fuzzy-match.s1.simple-v0.json'
-    urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-includes-ignore-case.s1.simple-v0.json'
+    // urlE.value = 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/test-includes-ignore-case.s1.simple-v0.json'
     containerE.appendChild(urlE)
 
     const reportE = document.createElement('div')
