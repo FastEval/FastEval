@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import json
 import torch
 from typing import Union
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -104,10 +105,22 @@ def run_eval_set(registry, eval_set_name):
     for eval in registry.get_evals(eval_set.evals):
         run_eval(registry, eval.key)
 
+def build_run_index():
+    specs_and_final_reports = {}
+    for filename in os.listdir('runs/'):
+        with open(os.path.join('runs/', filename), 'r') as f:
+            spec_and_final_report = f.read().split('\n')[:2]
+            spec = spec_and_final_report[0]
+            final_report = spec_and_final_report[1]
+            specs_and_final_reports[filename] = { 'spec': json.loads(spec)['spec'], 'final_report': json.loads(final_report)['final_report'] }
+    with open('runs/__index__.json', 'w') as f:
+        json.dump(specs_and_final_reports, f, indent=4)
+
 def main():
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
     registry = RegistryWithOpenAssistant()
     run_eval_set(registry, 'test')
+    build_run_index()
 
 if __name__ == '__main__':
     main()
