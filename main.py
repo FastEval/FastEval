@@ -105,6 +105,10 @@ def run_eval_set(registry, eval_set_name):
     for eval in registry.get_evals(eval_set.evals):
         run_eval(registry, eval.key)
 
+def run_all_evals(registry):
+    for eval in registry.get_evals(['*']):
+        run_eval(registry, eval.key)
+
 def build_run_index():
     specs_and_final_reports = {}
     for filename in os.listdir('runs/'):
@@ -119,7 +123,7 @@ def build_run_index():
 def main():
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
     registry = RegistryWithOpenAssistant()
-    run_eval_set(registry, 'test')
+    run_all_evals(registry)
     build_run_index()
 
 if __name__ == '__main__':
