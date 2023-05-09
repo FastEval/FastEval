@@ -4,14 +4,28 @@ WORKDIR /workspace
 SHELL ["/bin/bash", "-c"]
 
 RUN apt update && \
-    apt install -y git git-lfs vim python3.10 python3.10-venv python3.10-dev && \
-    python3.10 -m venv venv && \
+    apt install -y git git-lfs wget vim python3.10 python3.10-venv python3.10-dev
+
+ENV TERM=xterm-256color
+RUN git clone https://github.com/juncongmoo/pyllama && \
+    pyllama/llama/download_community.sh 30B llama
+
+RUN python3.10 -m venv venv && \
     source venv/bin/activate && \
     pip install --upgrade pip && \
-    pip install torch==1.13.1 transformers && \
-    git clone https://github.com/tju01/evals.git openai-evals && \
-    pip install -e openai-evals && \
-    python -c "from transformers import AutoModelForCausalLM, AutoTokenizer ; model_name = 'OpenAssistant/stablelm-7b-sft-v7-epoch-3' ; tokenizer = AutoTokenizer.from_pretrained(model_name) ; model = AutoModelForCausalLM.from_pretrained(model_name)"
+    pip install torch==1.13.1 tokenizers==0.13.3 git+https://github.com/huggingface/transformers.git@28f26c107b4a1c5c7e32ed4d9575622da0627a40#egg=transformers[dev-torch] accelerate protobuf
+
+ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+RUN source venv/bin/activate && \
+    python venv/lib/python3.10/site-packages/transformers/models/llama/convert_llama_weights_to_hf.py --input_dir llama --output_dir llama-30b-hf --model_size 30B
+
+RUN git clone --depth 1 https://huggingface.co/OpenAssistant/oasst-rlhf-2-llama-30b-7k-steps-xor
+
+RUN source venv/bin/activate && \
+    python oasst-rlhf-2-llama-30b-7k-steps-xor/xor_codec.py oasst-rlhf-2-llama-30b-7k-steps oasst-rlhf-2-llama-30b-7k-steps-xor/oasst-rlhf-2-llama-30b-7k-steps-xor llama-30b-hf
+
+RUN source venv/bin/activate && \
+    pip install git+https://github.com/tju01/evals.git
 
 ENV PATH=/workspace/venv/bin:$PATH
 
