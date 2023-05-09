@@ -100,14 +100,21 @@ def run_eval(registry, eval_name):
 
     run(args, registry)
 
-def run_eval_set(registry, eval_set_name):
-    eval_set = registry.get_eval_set(eval_set_name)
-    for eval in registry.get_evals(eval_set.evals):
+def run_multiple_evals(registry, evals):
+    ignored_evals = ['best.dev.v0']
+
+    for eval in evals:
+        if os.path.exists(os.path.join('runs/', eval.key + '.json')):
+            continue
+        if eval.key in ignored_evals:
+            continue
         run_eval(registry, eval.key)
 
+def run_eval_set(registry, eval_set_name):
+    run_multiple_evals(registry, registry.get_eval_set(eval_set_name))
+
 def run_all_evals(registry):
-    for eval in registry.get_evals(['*']):
-        run_eval(registry, eval.key)
+    run_multiple_evals(registry, registry.get_evals(['*']))
 
 def build_run_index():
     specs_and_final_reports = {}
