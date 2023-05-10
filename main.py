@@ -9,14 +9,14 @@ from evals.api import CompletionFn, CompletionResult
 from evals.registry import Registry
 from evals.cli.oaieval import get_parser, run
 
-model_name = 'OpenAssistant/stablelm-7b-sft-v7-epoch-3'
+model_name = 'oasst-rlhf-2-llama-30b-7k-steps'
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16).eval().cuda()
 
 def prompt_json_to_str(prompt):
     if isinstance(prompt, str):
         # TODO: Add prefix about being a helpful assistant
-        return '<|prompter|>' + prompt + '<|endoftext|><|assistant|>'
+        return '<|prompter|>' + prompt + tokenizer.eos_token + '<|assistant|>'
 
     prompt_str = ''
     for item in prompt:
@@ -26,9 +26,9 @@ def prompt_json_to_str(prompt):
             # TODO: Maybe don't use prefix, but use system if it exists
             prompt_str += '<|prefix_begin|>' + content + '<|prefix_end|>'
         elif role == 'system' and item['name'] == 'example_assistant':
-            prompt_str += '<|assistant|>' + content + '<|endoftext|>'
+            prompt_str += '<|assistant|>' + content + tokenizer.eos_token
         elif (role == 'system' and item['name'] == 'example_user') or role == 'user':
-            prompt_str += '<|prompter|>' + content + '<|endoftext|>'
+            prompt_str += '<|prompter|>' + content + tokenizer.eos_token
         else:
             raise
     prompt_str += '<|assistant|>'
@@ -54,15 +54,17 @@ class OpenAssistantCompletionFn(CompletionFn):
         outputs = model.generate(
             **inputs,
             early_stopping=True,
-            max_new_tokens=200,
+            max_new_tokens=400,
+            min_new_tokens=1,
             do_sample=True,
-            top_k=40,
-            temperature=1.0,
+            temperature=0.8,
+            repetition_penalty=1.2,
+            top_p=0.9,
             pad_token_id=tokenizer.eos_token_id,
         )
 
         output = tokenizer.decode(outputs[0], truncate_before_pattern=[r"\n\n^#", "^'''", "\n\n\n"])
-        reply = output.split('<|assistant|>')[-1].replace('<|endoftext|>', '')
+        reply = output.split('<|assistant|>')[-1].replace(tokenizer.eos_token, '').strip()
         return reply
 
     def __call__(
@@ -111,7 +113,7 @@ def run_multiple_evals(registry, evals):
         run_eval(registry, eval.key)
 
 def run_eval_set(registry, eval_set_name):
-    run_multiple_evals(registry, registry.get_eval_set(eval_set_name))
+    run_multiple_evals(registry, registry.get_evals(registry.get_eval_set(eval_set_name).evals))
 
 def run_all_evals(registry):
     run_multiple_evals(registry, registry.get_evals(['*']))
@@ -130,7 +132,7 @@ def build_run_index():
 def main():
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
     registry = RegistryWithOpenAssistant()
-    run_all_evals(registry)
+    run_eval_set(registry, 'test')
     build_run_index()
 
 if __name__ == '__main__':
