@@ -54,7 +54,7 @@ class OpenAssistantCompletionFn(CompletionFn):
         outputs = model.generate(
             **inputs,
             early_stopping=True,
-            max_new_tokens=400,
+            max_new_tokens=200,
             min_new_tokens=1,
             do_sample=True,
             temperature=0.8,
@@ -130,6 +130,7 @@ def build_run_index():
         json.dump(specs_and_final_reports, f, indent=4)
 
 def main():
+    os.environ['EVALS_THREADS'] = '5'
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
     registry = RegistryWithOpenAssistant()
     run_eval_set(registry, 'test')
