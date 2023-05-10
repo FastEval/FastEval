@@ -15,16 +15,14 @@ model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float
 
 def prompt_json_to_str(prompt):
     if isinstance(prompt, str):
-        # TODO: Add prefix about being a helpful assistant
-        return '<|prompter|>' + prompt + tokenizer.eos_token + '<|assistant|>'
+        return '<|system|>' + prompt + tokenizer.eos_token + '<|assistant|>'
 
     prompt_str = ''
     for item in prompt:
         role = item['role']
         content = item['content']
         if role == 'system' and 'name' not in item:
-            # TODO: Maybe don't use prefix, but use system if it exists
-            prompt_str += '<|prefix_begin|>' + content + '<|prefix_end|>'
+            prompt_str += '<|system|>' + content + tokenizer.eos_token
         elif role == 'system' and item['name'] == 'example_assistant':
             prompt_str += '<|assistant|>' + content + tokenizer.eos_token
         elif (role == 'system' and item['name'] == 'example_user') or role == 'user':
@@ -103,13 +101,16 @@ def run_eval(registry, eval_name):
     run(args, registry)
 
 def run_multiple_evals(registry, evals):
-    ignored_evals = ['best.dev.v0']
+    ignored_evals = [
+        'best.dev.v0', # Compares multiple models
+    ]
 
     for eval in evals:
         if os.path.exists(os.path.join('runs/', eval.key + '.json')):
             continue
         if eval.key in ignored_evals:
             continue
+        print('Now evaluating', eval.key)
         run_eval(registry, eval.key)
 
 def run_eval_set(registry, eval_set_name):
