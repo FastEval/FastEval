@@ -69,10 +69,10 @@ function showDataFromModelBasedClassify(finalReport, samples) {
             }
 
             if (usesMultipleInputs) {
-                for (let i = 1; i <= Object.keys(sample.sampling.prompt).length; i++)
-                    add(sample.sampling.prompt['input' + i], sample.sampling.sampled['completion' + i], i)
+                for (let i = 1; i <= Math.max(Object.keys(sample.sampling.prompt).length, Object.keys(sample.sampling.sampled).length); i++)
+                    add(sample.sampling.prompt['input' + i], sample.sampling.prompt['completion' + i] ?? sample.sampling.sampled['completion' + i], i)
             } else {
-                add(sample.sampling.prompt.input, sample.sampling.sampled.completion)
+                add(sample.sampling.prompt.input, sample.sampling.prompt.completion ?? sample.sampling.sampled.completion)
             }
 
             return [
@@ -87,7 +87,7 @@ function showDataFromModelBasedClassify(finalReport, samples) {
         createConversationE([{ role: 'assistant', content: sample.sampling.info.sampled }]),
 
         createExplanationTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid') + ' response to the evaluation.'
-            + (sample.sampling.info.score !== null ? ('The resulting score is ' + sample.sampling.info.score + '.') : '')),
+            + (sample.sampling.info.score !== null ? (' The resulting score is ' + sample.sampling.info.score + '.') : '')),
     ]])]
 }
 
