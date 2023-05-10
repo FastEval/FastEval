@@ -1,0 +1,745 @@
+{
+    "coqa-fact.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "coqa-fact.dev.v0",
+            "base_eval": "coqa-fact",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "fact"
+                    },
+                    "key": "coqa-fact.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305100933072PZBTVYP",
+            "created_at": "2023-05-10 09:33:07.212253"
+        },
+        "final_report": {
+            "counts/B": 2,
+            "counts/__invalid__": 1,
+            "counts/A": 5,
+            "counts/C": 1
+        }
+    },
+    "coqa-closedqa-conciseness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
+                    },
+                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510095618MCIJFZAS",
+            "created_at": "2023-05-10 09:56:18.272844"
+        },
+        "final_report": {
+            "counts/Y": 7,
+            "counts/N": 2,
+            "score": 0.7777777777777778
+        }
+    },
+    "joke-fruits-expl-meta.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "joke-fruits-expl-meta.dev.v0",
+            "base_eval": "joke-fruits-expl-meta",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_metaeval/joke_fruits_labeled.jsonl",
+                        "eval_type": "classify_cot",
+                        "modelgraded_spec": "humor",
+                        "metaeval": true
+                    },
+                    "key": "joke-fruits-expl-meta.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510053109NVFQMBZK",
+            "created_at": "2023-05-10 05:31:09.589597"
+        },
+        "final_report": {
+            "counts/Yes": 10,
+            "score": 1.0,
+            "metascore": 0.5
+        }
+    },
+    "joke-animals-vs-fruits.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "joke-animals-vs-fruits.dev.v0",
+            "base_eval": "joke-animals-vs-fruits",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/joke_animals_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "joke-animals-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23051008051263FOLPYG",
+            "created_at": "2023-05-10 08:05:12.665754"
+        },
+        "final_report": {
+            "counts/No": 3,
+            "counts/Yes": 6,
+            "score": 0.6666666666666666
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_match/samples.jsonl"
+                    },
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510081939F74SCCY6",
+            "created_at": "2023-05-10 08:19:39.355649"
+        },
+        "final_report": {
+            "accuracy": 0.6666666666666666
+        }
+    },
+    "joke-fruits-likert.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "joke-fruits-likert.dev.v0",
+            "base_eval": "joke-fruits-likert",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "humor_likert"
+                    },
+                    "key": "joke-fruits-likert.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510052215JDEK6HRQ",
+            "created_at": "2023-05-10 05:22:15.144888"
+        },
+        "final_report": {
+            "counts/1": 2,
+            "counts/3": 2,
+            "counts/__invalid__": 5,
+            "counts/4": 1,
+            "score": 1.7
+        }
+    },
+    "joke-fruits-meta.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "joke-fruits-meta.dev.v0",
+            "base_eval": "joke-fruits-meta",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_metaeval/joke_fruits_labeled.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "humor",
+                        "metaeval": true
+                    },
+                    "key": "joke-fruits-meta.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510052754QKC253EI",
+            "created_at": "2023-05-10 05:27:54.235165"
+        },
+        "final_report": {
+            "counts/Yes": 9,
+            "counts/Unsure": 1,
+            "score": 0.95,
+            "metascore": 0.4
+        }
+    },
+    "joke-fruits-v2.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "joke-fruits-v2.dev.v0",
+            "base_eval": "joke-fruits-v2",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "humor_out_message"
+                    },
+                    "key": "joke-fruits-v2.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510051543ACHFG2KN",
+            "created_at": "2023-05-10 05:15:43.427926"
+        },
+        "final_report": {
+            "counts/__invalid__": 1,
+            "counts/Yes": 4,
+            "counts/Unsure": 4,
+            "counts/No": 1,
+            "score": 0.6
+        }
+    },
+    "coqa-match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "coqa/match.jsonl"
+                    },
+                    "key": "coqa-match.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510082214FJ3W4YZ3",
+            "created_at": "2023-05-10 08:22:14.230039"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "coqa-closedqa-correct.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "coqa-closedqa-correct.dev.v0",
+            "base_eval": "coqa-closedqa-correct",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "correctness: Is the answer correct?"
+                        }
+                    },
+                    "key": "coqa-closedqa-correct.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510094422JKB5VBCC",
+            "created_at": "2023-05-10 09:44:22.740379"
+        },
+        "final_report": {
+            "counts/Y": 8,
+            "counts/N": 1,
+            "score": 0.8888888888888888
+        }
+    },
+    "test-fuzzy-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "test-fuzzy-match.s1.simple-v0",
+            "base_eval": "test-fuzzy-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-fuzzy-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305100820114WOTYKUB",
+            "created_at": "2023-05-10 08:20:11.061791"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333,
+            "f1_score": 0.12459349593495934
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510075205AWESB2VC",
+            "created_at": "2023-05-10 07:52:05.293532"
+        },
+        "final_report": {
+            "counts/Yes": 8,
+            "counts/No": 2,
+            "score": 0.8
+        }
+    },
+    "test-includes.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510082053QVXUYFE4",
+            "created_at": "2023-05-10 08:20:53.670855"
+        },
+        "final_report": {
+            "accuracy": 0.6666666666666666
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510081201GSRXKYW6",
+            "created_at": "2023-05-10 08:12:01.903628"
+        },
+        "final_report": {
+            "counts/Yes": 8,
+            "counts/__invalid__": 1,
+            "score": 0.8888888888888888
+        }
+    },
+    "logic-fact.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "logic-fact.dev.v0",
+            "base_eval": "logic-fact",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "logic/samples.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "fact"
+                    },
+                    "key": "logic-fact.dev.v0",
+                    "group": "logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510100200RZJ56FY7",
+            "created_at": "2023-05-10 10:02:00.468917"
+        },
+        "final_report": {
+            "counts/D": 1,
+            "counts/A": 8,
+            "counts/B": 1
+        }
+    },
+    "test-includes-ignore-case.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "test-includes-ignore-case.s1.simple-v0",
+            "base_eval": "test-includes-ignore-case",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl",
+                        "ignore_case": true
+                    },
+                    "key": "test-includes-ignore-case.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305100821325BAUX5WW",
+            "created_at": "2023-05-10 08:21:32.088326"
+        },
+        "final_report": {
+            "accuracy": 0.6666666666666666
+        }
+    },
+    "coqa-fact-expl.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "coqa-fact-expl.dev.v0",
+            "base_eval": "coqa-fact-expl",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "eval_type": "classify_cot",
+                        "modelgraded_spec": "fact"
+                    },
+                    "key": "coqa-fact-expl.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510093930IRJIBKLD",
+            "created_at": "2023-05-10 09:39:30.392320"
+        },
+        "final_report": {
+            "counts/C": 3,
+            "counts/A": 2,
+            "counts/B": 3,
+            "counts/E": 1
+        }
+    },
+    "joke-fruits.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "joke-fruits.dev.v0",
+            "base_eval": "joke-fruits",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "humor"
+                    },
+                    "key": "joke-fruits.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510050955WIXQCRUG",
+            "created_at": "2023-05-10 05:09:55.208298"
+        },
+        "final_report": {
+            "counts/Yes": 5,
+            "counts/No": 4,
+            "counts/Unsure": 1,
+            "score": 0.55
+        }
+    },
+    "coqa-closedqa-relevance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst_completion_fn"
+            ],
+            "eval_name": "coqa-closedqa-relevance.dev.v0",
+            "base_eval": "coqa-closedqa-relevance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst_completion_fn"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "relevance: Is the submission referring to a real quote from the text?"
+                        }
+                    },
+                    "key": "coqa-closedqa-relevance.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230510095045AJUVN4G3",
+            "created_at": "2023-05-10 09:50:45.097418"
+        },
+        "final_report": {
+            "counts/Y": 8,
+            "counts/N": 1,
+            "score": 0.8888888888888888
+        }
+    }
+}
