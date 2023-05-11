@@ -103,6 +103,11 @@ def run_eval(registry, eval_name):
 def run_multiple_evals(registry, evals):
     ignored_evals = [
         'best.dev.v0', # Compares multiple models
+        'positive-binary-operations.test.v1', # buggy
+        'spider-sql.dev.v0',
+        'sarcasm.test.v1',
+        'svg_understanding.v0', # CUDA out of memory
+        'decrypt-caesar-cipher.dev.v0'
     ]
 
     for eval in evals:
@@ -134,7 +139,7 @@ def main():
     os.environ['EVALS_THREADS'] = '1'
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
     registry = RegistryWithOpenAssistant()
-    run_eval_set(registry, 'test')
+    run_all_evals(registry)
     build_run_index()
 
 if __name__ == '__main__':
