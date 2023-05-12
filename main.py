@@ -107,7 +107,13 @@ def run_multiple_evals(registry, evals):
         'spider-sql.dev.v0',
         'sarcasm.test.v1',
         'svg_understanding.v0', # CUDA out of memory
-        'decrypt-caesar-cipher.dev.v0'
+        'decrypt-caesar-cipher.dev.v0',
+        'dice-rotation-sequence.dev.v0',
+        'stock-options-iron-butteryfly-spread.dev.v0',
+        'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0',
+        'manga-translation-page.dev.v0',
+        'manga-translation-panel.dev.v0',
+        'manga-translation-bubble.dev.v0',
     ]
 
     for eval in evals:
