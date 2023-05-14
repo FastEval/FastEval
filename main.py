@@ -123,7 +123,7 @@ def run_multiple_evals(registry, model_name, evals):
     ]
 
     for eval in evals:
-        if os.path.exists(os.path.join('reports/', eval.key + '.json')):
+        if os.path.exists(os.path.join('reports', model_name, eval.key + '.json')):
             continue
         if eval.key in ignored_evals:
             continue
@@ -160,5 +160,5 @@ def evaluate_model(model_name):
     build_reports_index(model_name)
 
 if __name__ == '__main__':
-    evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
-    # evaluate_model('gpt-3.5-turbo')
+    # evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
+    evaluate_model('gpt-3.5-turbo')
