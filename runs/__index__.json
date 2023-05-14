@@ -69,46 +69,6 @@
             "accuracy": 0.4
         }
     },
-    "joke-fruits-v2.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "oasst_completion_fn"
-            ],
-            "eval_name": "joke-fruits-v2.dev.v0",
-            "base_eval": "joke-fruits-v2",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "oasst_completion_fn"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "humor_out_message"
-                    },
-                    "key": "joke-fruits-v2.dev.v0",
-                    "group": "test-modelgraded"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./main.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230510112346I7ILD4A2",
-            "created_at": "2023-05-10 11:23:46.119493"
-        },
-        "final_report": {
-            "counts/Yes": 3,
-            "counts/No": 5,
-            "counts/Unsure": 2,
-            "score": 0.4
-        }
-    },
     "test-includes-ignore-case.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [

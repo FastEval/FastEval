@@ -114,6 +114,7 @@ def run_multiple_evals(registry, evals):
         'manga-translation-page.dev.v0',
         'manga-translation-panel.dev.v0',
         'manga-translation-bubble.dev.v0',
+        'joke-fruits-v2.dev.v0', # buggy in openai/evals itself due to removed format_type feature that is still used by this eval
     ]
 
     for eval in evals:
