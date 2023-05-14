@@ -243,7 +243,7 @@ async function showReportIndex(url) {
 
         const scoresE = document.createElement('a')
         scoresE.textContent = getScores(spec, finalReport) ?? '-'
-        scoresE.href = '#https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/' + reportFilename
+        scoresE.href = '#https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps/' + reportFilename
         reportE.insertCell().appendChild(scoresE)
     }
 
@@ -262,7 +262,7 @@ function main() {
     document.body.appendChild(containerE)
 
     const urlE = document.createElement('input')
-    urlE.value = location.hash.substring(1) || 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/__index__.json'
+    urlE.value = location.hash.substring(1) || 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps/__index__.json'
     containerE.appendChild(urlE)
 
     const reportE = document.createElement('div')
