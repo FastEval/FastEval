@@ -10,12 +10,6 @@ function createExplanationTextE(text) {
     return explanationTextE
 }
 
-function createUnderlinedExplanationTextE(text) {
-    const explanationTextE = createExplanationTextE(text)
-    explanationTextE.classList.add('underlined-explanation-text')
-    return explanationTextE
-}
-
 function createConversationItemE(role, text) {
     const containerE = document.createElement('div')
     containerE.classList.add('conversation-item')
@@ -192,15 +186,31 @@ async function showDataFromReportUrl(reportUrl) {
     finalReportInformationE.appendChild(createExplanationTextE('Evaluation method: ' + spec.run_config.eval_spec.cls.split(':').slice(-1)))
     finalReportInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
 
+    const reportUrlWithoutHash = new URL(reportUrl)
+    reportUrlWithoutHash.hash = ''
+
+    const hash = new URL(reportUrl).hash
+    const onlyShowSingleSample = hash === '' ? null : hash.substring(1)
+
     const samplesE = document.createElement('div')
     samplesE.classList.add('samples')
     for (const [sampleId, mappedSample] of mappedSamples) {
+        if (onlyShowSingleSample !== null && onlyShowSingleSample !== sampleId)
+            continue
+
         const sampleE = document.createElement('div')
         sampleE.classList.add('sample')
         samplesE.appendChild(sampleE)
 
+        const sampleIdE = document.createElement('a')
+        sampleIdE.textContent = 'ID: ' + sampleId
+        const sampleUrl = new URL(location.toString())
+        sampleUrl.hash = reportUrlWithoutHash
+        sampleUrl.hash += '#' + sampleId
+        sampleIdE.href = sampleUrl
+
         sampleE.append(
-            createUnderlinedExplanationTextE('ID: ' + sampleId),
+            sampleIdE,
             ...mappedSample,
         )
     }
