@@ -1,5 +1,9 @@
 'use strict'
 
+function round(num) {
+    return Math.round(num * 10000) / 10000
+}
+
 function createExplanationTextE(text) {
     const explanationTextE = document.createElement('span')
     explanationTextE.textContent = text
@@ -55,7 +59,7 @@ function createConversationE(conversation) {
 }
 
 function showDataFromModelBasedClassify(finalReport, samples) {
-    return [Object.entries(finalReport).map(e => e[0] + ': ' + e[1]).sort(), [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
+    return [Object.entries(finalReport).map(e => e[0] + ': ' + round(e[1])).sort(), [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
         ...(() => {
             const usesMultipleInputs = sample.sampling.prompt.input1 !== undefined
 
@@ -91,63 +95,62 @@ function showDataFromModelBasedClassify(finalReport, samples) {
     ]])]
 }
 
-function showDataFromMatch(finalReport, samples) {
-    return [[
-        'Accuracy: ' + finalReport.accuracy,
-    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
+function createAnswersE(options) {
+    if (typeof options === 'string')
+        options = [options]
+    const onlySingleOption = options.length === 1
+
+    return [
+        createExplanationTextE('The following answer' + (onlySingleOption ? ' was' : 's were') + ' expected:'),
+        ...options.map(e => createConversationE([{ role: 'assistant', content: e }])),
+    ]
+}
+
+function createMatchEs(prompt, correctAnswers, sampledModelAnswers, modelAnswerIsCorrect) {
+    return [
         createExplanationTextE('The model got the following start of a conversation as input:'),
-        createConversationE(sample.match.prompt),
+        createConversationE(prompt),
+
+        ...createAnswersE(correctAnswers),
 
         createExplanationTextE('The model answered in the following way:'),
-        createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
+        createConversationE([{ role: 'assistant', content: sampledModelAnswers }]),
 
-        createExplanationTextE('The following answer'
-            + (sample.match.options.length === 1 ? ' was' : 's were')
-            + ' expected:'),
-        ...sample.match.options.map(e => createConversationE([{ role: 'assistant', content: e }])),
+        createExplanationTextE('The model answer was judged to be ' + (modelAnswerIsCorrect ? 'correct.' : 'incorrect.')),
+    ]
+}
 
-        createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
-    ]])]
+function showDataFromMatch(finalReport, samples) {
+    return [
+        ['Accuracy: ' + round(finalReport.accuracy)],
+        [...samples.entries()].map(([sampleId, sample]) => [
+            sampleId,
+            createMatchEs(sample.match.prompt, sample.match.options, sample.match.sampled, sample.match.correct),
+        ]),
+    ]
 }
 
 function showDataFromFuzzyMatch(finalReport, samples) {
-    return [[
-        'Accuracy: ' + finalReport.accuracy,
-        'F1 score: ' + finalReport.f1_score,
-    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
-        createExplanationTextE('The model got the following start of a conversation as input:'),
-        createConversationE(sample.match.test_sample.input),
-
-        createExplanationTextE('The following answer'
-            + (sample.match.test_sample.ideal.length === 1 ? ' was' : 's were')
-            + ' expected:'),
-        ...sample.match.test_sample.ideal.map(e => createConversationE([{ role: 'assistant', content: e }])),
-
-        createExplanationTextE('The model answered in the following way:'),
-        createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
-
-        createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
-    ]])]
+    return [
+        [
+            'Accuracy: ' + round(finalReport.accuracy),
+            'F1 score: ' + round(finalReport.f1_score),
+        ],
+        [...samples.entries()].map(([sampleId, sample]) => [
+            sampleId,
+            createMatchEs(sample.match.test_sample.input, sample.match.test_sample.ideal, sample.match.sampled, sample.match.correct),
+        ]),
+    ]
 }
 
 function showDataFromIncludes(finalReport, samples) {
-    return [[
-        'Accuracy: ' + finalReport.accuracy
-    ], [...samples.entries()].map(([sampleId, sample]) => [sampleId, [
-        createExplanationTextE('The model got the following start of a conversation as input:'),
-        createConversationE(sample.match.prompt),
-
-        createExplanationTextE('The following answer'
-            + (typeof sample.match.expected === 'string' ? ' was' : 's were')
-            + ' expected:'),
-        ...(typeof sample.match.expected === 'string' ? [sample.match.expected] : sample.match.expected)
-            .map(e => createConversationE([{ role: 'assistant', content: e }])),
-
-        createExplanationTextE('The model answered in the following way:'),
-        createConversationE([{ role: 'assistant', content: sample.match.sampled }]),
-
-        createExplanationTextE('The model answer was judged as ' + (sample.match.correct ? 'correct.' : 'incorrect.')),
-    ]])]
+    return [
+        ['Accuracy: ' + round(finalReport.accuracy)],
+        [...samples.entries()].map(([sampleId, sample]) => [
+            sampleId,
+            createMatchEs(sample.match.prompt, sample.match.expected, sample.match.sampled, sample.match.correct),
+        ]),
+    ]
 }
 
 function showData(spec, finalReport, samples) {
@@ -180,11 +183,13 @@ async function showDataFromReportUrl(reportUrl) {
         reportDataBySampleId.set(event.sample_id, item)
     }
 
-    const [finalReportLines, mappedSamples] = showData(spec, finalReport, reportDataBySampleId)
+    const [finalReportLines, mappedSamples] = showData(spec, finalReport, new Map([...reportDataBySampleId.entries()]
+        .sort(([k1, v1], [k2, v2]) => parseInt(k1.split('.').slice(-1)) - parseInt(k2.split('.').slice(-1)))))
 
     const finalReportInformationE = document.createElement('div')
     finalReportInformationE.classList.add('final-report-information')
-    finalReportInformationE.appendChild(createExplanationTextE('Name: ' + spec.base_eval))
+    finalReportInformationE.appendChild(createExplanationTextE('Name: ' + spec.eval_name))
+    finalReportInformationE.appendChild(createExplanationTextE('Evaluation method: ' + spec.run_config.eval_spec.cls.split(':').slice(-1)))
     finalReportInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
 
     const samplesE = document.createElement('div')
@@ -203,18 +208,20 @@ async function showDataFromReportUrl(reportUrl) {
     return [finalReportInformationE, samplesE]
 }
 
-function getScore(spec, finalReport) {
+function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
-            if (finalReport.score)
-                return finalReport.score
+            if (finalReport.score && finalReport.metascore)
+                return round(finalReport.score) + ' | ' + round(finalReport.metascore)
+            else if (finalReport.score)
+                return round(finalReport.score)
             return null
         case 'evals.elsuite.basic.match:Match':
-            return finalReport.accuracy
+            return round(finalReport.accuracy)
         case 'evals.elsuite.basic.fuzzy_match:FuzzyMatch':
-            return finalReport.f1_score
+            return round(finalReport.f1_score)
         case 'evals.elsuite.basic.includes:Includes':
-            return finalReport.accuracy
+            return round(finalReport.accuracy)
         default:
             throw new Error()
     }
@@ -224,18 +231,18 @@ async function showReportIndex(url) {
     const reportIndex = await (await fetch(url)).json()
 
     const reportIndexE = document.createElement('ul')
-    for (const [reportFilename, { spec, final_report: finalReport }] of Object.entries(reportIndex)) {
+    for (const [reportFilename, { spec, final_report: finalReport }] of Object.entries(reportIndex).sort()) {
         const reportE = document.createElement('li')
         reportIndexE.appendChild(reportE)
 
         const reportLinkE = document.createElement('a')
-        reportLinkE.textContent = reportFilename
+        reportLinkE.textContent = spec.eval_name
         reportLinkE.href = '#https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/' + reportFilename
         reportE.appendChild(reportLinkE)
 
-        const score = getScore(spec, finalReport)
-        if (score !== null)
-            reportE.appendChild(createExplanationTextE(' [' + score + ']'))
+        const scores = getScores(spec, finalReport)
+        if (scores !== null)
+            reportE.appendChild(createExplanationTextE(' [' + scores + ']'))
     }
 
     return [reportIndexE]
