@@ -4,13 +4,40 @@ pre {
     margin: 0;
 }
 
-input {
+textarea {
     width: 100%;
     padding: 0.2em;
     background-color: #eee;
     color: #006400;
     margin-bottom: 0.5em;
     box-sizing: border-box;
+}
+
+table {
+    border-collapse: collapse;
+    width: fit-content;
+}
+
+thead > tr {
+    border-bottom: 2px solid black;
+    font-weight: bold;
+}
+
+table td + td {
+    border-left: 2px solid black;
+}
+
+td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+.max-score {
+    font-weight: bold;
 }
 
 .underlined-explanation-text {

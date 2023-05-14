@@ -227,53 +227,76 @@ function getScores(spec, finalReport) {
     }
 }
 
-async function showReportIndex(url) {
-    const reportIndex = await (await fetch(url)).json()
-
-    const reportIndexE = document.createElement('table')
-    const tableHeadE = reportIndexE.createTHead().insertRow()
+async function showReportsIndex(urls) {
+    const reportsIndexE = document.createElement('table')
+    const tableHeadE = reportsIndexE.createTHead().insertRow()
+    const tableBodyE = reportsIndexE.createTBody()
     tableHeadE.insertCell().appendChild(createExplanationTextE('Eval name'))
-    tableHeadE.insertCell().appendChild(createExplanationTextE('Score'))
 
-    for (const [reportFilename, { spec, final_report: finalReport }] of Object.entries(reportIndex).sort()) {
-        const reportE = reportIndexE.insertRow()
+    for (const url of urls)
+        tableHeadE.insertCell().appendChild(createExplanationTextE(url.split('/').slice(-2, -1)))
+
+    const reportsIndex = Object.fromEntries(await Promise.all(urls.map(async url => [url, await ((await fetch(url)).json())])))
+
+    for (const [reportFilename, { spec }] of Object.entries(reportsIndex[urls[0]]).sort()) {
+        const reportE = tableBodyE.insertRow()
 
         const evalNameE = createExplanationTextE(spec.eval_name)
         reportE.insertCell().appendChild(evalNameE)
 
-        const scoresE = document.createElement('a')
-        scoresE.textContent = getScores(spec, finalReport) ?? '-'
-        scoresE.href = '#https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps/' + reportFilename
-        reportE.insertCell().appendChild(scoresE)
+        const scores = Object.fromEntries(urls.map(url => [url, getScores(spec, reportsIndex[url][reportFilename].final_report)]))
+        const maxScore = Math.max(...Object.values(scores))
+        for (const url of urls) {
+            const scoreE = document.createElement('a')
+            const score = scores[url]
+            scoreE.textContent = score ?? '-'
+            console.log(Object.values(scores), maxScore)
+            if (score === maxScore)
+                scoreE.classList.add('max-score')
+            scoreE.href = '#' + url.replace('__index__.json', reportFilename)
+            reportE.insertCell().appendChild(scoreE)
+        }
     }
 
-    return [reportIndexE]
+    return [reportsIndexE]
 }
 
-function showReportIndexOrUrl(reportE, url) {
-    if (url.endsWith('__index__.json'))
-        showReportIndex(url).then(reportIndexEs => reportE.replaceChildren(...reportIndexEs))
+function showReportsIndexOrSingleReport(reportE, urls) {
+    urls = urls.split('\n').map(url => url.trim())
+
+    const isIndexUrl = url => url.endsWith('__index__.json')
+    const allUrlsAreIndexUrls = urls.every(isIndexUrl)
+    const someUrlIsIndexUrl = urls.some(isIndexUrl)
+
+    if (someUrlIsIndexUrl && !allUrlsAreIndexUrls)
+        alert('Either all URLs must be index urls or none of them.')
+
+    if (someUrlIsIndexUrl)
+        showReportsIndex(urls).then(reportsIndexEs => reportE.replaceChildren(...reportsIndexEs))
     else
-        showDataFromReportUrl(url).then(reportEs => reportE.replaceChildren(...reportEs))
+        // TODO: Add ability to compare multiple reports for a single eval but different models
+        showDataFromReportUrl(urls[0]).then(reportEs => reportE.replaceChildren(...reportEs))
 }
 
 function main() {
     const containerE = document.createElement('div')
     document.body.appendChild(containerE)
 
-    const urlE = document.createElement('input')
-    urlE.value = location.hash.substring(1) || 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps/__index__.json'
-    containerE.appendChild(urlE)
+    const urlsE = document.createElement('textarea')
+    urlsE.rows = 2
+    urlsE.value = location.hash.substring(1) || ('https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps/__index__.json\n'
+        + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/gpt-3.5-turbo/__index__.json')
+    containerE.appendChild(urlsE)
 
     const reportE = document.createElement('div')
     reportE.classList.add('report')
     containerE.appendChild(reportE)
 
-    urlE.addEventListener('change', () => {
-        showReportIndexOrUrl(reportE, urlE.value)
+    urlsE.addEventListener('change', () => {
+        showReportsIndexOrSingleReport(reportE, urlsE.value)
     })
 
-    showReportIndexOrUrl(reportE, urlE.value)
+    showReportsIndexOrSingleReport(reportE, urlsE.value)
 
     window.addEventListener('hashchange', () => {
         location.reload()
