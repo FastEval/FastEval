@@ -230,19 +230,21 @@ function getScores(spec, finalReport) {
 async function showReportIndex(url) {
     const reportIndex = await (await fetch(url)).json()
 
-    const reportIndexE = document.createElement('ul')
+    const reportIndexE = document.createElement('table')
+    const tableHeadE = reportIndexE.createTHead().insertRow()
+    tableHeadE.insertCell().appendChild(createExplanationTextE('Eval name'))
+    tableHeadE.insertCell().appendChild(createExplanationTextE('Score'))
+
     for (const [reportFilename, { spec, final_report: finalReport }] of Object.entries(reportIndex).sort()) {
-        const reportE = document.createElement('li')
-        reportIndexE.appendChild(reportE)
+        const reportE = reportIndexE.insertRow()
 
-        const reportLinkE = document.createElement('a')
-        reportLinkE.textContent = spec.eval_name
-        reportLinkE.href = '#https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/' + reportFilename
-        reportE.appendChild(reportLinkE)
+        const evalNameE = createExplanationTextE(spec.eval_name)
+        reportE.insertCell().appendChild(evalNameE)
 
-        const scores = getScores(spec, finalReport)
-        if (scores !== null)
-            reportE.appendChild(createExplanationTextE(' [' + scores + ']'))
+        const scoresE = document.createElement('a')
+        scoresE.textContent = getScores(spec, finalReport) ?? '-'
+        scoresE.href = '#https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/runs/' + reportFilename
+        reportE.insertCell().appendChild(scoresE)
     }
 
     return [reportIndexE]
