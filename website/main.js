@@ -162,8 +162,32 @@ function showData(spec, finalReport, samples) {
     }
 }
 
-async function showDataFromReportUrl(reportUrl) {
-    const report = await (await fetch(reportUrl)).text()
+function createSamplesV(mappedSamples, reportUrlWithoutHash) {
+    const containerE = document.createElement('div')
+    containerE.classList.add('samples')
+
+    for (const [sampleId, mappedSample] of mappedSamples) {
+        const sampleE = document.createElement('div')
+        sampleE.classList.add('sample')
+        containerE.appendChild(sampleE)
+
+        const sampleIdE = document.createElement('a')
+        sampleIdE.textContent = 'ID: ' + sampleId
+        const sampleUrl = new URL(location.toString())
+        sampleUrl.hash = reportUrlWithoutHash
+        sampleUrl.hash += '#' + sampleId
+        sampleIdE.href = sampleUrl
+
+        sampleE.append(
+            sampleIdE,
+            ...mappedSample,
+        )
+    }
+
+    return containerE
+}
+
+function createSelectedModelReportV(reportUrl, report) {
     const reportLines = report.split('\n')
     const [specLine, finalReportLine, ...dataLines] = reportLines
     const spec = JSON.parse(specLine).spec
@@ -180,11 +204,12 @@ async function showDataFromReportUrl(reportUrl) {
     const [finalReportLines, mappedSamples] = showData(spec, finalReport, new Map([...reportDataBySampleId.entries()]
         .sort(([k1, v1], [k2, v2]) => parseInt(k1.split('.').slice(-1)) - parseInt(k2.split('.').slice(-1)))))
 
-    const finalReportInformationE = document.createElement('div')
-    finalReportInformationE.classList.add('final-report-information')
-    finalReportInformationE.appendChild(createExplanationTextE('Name: ' + spec.eval_name))
-    finalReportInformationE.appendChild(createExplanationTextE('Evaluation method: ' + spec.run_config.eval_spec.cls.split(':').slice(-1)))
-    finalReportInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
+    const containerE = document.createElement('div')
+    containerE.classList.add('selected-model-report')
+
+    const selectedModelInformationE = document.createElement('div')
+    containerE.appendChild(selectedModelInformationE)
+    selectedModelInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
 
     const reportUrlWithoutHash = new URL(reportUrl)
     reportUrlWithoutHash.hash = ''
@@ -192,30 +217,60 @@ async function showDataFromReportUrl(reportUrl) {
     const hash = new URL(reportUrl).hash
     const onlyShowSingleSample = hash === '' ? null : hash.substring(1)
 
-    const samplesE = document.createElement('div')
-    samplesE.classList.add('samples')
-    for (const [sampleId, mappedSample] of mappedSamples) {
-        if (onlyShowSingleSample !== null && onlyShowSingleSample !== sampleId)
-            continue
+    const samplesE = onlyShowSingleSample
+        ? createSamplesV(mappedSamples.filter(s => s[0] === onlyShowSingleSample), reportUrlWithoutHash)
+        : createSamplesV(mappedSamples, reportUrlWithoutHash)
+    containerE.appendChild(samplesE)
 
-        const sampleE = document.createElement('div')
-        sampleE.classList.add('sample')
-        samplesE.appendChild(sampleE)
+    return containerE
+}
 
-        const sampleIdE = document.createElement('a')
-        sampleIdE.textContent = 'ID: ' + sampleId
-        const sampleUrl = new URL(location.toString())
-        sampleUrl.hash = reportUrlWithoutHash
-        sampleUrl.hash += '#' + sampleId
-        sampleIdE.href = sampleUrl
+async function createEvalReportsV(reportUrls) {
+    const containerE = document.createElement('div')
 
-        sampleE.append(
-            sampleIdE,
-            ...mappedSample,
-        )
+    const firstReport = await (await fetch(reportUrls[0])).text()
+    const firstSpec = JSON.parse(firstReport.split('\n')[0]).spec
+
+    const finalReportInformationE = document.createElement('div')
+    containerE.appendChild(finalReportInformationE)
+    finalReportInformationE.classList.add('final-report-information')
+    finalReportInformationE.appendChild(createExplanationTextE('Name: ' + firstSpec.eval_name))
+    finalReportInformationE.appendChild(createExplanationTextE('Evaluation method: ' + firstSpec.run_config.eval_spec.cls.split(':').slice(-1)))
+
+    if (reportUrls.length === 1) {
+        containerE.appendChild(createExplanationTextE('Model: ' + reportUrls[0].split('/').slice(-2, -1)))
+        containerE.appendChild(createSelectedModelReportV(reportUrls[0], firstReport))
+        return containerE
     }
 
-    return [finalReportInformationE, samplesE]
+    const modelSelectV = document.createElement('div')
+    containerE.appendChild(modelSelectV)
+    modelSelectV.appendChild(createExplanationTextE('Model: '))
+    const modelSelectE = document.createElement('select')
+    modelSelectV.appendChild(modelSelectE)
+    for (const url of reportUrls) {
+        const optionE = document.createElement('option')
+        optionE.value = url
+        optionE.textContent = url.split('/').slice(-2, -1)
+        modelSelectE.appendChild(optionE)
+    }
+
+    let reportV = createSelectedModelReportV(reportUrls[0], firstReport)
+    containerE.appendChild(reportV)
+
+    const fetchedReports = new Map()
+    fetchedReports.set(reportUrls[0], firstReport)
+
+    modelSelectE.addEventListener('change', async () => {
+        const newReportUrl = modelSelectE.value
+        const newReport = fetchedReports.get(newReportUrl) ?? await (await fetch(newReportUrl)).text()
+        fetchedReports.set(newReportUrl, newReport)
+        const newReportV = createSelectedModelReportV(newReportUrl, newReport)
+        containerE.replaceChild(newReportV, reportV)
+        reportV = newReportV
+    })
+
+    return containerE
 }
 
 function getScores(spec, finalReport) {
@@ -237,7 +292,7 @@ function getScores(spec, finalReport) {
     }
 }
 
-async function showReportsIndex(urls) {
+async function createEvalsIndexV(urls) {
     const reportsIndexE = document.createElement('table')
     const tableHeadE = reportsIndexE.createTHead().insertRow()
     const tableBodyE = reportsIndexE.createTBody()
@@ -251,7 +306,9 @@ async function showReportsIndex(urls) {
     for (const [reportFilename, { spec }] of Object.entries(reportsIndex[urls[0]]).sort()) {
         const reportE = tableBodyE.insertRow()
 
-        const evalNameE = createExplanationTextE(spec.base_eval)
+        const evalNameE = document.createElement('a')
+        evalNameE.textContent = spec.base_eval
+        evalNameE.href = '#' + urls.map(url => url.replace('__index__.json', reportFilename)).join(',')
         reportE.insertCell().appendChild(evalNameE)
 
         const scores = Object.fromEntries(urls.map(url => [url, getScores(spec, reportsIndex[url][reportFilename].final_report)]))
@@ -267,10 +324,10 @@ async function showReportsIndex(urls) {
         }
     }
 
-    return [reportsIndexE]
+    return reportsIndexE
 }
 
-function showReportsIndexOrSingleReport(reportE, urls) {
+async function createReportsV(urls) {
     urls = urls.split('\n').map(url => url.trim())
 
     const isIndexUrl = url => url.endsWith('__index__.json')
@@ -281,35 +338,32 @@ function showReportsIndexOrSingleReport(reportE, urls) {
         alert('Either all URLs must be index urls or none of them.')
 
     if (someUrlIsIndexUrl)
-        showReportsIndex(urls).then(reportsIndexEs => reportE.replaceChildren(...reportsIndexEs))
+        return await createEvalsIndexV(urls)
     else
-        // TODO: Add ability to compare multiple reports for a single eval but different models
-        showDataFromReportUrl(urls[0]).then(reportEs => reportE.replaceChildren(...reportEs))
+        return await createEvalReportsV(urls)
 }
 
-function main() {
+async function createMainV() {
     const containerE = document.createElement('div')
-    document.body.appendChild(containerE)
 
     const urlsE = document.createElement('textarea')
+    urlsE.spellcheck = false
     urlsE.rows = 2
-    urlsE.value = location.hash.substring(1) || ('https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps/__index__.json\n'
+    urlsE.value = location.hash.substring(1).replace(',', '\n') || ('https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/gpt-3.5-turbo/__index__.json')
     containerE.appendChild(urlsE)
 
-    const reportE = document.createElement('div')
-    reportE.classList.add('report')
-    containerE.appendChild(reportE)
-
-    urlsE.addEventListener('change', () => {
-        showReportsIndexOrSingleReport(reportE, urlsE.value)
-    })
-
-    showReportsIndexOrSingleReport(reportE, urlsE.value)
+    containerE.appendChild(await createReportsV(urlsE.value))
 
     window.addEventListener('hashchange', () => {
         location.reload()
     })
+
+    urlsE.addEventListener('change', () => {
+        location.hash = urlsE.value.replace('\n', ',')
+    })
+
+    return containerE
 }
 
-main()
+createMainV().then(mainV => document.body.appendChild(mainV))
