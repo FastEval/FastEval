@@ -209,13 +209,15 @@ function createSelectedModelReportV(reportUrl, report) {
 
     const selectedModelInformationE = document.createElement('div')
     containerE.appendChild(selectedModelInformationE)
-    selectedModelInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
 
     const reportUrlWithoutHash = new URL(reportUrl)
     reportUrlWithoutHash.hash = ''
 
     const hash = new URL(reportUrl).hash
     const onlyShowSingleSample = hash === '' ? null : hash.substring(1)
+
+    if (!onlyShowSingleSample)
+        selectedModelInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
 
     const samplesE = onlyShowSingleSample
         ? createSamplesV(mappedSamples.filter(s => s[0] === onlyShowSingleSample), reportUrlWithoutHash)
