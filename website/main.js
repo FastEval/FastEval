@@ -251,7 +251,7 @@ async function showReportsIndex(urls) {
     for (const [reportFilename, { spec }] of Object.entries(reportsIndex[urls[0]]).sort()) {
         const reportE = tableBodyE.insertRow()
 
-        const evalNameE = createExplanationTextE(spec.eval_name)
+        const evalNameE = createExplanationTextE(spec.base_eval)
         reportE.insertCell().appendChild(evalNameE)
 
         const scores = Object.fromEntries(urls.map(url => [url, getScores(spec, reportsIndex[url][reportFilename].final_report)]))
@@ -260,7 +260,6 @@ async function showReportsIndex(urls) {
             const scoreE = document.createElement('a')
             const score = scores[url]
             scoreE.textContent = score ?? '-'
-            console.log(Object.values(scores), maxScore)
             if (score === maxScore)
                 scoreE.classList.add('max-score')
             scoreE.href = '#' + url.replace('__index__.json', reportFilename)
