@@ -289,6 +289,8 @@ function getScores(spec, finalReport) {
             return round(finalReport.f1_score)
         case 'evals.elsuite.basic.includes:Includes':
             return round(finalReport.accuracy)
+        case 'evals.elsuite.multiple_choice:MultipleChoice':
+            return round(finalReport.accuracy)
         default:
             throw new Error()
     }
