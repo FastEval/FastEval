@@ -34,4 +34,4 @@ WORKDIR /workspace
 CMD ["/bin/bash"]
 
 # nvidia-docker build -f Dockerfile . -t oasst-openai-evals
-# nvidia-docker run -v `pwd`/main.py:/workspace/main.py -v `pwd`/runs:/workspace/runs -it --rm --env CUDA_VISIBLE_DEVICES=0 oasst-openai-evals
+# nvidia-docker run -v `pwd`/main.py:/workspace/main.py -v `pwd`/reports:/workspace/reports -it --rm --env CUDA_VISIBLE_DEVICES=0 oasst-openai-evals

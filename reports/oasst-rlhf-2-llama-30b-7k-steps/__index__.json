@@ -69,6 +69,76 @@
             "accuracy": 0.4
         }
     },
+    "mmlu-anatomy.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-anatomy.val.ab-v1",
+            "base_eval": "mmlu-anatomy",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=anatomy&split=validation"
+                    },
+                    "key": "mmlu-anatomy.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515163116RJUT45JC",
+            "created_at": "2023-05-15 16:31:16.009704"
+        },
+        "final_report": {
+            "accuracy": 0.5714285714285714
+        }
+    },
+    "mmlu-logical-fallacies.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-logical-fallacies.val.ab-v1",
+            "base_eval": "mmlu-logical-fallacies",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=logical_fallacies&split=validation"
+                    },
+                    "key": "mmlu-logical-fallacies.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515183618E5YQZE67",
+            "created_at": "2023-05-15 18:36:18.721461"
+        },
+        "final_report": {
+            "accuracy": 0.4444444444444444
+        }
+    },
     "test-includes-ignore-case.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -103,6 +173,41 @@
         },
         "final_report": {
             "accuracy": 0.6666666666666666
+        }
+    },
+    "mmlu-moral-scenarios.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-moral-scenarios.val.ab-v1",
+            "base_eval": "mmlu-moral-scenarios",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=moral_scenarios&split=validation"
+                    },
+                    "key": "mmlu-moral-scenarios.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515185840D7HLDRT7",
+            "created_at": "2023-05-15 18:58:40.413234"
+        },
+        "final_report": {
+            "accuracy": 0.25
         }
     },
     "russe.test.v0.json": {
@@ -331,6 +436,41 @@
             "counts/E": 1
         }
     },
+    "mmlu-high-school-chemistry.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-chemistry.val.ab-v1",
+            "base_eval": "mmlu-high-school-chemistry",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_chemistry&split=validation"
+                    },
+                    "key": "mmlu-high-school-chemistry.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515172836TF3R7Q63",
+            "created_at": "2023-05-15 17:28:36.486226"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
     "bulgarian-lexicon.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -399,6 +539,76 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-college-physics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-college-physics.val.ab-v1",
+            "base_eval": "mmlu-college-physics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=college_physics&split=validation"
+                    },
+                    "key": "mmlu-college-physics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515165923B5YIOIRQ",
+            "created_at": "2023-05-15 16:59:23.953454"
+        },
+        "final_report": {
+            "accuracy": 0.36363636363636365
+        }
+    },
+    "mmlu-high-school-world-history.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-world-history.val.ab-v1",
+            "base_eval": "mmlu-high-school-world-history",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_world_history&split=validation"
+                    },
+                    "key": "mmlu-high-school-world-history.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515181948436K4ZTR",
+            "created_at": "2023-05-15 18:19:48.947106"
+        },
+        "final_report": {
+            "accuracy": 0.55
         }
     },
     "lat_long_identify.dev.v0.json": {
@@ -546,6 +756,76 @@
             "accuracy": 0.25
         }
     },
+    "mmlu-sociology.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-sociology.val.ab-v1",
+            "base_eval": "mmlu-sociology",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=sociology&split=validation"
+                    },
+                    "key": "mmlu-sociology.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151940254QWLXMRO",
+            "created_at": "2023-05-15 19:40:25.937583"
+        },
+        "final_report": {
+            "accuracy": 0.65
+        }
+    },
+    "mmlu-us-foreign-policy.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-us-foreign-policy.val.ab-v1",
+            "base_eval": "mmlu-us-foreign-policy",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=us_foreign_policy&split=validation"
+                    },
+                    "key": "mmlu-us-foreign-policy.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515194505KEQKWTKC",
+            "created_at": "2023-05-15 19:45:05.080187"
+        },
+        "final_report": {
+            "accuracy": 0.8181818181818182
+        }
+    },
     "greek-vocabulary.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -614,6 +894,76 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-global-facts.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-global-facts.val.ab-v1",
+            "base_eval": "mmlu-global-facts",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=global_facts&split=validation"
+                    },
+                    "key": "mmlu-global-facts.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151722185GS3MUNL",
+            "created_at": "2023-05-15 17:22:18.810951"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "mmlu-astronomy.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-astronomy.val.ab-v1",
+            "base_eval": "mmlu-astronomy",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=astronomy&split=validation"
+                    },
+                    "key": "mmlu-astronomy.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151633425FSCVPIF",
+            "created_at": "2023-05-15 16:33:42.774598"
+        },
+        "final_report": {
+            "accuracy": 0.4375
         }
     },
     "coqa-match.dev.v0.json": {
@@ -722,6 +1072,41 @@
             "accuracy": 0.5
         }
     },
+    "mmlu-human-aging.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-human-aging.val.ab-v1",
+            "base_eval": "mmlu-human-aging",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=human_aging&split=validation"
+                    },
+                    "key": "mmlu-human-aging.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151824247HJNR7LC",
+            "created_at": "2023-05-15 18:24:24.083796"
+        },
+        "final_report": {
+            "accuracy": 0.65
+        }
+    },
     "complex-replace-characters.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -795,6 +1180,41 @@
             "counts/Yes": 10,
             "score": 1.0,
             "metascore": 0.5
+        }
+    },
+    "mmlu-college-biology.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-college-biology.val.ab-v1",
+            "base_eval": "mmlu-college-biology",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=college_biology&split=validation"
+                    },
+                    "key": "mmlu-college-biology.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515164341SGL7DAEU",
+            "created_at": "2023-05-15 16:43:41.688813"
+        },
+        "final_report": {
+            "accuracy": 0.3125
         }
     },
     "joke-fruits-likert.dev.v0.json": {
@@ -944,6 +1364,41 @@
             "accuracy": 0.4
         }
     },
+    "mmlu-high-school-statistics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-statistics.val.ab-v1",
+            "base_eval": "mmlu-high-school-statistics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_statistics&split=validation"
+                    },
+                    "key": "mmlu-high-school-statistics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515180956FHLFX3FN",
+            "created_at": "2023-05-15 18:09:56.415819"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
     "japanese-national-medical-exam01.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -977,6 +1432,41 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-international-law.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-international-law.val.ab-v1",
+            "base_eval": "mmlu-international-law",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=international_law&split=validation"
+                    },
+                    "key": "mmlu-international-law.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515183141QPKP56UN",
+            "created_at": "2023-05-15 18:31:41.588861"
+        },
+        "final_report": {
+            "accuracy": 0.5384615384615384
         }
     },
     "computer-science-problems.s1.simple-v0.json": {
@@ -1051,6 +1541,41 @@
             "counts/A": 6,
             "counts/B": 1,
             "counts/E": 3
+        }
+    },
+    "mmlu-high-school-mathematics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-mathematics.val.ab-v1",
+            "base_eval": "mmlu-high-school-mathematics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_mathematics&split=validation"
+                    },
+                    "key": "mmlu-high-school-mathematics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515175253NDGBC7JG",
+            "created_at": "2023-05-15 17:52:53.541221"
+        },
+        "final_report": {
+            "accuracy": 0.0
         }
     },
     "anagrams.test.v1.json": {
@@ -1346,6 +1871,41 @@
             "counts/D": 2
         }
     },
+    "mmlu-high-school-biology.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-biology.val.ab-v1",
+            "base_eval": "mmlu-high-school-biology",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_biology&split=validation"
+                    },
+                    "key": "mmlu-high-school-biology.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515172442CK56TXTF",
+            "created_at": "2023-05-15 17:24:42.703236"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
     "rot13.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -1414,6 +1974,41 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-high-school-us-history.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-us-history.val.ab-v1",
+            "base_eval": "mmlu-high-school-us-history",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_us_history&split=validation"
+                    },
+                    "key": "mmlu-high-school-us-history.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515181531CROD7LGC",
+            "created_at": "2023-05-15 18:15:31.734236"
+        },
+        "final_report": {
+            "accuracy": 0.6
         }
     },
     "diversity.dev.v0.json": {
@@ -1634,6 +2229,41 @@
             "accuracy": 0.6666666666666666
         }
     },
+    "mmlu-college-medicine.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-college-medicine.val.ab-v1",
+            "base_eval": "mmlu-college-medicine",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=college_medicine&split=validation"
+                    },
+                    "key": "mmlu-college-medicine.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515165506FKTHQZMZ",
+            "created_at": "2023-05-15 16:55:06.003182"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
     "illinois-law.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1669,6 +2299,76 @@
             "accuracy": 0.35
         }
     },
+    "mmlu-abstract-algebra.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-abstract-algebra.val.ab-v1",
+            "base_eval": "mmlu-abstract-algebra",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=abstract_algebra&split=validation"
+                    },
+                    "key": "mmlu-abstract-algebra.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515162814CL52FEQV",
+            "created_at": "2023-05-15 16:28:14.795879"
+        },
+        "final_report": {
+            "accuracy": 0.2727272727272727
+        }
+    },
+    "mmlu-high-school-physics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-physics.val.ab-v1",
+            "base_eval": "mmlu-high-school-physics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_physics&split=validation"
+                    },
+                    "key": "mmlu-high-school-physics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515180230RXUBQ6V2",
+            "created_at": "2023-05-15 18:02:30.358142"
+        },
+        "final_report": {
+            "accuracy": 0.35294117647058826
+        }
+    },
     "unified-patch.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1702,6 +2402,41 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-high-school-government-and-politics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-government-and-politics.val.ab-v1",
+            "base_eval": "mmlu-high-school-government-and-politics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_government_and_politics&split=validation"
+                    },
+                    "key": "mmlu-high-school-government-and-politics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515174303JCFMASQO",
+            "created_at": "2023-05-15 17:43:03.738017"
+        },
+        "final_report": {
+            "accuracy": 0.6
         }
     },
     "heart-disease.v0.json": {
@@ -1926,6 +2661,41 @@
             "score": 2.55
         }
     },
+    "mmlu-business-ethics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-business-ethics.val.ab-v1",
+            "base_eval": "mmlu-business-ethics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=business_ethics&split=validation"
+                    },
+                    "key": "mmlu-business-ethics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515163734R27FETOM",
+            "created_at": "2023-05-15 16:37:34.341458"
+        },
+        "final_report": {
+            "accuracy": 0.5454545454545454
+        }
+    },
     "born-first.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1959,6 +2729,76 @@
         },
         "final_report": {
             "accuracy": 0.5
+        }
+    },
+    "mmlu-professional-psychology.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-professional-psychology.val.ab-v1",
+            "base_eval": "mmlu-professional-psychology",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=professional_psychology&split=validation"
+                    },
+                    "key": "mmlu-professional-psychology.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515192842VIYKE5LJ",
+            "created_at": "2023-05-15 19:28:42.666273"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "mmlu-human-sexuality.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-human-sexuality.val.ab-v1",
+            "base_eval": "mmlu-human-sexuality",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=human_sexuality&split=validation"
+                    },
+                    "key": "mmlu-human-sexuality.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151829035H7OBWD5",
+            "created_at": "2023-05-15 18:29:03.693754"
+        },
+        "final_report": {
+            "accuracy": 0.4166666666666667
         }
     },
     "test-fuzzy-match.s1.simple-v0.json": {
@@ -2142,6 +2982,41 @@
             "accuracy": 0.0
         }
     },
+    "mmlu-professional-accounting.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-professional-accounting.val.ab-v1",
+            "base_eval": "mmlu-professional-accounting",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=professional_accounting&split=validation"
+                    },
+                    "key": "mmlu-professional-accounting.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515191606CTBZ3R3L",
+            "created_at": "2023-05-15 19:16:06.810914"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
     "joke-fruits-meta.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -2182,6 +3057,41 @@
             "counts/No": 3,
             "score": 0.65,
             "metascore": 0.5
+        }
+    },
+    "mmlu-high-school-computer-science.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-computer-science.val.ab-v1",
+            "base_eval": "mmlu-high-school-computer-science",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_computer_science&split=validation"
+                    },
+                    "key": "mmlu-high-school-computer-science.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515173311BUDT25OE",
+            "created_at": "2023-05-15 17:33:11.514491"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
         }
     },
     "sort-numbers.s1.simple-v0.json": {
@@ -2415,6 +3325,41 @@
             "metascore": 0.0
         }
     },
+    "mmlu-formal-logic.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-formal-logic.val.ab-v1",
+            "base_eval": "mmlu-formal-logic",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=formal_logic&split=validation"
+                    },
+                    "key": "mmlu-formal-logic.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515171823YQPVH7LT",
+            "created_at": "2023-05-15 17:18:23.926161"
+        },
+        "final_report": {
+            "accuracy": 0.35714285714285715
+        }
+    },
     "stock-option-terms-iron-condor-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -2448,6 +3393,46 @@
         },
         "final_report": {
             "accuracy": 0.2
+        }
+    },
+    "logic-liar-paradox.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "logic-liar-paradox.dev.v0",
+            "base_eval": "logic-liar-paradox",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "logic-liar-paradox/samples.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "fact"
+                    },
+                    "key": "logic-liar-paradox.dev.v0",
+                    "group": "logic-liar-paradox"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515131854ZEJH352E",
+            "created_at": "2023-05-15 13:18:54.676968"
+        },
+        "final_report": {
+            "counts/A": 8,
+            "counts/B": 5,
+            "counts/E": 1,
+            "counts/__invalid__": 1
         }
     },
     "aba_mrpc_true_false.dev.v0.json": {
@@ -2591,6 +3576,41 @@
             "accuracy": 0.0
         }
     },
+    "mmlu-professional-law.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-professional-law.val.ab-v1",
+            "base_eval": "mmlu-professional-law",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=professional_law&split=validation"
+                    },
+                    "key": "mmlu-professional-law.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515192002FPC634CM",
+            "created_at": "2023-05-15 19:20:02.072232"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
     "us-tort-law.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -2664,6 +3684,41 @@
             "f1_score": 0.17204081632653062
         }
     },
+    "mmlu-computer-security.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-computer-security.val.ab-v1",
+            "base_eval": "mmlu-computer-security",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=computer_security&split=validation"
+                    },
+                    "key": "mmlu-computer-security.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515170207RXBIEXPM",
+            "created_at": "2023-05-15 17:02:07.891314"
+        },
+        "final_report": {
+            "accuracy": 0.36363636363636365
+        }
+    },
     "taxes.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -2697,6 +3752,76 @@
         },
         "final_report": {
             "accuracy": 0.2
+        }
+    },
+    "mmlu-philosophy.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-philosophy.val.ab-v1",
+            "base_eval": "mmlu-philosophy",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=philosophy&split=validation"
+                    },
+                    "key": "mmlu-philosophy.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515190612TQ5CQ5PM",
+            "created_at": "2023-05-15 19:06:12.156579"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "mmlu-college-mathematics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-college-mathematics.val.ab-v1",
+            "base_eval": "mmlu-college-mathematics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=college_mathematics&split=validation"
+                    },
+                    "key": "mmlu-college-mathematics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515165204BOZOEVDE",
+            "created_at": "2023-05-15 16:52:04.140780"
+        },
+        "final_report": {
+            "accuracy": 0.36363636363636365
         }
     },
     "stock-option-terms-bull-call-spread.dev.v0.json": {
@@ -2810,6 +3935,41 @@
             "score": 0.4444444444444444
         }
     },
+    "mmlu-public-relations.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-public-relations.val.ab-v1",
+            "base_eval": "mmlu-public-relations",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=public_relations&split=validation"
+                    },
+                    "key": "mmlu-public-relations.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151932397PGWUG47",
+            "created_at": "2023-05-15 19:32:39.677307"
+        },
+        "final_report": {
+            "accuracy": 0.4166666666666667
+        }
+    },
     "last-word-nth.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -2914,6 +4074,41 @@
         "final_report": {
             "accuracy": 0.1,
             "f1_score": 0.0
+        }
+    },
+    "mmlu-elementary-mathematics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-elementary-mathematics.val.ab-v1",
+            "base_eval": "mmlu-elementary-mathematics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=elementary_mathematics&split=validation"
+                    },
+                    "key": "mmlu-elementary-mathematics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515171452XT6GTGCF",
+            "created_at": "2023-05-15 17:14:52.164743"
+        },
+        "final_report": {
+            "accuracy": 0.3
         }
     },
     "logiqa.dev.v0.json": {
@@ -3023,6 +4218,41 @@
             "accuracy": 0.2
         }
     },
+    "mmlu-prehistory.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-prehistory.val.ab-v1",
+            "base_eval": "mmlu-prehistory",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=prehistory&split=validation"
+                    },
+                    "key": "mmlu-prehistory.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515191113AODHYKUR",
+            "created_at": "2023-05-15 19:11:13.031104"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
     "three-pt-mapping.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3056,6 +4286,76 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-high-school-microeconomics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-microeconomics.val.ab-v1",
+            "base_eval": "mmlu-high-school-microeconomics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_microeconomics&split=validation"
+                    },
+                    "key": "mmlu-high-school-microeconomics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515175716BW5EVHO5",
+            "created_at": "2023-05-15 17:57:16.704423"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "mmlu-moral-disputes.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-moral-disputes.val.ab-v1",
+            "base_eval": "mmlu-moral-disputes",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=moral_disputes&split=validation"
+                    },
+                    "key": "mmlu-moral-disputes.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515185415GSTAPJR4",
+            "created_at": "2023-05-15 18:54:15.203457"
+        },
+        "final_report": {
+            "accuracy": 0.45
         }
     },
     "coqa-closedqa-relevance.dev.v0.json": {
@@ -3097,6 +4397,112 @@
             "counts/Y": 6,
             "counts/N": 3,
             "score": 0.6666666666666666
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515151729TPUVV3ZF",
+            "created_at": "2023-05-15 15:17:29.968701"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "mmlu-high-school-geography.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-geography.val.ab-v1",
+            "base_eval": "mmlu-high-school-geography",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_geography&split=validation"
+                    },
+                    "key": "mmlu-high-school-geography.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151738556NAL2CHP",
+            "created_at": "2023-05-15 17:38:55.810456"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "mmlu-virology.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-virology.val.ab-v1",
+            "base_eval": "mmlu-virology",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=virology&split=validation"
+                    },
+                    "key": "mmlu-virology.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515194729REYKZSBC",
+            "created_at": "2023-05-15 19:47:29.727020"
+        },
+        "final_report": {
+            "accuracy": 0.4444444444444444
         }
     },
     "regex.match.dev.v0.json": {
@@ -3275,6 +4681,111 @@
             "f1_score": 0.0
         }
     },
+    "mmlu-econometrics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-econometrics.val.ab-v1",
+            "base_eval": "mmlu-econometrics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=econometrics&split=validation"
+                    },
+                    "key": "mmlu-econometrics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515170923PYVX2WXC",
+            "created_at": "2023-05-15 17:09:23.795792"
+        },
+        "final_report": {
+            "accuracy": 0.16666666666666666
+        }
+    },
+    "mmlu-miscellaneous.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-miscellaneous.val.ab-v1",
+            "base_eval": "mmlu-miscellaneous",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=miscellaneous&split=validation"
+                    },
+                    "key": "mmlu-miscellaneous.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515185008BDV4VB2Q",
+            "created_at": "2023-05-15 18:50:08.253033"
+        },
+        "final_report": {
+            "accuracy": 0.65
+        }
+    },
+    "mmlu-marketing.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-marketing.val.ab-v1",
+            "base_eval": "mmlu-marketing",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=marketing&split=validation"
+                    },
+                    "key": "mmlu-marketing.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515184444WMAKMCDG",
+            "created_at": "2023-05-15 18:44:44.651157"
+        },
+        "final_report": {
+            "accuracy": 0.8
+        }
+    },
     "number-reading.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3415,6 +4926,41 @@
             "accuracy": 0.55
         }
     },
+    "mmlu-security-studies.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-security-studies.val.ab-v1",
+            "base_eval": "mmlu-security-studies",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=security_studies&split=validation"
+                    },
+                    "key": "mmlu-security-studies.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515193513BR3YAENJ",
+            "created_at": "2023-05-15 19:35:13.159005"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
     "qa.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3483,6 +5029,41 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-electrical-engineering.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-electrical-engineering.val.ab-v1",
+            "base_eval": "mmlu-electrical-engineering",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=electrical_engineering&split=validation"
+                    },
+                    "key": "mmlu-electrical-engineering.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151712045MLFBSDS",
+            "created_at": "2023-05-15 17:12:04.921148"
+        },
+        "final_report": {
+            "accuracy": 0.375
         }
     },
     "algebra-word-problems.s1.simple-v0.json": {
@@ -3555,6 +5136,76 @@
             "accuracy": 0.35
         }
     },
+    "mmlu-high-school-macroeconomics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-macroeconomics.val.ab-v1",
+            "base_eval": "mmlu-high-school-macroeconomics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_macroeconomics&split=validation"
+                    },
+                    "key": "mmlu-high-school-macroeconomics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515174822YF2RMJYD",
+            "created_at": "2023-05-15 17:48:22.102465"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "mmlu-college-chemistry.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-college-chemistry.val.ab-v1",
+            "base_eval": "mmlu-college-chemistry",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=college_chemistry&split=validation"
+                    },
+                    "key": "mmlu-college-chemistry.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515164720ETXWARLB",
+            "created_at": "2023-05-15 16:47:20.307837"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
     "reverse-string.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -3588,6 +5239,41 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-college-computer-science.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-college-computer-science.val.ab-v1",
+            "base_eval": "mmlu-college-computer-science",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=college_computer_science&split=validation"
+                    },
+                    "key": "mmlu-college-computer-science.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515164949G2WBJUO4",
+            "created_at": "2023-05-15 16:49:49.215232"
+        },
+        "final_report": {
+            "accuracy": 0.18181818181818182
         }
     },
     "swedish-spelling.dev.v0.json": {
@@ -3625,6 +5311,76 @@
             "accuracy": 0.2
         }
     },
+    "mmlu-clinical-knowledge.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-clinical-knowledge.val.ab-v1",
+            "base_eval": "mmlu-clinical-knowledge",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=clinical_knowledge&split=validation"
+                    },
+                    "key": "mmlu-clinical-knowledge.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515164003FDOY4MSY",
+            "created_at": "2023-05-15 16:40:03.114655"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "mmlu-conceptual-physics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-conceptual-physics.val.ab-v1",
+            "base_eval": "mmlu-conceptual-physics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=conceptual_physics&split=validation"
+                    },
+                    "key": "mmlu-conceptual-physics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515170410OAIZIMVX",
+            "created_at": "2023-05-15 17:04:10.735307"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
     "multi-step-equations.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3658,6 +5414,76 @@
         },
         "final_report": {
             "accuracy": 0.13333333333333333
+        }
+    },
+    "mmlu-machine-learning.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-machine-learning.val.ab-v1",
+            "base_eval": "mmlu-machine-learning",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=machine_learning&split=validation"
+                    },
+                    "key": "mmlu-machine-learning.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515183927DYNGZFA5",
+            "created_at": "2023-05-15 18:39:27.587638"
+        },
+        "final_report": {
+            "accuracy": 0.18181818181818182
+        }
+    },
+    "mmlu-high-school-psychology.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-psychology.val.ab-v1",
+            "base_eval": "mmlu-high-school-psychology",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_psychology&split=validation"
+                    },
+                    "key": "mmlu-high-school-psychology.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515180559RQRBMG3C",
+            "created_at": "2023-05-15 18:05:59.940448"
+        },
+        "final_report": {
+            "accuracy": 0.75
         }
     },
     "partially_solved_crossword_clues.dev.v0.json": {
@@ -3769,6 +5595,76 @@
             "accuracy": 0.13333333333333333
         }
     },
+    "mmlu-high-school-european-history.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-high-school-european-history.val.ab-v1",
+            "base_eval": "mmlu-high-school-european-history",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=high_school_european_history&split=validation"
+                    },
+                    "key": "mmlu-high-school-european-history.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2305151734522WPZENGA",
+            "created_at": "2023-05-15 17:34:52.248657"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "mmlu-management.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-management.val.ab-v1",
+            "base_eval": "mmlu-management",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=management&split=validation"
+                    },
+                    "key": "mmlu-management.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515184219YCYNGKS3",
+            "created_at": "2023-05-15 18:42:19.499723"
+        },
+        "final_report": {
+            "accuracy": 0.5454545454545454
+        }
+    },
     "emoji-riddle.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -3803,6 +5699,41 @@
         "final_report": {
             "accuracy": 0.15,
             "f1_score": 0.07526582278481013
+        }
+    },
+    "mmlu-nutrition.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-nutrition.val.ab-v1",
+            "base_eval": "mmlu-nutrition",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=nutrition&split=validation"
+                    },
+                    "key": "mmlu-nutrition.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515190207FRD5XAUF",
+            "created_at": "2023-05-15 19:02:07.297657"
+        },
+        "final_report": {
+            "accuracy": 0.45
         }
     },
     "stock-options-inverse-iron-butterfly-spread.dev.v0.json": {
@@ -4018,6 +5949,41 @@
             "accuracy": 0.25
         }
     },
+    "mmlu-world-religions.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-world-religions.val.ab-v1",
+            "base_eval": "mmlu-world-religions",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=world_religions&split=validation"
+                    },
+                    "key": "mmlu-world-religions.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515195201IVEB5UZK",
+            "created_at": "2023-05-15 19:52:01.044255"
+        },
+        "final_report": {
+            "accuracy": 0.6842105263157895
+        }
+    },
     "stock-options-bull-call-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4086,6 +6052,41 @@
         },
         "final_report": {
             "accuracy": 1.0
+        }
+    },
+    "mmlu-professional-medicine.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-professional-medicine.val.ab-v1",
+            "base_eval": "mmlu-professional-medicine",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=professional_medicine&split=validation"
+                    },
+                    "key": "mmlu-professional-medicine.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515192420Q3CYVKWH",
+            "created_at": "2023-05-15 19:24:20.643363"
+        },
+        "final_report": {
+            "accuracy": 0.5
         }
     },
     "stock-options-inverse-iron-condor-spread.dev.v0.json": {
@@ -4158,6 +6159,41 @@
             "accuracy": 0.1
         }
     },
+    "mmlu-medical-genetics.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-medical-genetics.val.ab-v1",
+            "base_eval": "mmlu-medical-genetics",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=medical_genetics&split=validation"
+                    },
+                    "key": "mmlu-medical-genetics.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515184742JFZ73CDI",
+            "created_at": "2023-05-15 18:47:42.610413"
+        },
+        "final_report": {
+            "accuracy": 0.9090909090909091
+        }
+    },
     "imperial_date_to_string.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4191,6 +6227,41 @@
         },
         "final_report": {
             "accuracy": 0.0
+        }
+    },
+    "mmlu-jurisprudence.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "mmlu-jurisprudence.val.ab-v1",
+            "base_eval": "mmlu-jurisprudence",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://cais/mmlu?name=jurisprudence&split=validation"
+                    },
+                    "key": "mmlu-jurisprudence.val.ab-v1",
+                    "group": "mmlu"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230515183444UP6AG3Y5",
+            "created_at": "2023-05-15 18:34:44.271586"
+        },
+        "final_report": {
+            "accuracy": 0.6363636363636364
         }
     },
     "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {

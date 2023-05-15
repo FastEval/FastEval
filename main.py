@@ -38,12 +38,9 @@ class OpenAssistantCompletionResult(CompletionResult):
         return [self.response.strip()]
 
 class OpenAssistantCompletionFn(CompletionFn):
-    def __init__(self, model_name) -> None:
-        import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
-
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16).eval().cuda()
+    def __init__(self, tokenizer, model) -> None:
+        self.tokenizer = tokenizer
+        self.model = model
 
     def model_output(self, prompt_str):
         inputs = self.tokenizer(prompt_str, return_tensors="pt", padding=True).to(0)
@@ -77,9 +74,23 @@ class OpenAssistantCompletionFn(CompletionFn):
         return OpenAssistantCompletionResult(generated_model_output)
 
 class RegistryWithOpenAssistant(Registry):
+    def __init__(self):
+        super().__init__()
+
+        self.tokenizers = {}
+        self.models = {}
+
     def make_completion_fn(self, model_name: str) -> CompletionFn:
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
         assert model_name in open_assistant_models
-        return OpenAssistantCompletionFn(model_name)
+
+        if model_name not in self.tokenizers:
+            self.tokenizers[model_name] = AutoTokenizer.from_pretrained(model_name)
+            self.models[model_name] = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16).eval().cuda()
+
+        return OpenAssistantCompletionFn(self.tokenizers[model_name], self.models[model_name])
 
     api_model_ids = []
 
@@ -160,5 +171,5 @@ def evaluate_model(model_name):
     build_reports_index(model_name)
 
 if __name__ == '__main__':
-    # evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
-    evaluate_model('gpt-3.5-turbo')
+    evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
+    # evaluate_model('gpt-3.5-turbo')
