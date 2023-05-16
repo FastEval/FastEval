@@ -21,7 +21,7 @@ def prompt_to_string(prompt, tokenizer):
         content = item['content']
         if role == 'system' and 'name' not in item:
             prompt_str += '<|system|>' + content + tokenizer.eos_token
-        elif role == 'system' and item['name'] == 'example_assistant':
+        elif role == 'assistant' or (role == 'system' and item['name'] == 'example_assistant'):
             prompt_str += '<|assistant|>' + content + tokenizer.eos_token
         elif (role == 'system' and item['name'] == 'example_user') or role == 'user':
             prompt_str += '<|prompter|>' + content + tokenizer.eos_token
@@ -121,15 +121,12 @@ def run_multiple_evals(registry, model_name, evals):
         'best.dev.v0', # Compares multiple models
         'positive-binary-operations.test.v1', # KeyError: 'sample'
         'spider-sql.dev.v0', # TypeError: ModelBasedClassify.__init__() missing 1 required positional argument: 'modelgraded_spec'
-        # 'sarcasm.test.v1',
         'svg_understanding.v0', # CUDA out of memory
-        # 'decrypt-caesar-cipher.dev.v0',
-        # 'dice-rotation-sequence.dev.v0',
         'stock-options-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_options_iron_butteryfly_spread.jsonl
         'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_option_terms_inverse_iron_butteryfly_spread.jsonl
-        # 'manga-translation-page.dev.v0',
-        # 'manga-translation-panel.dev.v0',
-        # 'manga-translation-bubble.dev.v0',
+        'manga-translation-page.dev.v0',
+        'manga-translation-panel.dev.v0',
+        'manga-translation-bubble.dev.v0',
         'joke-fruits-v2.dev.v0', # buggy in openai/evals itself due to removed format_type feature that is still used by this eval
     ]
 
@@ -152,7 +149,6 @@ def build_reports_index(model_name):
     for filename in os.listdir(os.path.join('reports', model_name)):
         if filename == '__index__.json':
             continue
-        print(filename)
         with open(os.path.join('reports', model_name, filename), 'r') as f:
             spec_and_final_report = f.read().split('\n')[:2]
             spec = spec_and_final_report[0]
@@ -174,5 +170,5 @@ def evaluate_model(model_name):
     build_reports_index(model_name)
 
 if __name__ == '__main__':
-    # evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
-    evaluate_model('gpt-3.5-turbo')
+    evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
+    # evaluate_model('gpt-3.5-turbo')

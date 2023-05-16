@@ -3611,6 +3611,41 @@
             "accuracy": 0.3
         }
     },
+    "decrypt-caesar-cipher.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "decrypt-caesar-cipher.dev.v0",
+            "base_eval": "decrypt-caesar-cipher",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "decrypt_caesar_cipher/samples.jsonl"
+                    },
+                    "key": "decrypt-caesar-cipher.dev.v0",
+                    "group": "decrypt-caesar-cipher"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516123022GQAV36JN",
+            "created_at": "2023-05-16 12:30:22.890069"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
     "us-tort-law.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4645,6 +4680,41 @@
             "accuracy": 0.16666666666666666
         }
     },
+    "dice-rotation-sequence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "dice-rotation-sequence.dev.v0",
+            "base_eval": "dice-rotation-sequence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dice-rotation-sequence/samples.jsonl"
+                    },
+                    "key": "dice-rotation-sequence.dev.v0",
+                    "group": "dice-rotation-sequence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516122805W46D73JW",
+            "created_at": "2023-05-16 12:28:05.904865"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
     "finance.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -5166,6 +5236,43 @@
             "created_by": "",
             "run_id": "230515174822YF2RMJYD",
             "created_at": "2023-05-15 17:48:22.102465"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "sarcasm.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "sarcasm.test.v1",
+            "base_eval": "sarcasm",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sarcasm/samples.jsonl",
+                        "few_shot_jsonl": "sarcasm/few_shot.jsonl",
+                        "num_few_shot": 5
+                    },
+                    "key": "sarcasm.test.v1",
+                    "group": "sarcasm"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516113314ZH7G3EGM",
+            "created_at": "2023-05-16 11:33:14.196350"
         },
         "final_report": {
             "accuracy": 0.5
