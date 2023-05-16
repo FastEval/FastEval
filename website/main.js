@@ -158,8 +158,6 @@ function showDataFromMultipleChoice(finalReport, samples) {
 }
 
 function showDataFromTranslate(finalReport, samples) {
-    console.log(finalReport, samples)
-
     return [
         ['SacreBLEU score: ' + round(finalReport.sacrebleu_score)],
         [...samples.entries()].map(([sampleId, sample]) => [
@@ -237,6 +235,7 @@ function createSelectedModelReportV(reportUrl, report) {
     containerE.classList.add('selected-model-report')
 
     const selectedModelInformationE = document.createElement('div')
+    selectedModelInformationE.classList.add('selected-model-information')
     containerE.appendChild(selectedModelInformationE)
 
     const reportUrlWithoutHash = new URL(reportUrl)
