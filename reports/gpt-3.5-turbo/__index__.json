@@ -397,6 +397,43 @@
             "accuracy": 0.4166666666666667
         }
     },
+    "sarcasm.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "gpt-3.5-turbo"
+            ],
+            "eval_name": "sarcasm.test.v1",
+            "base_eval": "sarcasm",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "gpt-3.5-turbo"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sarcasm/samples.jsonl",
+                        "few_shot_jsonl": "sarcasm/few_shot.jsonl",
+                        "num_few_shot": 5
+                    },
+                    "key": "sarcasm.test.v1",
+                    "group": "sarcasm"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516102009VXCTOMQ4",
+            "created_at": "2023-05-16 10:20:09.993033"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
     "map-electronic-component-part-to-fact.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1607,6 +1644,42 @@
             "accuracy": 0.45454545454545453
         }
     },
+    "manga-translation-page.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "gpt-3.5-turbo"
+            ],
+            "eval_name": "manga-translation-page.dev.v0",
+            "base_eval": "manga-translation-page",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "gpt-3.5-turbo"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.translate:Translate",
+                    "args": {
+                        "samples_jsonl": "manga-translation/pages.jsonl"
+                    },
+                    "key": "manga-translation-page.dev.v0",
+                    "group": "manga-translation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516103804HP7CT3PB",
+            "created_at": "2023-05-16 10:38:04.622866"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "sacrebleu_score": 13.202044179776525
+        }
+    },
     "mmlu-elementary-mathematics.val.ab-v1.json": {
         "spec": {
             "completion_fns": [
@@ -2696,6 +2769,41 @@
         },
         "final_report": {
             "accuracy": 0.45
+        }
+    },
+    "dice-rotation-sequence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "gpt-3.5-turbo"
+            ],
+            "eval_name": "dice-rotation-sequence.dev.v0",
+            "base_eval": "dice-rotation-sequence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "gpt-3.5-turbo"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dice-rotation-sequence/samples.jsonl"
+                    },
+                    "key": "dice-rotation-sequence.dev.v0",
+                    "group": "dice-rotation-sequence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516103556EEFPMWWS",
+            "created_at": "2023-05-16 10:35:56.679544"
+        },
+        "final_report": {
+            "accuracy": 0.1
         }
     },
     "diagrammatic_logic.dev.v2.json": {
@@ -5861,6 +5969,42 @@
             "score": 0.2
         }
     },
+    "manga-translation-panel.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "gpt-3.5-turbo"
+            ],
+            "eval_name": "manga-translation-panel.dev.v0",
+            "base_eval": "manga-translation-panel",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "gpt-3.5-turbo"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.translate:Translate",
+                    "args": {
+                        "samples_jsonl": "manga-translation/panels.jsonl"
+                    },
+                    "key": "manga-translation-panel.dev.v0",
+                    "group": "manga-translation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516104440TDABPWEP",
+            "created_at": "2023-05-16 10:44:40.744545"
+        },
+        "final_report": {
+            "accuracy": 0.25,
+            "sacrebleu_score": 18.1839540556176
+        }
+    },
     "mmlu-college-medicine.val.ab-v1.json": {
         "spec": {
             "completion_fns": [
@@ -5965,6 +6109,41 @@
         "final_report": {
             "accuracy": 0.75,
             "f1_score": 0.75
+        }
+    },
+    "decrypt-caesar-cipher.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "gpt-3.5-turbo"
+            ],
+            "eval_name": "decrypt-caesar-cipher.dev.v0",
+            "base_eval": "decrypt-caesar-cipher",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "gpt-3.5-turbo"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "decrypt_caesar_cipher/samples.jsonl"
+                    },
+                    "key": "decrypt-caesar-cipher.dev.v0",
+                    "group": "decrypt-caesar-cipher"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516103316XVXBLPLV",
+            "created_at": "2023-05-16 10:33:16.564716"
+        },
+        "final_report": {
+            "accuracy": 0.0
         }
     },
     "mmlu-high-school-physics.val.ab-v1.json": {
@@ -6177,6 +6356,42 @@
         },
         "final_report": {
             "accuracy": 0.3
+        }
+    },
+    "manga-translation-bubble.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "gpt-3.5-turbo"
+            ],
+            "eval_name": "manga-translation-bubble.dev.v0",
+            "base_eval": "manga-translation-bubble",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "gpt-3.5-turbo"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.translate:Translate",
+                    "args": {
+                        "samples_jsonl": "manga-translation/bubbles.jsonl"
+                    },
+                    "key": "manga-translation-bubble.dev.v0",
+                    "group": "manga-translation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516104923NWXDW72V",
+            "created_at": "2023-05-16 10:49:23.140810"
+        },
+        "final_report": {
+            "accuracy": 0.3,
+            "sacrebleu_score": 5.6609072111263785
         }
     },
     "ph-calculation.dev.v0.json": {

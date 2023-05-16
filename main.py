@@ -119,17 +119,17 @@ def run_single_eval(registry, model_name, eval_name):
 def run_multiple_evals(registry, model_name, evals):
     ignored_evals = [
         'best.dev.v0', # Compares multiple models
-        'positive-binary-operations.test.v1', # buggy
-        'spider-sql.dev.v0',
-        'sarcasm.test.v1',
+        'positive-binary-operations.test.v1', # KeyError: 'sample'
+        'spider-sql.dev.v0', # TypeError: ModelBasedClassify.__init__() missing 1 required positional argument: 'modelgraded_spec'
+        # 'sarcasm.test.v1',
         'svg_understanding.v0', # CUDA out of memory
-        'decrypt-caesar-cipher.dev.v0',
-        'dice-rotation-sequence.dev.v0',
-        'stock-options-iron-butteryfly-spread.dev.v0',
-        'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0',
-        'manga-translation-page.dev.v0',
-        'manga-translation-panel.dev.v0',
-        'manga-translation-bubble.dev.v0',
+        # 'decrypt-caesar-cipher.dev.v0',
+        # 'dice-rotation-sequence.dev.v0',
+        'stock-options-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_options_iron_butteryfly_spread.jsonl
+        'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_option_terms_inverse_iron_butteryfly_spread.jsonl
+        # 'manga-translation-page.dev.v0',
+        # 'manga-translation-panel.dev.v0',
+        # 'manga-translation-bubble.dev.v0',
         'joke-fruits-v2.dev.v0', # buggy in openai/evals itself due to removed format_type feature that is still used by this eval
     ]
 
@@ -150,6 +150,9 @@ def run_all_evals(registry, model_name):
 def build_reports_index(model_name):
     specs_and_final_reports = {}
     for filename in os.listdir(os.path.join('reports', model_name)):
+        if filename == '__index__.json':
+            continue
+        print(filename)
         with open(os.path.join('reports', model_name, filename), 'r') as f:
             spec_and_final_report = f.read().split('\n')[:2]
             spec = spec_and_final_report[0]
