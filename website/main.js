@@ -149,10 +149,25 @@ function showDataFromIncludes(finalReport, samples) {
 
 function showDataFromMultipleChoice(finalReport, samples) {
     return [
-        ['Accuracy: ', round(finalReport.accuracy)],
+        ['Accuracy: ' + round(finalReport.accuracy)],
         [...samples.entries()].map(([sampleId, sample]) => [
             sampleId,
             createMatchEs(sample.match.prompt, sample.match.options, sample.match.sampled, sample.match.correct),
+        ]),
+    ]
+}
+
+function showDataFromTranslate(finalReport, samples) {
+    console.log(finalReport, samples)
+
+    return [
+        ['SacreBLEU score: ' + round(finalReport.sacrebleu_score)],
+        [...samples.entries()].map(([sampleId, sample]) => [
+            sampleId,
+            [
+                ...createMatchEs(sample.match.prompt, sample.match.expected, sample.match.sampled, sample.match.correct),
+                createExplanationTextE('The SacreBLEU score is ' + sample.metrics.sacrebleu_sentence_score + '.'),
+            ]
         ]),
     ]
 }
@@ -169,6 +184,8 @@ function showData(spec, finalReport, samples) {
             return showDataFromIncludes(finalReport, samples)
         case 'evals.elsuite.multiple_choice:MultipleChoice':
             return showDataFromMultipleChoice(finalReport, samples)
+        case 'evals.elsuite.translate:Translate':
+            return showDataFromTranslate(finalReport, samples)
         default:
             throw new Error()
     }
@@ -303,6 +320,8 @@ function getScores(spec, finalReport) {
             return round(finalReport.accuracy)
         case 'evals.elsuite.multiple_choice:MultipleChoice':
             return round(finalReport.accuracy)
+        case 'evals.elsuite.translate:Translate':
+            return round(finalReport.sacrebleu_score)
         default:
             throw new Error()
     }
