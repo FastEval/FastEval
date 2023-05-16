@@ -147,6 +147,16 @@ function showDataFromIncludes(finalReport, samples) {
     ]
 }
 
+function showDataFromMultipleChoice(finalReport, samples) {
+    return [
+        ['Accuracy: ', round(finalReport.accuracy)],
+        [...samples.entries()].map(([sampleId, sample]) => [
+            sampleId,
+            createMatchEs(sample.match.prompt, sample.match.options, sample.match.sampled, sample.match.correct),
+        ]),
+    ]
+}
+
 function showData(spec, finalReport, samples) {
     switch (spec.run_config.eval_spec.cls) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
@@ -157,6 +167,8 @@ function showData(spec, finalReport, samples) {
             return showDataFromFuzzyMatch(finalReport, samples)
         case 'evals.elsuite.basic.includes:Includes':
             return showDataFromIncludes(finalReport, samples)
+        case 'evals.elsuite.multiple_choice:MultipleChoice':
+            return showDataFromMultipleChoice(finalReport, samples)
         default:
             throw new Error()
     }
