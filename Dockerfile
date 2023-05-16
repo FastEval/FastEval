@@ -25,7 +25,8 @@ RUN source venv/bin/activate && \
     python oasst-rlhf-2-llama-30b-7k-steps-xor/xor_codec.py oasst-rlhf-2-llama-30b-7k-steps oasst-rlhf-2-llama-30b-7k-steps-xor/oasst-rlhf-2-llama-30b-7k-steps-xor llama-30b-hf
 
 RUN source venv/bin/activate && \
-    pip install git+https://github.com/tju01/evals.git#egg=evals
+    pip install git+https://github.com/tju01/evals.git#egg=evals && \
+    pip install --upgrade sacrebleu
 
 ENV PATH=/workspace/venv/bin:$PATH
 

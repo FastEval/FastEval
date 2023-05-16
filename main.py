@@ -124,10 +124,7 @@ def run_multiple_evals(registry, model_name, evals):
         'svg_understanding.v0', # CUDA out of memory
         'stock-options-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_options_iron_butteryfly_spread.jsonl
         'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_option_terms_inverse_iron_butteryfly_spread.jsonl
-        'manga-translation-page.dev.v0',
-        'manga-translation-panel.dev.v0',
-        'manga-translation-bubble.dev.v0',
-        'joke-fruits-v2.dev.v0', # buggy in openai/evals itself due to removed format_type feature that is still used by this eval
+        'joke-fruits-v2.dev.v0', # Buggy in openai/evals itself due to removed format_type feature that is still used by this eval
     ]
 
     for eval in evals:

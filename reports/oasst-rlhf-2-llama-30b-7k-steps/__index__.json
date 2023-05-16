@@ -2089,6 +2089,42 @@
             "f1_score": 0.12850081148786596
         }
     },
+    "manga-translation-bubble.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "manga-translation-bubble.dev.v0",
+            "base_eval": "manga-translation-bubble",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.translate:Translate",
+                    "args": {
+                        "samples_jsonl": "manga-translation/bubbles.jsonl"
+                    },
+                    "key": "manga-translation-bubble.dev.v0",
+                    "group": "manga-translation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516133444J72QRN4T",
+            "created_at": "2023-05-16 13:34:44.969445"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "sacrebleu_score": 0.17531640563743744
+        }
+    },
     "pattern_identification.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -2548,6 +2584,42 @@
             "counts/No": 5,
             "counts/__invalid__": 1,
             "score": 0.55
+        }
+    },
+    "manga-translation-page.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "manga-translation-page.dev.v0",
+            "base_eval": "manga-translation-page",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.translate:Translate",
+                    "args": {
+                        "samples_jsonl": "manga-translation/pages.jsonl"
+                    },
+                    "key": "manga-translation-page.dev.v0",
+                    "group": "manga-translation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516132720RN3TAJ4Q",
+            "created_at": "2023-05-16 13:27:20.882462"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "sacrebleu_score": 1.032768123586237
         }
     },
     "formal-logic.dev.v0.json": {
@@ -3857,6 +3929,42 @@
         },
         "final_report": {
             "accuracy": 0.36363636363636365
+        }
+    },
+    "manga-translation-panel.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "oasst-rlhf-2-llama-30b-7k-steps"
+            ],
+            "eval_name": "manga-translation-panel.dev.v0",
+            "base_eval": "manga-translation-panel",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "oasst-rlhf-2-llama-30b-7k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.translate:Translate",
+                    "args": {
+                        "samples_jsonl": "manga-translation/panels.jsonl"
+                    },
+                    "key": "manga-translation-panel.dev.v0",
+                    "group": "manga-translation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./main.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230516133143QC7PYAWS",
+            "created_at": "2023-05-16 13:31:43.569198"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "sacrebleu_score": 0.5420426795534337
         }
     },
     "stock-option-terms-bull-call-spread.dev.v0.json": {
