@@ -9,22 +9,29 @@ from evals.cli.oaieval import get_parser, run
 
 open_assistant_models = [
     'oasst-rlhf-2-llama-30b-7k-steps',
+    'oasst-sft-7-llama-30b',
 ]
 
 def prompt_to_string(prompt, tokenizer):
     if isinstance(prompt, str):
-        return '<|system|>' + prompt + tokenizer.eos_token + '<|assistant|>'
+        return '<|prompter|>' + prompt + tokenizer.eos_token + '<|assistant|>'
 
     prompt_str = ''
+    previous_was_system_prompter = False
     for item in prompt:
         role = item['role']
         content = item['content']
         if role == 'system' and 'name' not in item:
-            prompt_str += '<|system|>' + content + tokenizer.eos_token
+            prompt_str += '<|prompter|>' + content
+            previous_was_system_prompter = True
         elif role == 'assistant' or (role == 'system' and item['name'] == 'example_assistant'):
             prompt_str += '<|assistant|>' + content + tokenizer.eos_token
         elif (role == 'system' and item['name'] == 'example_user') or role == 'user':
-            prompt_str += '<|prompter|>' + content + tokenizer.eos_token
+            if previous_was_system_prompter:
+                prompt_str += '\n\n' + content + tokenizer.eos_token
+                previous_was_system_prompter = False
+            else:
+                prompt_str += '<|prompter|>' + content + tokenizer.eos_token
         else:
             raise
     prompt_str += '<|assistant|>'
@@ -167,5 +174,6 @@ def evaluate_model(model_name):
     build_reports_index(model_name)
 
 if __name__ == '__main__':
-    evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
+    evaluate_model('oasst-sft-7-llama-30b')
+    #evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
     # evaluate_model('gpt-3.5-turbo')

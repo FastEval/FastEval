@@ -19,10 +19,10 @@ ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 RUN source venv/bin/activate && \
     python venv/lib/python3.10/site-packages/transformers/models/llama/convert_llama_weights_to_hf.py --input_dir llama --output_dir llama-30b-hf --model_size 30B
 
-RUN git clone --depth 1 https://huggingface.co/OpenAssistant/oasst-rlhf-2-llama-30b-7k-steps-xor
+RUN git clone --depth 1 https://huggingface.co/OpenAssistant/oasst-sft-7-llama-30b-xor
 
 RUN source venv/bin/activate && \
-    python oasst-rlhf-2-llama-30b-7k-steps-xor/xor_codec.py oasst-rlhf-2-llama-30b-7k-steps oasst-rlhf-2-llama-30b-7k-steps-xor/oasst-rlhf-2-llama-30b-7k-steps-xor llama-30b-hf
+    python oasst-sft-7-llama-30b-xor/xor_codec.py oasst-sft-7-llama-30b oasst-sft-7-llama-30b-xor/oasst-sft-7-llama-30b-xor llama-30b-hf
 
 RUN source venv/bin/activate && \
     pip install git+https://github.com/tju01/evals.git#egg=evals && \
