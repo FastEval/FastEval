@@ -383,7 +383,7 @@ async function createMainV() {
     const urlsE = document.createElement('textarea')
     urlsE.spellcheck = false
     urlsE.rows = 4
-    urlsE.value = location.hash.substring(1).replace(',', '\n') || (
+    urlsE.value = location.hash.substring(1).replaceAll(',', '\n') || (
           'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-sft-7-llama-30b/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-sft-7e3-llama-30b/__index__.json\n'
@@ -399,7 +399,7 @@ async function createMainV() {
     })
 
     urlsE.addEventListener('change', () => {
-        location.hash = urlsE.value.replace('\n', ',')
+        location.hash = urlsE.value.replaceAll('\n', ',')
     })
 
     return containerE
