@@ -164,7 +164,7 @@ function showDataFromTranslate(finalReport, samples) {
             sampleId,
             [
                 ...createMatchEs(sample.match.prompt, sample.match.expected, sample.match.sampled, sample.match.correct),
-                createExplanationTextE('The SacreBLEU score is ' + sample.metrics.sacrebleu_sentence_score + '.'),
+                createExplanationTextE('The SacreBLEU score is ' + round(sample.metrics.sacrebleu_sentence_score) + '.'),
             ]
         ]),
     ]
