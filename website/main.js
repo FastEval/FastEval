@@ -333,7 +333,7 @@ async function createEvalsIndexV(urls) {
     tableHeadE.insertCell().appendChild(createExplanationTextE('Eval name'))
 
     for (const url of urls)
-        tableHeadE.insertCell().appendChild(createExplanationTextE(url.split('/').slice(-2, -1)))
+        tableHeadE.insertCell().appendChild(createExplanationTextE(url.split('/').slice(-2, -1)[0].replace('--', '/')))
 
     const tr = tableBodyE.insertRow()
     tr.classList.add('relative-average-score')
@@ -405,11 +405,12 @@ async function createMainV() {
 
     const urlsE = document.createElement('textarea')
     urlsE.spellcheck = false
-    urlsE.rows = 4
+    urlsE.rows = 5
     urlsE.value = location.hash.substring(1).replaceAll(',', '\n') || (
           'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps-wrongly-used/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-sft-7-llama-30b/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-sft-7e3-llama-30b/__index__.json\n'
+        + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/OpenAssistant--llama-30b-sft-v8-2.5k-steps/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/gpt-3.5-turbo/__index__.json'
     )
 
