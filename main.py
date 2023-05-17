@@ -11,7 +11,8 @@ open_assistant_models = [
     'oasst-rlhf-2-llama-30b-7k-steps',
     'oasst-sft-7-llama-30b',
     'oasst-sft-7e3-llama-30b',
-    'OpenAssistant/llama-30b-sft-v8-2.5k-steps'
+    'OpenAssistant/llama-30b-sft-v8-2.5k-steps',
+    'OpenAssistant/pythia-12b-sft-v8-7k-steps',
 ]
 
 def replace_model_name_slashes(model_name):
@@ -55,7 +56,7 @@ class OpenAssistantCompletionFn(CompletionFn):
         self.model = model
 
     def model_output(self, prompt_str):
-        inputs = self.tokenizer(prompt_str, return_tensors="pt", padding=True).to(0)
+        inputs = self.tokenizer(prompt_str, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
 
         if "token_type_ids" in inputs:
             del inputs["token_type_ids"]
@@ -70,6 +71,7 @@ class OpenAssistantCompletionFn(CompletionFn):
             repetition_penalty=1.2,
             top_p=0.9,
             pad_token_id=self.tokenizer.eos_token_id,
+            max_length=2048,
         )
 
         output = self.tokenizer.decode(outputs[0], truncate_before_pattern=[r"\n\n^#", "^'''", "\n\n\n"])
@@ -179,4 +181,4 @@ def evaluate_model(model_name):
     build_reports_index(model_name)
 
 if __name__ == '__main__':
-    evaluate_model('OpenAssistant/llama-30b-sft-v8-2.5k-steps')
+    evaluate_model('OpenAssistant/pythia-12b-sft-v8-7k-steps')
