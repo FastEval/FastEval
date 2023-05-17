@@ -335,7 +335,16 @@ async function createEvalsIndexV(urls) {
     for (const url of urls)
         tableHeadE.insertCell().appendChild(createExplanationTextE(url.split('/').slice(-2, -1)))
 
+    const tr = tableBodyE.insertRow()
+    tr.classList.add('relative-average-score')
+    tableBodyE.appendChild(tr)
+    tr.insertCell().appendChild(createExplanationTextE('Relative average score'))
+    const relativeAverageScoreEs = urls.map(url => tr.insertCell())
+
     const reportsIndex = Object.fromEntries(await Promise.all(urls.map(async url => [url, await ((await fetch(url)).json())])))
+
+    const modelPerformances = Array(urls.length).fill(0)
+    let numModelScores = 0
 
     for (const [reportFilename, { spec }] of Object.entries(reportsIndex[urls[0]]).sort()) {
         const reportE = tableBodyE.insertRow()
@@ -347,7 +356,8 @@ async function createEvalsIndexV(urls) {
 
         const scores = Object.fromEntries(urls.map(url => [url, getScores(spec, reportsIndex[url][reportFilename].final_report)]))
         const maxScore = Math.max(...Object.values(scores))
-        for (const url of urls) {
+        let otherScoresAreNumbers = true
+        for (const [i, url] of urls.entries()) {
             const scoreE = document.createElement('a')
             const score = scores[url]
             scoreE.textContent = score ?? '-'
@@ -355,8 +365,21 @@ async function createEvalsIndexV(urls) {
                 scoreE.classList.add('max-score')
             scoreE.href = '#' + url.replace('__index__.json', reportFilename)
             reportE.insertCell().appendChild(scoreE)
+
+            if (typeof score === 'number') {
+                if (!otherScoresAreNumbers)
+                    throw new Error()
+                modelPerformances[i] += (maxScore === 0) ? 1 : (score / maxScore)
+                if (i === 0)
+                    numModelScores++
+            } else {
+                otherScoresAreNumbers = false
+            }
         }
     }
+
+    for (let i = 0; i < urls.length; i++)
+        relativeAverageScoreEs[i].appendChild(createExplanationTextE(round(modelPerformances[i] / numModelScores)))
 
     return reportsIndexE
 }
