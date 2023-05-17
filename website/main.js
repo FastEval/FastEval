@@ -366,6 +366,9 @@ async function createEvalsIndexV(urls) {
             scoreE.href = '#' + url.replace('__index__.json', reportFilename)
             reportE.insertCell().appendChild(scoreE)
 
+            if (spec.run_config.eval_spec.cls === 'evals.elsuite.modelgraded.classify:ModelBasedClassify')
+                continue
+
             if (typeof score === 'number') {
                 if (!otherScoresAreNumbers)
                     throw new Error()
