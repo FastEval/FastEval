@@ -11,7 +11,11 @@ open_assistant_models = [
     'oasst-rlhf-2-llama-30b-7k-steps',
     'oasst-sft-7-llama-30b',
     'oasst-sft-7e3-llama-30b',
+    'OpenAssistant/llama-30b-sft-v8-2.5k-steps'
 ]
+
+def replace_model_name_slashes(model_name):
+    return model_name.replace('/', '--')
 
 def prompt_to_string(prompt, tokenizer):
     if isinstance(prompt, str):
@@ -107,7 +111,7 @@ def run_single_eval(registry, model_name, eval_name):
     args = parser.parse_args([
         model_name,
         eval_name,
-        '--record_path', os.path.join('reports', model_name, eval_name + '.json'),
+        '--record_path', os.path.join('reports', replace_model_name_slashes(model_name), eval_name + '.json'),
     ])
 
     import logging
@@ -136,7 +140,7 @@ def run_multiple_evals(registry, model_name, evals):
     ]
 
     for eval in evals:
-        if os.path.exists(os.path.join('reports', model_name, eval.key + '.json')):
+        if os.path.exists(os.path.join('reports', replace_model_name_slashes(model_name), eval.key + '.json')):
             continue
         if eval.key in ignored_evals:
             continue
@@ -151,15 +155,15 @@ def run_all_evals(registry, model_name):
 
 def build_reports_index(model_name):
     specs_and_final_reports = {}
-    for filename in os.listdir(os.path.join('reports', model_name)):
+    for filename in os.listdir(os.path.join('reports', replace_model_name_slashes(model_name))):
         if filename == '__index__.json':
             continue
-        with open(os.path.join('reports', model_name, filename), 'r') as f:
+        with open(os.path.join('reports', replace_model_name_slashes(model_name), filename), 'r') as f:
             spec_and_final_report = f.read().split('\n')[:2]
             spec = spec_and_final_report[0]
             final_report = spec_and_final_report[1]
             specs_and_final_reports[filename] = { 'spec': json.loads(spec)['spec'], 'final_report': json.loads(final_report)['final_report'] }
-    with open(os.path.join('reports', model_name, '__index__.json'), 'w') as f:
+    with open(os.path.join('reports', replace_model_name_slashes(model_name), '__index__.json'), 'w') as f:
         json.dump(specs_and_final_reports, f, indent=4)
 
 def evaluate_model(model_name):
@@ -175,6 +179,4 @@ def evaluate_model(model_name):
     build_reports_index(model_name)
 
 if __name__ == '__main__':
-    evaluate_model('oasst-sft-7e3-llama-30b')
-    #evaluate_model('oasst-rlhf-2-llama-30b-7k-steps')
-    # evaluate_model('gpt-3.5-turbo')
+    evaluate_model('OpenAssistant/llama-30b-sft-v8-2.5k-steps')
