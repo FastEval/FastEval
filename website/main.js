@@ -408,10 +408,11 @@ async function createMainV() {
 
     const urlsE = document.createElement('textarea')
     urlsE.spellcheck = false
-    urlsE.rows = 6
+    urlsE.rows = 7
     urlsE.value = location.hash.substring(1).replaceAll(',', '\n') || (
           'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/OpenAssistant--pythia-12b-sft-v8-7k-steps/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-rlhf-2-llama-30b-7k-steps-wrongly-used/__index__.json\n'
+        + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/OpenAssistant--oasst-rlhf-3-llama-30b-5k-steps/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-sft-7-llama-30b/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/oasst-sft-7e3-llama-30b/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/OpenAssistant--llama-30b-sft-v8-2.5k-steps/__index__.json\n'
