@@ -13,6 +13,7 @@ open_assistant_models = [
     'OpenAssistant/oasst-sft-7e3-llama-30b',
     'OpenAssistant/llama-30b-sft-v8-2.5k-steps',
     'OpenAssistant/pythia-12b-sft-v8-7k-steps',
+    'OpenAssistant/llama-65b-sft-v7-2k-steps',
 ]
 
 def replace_model_name_slashes(model_name):
@@ -102,7 +103,7 @@ class RegistryWithOpenAssistant(Registry):
 
         if model_name not in self.tokenizers:
             self.tokenizers[model_name] = AutoTokenizer.from_pretrained(model_name)
-            self.models[model_name] = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16).eval().cuda()
+            self.models[model_name] = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map='auto').eval()
 
         return OpenAssistantCompletionFn(self.tokenizers[model_name], self.models[model_name])
 
@@ -171,6 +172,7 @@ def build_reports_index(model_name):
 def evaluate_model(model_name):
     os.environ['EVALS_THREADS'] = '1'
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
+    # os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
 
     if model_name in open_assistant_models:
         registry = RegistryWithOpenAssistant()
@@ -181,4 +183,4 @@ def evaluate_model(model_name):
     build_reports_index(model_name)
 
 if __name__ == '__main__':
-    evaluate_model('OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps')
+    evaluate_model('OpenAssistant/llama-65b-sft-v7-2k-steps')
