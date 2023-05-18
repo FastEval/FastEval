@@ -281,7 +281,7 @@ async function createEvalReportsV(reportUrls) {
     for (const url of reportUrls) {
         const optionE = document.createElement('option')
         optionE.value = url
-        optionE.textContent = url.split('/').slice(-2, -1)
+        optionE.textContent = url.split('/').slice(-2, -1)[0].replace('--', '/')
         modelSelectE.appendChild(optionE)
     }
 
