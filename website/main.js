@@ -228,7 +228,7 @@ function createSamplesV(mappedSamples) {
 
         const sampleIdE = document.createElement('a')
         sampleIdE.textContent = 'ID: ' + sampleId
-        sampleIdE.href = '#' + computeUpdatedHash({ selectedSample: sampleId })
+        sampleIdE.href = '#' + computeUpdatedHash({ sample: sampleId })
 
         sampleE.append(
             sampleIdE,
@@ -298,18 +298,18 @@ async function createEvalReportsV(reportUrls) {
         modelSelectE.appendChild(optionE)
     }
 
-    const selectedModel = parseHash().get('selectedModel') ?? parseReportUrl(reportUrls[0]).rawModelName
+    const selectedModel = parseHash().get('model') ?? parseReportUrl(reportUrls[0]).rawModelName
     modelSelectE.value = selectedModel
 
     const rawModelNameToReportUrl = new Map(reportUrls.map(url => [parseReportUrl(url).rawModelName, url]))
     const selectedReportUrl = rawModelNameToReportUrl.get(selectedModel)
 
     const selectedReport = await (await fetch(selectedReportUrl)).text()
-    const selectedSampleId = parseHash().get('selectedSample')
+    const selectedSampleId = parseHash().get('sample')
     containerE.appendChild(createSelectedModelReportV(selectedReport, selectedSampleId))
 
     modelSelectE.addEventListener('change', () => {
-        location.hash = computeUpdatedHash({ selectedModel: modelSelectE.value })
+        location.hash = computeUpdatedHash({ model: modelSelectE.value })
     })
 
     return containerE
@@ -377,7 +377,7 @@ async function createEvalsIndexV(urls) {
             scoreE.textContent = score ?? '-'
             if (score === maxScore)
                 scoreE.classList.add('max-score')
-            scoreE.href = reportHref + '&selectedModel=' + parseReportUrl(url).rawModelName
+            scoreE.href = reportHref + '&model=' + parseReportUrl(url).rawModelName
             reportE.insertCell().appendChild(scoreE)
 
             if (spec.run_config.eval_spec.cls === 'evals.elsuite.modelgraded.classify:ModelBasedClassify')
