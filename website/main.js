@@ -11,6 +11,27 @@ function allowCharacterLineBreaks(text, characters = ['/', '_']) {
     return out
 }
 
+function parseReportUrl(reportUrl) {
+    const parts = new URL(reportUrl).pathname.split('/')
+    const [rawModelName, evalFilename] = parts.slice(-2)
+    return {
+        rawModelName,
+        modelName: rawModelName.replace('--', '/'),
+        evalFilename,
+    }
+}
+
+function parseHash() {
+    return new Map(Array.from(new URLSearchParams(location.hash.substring(1)).entries()))
+}
+
+function computeUpdatedHash(newItems) {
+    const items = parseHash()
+    for (const [k, v] of Object.entries(newItems))
+        items.set(k, v)
+    return '?' + [...items.entries()].map(([k, v]) => k + '=' + v).join('&')
+}
+
 function createExplanationTextE(text) {
     const explanationTextE = document.createElement('span')
     explanationTextE.textContent = text
@@ -196,7 +217,7 @@ function showData(spec, finalReport, samples) {
     }
 }
 
-function createSamplesV(mappedSamples, reportUrlWithoutHash) {
+function createSamplesV(mappedSamples) {
     const containerE = document.createElement('div')
     containerE.classList.add('samples')
 
@@ -207,10 +228,7 @@ function createSamplesV(mappedSamples, reportUrlWithoutHash) {
 
         const sampleIdE = document.createElement('a')
         sampleIdE.textContent = 'ID: ' + sampleId
-        const sampleUrl = new URL(location.toString())
-        sampleUrl.hash = reportUrlWithoutHash
-        sampleUrl.hash += '#' + sampleId
-        sampleIdE.href = sampleUrl
+        sampleIdE.href = '#' + computeUpdatedHash({ selectedSample: sampleId })
 
         sampleE.append(
             sampleIdE,
@@ -221,7 +239,7 @@ function createSamplesV(mappedSamples, reportUrlWithoutHash) {
     return containerE
 }
 
-function createSelectedModelReportV(reportUrl, report) {
+function createSelectedModelReportV(report, selectedSampleId) {
     const reportLines = report.split('\n')
     const [specLine, finalReportLine, ...dataLines] = reportLines
     const spec = JSON.parse(specLine).spec
@@ -245,18 +263,12 @@ function createSelectedModelReportV(reportUrl, report) {
     selectedModelInformationE.classList.add('selected-model-information')
     containerE.appendChild(selectedModelInformationE)
 
-    const reportUrlWithoutHash = new URL(reportUrl)
-    reportUrlWithoutHash.hash = ''
-
-    const hash = new URL(reportUrl).hash
-    const onlyShowSingleSample = hash === '' ? null : hash.substring(1)
-
-    if (!onlyShowSingleSample)
+    if (!selectedSampleId)
         selectedModelInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
 
-    const samplesE = onlyShowSingleSample
-        ? createSamplesV(mappedSamples.filter(s => s[0] === onlyShowSingleSample), reportUrlWithoutHash)
-        : createSamplesV(mappedSamples, reportUrlWithoutHash)
+    const samplesE = selectedSampleId
+        ? createSamplesV(mappedSamples.filter(s => s[0] === selectedSampleId))
+        : createSamplesV(mappedSamples)
     containerE.appendChild(samplesE)
 
     return containerE
@@ -274,12 +286,6 @@ async function createEvalReportsV(reportUrls) {
     finalReportInformationE.appendChild(createExplanationTextE('Name: ' + firstSpec.eval_name))
     finalReportInformationE.appendChild(createExplanationTextE('Evaluation method: ' + firstSpec.run_config.eval_spec.cls.split(':').slice(-1)))
 
-    if (reportUrls.length === 1) {
-        containerE.appendChild(createExplanationTextE('Model: ' + reportUrls[0].split('/').slice(-2, -1)))
-        containerE.appendChild(createSelectedModelReportV(reportUrls[0], firstReport))
-        return containerE
-    }
-
     const modelSelectV = document.createElement('div')
     containerE.appendChild(modelSelectV)
     modelSelectV.appendChild(createExplanationTextE('Model: '))
@@ -287,24 +293,23 @@ async function createEvalReportsV(reportUrls) {
     modelSelectV.appendChild(modelSelectE)
     for (const url of reportUrls) {
         const optionE = document.createElement('option')
-        optionE.value = url
-        optionE.textContent = url.split('/').slice(-2, -1)[0].replace('--', '/')
+        optionE.value = parseReportUrl(url).rawModelName
+        optionE.textContent = parseReportUrl(url).modelName
         modelSelectE.appendChild(optionE)
     }
 
-    let reportV = createSelectedModelReportV(reportUrls[0], firstReport)
-    containerE.appendChild(reportV)
+    const selectedModel = parseHash().get('selectedModel') ?? parseReportUrl(reportUrls[0]).rawModelName
+    modelSelectE.value = selectedModel
 
-    const fetchedReports = new Map()
-    fetchedReports.set(reportUrls[0], firstReport)
+    const rawModelNameToReportUrl = new Map(reportUrls.map(url => [parseReportUrl(url).rawModelName, url]))
+    const selectedReportUrl = rawModelNameToReportUrl.get(selectedModel)
 
-    modelSelectE.addEventListener('change', async () => {
-        const newReportUrl = modelSelectE.value
-        const newReport = fetchedReports.get(newReportUrl) ?? await (await fetch(newReportUrl)).text()
-        fetchedReports.set(newReportUrl, newReport)
-        const newReportV = createSelectedModelReportV(newReportUrl, newReport)
-        containerE.replaceChild(newReportV, reportV)
-        reportV = newReportV
+    const selectedReport = await (await fetch(selectedReportUrl)).text()
+    const selectedSampleId = parseHash().get('selectedSample')
+    containerE.appendChild(createSelectedModelReportV(selectedReport, selectedSampleId))
+
+    modelSelectE.addEventListener('change', () => {
+        location.hash = computeUpdatedHash({ selectedModel: modelSelectE.value })
     })
 
     return containerE
@@ -356,9 +361,11 @@ async function createEvalsIndexV(urls) {
     for (const [reportFilename, { spec }] of Object.entries(reportsIndex[urls[0]]).sort()) {
         const reportE = tableBodyE.insertRow()
 
+        const reportHref = '#?reports=' + urls.map(url => url.replace('__index__.json', reportFilename)).join(',')
+
         const evalNameE = document.createElement('a')
         evalNameE.textContent = allowCharacterLineBreaks(spec.base_eval)
-        evalNameE.href = '#' + urls.map(url => url.replace('__index__.json', reportFilename)).join(',')
+        evalNameE.href = reportHref
         reportE.insertCell().appendChild(evalNameE)
 
         const scores = Object.fromEntries(urls.map(url => [url, getScores(spec, reportsIndex[url][reportFilename].final_report)]))
@@ -370,7 +377,7 @@ async function createEvalsIndexV(urls) {
             scoreE.textContent = score ?? '-'
             if (score === maxScore)
                 scoreE.classList.add('max-score')
-            scoreE.href = '#' + url.replace('__index__.json', reportFilename)
+            scoreE.href = reportHref + '&selectedModel=' + parseReportUrl(url).rawModelName
             reportE.insertCell().appendChild(scoreE)
 
             if (spec.run_config.eval_spec.cls === 'evals.elsuite.modelgraded.classify:ModelBasedClassify')
@@ -420,7 +427,7 @@ async function createMainV() {
     const urlsE = document.createElement('textarea')
     urlsE.spellcheck = false
     urlsE.rows = 7
-    urlsE.value = location.hash.substring(1).replaceAll(',', '\n') || (
+    urlsE.value = (parseHash().get('reports') || '').replaceAll(',', '\n') || (
           'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/OpenAssistant--pythia-12b-sft-v8-7k-steps/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/OpenAssistant--oasst-rlhf-3-llama-30b-5k-steps/__index__.json\n'
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/OpenAssistant--oasst-sft-7-llama-30b/__index__.json\n'
@@ -441,7 +448,7 @@ async function createMainV() {
     })
 
     urlsE.addEventListener('change', () => {
-        location.hash = urlsE.value.replaceAll('\n', ',')
+        location.hash = '?reports=' + urlsE.value.replaceAll('\n', ',')
     })
 
     return containerE
