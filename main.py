@@ -9,8 +9,8 @@ from evals.cli.oaieval import get_parser, run
 
 open_assistant_models = [
     'OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps',
-    'oasst-sft-7-llama-30b',
-    'oasst-sft-7e3-llama-30b',
+    'OpenAssistant/oasst-sft-7-llama-30b',
+    'OpenAssistant/oasst-sft-7e3-llama-30b',
     'OpenAssistant/llama-30b-sft-v8-2.5k-steps',
     'OpenAssistant/pythia-12b-sft-v8-7k-steps',
 ]
