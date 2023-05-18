@@ -4,6 +4,13 @@ function round(num) {
     return Math.round(num * 10000) / 10000
 }
 
+function allowCharacterLineBreaks(text, characters = ['/', '_']) {
+    let out = text
+    for (const char of characters)
+        out = out.replaceAll(char, char + '\u200b')
+    return out
+}
+
 function createExplanationTextE(text) {
     const explanationTextE = document.createElement('span')
     explanationTextE.textContent = text
@@ -333,7 +340,7 @@ async function createEvalsIndexV(urls) {
     tableHeadE.insertCell().appendChild(createExplanationTextE('Eval name'))
 
     for (const url of urls)
-        tableHeadE.insertCell().appendChild(createExplanationTextE(url.split('/').slice(-2, -1)[0].replace('--', '/')))
+        tableHeadE.insertCell().appendChild(createExplanationTextE(allowCharacterLineBreaks(url.split('/').slice(-2, -1)[0].replace('--', '/'))))
 
     const tr = tableBodyE.insertRow()
     tr.classList.add('relative-average-score')
@@ -350,7 +357,7 @@ async function createEvalsIndexV(urls) {
         const reportE = tableBodyE.insertRow()
 
         const evalNameE = document.createElement('a')
-        evalNameE.textContent = spec.base_eval
+        evalNameE.textContent = allowCharacterLineBreaks(spec.base_eval)
         evalNameE.href = '#' + urls.map(url => url.replace('__index__.json', reportFilename)).join(',')
         reportE.insertCell().appendChild(evalNameE)
 
@@ -406,6 +413,10 @@ async function createReportsV(urls) {
 async function createMainV() {
     const containerE = document.createElement('div')
 
+    const showUrlsE = document.createElement('button')
+    showUrlsE.textContent = 'Click here to show & edit report urls'
+    containerE.appendChild(showUrlsE)
+
     const urlsE = document.createElement('textarea')
     urlsE.spellcheck = false
     urlsE.rows = 7
@@ -419,7 +430,10 @@ async function createMainV() {
         + 'https://raw.githubusercontent.com/tju01/oasst-openai-evals/main/reports/gpt-3.5-turbo/__index__.json'
     )
 
-    containerE.appendChild(urlsE)
+    showUrlsE.addEventListener('click', () => {
+        containerE.removeChild(showUrlsE)
+        containerE.prepend(urlsE)
+    })
 
     containerE.appendChild(await createReportsV(urlsE.value))
 
