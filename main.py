@@ -1,82 +1,105 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import json
 from typing import Union
+import torch
+import transformers
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from evals.api import CompletionFn, CompletionResult
 from evals.registry import Registry
 from evals.cli.oaieval import get_parser, run
 
-open_assistant_models = [
-    'OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps',
-    'OpenAssistant/oasst-sft-7-llama-30b',
-    'OpenAssistant/oasst-sft-7e3-llama-30b',
-    'OpenAssistant/llama-30b-sft-v8-2.5k-steps',
-    'OpenAssistant/pythia-12b-sft-v8-7k-steps',
-    'OpenAssistant/llama-65b-sft-v7-2k-steps',
-]
+def replace_model_name_slashes(model_name: str) -> str:
+    """
+    The model name can be something like OpenAssistant/oasst-sft-1-pythia-12b.
+    The path where we store evaluation results should depend on the model name,
+    but paths can't include '/', so we need to replace that.
+    """
 
-def replace_model_name_slashes(model_name):
     return model_name.replace('/', '--')
 
-def prompt_to_string(prompt, tokenizer):
+def prompt_to_string(prompt: Union[str, list[dict[str, str]]], tokenizer: transformers.PreTrainedTokenizer):
+    """
+    Converts a prompt in the OpenAI evals conversation format to a string for consumption by OpenAssistant.
+    See https://github.com/openai/evals/blob/main/evals/registry/data/README.md for the OpenAI evals format.
+    The prompt input may also already be a string, in which it is just the prompter prompt.
+    """
+
     if isinstance(prompt, str):
         return '<|prompter|>' + prompt + tokenizer.eos_token + '<|assistant|>'
 
-    prompt_str = ''
+    prompt_string = ''
     previous_was_system_prompter = False
     for item in prompt:
         role = item['role']
         content = item['content']
         if role == 'system' and 'name' not in item:
-            prompt_str += '<|prompter|>' + content
+            prompt_string += '<|prompter|>' + content
             previous_was_system_prompter = True
         elif role == 'assistant' or (role == 'system' and item['name'] == 'example_assistant'):
-            prompt_str += '<|assistant|>' + content + tokenizer.eos_token
+            prompt_string += '<|assistant|>' + content + tokenizer.eos_token
         elif (role == 'system' and item['name'] == 'example_user') or role == 'user':
             if previous_was_system_prompter:
-                prompt_str += '\n\n' + content + tokenizer.eos_token
+                prompt_string += '\n\n' + content + tokenizer.eos_token
                 previous_was_system_prompter = False
             else:
-                prompt_str += '<|prompter|>' + content + tokenizer.eos_token
+                prompt_string += '<|prompter|>' + content + tokenizer.eos_token
         else:
             raise
-    prompt_str += '<|assistant|>'
-    return prompt_str
+
+    return prompt_string + '<|assistant|>'
 
 class OpenAssistantCompletionResult(CompletionResult):
-    def __init__(self, response) -> None:
-        self.response = response
+    """
+    I don't know why this thing is needed just to wrap a single reply string.
+    But that's what OpenAI evals requires, so we need it.
+    """
+
+    def __init__(self, reply: str):
+        self.reply = reply
 
     def get_completions(self) -> list[str]:
-        return [self.response.strip()]
+        return [self.reply.strip()]
 
 class OpenAssistantCompletionFn(CompletionFn):
-    def __init__(self, tokenizer, model) -> None:
+    """
+    See https://github.com/openai/evals/blob/main/docs/completion-fns.md
+    """
+
+    def __init__(self, tokenizer: transformers.PreTrainedTokenizerBase, model: transformers.PreTrainedModel):
         self.tokenizer = tokenizer
         self.model = model
 
     def model_output(self, prompt_str):
+        # TODO: There are problems with max_new_tokens & max_length.
+        # I'm not really sure how to do stuff correctly yet.
+        # Also I think max_length should be taken from the model and not hardcoded.
+
         inputs = self.tokenizer(prompt_str, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
 
-        if "token_type_ids" in inputs:
-            del inputs["token_type_ids"]
+        # TODO: What is this for? Is this needed?
+        # I just took it from https://github.com/Open-Assistant/oasst-model-eval
+        if 'token_type_ids' in inputs:
+            del inputs['token_type_ids']
 
-        outputs = self.model.generate(
+        output = self.model.generate(
             **inputs,
-            early_stopping=True,
-            max_new_tokens=400,
+            early_stopping=True, # TODO: Why? Isn't this only for beam search? Also taken from https://github.com/Open-Assistant/oasst-model-eval
             min_new_tokens=1,
+            max_new_tokens=400,
             do_sample=True,
             temperature=0.8,
             repetition_penalty=1.2,
             top_p=0.9,
             pad_token_id=self.tokenizer.eos_token_id,
             max_length=2048,
-        )
+        )[0]
 
-        output = self.tokenizer.decode(outputs[0], truncate_before_pattern=[r"\n\n^#", "^'''", "\n\n\n"])
-        reply = output.split('<|assistant|>')[-1].replace(self.tokenizer.eos_token, '').strip()
+        # TODO: What's that truncation for? Also just taken from https://github.com/Open-Assistant/oasst-model-eval I think
+        output_decoded = self.tokenizer.decode(output, truncate_before_pattern=[r'\n\n^#', "^'''", '\n\n\n'])
+        reply = output_decoded.split('<|assistant|>')[-1].replace(self.tokenizer.eos_token, '').strip()
         return reply
 
     def __call__(
@@ -84,55 +107,51 @@ class OpenAssistantCompletionFn(CompletionFn):
         prompt: Union[str, list[dict[str, str]]],
         **kwargs,
     ) -> OpenAssistantCompletionResult:
-        prompt_string = prompt_to_string(prompt, self.tokenizer)
-        generated_model_output = self.model_output(prompt_string)
-        return OpenAssistantCompletionResult(generated_model_output)
+        prompt_as_string = prompt_to_string(prompt, self.tokenizer)
+        model_reply = self.model_output(prompt_as_string)
+        return OpenAssistantCompletionResult(model_reply)
 
 class RegistryWithOpenAssistant(Registry):
+    """
+    OpenAI evals uses the `Registry` for keeping track of models that can be evaluated.
+    While we could also register OpenAssistant models to that registry, we don't do that
+    because that would require a specific project structure and also it wouldn't work
+    without an OpenAI API key, even if OpenAI models are not actually needed.
+    Therefore we overwrite this class to use OpenAssistant models.
+    """
+
     def __init__(self):
         super().__init__()
+        self.tokenizers: dict[str, transformers.PreTrainedTokenizerBase] = {}
+        self.models: dict[str, transformers.PreTrainedModel] = {}
 
-        self.tokenizers = {}
-        self.models = {}
-
-    def make_completion_fn(self, model_name: str) -> CompletionFn:
-        import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
-
-        assert model_name in open_assistant_models
-
+    def make_completion_fn(self, model_name: str) -> OpenAssistantCompletionFn:
         if model_name not in self.tokenizers:
             self.tokenizers[model_name] = AutoTokenizer.from_pretrained(model_name)
+            # TODO: Is the `torch_dtype` actually needed?
             self.models[model_name] = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map='auto').eval()
 
         return OpenAssistantCompletionFn(self.tokenizers[model_name], self.models[model_name])
 
     api_model_ids = []
 
-def run_single_eval(registry, model_name, eval_name):
-    parser = get_parser()
-    args = parser.parse_args([
+def run_single_eval(registry: Registry, model_name: str, eval_name: str):
+    """
+    Evaluate the specified model on the single specified eval from OpenAI evals
+    """
+
+    run(get_parser().parse_args([
         model_name,
         eval_name,
         '--record_path', os.path.join('reports', replace_model_name_slashes(model_name), eval_name + '.json'),
-    ])
+    ]), registry)
 
-    import logging
-    logging.basicConfig(
-        format="[%(asctime)s] [%(filename)s:%(lineno)d] %(message)s",
-        level=logging.INFO,
-        filename=args.log_to_file if args.log_to_file else None,
-    )
+def run_multiple_evals(registry: Registry, model_name: str, evals: list[str]):
+    """
+    Evaluate the specified model on the specified evals from OpenAI evals
+    """
 
-    import openai
-    logging.getLogger("openai").setLevel(logging.WARN)
-    if hasattr(openai.error, "set_display_cause"):
-        openai.error.set_display_cause()
-
-    run(args, registry)
-
-def run_multiple_evals(registry, model_name, evals):
-    ignored_evals = [
+    non_working_evals = [
         'best.dev.v0', # Compares multiple models
         'positive-binary-operations.test.v1', # KeyError: 'sample'
         'spider-sql.dev.v0', # TypeError: ModelBasedClassify.__init__() missing 1 required positional argument: 'modelgraded_spec'
@@ -143,44 +162,55 @@ def run_multiple_evals(registry, model_name, evals):
     ]
 
     for eval in evals:
-        if os.path.exists(os.path.join('reports', replace_model_name_slashes(model_name), eval.key + '.json')):
+        if os.path.exists(os.path.join('reports', replace_model_name_slashes(model_name), eval + '.json')):
             continue
-        if eval.key in ignored_evals:
+        if eval in non_working_evals:
             continue
-        print('Now evaluating', eval.key)
-        run_single_eval(registry, model_name, eval.key)
+        print('Now evaluating', eval)
+        run_single_eval(registry, model_name, eval)
 
-def run_eval_set(registry, model_name, eval_set_name):
-    run_multiple_evals(registry, model_name, registry.get_evals(registry.get_eval_set(eval_set_name).evals))
+def create_reports_index_file(model_name: str):
+    """
+    Create a single file in reports/<model_name>/__index__.json that contains information about all the evals
+    that this model was evaluated on. This index file is used for showing information on the website.
+    """
 
-def run_all_evals(registry, model_name):
-    run_multiple_evals(registry, model_name, registry.get_evals(['*']))
+    model_reports_path = os.path.join('reports', replace_model_name_slashes(model_name))
 
-def build_reports_index(model_name):
-    specs_and_final_reports = {}
-    for filename in os.listdir(os.path.join('reports', replace_model_name_slashes(model_name))):
-        if filename == '__index__.json':
+    reports_metadata = {}
+    for report_filename in os.listdir(model_reports_path):
+        if report_filename == '__index__.json':
             continue
-        with open(os.path.join('reports', replace_model_name_slashes(model_name), filename), 'r') as f:
-            spec_and_final_report = f.read().split('\n')[:2]
-            spec = spec_and_final_report[0]
-            final_report = spec_and_final_report[1]
-            specs_and_final_reports[filename] = { 'spec': json.loads(spec)['spec'], 'final_report': json.loads(final_report)['final_report'] }
-    with open(os.path.join('reports', replace_model_name_slashes(model_name), '__index__.json'), 'w') as f:
-        json.dump(specs_and_final_reports, f, indent=4)
+        with open(os.path.join(model_reports_path, report_filename), 'r') as report_file:
+            report_metadata = report_file.read().split('\n')[:2]
+        reports_metadata[report_filename] = {
+            'spec': json.loads(report_metadata[0])['spec'],
+            'final_report': json.loads(report_metadata[1])['final_report'],
+        }
 
-def evaluate_model(model_name):
+    with open(os.path.join(model_reports_path, '__index__.json'), 'w') as reports_index_file:
+        json.dump(reports_metadata, reports_index_file, indent=4)
+
+def evaluate_model(model_name: str):
+    """
+    Evaluate the specified model on all the evals in OpenAI evals
+    """
+
     os.environ['EVALS_THREADS'] = '1'
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
     # os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
 
-    if model_name in open_assistant_models:
-        registry = RegistryWithOpenAssistant()
-    else:
+    if model_name == 'gpt-3.5-turbo':
         registry = Registry()
+    else:
+        registry = RegistryWithOpenAssistant()
 
-    run_all_evals(registry, model_name)
-    build_reports_index(model_name)
+    run_multiple_evals(registry, model_name, [eval.key for eval in registry.get_evals(['*'])])
+    create_reports_index_file(model_name)
+
+def main():
+    model_name = sys.argv[1]
+    evaluate_model(model_name)
 
 if __name__ == '__main__':
-    evaluate_model('OpenAssistant/llama-65b-sft-v7-2k-steps')
+    main()
