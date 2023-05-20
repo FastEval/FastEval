@@ -1,7 +1,7 @@
 # Open-Assistant Automatic Model Evaluation
 
 This repository contains tools to automatically evaluate Open-Assistant models on benchmarks.
-It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/oasst-openai-evals/).
+It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/oasst-automatic-model-eval/).
 
 Right now, only the [OpenAI evals](https://github.com/openai/evals) benchmark is supported, but there are plans for other benchmarks.
 
@@ -26,7 +26,7 @@ This will generate an evaluation report in the `reports/OpenAssistant--pythia-12
 
 ## Viewing the reports
 
-Go to https://tju01.github.io/oasst-openai-evals/ or open the `index.html` file in your browser.
+Go to https://tju01.github.io/oasst-automatic-model-eval/ or open the `index.html` file in your browser.
 Use the `Click here to show & edit report urls` button on the top to show the URLs of the reports that are shown in the table.
 Enter the URL of the report you generated in the previous step (it needs to be accessible as an URL in some way).
 Click somewhere outside the textarea and the table should update with your newly added report.
