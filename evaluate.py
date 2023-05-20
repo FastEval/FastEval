@@ -73,9 +73,7 @@ class OpenAssistantCompletionFn(CompletionFn):
         self.model = model
 
     def model_output(self, prompt_str):
-        # TODO: There are problems with max_new_tokens & max_length.
-        # I'm not really sure how to do stuff correctly yet.
-        # Also I think max_length should be taken from the model and not hardcoded.
+        # TODO: max_length should be taken from the model and not hardcoded.
 
         inputs = self.tokenizer(prompt_str, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
 
@@ -94,7 +92,6 @@ class OpenAssistantCompletionFn(CompletionFn):
             repetition_penalty=1.2,
             top_p=0.9,
             pad_token_id=self.tokenizer.eos_token_id,
-            max_length=2048,
         )[0]
 
         # TODO: What's that truncation for? Also just taken from https://github.com/Open-Assistant/oasst-model-eval I think
