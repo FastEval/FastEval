@@ -3,7 +3,7 @@
 This repository contains tools to automatically evaluate Open-Assistant models on benchmarks.
 It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/oasst-openai-evals/).
 
-Right now, only the OpenAI evals benchmark is supported, but there are plans for other benchmarks.
+Right now, only the [OpenAI evals](https://github.com/openai/evals) benchmark is supported, but there are plans for other benchmarks.
 
 ## Evaluating the model on benchmarks
 
