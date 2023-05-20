@@ -9,7 +9,7 @@ Right now, only the [OpenAI evals](https://github.com/openai/evals) benchmark is
 
 ### Installation
 
-1. Make sure `python 3.10` is installed
+1. Make sure `python 3.10` and `git-lfs` are installed
 2. Create a virtual environment: `python3.10 -m venv .venv`
 3. Activate the venv: `source .venv/bin/activate`
 4. Install dependencies by executing `pip install -r requirements.txt` in the root directory of this repository
