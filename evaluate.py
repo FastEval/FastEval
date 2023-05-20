@@ -133,6 +133,7 @@ class RegistryWithOpenAssistant(Registry):
 
         return OpenAssistantCompletionFn(self.tokenizers[model_name], self.models[model_name])
 
+    # Prevent errors about OpenAI API key missing even if we don't use OpenAI models
     api_model_ids = []
 
 def run_single_eval(registry: Registry, model_name: str, eval_name: str):
