@@ -1,25 +1,28 @@
 # Open-Assistant Automatic Model Evaluation
 
 This repository contains tools to automatically evaluate Open-Assistant models on benchmarks.
-It also contains the evaluation reports for different models as well as the code for the website to view those reports.
-The current relevant reports can be viewed [on github pages site for this repository](https://tju01.github.io/oasst-openai-evals/).
+It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/oasst-openai-evals/).
 
-Right now only OpenAI evals is supported as a benchmark, but there are plans for other benchmarks.
+Right now, only the OpenAI evals benchmark is supported, but there are plans for other benchmarks.
 
 ## Evaluating the model on benchmarks
 
 ### Installation
 
-1. Make sure python 3.10 is installed.
-2. Create a virtual environment: python3.10 -m venv .venv
-3. Activate the venv: source .venv/bin/activate
-4. Install dependencies by executing pip install -r requirements.txt in the root directory of this repository.
+1. Make sure `python 3.10` is installed
+2. Create a virtual environment: `python3.10 -m venv .venv`
+3. Activate the venv: `source .venv/bin/activate`
+4. Install dependencies by executing `pip install -r requirements.txt` in the root directory of this repository
 
 ### Evaluation
 
-Run `./evaluate.py <model_name>` where `<model_name>` is the path to an Open-Assistant model (on huggingface or locally),
-    e.g. `./main.py OpenAssistant/pythia-12b-sft-v8-7k-steps`.
-This will generate an evaluation report in the `reports/<model_name>` folder.
+Run `./evaluate.py <model_name>` where `<model_name>` is the path to an Open-Assistant model.
+This path can either be a local folder or an huggingface model.
+For example, use the following command to evaluate the `pythia-12b-sft-v8-7k-steps` model from Open-Assistant:
+```
+./evaluate.py OpenAssistant/pythia-12b-sft-v8-7k-steps
+```
+This will generate an evaluation report in the `reports/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder if it doesn't exist already (which it does for this model).
 
 ## Viewing the reports
 
