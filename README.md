@@ -10,15 +10,19 @@ Right now only OpenAI evals is supported as a benchmark, but there are plans for
 
 ### Installation
 
-Run `./setup.py` on an ubuntu system.
+1. Make sure python 3.10 is installed.
+2. Create a virtual environment: python3.10 -m venv .venv
+3. Activate the venv: source .venv/bin/activate
+4. Install dependencies by executing pip install -r requirements.txt in the root directory of this repository.
 
 ### Evaluation
 
-Run `./main.py <model_name>` where `<model_name>` is the path to an Open-Assistant model, e.g. `./main.py OpenAssistant/pythia-12b-sft-v8-7k-steps`.
-This will generate an evaluation report in the `reports/` folder.
+Run `./evaluate.py <model_name>` where `<model_name>` is the path to an Open-Assistant model (on huggingface or locally),
+    e.g. `./main.py OpenAssistant/pythia-12b-sft-v8-7k-steps`.
+This will generate an evaluation report in the `reports/<model_name>` folder.
 
 ## Viewing the reports
 
-Go to https://tju01.github.io/oasst-openai-evals/.
-Click on `Click here to show & edit report urls`.
-Enter the URL of the report you generated in the previous step (it needs to be accessible) as an URL in some way.
+Go to https://tju01.github.io/oasst-openai-evals/ or open the `index.html` file in your browser.
+Click on the `Click here to show & edit report urls` button on the top.
+Enter the URL of the report you generated in the previous step (it needs to be accessible as an URL in some way).
