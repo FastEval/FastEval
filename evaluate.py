@@ -72,18 +72,16 @@ class OpenAssistantCompletionFn(CompletionFn):
         self.tokenizer = tokenizer
         self.model = model
 
-    def model_output(self, prompt_str):
+    def model_output(self, prompt: str):
         # TODO: max_length should be taken from the model and not hardcoded.
+        model_input = self.tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
 
-        inputs = self.tokenizer(prompt_str, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
+        # TODO: What is this for? Is this needed? I just took it from https://github.com/Open-Assistant/oasst-model-eval
+        if 'token_type_ids' in model_input:
+            del model_input['token_type_ids']
 
-        # TODO: What is this for? Is this needed?
-        # I just took it from https://github.com/Open-Assistant/oasst-model-eval
-        if 'token_type_ids' in inputs:
-            del inputs['token_type_ids']
-
-        output = self.model.generate(
-            **inputs,
+        model_output = self.model.generate(
+            **model_input,
             early_stopping=True, # TODO: Why? Isn't this only for beam search? Also taken from https://github.com/Open-Assistant/oasst-model-eval
             min_new_tokens=1,
             max_new_tokens=400,
@@ -95,7 +93,7 @@ class OpenAssistantCompletionFn(CompletionFn):
         )[0]
 
         # TODO: What's that truncation for? Also just taken from https://github.com/Open-Assistant/oasst-model-eval I think
-        output_decoded = self.tokenizer.decode(output, truncate_before_pattern=[r'\n\n^#', "^'''", '\n\n\n'])
+        output_decoded = self.tokenizer.decode(model_output, truncate_before_pattern=[r'\n\n^#', "^'''", '\n\n\n'])
         reply = output_decoded.split('<|assistant|>')[-1].replace(self.tokenizer.eos_token, '').strip()
         return reply
 
