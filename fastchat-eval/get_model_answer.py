@@ -1,95 +1,52 @@
-import argparse
-from transformers import AutoTokenizer, AutoModelForCausalLM, LlamaForCausalLM
-import torch
-import os
+from transformers import AutoTokenizer, AutoModelForCausalLM
 import json
-from tqdm import tqdm
 import shortuuid
-import ray
 
-from fastchat.model import get_conversation_template
+def generate(prompt, tokenizer, model):
+    # TODO: max_length should be taken from the model and not hardcoded.
+    model_input = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
 
+    # TODO: What is this for? Is this needed? I just took it from https://github.com/Open-Assistant/oasst-model-eval
+    if 'token_type_ids' in model_input:
+        del model_input['token_type_ids']
 
-def run_eval(model_path, model_id, question_file, answer_file, num_gpus):
-    # split question file into num_gpus files
-    ques_jsons = []
-    with open(os.path.expanduser(question_file), "r") as ques_file:
-        for line in ques_file:
-            ques_jsons.append(line)
+    model_output = model.generate(
+        **model_input,
+        early_stopping=True, # TODO: Why? Isn't this only for beam search? Also taken from https://github.com/Open-Assistant/oasst-model-eval
+        min_new_tokens=1,
+        max_new_tokens=400,
+        do_sample=True,
+        temperature=0.8,
+        repetition_penalty=1.2,
+        top_p=0.9,
+        pad_token_id=tokenizer.eos_token_id,
+    )[0]
 
-    chunk_size = len(ques_jsons) // num_gpus
-    ans_handles = []
-    for i in range(0, len(ques_jsons), chunk_size):
-        ans_handles.append(
-            get_model_answers.remote(
-                model_path, model_id, ques_jsons[i : i + chunk_size]
-            )
-        )
+    # TODO: What's that truncation for? Also just taken from https://github.com/Open-Assistant/oasst-model-eval I think
+    output_decoded = tokenizer.decode(model_output, truncate_before_pattern=[r'\n\n^#', "^'''", '\n\n\n'])
+    reply = output_decoded.split('<|assistant|>')[-1].replace(tokenizer.eos_token, '').strip()
+    return reply
 
-    ans_jsons = []
-    for ans_handle in ans_handles:
-        ans_jsons.extend(ray.get(ans_handle))
+def main():
+    model_path = 'OpenAssistant/oasst-sft-1-pythia-12b'
+    model_id = model_path
 
-    with open(os.path.expanduser(answer_file), "w") as ans_file:
-        for line in ans_jsons:
-            ans_file.write(json.dumps(line) + "\n")
+    with open('table/question.jsonl', 'r') as f:
+        questions = [json.load(l) for l in f]
 
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    model = AutoModelForCausalLM.from_pretrained(model_path, device_map='auto').eval()
 
-@ray.remote(num_gpus=1)
-@torch.inference_mode()
-def get_model_answers(model_path, model_id, question_jsons):
-    model_path = os.path.expanduser(model_path)
-    tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
-    model = AutoModelForCausalLM.from_pretrained(
-        model_path, low_cpu_mem_usage=True, torch_dtype=torch.float16
-    ).cuda()
+    answers = [{
+        'question_id': question['question_id'],
+        'text': generate('<|prompter|>' + question['text'] + tokenizer.eos_token + '<|assistant|>', tokenizer, model),
+        'answer_id': shortuuid.uuid(),
+        'model_id': model_id,
+        'metadata': {},
+    } for question in questions]
 
-    ans_jsons = []
-    for i, line in enumerate(tqdm(question_jsons)):
-        ques_json = json.loads(line)
-        idx = ques_json["question_id"]
-        qs = ques_json["text"]
-        conv = get_conversation_template(model_id)
-        conv.append_message(conv.roles[0], qs)
-        conv.append_message(conv.roles[1], None)
-        prompt = conv.get_prompt()
-        input_ids = tokenizer([prompt]).input_ids
-        output_ids = model.generate(
-            torch.as_tensor(input_ids).cuda(),
-            do_sample=True,
-            temperature=0.7,
-            max_new_tokens=1024,
-        )
-        output_ids = output_ids[0][len(input_ids[0]) :]
-        outputs = tokenizer.decode(output_ids, skip_special_tokens=True).strip()
+    with open('table/answer/answer_pythia.jsonl', 'w') as f:
+        f.write([json.dumps(answer) for answer in answers].join('\n'))
 
-        ans_id = shortuuid.uuid()
-        ans_jsons.append(
-            {
-                "question_id": idx,
-                "text": outputs,
-                "answer_id": ans_id,
-                "model_id": model_id,
-                "metadata": {},
-            }
-        )
-    return ans_jsons
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--model-path", type=str, required=True)
-    parser.add_argument("--model-id", type=str, required=True)
-    parser.add_argument("--question-file", type=str, required=True)
-    parser.add_argument("--answer-file", type=str, default="answer.jsonl")
-    parser.add_argument("--num-gpus", type=int, default=1)
-    args = parser.parse_args()
-
-    ray.init()
-    run_eval(
-        args.model_path,
-        args.model_id,
-        args.question_file,
-        args.answer_file,
-        args.num_gpus,
-    )
+if __name__ == '__main__':
+    main()
