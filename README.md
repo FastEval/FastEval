@@ -17,8 +17,8 @@ Right now, only the [OpenAI evals](https://github.com/openai/evals) benchmark is
 ### Evaluation
 
 Run `./evaluate.py <model_name>` where `<model_name>` is the path to an Open-Assistant model.
-This path can either be a local folder or an huggingface model.
-For example, use the following command to evaluate the `pythia-12b-sft-v8-7k-steps` model from Open-Assistant:
+This path can either be a local folder or a huggingface model path.
+For example, use the following command to evaluate the [`pythia-12b-sft-v8-7k-steps`](https://huggingface.co/OpenAssistant/oasst-sft-1-pythia-12b) model from Open-Assistant:
 ```
 ./evaluate.py OpenAssistant/pythia-12b-sft-v8-7k-steps
 ```
