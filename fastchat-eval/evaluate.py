@@ -70,23 +70,29 @@ def generate_replies(general_model_class, specific_model_id):
     with open('data/output/answers/' + specific_model_id.replace('/', '--') + '.json', 'w') as f:
         json.dump(answers, f)
 
-def gen_prompt(reviewers, reviewer_prompts, category, question, answer1, answer2):
-    reviewer_idx = 0 # Default to general category (index = 0)
-    for idx, reviewer in enumerate(reviewers):
-        if reviewer['category'] == category:
-            reviewer_idx = idx
-            break
+def create_reviewer_prompt(question, answer1, answer2):
+    system_message = 'You are a helpful and precise assistant for checking the quality of the answer.'
 
-    prompt_id = reviewers[reviewer_idx]['prompt_id']
-    prompt_json = reviewer_prompts[prompt_id - 1]
-    assert prompt_json['prompt_id'] == prompt_id
-
-    system_message = prompt_json['system_prompt']
-    prompt_template = prompt_json['prompt_template']
-    defaults = prompt_json['defaults']
-    prompter_message = prompt_template.format(question=question, answer_1=answer1, answer_2=answer2, **defaults)
-
-    return system_message, prompter_message, reviewer_idx + 1
+    # https://medium.com/@geronimo7/open-source-chatbots-in-the-wild-9a44d7a41a48
+    prompter_message = ('[Question]\n'
+        + question + '\n'
+        + '\n'
+        + "[The Start of Assistant 1's Answer]\n"
+        + answer1 + '\n'
+        + "[The End of Assistant 1's Answer]\n"
+        + '\n'
+        + "[The Start of Assistant 2's Answer]\n"
+        + answer2 + '\n'
+        + "[The End of Assistant 2's Answer]\n"
+        + '\n'
+        + '[System]\n'
+        + 'We would like to request your feedback on the performance of the two AI assistants (Assistant 1 and Assistant 2) in response to the user question displayed above. '
+        + 'Please rate the helpfulness, relevance, accuracy, level of details of their responses. '
+        + "Please output who provided the best answer. If both answers are equally good and it's hard to decide on a winner then please call it a tie. "
+        + "Your output should look like this: 'Winner: Assistant 1' or 'Winner: Assistant 2' or 'Tie'. "
+        + 'Do not output anything else.\n'
+        + "\n")
+    return system_message, prompter_message
 
 def generate_reviews(model_id1, model_id2):
     with open('data/input/questions.json') as f:
@@ -98,30 +104,23 @@ def generate_reviews(model_id1, model_id2):
 
     assert len(questions) == len(answers1) == len(answers2)
 
-    with open('data/input/reviewers.json') as f:
-        reviewers = json.load(f)
-    with open('data/input/reviewers_prompts.json') as f:
-        reviewer_prompts = json.load(f)
-
     openai = OpenAI()
 
     reviews = []
     for i in range(len(questions)):
         assert questions[i]['question_id'] == answers1[i]['question_id'] == answers2[i]['question_id']
 
-        category = questions[i]['category']
         question = questions[i]['text']
         answer1 = answers1[i]['text']
         answer2 = answers2[i]['text']
 
-        system_message, prompter_message, reviewer_id = gen_prompt(reviewers, reviewer_prompts, category, question, answer1, answer2)
+        system_message, prompter_message = create_reviewer_prompt(question, answer1, answer2)
 
         review = {
             'review_id': shortuuid.uuid(),
             'question_id': questions[i]['question_id'],
             'answer1_id': answers1[i]['answer_id'],
             'answer2_id': answers2[i]['answer_id'],
-            'reviewer_id': reviewer_id,
             'metadata': {},
         }
 
