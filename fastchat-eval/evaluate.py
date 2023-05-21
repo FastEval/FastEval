@@ -1,6 +1,6 @@
+import os
 import json
 import tqdm
-import shortuuid
 import openai
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
@@ -49,7 +49,7 @@ class OpenAI:
             max_tokens=1024,
         )['choices'][0]['message']['content']
 
-def generate_replies(general_model_class, specific_model_id):
+def generate_assistant_replies(general_model_class, specific_model_id):
     models = {
         'open-assistant': OpenAssistant,
         'open-ai': OpenAI,
@@ -57,17 +57,12 @@ def generate_replies(general_model_class, specific_model_id):
 
     model = models[general_model_class](specific_model_id)
 
-    with open('data/input/questions.json') as f:
+    with open('questions.json') as f:
         questions = json.load(f)
 
-    answers = [{
-        'question_id': question['question_id'],
-        'answer_id': shortuuid.uuid(),
-        'text': model.reply(question['input']),
-        'metadata': {},
-    } for question in tqdm.tqdm(questions)]
+    answers = dict([(question_id, model.reply(question)) for question_id, question in tqdm.tqdm(questions.items())])
 
-    with open('data/output/answers/' + specific_model_id.replace('/', '--') + '.json', 'w') as f:
+    with open(os.path.join('reports', 'answers', specific_model_id.replace('/', '--') + '.json', 'w')) as f:
         json.dump(answers, f)
 
 def create_reviewer_prompt(question, answer1, answer2):
@@ -92,53 +87,30 @@ def create_reviewer_prompt(question, answer1, answer2):
         + "Your output should look like this: 'Winner: Assistant 1' or 'Winner: Assistant 2' or 'Tie'. "
         + 'Do not output anything else.\n'
         + "\n")
+
     return system_message, prompter_message
 
 def generate_reviews(model_id1, model_id2):
-    with open('data/input/questions.json') as f:
+    with open('questions.json') as f:
         questions = json.load(f)
-    with open('data/output/answers/' + model_id1.replace('/', '-') + '.json') as f:
+    with open(os.path.join('reports', 'answers', model_id1.replace('/', '--') + '.json')) as f:
         answers1 = json.load(f)
-    with open('data/output/answers/' + model_id2.replace('/', '-') + '.json') as f:
+    with open(os.path.join('reports', 'answers', model_id2.replace('/', '--') + '.json')) as f:
         answers2 = json.load(f)
 
-    assert len(questions) == len(answers1) == len(answers2)
+    reviewer = OpenAI('gpt-3.5-turbo')
 
-    openai = OpenAI()
-
-    reviews = []
-    for i in range(len(questions)):
-        assert questions[i]['question_id'] == answers1[i]['question_id'] == answers2[i]['question_id']
-
-        question = questions[i]['text']
-        answer1 = answers1[i]['text']
-        answer2 = answers2[i]['text']
-
+    reviews = {}
+    for question_id, question in questions.items():
+        answer1 = answers1[question_id]
+        answer2 = answers2[question_id]
         system_message, prompter_message = create_reviewer_prompt(question, answer1, answer2)
+        reviews[question_id] = reviewer.reply(prompter_message, system_message)
 
-        review = {
-            'review_id': shortuuid.uuid(),
-            'question_id': questions[i]['question_id'],
-            'answer1_id': answers1[i]['answer_id'],
-            'answer2_id': answers2[i]['answer_id'],
-            'metadata': {},
-        }
-
-        review_output = openai.reply(prompter_message, system_message)
-        review['text'] = review_output
-
-        score_pair = review_output.split('\n')[0].replace(',', ' ').split(' ')
-        if len(score_pair) == 2:
-            review['score'] = [float(score_pair[0]), float(score_pair[1])]
-        else:
-            raise
-
-        reviews.append(review)
-
-    with open('data/output/reviews/' + model_id1.replace('/', '-') + ' vs. ' + model_id2.replace('/', '-') + '.json') as f:
+    with open(os.path.join('reports', 'reviews', model_id1.replace('/', '--') + ' vs. ' + model_id2.replace('/', '--') + '.json')) as f:
         json.dump(reviews, f)
 
 if __name__ == '__main__':
-    generate_replies('open-assistant', 'OpenAssistant/oasst-sft-1-pythia-12b')
-    generate_replies('open-ai', 'gpt-3.5-turbo')
-    generate_reviews('OpenAssistant/oasst-sft-1-pythia-12b', 'gpt-3.5-turbo')
+    generate_assistant_replies('open-ai', 'gpt-3.5-turbo')
+    generate_assistant_replies('open-assistant', 'OpenAssistant/oasst-sft-1-pythia-12b')
+    generate_reviews('gpt-3.5-turbo', 'OpenAssistant/oasst-sft-1-pythia-12b')
