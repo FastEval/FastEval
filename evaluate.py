@@ -139,7 +139,7 @@ def run_single_eval(registry: Registry, model_name: str, eval_name: str):
     run(get_parser().parse_args([
         model_name,
         eval_name,
-        '--record_path', os.path.join('reports', replace_model_name_slashes(model_name), eval_name + '.json'),
+        '--record_path', os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval_name + '.json'),
     ]), registry)
 
 def run_multiple_evals(registry: Registry, model_name: str, evals: list[str]):
@@ -158,7 +158,7 @@ def run_multiple_evals(registry: Registry, model_name: str, evals: list[str]):
     ]
 
     for eval in evals:
-        if os.path.exists(os.path.join('reports', replace_model_name_slashes(model_name), eval + '.json')):
+        if os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval + '.json')):
             continue
         if eval in non_working_evals:
             continue
@@ -167,11 +167,11 @@ def run_multiple_evals(registry: Registry, model_name: str, evals: list[str]):
 
 def create_reports_index_file(model_name: str):
     """
-    Create a single file in reports/<model_name>/__index__.json that contains information about all the evals
+    Create a single file in reports/openai-evals/<model_name>/__index__.json that contains information about all the evals
     that this model was evaluated on. This index file is used for showing information on the website.
     """
 
-    model_reports_path = os.path.join('reports', replace_model_name_slashes(model_name))
+    model_reports_path = os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name))
 
     reports_metadata = {}
     for report_filename in os.listdir(model_reports_path):

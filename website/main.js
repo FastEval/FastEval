@@ -428,12 +428,12 @@ async function createMainV() {
     urlsE.spellcheck = false
     urlsE.rows = 7
     urlsE.value = (parseHash().get('reports') || '').replaceAll(',', '\n') || (
-          'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/OpenAssistant--pythia-12b-sft-v8-7k-steps/__index__.json\n'
-        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/OpenAssistant--oasst-rlhf-3-llama-30b-5k-steps/__index__.json\n'
-        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/OpenAssistant--oasst-sft-7-llama-30b/__index__.json\n'
-        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/OpenAssistant--oasst-sft-7e3-llama-30b/__index__.json\n'
-        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/OpenAssistant--llama-30b-sft-v8-2.5k-steps/__index__.json\n'
-        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/gpt-3.5-turbo/__index__.json'
+          'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps/__index__.json\n'
+        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/openai-evals/OpenAssistant--oasst-rlhf-3-llama-30b-5k-steps/__index__.json\n'
+        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/openai-evals/OpenAssistant--oasst-sft-7-llama-30b/__index__.json\n'
+        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/openai-evals/OpenAssistant--oasst-sft-7e3-llama-30b/__index__.json\n'
+        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/openai-evals/OpenAssistant--llama-30b-sft-v8-2.5k-steps/__index__.json\n'
+        + 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports/openai-evals/gpt-3.5-turbo/__index__.json'
     )
 
     showUrlsE.addEventListener('click', () => {

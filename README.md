@@ -22,7 +22,7 @@ For example, use the following command to evaluate the [`pythia-12b-sft-v8-7k-st
 ```
 ./evaluate.py OpenAssistant/pythia-12b-sft-v8-7k-steps
 ```
-This will generate an evaluation report in the `reports/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder if it doesn't exist already (which it does for this model).
+This will generate an evaluation report in the `reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder if it doesn't exist already (which it does for this model).
 
 ## Viewing the reports
 
