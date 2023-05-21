@@ -1,58 +1,23 @@
 import json
-import os
-import time
-
 import openai
-import ray
-
 import shortuuid
-import logging
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-MAX_API_RETRY = 5
-
-@ray.remote(num_cpus=4)
 def get_eval(sys_prompt, user_prompt: str, max_tokens: int):
-    logging.basicConfig(level=logging.INFO)
-    for i in range(MAX_API_RETRY):
-        try:
-            response = openai.ChatCompletion.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": sys_prompt},
-                    {
-                        "role": "user",
-                        "content": user_prompt,
-                    },
-                ],
-                temperature=0.2,  # TODO: figure out which temperature is best for evaluation
-                max_tokens=max_tokens,
-            )
-            content = response["choices"][0]["message"]["content"]
-            logger.info(content)
-            return content
-        except Exception as e:
-            logger.error(e)
-            time.sleep(5)
-    logger.error(f"Failed after {MAX_API_RETRY} retries.")
-    return "error"
+    return openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        messages=[
+            { 'role': 'system', 'content': sys_prompt },
+            { 'role': 'user', 'content': user_prompt },
+        ],
+        temperature=0.2, # TODO: figure out which temperature is best for evaluation
+        max_tokens=max_tokens,
+    )['choices'][0]['message']['content']
 
 def parse_score(review):
-    try:
-        score_pair = review.split("\n")[0]
-        score_pair = score_pair.replace(",", " ")
-        sp = score_pair.split(" ")
-        if len(sp) == 2:
-            return [float(sp[0]), float(sp[1])]
-        else:
-            raise Exception("Invalid score pair.")
-    except Exception as e:
-        logger.error(
-            f"{e}\nContent: {review}\n" "You must manually fix the score pair."
-        )
-        return [-1, -1]
+    score_pair = review.split('\n')[0].replace(',', ' ').split(' ')
+    if len(score_pair) == 2:
+        return [float(score_pair[0]), float(score_pair[1])]
+    raise
 
 def gen_prompt(reviewers, reviewer_prompts, category, question, answer1, answer2):
     reviewer_idx = 0 # Default to general category (index = 0)
