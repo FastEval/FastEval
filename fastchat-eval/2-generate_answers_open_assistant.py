@@ -29,19 +29,17 @@ def generate(prompt, tokenizer, model):
 
 def main():
     model_path = 'OpenAssistant/oasst-sft-1-pythia-12b'
-    model_id = model_path
-
-    with open('table/question.jsonl', 'r') as f:
-        questions = [json.load(l) for l in f]
 
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForCausalLM.from_pretrained(model_path, device_map='auto').eval()
+
+    with open('table/question.jsonl', 'r') as f:
+        questions = [json.load(l) for l in f]
 
     answers = [{
         'question_id': question['question_id'],
         'text': generate('<|prompter|>' + question['text'] + tokenizer.eos_token + '<|assistant|>', tokenizer, model),
         'answer_id': shortuuid.uuid(),
-        'model_id': model_id,
         'metadata': {},
     } for question in questions]
 

@@ -76,7 +76,7 @@ def main():
 
         reviews.append(review)
 
-    with open('table/review/review.jsonl', 'w') as f:
+    with open('table/review/review_gpt35_pythia.jsonl', 'w') as f:
         f.write([json.dumps(review) for review in reviews].join('\n'))
 
 if __name__ == '__main__':

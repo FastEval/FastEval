@@ -5,7 +5,7 @@ import shortuuid
 import tqdm
 
 def get_answer(question_id: int, question: str):
-    ans = { 'answer_id': shortuuid.uuid(), 'model_id': 'gpt-3.5-turbo', 'question_id': question_id }
+    ans = { 'answer_id': shortuuid.uuid(), 'question_id': question_id }
 
     ans['text'] = openai.ChatCompletion.create(
         model='gpt-3.5-turbo',
