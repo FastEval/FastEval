@@ -49,14 +49,6 @@ class OpenAI:
             max_tokens=1024,
         )['choices'][0]['message']['content']
 
-def jsonl_load(path):
-    with open(path, 'r') as f:
-        return [json.loads(line) for line in f]
-
-def jsonl_dump(path, objects):
-    with open(path, 'w') as f:
-        f.write([json.dumps(object) for object in objects].join('\n'))
-
 def generate_replies(general_model_class, specific_model_id):
     models = {
         'open-assistant': OpenAssistant,
@@ -65,7 +57,8 @@ def generate_replies(general_model_class, specific_model_id):
 
     model = models[general_model_class](specific_model_id)
 
-    questions = jsonl_load('data/input/questions.jsonl')
+    with open('data/input/questions.json') as f:
+        questions = json.load(f)
 
     answers = [{
         'question_id': question['question_id'],
@@ -74,7 +67,8 @@ def generate_replies(general_model_class, specific_model_id):
         'metadata': {},
     } for question in tqdm.tqdm(questions)]
 
-    jsonl_dump('data/output/answers/' + specific_model_id.replace('/', '--') + '.jsonl', answers)
+    with open('data/output/answers/' + specific_model_id.replace('/', '--') + '.json', 'w') as f:
+        json.dump(answers, f)
 
 def gen_prompt(reviewers, reviewer_prompts, category, question, answer1, answer2):
     reviewer_idx = 0 # Default to general category (index = 0)
@@ -95,14 +89,19 @@ def gen_prompt(reviewers, reviewer_prompts, category, question, answer1, answer2
     return system_message, prompter_message, reviewer_idx + 1
 
 def generate_reviews(model_id1, model_id2):
-    questions = jsonl_load('data/input/questions.jsonl')
-    answers1 = jsonl_load('data/output/answers/' + model_id1.replace('/', '-') + '.jsonl')
-    answers2 = jsonl_load('data/output/answers/' + model_id2.replace('/', '-') + '.jsonl')
-
-    reviewers = jsonl_load('data/input/reviewers.jsonl')
-    reviewer_prompts = jsonl_load('data/input/reviewers_prompts.jsonl')
+    with open('data/input/questions.json') as f:
+        questions = json.load(f)
+    with open('data/output/answers/' + model_id1.replace('/', '-') + '.json') as f:
+        answers1 = json.load(f)
+    with open('data/output/answers/' + model_id2.replace('/', '-') + '.json') as f:
+        answers2 = json.load(f)
 
     assert len(questions) == len(answers1) == len(answers2)
+
+    with open('data/input/reviewers.json') as f:
+        reviewers = json.load(f)
+    with open('data/input/reviewers_prompts.json') as f:
+        reviewer_prompts = json.load(f)
 
     openai = OpenAI()
 
@@ -137,7 +136,8 @@ def generate_reviews(model_id1, model_id2):
 
         reviews.append(review)
 
-    jsonl_dump('table/review/review_gpt35_pythia.jsonl', reviews)
+    with open('data/output/reviews/' + model_id1.replace('/', '-') + ' vs. ' + model_id2.replace('/', '-') + '.json') as f:
+        json.dump(reviews, f)
 
 if __name__ == '__main__':
     generate_replies('open-assistant', 'OpenAssistant/oasst-sft-1-pythia-12b')
