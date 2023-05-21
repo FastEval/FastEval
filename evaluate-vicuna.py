@@ -62,7 +62,7 @@ def generate_assistant_replies(general_model_class, specific_model_id):
 
     answers = dict([(question_id, model.reply(question)) for question_id, question in tqdm.tqdm(questions.items())])
 
-    with open(os.path.join('reports', 'answers', specific_model_id.replace('/', '--') + '.json', 'w')) as f:
+    with open(os.path.join('reports', 'vicuna', 'answers', specific_model_id.replace('/', '--') + '.json', 'w')) as f:
         json.dump(answers, f)
 
 def create_reviewer_prompt(question, answer1, answer2):
@@ -93,9 +93,9 @@ def create_reviewer_prompt(question, answer1, answer2):
 def generate_reviews(model_id1, model_id2):
     with open('questions.json') as f:
         questions = json.load(f)
-    with open(os.path.join('reports', 'answers', model_id1.replace('/', '--') + '.json')) as f:
+    with open(os.path.join('reports', 'vicuna', 'answers', model_id1.replace('/', '--') + '.json')) as f:
         answers1 = json.load(f)
-    with open(os.path.join('reports', 'answers', model_id2.replace('/', '--') + '.json')) as f:
+    with open(os.path.join('reports', 'vicuna', 'answers', model_id2.replace('/', '--') + '.json')) as f:
         answers2 = json.load(f)
 
     reviewer = OpenAI('gpt-3.5-turbo')
@@ -107,7 +107,7 @@ def generate_reviews(model_id1, model_id2):
         system_message, prompter_message = create_reviewer_prompt(question, answer1, answer2)
         reviews[question_id] = reviewer.reply(prompter_message, system_message)
 
-    with open(os.path.join('reports', 'reviews', model_id1.replace('/', '--') + ' vs. ' + model_id2.replace('/', '--') + '.json')) as f:
+    with open(os.path.join('reports', 'vicuna', 'reviews', model_id1.replace('/', '--') + ' vs. ' + model_id2.replace('/', '--') + '.json')) as f:
         json.dump(reviews, f)
 
 if __name__ == '__main__':
