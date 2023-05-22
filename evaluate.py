@@ -24,5 +24,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# ./main.py -b openai-evals -m gpt-3.5-turbo -m OpenAssistant/oasst-sft-1-pythia-12b

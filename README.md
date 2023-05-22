@@ -3,24 +3,25 @@
 This repository contains tools to automatically evaluate Open-Assistant models on benchmarks.
 It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/oasst-automatic-model-eval/).
 
-Right now, only the [OpenAI evals](https://github.com/openai/evals) benchmark is supported, but there are plans for other benchmarks.
+Right now, only the [OpenAI evals](https://github.com/openai/evals) benchmark is supported.
+A [vicuna-style evaluation](https://lmsys.org/blog/2023-03-30-vicuna/) is currently WIP and other benchmarks are also planned.
 
 ## Evaluating the model on benchmarks
 
 ### Installation
 
-1. Make sure `python 3.10` and `git-lfs` are installed
+1. Make sure `python3.10` and `git-lfs` are installed
 2. Create a virtual environment: `python3.10 -m venv .venv`
 3. Activate the venv: `source .venv/bin/activate`
-4. Install dependencies by executing `pip install -r requirements.txt` in the root directory of this repository
+4. Install the python dependencies: `pip install -r requirements.txt`
 
 ### Evaluation
 
-Run `./evaluate.py <model_name>` where `<model_name>` is the path to an Open-Assistant model.
+Run `./evaluate.py -b openai-evals -m <model_name>` where `<model_name>` is the path to an Open-Assistant model.
 This path can either be a local folder or a huggingface model path.
-For example, use the following command to evaluate the [`pythia-12b-sft-v8-7k-steps`](https://huggingface.co/OpenAssistant/oasst-sft-1-pythia-12b) model from Open-Assistant:
+For example, use the following command to evaluate the [`pythia-12b-sft-v8-7k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-7k-steps) model from Open-Assistant:
 ```
-./evaluate.py OpenAssistant/pythia-12b-sft-v8-7k-steps
+./evaluate.py -b openai-evals -m OpenAssistant/pythia-12b-sft-v8-7k-steps
 ```
 This will generate an evaluation report in the `reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder if it doesn't exist already (which it does for this model).
 
