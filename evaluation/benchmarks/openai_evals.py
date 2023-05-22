@@ -17,7 +17,7 @@ def convert_conversation(prompt: typing.Union[str, list[dict[str, str]]]):
         role = item['role']
         content = item['content']
         if role == 'system' and 'name' not in item:
-            conversation.append(('system_message', content))
+            conversation.append(('system', content))
         elif role == 'assistant' or (role == 'system' and item['name'] == 'example_assistant'):
             conversation.append(('assistant', content))
         elif (role == 'system' and item['name'] == 'example_user') or role == 'user':

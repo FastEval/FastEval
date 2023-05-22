@@ -1,2 +1,1 @@
-import openai_evals
-import vicuna
+from . import openai_evals, vicuna
