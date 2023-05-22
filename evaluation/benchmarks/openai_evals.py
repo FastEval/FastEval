@@ -60,7 +60,8 @@ class Registry(evals.registry.Registry):
         self.models = {}
 
     def make_completion_fn(self, model_name: str) -> CompletionFn:
-        self.models[model_name] = create_model(model_name)
+        if model_name not in self.models:
+            self.models[model_name] = create_model(model_name)
         return CompletionFn(self.models[model_name])
 
     # Prevent errors about OpenAI API key missing even if we don't use OpenAI models

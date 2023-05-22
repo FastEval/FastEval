@@ -11,10 +11,12 @@ def generate_assistant_replies(model_name):
     with open('questions.json') as f:
         questions = json.load(f)
 
-    answers = dict([(question_id, model.reply(question)) for question_id, question in tqdm.tqdm(questions.items())])
+    answers = dict([(question_id, model.reply([('user', question)])) for question_id, question in tqdm.tqdm(questions.items())])
 
-    with open(os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json', 'w')) as f:
-        json.dump(answers, f)
+    answers_filepath = os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json')
+    os.makedirs(os.path.dirname(answers_filepath), exist_ok=True)
+    with open(answers_filepath, 'w') as f:
+        json.dump(answers, f, indent=4)
 
 def create_reviewer_prompt(question, answer1, answer2):
     system_message = 'You are a helpful and precise assistant for checking the quality of the answer.'
@@ -56,10 +58,13 @@ def generate_reviews(model_id1, model_id2):
         answer1 = answers1[question_id]
         answer2 = answers2[question_id]
         system_message, prompter_message = create_reviewer_prompt(question, answer1, answer2)
-        reviews[question_id] = reviewer.reply(prompter_message, system_message)
+        reviews[question_id] = reviewer.reply([
+            ('system', system_message),
+            ('user', prompter_message),
+        ])
 
     with open(os.path.join('reports', 'vicuna', 'reviews', replace_model_name_slashes(model_id1) + ' vs. ' + replace_model_name_slashes(model_id2) + '.json')) as f:
-        json.dump(reviews, f)
+        json.dump(reviews, f, indent=4)
 
 def evaluate_models(models):
     for model_name in models:
