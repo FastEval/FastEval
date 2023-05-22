@@ -3,24 +3,17 @@ import json
 
 import tqdm
 
-from evaluation.utils import replace_model_name_slashes
-from evaluation.models.open_ai import OpenAI
-from evaluation.models.open_assistant import OpenAssistant
+from evaluation.utils import replace_model_name_slashes, create_model
 
-def generate_assistant_replies(general_model_class, specific_model_id):
-    models = {
-        'open-assistant': OpenAssistant,
-        'open-ai': OpenAI,
-    }
-
-    model = models[general_model_class](specific_model_id)
+def generate_assistant_replies(model_name):
+    model = create_model(model_name)
 
     with open('questions.json') as f:
         questions = json.load(f)
 
     answers = dict([(question_id, model.reply(question)) for question_id, question in tqdm.tqdm(questions.items())])
 
-    with open(os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(specific_model_id) + '.json', 'w')) as f:
+    with open(os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json', 'w')) as f:
         json.dump(answers, f)
 
 def create_reviewer_prompt(question, answer1, answer2):
@@ -56,7 +49,7 @@ def generate_reviews(model_id1, model_id2):
     with open(os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_id2) + '.json')) as f:
         answers2 = json.load(f)
 
-    reviewer = OpenAI('gpt-3.5-turbo')
+    reviewer = create_model('gpt-3.5-turbo')
 
     reviews = {}
     for question_id, question in questions.items():
@@ -69,6 +62,6 @@ def generate_reviews(model_id1, model_id2):
         json.dump(reviews, f)
 
 def evaluate_models(models):
-    for general_model_class, specific_model_id in models:
-        generate_assistant_replies(general_model_class, specific_model_id)
+    for model_name in models:
+        generate_assistant_replies(model_name)
     # generate_reviews('gpt-3.5-turbo', 'OpenAssistant/oasst-sft-1-pythia-12b')

@@ -2,8 +2,7 @@
 
 import argparse
 
-from evaluation.benchmarks.openai_evals import evaluate_model
-from evaluation.benchmarks.vicuna import evaluate_models
+from evaluation import benchmarks
 
 def main():
     all_benchmarks = ['openai-evals', 'vicuna']
@@ -18,9 +17,9 @@ def main():
 
     if 'openai-evals' in args.benchmark:
         for model in args.model:
-            evaluate_model(model)
+            benchmarks.openai_evals.evaluate_model(model)
     if 'vicuna' in args.benchmark:
-        evaluate_models([(('open-ai' if model == 'gpt-3.5-turbo' else 'open-assistant'), model) for model in args.model])
+        benchmarks.vicuna.evaluate_models(args.model)
 
 if __name__ == '__main__':
     main()

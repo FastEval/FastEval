@@ -5,8 +5,27 @@ class OpenAssistant:
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         self.model = AutoModelForCausalLM.from_pretrained(model_path, device_map='auto').eval()
 
-    def reply(self, question):
-        prompt = '<|prompter|>' + question + self.tokenizer.eos_token + '<|assistant|>'
+    def _conversation_to_prompt(self, conversation):
+        prompt = ''
+        previous_was_system_prompter = False
+        for item_type, item in conversation:
+            if item_type == 'system':
+                prompt += '<|prompter|>' + item
+                previous_was_system_prompter = True
+            elif item_type == 'assistant':
+                prompt += '<|assistant|>' + item + self.tokenizer.eos_token
+            elif item_type == 'user':
+                if previous_was_system_prompter:
+                    prompt += '\n\n' + item + self.tokenizer.eos_token
+                    previous_was_system_prompter = False
+                else:
+                    prompt += '<|prompter|>' + item + self.tokenizer.eos_token
+            else:
+                raise
+        return prompt + '<|assistant|>'
+
+    def reply(self, conversation):
+        prompt = self._conversation_to_prompt(conversation)
 
         # TODO: max_length should be taken from the model and not hardcoded.
         model_input = self.tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
