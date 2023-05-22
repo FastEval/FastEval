@@ -1,9 +1,10 @@
+import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 class OpenAssistant:
     def __init__(self, model_path):
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self.model = AutoModelForCausalLM.from_pretrained(model_path, device_map='auto').eval()
+        self.model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.float16, device_map='auto').eval()
 
     def _conversation_to_prompt(self, conversation):
         prompt = ''
