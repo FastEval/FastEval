@@ -6,15 +6,20 @@ from evaluation.benchmarks.openai_evals import evaluate_model
 from evaluation.benchmarks.vicuna import evaluate_models
 
 def main():
+    all_benchmarks = ['openai-evals', 'vicuna']
+
     parser = argparse.ArgumentParser()
-    parser.add_argument('-b', '--benchmark', choices=['openai-evals', 'vicuna', 'all'], nargs='*', default='all')
+    parser.add_argument('-b', '--benchmark', choices=['all'] + all_benchmarks, nargs='*', default='all')
     parser.add_argument('-m', '--model', nargs='+')
     args = parser.parse_args()
 
-    if args.benchmark == 'openai-evals':
+    if 'all' in args.benchmark:
+        args.benchmark = all_benchmarks
+
+    if 'openai-evals' in args.benchmark:
         for model in args.model:
             evaluate_model(model)
-    elif args.benchmark == 'vicuna':
+    if 'vicuna' in args.benchmark:
         evaluate_models([(('open-ai' if model == 'gpt-3.5-turbo' else 'open-assistant'), model) for model in args.model])
 
 if __name__ == '__main__':
