@@ -47,6 +47,53 @@ def create_reviewer_prompt(question, answer1, answer2):
 
     return system_message, prompter_message
 
+def find_winner(line):
+    possible_matches = [
+        'winner of this round is assistant',
+        'winner: assistant',
+        'winner is assistant',
+        'winner to be assistant',
+        'winner is: assistant',
+        'winner is "assistant',
+        'winner for this question is assistant',
+    ]
+
+    winner_model = None
+    for possible_match in possible_matches:
+        if (possible_match + ' 1') in line:
+            if winner_model is not None:
+                raise
+            winner_model = '1'
+        elif (possible_match + ' 2') in line:
+            if winner_model is not None:
+                raise
+            winner_model = '2'
+
+    ties = [
+        'winner: tie',
+        'is a tie',
+        'it a tie',
+        "it's a tie",
+        'winner: none',
+        'winner is tie',
+        ' tie.',
+        "'tie'",
+        "'tie.'",
+    ]
+
+    for tie in ties:
+        if tie in line:
+            if winner_model is not None:
+                raise
+            winner_model = 'tie'
+            break
+    if line in ['Tie.']:
+        if winner_model is not None:
+            raise
+        winner_model = 'tie'
+
+    return winner_model
+
 def generate_reviews():
     with open('questions.json') as f:
         questions = json.load(f)
@@ -57,26 +104,73 @@ def generate_reviews():
         model_name = undo_replace_model_name_slashes(model_filename.replace('.json', ''))
         with open(os.path.join(answers_base_directory, model_filename)) as f:
             answers[model_name] = json.load(f)
+    models = list(answers.keys())
 
     reviewer = create_model('gpt-3.5-turbo')
 
     reviews = []
-    for _ in range(100):
-        question_id, question = random.choice(questions.items())
-        model_name1, model_name2 = random.sample(answers.keys(), 2)
+    models_results = dict([(model, {
+        'num_matches': 0,
+        'num_wins': 0,
+        'num_ties': 0,
+        'elo_rank': 1000,
+    }) for model in models])
+
+    for _ in tqdm.tqdm(range(100)):
+        question_id, question = random.choice(list(questions.items()))
+        model_name1, model_name2 = random.sample(models, 2)
         system_message, prompter_message = create_reviewer_prompt(question, answers[model_name1][question_id], answers[model_name2][question_id])
+
+        review = reviewer.reply([
+            ('system', system_message),
+            ('user', prompter_message),
+        ])
+
+        winner_model = find_winner(review.split('\n')[-1].lower())
+        if winner_model is None:
+            winner_model = find_winner(review.split('\n')[0].lower())
+        if winner_model is None:
+            print(review)
+            raise
+
         reviews.append({
             'question_id': question_id,
             'model1': model_name1,
             'model2': model_name2,
-            'review': reviewer.reply([
-                ('system', system_message),
-                ('user', prompter_message),
-            ])
+            'review': review,
+            'winner_model': winner_model
         })
 
-    with open(os.path.join('reports', 'vicuna', 'reviews.json')) as f:
-        json.dump(reviews, f, indent=4)
+        models_results[model_name1]['num_matches'] += 1
+        models_results[model_name2]['num_matches'] += 1
+        if winner_model == '1':
+            models_results[model_name1]['num_wins'] += 1
+        elif winner_model == '2':
+            models_results[model_name2]['num_wins'] += 1
+        elif winner_model == 'tie':
+            models_results[model_name1]['num_ties'] += 1
+            models_results[model_name2]['num_ties'] += 1
+
+        SCALE = 400
+        BASE = 10
+        K = 32
+        model1_rank = models_results[model_name1]['elo_rank']
+        model2_rank = models_results[model_name2]['elo_rank']
+        e1 = 1 / (1 + BASE ** ((model2_rank - model1_rank) / SCALE))
+        e2 = 1 / (1 + BASE ** ((model1_rank - model2_rank) / SCALE))
+        if winner_model == '1':
+            sa = 1
+        elif winner_model == '2':
+            sa = 0
+        elif winner_model == 'tie':
+            sa = 0.5
+        models_results[model_name1]['elo_rank'] += K * (sa - e1)
+        models_results[model_name2]['elo_rank'] += K * (1 - sa - e2)
+
+    reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
+    os.makedirs(os.path.dirname(reviews_filepath), exist_ok=True)
+    with open(reviews_filepath, 'w') as f:
+        json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
 
 def evaluate_models(models):
     for model_name in models:
