@@ -56,17 +56,20 @@ def find_winner(line):
         'winner is: assistant',
         'winner is "assistant',
         'winner for this question is assistant',
+        'winner of this round is: assistant',
     ]
 
     winner_model = None
     for possible_match in possible_matches:
         if (possible_match + ' 1') in line:
             if winner_model is not None:
-                raise
+                print(line)
+                return None
             winner_model = '1'
         elif (possible_match + ' 2') in line:
             if winner_model is not None:
-                raise
+                print(line)
+                return None
             winner_model = '2'
 
     ties = [
@@ -84,15 +87,23 @@ def find_winner(line):
     for tie in ties:
         if tie in line:
             if winner_model is not None:
-                raise
+                print(line)
+                return None
             winner_model = 'tie'
             break
     if line in ['Tie.']:
         if winner_model is not None:
-            raise
+            print(line)
+            return None
         winner_model = 'tie'
 
     return winner_model
+
+def save_reviews(reviews, models_results):
+    reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
+    os.makedirs(os.path.dirname(reviews_filepath), exist_ok=True)
+    with open(reviews_filepath, 'w') as f:
+        json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
 
 def generate_reviews():
     with open('questions.json') as f:
@@ -116,7 +127,7 @@ def generate_reviews():
         'elo_rank': 1000,
     }) for model in models])
 
-    for _ in tqdm.tqdm(range(100)):
+    for i in tqdm.tqdm(range(1000)):
         question_id, question = random.choice(list(questions.items()))
         model_name1, model_name2 = random.sample(models, 2)
         system_message, prompter_message = create_reviewer_prompt(question, answers[model_name1][question_id], answers[model_name2][question_id])
@@ -131,7 +142,7 @@ def generate_reviews():
             winner_model = find_winner(review.split('\n')[0].lower())
         if winner_model is None:
             print(review)
-            raise
+            continue
 
         reviews.append({
             'question_id': question_id,
@@ -167,10 +178,10 @@ def generate_reviews():
         models_results[model_name1]['elo_rank'] += K * (sa - e1)
         models_results[model_name2]['elo_rank'] += K * (1 - sa - e2)
 
-    reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
-    os.makedirs(os.path.dirname(reviews_filepath), exist_ok=True)
-    with open(reviews_filepath, 'w') as f:
-        json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
+        if i != 0 and i % 10 == 0:
+            save_reviews(reviews, models_results)
+
+    save_reviews(reviews, models_results)
 
 def evaluate_models(models):
     for model_name in models:
