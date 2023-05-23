@@ -15,7 +15,7 @@ export async function createAllBenchmarksV(baseUrl) {
     const theadE = tableE.createTHead().insertRow()
     theadE.insertCell().appendChild(createExplanationTextE('Model'))
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals Score', { benchmark: 'openai-evals' }))
-    theadE.insertCell().appendChild(createExplanationTextE('Vicuna Elo Rank'))
+    theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createExplanationTextE('Vicuna Win Percentage'))
     const tbodyE = tableE.createTBody()
     for (const model of models) {
