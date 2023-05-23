@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import os
+import json
 import argparse
 
 from evaluation import benchmarks
@@ -20,6 +22,9 @@ def main():
             benchmarks.openai_evals.evaluate_model(model)
     if 'vicuna' in args.benchmarks:
         benchmarks.vicuna.evaluate_models(args.models)
+
+    with open(os.path.join('reports', '__index__.json'), 'w') as f:
+        json.dump(args.models, f, indent=4)
 
 if __name__ == '__main__':
     main()
