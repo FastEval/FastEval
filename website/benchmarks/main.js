@@ -1,9 +1,21 @@
-import { round } from '../utils.js'
-import { computeRelativeOpenAiEvalsScores } from './openai-evals.js'
+import { round, parseHash } from '../utils.js'
 import { createLinkE } from '../components/link.js'
 import { createExplanationTextE } from '../components/text.js'
+import * as OpenAIEvals from '../benchmarks/openai-evals.js'
+import * as Vicuna from '../benchmarks/vicuna.js'
 
-export async function createAllBenchmarksV(baseUrl) {
+async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
+    switch (benchmarkName) {
+        case 'openai-evals':
+            return await OpenAIEvals.createV(baseUrl, parameters)
+        case 'vicuna':
+            return await Vicuna.createV(baseUrl, parameters)
+        default:
+            throw new Error()
+    }
+}
+
+export async function createBenchmarksIndexV(baseUrl) {
     const models = await (await fetch(baseUrl + '/__index__.json')).json()
 
     const [vicunaEvaluationResults, ...openaiEvalsResults] = await Promise.all([
@@ -11,7 +23,7 @@ export async function createAllBenchmarksV(baseUrl) {
         ...models.map(async model => [model, await fetch(baseUrl + '/openai-evals/' + model.replace('/', '--') + '/__index__.json').then(r => r.json())]),
     ])
 
-    const relativeOpenAiEvalsScores = computeRelativeOpenAiEvalsScores(Object.fromEntries(openaiEvalsResults)).averageRelativeScoresByModelName
+    const relativeOpenAiEvalsScores = OpenAIEvals.computeRelativeOpenAiEvalsScores(Object.fromEntries(openaiEvalsResults)).averageRelativeScoresByModelName
 
     const tableE = document.createElement('table')
     const theadE = tableE.createTHead().insertRow()
@@ -32,4 +44,11 @@ export async function createAllBenchmarksV(baseUrl) {
     }
 
     return tableE
+}
+
+export async function createBenchmarksV(baseUrl) {
+    const hashParameters = parseHash()
+    if (hashParameters.has('benchmark'))
+        return createSingleBenchmarkV(baseUrl, hashParameters.get('benchmark'), hashParameters)
+    return await createBenchmarksIndexV(baseUrl)
 }
