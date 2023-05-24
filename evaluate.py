@@ -7,7 +7,7 @@ import argparse
 from evaluation import benchmarks
 
 def main():
-    all_benchmarks = ['openai-evals', 'vicuna']
+    all_benchmarks = ['openai-evals', 'vicuna', 'lm-evaluation-harness']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
@@ -22,6 +22,8 @@ def main():
             benchmarks.openai_evals.evaluate_model(model)
     if 'vicuna' in args.benchmarks:
         benchmarks.vicuna.evaluate_models(args.models)
+    if 'lm-evaluation-harness' in args.benchmarks:
+        benchmarks.lm_evaluation_harness.evaluate_models(args.models)
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         json.dump(args.models, f, indent=4)
