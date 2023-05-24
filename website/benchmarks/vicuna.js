@@ -1,24 +1,4 @@
-import { computeUpdatedHash, createConversationItemE, createExplanationTextE } from '../utils.js'
-
-function createSelectV(label, textContents, values) {
-    const selectV = document.createElement('div')
-    selectV.appendChild(createExplanationTextE(label + ': '))
-    const selectE = document.createElement('select')
-    selectV.appendChild(selectE)
-    for (let i = 0; i < textContents.length; i++) {
-        const optionE = document.createElement('option')
-        optionE.value = values[i]
-        optionE.textContent = textContents[i]
-        selectE.appendChild(optionE)
-    }
-
-    return { view: selectV, element: selectE }
-}
-
-// TODO Combine with other implementation of this
-function createModelSelectV(label, modelNames) {
-    return createSelectV(label, modelNames, modelNames.map(modelName => modelName.replace('/', '--')))
-}
+import { computeUpdatedHash, createConversationItemE, createExplanationTextE, createModelSelectV, createSelectV } from '../utils.js'
 
 export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')

@@ -1,4 +1,4 @@
-import { round, createExplanationTextE, allowCharacterLineBreaks, createLinkE, createConversationItemE, computeUpdatedHash } from '../utils.js'
+import { round, createExplanationTextE, allowCharacterLineBreaks, createLinkE, createConversationItemE, computeUpdatedHash, createModelSelectV } from '../utils.js'
 
 function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
@@ -255,17 +255,8 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
     finalReportInformationE.appendChild(createExplanationTextE('Name: ' + spec.eval_name))
     finalReportInformationE.appendChild(createExplanationTextE('Evaluation method: ' + spec.run_config.eval_spec.cls.split(':').slice(-1)))
 
-    const modelSelectV = document.createElement('div')
+    const { view: modelSelectV, element: modelSelectE } = createModelSelectV('Model:', modelNames)
     containerE.appendChild(modelSelectV)
-    modelSelectV.appendChild(createExplanationTextE('Model: '))
-    const modelSelectE = document.createElement('select')
-    modelSelectV.appendChild(modelSelectE)
-    for (const modelName of modelNames) {
-        const optionE = document.createElement('option')
-        optionE.value = modelName.replace('/', '--')
-        optionE.textContent = modelName
-        modelSelectE.appendChild(optionE)
-    }
 
     modelSelectE.value = modelName.replace('/', '--')
 
