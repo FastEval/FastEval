@@ -1,4 +1,8 @@
-import { computeUpdatedHash, createConversationItemE, createExplanationTextE, createModelSelectV, createSelectV } from '../utils.js'
+import { computeUpdatedHash } from '../utils.js'
+import { createConversationItemE } from '../components/conversation-item.js'
+import { createModelSelectV } from '../components/model-select.js'
+import { createSelectV } from '../components/select.js'
+import { createExplanationTextE } from '../components/text.js'
 
 export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')

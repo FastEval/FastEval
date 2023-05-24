@@ -1,5 +1,7 @@
-import { createExplanationTextE, createLinkE, round } from '../utils.js'
+import { round } from '../utils.js'
 import { computeRelativeOpenAiEvalsScores } from './openai-evals.js'
+import { createLinkE } from '../components/link.js'
+import { createExplanationTextE } from '../components/text.js'
 
 export async function createAllBenchmarksV(baseUrl) {
     const models = await (await fetch(baseUrl + '/__index__.json')).json()

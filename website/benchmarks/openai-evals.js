@@ -1,4 +1,8 @@
-import { round, createExplanationTextE, allowCharacterLineBreaks, createLinkE, createConversationItemE, computeUpdatedHash, createModelSelectV } from '../utils.js'
+import { round, allowCharacterLineBreaks, computeUpdatedHash } from '../utils.js'
+import { createConversationItemE } from '../components/conversation-item.js'
+import { createLinkE } from '../components/link.js'
+import { createModelSelectV } from '../components/model-select.js'
+import { createExplanationTextE } from '../components/text.js'
 
 function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
