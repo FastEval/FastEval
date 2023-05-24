@@ -10,7 +10,7 @@ export function parseHash() {
 }
 
 export function round(num) {
-    return Math.round(num * 10000) / 10000
+    return num.toFixed(2)
 }
 
 export function allowCharacterLineBreaks(text, characters = ['/', '_']) {

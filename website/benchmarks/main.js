@@ -1,6 +1,7 @@
 import { round, parseHash } from '../utils.js'
 import { createLinkE } from '../components/link.js'
 import { createTextE } from '../components/text.js'
+import { createTableScoreCell } from '../components/table-score-cell.js'
 import * as OpenAIEvals from '../benchmarks/openai-evals.js'
 import * as Vicuna from '../benchmarks/vicuna.js'
 
@@ -35,12 +36,11 @@ export async function createBenchmarksIndexV(baseUrl) {
     for (const model of models) {
         const rowE = tbodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(model))
-        rowE.insertCell().appendChild(createTextE(round(relativeOpenAiEvalsScores[model])))
-
+        createTableScoreCell(rowE, createTextE(round(relativeOpenAiEvalsScores[model])))
         const vicunaModelResults = vicunaEvaluationResults.models[model]
-        rowE.insertCell().appendChild(createTextE(Math.round(vicunaModelResults.elo_rank)))
+        createTableScoreCell(rowE, createTextE(Math.round(vicunaModelResults.elo_rank)))
         const winRate = (vicunaModelResults.num_wins + vicunaModelResults.num_ties / 2) / vicunaModelResults.num_matches
-        rowE.insertCell().appendChild(createTextE(round(winRate)))
+        createTableScoreCell(rowE, createTextE(round(winRate)))
     }
 
     return tableE

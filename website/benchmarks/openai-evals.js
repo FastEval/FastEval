@@ -3,6 +3,7 @@ import { createConversationItemE } from '../components/conversation-item.js'
 import { createLinkE } from '../components/link.js'
 import { createModelSelectV } from '../components/model-select.js'
 import { createTextE } from '../components/text.js'
+import { createTableScoreCell } from '../components/table-score-cell.js'
 
 function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
@@ -293,7 +294,7 @@ export async function createEvalsIndexV(baseUrl) {
     tableBodyE.appendChild(tr)
     tr.insertCell().appendChild(createTextE('Relative average score'))
     for (const modelName of modelNames)
-        tr.insertCell().appendChild(createTextE(round(scores.averageRelativeScoresByModelName[modelName])))
+        createTableScoreCell(tr, createTextE(round(scores.averageRelativeScoresByModelName[modelName])))
 
     for (const [reportFilename, { spec }] of Object.entries(reportsIndex[modelNames[0]]).sort()) {
         const reportE = tableBodyE.insertRow()
@@ -306,7 +307,7 @@ export async function createEvalsIndexV(baseUrl) {
                 score = round(score)
             if (score == null)
                 score = '-'
-            reportE.insertCell().appendChild(createLinkE(score, { report: spec.eval_name, model: modelName }))
+            createTableScoreCell(reportE, createLinkE(score, { report: spec.eval_name, model: modelName }))
         }
     }
 

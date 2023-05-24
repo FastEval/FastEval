@@ -1,5 +1,5 @@
 export function createTextE(text) {
-    const explanationTextE = document.createElement('span')
-    explanationTextE.textContent = text
-    return explanationTextE
+    const textE = document.createElement('span')
+    textE.textContent = text
+    return textE
 }
