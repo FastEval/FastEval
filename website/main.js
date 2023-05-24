@@ -19,7 +19,7 @@ async function createMainV() {
         location.reload()
     })
 
-    const baseUrl = './reports'
+    const baseUrl = 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports'
     const hashParameters = parseHash()
 
     if (hashParameters.has('benchmark'))
