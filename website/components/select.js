@@ -1,8 +1,8 @@
-import { createExplanationTextE } from './text.js'
+import { createTextE } from './text.js'
 
 export function createSelectV(label, textContents, values) {
     const selectV = document.createElement('div')
-    selectV.appendChild(createExplanationTextE(label + ': '))
+    selectV.appendChild(createTextE(label + ': '))
     const selectE = document.createElement('select')
     selectV.appendChild(selectE)
     for (let i = 0; i < textContents.length; i++) {

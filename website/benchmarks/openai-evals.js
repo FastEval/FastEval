@@ -2,7 +2,7 @@ import { round, allowCharacterLineBreaks, computeUpdatedHash } from '../utils.js
 import { createConversationItemE } from '../components/conversation-item.js'
 import { createLinkE } from '../components/link.js'
 import { createModelSelectV } from '../components/model-select.js'
-import { createExplanationTextE } from '../components/text.js'
+import { createTextE } from '../components/text.js'
 
 function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
@@ -60,9 +60,9 @@ function showDataFromModelBasedClassify(finalReport, samples) {
             const ret = []
             function add(prompt, completion, i) {
                 const indexIndictator =  (usesMultipleInputs ? ' [' + i + ']' : '') + ':'
-                ret.push(createExplanationTextE('The model got the following start of a conversation as input' + indexIndictator))
+                ret.push(createTextE('The model got the following start of a conversation as input' + indexIndictator))
                 ret.push(createConversationE(prompt))
-                ret.push(createExplanationTextE('The model answered in the following way:' + indexIndictator))
+                ret.push(createTextE('The model answered in the following way:' + indexIndictator))
                 ret.push(createConversationE([{ role: 'assistant', content: completion }]))
             }
 
@@ -75,16 +75,16 @@ function showDataFromModelBasedClassify(finalReport, samples) {
 
             return [
                 ...ret,
-                createExplanationTextE('The model was then asked to evaluate its own answer' + (usesMultipleInputs ? 's' : '') + ':'),
+                createTextE('The model was then asked to evaluate its own answer' + (usesMultipleInputs ? 's' : '') + ':'),
             ]
         })(),
 
         createConversationE(sample.sampling.info.prompt),
 
-        createExplanationTextE('The model responded to this evaluation as follows:'),
+        createTextE('The model responded to this evaluation as follows:'),
         createConversationE([{ role: 'assistant', content: sample.sampling.info.sampled }]),
 
-        createExplanationTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid') + ' response to the evaluation.'
+        createTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid') + ' response to the evaluation.'
             + (sample.sampling.info.score !== null ? (' The resulting score is ' + sample.sampling.info.score + '.') : '')),
     ]])]
 }
@@ -95,22 +95,22 @@ function createAnswersE(options) {
     const onlySingleOption = options.length === 1
 
     return [
-        createExplanationTextE('The following answer' + (onlySingleOption ? ' was' : 's were') + ' expected:'),
+        createTextE('The following answer' + (onlySingleOption ? ' was' : 's were') + ' expected:'),
         ...options.map(e => createConversationE([{ role: 'assistant', content: e }])),
     ]
 }
 
 function createMatchEs(prompt, correctAnswers, sampledModelAnswers, modelAnswerIsCorrect) {
     return [
-        createExplanationTextE('The model got the following start of a conversation as input:'),
+        createTextE('The model got the following start of a conversation as input:'),
         createConversationE(prompt),
 
         ...createAnswersE(correctAnswers),
 
-        createExplanationTextE('The model answered in the following way:'),
+        createTextE('The model answered in the following way:'),
         createConversationE([{ role: 'assistant', content: sampledModelAnswers }]),
 
-        createExplanationTextE('The model answer was judged to be ' + (modelAnswerIsCorrect ? 'correct.' : 'incorrect.')),
+        createTextE('The model answer was judged to be ' + (modelAnswerIsCorrect ? 'correct.' : 'incorrect.')),
     ]
 }
 
@@ -164,7 +164,7 @@ function showDataFromTranslate(finalReport, samples) {
             sampleId,
             [
                 ...createMatchEs(sample.match.prompt, sample.match.expected, sample.match.sampled, sample.match.correct),
-                createExplanationTextE('The SacreBLEU score is ' + round(sample.metrics.sacrebleu_sentence_score) + '.'),
+                createTextE('The SacreBLEU score is ' + round(sample.metrics.sacrebleu_sentence_score) + '.'),
             ]
         ]),
     ]
@@ -234,7 +234,7 @@ function createSelectedModelReportV(report, selectedSampleId) {
     containerE.appendChild(selectedModelInformationE)
 
     if (!selectedSampleId)
-        selectedModelInformationE.append(...finalReportLines.map(line => createExplanationTextE(line)))
+        selectedModelInformationE.append(...finalReportLines.map(line => createTextE(line)))
 
     const samplesE = selectedSampleId
         ? createSamplesV(mappedSamples.filter(s => s[0] === selectedSampleId))
@@ -256,8 +256,8 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
     const finalReportInformationE = document.createElement('div')
     containerE.appendChild(finalReportInformationE)
     finalReportInformationE.classList.add('final-report-information')
-    finalReportInformationE.appendChild(createExplanationTextE('Name: ' + spec.eval_name))
-    finalReportInformationE.appendChild(createExplanationTextE('Evaluation method: ' + spec.run_config.eval_spec.cls.split(':').slice(-1)))
+    finalReportInformationE.appendChild(createTextE('Name: ' + spec.eval_name))
+    finalReportInformationE.appendChild(createTextE('Evaluation method: ' + spec.run_config.eval_spec.cls.split(':').slice(-1)))
 
     const { view: modelSelectV, element: modelSelectE } = createModelSelectV('Model:', modelNames)
     containerE.appendChild(modelSelectV)
@@ -279,10 +279,10 @@ export async function createEvalsIndexV(baseUrl) {
     const reportsIndexE = document.createElement('table')
     const tableHeadE = reportsIndexE.createTHead().insertRow()
     const tableBodyE = reportsIndexE.createTBody()
-    tableHeadE.insertCell().appendChild(createExplanationTextE('Eval name'))
+    tableHeadE.insertCell().appendChild(createTextE('Eval name'))
 
     for (const modelName of modelNames)
-        tableHeadE.insertCell().appendChild(createExplanationTextE(allowCharacterLineBreaks(modelName)))
+        tableHeadE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(modelName)))
 
     const reportsIndex = Object.fromEntries(await Promise.all(modelNames.map(async modelName =>
         [modelName, await ((await fetch(baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/__index__.json')).json())])))
@@ -291,9 +291,9 @@ export async function createEvalsIndexV(baseUrl) {
     const tr = tableBodyE.insertRow()
     tr.classList.add('relative-average-score')
     tableBodyE.appendChild(tr)
-    tr.insertCell().appendChild(createExplanationTextE('Relative average score'))
+    tr.insertCell().appendChild(createTextE('Relative average score'))
     for (const modelName of modelNames)
-        tr.insertCell().appendChild(createExplanationTextE(round(scores.averageRelativeScoresByModelName[modelName])))
+        tr.insertCell().appendChild(createTextE(round(scores.averageRelativeScoresByModelName[modelName])))
 
     for (const [reportFilename, { spec }] of Object.entries(reportsIndex[modelNames[0]]).sort()) {
         const reportE = tableBodyE.insertRow()

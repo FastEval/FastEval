@@ -1,6 +1,6 @@
 import { round, parseHash } from '../utils.js'
 import { createLinkE } from '../components/link.js'
-import { createExplanationTextE } from '../components/text.js'
+import { createTextE } from '../components/text.js'
 import * as OpenAIEvals from '../benchmarks/openai-evals.js'
 import * as Vicuna from '../benchmarks/vicuna.js'
 
@@ -27,20 +27,20 @@ export async function createBenchmarksIndexV(baseUrl) {
 
     const tableE = document.createElement('table')
     const theadE = tableE.createTHead().insertRow()
-    theadE.insertCell().appendChild(createExplanationTextE('Model'))
+    theadE.insertCell().appendChild(createTextE('Model'))
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals Score', { benchmark: 'openai-evals' }))
     theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
-    theadE.insertCell().appendChild(createExplanationTextE('Vicuna Win Percentage'))
+    theadE.insertCell().appendChild(createTextE('Vicuna Win Percentage'))
     const tbodyE = tableE.createTBody()
     for (const model of models) {
         const rowE = tbodyE.insertRow()
-        rowE.insertCell().appendChild(createExplanationTextE(model))
-        rowE.insertCell().appendChild(createExplanationTextE(round(relativeOpenAiEvalsScores[model])))
+        rowE.insertCell().appendChild(createTextE(model))
+        rowE.insertCell().appendChild(createTextE(round(relativeOpenAiEvalsScores[model])))
 
         const vicunaModelResults = vicunaEvaluationResults.models[model]
-        rowE.insertCell().appendChild(createExplanationTextE(Math.round(vicunaModelResults.elo_rank)))
+        rowE.insertCell().appendChild(createTextE(Math.round(vicunaModelResults.elo_rank)))
         const winRate = (vicunaModelResults.num_wins + vicunaModelResults.num_ties / 2) / vicunaModelResults.num_matches
-        rowE.insertCell().appendChild(createExplanationTextE(round(winRate)))
+        rowE.insertCell().appendChild(createTextE(round(winRate)))
     }
 
     return tableE

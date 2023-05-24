@@ -2,7 +2,7 @@ import { computeUpdatedHash } from '../utils.js'
 import { createConversationItemE } from '../components/conversation-item.js'
 import { createModelSelectV } from '../components/model-select.js'
 import { createSelectV } from '../components/select.js'
-import { createExplanationTextE } from '../components/text.js'
+import { createTextE } from '../components/text.js'
 
 export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
@@ -64,17 +64,17 @@ export async function createV(baseUrl, parameters) {
         reviewE.classList.add('sample')
         samplesE.appendChild(reviewE)
         reviewE.append(
-            createExplanationTextE('The following prompt was given:'),
+            createTextE('The following prompt was given:'),
             createConversationItemE('user', question),
-            createExplanationTextE('Assistant #1 (' + review.model1 + ') answered this way:'),
+            createTextE('Assistant #1 (' + review.model1 + ') answered this way:'),
             createConversationItemE('assistant', answer1),
-            createExplanationTextE('Assistant #2 (' + review.model2 + ') answered this way:'),
+            createTextE('Assistant #2 (' + review.model2 + ') answered this way:'),
             createConversationItemE('assistant', answer2),
-            createExplanationTextE('The following review was given:'),
+            createTextE('The following review was given:'),
             createConversationItemE('assistant', review.review),
             review.winner_model === 'tie'
-                ? createExplanationTextE('Therefore, the result is a tie.')
-                : createExplanationTextE('Therefore, assistant #' + review.winner_model + ' (' + reviewWinnerModelName + ') won.'),
+                ? createTextE('Therefore, the result is a tie.')
+                : createTextE('Therefore, assistant #' + review.winner_model + ' (' + reviewWinnerModelName + ') won.'),
         )
     }
 
