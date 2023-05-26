@@ -47,6 +47,14 @@ For example, use the following command to evaluate the [`pythia-12b-sft-v8-2.5k-
 This will generate an evaluation report in the `reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder.
 If the report already exists, then the evaluation is skipped.
 
+Important: If you want to evaluate on the vicuna benchmark, then you need to add all the models that should be used for comparison to the arguments.
+E.g. if you want to evaluate against all of the models that already have evaluation reports in this repository, the following would have to be used:
+```
+./evaluate.py -b vicuna -m OpenAssistant/oasst-sft-1-pythia-12b OpenAssistant/pythia-12b-sft-v8-7k-steps OpenAssistant/oasst-sft-7-llama-30b OpenAssistant/oasst-sft-7e3-llama-30b OpenAssistant/llama-30b-sft-v8-2.5k-steps OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps gpt-3.5-turbo <your_model_name>
+```
+Despite all of the listed models, this will not take too much computation since model answers have already been computed.
+Listing these models is only important for the pairwise comparison of answers which is done with `gpt-3.5-turbo`.
+
 ## Viewing the reports
 
 Use `python3 -m http.server` in the root of this repository.
