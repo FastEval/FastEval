@@ -17,9 +17,14 @@ def main():
     if 'all' in args.benchmarks:
         args.benchmarks = all_benchmarks
 
+    args.models = [model.split(':') for model in args.models]
+
+    if os.path.exists('reports/__index__.json'):
+        with open('reports/__index__.json') as f:
+            args.models = args.models + json.load(f)
+
     if 'openai-evals' in args.benchmarks:
-        for model in args.models:
-            benchmarks.openai_evals.evaluate_model(model)
+        benchmarks.openai_evals.evaluate_models(args.models)
     if 'vicuna' in args.benchmarks:
         benchmarks.vicuna.evaluate_models(args.models)
     if 'lm-evaluation-harness' in args.benchmarks:

@@ -57,32 +57,25 @@ class CompletionFn(evals.api.CompletionFn):
 class Registry(evals.registry.Registry):
     def __init__(self):
         super().__init__()
-        self.models = {}
+        self.previous_model = None
 
-    def make_completion_fn(self, model_name: str) -> CompletionFn:
-        if model_name not in self.models:
-            self.models[model_name] = create_model(model_name)
-        return CompletionFn(self.models[model_name])
+    def make_completion_fn(self, model_type_and_name: str) -> CompletionFn:
+        model_type, model_name = model_type_and_name.split(':')
+        if self.previous_model != model_name:
+            self.previous_model = create_model(model_type, model_name)
+        return CompletionFn(self.previous_model)
 
     # Prevent errors about OpenAI API key missing even if we don't use OpenAI models
     api_model_ids = []
 
-def run_single_eval(registry: Registry, model_name: str, eval_name: str):
-    """
-    Evaluate the specified model on the single specified eval from OpenAI evals
-    """
-
+def run_single_eval(registry: Registry, model_type: str, model_name: str, eval_name: str):
     evals.cli.oaieval.run(evals.cli.oaieval.get_parser().parse_args([
-        model_name,
+        model_type + ':' + model_name,
         eval_name,
         '--record_path', os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval_name + '.json'),
     ]), registry)
 
-def run_multiple_evals(registry: Registry, model_name: str, evals: list[str]):
-    """
-    Evaluate the specified model on the specified evals from OpenAI evals
-    """
-
+def run_multiple_evals(registry: Registry, model_type: str, model_name: str, evals: list[str]):
     non_working_evals = [
         'best.dev.v0', # Compares multiple models
         'positive-binary-operations.test.v1', # KeyError: 'sample'
@@ -99,7 +92,7 @@ def run_multiple_evals(registry: Registry, model_name: str, evals: list[str]):
         if eval in non_working_evals:
             continue
         print('Now evaluating', eval)
-        run_single_eval(registry, model_name, eval)
+        run_single_eval(registry, model_type, model_name, eval)
 
 def create_reports_index_file(model_name: str):
     """
@@ -123,16 +116,14 @@ def create_reports_index_file(model_name: str):
     with open(os.path.join(model_reports_path, '__index__.json'), 'w') as reports_index_file:
         json.dump(reports_metadata, reports_index_file, indent=4)
 
-def evaluate_model(model_name: str):
-    """
-    Evaluate the specified model on all the evals in OpenAI evals
-    """
-
+def evaluate_model(model_type: str, model_name: str):
     os.environ['EVALS_THREADS'] = '1'
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
-    # os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
 
     registry = Registry()
-
-    run_multiple_evals(registry, model_name, [eval.key for eval in registry.get_evals(['*'])])
+    run_multiple_evals(registry, model_type, model_name, [eval.key for eval in registry.get_evals(['*'])])
     create_reports_index_file(model_name)
+
+def evaluate_models(models: list[dict[str, str]]):
+    for model_type, model_name in models:
+        evaluate_model(model_type, model_name)
