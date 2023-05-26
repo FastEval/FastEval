@@ -17,8 +17,8 @@ Since this repository is about instruction following models and different models
 ### Installation
 
 ```
-# Install `python3.10` and `git-lfs`. The following code assumes an ubuntu system.
-apt install python3.10 git-lfs
+# Install `python3.10`, `python3.10-venv` and `git-lfs`. The following code assumes an ubuntu system.
+apt install python3.10 python3.10-venv git-lfs
 
 # Clone this repository, make it the current working directory
 git clone https://github.com/tju01/oasst-automatic-model-eval.git
