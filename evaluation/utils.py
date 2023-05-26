@@ -17,3 +17,8 @@ def create_model(model_name: str):
     if model_name == 'gpt-3.5-turbo':
         return OpenAI(model_name)
     return OpenAssistant(model_name)
+
+def get_model_type(model_name: str):
+    if model_name == 'gpt-3.5-turbo':
+        return 'openai'
+    return 'huggingface'
