@@ -33,7 +33,6 @@ export async function createBenchmarksIndexV(baseUrl) {
 
     const averageLmEvaluationHarnessScores =  Object.fromEntries(lmEvaluationHarnessResults.map(([modelName, results]) =>
         [modelName, LMEvaluationHarness.computeAverageScore(results.results)]))
-    console.log(averageLmEvaluationHarnessScores)
 
     const tableE = document.createElement('table')
     const theadE = tableE.createTHead().insertRow()
