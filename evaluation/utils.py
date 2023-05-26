@@ -1,5 +1,6 @@
 from evaluation.models.open_ai import OpenAI
 from evaluation.models.open_assistant import OpenAssistant
+from evaluation.models.guanaco import Guanaco
 
 def replace_model_name_slashes(model_name: str) -> str:
     """
@@ -16,7 +17,10 @@ def undo_replace_model_name_slashes(model_name: str) -> str:
 def create_model(model_name: str):
     if model_name == 'gpt-3.5-turbo':
         return OpenAI(model_name)
-    return OpenAssistant(model_name)
+    if model_name.startswith('OpenAssistant'):
+        return OpenAssistant(model_name)
+    if model_name.startswith('timdettmers'):
+        return Guanaco(model_name)
 
 def get_model_type(model_name: str):
     if model_name == 'gpt-3.5-turbo':
