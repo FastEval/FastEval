@@ -8,7 +8,7 @@ Right now, the following benchmarks are supported:
 - [Vicuna benchmark](https://lmsys.org/blog/2023-03-30-vicuna)
 - [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness)
 
-The following models are currently supported:
+Since this repository is about _instruction following_ models and different models are instruction-finetuned in different ways, a corresponding implementation of the prompt format is needed to evaluate a model. The following model types are currently supported:
 - [Open-Assistant](https://open-assistant.io)
 - [OpenAI chat models](https://platform.openai.com/docs/models)
 
