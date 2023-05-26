@@ -37,14 +37,15 @@ pip install -e .
 
 ### Evaluation
 
-Run `./evaluate.py -b <benchmark_name> -m <model_name>`.
-The `<benchmark_name>` should be one of `openai-evals`, `vicuna` or `lm-evaluation-harness`.
-The `<model_name>` can be either a path to a local folder a huggingface path.
-For example, use the following command to evaluate the [`pythia-12b-sft-v8-7k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-7k-steps) model from Open-Assistant on the OpenAI evals benchmark:
+Run `./evaluate.py -b <benchmark_name_1> [<benchmark_name_2>...] -m <model_name_1> [<model_name_2>...]`.
+The benchmark name(s) can be `all`, `openai-evals`, `vicuna` or `lm-evaluation-harness`.
+The model names can be either a path to a local folder or a huggingface path.
+For example, use the following command to evaluate the [`pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) model from Open-Assistant on the OpenAI evals benchmark:
 ```
-./evaluate.py -b openai-evals -m OpenAssistant/pythia-12b-sft-v8-7k-steps
+./evaluate.py -b openai-evals -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps
 ```
-This will generate an evaluation report in the `reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder if it doesn't exist already (which it does for this model).
+This will generate an evaluation report in the `reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder.
+If the report already exists, then the evaluation is skipped.
 
 ## Viewing the reports
 
