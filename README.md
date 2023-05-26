@@ -4,13 +4,13 @@ This repository contains code to automatically evaluate instruction following la
 It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/oasst-automatic-model-eval/).
 
 Right now, the following benchmarks are supported:
-- [OpenAI evals](https://github.com/openai/evals)
-- [Vicuna benchmark](https://lmsys.org/blog/2023-03-30-vicuna)
-- [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness)
+- [OpenAI evals](https://github.com/openai/evals): Contains various tasks to measure different capabilities of instruction-following language models. Uses both basic tasks that are just compared to the solution directly and model-graded tasks where another language model is used for evaluation.
+- [Vicuna benchmark](https://lmsys.org/blog/2023-03-30-vicuna): Uses another more capable model like `gpt-4` or `gpt-3.5-turbo` for comparing outputs of different models and computes win rates and Elo ratings based on these comparisons.
+- [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness): This is not a benchmark for evaluating instruction following language models, but it is for few-shot evaluation of pre-trained models. However, it can still be part of a useful evaluation of instruction following models.
 
-Since this repository is about _instruction following_ models and different models are instruction-finetuned in different ways, a corresponding implementation of the prompt format is needed to evaluate a model. The following model types are currently supported:
+Since this repository is about instruction following models and different models are instruction-finetuned in different ways, a corresponding implementation of the prompt format is needed to evaluate a model. The following model types are currently supported:
 - [Open-Assistant](https://open-assistant.io)
-- [OpenAI chat models](https://platform.openai.com/docs/models)
+- [OpenAI](https://platform.openai.com/docs/models)
 
 ## Evaluating models on benchmarks
 
