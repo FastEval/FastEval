@@ -1,7 +1,7 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-from utils import put_system_message_in_prompter_message
+from .utils import put_system_message_in_prompter_message
 
 class OpenAssistant:
     def __init__(self, model_path):

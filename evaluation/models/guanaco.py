@@ -1,7 +1,7 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-from utils import put_system_message_in_prompter_message
+from .utils import put_system_message_in_prompter_message
 
 # See https://huggingface.co/timdettmers/guanaco-33b-merged/discussions/4
 # for a discussion of the prompt format
@@ -31,6 +31,7 @@ class Guanaco:
         # TODO: max_length should be taken from the model and not hardcoded.
         model_input = self.tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
 
+        # TODO: These parameters are copied from OpenAssistant. Maybe change them for guanaco.
         model_output = self.model.generate(
             **model_input,
             min_new_tokens=1,
@@ -42,4 +43,4 @@ class Guanaco:
             pad_token_id=self.tokenizer.eos_token_id,
         )[0]
 
-        return self.tokenizer.decode(model_output).split('<|assistant|>')[-1].replace(self.tokenizer.eos_token, '').strip()
+        return self.tokenizer.decode(model_output).split('### Assistant: ')[-1].replace(self.tokenizer.eos_token, '').strip()
