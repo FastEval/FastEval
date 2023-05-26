@@ -7,7 +7,7 @@ import { createTextE } from '../components/text.js'
 export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
 
-    const modelNames = await (await fetch(baseUrl + '/__index__.json')).json()
+    const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json()).map(m => m[1])
 
     const { view: select1V, element: select1E } = createModelSelectV('Model 1', ['any', ...modelNames])
     containerE.appendChild(select1V)

@@ -20,7 +20,7 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
 }
 
 export async function createBenchmarksIndexV(baseUrl) {
-    const models = await (await fetch(baseUrl + '/__index__.json')).json()
+    const models = (await (await fetch(baseUrl + '/__index__.json')).json()).map(m => m[1])
 
     const [vicunaEvaluationResults, openaiEvalsResults, lmEvaluationHarnessResults] = await Promise.all([
         fetch(baseUrl + '/vicuna/reviews.json').then(r => r.json()),

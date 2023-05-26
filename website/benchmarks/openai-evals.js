@@ -246,7 +246,7 @@ function createSelectedModelReportV(report, selectedSampleId) {
 }
 
 async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
-    const modelNames = await (await fetch(baseUrl + '/__index__.json')).json()
+    const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json()).map(m => m[1])
 
     const containerE = document.createElement('div')
 
@@ -275,7 +275,7 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
 }
 
 export async function createEvalsIndexV(baseUrl) {
-    const modelNames = await (await fetch(baseUrl + '/__index__.json')).json()
+    const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json()).map(m => m[1])
 
     const reportsIndexE = document.createElement('table')
     const tableHeadE = reportsIndexE.createTHead().insertRow()

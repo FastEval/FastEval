@@ -8,7 +8,7 @@ export function computeAverageScore(results) {
 export async function createV(baseUrl) {
     const containerE = document.createElement('div')
 
-    const modelNames = await (await fetch(baseUrl + '/__index__.json')).json()
+    const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json()).map(m => m[1])
 
     const results = await Promise.all(modelNames.filter(model => model !== 'gpt-3.5-turbo')
         .map(async model => [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
