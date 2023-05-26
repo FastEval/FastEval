@@ -17,11 +17,11 @@ def main():
     if 'all' in args.benchmarks:
         args.benchmarks = all_benchmarks
 
-    #if 'openai-evals' in args.benchmarks:
-    #    for model in args.models:
-    #        benchmarks.openai_evals.evaluate_model(model)
-    #if 'vicuna' in args.benchmarks:
-    #    benchmarks.vicuna.evaluate_models(args.models)
+    if 'openai-evals' in args.benchmarks:
+        for model in args.models:
+            benchmarks.openai_evals.evaluate_model(model)
+    if 'vicuna' in args.benchmarks:
+        benchmarks.vicuna.evaluate_models(args.models)
     if 'lm-evaluation-harness' in args.benchmarks:
         benchmarks.lm_evaluation_harness.evaluate_models(args.models)
 

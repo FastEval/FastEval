@@ -15,12 +15,11 @@ def evaluate_model(model):
     model_type = get_model_type(model)
 
     print('lm-evaluation-harness: Evaluating', model, model_type)
-    lm_eval.evaluator.simple_evaluate(model, write_out=True, output_base_path='./reports/lm-evaluation-harness')
 
     if model_type == 'huggingface':
-        results = lm_eval.evaluator.simple_evaluate('hf-causal', model_args='pretrained=' + model, tasks=tasks, limit=10)
+        results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', model_args='pretrained=' + model + ',dtype="float16"', tasks=tasks)
     elif model_type == 'openai':
-        pass # TODO
+        return # TODO
 
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
