@@ -21,7 +21,7 @@ def main():
 
     if os.path.exists('reports/__index__.json'):
         with open('reports/__index__.json') as f:
-            args.models = args.models + json.load(f)
+            args.models = json.load(f) + args.models
 
     if 'openai-evals' in args.benchmarks:
         benchmarks.openai_evals.evaluate_models(args.models)
