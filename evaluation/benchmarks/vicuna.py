@@ -6,12 +6,12 @@ import tqdm
 
 from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes, create_model
 
-def generate_assistant_replies(model_name):
+def generate_assistant_replies(model_type, model_name):
     answers_filepath = os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json')
     if os.path.exists(answers_filepath):
         return
 
-    model = create_model(model_name)
+    model = create_model(model_type, model_name)
 
     with open('questions.json') as f:
         questions = json.load(f)
@@ -184,6 +184,6 @@ def generate_reviews():
     save_reviews(reviews, models_results)
 
 def evaluate_models(models):
-    for model_name in models:
-        generate_assistant_replies(model_name)
+    for model_type, model_name in models:
+        generate_assistant_replies(model_type, model_name)
     generate_reviews()
