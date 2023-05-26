@@ -28,11 +28,6 @@ cd oasst-automatic-model-eval
 python3.10 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-
-# The `lm-evaluation-harness` installation is currently buggy, it needs to be installed manually
-git clone https://github.com/EleutherAI/lm-evaluation-harness
-cd lm-evaluation-harness
-pip install -e .
 ```
 
 ### OpenAI API
