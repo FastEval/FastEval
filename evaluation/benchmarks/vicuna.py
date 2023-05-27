@@ -13,7 +13,7 @@ def generate_assistant_replies(model_type, model_name):
 
     model = create_model(model_type, model_name)
 
-    with open('questions.json') as f:
+    with open('data/vicuna/questions.json') as f:
         questions = json.load(f)
 
     answers = dict([(question_id, model.reply([('user', question)])) for question_id, question in tqdm.tqdm(questions.items())])
@@ -106,7 +106,7 @@ def save_reviews(reviews, models_results):
         json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
 
 def generate_reviews():
-    with open('questions.json') as f:
+    with open('data/vicuna/questions.json') as f:
         questions = json.load(f)
 
     answers = {}
