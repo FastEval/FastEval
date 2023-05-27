@@ -6,7 +6,7 @@ async function main() {
     })
 
     const url = location.hostname === 'tju01.github.io'
-        ? 'https://raw.githubusercontent.com/tju01/oasst-automatic-model-eval/main/reports'
+        ? 'https://raw.githubusercontent.com/tju01/ilm-eval/main/reports'
         : './reports'
 
     const benchmarksV = await createBenchmarksV(url)

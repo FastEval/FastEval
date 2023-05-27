@@ -1,7 +1,7 @@
 # Instruction following language model evaluation
 
 This repository contains code to automatically evaluate instruction following language models on benchmarks.
-It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/oasst-automatic-model-eval/).
+It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/ilm-eval/).
 
 Right now, the following benchmarks are supported:
 - [OpenAI evals](https://github.com/openai/evals): Contains various tasks to measure different capabilities of instruction-following language models. Uses both basic tasks that are just compared to the solution directly and model-graded tasks where another language model is used for evaluation.
@@ -21,8 +21,8 @@ Since this repository is about instruction following models and different models
 apt install python3.10 python3.10-venv git-lfs
 
 # Clone this repository, make it the current working directory
-git clone https://github.com/tju01/oasst-automatic-model-eval.git
-cd oasst-automatic-model-eval
+git clone https://github.com/tju01/ilm-eval.git
+cd ilm-eval
 
 # Set up the virtual environment
 python3.10 -m venv .venv
