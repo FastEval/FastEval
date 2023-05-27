@@ -57,11 +57,13 @@ class CompletionFn(evals.api.CompletionFn):
 class Registry(evals.registry.Registry):
     def __init__(self):
         super().__init__()
+        self.previous_model_name = None
         self.previous_model = None
 
     def make_completion_fn(self, model_type_and_name: str) -> CompletionFn:
         model_type, model_name = model_type_and_name.split(':')
-        if self.previous_model != model_name:
+        if self.previous_model_name != model_name:
+            self.previous_model_name = model_name
             self.previous_model = create_model(model_type, model_name)
         return CompletionFn(self.previous_model)
 
