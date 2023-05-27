@@ -10,7 +10,7 @@ def evaluate_model(model_type, model_name):
 
     tasks = ['openbookqa', 'arc_easy', 'winogrande', 'hellaswag', 'arc_challenge', 'piqa', 'boolq']
 
-    if model_type in ['open-assistant', 'guanaco']:
+    if model_type in ['open-assistant', 'guanaco', 'falcon']:
         print('lm-evaluation-harness: Evaluating', model_name)
         results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', model_args='pretrained=' + model_name + ',dtype="float16"', tasks=tasks)
     elif model_type == 'openai':
