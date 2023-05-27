@@ -117,7 +117,7 @@ def generate_reviews():
             answers[model_name] = json.load(f)
     models = list(answers.keys())
 
-    reviewer = create_model('gpt-3.5-turbo')
+    reviewer = create_model('openai', 'gpt-3.5-turbo')
 
     reviews = []
     models_results = dict([(model, {
