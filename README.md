@@ -11,6 +11,7 @@ Right now, the following benchmarks are supported:
 Since this repository is about instruction following models and different models are instruction-finetuned in different ways, a corresponding implementation of the prompt format is needed to evaluate a model. The following model types are currently supported:
 - [Open-Assistant](https://open-assistant.io)
 - [OpenAI](https://platform.openai.com/docs/models)
+- [Falcon Instruct](https://huggingface.co/tiiuae)
 
 ## Evaluating models on benchmarks
 
@@ -43,7 +44,7 @@ Call the `evaluate.py` script in the following way:
 ./evaluate.py [-b <benchmark_name_1>...] -m model_type_1:model_name_1...
 ````
 - A benchmark name can be `all` (default), `openai-evals`, `vicuna` or `lm-evaluation-harness`.
-- A model type can be either `open-assistant` or `openai`.
+- A model type can be either `open-assistant`, `openai` or `falcon`.
 - A model name can be either a path to a local folder or a huggingface path.
 
 For example, use the following command to evaluate the [`pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) model from Open-Assistant on the OpenAI evals benchmark:
