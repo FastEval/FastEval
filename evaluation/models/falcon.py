@@ -18,6 +18,7 @@ class Falcon:
             raise
 
     def _conversation_to_prompt(self, conversation):
+        # See https://huggingface.co/tiiuae/falcon-7b-instruct/discussions/1#64708b0a3df93fddece002a4
         conversation = put_system_message_in_prompter_message(conversation)
         return ''.join(self._conversation_item_to_prompt(item_type, item) for item_type, item in conversation) + 'Assistant: '
 
