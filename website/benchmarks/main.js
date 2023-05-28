@@ -25,7 +25,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     const [vicunaEvaluationResults, openaiEvalsResults, lmEvaluationHarnessResults] = await Promise.all([
         fetch(baseUrl + '/vicuna/reviews.json').then(r => r.json()),
         Promise.all(models.map(async model => [model, await fetch(baseUrl + '/openai-evals/' + model.replace('/', '--') + '/__index__.json').then(r => r.json())])),
-        Promise.all(models.filter(model => model !== 'gpt-3.5-turbo')
+        Promise.all(models.filter(model => model !== 'gpt-3.5-turbo' && !model.startsWith('tiiuae'))
             .map(async model => [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
     ])
 
@@ -53,7 +53,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         const winRate = (vicunaModelResults.num_wins + vicunaModelResults.num_ties / 2) / vicunaModelResults.num_matches
         createTableScoreCell(rowE, createTextE(round(winRate)))
 
-        if (model === 'gpt-3.5-turbo')
+        if (model === 'gpt-3.5-turbo' || model.startsWith('tiiuae'))
             createTableScoreCell(rowE, createTextE(''))
         else
             createTableScoreCell(rowE, createTextE(round(averageLmEvaluationHarnessScores[model])))
