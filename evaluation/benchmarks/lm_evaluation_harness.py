@@ -12,7 +12,8 @@ def evaluate_model(model_type, model_name):
 
     if model_type in ['open-assistant', 'guanaco', 'falcon']:
         print('lm-evaluation-harness: Evaluating', model_name)
-        results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', model_args='pretrained=' + model_name + ',dtype="float16"', tasks=tasks)
+        results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', tasks=tasks,
+            model_args='pretrained=' + model_name + ',dtype="float16",trust_remote_code=True')
     elif model_type == 'openai':
         return
 
