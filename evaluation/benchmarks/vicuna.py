@@ -9,7 +9,7 @@ from evaluation.utils import replace_model_name_slashes, undo_replace_model_name
 def generate_assistant_replies(model_type, model_name):
     answers_filepath = os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json')
     if os.path.exists(answers_filepath):
-        return
+        return False
 
     model = create_model(model_type, model_name)
 
@@ -21,6 +21,8 @@ def generate_assistant_replies(model_type, model_name):
     os.makedirs(os.path.dirname(answers_filepath), exist_ok=True)
     with open(answers_filepath, 'w') as f:
         json.dump(answers, f, indent=4)
+
+    return True
 
 def create_reviewer_prompt(question, answer1, answer2):
     system_message = 'You are a helpful and precise assistant for checking the quality of the answer.'
@@ -184,6 +186,9 @@ def generate_reviews():
     save_reviews(reviews, models_results)
 
 def evaluate_models(models):
+    did_evaluate_some_model = False
     for model_type, model_name in models:
-        generate_assistant_replies(model_type, model_name)
-    generate_reviews()
+        if generate_assistant_replies(model_type, model_name):
+            did_evaluate_some_model = True
+    if did_evaluate_some_model:
+        generate_reviews()

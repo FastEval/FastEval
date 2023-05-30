@@ -10,7 +10,7 @@ def evaluate_model(model_type, model_name):
 
     tasks = ['openbookqa', 'arc_easy', 'winogrande', 'hellaswag', 'arc_challenge', 'piqa', 'boolq']
 
-    if model_type in ['open-assistant', 'guanaco', 'falcon']:
+    if model_type in ['open-assistant', 'guanaco', 'falcon', 'base']:
         print('lm-evaluation-harness: Evaluating', model_name)
         if model_type == 'falcon':
             dtype = 'bfloat16'
