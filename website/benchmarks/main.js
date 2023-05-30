@@ -20,12 +20,13 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
 }
 
 export async function createBenchmarksIndexV(baseUrl) {
-    const models = (await (await fetch(baseUrl + '/__index__.json')).json()).map(m => m[1])
+    const models = (await (await fetch(baseUrl + '/__index__.json')).json())
 
     const [vicunaEvaluationResults, openaiEvalsResults, lmEvaluationHarnessResults] = await Promise.all([
         fetch(baseUrl + '/vicuna/reviews.json').then(r => r.json()),
-        Promise.all(models.map(async model => [model, await fetch(baseUrl + '/openai-evals/' + model.replace('/', '--') + '/__index__.json').then(r => r.json())])),
-        Promise.all(models.filter(model => model !== 'gpt-3.5-turbo' && !model.startsWith('tiiuae'))
+        Promise.all(models.filter(model => model.benchmarks.includes('openai-evals')).map(model => model.model_name)
+            .map(async model => [model, await fetch(baseUrl + '/openai-evals/' + model.replace('/', '--') + '/__index__.json').then(r => r.json())])),
+        Promise.all(models.filter(model => model.benchmarks.includes('lm-evaluation-harness')).map(model => model.model_name)
             .map(async model => [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
     ])
 
@@ -42,21 +43,29 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createTextE('Vicuna Win Percentage'))
     theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
-    for (const model of models) {
+    for (const { model_name: model, benchmarks } of models) {
         const rowE = tbodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(model))
 
-        createTableScoreCell(rowE, createTextE(round(relativeOpenAiEvalsScores[model])))
-
-        const vicunaModelResults = vicunaEvaluationResults.models[model]
-        createTableScoreCell(rowE, createTextE(Math.round(vicunaModelResults.elo_rank)))
-        const winRate = (vicunaModelResults.num_wins + vicunaModelResults.num_ties / 2) / vicunaModelResults.num_matches
-        createTableScoreCell(rowE, createTextE(round(winRate)))
-
-        if (model === 'gpt-3.5-turbo' || model.startsWith('tiiuae'))
-            createTableScoreCell(rowE, createTextE(''))
+        if (benchmarks.includes('openai-evals'))
+            createTableScoreCell(rowE, createTextE(round(relativeOpenAiEvalsScores[model])))
         else
+            rowE.insertCell()
+
+        if (benchmarks.includes('vicuna')) {
+            const vicunaModelResults = vicunaEvaluationResults.models[model]
+            createTableScoreCell(rowE, createTextE(Math.round(vicunaModelResults.elo_rank)))
+            const winRate = (vicunaModelResults.num_wins + vicunaModelResults.num_ties / 2) / vicunaModelResults.num_matches
+            createTableScoreCell(rowE, createTextE(round(winRate)))
+        } else {
+            rowE.insertCell()
+            rowE.insertCell()
+        }
+
+        if (benchmarks.includes('lm-evaluation-harness'))
             createTableScoreCell(rowE, createTextE(round(averageLmEvaluationHarnessScores[model])))
+        else
+            createTableScoreCell(rowE, createTextE(''))
     }
 
     return tableE

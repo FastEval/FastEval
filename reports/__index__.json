@@ -1,46 +1,96 @@
 [
-    [
-        "open-assistant",
-        "OpenAssistant/oasst-sft-1-pythia-12b"
-    ],
-    [
-        "open-assistant",
-        "OpenAssistant/pythia-12b-sft-v8-7k-steps"
-    ],
-    [
-        "open-assistant",
-        "OpenAssistant/oasst-sft-7-llama-30b"
-    ],
-    [
-        "open-assistant",
-        "OpenAssistant/oasst-sft-7e3-llama-30b"
-    ],
-    [
-        "open-assistant",
-        "OpenAssistant/llama-30b-sft-v8-2.5k-steps"
-    ],
-    [
-        "open-assistant",
-        "OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-    ],
-    [
-        "openai",
-        "gpt-3.5-turbo"
-    ],
-    [
-        "falcon",
-        "tiiuae/falcon-7b-instruct"
-    ],
-    [
-        "falcon",
-        "tiiuae/falcon-40b-instruct"
-    ],
-    [
-        "falcon",
-        "tiiuae/falcon-7b"
-    ],
-    [
-        "falcon",
-        "tiiuae/falcon-40b"
-    ]
+    {
+        "model_type": "open-assistant",
+        "model_name": "OpenAssistant/oasst-sft-1-pythia-12b",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "open-assistant",
+        "model_name": "OpenAssistant/pythia-12b-sft-v8-7k-steps",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "open-assistant",
+        "model_name": "OpenAssistant/oasst-sft-7-llama-30b",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "open-assistant",
+        "model_name": "OpenAssistant/oasst-sft-7e3-llama-30b",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "open-assistant",
+        "model_name": "OpenAssistant/llama-30b-sft-v8-2.5k-steps",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "open-assistant",
+        "model_name": "OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "openai",
+        "model_name": "gpt-3.5-turbo",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna"
+        ]
+    },
+    {
+        "model_type": "falcon",
+        "model_name": "tiiuae/falcon-7b-instruct",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "falcon",
+        "model_name": "tiiuae/falcon-40b-instruct",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "falcon",
+        "model_name": "tiiuae/falcon-7b",
+        "benchmarks": [
+            "lm-evaluation-harness"
+        ]
+    },
+    {
+        "model_type": "falcon",
+        "model_name": "tiiuae/falcon-40b",
+        "benchmarks": [
+            "lm-evaluation-harness"
+        ]
+    }
 ]
