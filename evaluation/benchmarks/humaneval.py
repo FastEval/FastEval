@@ -9,7 +9,12 @@ from human_eval.data import HUMAN_EVAL
 from evaluation.utils import replace_model_name_slashes, create_model
 
 def postprocess_model_reply(model_reply):
-    return model_reply # TODO
+    model_reply = model_reply.split('```python')[-1].split('```py')[-1].split('```Python')[-1]
+    if model_reply.count('```') >= 2:
+        model_reply =  model_reply.split('```')[-1]
+    model_reply = model_reply.split('```')[0]
+    model_reply = model_reply.strip('\n')
+    return model_reply
 
 def score_model_replies(tmpfile):
     return evaluate_functional_correctness(tmpfile, [1], 4, 3.0, HUMAN_EVAL)
@@ -26,10 +31,17 @@ def evaluate_model(model_type, model_name):
     for task_id in tqdm.tqdm(dataset):
         prompt = dataset[task_id]['prompt']
         reply = model.reply([
-            ('user', 'Please complete the following Python code without providing any additional tasks such as testing or explanations\n\n' + prompt),
+            ('user',
+                'Please complete the following Python code. '
+                'Do NOT provide any additional explanation or tests. '
+                'Also do NOT output things like "Sure!" or "Here you go!" or similar things. '
+                'Just provide the code without anything else.'
+                '\n\n'
+                + prompt),
         ])
 
         reply = postprocess_model_reply(reply)
+        print('@@@@@@@@@@@@@@@@@@@@\n' + reply + '\n@@@@@@@@@@@@@@@@@@@@')
         samples.append({ 'task_id': task_id, 'completion': reply })
 
     with open('tmp', 'w') as f:
@@ -39,6 +51,8 @@ def evaluate_model(model_type, model_name):
     os.remove('tmp')
     with open('tmp_results.jsonl') as f:
         content = [json.loads(line) for line in f.read().split('\n') if line != '']
+    for sample in content:
+        sample['prompt'] = dataset[sample['task_id']]['prompt']
     output = {
         'replies': content,
         'scores': scores

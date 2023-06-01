@@ -5,6 +5,7 @@ import { createTableScoreCell } from '../components/table-score-cell.js'
 import * as OpenAIEvals from '../benchmarks/openai-evals.js'
 import * as Vicuna from '../benchmarks/vicuna.js'
 import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
+import * as HumanEval from '../benchmarks/human-eval.js'
 
 async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     switch (benchmarkName) {
@@ -14,6 +15,8 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
             return await Vicuna.createV(baseUrl, parameters)
         case 'lm-evaluation-harness':
             return await LMEvaluationHarness.createV(baseUrl)
+        case 'human-eval':
+            return await HumanEval.createV(baseUrl, parameters)
         default:
             throw new Error()
     }
@@ -73,7 +76,7 @@ export async function createBenchmarksIndexV(baseUrl) {
             createTableScoreCell(rowE, createTextE(''))
 
         if (benchmarks.includes('human-eval'))
-            createTableScoreCell(rowE, createTextE(round(humanEvalResultsMap[model].scores['pass@1'])))
+            createTableScoreCell(rowE, createLinkE(round(humanEvalResultsMap[model].scores['pass@1']), { benchmark: 'human-eval', model }))
         else
             createTableScoreCell(rowE, createTextE(''))
     }
