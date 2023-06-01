@@ -26,6 +26,9 @@ class OpenAssistant:
         # TODO: max_length should be taken from the model and not hardcoded.
         model_input = self.tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
 
+        if 'token_type_ids' in model_input:
+            del model_input['token_type_ids']
+
         model_output = self.model.generate(
             **model_input,
             min_new_tokens=1,

@@ -1,1 +1,1 @@
-from . import openai_evals, vicuna, lm_evaluation_harness
+from . import openai_evals, vicuna, lm_evaluation_harness, humaneval

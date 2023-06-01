@@ -28,7 +28,7 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     return existing_models_and_benchmarks
 
 def main():
-    all_benchmarks = ['openai-evals', 'vicuna', 'lm-evaluation-harness']
+    all_benchmarks = ['openai-evals', 'vicuna', 'lm-evaluation-harness', 'human-eval']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
@@ -50,6 +50,8 @@ def main():
         for item in models_and_benchmarks if 'vicuna' in item['benchmarks']])
     benchmarks.lm_evaluation_harness.evaluate_models([(item['model_type'], item['model_name'])
         for item in models_and_benchmarks if 'lm-evaluation-harness' in item['benchmarks']])
+    benchmarks.humaneval.evaluate_models([(item['model_type'], item['model_name'])
+        for item in models_and_benchmarks if 'human-eval' in item['benchmarks']])
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         json.dump(models_and_benchmarks, f, indent=4)
