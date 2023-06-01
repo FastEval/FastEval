@@ -22,18 +22,22 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
 export async function createBenchmarksIndexV(baseUrl) {
     const models = (await (await fetch(baseUrl + '/__index__.json')).json())
 
-    const [vicunaEvaluationResults, openaiEvalsResults, lmEvaluationHarnessResults] = await Promise.all([
+    const [vicunaEvaluationResults, openaiEvalsResults, lmEvaluationHarnessResults, humanEvalResults] = await Promise.all([
         fetch(baseUrl + '/vicuna/reviews.json').then(r => r.json()),
         Promise.all(models.filter(model => model.benchmarks.includes('openai-evals')).map(model => model.model_name)
             .map(async model => [model, await fetch(baseUrl + '/openai-evals/' + model.replace('/', '--') + '/__index__.json').then(r => r.json())])),
         Promise.all(models.filter(model => model.benchmarks.includes('lm-evaluation-harness')).map(model => model.model_name)
-            .map(async model => [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
+            .map(async model => [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())])),
+        Promise.all(models.filter(model => model.benchmarks.includes('human-eval')).map(model => model.model_name)
+            .map(async model => [model, await fetch(baseUrl + '/human-eval/' + model.replace('/', '--') + '.json').then(r => r.json())]))
     ])
 
     const relativeOpenAiEvalsScores = OpenAIEvals.computeRelativeOpenAiEvalsScores(Object.fromEntries(openaiEvalsResults)).averageRelativeScoresByModelName
 
     const averageLmEvaluationHarnessScores =  Object.fromEntries(lmEvaluationHarnessResults.map(([modelName, results]) =>
         [modelName, LMEvaluationHarness.computeAverageScore(results.results)]))
+
+    const humanEvalResultsMap = Object.fromEntries(humanEvalResults)
 
     const tableE = document.createElement('table')
     const theadE = tableE.createTHead().insertRow()
@@ -42,6 +46,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createTextE('Vicuna Win Percentage'))
     theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
+    theadE.insertCell().appendChild(createTextE('HumanEval'))
     const tbodyE = tableE.createTBody()
     for (const { model_name: model, benchmarks } of models) {
         const rowE = tbodyE.insertRow()
@@ -64,6 +69,11 @@ export async function createBenchmarksIndexV(baseUrl) {
 
         if (benchmarks.includes('lm-evaluation-harness'))
             createTableScoreCell(rowE, createTextE(round(averageLmEvaluationHarnessScores[model])))
+        else
+            createTableScoreCell(rowE, createTextE(''))
+
+        if (benchmarks.includes('human-eval'))
+            createTableScoreCell(rowE, createTextE(round(humanEvalResultsMap[model].scores['pass@1'])))
         else
             createTableScoreCell(rowE, createTextE(''))
     }
