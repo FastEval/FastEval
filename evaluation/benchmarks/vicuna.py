@@ -107,6 +107,37 @@ def save_reviews(reviews, models_results):
     with open(reviews_filepath, 'w') as f:
         json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
 
+def compute_elo_ranks_single_seed(model_names, matches):
+    SCALE = 400
+    BASE = 10
+    K = 32
+
+    model_ranks = dict([(model, 1000) for model in model_names])
+    for model1, model2, winner_model in matches:
+        model1_rank = model_ranks[model1]
+        model2_rank = model_ranks[model2]
+        e1 = 1 / (1 + BASE ** ((model2_rank - model1_rank) / SCALE))
+        e2 = 1 / (1 + BASE ** ((model1_rank - model2_rank) / SCALE))
+        if winner_model == '1':
+            sa = 1
+        elif winner_model == '2':
+            sa = 0
+        elif winner_model == 'tie':
+            sa = 0.5
+        model_ranks[model1] += K * (sa - e1)
+        model_ranks[model2] += K * (1 - sa - e2)
+
+    return model_ranks
+
+def compute_elo_ranks(model_names, matches):
+    model_ranks = dict([(model, 1000) for model in model_names])
+    num_seeds = 100
+    for _ in range(num_seeds):
+        random.shuffle(matches)
+        for model_name, model_rank in compute_elo_ranks_single_seed(model_names, matches).items():
+            model_ranks[model_name] += model_rank / num_seeds
+    return model_ranks
+
 def generate_reviews():
     with open('data/vicuna/questions.json') as f:
         questions = json.load(f)
@@ -129,7 +160,7 @@ def generate_reviews():
         'elo_rank': 1000,
     }) for model in models])
 
-    for i in tqdm.tqdm(range(1000)):
+    for i in tqdm.tqdm(range(3000)):
         question_id, question = random.choice(list(questions.items()))
         model_name1, model_name2 = random.sample(models, 2)
         system_message, prompter_message = create_reviewer_prompt(question, answers[model_name1][question_id], answers[model_name2][question_id])
@@ -164,24 +195,12 @@ def generate_reviews():
             models_results[model_name1]['num_ties'] += 1
             models_results[model_name2]['num_ties'] += 1
 
-        SCALE = 400
-        BASE = 10
-        K = 32
-        model1_rank = models_results[model_name1]['elo_rank']
-        model2_rank = models_results[model_name2]['elo_rank']
-        e1 = 1 / (1 + BASE ** ((model2_rank - model1_rank) / SCALE))
-        e2 = 1 / (1 + BASE ** ((model1_rank - model2_rank) / SCALE))
-        if winner_model == '1':
-            sa = 1
-        elif winner_model == '2':
-            sa = 0
-        elif winner_model == 'tie':
-            sa = 0.5
-        models_results[model_name1]['elo_rank'] += K * (sa - e1)
-        models_results[model_name2]['elo_rank'] += K * (1 - sa - e2)
-
         if i != 0 and i % 10 == 0:
             save_reviews(reviews, models_results)
+
+    elo_ranks = compute_elo_ranks(models, [(review['model1'], review['model2'], review['winner_model']) for review in reviews])
+    for model_name, model_results in models_results.items():
+        model_results['elo_rank'] = elo_ranks[model_name]
 
     save_reviews(reviews, models_results)
 
