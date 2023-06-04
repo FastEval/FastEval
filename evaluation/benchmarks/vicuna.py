@@ -130,7 +130,7 @@ def compute_elo_ranks_single_seed(model_names, matches):
     return model_ranks
 
 def compute_elo_ranks(model_names, matches):
-    model_ranks = dict([(model, 1000) for model in model_names])
+    model_ranks = dict([(model, 0) for model in model_names])
     num_seeds = 100
     for _ in range(num_seeds):
         random.shuffle(matches)
@@ -157,7 +157,6 @@ def generate_reviews():
         'num_matches': 0,
         'num_wins': 0,
         'num_ties': 0,
-        'elo_rank': 1000,
     }) for model in models])
 
     for i in tqdm.tqdm(range(3000)):
