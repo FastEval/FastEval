@@ -1,12 +1,22 @@
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+import transformers
 
 from .utils import put_system_message_in_prompter_message
 
 class OpenAssistant:
     def __init__(self, model_path):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self.model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.float16, device_map='auto').eval()
+        if 'falcon' in model_path:
+            self.base_model_type = 'falcon'
+            dtype = torch.bfloat16
+        elif 'llama' in model_path:
+            self.base_model_type = 'llama'
+            dtype = torch.float16
+        else:
+            raise
+
+        self.tokenizer = transformers.AutoTokenizer.from_pretrained(model_path)
+        self.pipeline = transformers.pipeline('text-generation', model=model_path, tokenizer=self.tokenizer,
+            torch_dtype=dtype, trust_remote_code=True, device_map='auto')
 
     def _conversation_item_to_prompt(self, item_type, item):
         if item_type == 'assistant':
@@ -23,21 +33,19 @@ class OpenAssistant:
     def reply(self, conversation):
         prompt = self._conversation_to_prompt(conversation)
 
-        # TODO: max_length should be taken from the model and not hardcoded.
-        model_input = self.tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=2047 - 400).to(0)
+        if self.base_model_type == 'llama':
+            kwargs = { 'temperature': 0.8, 'repetition_penalty': 1.2, 'top_p': 0.9 }
+        elif self.base_model_type == 'falcon':
+            kwargs = { 'top_k': 10 }
 
-        if 'token_type_ids' in model_input:
-            del model_input['token_type_ids']
-
-        model_output = self.model.generate(
-            **model_input,
+        model_output = self.pipeline(
+            prompt,
             min_new_tokens=1,
             max_new_tokens=400,
             do_sample=True,
-            temperature=0.8,
-            repetition_penalty=1.2,
-            top_p=0.9,
-            pad_token_id=self.tokenizer.eos_token_id,
+            num_return_sequences=1,
+            eos_token_id=self.tokenizer.eos_token_id,
+            **kwargs,
         )[0]
 
-        return self.tokenizer.decode(model_output).split('<|assistant|>')[-1].replace(self.tokenizer.eos_token, '').strip()
+        return model_output['generated_text'].split('<|assistant|>')[-1].replace(self.tokenizer.eos_token, '').strip()

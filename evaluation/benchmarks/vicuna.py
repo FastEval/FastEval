@@ -190,5 +190,5 @@ def evaluate_models(models):
     for model_type, model_name in models:
         if generate_assistant_replies(model_type, model_name):
             did_evaluate_some_model = True
-    if did_evaluate_some_model:
+    if did_evaluate_some_model or not os.path.exists('reports/vicuna/reviews.json'):
         generate_reviews()
