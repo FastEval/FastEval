@@ -36,7 +36,7 @@ pip install -r requirements.txt
 
 If you want to evaluate OpenAI models like `gpt-3.5-turbo` or if you want to use the vicuna benchmark which uses `gpt-3.5-turbo` as a reviewer model, then you need to set up an OpenAI API key.
 There are multiple methods for doing that, but the simplest one is to set the `OPENAI_API_KEY` environment variable to the API key you can obtain [here](https://platform.openai.com/account/api-keys).
-The cost of evaluating `gpt-3.5-turbo` or using it for the vicuna benchmark is something like $2.
+The cost of evaluating `gpt-3.5-turbo` or using it for the vicuna benchmark is something like $5.
 
 ### Evaluation
 
