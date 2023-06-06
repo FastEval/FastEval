@@ -42,12 +42,12 @@ def create_reviewer_prompt(question, answer1, answer2):
         + '\n'
         + '[System]\n'
         + 'We would like to request your feedback on the performance of the two AI assistants (Assistant 1 and Assistant 2) in response to the user question displayed above. '
-        + 'First, rate important aspects like helpfulness, relevance, accuracy and level of details of their responses. '
+        + 'First, rate important aspects like relevance, helpfulness, conciseness and especially accuracy of their responses. '
         + 'Second, output who provided the best answer. '
         + 'Do not output the final result immediately. Output the reasoning first in order to think about it step by step. '
         + "If both answers are equally good and it's hard to decide on a winner then please call it a tie. "
-        + "The final line after the step-by-step reasoning should look like this: 'Winner: Assistant 1' or 'Winner: Assistant 2' or 'Tie'. "
-        + "\n")
+        + "The final line after the step-by-step reasoning should look like this: 'Winner: Assistant 1' or 'Winner: Assistant 2' or 'Tie'. \n"
+        + '\n')
 
     return system_message, prompter_message
 
@@ -162,7 +162,7 @@ def generate_reviews():
         'num_ties': 0,
     }) for model in models])
 
-    for i in tqdm.tqdm(range(3000)):
+    for i in tqdm.tqdm(range(1000)):
         question_id, question = random.choice(list(questions.items()))
         model_name1, model_name2 = random.sample(models, 2)
         system_message, prompter_message = create_reviewer_prompt(question, answers[model_name1][question_id], answers[model_name2][question_id])
