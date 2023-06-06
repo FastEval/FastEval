@@ -45,29 +45,29 @@ export async function createBenchmarksIndexV(baseUrl) {
     const tableE = document.createElement('table')
     const theadE = tableE.createTHead().insertRow()
     theadE.insertCell().appendChild(createTextE('Model'))
-    theadE.insertCell().appendChild(createLinkE('OpenAI Evals Score', { benchmark: 'openai-evals' }))
-    theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
+    theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
+    theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
     theadE.insertCell().appendChild(createTextE('HumanEval'))
     const tbodyE = tableE.createTBody()
     for (const { model_name: model, benchmarks } of models) {
         const rowE = tbodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(model))
 
-        if (benchmarks.includes('openai-evals'))
-            createTableScoreCell(rowE, createTextE(round(relativeOpenAiEvalsScores[model])))
+        if (benchmarks.includes('lm-evaluation-harness'))
+            createTableScoreCell(rowE, createTextE(round(averageLmEvaluationHarnessScores[model])))
         else
-            rowE.insertCell()
+            createTableScoreCell(rowE, createTextE(''))
 
         if (benchmarks.includes('vicuna'))
             createTableScoreCell(rowE, createTextE(Math.round(vicunaEvaluationResults.models[model].elo_rank)))
         else
             rowE.insertCell()
 
-        if (benchmarks.includes('lm-evaluation-harness'))
-            createTableScoreCell(rowE, createTextE(round(averageLmEvaluationHarnessScores[model])))
+        if (benchmarks.includes('openai-evals'))
+            createTableScoreCell(rowE, createTextE(round(relativeOpenAiEvalsScores[model])))
         else
-            createTableScoreCell(rowE, createTextE(''))
+            rowE.insertCell()
 
         if (benchmarks.includes('human-eval'))
             createTableScoreCell(rowE, createLinkE(round(humanEvalResultsMap[model].scores['pass@1']), { benchmark: 'human-eval', model }))
