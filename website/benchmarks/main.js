@@ -47,7 +47,6 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createTextE('Model'))
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals Score', { benchmark: 'openai-evals' }))
     theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
-    theadE.insertCell().appendChild(createTextE('Vicuna Win Percentage'))
     theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
     theadE.insertCell().appendChild(createTextE('HumanEval'))
     const tbodyE = tableE.createTBody()
@@ -60,15 +59,10 @@ export async function createBenchmarksIndexV(baseUrl) {
         else
             rowE.insertCell()
 
-        if (benchmarks.includes('vicuna')) {
-            const vicunaModelResults = vicunaEvaluationResults.models[model]
-            createTableScoreCell(rowE, createTextE(Math.round(vicunaModelResults.elo_rank)))
-            const winRate = (vicunaModelResults.num_wins + vicunaModelResults.num_ties / 2) / vicunaModelResults.num_matches
-            createTableScoreCell(rowE, createTextE(round(winRate)))
-        } else {
+        if (benchmarks.includes('vicuna'))
+            createTableScoreCell(rowE, createTextE(Math.round(vicunaEvaluationResults.models[model].elo_rank)))
+        else
             rowE.insertCell()
-            rowE.insertCell()
-        }
 
         if (benchmarks.includes('lm-evaluation-harness'))
             createTableScoreCell(rowE, createTextE(round(averageLmEvaluationHarnessScores[model])))
