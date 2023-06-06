@@ -10,16 +10,16 @@ def evaluate_model(model_type, model_name):
 
     tasks = ['openbookqa', 'arc_easy', 'winogrande', 'hellaswag', 'arc_challenge', 'piqa', 'boolq']
 
-    if model_type in ['open-assistant', 'guanaco', 'falcon', 'base']:
-        print('lm-evaluation-harness: Evaluating', model_name)
-        if model_type == 'falcon':
-            dtype = 'bfloat16'
-        else:
-            dtype = 'float16'
-        results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', tasks=tasks,
-            model_args='pretrained=' + model_name + ',dtype="' + dtype + '",trust_remote_code=True,use_accelerate=True')
-    elif model_type == 'openai':
+    if model_type == 'openai':
         return
+
+    print('lm-evaluation-harness: Evaluating', model_name)
+    if model_type == 'falcon':
+        dtype = 'bfloat16'
+    else:
+        dtype = 'float16'
+    results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', tasks=tasks,
+        model_args='pretrained=' + model_name + ',dtype="' + dtype + '",trust_remote_code=True,use_accelerate=True')
 
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
