@@ -44,14 +44,14 @@ def main():
         with open('reports/__index__.json') as f:
             models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.models, args.benchmarks)
 
+    benchmarks.humaneval.evaluate_models([(item['model_type'], item['model_name'])
+        for item in models_and_benchmarks if 'human-eval' in item['benchmarks']])
+    benchmarks.lm_evaluation_harness.evaluate_models([(item['model_type'], item['model_name'])
+        for item in models_and_benchmarks if 'lm-evaluation-harness' in item['benchmarks']])
     benchmarks.openai_evals.evaluate_models([(item['model_type'], item['model_name'])
         for item in models_and_benchmarks if 'openai-evals' in item['benchmarks']])
     benchmarks.vicuna.evaluate_models([(item['model_type'], item['model_name'])
         for item in models_and_benchmarks if 'vicuna' in item['benchmarks']])
-    benchmarks.lm_evaluation_harness.evaluate_models([(item['model_type'], item['model_name'])
-        for item in models_and_benchmarks if 'lm-evaluation-harness' in item['benchmarks']])
-    benchmarks.humaneval.evaluate_models([(item['model_type'], item['model_name'])
-        for item in models_and_benchmarks if 'human-eval' in item['benchmarks']])
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         json.dump(models_and_benchmarks, f, indent=4)
