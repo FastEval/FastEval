@@ -28,6 +28,7 @@ def create_reviewer_prompt(question, answer1, answer2):
     system_message = 'You are a helpful and precise assistant for checking the quality of the answer.'
 
     # https://medium.com/@geronimo7/open-source-chatbots-in-the-wild-9a44d7a41a48
+    # https://twitter.com/natolambert/status/1665757105788432384
     prompter_message = ('[Question]\n'
         + question + '\n'
         + '\n'
@@ -41,10 +42,11 @@ def create_reviewer_prompt(question, answer1, answer2):
         + '\n'
         + '[System]\n'
         + 'We would like to request your feedback on the performance of the two AI assistants (Assistant 1 and Assistant 2) in response to the user question displayed above. '
-        + 'Please rate the helpfulness, relevance, accuracy, level of details of their responses. '
-        + "Please output who provided the best answer. If both answers are equally good and it's hard to decide on a winner then please call it a tie. "
-        + "Your output should look like this: 'Winner: Assistant 1' or 'Winner: Assistant 2' or 'Tie'. "
-        + 'Do not output anything else.\n'
+        + 'First, rate important aspects like helpfulness, relevance, accuracy and level of details of their responses. '
+        + 'Second, output who provided the best answer. '
+        + 'Do not output the final result immediately. Output the reasoning first in order to think about it step by step. '
+        + "If both answers are equally good and it's hard to decide on a winner then please call it a tie. "
+        + "The final line after the step-by-step reasoning should look like this: 'Winner: Assistant 1' or 'Winner: Assistant 2' or 'Tie'. "
         + "\n")
 
     return system_message, prompter_message
@@ -59,6 +61,7 @@ def find_winner(line):
         'winner is "assistant',
         'winner for this question is assistant',
         'winner of this round is: assistant',
+        'winner of this competition is assistant',
     ]
 
     winner_model = None
@@ -131,7 +134,7 @@ def compute_elo_ranks_single_seed(model_names, matches):
 
 def compute_elo_ranks(model_names, matches):
     model_ranks = dict([(model, 0) for model in model_names])
-    num_seeds = 100
+    num_seeds = 1000
     for _ in range(num_seeds):
         random.shuffle(matches)
         for model_name, model_rank in compute_elo_ranks_single_seed(model_names, matches).items():
@@ -170,8 +173,6 @@ def generate_reviews():
         ])
 
         winner_model = find_winner(review.split('\n')[-1].lower())
-        if winner_model is None:
-            winner_model = find_winner(review.split('\n')[0].lower())
         if winner_model is None:
             print(review)
             continue
