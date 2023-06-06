@@ -2,6 +2,7 @@ from evaluation.models.open_ai import OpenAI
 from evaluation.models.open_assistant import OpenAssistant
 from evaluation.models.guanaco import Guanaco
 from evaluation.models.falcon import Falcon
+from evaluation.models.alpaca import Alpaca
 
 def replace_model_name_slashes(model_name: str) -> str:
     """
@@ -24,3 +25,5 @@ def create_model(model_type: str, model_name: str):
         return Guanaco(model_name)
     if model_type == 'falcon':
         return Falcon(model_name)
+    if model_type == 'alpaca':
+        return Alpaca(model_name)
