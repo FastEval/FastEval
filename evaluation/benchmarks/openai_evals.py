@@ -88,10 +88,21 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
         'joke-fruits-v2.dev.v0', # Buggy in openai/evals itself due to removed format_type feature that is still used by this eval
     ]
 
+    evals_where_all_models_get_zero_score = [
+        'actors-sequence.dev.match-v1',
+        'complex-replace-characters.dev.v0',
+        'finance.dev.v0',
+        'knot-theory-code-conversion.dev.v0',
+        'naughty_strings.test.v1',
+        'reverse-string.s1.simple-v0',
+    ]
+
+    ignored_evals = non_working_evals + evals_where_all_models_get_zero_score
+
     for eval in evals:
         if os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval + '.json')):
             continue
-        if eval in non_working_evals:
+        if eval in ignored_evals:
             continue
         print('Now evaluating', eval)
         run_single_eval(registry, model_type, model_name, eval)
