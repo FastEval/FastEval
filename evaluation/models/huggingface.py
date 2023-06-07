@@ -25,7 +25,11 @@ class Huggingface:
         self.prefix = prefix
         self.user = user
         self.assistant = assistant
-        self.end = end
+
+        if end == 'tokenizer-eos-token':
+            self.end = self.tokenizer.eos_token
+        else:
+            self.end = end
 
     def _conversation_item_to_prompt(self, item_type, item):
         if item_type == 'assistant':
