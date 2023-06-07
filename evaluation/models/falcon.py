@@ -2,7 +2,7 @@ import torch
 
 from .huggingface import Huggingface
 
-class Falcon(Huggingface):
+class FalconInstruct(Huggingface):
     def __init__(self, model_path):
         super().__init__(
             model_path,

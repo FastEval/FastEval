@@ -2,7 +2,7 @@ import torch
 
 from .huggingface import Huggingface
 
-class Falcon(Huggingface):
+class OpenAssistant(Huggingface):
     def __init__(self, model_path):
         if 'pythia' in model_path:
             dtype = torch.float16

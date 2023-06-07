@@ -14,7 +14,7 @@ def evaluate_model(model_type, model_name):
         return
 
     print('lm-evaluation-harness: Evaluating', model_name)
-    if model_type == 'falcon':
+    if model_type == 'falcon-instruct':
         dtype = 'bfloat16'
     else:
         dtype = 'float16'
