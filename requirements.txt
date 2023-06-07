@@ -1,5 +1,6 @@
 --extra-index-url https://download.pytorch.org/whl/nightly/cu118
 --pre
+
 torch
 transformers
 accelerate
@@ -7,7 +8,11 @@ tqdm
 tenacity
 sentencepiece
 protobuf
--e git+https://github.com/tju01/evals.git#egg=evals
+
+# benchmarks
 -e git+https://github.com/EleutherAI/lm-evaluation-harness.git@8cff2bea3e3b3179afc461fc079d57f81d2c128a#egg=lm_eval
-einops # required for evaluating falcon models
+-e git+https://github.com/tju01/evals.git#egg=evals
 -e git+https://github.com/tju01/human-eval.git#egg=human-eval
+
+# models
+einops # required for falcon
