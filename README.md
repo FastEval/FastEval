@@ -3,6 +3,8 @@
 This repository contains code to automatically evaluate instruction following language models on benchmarks.
 It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/ilm-eval/).
 
+## Supported benchmarks & models
+
 Right now, the following benchmarks are supported:
 - [OpenAI evals](https://github.com/openai/evals): Contains various tasks to measure different capabilities of instruction-following language models. Uses both basic tasks that are just compared to the solution directly and model-graded tasks where another language model is used for evaluation.
 - [Vicuna benchmark](https://lmsys.org/blog/2023-03-30-vicuna): Uses another more capable model like `gpt-4` or `gpt-3.5-turbo` for comparing outputs of different models and computes win rates and Elo ratings based on these comparisons.
