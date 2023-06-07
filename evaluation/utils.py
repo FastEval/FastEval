@@ -16,14 +16,20 @@ def replace_model_name_slashes(model_name: str) -> str:
 def undo_replace_model_name_slashes(model_name: str) -> str:
     return model_name.replace('--', '/')
 
-def create_model(model_type: str, model_name: str):
+def get_model_class(model_type: str):
     if model_type == 'openai':
-        return OpenAI(model_name)
+        return OpenAI
     if model_type == 'open-assistant':
-        return OpenAssistant(model_name)
+        return OpenAssistant
     if model_type == 'guanaco':
-        return Guanaco(model_name)
+        return Guanaco
     if model_type == 'falcon-instruct':
-        return FalconInstruct(model_name)
+        return FalconInstruct
     if model_type == 'alpaca':
-        return Alpaca(model_name)
+        return Alpaca
+
+def create_model(model_type: str, model_name: str):
+    return get_model_class(model_type)(model_name)
+
+def get_dtype(model_type: str, model_name: str):
+    return get_model_class(model_type).get_dtype(model_name)

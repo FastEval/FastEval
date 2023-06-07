@@ -9,7 +9,6 @@ class Huggingface:
         model_path: str,
         *,
         tokenizer_path=None,
-        dtype=torch.float16,
         prefix='',
         user: str,
         assistant: str,
@@ -20,7 +19,7 @@ class Huggingface:
 
         self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
         self.pipeline = transformers.pipeline('text-generation', model=model_path, tokenizer=self.tokenizer,
-            torch_dtype=dtype, trust_remote_code=True, device_map='auto')
+            torch_dtype=self.__class__.get_dtype(model_path), trust_remote_code=True, device_map='auto')
 
         self.prefix = prefix
         self.user = user
@@ -30,6 +29,10 @@ class Huggingface:
             self.end = self.tokenizer.eos_token
         else:
             self.end = end
+
+    @staticmethod
+    def get_dtype(model_path: str):
+        return torch.float16
 
     def _conversation_item_to_prompt(self, item_type, item):
         if item_type == 'assistant':
