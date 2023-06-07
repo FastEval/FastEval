@@ -3,8 +3,10 @@ import json
 
 import lm_eval.evaluator
 
+from ..utils import replace_model_name_slashes
+
 def evaluate_model(model_type, model_name):
-    output_path = os.path.join('./reports/lm-evaluation-harness', model_name.replace('/', '--') + '.json')
+    output_path = os.path.join('./reports/lm-evaluation-harness', replace_model_name_slashes(model_name) + '.json')
     if os.path.exists(output_path):
         return
 
