@@ -1,11 +1,11 @@
 import os
 import json
+import subprocess
+import ast
 
 import tqdm
-from human_eval.data import write_jsonl, read_problems
-from human_eval.evaluation import evaluate_functional_correctness
+from evalplus.data import get_human_eval_plus, write_jsonl
 
-from human_eval.data import HUMAN_EVAL
 from evaluation.utils import replace_model_name_slashes, create_model
 
 def postprocess_model_reply(model_reply):
@@ -16,9 +16,6 @@ def postprocess_model_reply(model_reply):
     model_reply = model_reply.strip('\n')
     return model_reply
 
-def score_model_replies(tmpfile):
-    return evaluate_functional_correctness(tmpfile, [1], 4, 3.0, HUMAN_EVAL)
-
 def evaluate_model(model_type, model_name):
     output_path = os.path.join('./reports/human-eval', replace_model_name_slashes(model_name) + '.json')
     if os.path.exists(output_path):
@@ -26,7 +23,7 @@ def evaluate_model(model_type, model_name):
 
     model = create_model(model_type, model_name)
 
-    dataset = read_problems()
+    dataset = get_human_eval_plus()
     samples = []
     for task_id in tqdm.tqdm(dataset):
         prompt = dataset[task_id]['prompt']
@@ -44,24 +41,46 @@ def evaluate_model(model_type, model_name):
         print('@@@@@@@@@@@@@@@@@@@@\n' + reply + '\n@@@@@@@@@@@@@@@@@@@@')
         samples.append({ 'task_id': task_id, 'completion': reply })
 
-    with open('tmp', 'w') as f:
-        f.write('\n'.join([json.dumps(sample) for sample in samples]))
+    write_jsonl('human-eval-plus-tmp.jsonl', samples)
+    process_output = subprocess.run([
+        'evalplus.evaluate',
+        '--dataset', 'humaneval',
+        '--samples', 'human-eval-plus-tmp.jsonl'
+    ], capture_output=True, text=True).stdout
+    os.remove('human-eval-plus-tmp.jsonl')
 
-    scores = score_model_replies('tmp')
-    os.remove('tmp')
-    with open('tmp_results.jsonl') as f:
-        content = [json.loads(line) for line in f.read().split('\n') if line != '']
-    for sample in content:
-        sample['prompt'] = dataset[sample['task_id']]['prompt']
-    output = {
-        'replies': content,
-        'scores': scores
-    }
+    with open('human-eval-plus-tmp_eval_results.json') as f:
+        results = json.load(f)['eval']
 
+    samples_with_results = []
+    for sample in samples:
+        task_id = sample['task_id']
+        completion = sample['completion']
+        prompt = dataset[task_id]['prompt']
+        result = results[task_id]['plus'][0][0]
+        if result == 'failed':
+            success = False
+        elif result == 'success':
+            success = True
+        else:
+            print(task_id, results[task_id]['plus'][0][0])
+            raise
+        samples_with_results.append({
+            'task_id': task_id,
+            'prompt': prompt,
+            'completion': completion,
+            'success': success,
+        })
+
+    os.remove('human-eval-plus-tmp_eval_results.json')
+
+    process_output_lines = [line for line in process_output.split('\n') if line != '']
+    assert process_output_lines[-2] == 'Base + Extra'
+    score = ast.literal_eval(process_output_lines[-1])['pass@1']
+    output = { 'replies': samples_with_results, 'score': score }
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w') as f:
         json.dump(output, f, indent=4)
-    os.remove('tmp_results.jsonl')
 
 def evaluate_models(models):
     for model_type, model_name in models:
