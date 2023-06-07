@@ -97,7 +97,14 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
         'reverse-string.s1.simple-v0',
     ]
 
-    ignored_evals = non_working_evals + evals_where_all_models_get_zero_score
+    other_excluded_evals = [
+        # Requires sacrebleu>=2.3.1 which conflicts with lm-evaluation-harness dependencies
+        'manga-translation-bubble.dev.v0',
+        'manga-translation-page.dev.v0',
+        'manga-translation-panel.dev.v0',
+    ]
+
+    ignored_evals = non_working_evals + evals_where_all_models_get_zero_score + other_excluded_evals
 
     for eval in evals:
         if os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval + '.json')):
