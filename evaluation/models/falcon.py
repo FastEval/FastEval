@@ -1,28 +1,16 @@
 import torch
-import transformers
 
-from .utils import put_system_message_in_prompter_message
+from .huggingface import Huggingface
 
-class Falcon:
+class Falcon(Huggingface):
     def __init__(self, model_path):
-        self.tokenizer = transformers.AutoTokenizer.from_pretrained(model_path)
-        self.pipeline = transformers.pipeline('text-generation', model=model_path, tokenizer=self.tokenizer,
-            torch_dtype=torch.bfloat16, trust_remote_code=True, device_map='auto')
+        super().__init__(
+            model_path,
 
-    def _conversation_item_to_prompt(self, item_type, item):
-        if item_type == 'assistant':
-            return 'Assistant: ' + item + '\n'
-        elif item_type == 'user':
-            return 'User: ' + item + '\n'
-        else:
-            raise
+            dtype=torch.bfloat16,
 
-    def _conversation_to_prompt(self, conversation):
-        # See https://huggingface.co/tiiuae/falcon-7b-instruct/discussions/1#64708b0a3df93fddece002a4
-        conversation = put_system_message_in_prompter_message(conversation)
-        return ''.join(self._conversation_item_to_prompt(item_type, item) for item_type, item in conversation) + 'Assistant: '
-
-    def reply(self, conversation):
-        prompt = self._conversation_to_prompt(conversation)
-        model_output = self.pipeline(prompt, max_new_tokens=400, do_sample=True, top_k=10, num_return_sequences=1, eos_token_id=self.tokenizer.eos_token_id)[0]
-        return model_output['generated_text'].replace(prompt, '').split('\nUser')[0].strip()
+            # https://huggingface.co/tiiuae/falcon-7b-instruct/discussions/1#64708b0a3df93fddece002a4
+            user='User: ',
+            assistant='Assistant: ',
+            end='\n',
+        )

@@ -10,7 +10,7 @@ class Huggingface:
         *,
         tokenizer_path=None,
         dtype=torch.float16,
-        prefix: str,
+        prefix='',
         user: str,
         assistant: str,
         end: str,
