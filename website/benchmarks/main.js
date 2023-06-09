@@ -5,7 +5,7 @@ import { createTableScoreCell } from '../components/table-score-cell.js'
 import * as OpenAIEvals from '../benchmarks/openai-evals.js'
 import * as Vicuna from '../benchmarks/vicuna.js'
 import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
-import * as HumanEval from '../benchmarks/human-eval.js'
+import * as HumanEvalPlus from '../benchmarks/human-eval.js'
 
 async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     switch (benchmarkName) {
@@ -16,7 +16,7 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
         case 'lm-evaluation-harness':
             return await LMEvaluationHarness.createV(baseUrl)
         case 'human-eval':
-            return await HumanEval.createV(baseUrl, parameters)
+            return await HumanEvalPlus.createV(baseUrl, parameters)
         default:
             throw new Error()
     }
@@ -25,14 +25,14 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
 export async function createBenchmarksIndexV(baseUrl) {
     const models = (await (await fetch(baseUrl + '/__index__.json')).json())
 
-    const [vicunaEvaluationResults, openaiEvalsResults, lmEvaluationHarnessResults, humanEvalResults] = await Promise.all([
+    const [vicunaEvaluationResults, openaiEvalsResults, lmEvaluationHarnessResults, humanEvalPlusResults] = await Promise.all([
         fetch(baseUrl + '/vicuna/reviews.json').then(r => r.json()),
         Promise.all(models.filter(model => model.benchmarks.includes('openai-evals')).map(model => model.model_name)
             .map(async model => [model, await fetch(baseUrl + '/openai-evals/' + model.replace('/', '--') + '/__index__.json').then(r => r.json())])),
         Promise.all(models.filter(model => model.benchmarks.includes('lm-evaluation-harness')).map(model => model.model_name)
             .map(async model => [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())])),
-        Promise.all(models.filter(model => model.benchmarks.includes('human-eval')).map(model => model.model_name)
-            .map(async model => [model, await fetch(baseUrl + '/human-eval/' + model.replace('/', '--') + '.json').then(r => r.json())]))
+        Promise.all(models.filter(model => model.benchmarks.includes('human-eval-plus')).map(model => model.model_name)
+            .map(async model => [model, await fetch(baseUrl + '/human-eval-plus/' + model.replace('/', '--') + '.json').then(r => r.json())]))
     ])
 
     const relativeOpenAiEvalsScores = OpenAIEvals.computeRelativeOpenAiEvalsScores(Object.fromEntries(openaiEvalsResults)).averageRelativeScoresByModelName
@@ -40,7 +40,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     const averageLmEvaluationHarnessScores =  Object.fromEntries(lmEvaluationHarnessResults.map(([modelName, results]) =>
         [modelName, LMEvaluationHarness.computeAverageScore(results.results)]))
 
-    const humanEvalResultsMap = Object.fromEntries(humanEvalResults)
+    const humanEvalPlusResultsMap = Object.fromEntries(humanEvalPlusResults)
 
     const tableE = document.createElement('table')
     const theadE = tableE.createTHead().insertRow()
@@ -48,7 +48,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
     theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
-    theadE.insertCell().appendChild(createTextE('HumanEval'))
+    theadE.insertCell().appendChild(createTextE('HumanEval+'))
     const tbodyE = tableE.createTBody()
     for (const { model_name: model, benchmarks } of models) {
         const rowE = tbodyE.insertRow()
@@ -69,8 +69,8 @@ export async function createBenchmarksIndexV(baseUrl) {
         else
             rowE.insertCell()
 
-        if (benchmarks.includes('human-eval'))
-            createTableScoreCell(rowE, createLinkE(round(humanEvalResultsMap[model].scores['pass@1']), { benchmark: 'human-eval', model }))
+        if (benchmarks.includes('human-eval-plus'))
+            createTableScoreCell(rowE, createLinkE(round(humanEvalPlusResultsMap[model].scores['pass@1']), { benchmark: 'human-eval', model }))
         else
             createTableScoreCell(rowE, createTextE(''))
     }

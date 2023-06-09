@@ -8,7 +8,7 @@ It also contains the evaluation reports for different models as well as the code
 Right now, the following benchmarks are supported:
 - [OpenAI evals](https://github.com/openai/evals): Contains various tasks to measure different capabilities of instruction-following language models. Uses both basic tasks that are just compared to the solution directly and model-graded tasks where another language model is used for evaluation.
 - [Vicuna benchmark](https://lmsys.org/blog/2023-03-30-vicuna): Uses another more capable model like `gpt-4` or `gpt-3.5-turbo` for comparing outputs of different models and computes win rates and Elo ratings based on these comparisons.
-- [Human Eval](https://github.com/openai/human-eval): Gives the model the start of a function as input with a docstring comment on what the function is supposed to do. The model should then complete the code. The model output code is evaluated for correctness by running it against a few tests.
+- [HumanEval+](https://github.com/evalplus/evalplus): Gives the model the start of a function as input with a docstring comment on what the function is supposed to do. The model should then complete the code. The model output code is evaluated for correctness by running it against a few tests.
 - [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness): This is not a benchmark for evaluating instruction following language models, but it is for few-shot evaluation of pre-trained models. However, it can still be part of a useful evaluation of instruction following models.
 
 Since this repository is about instruction following models and different instruction models require different prompt formatting, a corresponding implementation of the prompt format is needed to evaluate a model. The following model types are currently supported:
@@ -50,7 +50,7 @@ Call the `evaluate.py` script in the following way:
 ```
 ./evaluate.py [-b <benchmark_name_1>...] -m model_type_1:model_name_1...
 ````
-- A benchmark name can be `all` (default), `openai-evals`, `vicuna`, `human-eval` or `lm-evaluation-harness`.
+- A benchmark name can be `all` (default), `openai-evals`, `vicuna`, `human-eval-plus` or `lm-evaluation-harness`.
 - A model type can be either `open-assistant`, `openai`, `alpaca` or `falcon-instruct`.
 - A model name can be either a path to a local folder or a huggingface path.
 

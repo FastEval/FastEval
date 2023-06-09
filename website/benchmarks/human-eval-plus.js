@@ -6,7 +6,7 @@ export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
     containerE.classList.add('samples')
 
-    const data = await (await fetch(baseUrl + '/human-eval/' + parameters.get('model').replace('/', '--') + '.json')).json()
+    const data = await (await fetch(baseUrl + '/human-eval-plus/' + parameters.get('model').replace('/', '--') + '.json')).json()
     for (const item of data.replies) {
         if (parameters.has('sample') && parameters.get('sample') !== item.task_id)
             continue
