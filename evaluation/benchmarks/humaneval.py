@@ -9,10 +9,26 @@ from evalplus.data import get_human_eval_plus, write_jsonl
 from evaluation.utils import replace_model_name_slashes, create_model
 
 def postprocess_model_reply(model_reply):
-    model_reply = model_reply.split('```python')[-1].split('```py')[-1].split('```Python')[-1]
+    model_reply = model_reply.split('```py')[-1].split('```python')[-1].split('```Python')[-1]
     if model_reply.count('```') >= 2:
         model_reply =  model_reply.split('```')[-1]
     model_reply = model_reply.split('```')[0]
+
+    new_lines = []
+    inside_function = False
+    for line in model_reply.split('\n'):
+        if line == '':
+            new_lines.append(line)
+        elif line.startwith('import ') or line.startwith('from '):
+            new_lines.append(line)
+        elif line.startswith('def '):
+            new_lines.append(line)
+            inside_function = True
+        elif inside_function and line.startswith(' '):
+            new_lines.append(line)
+        else:
+            inside_function = False
+
     model_reply = model_reply.strip('\n')
     return model_reply
 
@@ -32,7 +48,8 @@ def evaluate_model(model_type, model_name):
                 'Please complete the following Python code. '
                 'Do NOT provide any additional explanation or tests. '
                 'Also do NOT output things like "Sure!" or "Here you go!" or similar things. '
-                'Just provide the code without anything else.'
+                'Just provide the code without anything else. '
+                'Provide the whole function including the part that is already given as input.'
                 '\n\n'
                 + prompt),
         ])
