@@ -19,21 +19,22 @@ def postprocess_model_reply(model_reply):
     for line in model_reply.split('\n'):
         if line == '':
             new_lines.append(line)
-        elif line.startwith('import ') or line.startwith('from '):
+        elif line.startswith('import ') or line.startswith('from '):
             new_lines.append(line)
         elif line.startswith('def '):
             new_lines.append(line)
             inside_function = True
-        elif inside_function and line.startswith(' '):
+        elif inside_function and (line.startswith(' ') or line.startswith('\t')):
             new_lines.append(line)
         else:
             inside_function = False
 
+    model_reply = '\n'.join(new_lines)
     model_reply = model_reply.strip('\n')
     return model_reply
 
 def evaluate_model(model_type, model_name):
-    output_path = os.path.join('./reports/human-eval', replace_model_name_slashes(model_name) + '.json')
+    output_path = os.path.join('./reports/human-eval-plus', replace_model_name_slashes(model_name) + '.json')
     if os.path.exists(output_path):
         return
 
@@ -46,10 +47,9 @@ def evaluate_model(model_type, model_name):
         reply = model.reply([
             ('user',
                 'Please complete the following Python code. '
-                'Do NOT provide any additional explanation or tests. '
-                'Also do NOT output things like "Sure!" or "Here you go!" or similar things. '
-                'Just provide the code without anything else. '
-                'Provide the whole function including the part that is already given as input.'
+                'Provide the complete function implementation including the part that is already given as input. '
+                'Do not provide anything else except the function code and implementation. '
+                'Do not provide explanation, tests or example usage.'
                 '\n\n'
                 + prompt),
         ])
