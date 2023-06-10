@@ -32,11 +32,13 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
-    parser.add_argument('-m', '--models', nargs='+', required=True)
+    parser.add_argument('-m', '--models', nargs='+')
     args = parser.parse_args()
 
     if 'all' in args.benchmarks:
         args.benchmarks = all_benchmarks
+    if args.models is None:
+        args.models = []
 
     args.models = [model.split(':') for model in args.models]
 
