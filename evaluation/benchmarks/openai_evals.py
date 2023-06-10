@@ -112,6 +112,14 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
         'loss-logic-fact.dev.v0',
         'naughty_strings_graded_meta.test.v1',
         'rap-animals-vs-fruits.dev.v0',
+
+        # calculate scores incorrectly
+        'joke-animals-vs-fruits.dev.v0',
+        'joke-fruits-ans-meta.dev.v0',
+        'joke-fruits-expl-meta.dev.v0',
+        'joke-fruits-likert.dev.v0',
+        'joke-fruits-meta.dev.v0',
+        'joke-fruits.dev.v0',
     ]
 
     ignored_evals = non_working_evals + evals_where_all_models_get_zero_score + other_excluded_evals
