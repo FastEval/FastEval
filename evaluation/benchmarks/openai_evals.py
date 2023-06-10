@@ -72,7 +72,7 @@ class Registry(evals.registry.Registry):
 
 def run_single_eval(registry: Registry, model_type: str, model_name: str, eval_name: str):
     evals.cli.oaieval.run(evals.cli.oaieval.get_parser().parse_args([
-        model_type + ':' + model_name,
+        model_type + ':' + model_name + ',openai:gpt-3.5-turbo',
         eval_name,
         '--record_path', os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval_name + '.json'),
     ]), registry)
