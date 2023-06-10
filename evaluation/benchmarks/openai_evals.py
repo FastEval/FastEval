@@ -102,6 +102,16 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
         'manga-translation-bubble.dev.v0',
         'manga-translation-page.dev.v0',
         'manga-translation-panel.dev.v0',
+
+        # Doesn't give a score
+        'categorize-with-distractors.dev.v0',
+        'coqa-fact-expl.dev.v0',
+        'coqa-fact.dev.v0',
+        'logic-fact.dev.v0',
+        'logic-liar-paradox.dev.v0',
+        'loss-logic-fact.dev.v0',
+        'naughty_strings_graded_meta.test.v1',
+        'rap-animals-vs-fruits.dev.v0',
     ]
 
     ignored_evals = non_working_evals + evals_where_all_models_get_zero_score + other_excluded_evals
