@@ -42,6 +42,7 @@ def evaluate_model(model_type, model_name):
 
     dataset = get_human_eval_plus()
     samples = []
+    raw_replies = {}
     for task_id in tqdm.tqdm(dataset):
         prompt = dataset[task_id]['prompt']
         reply = model.reply([
@@ -54,9 +55,10 @@ def evaluate_model(model_type, model_name):
                 + prompt),
         ])
 
-        reply = postprocess_model_reply(reply)
-        print('@@@@@@@@@@@@@@@@@@@@\n' + reply + '\n@@@@@@@@@@@@@@@@@@@@')
-        samples.append({ 'task_id': task_id, 'completion': reply })
+        processed_reply = postprocess_model_reply(reply)
+        print('@@@@@@@@@@@@@@@@@@@@\n' + reply + '\n--------------------\n' + processed_reply + '\n@@@@@@@@@@@@@@@@@@@@')
+        samples.append({ 'task_id': task_id, 'completion': processed_reply })
+        raw_replies[task_id] = reply
 
     write_jsonl('human-eval-plus-tmp.jsonl', samples)
     process_output = subprocess.run([
@@ -72,7 +74,8 @@ def evaluate_model(model_type, model_name):
     samples_with_results = []
     for sample in samples:
         task_id = sample['task_id']
-        completion = sample['completion']
+        completion_processed = sample['completion']
+        completion_raw = raw_replies[task_id]
         prompt = dataset[task_id]['prompt']
         result = results[task_id]['plus'][0][0]
         if result == 'failed':
@@ -85,7 +88,8 @@ def evaluate_model(model_type, model_name):
         samples_with_results.append({
             'task_id': task_id,
             'prompt': prompt,
-            'completion': completion,
+            'completion_processed': completion_processed,
+            'completion_raw': completion_raw,
             'success': success,
         })
 
