@@ -9,10 +9,10 @@ from evalplus.data import get_human_eval_plus, write_jsonl
 from evaluation.utils import replace_model_name_slashes, create_model
 
 def postprocess_model_reply(model_reply):
-    model_reply = model_reply.split('```py')[-1].split('```python')[-1].split('```Python')[-1]
-    if model_reply.count('```') >= 2:
-        model_reply =  model_reply.split('```')[-1]
-    model_reply = model_reply.split('```')[0]
+    for item in ['```Python', '```python', '```py', '```']:
+        if item in model_reply:
+            model_reply = model_reply.split(item)[1].split('```')[0]
+            break
 
     new_lines = []
     inside_function = False
