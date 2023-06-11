@@ -15,12 +15,12 @@ def evaluate_model(model_type, model_name):
 
     tasks = ['openbookqa', 'arc_easy', 'winogrande', 'hellaswag', 'arc_challenge', 'piqa', 'boolq']
 
-    model_args = ','.join([k + '=' + v for k, v in {
+    model_args = ','.join([k + '=' + str(v) for k, v in ({
         'pretrained': model_name,
         'dtype': str(get_dtype(model_type, model_name)).replace('torch.', ''),
         'trust_remote_code': True,
         'use_accelerate': True,
-    }])
+    }).items()])
 
     print('lm-evaluation-harness: Evaluating', model_name)
 
