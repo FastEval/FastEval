@@ -70,14 +70,17 @@ class Registry(evals.registry.Registry):
     # Prevent errors about OpenAI API key missing even if we don't use OpenAI models
     api_model_ids = []
 
-def run_single_eval(registry: Registry, model_type: str, model_name: str, eval_name: str):
+def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
+    models = model_type + ':' + model_name
+    if eval.cls == 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
+        models += ',openai:gpt-3.5-turbo'
     evals.cli.oaieval.run(evals.cli.oaieval.get_parser().parse_args([
-        model_type + ':' + model_name + ',openai:gpt-3.5-turbo',
-        eval_name,
-        '--record_path', os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval_name + '.json'),
+        models,
+        eval.key,
+        '--record_path', os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json'),
     ]), registry)
 
-def run_multiple_evals(registry: Registry, model_type: str, model_name: str, evals: list[str]):
+def run_multiple_evals(registry: Registry, model_type: str, model_name: str, evals):
     non_working_evals = [
         'best.dev.v0', # Compares multiple models
         'positive-binary-operations.test.v1', # KeyError: 'sample'
@@ -86,6 +89,7 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
         'stock-options-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_options_iron_butteryfly_spread.jsonl
         'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_option_terms_inverse_iron_butteryfly_spread.jsonl
         'joke-fruits-v2.dev.v0', # Buggy in openai/evals itself due to removed format_type feature that is still used by this eval
+        'illinois-law.v0', # RuntimeError: The size of tensor a (2048) must match the size of tensor b (2287) at non-singleton dimension 3
     ]
 
     evals_where_all_models_get_zero_score = [
@@ -125,11 +129,11 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
     ignored_evals = non_working_evals + evals_where_all_models_get_zero_score + other_excluded_evals
 
     for eval in evals:
-        if os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval + '.json')):
+        if os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json')):
             continue
-        if eval in ignored_evals:
+        if eval.key in ignored_evals:
             continue
-        print('Now evaluating', eval)
+        print('Now evaluating', eval.key)
         run_single_eval(registry, model_type, model_name, eval)
 
 def create_reports_index_file(model_name: str):
@@ -159,7 +163,7 @@ def evaluate_model(model_type: str, model_name: str):
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
 
     registry = Registry()
-    run_multiple_evals(registry, model_type, model_name, [eval.key for eval in registry.get_evals(['*'])])
+    run_multiple_evals(registry, model_type, model_name, [eval for eval in registry.get_evals(['*'])])
     create_reports_index_file(model_name)
 
 def evaluate_models(models: list[dict[str, str]]):
