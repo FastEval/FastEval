@@ -145,6 +145,9 @@ def create_reports_index_file(model_name: str):
     """
 
     model_reports_path = os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name))
+    reports_index_path = os.path.join(model_reports_path, '__index__.json')
+    if os.path.exists(reports_index_path):
+        return
 
     reports_metadata = {}
     for report_filename in os.listdir(model_reports_path):
@@ -157,7 +160,7 @@ def create_reports_index_file(model_name: str):
             'final_report': json.loads(report_metadata[1])['final_report'],
         }
 
-    with open(os.path.join(model_reports_path, '__index__.json'), 'w') as reports_index_file:
+    with open(reports_index_path, 'w') as reports_index_file:
         json.dump(reports_metadata, reports_index_file, indent=4)
 
 def evaluate_model(model_type: str, model_name: str):
