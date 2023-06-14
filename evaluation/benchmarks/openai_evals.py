@@ -62,6 +62,8 @@ class Registry(evals.registry.Registry):
 
     def make_completion_fn(self, model_type_and_name: str) -> CompletionFn:
         model_type, model_name = model_type_and_name.split(':')
+        if model_type == 'openai':
+            return CompletionFn(create_model(model_type, model_name))
         if self.previous_model_name != model_name:
             self.previous_model_name = model_name
             self.previous_model = create_model(model_type, model_name)
