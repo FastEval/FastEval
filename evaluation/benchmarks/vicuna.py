@@ -28,6 +28,7 @@ def create_reviewer_prompt(question, answer1, answer2):
     system_message = 'You are a helpful and precise assistant for checking the quality of the answer.'
 
     # https://medium.com/@geronimo7/open-source-chatbots-in-the-wild-9a44d7a41a48
+    # https://arxiv.org/abs/2305.17926
     # https://twitter.com/natolambert/status/1665757105788432384
     prompter_message = ('[Question]\n'
         + question + '\n'
