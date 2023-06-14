@@ -15,12 +15,12 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
                     assert item['model_type'] == model_type
                     if benchmark in item['benchmarks']:
                         break
-                    item['benchmarks'].append(benchmark)
+                    item['benchmarks'].insert(0, benchmark)
                     break
             else:
                 additional_models.add((model_type, model_name))
     for model_type, model_name in additional_models:
-        existing_models_and_benchmarks.append({
+        existing_models_and_benchmarks.insert(0, {
             'model_type': model_type,
             'model_name': model_name,
             'benchmarks': new_benchmarks,
