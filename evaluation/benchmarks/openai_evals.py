@@ -164,7 +164,7 @@ def create_reports_index_file(model_name: str):
         json.dump(reports_metadata, reports_index_file, indent=4)
 
 def evaluate_model(model_type: str, model_name: str):
-    os.environ['EVALS_THREADS'] = '1'
+    os.environ['EVALS_THREADS'] = '20'
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
 
     registry = Registry()
