@@ -8,18 +8,18 @@ from .utils import put_system_message_in_prompter_message
 pipeline = None
 pipeline_lock = threading.Lock()
 
-def conversation_item_to_prompt(*, user, assistant, end, item_type, item):
-    if item_type == 'assistant':
-        return assistant + item + end
-    elif item_type == 'user':
-        return user + item + end
-    else:
-        raise
-
 def conversation_to_prompt(*, conversation, prefix, user, assistant, end):
     conversation = put_system_message_in_prompter_message(conversation)
-    return prefix + ''.join(conversation_item_to_prompt(item_type=item_type, item=item, user=user, assistant=assistant, end=end)
-        for item_type, item in conversation) + assistant
+    prompt = prefix
+    for item_type, item in conversation:
+        if item_type == 'assistant':
+            prompt += assistant + item + end
+        elif item_type == 'user':
+            prompt += user + item + end
+        else:
+            raise
+    prompt += assistant
+    return prompt
 
 def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assistant, end, prefix):
     global pipeline
