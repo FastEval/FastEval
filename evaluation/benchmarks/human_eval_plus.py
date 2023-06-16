@@ -3,10 +3,9 @@ import json
 import subprocess
 import ast
 
-import tqdm
 from evalplus.data import get_human_eval_plus, write_jsonl
 
-from evaluation.utils import replace_model_name_slashes, create_model
+from evaluation.utils import replace_model_name_slashes, create_model, compute_model_replies
 
 def postprocess_model_reply(model_reply):
     for item in ['```Python', '```python', '```py', '```']:
@@ -33,6 +32,17 @@ def postprocess_model_reply(model_reply):
     model_reply = model_reply.strip('\n')
     return model_reply
 
+def create_conversation(prompt):
+    return [
+        ('user',
+            'Please complete the following Python code. '
+            'Provide the complete function implementation including the part that is already given as input. '
+            'Do not provide anything else except the function code and implementation. '
+            'Do not provide explanation, tests or example usage.'
+            '\n\n'
+            + prompt),
+    ]
+
 def evaluate_model(model_type, model_name):
     output_path = os.path.join('./reports/human-eval-plus', replace_model_name_slashes(model_name) + '.json')
     if os.path.exists(output_path):
@@ -41,26 +51,13 @@ def evaluate_model(model_type, model_name):
     model = create_model(model_type, model_name)
 
     dataset = get_human_eval_plus()
-    samples = []
-    raw_replies = {}
-    for task_id in tqdm.tqdm(dataset):
-        prompt = dataset[task_id]['prompt']
-        reply = model.reply([
-            ('user',
-                'Please complete the following Python code. '
-                'Provide the complete function implementation including the part that is already given as input. '
-                'Do not provide anything else except the function code and implementation. '
-                'Do not provide explanation, tests or example usage.'
-                '\n\n'
-                + prompt),
-        ])
+    task_ids = dataset.keys()
+    prompts = [dataset[task_id]['prompt'] for task_id in task_ids]
+    raw_replies = compute_model_replies(model, [create_conversation(prompt) for prompt in prompts])
+    processed_replies = [{ 'task_id': task_id, 'completion': postprocess_model_reply(raw_replies[i]) }
+        for i, task_id in enumerate(task_ids)]
 
-        processed_reply = postprocess_model_reply(reply)
-        print('@@@@@@@@@@@@@@@@@@@@\n' + reply + '\n--------------------\n' + processed_reply + '\n@@@@@@@@@@@@@@@@@@@@')
-        samples.append({ 'task_id': task_id, 'completion': processed_reply })
-        raw_replies[task_id] = reply
-
-    write_jsonl('human-eval-plus-tmp.jsonl', samples)
+    write_jsonl('human-eval-plus-tmp.jsonl', processed_replies)
     process_output = subprocess.run([
         'evalplus.evaluate',
         '--dataset', 'humaneval',
@@ -72,24 +69,20 @@ def evaluate_model(model_type, model_name):
         results = json.load(f)['eval']
 
     samples_with_results = []
-    for sample in samples:
-        task_id = sample['task_id']
-        completion_processed = sample['completion']
-        completion_raw = raw_replies[task_id]
-        prompt = dataset[task_id]['prompt']
+    for i, processed_reply in enumerate(processed_replies):
+        task_id = processed_reply['task_id']
         result = results[task_id]['plus'][0][0]
         if result == 'failed':
             success = False
         elif result == 'success':
             success = True
         else:
-            print(task_id, results[task_id]['plus'][0][0])
             raise
         samples_with_results.append({
             'task_id': task_id,
-            'prompt': prompt,
-            'completion_processed': completion_processed,
-            'completion_raw': completion_raw,
+            'prompt': prompts[i],
+            'completion_processed': processed_reply['completion'],
+            'completion_raw': raw_replies[i],
             'success': success,
         })
 

@@ -1,4 +1,6 @@
 import torch
+import tqdm
+import multiprocessing.pool
 
 from evaluation.models.open_ai import OpenAI
 from evaluation.models.open_assistant import OpenAssistant
@@ -39,3 +41,13 @@ def get_dtype(model_type: str, model_name: str):
             return torch.float16
         raise
     return get_model_class(model_type).get_dtype(model_name)
+
+def compute_model_replies(model, conversations):
+    def reply(conversation):
+        return model.reply(conversation)
+
+    with multiprocessing.pool.ThreadPool(10) as pool:
+        iterator = pool.imap(reply, conversations)
+        replies = list(tqdm.tqdm(iterator, total=len(conversations)))
+
+    return replies
