@@ -2,9 +2,7 @@ import os
 import json
 import random
 
-import tqdm
-
-from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes, create_model
+from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes, create_model, compute_model_replies
 
 def generate_assistant_replies(model_type, model_name):
     answers_filepath = os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json')
@@ -16,7 +14,9 @@ def generate_assistant_replies(model_type, model_name):
     with open('data/vicuna/questions.json') as f:
         questions = json.load(f)
 
-    answers = dict([(question_id, model.reply([('user', question)])) for question_id, question in tqdm.tqdm(questions.items())])
+    questions_items = questions.items()
+    replies = compute_model_replies(model, [[('user', question)] for _question_id, question in questions_items])
+    answers = { question_id: replies[i] for i, (question_id, _question) in enumerate(questions_items) }
 
     os.makedirs(os.path.dirname(answers_filepath), exist_ok=True)
     with open(answers_filepath, 'w') as f:
@@ -105,12 +105,6 @@ def find_winner(line):
 
     return winner_model
 
-def save_reviews(reviews, models_results):
-    reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
-    os.makedirs(os.path.dirname(reviews_filepath), exist_ok=True)
-    with open(reviews_filepath, 'w') as f:
-        json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
-
 def compute_elo_ranks_single_seed(model_names, matches):
     SCALE = 400
     BASE = 10
@@ -163,28 +157,42 @@ def generate_reviews():
         'num_ties': 0,
     }) for model in models])
 
-    for i in tqdm.tqdm(range(1000)):
-        question_id, question = random.choice(list(questions.items()))
+    for i in range(1000):
+        question_id = random.choice(list(questions.keys()))
         model_name1, model_name2 = random.sample(models, 2)
-        system_message, prompter_message = create_reviewer_prompt(question, answers[model_name1][question_id], answers[model_name2][question_id])
-
-        review = reviewer.reply([
-            ('system', system_message),
-            ('user', prompter_message),
-        ])
-
-        winner_model = find_winner(review.split('\n')[-1].lower())
-        if winner_model is None:
-            print(review)
-            continue
-
         reviews.append({
             'question_id': question_id,
             'model1': model_name1,
             'model2': model_name2,
-            'review': review,
-            'winner_model': winner_model
         })
+
+    conversations = []
+    for review in reviews:
+        question_id = review['question_id']
+        system_message, prompter_message = create_reviewer_prompt(
+            questions[question_id],
+            answers[review['model1']][question_id],
+            answers[review['model2']][question_id]
+        )
+        conversations.append([
+            ('system', system_message),
+            ('user', prompter_message),
+        ])
+
+    replies = compute_model_replies(reviewer, conversations)
+
+    for i, review in enumerate(reviews):
+        model_name1 = review['model1']
+        model_name2 = review['model2']
+
+        reply = replies[i]
+        review['review'] = reply
+
+        winner_model = find_winner(reply.split('\n')[-1].lower())
+        review['winner_model'] = winner_model
+        if winner_model is None:
+            print(reply)
+            continue
 
         models_results[model_name1]['num_matches'] += 1
         models_results[model_name2]['num_matches'] += 1
@@ -196,14 +204,16 @@ def generate_reviews():
             models_results[model_name1]['num_ties'] += 1
             models_results[model_name2]['num_ties'] += 1
 
-        if i != 0 and i % 10 == 0:
-            save_reviews(reviews, models_results)
+    reviews = [review for review in reviews if review['winner_model'] is not None]
 
     elo_ranks = compute_elo_ranks(models, [(review['model1'], review['model2'], review['winner_model']) for review in reviews])
     for model_name, model_results in models_results.items():
         model_results['elo_rank'] = elo_ranks[model_name]
 
-    save_reviews(reviews, models_results)
+    reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
+    os.makedirs(os.path.dirname(reviews_filepath), exist_ok=True)
+    with open(reviews_filepath, 'w') as f:
+        json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
 
 def evaluate_models(models):
     did_evaluate_some_model = False

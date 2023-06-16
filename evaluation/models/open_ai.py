@@ -14,7 +14,7 @@ class OpenAI:
             return { 'role': 'assistant', 'content': item }
         raise
 
-    @tenacity.retry(wait=tenacity.wait_random_exponential(min=1, max=60), stop=tenacity.stop_after_attempt(6))
+    @tenacity.retry(wait=tenacity.wait_random_exponential(min=1, max=180), stop=tenacity.stop_after_attempt(30))
     def reply(self, conversation):
         return openai.ChatCompletion.create(
             model=self.model_name,
