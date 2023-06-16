@@ -1,144 +1,93 @@
+import subprocess
 import threading
-import uuid
-import time
 
 import torch
 import transformers
+import text_generation
 
 from .utils import put_system_message_in_prompter_message
 
-lock = threading.Lock()
-pipeline = None
-current_batch = []
+server = None
+server_lock = threading.Lock()
 
-def conversation_to_prompt(*, conversation, prefix, user, assistant, end):
-    conversation = put_system_message_in_prompter_message(conversation)
-    prompt = prefix
-    for item_type, item in conversation:
-        if item_type == 'assistant':
-            prompt += assistant + item + end
-        elif item_type == 'user':
-            prompt += user + item + end
-        else:
-            raise
-    prompt += assistant
-    return prompt
+def start_server(model_path, dtype):
+    global server
 
-def process_current_batch():
-    global current_batch
+    # TODO: dtype currently not used
+    server_process = subprocess.Popen([
+        'docker', 'run',
+        '--gpus', 'all',
+        '--shm-size', '1g',
+        '-p', '8080:80',
+        '-v', '.docker-shared-volume:/data',
+        'ghcr.io/huggingface/text-generation-inference:0.8',
+        '--model-id', model_path,
+    ])
 
-    time.sleep(0.05)
+    server = {
+        'model_path': model_path,
+        'dtype': dtype,
+        'process': server_process,
+    }
 
-    lock.acquire()
+def stop_server():
+    server['process'].kill()
 
-    if len(current_batch) == 0:
-        lock.release()
-        return
+def request(*, model_path, dtype, prompt):
+    server_lock.acquire()
+    if server is None:
+        start_server()
+    elif server['model_path'] != model_path or server['dtype'] != dtype:
+        stop_server()
+        start_server()
+    server_lock.release()
 
-    # We just store a reference to the pipeline here to make sure that the prompt is evaluated with the correct model
-    # It could theoretically happen (in the rest of the code), that while we are waiting for some responses to be computed,
-    # the underlying model should be changed. This is not something that should currently happen since we evaluate one
-    # model at a time and wait for all the responses before switching the model.
-    # But just to prevent future possible bugs, we make really sure that we have the correct model here.
-    for batch_item in current_batch:
-        assert batch_item['pipeline'] is pipeline
-
-    responses = pipeline['pipeline']([batch_item['prompt'] for batch_item in current_batch],
-        max_new_tokens=400, do_sample=True, num_return_sequences=1, eos_token_id=pipeline['tokenizer'].eos_token_id)
-    for i in range(len(current_batch)):
-        response = responses[i][0]['generated_text'][len(current_batch[i]['prompt']):]
-        response = response.split(pipeline['user'])[0] # some models continue to simulate the user and further assistant conversation
-        response = response.strip()
-        current_batch[i]['response'] = response
-
-    for item in current_batch:
-        item['obtained_response'] = False
-        with item['condition']:
-            item['condition'].notify_all()
-
-    while not all(item['obtained_response'] for item in current_batch):
-        time.sleep(0.01)
-
-    current_batch = []
-
-    lock.release()
-
-def wait_for_response(condition):
-    thread = threading.Thread(target=process_current_batch)
-    thread.start()
-
-    with condition:
-        condition.wait()
-    for item in current_batch:
-        if item['condition'] == condition:
-            response = item['response']
-            item['obtained_response'] = True
-            return response
-
-def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assistant, end, prefix):
-    global pipeline
-
-    lock.acquire()
-
-    if (pipeline is None
-            or pipeline['tokenizer_path'] != tokenizer_path
-            or pipeline['model_path'] != model_path
-            or pipeline['dtype'] != dtype):
-        tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
-        pipeline = {
-            'tokenizer_path': tokenizer_path,
-            'model_path': model_path,
-            'dtype': dtype,
-            'tokenizer': tokenizer,
-            'user': user,
-            'pipeline': transformers.pipeline(
-                'text-generation',
-                model=model_path,
-                tokenizer=tokenizer,
-                torch_dtype=dtype,
-                trust_remote_code=True,
-                device_map='auto'
-            ),
-        }
-
-    if end == 'tokenizer-eos-token':
-        end = pipeline['tokenizer'].eos_token
-
-    prompt = conversation_to_prompt(conversation=conversation, prefix=prefix, user=user, assistant=assistant, end=end)
-
-    condition = threading.Condition()
-    current_batch.append({ 'prompt': prompt, 'condition': condition, 'pipeline': pipeline })
-
-    lock.release()
-    return wait_for_response(condition)
+    client = text_generation.Client('http://127.0.0.1:8080')
+    print(client.generate(prompt, max_new_tokens=400))
+    raise
 
 class Huggingface:
     def __init__(
         self,
         model_path: str,
         *,
-        tokenizer_path=None,
         prefix='',
         user: str,
         assistant: str,
         end: str,
     ):
-        if tokenizer_path is None:
-            tokenizer_path = model_path
-
-        self.tokenizer_path = tokenizer_path
         self.model_path = model_path
         self.dtype = self.__class__.get_dtype(model_path)
 
         self.prefix = prefix
         self.user = user
         self.assistant = assistant
-        self.end = end
+
+        if end == 'tokenizer-eos-token':
+            self.end = transformers.AutoTokenizer.from_pretrained(model_path).eos_token
+        else:
+            self.end = end
 
     @staticmethod
     def get_dtype(model_path: str):
         return torch.float16
 
+    def _conversation_item_to_prompt(self, item_type, item):
+        if item_type == 'assistant':
+            return self.assistant + item + self.end
+        elif item_type == 'user':
+            return self.user + item + self.end
+        else:
+            raise
+
+    def _conversation_to_prompt(self, conversation):
+        conversation = put_system_message_in_prompter_message(conversation)
+        return self.prefix + ''.join(self._conversation_item_to_prompt(item_type, item) for item_type, item in conversation) + self.assistant
+
     def reply(self, conversation):
-        return run_pipeline(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
-            conversation=conversation, user=self.user, assistant=self.assistant, prefix=self.prefix, end=self.end)
+        prompt = self._conversation_to_prompt(conversation)
+        response = request(model_path=self.model_path, dtype=self.dtype, prompt=prompt)
+        response = response[0]['generated_text'][len(prompt):]
+        response = response.split(self.user)[0] # some models continue to simulate the user and further assistant conversation
+        response = response.strip()
+        return response
