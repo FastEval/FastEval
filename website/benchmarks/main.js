@@ -5,7 +5,7 @@ import { createTableScoreCell } from '../components/table-score-cell.js'
 import * as OpenAIEvals from '../benchmarks/openai-evals.js'
 import * as Vicuna from '../benchmarks/vicuna.js'
 import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
-import * as HumanEvalPlus from '../benchmarks/human-eval.js'
+import * as HumanEvalPlus from '../benchmarks/human-eval-plus.js'
 
 async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     switch (benchmarkName) {
@@ -70,7 +70,7 @@ export async function createBenchmarksIndexV(baseUrl) {
             rowE.insertCell()
 
         if (benchmarks.includes('human-eval-plus'))
-            createTableScoreCell(rowE, createLinkE(round(humanEvalPlusResultsMap[model].scores['pass@1']), { benchmark: 'human-eval', model }))
+            createTableScoreCell(rowE, createLinkE(round(humanEvalPlusResultsMap[model].score), { benchmark: 'human-eval-plus', model }))
         else
             createTableScoreCell(rowE, createTextE(''))
     }
