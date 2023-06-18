@@ -33,6 +33,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
     parser.add_argument('-m', '--models', nargs='+')
+    parser.add_argument('-e', '--exclude-vicuna-reviews', default=False, action='store_true')
     args = parser.parse_args()
 
     if 'all' in args.benchmarks:
@@ -53,7 +54,7 @@ def main():
     benchmarks.openai_evals.evaluate_models([(item['model_type'], item['model_name'])
         for item in models_and_benchmarks if 'openai-evals' in item['benchmarks']])
     benchmarks.vicuna.evaluate_models([(item['model_type'], item['model_name'])
-        for item in models_and_benchmarks if 'vicuna' in item['benchmarks']])
+        for item in models_and_benchmarks if 'vicuna' in item['benchmarks']], exclude_reviews=args.exclude_vicuna_reviews)
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         json.dump(models_and_benchmarks, f, indent=4)

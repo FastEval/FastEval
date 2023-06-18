@@ -215,10 +215,10 @@ def generate_reviews():
     with open(reviews_filepath, 'w') as f:
         json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
 
-def evaluate_models(models):
+def evaluate_models(models, exclude_reviews):
     did_evaluate_some_model = False
     for model_type, model_name in models:
         if generate_assistant_replies(model_type, model_name):
             did_evaluate_some_model = True
-    if did_evaluate_some_model or not os.path.exists('reports/vicuna/reviews.json'):
+    if not exclude_reviews and (did_evaluate_some_model or not os.path.exists('reports/vicuna/reviews.json')):
         generate_reviews()
