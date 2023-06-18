@@ -87,7 +87,9 @@ def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
         '--record_path', tmpfile,
     ]), registry)
 
-    os.link(tmpfile, os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json'))
+    outfile = os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json')
+    os.makedirs(os.path.dirname(outfile), exist_ok=True)
+    os.link(tmpfile, outfile)
 
 def run_multiple_evals(registry: Registry, model_type: str, model_name: str, evals):
     non_working_evals = [
