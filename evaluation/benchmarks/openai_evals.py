@@ -1,6 +1,7 @@
 import os
 import json
 import typing
+import uuid
 
 import evals
 import evals.registry
@@ -76,11 +77,17 @@ def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
     models = model_type + ':' + model_name
     if eval.cls == 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
         models += ',openai:gpt-3.5-turbo'
+
+    tmpfile = os.path.join('.tmp', 'openai-evals', str(uuid.uuid4()) + '.json')
+    os.makedirs(os.path.dirname(tmpfile), exist_ok=True)
+
     evals.cli.oaieval.run(evals.cli.oaieval.get_parser().parse_args([
         models,
         eval.key,
-        '--record_path', os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json'),
+        '--record_path', tmpfile,
     ]), registry)
+
+    os.link(tmpfile, os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json'))
 
 def run_multiple_evals(registry: Registry, model_type: str, model_name: str, evals):
     non_working_evals = [
