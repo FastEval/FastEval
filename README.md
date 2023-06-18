@@ -38,11 +38,11 @@ There are a number of other leaderboards for LLMs. Here is a comparison of how t
 <details>
 <summary>GPT4All Leaderboard: https://gpt4all.io/index.html (scroll down to section "Performance Benchmarks")</summary>
 
-- This leaderboard uses [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness), selects 7 tasks and averages the 0-shot performance of a model on those tasks.
-- While 0-shot performance is already one important aspect to evaluate instruction following LLMs, this leaderboard does not use the model-specific prompt/conversation format that the models have been finetuned with.
-- It is also limited to benchmarks where the solution can be checked in a simple way like checking whether the output is exactly the same as the solution or doing just some simple post-processing of the model output. It does not use another model to evaluate the model and it does not contain other programmatic benchmarks.
-- The results can still be useful, but they should not be everything. This is why ilm-eval also uses [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) in the exact same way so that the results are comparable, but combines the results with other benchmarks that use the model-specific prompt format and either use another model for evaluation (like the [Vicuna Elo Rank](https://lmsys.org/blog/2023-03-30-vicuna) or some parts of [OpenAI evals](https://github.com/openai/evals)) or are programmatic like [HumanEval+](https://github.com/evalplus/evalplus).
-- In addition, for these other benchmarks, ilm-eval also stores the model outputs so that they can be viewed [on the website](https://tju01.github.io/ilm-eval/).
+- This leaderboard is based on [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness).
+- It therefore does not use the model-specific prompt format that the models have been finetuned with.
+- It is also limited to benchmarks where the solution can be checked in a simple way (e.g. exact match or some simple post-processing). It does not use another LLM to evaluate the model and it does not use programmatic benchmarks.
+- The results can still be useful, but they should not be everything. This is why ilm-eval also uses lm-evaluation-harness in the exact same way so that the results are comparable, but combines the results with other benchmarks that use the model-specific prompt format and either use another model for evaluation (like the [Vicuna Elo Rank](https://lmsys.org/blog/2023-03-30-vicuna) or some parts of [OpenAI evals](https://github.com/openai/evals)) or are programmatic like [HumanEval+](https://github.com/evalplus/evalplus).
+- In addition, for these other benchmarks, ilm-eval also stores the model outputs so that they can be viewed [on the website](https://tju01.github.io/ilm-eval/) which can sometimes be useful in addition to the resulting benchmark numbers.
 </details>
 
 ## Supported benchmarks & models
