@@ -39,6 +39,8 @@ def get_dtype(model_type: str, model_name: str):
     if model_type == 'base':
         if 'llama' in model_name:
             return torch.float16
+        if 'falcon' in model_name:
+            return torch.bfloat16
         raise
     return get_model_class(model_type).get_dtype(model_name)
 
