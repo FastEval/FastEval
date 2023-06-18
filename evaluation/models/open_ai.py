@@ -23,4 +23,10 @@ class OpenAI:
             model=self.model_name,
             messages=[self._conversation_item_to_openai_format(item_type, item) for item_type, item in conversation],
             max_tokens=1024,
+
+            # Hardcode default parameters from https://platform.openai.com/docs/api-reference/chat/create
+            temperature=1.0,
+            top_p=1.0,
+            presence_penalty=0,
+            frequency_penalty=0,
         )['choices'][0]['message']['content']

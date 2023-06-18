@@ -43,8 +43,38 @@ def process_current_batch():
     for batch_item in current_batch:
         assert batch_item['pipeline'] is pipeline
 
-    responses = pipeline['pipeline']([batch_item['prompt'] for batch_item in current_batch],
-        max_new_tokens=400, do_sample=True, num_return_sequences=1, eos_token_id=pipeline['tokenizer'].eos_token_id)
+    responses = pipeline['pipeline'](
+        [batch_item['prompt'] for batch_item in current_batch],
+
+        # See the following link for more details & a list of the parameters
+        # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
+
+        # Parameters that control the length of the output
+        max_new_tokens=400,
+        min_new_tokens=1,
+
+        # Parameters that control the generation strategy used
+        do_sample=True,
+        num_beams=1,
+
+        # Parameters for manipulation of the model output logits
+        temperature=1.0,
+        top_k=50,
+        top_p=1.0,
+        typical_p=1.0,
+        epsilon_cutoff=0.0,
+        eta_cutoff=0.0,
+        diversity_penalty=0.0,
+        repetition_penalty=1.0,
+        encoder_repetition_penalty=1.0,
+        length_penalty=1.0,
+        no_repeat_ngram_size=0,
+        renormalize_logits=False,
+
+        # Special tokens that can be used at generation time
+        eos_token_id=pipeline['tokenizer'].eos_token_id,
+    )
+
     for i in range(len(current_batch)):
         response = responses[i][0]['generated_text'][len(current_batch[i]['prompt']):]
         response = response.split(pipeline['user'])[0] # some models continue to simulate the user and further assistant conversation
