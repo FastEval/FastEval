@@ -3,6 +3,44 @@
 This repository contains code to automatically evaluate instruction following language models on benchmarks.
 It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/ilm-eval/).
 
+## Comparison to other benchmarks & leaderboards
+
+There are a number of other benchmarks & leaderboards that evaluate LLMs. Here is a comparison of how they compare to this repository:
+<details>
+<summary>InstructEval Leaderboard: https://github.com/declare-lab/instruct-eval</summary>
+
+- Both repositories focus on evaluating instruction following LLMs.
+- However, InstructEval uses 3-shot for some of the benchmarks and 0-shot for some others. Even for the cases where 0-shot is used, the model-specific prompt/conversation format is not used. By comparison, ilm-eval focuses _only_ on 0-shot evaluation and uses the model-specific prompt/conversation format in all cases (except one) because this is how the models will be used in the end.
+- The benchmarks that are used are different.
+- The [InstructEval leaderboard](https://declare-lab.net/instruct-eval/) currently contains way more models.
+</details>
+
+<details>
+<summary>HuggingFace Open LLM Leaderboard: https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard</summary>
+
+- HF Open LLM Leaderboard is not specifically focused on instruction following language models. The main thing that matters for instruction following LLMs is 0-shot performance and the only task that is evaluated with 0-shot there is TruthfulQA which is very limited.
+- More recently, HF Open LLM Leaderboard added Human & GPT-4 Evaluations which _does_ evaluate the instruction following capabilities. The GPT-4 evaluation is esentially what [Vicuna](https://lmsys.org/blog/2023-03-30-vicuna/) introduced. This repository (ilm-eval) also contains this vicuna benchmark, though currently only with GPT-3.5 because I still don't have access to GPT-4.
+- The HF Open LLM Leaderboard contains way more models, but less benchmarks.
+- While one part of their leaderboard uses [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) and the evaluation [seems to be straightforward](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard/discussions/60), the GPT-4 evaluation code doesn't seem to be open source at the moment.
+</details>
+
+<details>
+<summary>AlpacaEval Leaderboard: https://tatsu-lab.github.io/alpaca_eval/</summary>
+
+- This leaderboard is limited only to automatic evaluation using GPT-4 and Anthropic Claude. This kind of evaluation has been shown to be subject to very simple biases (e.g. simply preferring longer answers) and it tends to overestimate the capabilities of smaller models.
+- Nevertheless, this kind of benchmark can be _part_ of a useful evaluation. This is also why ilm-eval also contains this type of benchmark, but combines it with other benchmarks.
+- The AlpacaEval Leaderboard currently contains way more models.
+</details>
+
+<details>
+<summary>GPT4All Leaderboard: https://gpt4all.io/index.html (scroll down to section "Performance Benchmarks")</summary>
+
+- This leaderboard uses [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness), selects 7 tasks and averages the 0-shot performance of a model on those tasks.
+- While 0-shot performance is already one important aspect to evaluate instruction following LLMs, this leaderboard does not use the model-specific prompt/conversation format that the models have been finetuned with.
+- It is also limited to benchmarks where the solution can be checked in a simple way like checking whether the output is exactly the same as the solution or doing just some simple post-processing of the model output. It does not use another model to evaluate the model and it does not contain other programmatic benchmarks.
+- The results can still be useful, but they should not be everything. This is why ilm-eval also uses [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) in the exact same way so that the results are comparable, but combines the results with other benchmarks that use the model-specific prompt format and either use another model for evaluation (like the [Vicuna Elo Rank](https://lmsys.org/blog/2023-03-30-vicuna) or some parts of [OpenAI evals](https://github.com/openai/evals)) or are programmatic like [HumanEval+](https://github.com/evalplus/evalplus).
+</details>
+
 ## Supported benchmarks & models
 
 Right now, the following benchmarks are supported:
