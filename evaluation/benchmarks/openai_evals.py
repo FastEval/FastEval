@@ -76,7 +76,7 @@ class Registry(evals.registry.Registry):
 def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
     models = model_type + ':' + model_name
     if eval.cls == 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
-        models += ',openai:gpt-3.5-turbo'
+        models += ',openai:gpt-3.5-turbo-0301'
 
     tmpfile = os.path.join('.tmp', 'openai-evals', str(uuid.uuid4()) + '.json')
     os.makedirs(os.path.dirname(tmpfile), exist_ok=True)
