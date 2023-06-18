@@ -1,6 +1,9 @@
 import openai
 import tenacity
 
+def print_retry(error):
+    print('Got error from OpenAI API. Retrying.', error)
+
 class OpenAI:
     def __init__(self, model_name):
         self.model_name = model_name
@@ -14,7 +17,7 @@ class OpenAI:
             return { 'role': 'assistant', 'content': item }
         raise
 
-    @tenacity.retry(wait=tenacity.wait_random_exponential(min=1, max=180), stop=tenacity.stop_after_attempt(30))
+    @tenacity.retry(wait=tenacity.wait_random_exponential(min=1, max=180), stop=tenacity.stop_after_attempt(30), after=print_retry)
     def reply(self, conversation):
         return openai.ChatCompletion.create(
             model=self.model_name,
