@@ -98,7 +98,6 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
         'stock-options-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_options_iron_butteryfly_spread.jsonl
         'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_option_terms_inverse_iron_butteryfly_spread.jsonl
         'joke-fruits-v2.dev.v0', # Buggy in openai/evals itself due to removed format_type feature that is still used by this eval
-        'illinois-law.v0', # RuntimeError: The size of tensor a (2048) must match the size of tensor b (2287) at non-singleton dimension 3
     ]
 
     evals_where_all_models_get_zero_score = [
@@ -133,6 +132,10 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
         'joke-fruits-likert.dev.v0',
         'joke-fruits-meta.dev.v0',
         'joke-fruits.dev.v0',
+
+        # required context size too large
+        'illinois-law.v0',
+        'qa.dev.v0',
     ]
 
     ignored_evals = non_working_evals + evals_where_all_models_get_zero_score + other_excluded_evals

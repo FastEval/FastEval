@@ -4345,41 +4345,6 @@
             "accuracy": 0.0
         }
     },
-    "qa.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "guanaco:timdettmers/guanaco-65b-merged"
-            ],
-            "eval_name": "qa.dev.v0",
-            "base_eval": "qa",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "guanaco:timdettmers/guanaco-65b-merged"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "qa/q_and_a.jsonl"
-                    },
-                    "key": "qa.dev.v0",
-                    "group": "qa"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230615215546ZKXPXWDQ",
-            "created_at": "2023-06-15 21:55:46.569479"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "regex.match.dev.v0.json": {
         "spec": {
             "completion_fns": [
