@@ -1,6 +1,16 @@
 [
     {
         "model_type": "open-assistant",
+        "model_name": "OpenAssistant/oasst-sft-1-pythia-12b",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness",
+            "human-eval-plus"
+        ]
+    },
+    {
+        "model_type": "open-assistant",
         "model_name": "OpenAssistant/oasst-sft-7-llama-30b",
         "benchmarks": [
             "openai-evals",
@@ -17,12 +27,12 @@
             "human-eval-plus",
             "vicuna",
             "openai-evals"
-	    ]
+        ]
     },
     {
         "model_type": "open-assistant",
         "model_name": "OpenAssistant/llama-30b-sft-v8-2.5k-steps",
-	    "benchmarks": [
+	"benchmarks": [
             "human-eval-plus",
             "openai-evals",
             "vicuna",
