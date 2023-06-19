@@ -59,7 +59,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         else
             createTableScoreCell(rowE, createTextE(''))
 
-        if (benchmarks.includes('vicuna'))
+        if (benchmarks.includes('vicuna') && model in vicunaEvaluationResults.models)
             createTableScoreCell(rowE, createTextE(Math.round(vicunaEvaluationResults.models[model].elo_rank)))
         else
             rowE.insertCell()
