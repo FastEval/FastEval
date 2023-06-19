@@ -42,9 +42,45 @@ export async function createBenchmarksIndexV(baseUrl) {
 
     const humanEvalPlusResultsMap = Object.fromEntries(humanEvalPlusResults)
 
+    function getScore(model, benchmarks, benchmarkName) {
+        if (!benchmarks.includes(benchmarkName))
+            return null
+
+        if (benchmarkName === 'lm-evaluation-harness')
+            return averageLmEvaluationHarnessScores[model]
+        else if (benchmarkName === 'vicuna' && model in vicunaEvaluationResults.models)
+            return vicunaEvaluationResults.models[model].elo_rank
+        else if (benchmarkName === 'openai-evals')
+            return relativeOpenAiEvalsScores[model]
+        else if (benchmarkName === 'human-eval-plus')
+            return humanEvalPlusResultsMap[model].score
+
+        return null
+    }
+
+    const benchmarkMinimums = new Map()
+    const benchmarkMaximums = new Map()
+    for (const benchmarkName of ['lm-evaluation-harness', 'vicuna', 'openai-evals', 'human-eval-plus']) {
+        for (const { model_name: model, benchmarks } of models) {
+            const score = getScore(model, benchmarks, benchmarkName)
+            if (score === null)
+                continue
+
+            if (!benchmarkMinimums.has(benchmarkName))
+                benchmarkMinimums.set(benchmarkName, score)
+            if (!benchmarkMaximums.has(benchmarkName))
+                benchmarkMaximums.set(benchmarkName, score)
+            if (benchmarkMinimums.get(benchmarkName) > score)
+                benchmarkMinimums.set(benchmarkName, score)
+            if (benchmarkMaximums.get(benchmarkName) < score)
+                benchmarkMaximums.set(benchmarkName, score)
+        }
+    }
+
     const tableE = document.createElement('table')
     const theadE = tableE.createTHead().insertRow()
     theadE.insertCell().appendChild(createTextE('Model'))
+    theadE.insertCell().appendChild(createTextE('Total'))
     theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
     theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
@@ -53,6 +89,25 @@ export async function createBenchmarksIndexV(baseUrl) {
     for (const { model_name: model, benchmarks } of models) {
         const rowE = tbodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(model))
+
+        const allBenchmarkEvaluated = benchmarks.includes('lm-evaluation-harness')
+            && benchmarks.includes('vicuna') && model in vicunaEvaluationResults.models
+            && benchmarks.includes('openai-evals')
+            && benchmarks.includes('human-eval-plus')
+        if (allBenchmarkEvaluated) {
+            const allBenchmarks = ['lm-evaluation-harness', 'vicuna', 'openai-evals', 'human-eval-plus']
+            let relativeAverageScore = 0
+            for (const benchmarkName of allBenchmarks) {
+                const score = getScore(model, benchmarks, benchmarkName)
+                const relativeScore = (score - benchmarkMinimums.get(benchmarkName))
+                    / (benchmarkMaximums.get(benchmarkName) - benchmarkMinimums.get(benchmarkName))
+                relativeAverageScore += relativeScore / allBenchmarks.length
+            }
+
+            createTableScoreCell(rowE, createTextE(round(relativeAverageScore)))
+        } else {
+            createTableScoreCell(rowE, createTextE(''))
+        }
 
         if (benchmarks.includes('lm-evaluation-harness'))
             createTableScoreCell(rowE, createTextE(round(averageLmEvaluationHarnessScores[model])))
