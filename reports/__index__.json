@@ -11,6 +11,26 @@
     },
     {
         "model_type": "open-assistant",
+        "model_name": "OpenAssistant/pythia-12b-sft-v8-7k-steps",
+        "benchmarks": [
+            "openai-evals",
+            "vicuna",
+            "lm-evaluation-harness",
+            "human-eval-plus"
+        ]
+    },
+    {
+        "model_type": "alpaca",
+        "model_name": "NousResearch/Nous-Hermes-13b",
+        "benchmarks": [
+            "human-eval-plus",
+            "lm-evaluation-harness",
+            "vicuna",
+            "openai-evals"
+        ]
+    },
+    {
+        "model_type": "open-assistant",
         "model_name": "OpenAssistant/oasst-sft-7-llama-30b",
         "benchmarks": [
             "openai-evals",
@@ -50,32 +70,10 @@
         ]
     },
     {
-        "model_type": "openai",
-        "model_name": "gpt-3.5-turbo-0301",
+        "model_type": "falcon-instruct",
+        "model_name": "tiiuae/falcon-40b",
         "benchmarks": [
-            "openai-evals",
-            "human-eval-plus",
-            "vicuna"
-        ]
-    },
-    {
-        "model_type": "alpaca",
-        "model_name": "NousResearch/Nous-Hermes-13b",
-        "benchmarks": [
-            "human-eval-plus",
-            "lm-evaluation-harness",
-            "vicuna",
-            "openai-evals"
-        ]
-    },
-    {
-        "model_type": "open-assistant",
-        "model_name": "OpenAssistant/pythia-12b-sft-v8-7k-steps",
-        "benchmarks": [
-            "openai-evals",
-            "vicuna",
-            "lm-evaluation-harness",
-            "human-eval-plus"
+            "lm-evaluation-harness"
         ]
     },
     {
@@ -86,20 +84,6 @@
             "vicuna",
             "lm-evaluation-harness",
             "human-eval-plus"
-        ]
-    },
-    {
-        "model_type": "falcon-instruct",
-        "model_name": "tiiuae/falcon-40b",
-        "benchmarks": [
-            "lm-evaluation-harness"
-        ]
-    },
-    {
-        "model_type": "base",
-        "model_name": "huggyllama/llama-65b",
-        "benchmarks": [
-            "lm-evaluation-harness"
         ]
     },
     {
@@ -123,8 +107,24 @@
         ]
     },
     {
+        "model_type": "base",
+        "model_name": "huggyllama/llama-65b",
+        "benchmarks": [
+            "lm-evaluation-harness"
+        ]
+    },
+    {
         "model_type": "guanaco",
         "model_name": "timdettmers/guanaco-65b-merged",
+        "benchmarks": [
+            "openai-evals",
+            "human-eval-plus",
+            "vicuna"
+        ]
+    },
+    {
+        "model_type": "openai",
+        "model_name": "gpt-3.5-turbo-0301",
         "benchmarks": [
             "openai-evals",
             "human-eval-plus",
