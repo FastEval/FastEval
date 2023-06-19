@@ -129,7 +129,7 @@ def compute_elo_ranks_single_seed(model_names, matches):
 
 def compute_elo_ranks(model_names, matches):
     model_ranks = dict([(model, 0) for model in model_names])
-    num_seeds = 1000
+    num_seeds = 10_000
     for _ in range(num_seeds):
         random.shuffle(matches)
         for model_name, model_rank in compute_elo_ranks_single_seed(model_names, matches).items():
@@ -148,7 +148,7 @@ def generate_reviews():
             answers[model_name] = json.load(f)
     models = list(answers.keys())
 
-    reviewer = create_model('openai', 'gpt-3.5-turbo-0301')
+    reviewer = create_model('openai', 'gpt-3.5-turbo-0613')
 
     reviews = []
     models_results = dict([(model, {
@@ -157,7 +157,7 @@ def generate_reviews():
         'num_ties': 0,
     }) for model in models])
 
-    for i in range(1000):
+    for i in range(3000):
         question_id = random.choice(list(questions.keys()))
         model_name1, model_name2 = random.sample(models, 2)
         reviews.append({

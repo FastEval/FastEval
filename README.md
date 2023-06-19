@@ -86,8 +86,8 @@ pip install -r requirements.txt
 
 Some benchmarks use `gpt-3.5-turbo` as a model to judge the output of another model. This is the case for `OpenAI evals` as well as for `Vicuna Elo Rank`.
 For these benchmarks (and also for evaluating `gpt-3.5-turbo` itself), you need to configure an OpenAI API key.
-There are multiple methods for doing that, but the simplest one is to set the `OPENAI_API_KEY` environment variable to the API key you can obtain [here](https://platform.openai.com/account/api-keys). 
-The cost of evaluating `gpt-3.5-turbo` or using it for benchmarks on another model is something like $2.
+There are multiple methods for doing that, but the simplest one is to set the `OPENAI_API_KEY` environment variable to the API key you can obtain [here](https://platform.openai.com/account/api-keys).
+The cost of evaluating `gpt-3.5-turbo` or using it for benchmarks on another model is something like $5.
 
 ### Evaluation
 
