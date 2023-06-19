@@ -19,13 +19,11 @@ export async function createV(baseUrl, parameters) {
             createTextE('The model was supposed to complete the following code:'),
             createConversationItemE('user', item.prompt),
             createTextE('The model gave the following code as output:'),
-            createConversationItemE('assistant', item.completion),
+            createConversationItemE('assistant', item.completion_raw),
+            createTextE('The following code was extracted:'),
+            createConversationItemE('assistant', item.completion_processed),
+            createTextE('This code ' + (item.success ? 'passed all' : 'failed some') + ' of the tests.'),
         )
-
-        if (item.passed)
-            itemE.append(createTextE('This counts as passed.'))
-        else
-            itemE.appendChild(createTextE('This gave the following error: "' + item.result + '"'))
     }
 
     return containerE

@@ -15,7 +15,7 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
             return await Vicuna.createV(baseUrl, parameters)
         case 'lm-evaluation-harness':
             return await LMEvaluationHarness.createV(baseUrl)
-        case 'human-eval':
+        case 'human-eval-plus':
             return await HumanEvalPlus.createV(baseUrl, parameters)
         default:
             throw new Error()
