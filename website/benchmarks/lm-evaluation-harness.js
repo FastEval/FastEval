@@ -12,8 +12,8 @@ export async function createV(baseUrl) {
         .filter(model => model.benchmarks.includes('lm-evaluation-harness'))
         .map(model => model.model_name)
 
-    const results = await Promise.all(modelNames.filter(model => model !== 'gpt-3.5-turbo')
-        .map(async model => [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
+    const results = await Promise.all(modelNames.map(async model =>
+        [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
     const tasks = Object.keys(results[0][1].results)
     const resultsMap = Object.fromEntries(results)
 
@@ -28,9 +28,6 @@ export async function createV(baseUrl) {
     tableHeadE.insertCell().appendChild(createTextE('Average'))
 
     for (const modelName of modelNames) {
-        if (modelName === 'gpt-3.5-turbo')
-            continue
-
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(modelName))
 
