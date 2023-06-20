@@ -16,7 +16,7 @@ def postprocess_model_reply(model_reply):
     new_lines = []
     inside_function = False
     for line in model_reply.split('\n'):
-        if line == '':
+        if line == '' or line == '\r':
             new_lines.append(line)
         elif line.startswith('import ') or line.startswith('from '):
             new_lines.append(line)
