@@ -19,9 +19,9 @@ export async function createV(baseUrl, parameters) {
             createTextE('The model was supposed to complete the following code:'),
             createConversationItemE('user', item.prompt),
             createTextE('The model gave the following code as output:'),
-            createConversationItemE('assistant', item.completion_raw),
+            createConversationItemE('assistant', item.completion_raw.trim()),
             createTextE('The following code was extracted:'),
-            createConversationItemE('assistant', item.completion_processed),
+            createConversationItemE('assistant', item.completion_processed.trim()),
             createTextE('This code ' + (item.success ? 'passed all' : 'failed some') + ' of the tests.'),
         )
     }
