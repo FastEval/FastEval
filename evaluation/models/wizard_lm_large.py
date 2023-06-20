@@ -1,3 +1,5 @@
+import torch
+
 from .huggingface import Huggingface
 
 class WizardLMLarge(Huggingface):
@@ -12,3 +14,8 @@ class WizardLMLarge(Huggingface):
             assistant='ASSISTANT: ',
             end=' ',
         )
+
+    @staticmethod
+    def get_dtype(model_path: str):
+        if '30B' in model_path:
+            return torch.float32
