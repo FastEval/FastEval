@@ -8,13 +8,28 @@ export function computeAverageScore(results) {
 export async function createV(baseUrl) {
     const containerE = document.createElement('div')
 
+    const otherResultsE = document.createElement('div')
+    otherResultsE.classList.add('lm-evaluation-harness__other-results')
+    containerE.appendChild(otherResultsE)
+
+    const otherResultsLinkE = document.createElement('a')
+    otherResultsLinkE.textContent = 'here'
+    otherResultsLinkE.href = 'https://gpt4all.io/index.html'
+
+    otherResultsE.append(
+        createTextE('This table is computed using the same method as the one used for the gpt4all leaderboard and therefore the numbers are comparable. '
+            + 'You can view the gpt4all leaderboard '),
+        otherResultsLinkE,
+        createTextE('. Scroll down to the section "Performance Benchmarks".'),
+    )
+
     const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('lm-evaluation-harness'))
         .map(model => model.model_name)
 
     const results = await Promise.all(modelNames.map(async model =>
         [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
-    const tasks = Object.keys(results[0][1].results)
+    const tasks = ['boolq', 'piqa', 'hellaswag', 'winogrande', 'arc_easy', 'arc_challenge', 'openbookqa']
     const resultsMap = Object.fromEntries(results)
 
     const reportsIndexE = document.createElement('table')
@@ -39,11 +54,6 @@ export async function createV(baseUrl) {
 
         rowE.insertCell().appendChild(createTextE(round(computeAverageScore(resultsMap[modelName].results))))
     }
-
-    const otherResultsLinkE = document.createElement('a')
-    otherResultsLinkE.textContent = 'See also here for numbers for other models. (Section "Performance Benchmarks")'
-    otherResultsLinkE.href = 'https://gpt4all.io/index.html'
-    containerE.appendChild(otherResultsLinkE)
 
     return containerE
 }
