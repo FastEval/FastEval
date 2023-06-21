@@ -166,10 +166,11 @@ def create_reports_index_file(model_name: str):
         if report_filename == '__index__.json':
             continue
         with open(os.path.join(model_reports_path, report_filename), 'r') as report_file:
-            report_metadata = report_file.read().split('\n')[:2]
+            report_data = report_file.read().split('\n')
+        report_data = [json.loads(line) for line in report_data if line != '']
         reports_metadata[report_filename] = {
-            'spec': json.loads(report_metadata[0])['spec'],
-            'final_report': json.loads(report_metadata[1])['final_report'],
+            'spec': [item for item in report_data if 'spec' in item][0]['spec'],
+            'final_report': [item for item in report_data if 'final_report' in item][0]['final_report'],
         }
 
     with open(reports_index_path, 'w') as reports_index_file:
