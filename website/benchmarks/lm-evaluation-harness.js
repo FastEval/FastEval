@@ -1,4 +1,5 @@
 import { createTextE } from '../components/text.js'
+import { createBackToMainPageE } from '../components/back-to-main-page.js'
 import { round } from '../utils.js'
 
 export function computeAverageScore(results) {
@@ -7,6 +8,8 @@ export function computeAverageScore(results) {
 
 export async function createV(baseUrl) {
     const containerE = document.createElement('div')
+
+    containerE.appendChild(createBackToMainPageE())
 
     const otherResultsE = document.createElement('div')
     otherResultsE.classList.add('lm-evaluation-harness__other-results')
@@ -42,7 +45,10 @@ export async function createV(baseUrl) {
         tableHeadE.insertCell().appendChild(createTextE(task))
     tableHeadE.insertCell().appendChild(createTextE('Average'))
 
-    for (const modelName of modelNames) {
+    const averageScores = Object.fromEntries(modelNames.map(modelName => [modelName, computeAverageScore(resultsMap[modelName].results)]))
+    const modelNamesSortedByAverageScore = modelNames.sort((model1Name, model2Name) => averageScores[model2Name] - averageScores[model1Name])
+
+    for (const modelName of modelNamesSortedByAverageScore) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(modelName))
 
@@ -52,7 +58,7 @@ export async function createV(baseUrl) {
             rowE.insertCell().appendChild(createTextE(round(r)))
         }
 
-        rowE.insertCell().appendChild(createTextE(round(computeAverageScore(resultsMap[modelName].results))))
+        rowE.insertCell().appendChild(createTextE(round(averageScores[modelName])))
     }
 
     return containerE
