@@ -308,9 +308,6 @@ export async function createEvalsIndexV(baseUrl) {
     const tableBodyE = reportsIndexE.createTBody()
     tableHeadE.insertCell().appendChild(createTextE('Task'))
 
-    for (const modelName of modelNames)
-        tableHeadE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(modelName)))
-
     const reportsIndex = Object.fromEntries(await Promise.all(modelNames.map(async modelName =>
         [modelName, await ((await fetch(baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/__index__.json')).json())])))
     const scores = computeRelativeOpenAiEvalsScores(reportsIndex)
@@ -318,6 +315,9 @@ export async function createEvalsIndexV(baseUrl) {
     const modelNamesByScore = Object.entries(scores.averageRelativeScoresByModelName)
         .sort(([model1Name, score1], [model2Name, score2]) => score2 - score1)
         .map(([modelName, score]) => modelName)
+
+    for (const modelName of modelNamesByScore)
+        tableHeadE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(modelName)))
 
     const tr = tableBodyE.insertRow()
     tr.classList.add('relative-average-score')
