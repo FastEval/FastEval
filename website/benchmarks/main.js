@@ -95,6 +95,20 @@ function computeModelRanks(models, getScore, allBenchmarks) {
 }
 
 export async function createBenchmarksIndexV(baseUrl) {
+    const containerE = document.createElement('div')
+
+    const explanationE = document.createElement('div')
+    explanationE.classList.add('main__explanation')
+    const informationLinkE = document.createElement('a')
+    informationLinkE.textContent = 'GitHub repository'
+    informationLinkE.href = 'https://github.com/tju01/ilm-eval'
+    explanationE.append(
+        createTextE('See the '),
+        informationLinkE,
+        createTextE(' for more information.')
+    )
+    containerE.appendChild(explanationE)
+
     const models = (await (await fetch(baseUrl + '/__index__.json')).json())
 
     const [vicunaEvaluationResults, openaiEvalsResults, lmEvaluationHarnessResults, humanEvalPlusResults] = await Promise.all([
@@ -165,6 +179,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     })
 
     const tableE = document.createElement('table')
+    containerE.appendChild(tableE)
 
     const theadE = tableE.createTHead().insertRow()
     theadE.insertCell().appendChild(createTextE('Rank'))
@@ -216,7 +231,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         }
     }
 
-    return tableE
+    return containerE
 }
 
 export async function createBenchmarksV(baseUrl) {
