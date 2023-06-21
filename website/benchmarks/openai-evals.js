@@ -212,11 +212,12 @@ function createSamplesV(mappedSamples) {
 }
 
 function createSelectedModelReportV(report, selectedSampleId) {
-    const reportLines = report.split('\n')
-    const [specLine, finalReportLine, ...dataLines] = reportLines
-    const spec = JSON.parse(specLine).spec
-    const finalReport = JSON.parse(finalReportLine).final_report
-    const data = dataLines.filter(dataLine => dataLine.length !== 0).map(dataLine => JSON.parse(dataLine))
+    const reportInformation = report.split('\n').filter(line => line !== '').map(line => JSON.parse(line))
+    const spec = reportInformation.filter(item => 'spec' in item)[0].spec
+    const finalReport = reportInformation.filter(item => 'final_report' in item)[0].final_report
+    const data = reportInformation.filter(item => 'run_id' in item)
+
+    console.log(spec, finalReport, data)
 
     const reportDataBySampleId = new Map()
     for (const event of data) {
@@ -257,7 +258,7 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
 
     const reportUrl = baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/' + evalName + '.json'
     const report = await (await fetch(reportUrl)).text()
-    const spec = JSON.parse(report.split('\n')[0]).spec
+    const spec = report.split('\n').filter(line => line !== '').map(line => JSON.parse(line)).filter(line => 'spec' in line)[0].spec
 
     const finalReportInformationE = document.createElement('div')
     containerE.appendChild(finalReportInformationE)
