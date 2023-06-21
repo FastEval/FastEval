@@ -83,10 +83,10 @@ function showDataFromModelBasedClassify(finalReport, samples) {
 
         createConversationE(sample.sampling.info.prompt),
 
-        createTextE('The model responded to this evaluation as follows:'),
+        createTextE('The reviewer model responded to this as follows:'),
         createConversationE([{ role: 'assistant', content: sample.sampling.info.sampled }]),
 
-        createTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid') + ' response to the evaluation.'
+        createTextE('This was ' + (sample.sampling.info.invalid_choice ? 'an invalid' : 'a valid') + ' response.'
             + (sample.sampling.info.score !== null ? (' The resulting score is ' + sample.sampling.info.score + '.') : '')),
     ]])]
 }
