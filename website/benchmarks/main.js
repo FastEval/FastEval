@@ -26,71 +26,61 @@ function computeModelRanks(models, getScore, allBenchmarks) {
     const modelNames = [...new Set(models.map(({ model_name: model }) => model))]
     const modelsByName = Object.fromEntries(models.map(model => [model.model_name, model]))
 
-    const performanceDifferences = []
-
-    for (const model1Name of modelNames) {
-        for (const model2Name of modelNames) {
-            if (model1Name === model2Name)
-                continue
-            const commonBenchmarks = modelsByName[model1Name].benchmarks
-                .filter(benchmark => modelsByName[model2Name].benchmarks.includes(benchmark))
-            let performanceDifference = 0
-            for (const benchmarkName of commonBenchmarks) {
-                const model1Performance = getScore(model1Name, commonBenchmarks, benchmarkName)
-                const model2Performance = getScore(model2Name, commonBenchmarks, benchmarkName)
-                performanceDifference += (model1Performance - model2Performance) / commonBenchmarks.length
-            }
-
-            if (performanceDifference !== 0)
-                performanceDifferences.push([model1Name, model2Name, performanceDifference])
-        }
-    }
-
     function loss(rankings) {
         let totalLoss = 0
-        for (const [model1Name, model2Name, performanceDifference] of performanceDifferences) {
-            const rank1 = rankings[model1Name]
-            const rank2 = rankings[model2Name]
-            const rankDifference = rank1 - rank2
-            totalLoss += Math.abs(rankDifference - performanceDifference)
+        for (const model1Name of modelNames) {
+            for (const model2Name of modelNames) {
+                if (model1Name === model2Name)
+                    continue
+
+                const commonBenchmarks = modelsByName[model1Name].benchmarks
+                    .filter(benchmark => modelsByName[model2Name].benchmarks.includes(benchmark))
+
+                let performanceDifference = 0
+                for (const benchmarkName of commonBenchmarks) {
+                    const model1Performance = getScore(model1Name, commonBenchmarks, benchmarkName)
+                    const model2Performance = getScore(model2Name, commonBenchmarks, benchmarkName)
+                    performanceDifference += (model1Performance - model2Performance) / commonBenchmarks.length
+                }
+
+                const rank1 = rankings[model1Name]
+                const rank2 = rankings[model2Name]
+                const rankDifference = rank1 - rank2
+
+                const disagreement = (rankDifference > 0 && performanceDifference < 0 || rankDifference < 0 && performanceDifference > 0) ? 1 : 0
+                totalLoss += disagreement
+            }
         }
 
         return totalLoss
     }
 
-    const averageRankings = Object.fromEntries(modelNames.map(modelName => [modelName, 0]))
-    for (let j = 0; j < 100; j++) {
-        const numIterations = 1_000
+    let bestRankings
+    let bestLoss = Infinity
+    for (let j = 0; j < 1000; j++) {
+        const numIterations = 1000
         let currentLoss = Infinity
-        let rankings = Object.fromEntries(modelNames.map(modelName => [modelName, Math.random()]))
+        let currentRankings = Object.fromEntries(modelNames.map(modelName => [modelName, Math.random()]))
         for (let i = 1; i < numIterations; i++) {
-            const modelToChange = modelNames[Math.floor(Math.random() * modelNames.length)]
-
-            const rankingsWithIncrease = { ...rankings }
-            rankingsWithIncrease[modelToChange] += 1 - i / numIterations
-            let lossIfIncreased = loss(rankingsWithIncrease)
-
-            if (lossIfIncreased < currentLoss) {
-                currentLoss = lossIfIncreased
-                rankings = rankingsWithIncrease
-            }
-
-            const rankingsWithDecrease = { ...rankings }
-            rankingsWithDecrease[modelToChange] -= 1 - i / numIterations
-            let lossIfDecreased = loss(rankingsWithIncrease)
-
-            if (lossIfDecreased < currentLoss) {
-                currentLoss = lossIfDecreased
-                rankings = rankingsWithDecrease
+            const newRankings = { ...currentRankings }
+            for (const modelName in newRankings)
+                newRankings[modelName] += (Math.random() - 0.5) * (1 - i / numIterations)
+            const newLoss = loss(newRankings)
+            if (newLoss <= currentLoss) {
+                currentLoss = newLoss
+                currentRankings = newRankings
             }
         }
 
-        for (const [modelName, modelRank] of Object.entries(rankings)) {
-            averageRankings[modelName] += modelRank
+        if (currentLoss < bestLoss) {
+            bestLoss = currentLoss
+            bestRankings = currentRankings
         }
     }
 
-    return averageRankings
+
+
+    return bestRankings
 }
 
 export async function createBenchmarksIndexV(baseUrl) {
