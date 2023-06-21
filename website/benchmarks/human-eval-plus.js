@@ -1,10 +1,28 @@
 import { createConversationItemE } from '../components/conversation-item.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
+import { createBackToMainPageE } from '../components/back-to-main-page.js'
 
 export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
-    containerE.classList.add('samples')
+
+    containerE.appendChild(createBackToMainPageE())
+
+    const explanationE = document.createElement('div')
+    explanationE.classList.add('human-eval-plus__explanation')
+    const informationLinkE = document.createElement('a')
+    informationLinkE.textContent = 'here'
+    informationLinkE.href = 'https://github.com/evalplus/evalplus'
+    explanationE.append(
+        createTextE('See '),
+        informationLinkE,
+        createTextE(' for more information on this benchmark.')
+    )
+    containerE.appendChild(explanationE)
+
+    const samplesE = document.createElement('div')
+    containerE.appendChild(samplesE)
+    samplesE.classList.add('samples')
 
     const data = await (await fetch(baseUrl + '/human-eval-plus/' + parameters.get('model').replace('/', '--') + '.json')).json()
     for (const item of data.replies) {
@@ -13,7 +31,7 @@ export async function createV(baseUrl, parameters) {
 
         const itemE = document.createElement('div')
         itemE.classList.add('sample')
-        containerE.appendChild(itemE)
+        samplesE.appendChild(itemE)
         itemE.append(
             createLinkE('ID: ' + item.task_id, { sample: item.task_id }),
             createTextE('The model was supposed to complete the following code:'),
