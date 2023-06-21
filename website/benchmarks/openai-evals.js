@@ -77,7 +77,7 @@ function showDataFromModelBasedClassify(finalReport, samples) {
 
             return [
                 ...ret,
-                createTextE('The model was then asked to evaluate its own answer' + (usesMultipleInputs ? 's' : '') + ':'),
+                createTextE('The reviewer model (gpt-3.5-turbo-0301) was then asked to evaluate this answer' + (usesMultipleInputs ? 's' : '') + ':'),
             ]
         })(),
 
