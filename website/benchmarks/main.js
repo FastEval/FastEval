@@ -130,7 +130,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         return null
     }
 
-    const allBenchmarks = ['lm-evaluation-harness', 'vicuna', 'openai-evals', 'human-eval-plus']
+    const allBenchmarks = ['openai-evals', 'vicuna', 'human-eval-plus', 'lm-evaluation-harness']
 
     const benchmarkMinimums = new Map()
     const benchmarkMaximums = new Map()
@@ -170,10 +170,10 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createTextE('Rank'))
     theadE.insertCell().appendChild(createTextE('Model'))
     theadE.insertCell().appendChild(createTextE('Total'))
-    theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
-    theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
+    theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createTextE('HumanEval+'))
+    theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
 
     for (const [position, { model_name: model, benchmarks }] of modelsSortedByRank.entries()) {
