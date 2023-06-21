@@ -3,20 +3,40 @@ import { createConversationItemE } from '../components/conversation-item.js'
 import { createModelSelectV } from '../components/model-select.js'
 import { createSelectV } from '../components/select.js'
 import { createTextE } from '../components/text.js'
+import { createBackToMainPageE } from '../components/back-to-main-page.js'
 
 export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
+
+    containerE.appendChild(createBackToMainPageE())
+
+    const explanationE = document.createElement('div')
+    explanationE.classList.add('vicuna__explanation')
+    const vicunaLinkE = document.createElement('a')
+    vicunaLinkE.textContent = 'here'
+    vicunaLinkE.href = 'https://lmsys.org/blog/2023-03-30-vicuna/'
+    explanationE.append(
+        createTextE('This benchmark queries all models on a set of prompts. It then uses another more capable model (here: GPT-3.5, but more often GPT-4)'
+            + ' to review the model outputs, comparing two different models at a time. '
+            + 'If you are interested in seeing the results for specific models, you can filter the reviews below. See '),
+        vicunaLinkE,
+        createTextE(' for more information on this benchmark, though it has been slightly modified.')
+    )
+    containerE.appendChild(explanationE)
 
     const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('vicuna'))
         .map(model => model.model_name)
 
+    const filterE = document.createElement('div')
+    filterE.classList.add('vicuna__filter')
+    containerE.appendChild(filterE)
     const { view: select1V, element: select1E } = createModelSelectV('Model 1', ['any', ...modelNames])
-    containerE.appendChild(select1V)
+    filterE.appendChild(select1V)
     const { view: select2V, element: select2E } = createModelSelectV('Model 2', ['any', ...modelNames])
-    containerE.appendChild(select2V)
-    const { view: selectWinnerV, element: selectWinnerE } = createSelectV('Winner', ['Any', 'Model 1', 'Model 2'], ['any', 'model1', 'model2'])
-    containerE.appendChild(selectWinnerV)
+    filterE.appendChild(select2V)
+    const { view: selectWinnerV, element: selectWinnerE } = createSelectV('Winner Model', ['any', 'Model 1', 'Model 2'], ['any', 'model1', 'model2'])
+    filterE.appendChild(selectWinnerV)
 
     const model1 = parameters.get('model1') ?? 'any'
     const model2 = parameters.get('model2') ?? 'any'
