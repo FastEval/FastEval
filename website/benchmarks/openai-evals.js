@@ -4,6 +4,7 @@ import { createLinkE } from '../components/link.js'
 import { createModelSelectV } from '../components/model-select.js'
 import { createTextE } from '../components/text.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
+import { createBackToMainPageE } from '../components/back-to-main-page.js'
 
 function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
@@ -252,6 +253,8 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
 
     const containerE = document.createElement('div')
 
+    containerE.appendChild(createBackToMainPageE('← Back to table', '#?benchmark=openai-evals'))
+
     const reportUrl = baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/' + evalName + '.json'
     const report = await (await fetch(reportUrl)).text()
     const spec = JSON.parse(report.split('\n')[0]).spec
@@ -277,14 +280,33 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
 }
 
 export async function createEvalsIndexV(baseUrl) {
+    const containerE = document.createElement('div')
+
+    containerE.appendChild(createBackToMainPageE())
+
+    const explanationE = document.createElement('div')
+    explanationE.classList.add('openai-evals__explanation')
+    const informationLinkE = document.createElement('a')
+    informationLinkE.textContent = 'OpenAI evals'
+    informationLinkE.href = 'https://github.com/openai/evals'
+    explanationE.append(
+        createTextE('This benchmark uses '),
+        informationLinkE,
+        createTextE(' and evaluates every model on a subset of all the tasks. It then computes a total score for every model. '
+            + 'This score depends on the other models, so it will slightly change as more models are added. '
+            + 'You can click on the numbers in the table below to see the model outputs on the benchmarks.')
+    )
+    containerE.appendChild(explanationE)
+
     const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('openai-evals'))
         .map(model => model.model_name)
 
     const reportsIndexE = document.createElement('table')
+    containerE.appendChild(reportsIndexE)
     const tableHeadE = reportsIndexE.createTHead().insertRow()
     const tableBodyE = reportsIndexE.createTBody()
-    tableHeadE.insertCell().appendChild(createTextE('Eval name'))
+    tableHeadE.insertCell().appendChild(createTextE('Task'))
 
     for (const modelName of modelNames)
         tableHeadE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(modelName)))
@@ -293,19 +315,23 @@ export async function createEvalsIndexV(baseUrl) {
         [modelName, await ((await fetch(baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/__index__.json')).json())])))
     const scores = computeRelativeOpenAiEvalsScores(reportsIndex)
 
+    const modelNamesByScore = Object.entries(scores.averageRelativeScoresByModelName)
+        .sort(([model1Name, score1], [model2Name, score2]) => score2 - score1)
+        .map(([modelName, score]) => modelName)
+
     const tr = tableBodyE.insertRow()
     tr.classList.add('relative-average-score')
     tableBodyE.appendChild(tr)
-    tr.insertCell().appendChild(createTextE('Relative average score'))
-    for (const modelName of modelNames)
+    tr.insertCell().appendChild(createTextE('Total'))
+    for (const modelName of modelNamesByScore)
         createTableScoreCell(tr, createTextE(round(scores.averageRelativeScoresByModelName[modelName])))
 
-    for (const [reportFilename, { spec }] of Object.entries(reportsIndex[modelNames[0]]).sort()) {
+    for (const [reportFilename, { spec }] of Object.entries(reportsIndex[modelNamesByScore[0]]).sort()) {
         const reportE = tableBodyE.insertRow()
-        reportE.insertCell().appendChild(createLinkE(allowCharacterLineBreaks(spec.base_eval), { report: spec.eval_name, model: modelNames[0] }))
+        reportE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(spec.base_eval)))
 
         const reportScores = scores.scoresByFilename[reportFilename]
-        for (const modelName of modelNames) {
+        for (const modelName of modelNamesByScore) {
             let score = reportScores[modelName]
             if (typeof score == 'number')
                 score = round(score)
@@ -315,7 +341,7 @@ export async function createEvalsIndexV(baseUrl) {
         }
     }
 
-    return reportsIndexE
+    return containerE
 }
 
 export async function createV(baseUrl, parameters) {
