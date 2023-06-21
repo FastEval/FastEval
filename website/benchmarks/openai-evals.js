@@ -266,7 +266,7 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
     finalReportInformationE.appendChild(createTextE('Name: ' + spec.eval_name))
     finalReportInformationE.appendChild(createTextE('Evaluation method: ' + spec.run_config.eval_spec.cls.split(':').slice(-1)))
 
-    const { view: modelSelectV, element: modelSelectE } = createModelSelectV('Model:', modelNames)
+    const { view: modelSelectV, element: modelSelectE } = createModelSelectV('Model', modelNames)
     containerE.appendChild(modelSelectV)
 
     modelSelectE.value = modelName.replace('/', '--')
