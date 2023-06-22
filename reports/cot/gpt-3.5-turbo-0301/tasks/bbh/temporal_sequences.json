@@ -1,19 +1,145 @@
 {
-    "score": 1.0,
+    "score": 0.5,
     "model_outputs": [
         {
             "id": 0,
             "question": "Today, Susan went to the coffee shop. Between what times could they have gone?\nWe know that:\nSusan woke up at 7am.\nLinda saw Susan driving to the water park from 7am to 11am.\nJohn saw Susan buying clothes at the mall from 11am to 12pm.\nJessica saw Susan taking photos near the Eiffel Tower from 12pm to 1pm.\nSteven saw Susan buying lunch at the deli from 1pm to 2pm.\nThomas saw Susan reading at the library from 2pm to 6pm.\nThe coffee shop was closed after 9pm.\nBetween what times could Susan have gone to the coffee shop?\nOptions:\n(A) 6pm to 9pm\n(B) 7am to 11am\n(C) 1pm to 2pm\n(D) 2pm to 6pm",
             "correct_answer": "(A)",
-            "model_answer": "We need to find the time periods when Susan was free to go to the coffee shop. Based on the given information, the only time period when Susan was not seen by anyone was between 6pm and 7am the next day (after she woke up). Therefore, Susan could have gone to the coffee shop anytime between 7am and 6pm. However, the coffee shop was closed after 9pm, so the latest Susan could have gone to the coffee shop was 9pm. Therefore, the answer is (A) 6pm to 9pm.",
-            "correct": true
+            "model_answer": "We can rule out options (B) and (D) because Susan was clearly seen at other places during those times. Option (A) is also not possible because the coffee shop was closed after 9pm. The only remaining option is (C), from 1pm to 2pm, after Susan was seen buying lunch and before she went to the library. Therefore, Susan could have gone to the coffee shop between 1pm to 2pm. \n\nAnswer: (C)",
+            "correct": false
         },
         {
             "id": 1,
             "question": "Today, Emily went to the soccer field. Between what times could they have gone?\nWe know that:\nEmily woke up at 10am.\nLinda saw Emily waiting at the train station from 10am to 12pm.\nAshley saw Emily fixing their computer at the electronic store from 12pm to 1pm.\nJohn saw Emily walking towards the Statue of Liberty from 1pm to 2pm.\nThe soccer field was closed after 8pm.\nBetween what times could Emily have gone to the soccer field?\nOptions:\n(A) 12pm to 1pm\n(B) 10am to 12pm\n(C) 2pm to 8pm\n(D) 1pm to 2pm",
             "correct_answer": "(C)",
-            "model_answer": "Emily was seen at the train station from 10am to 12pm and at the electronic store from 12pm to 1pm, so she could not have gone to the soccer field during that time. She was seen walking towards the Statue of Liberty from 1pm to 2pm, so she also could not have gone to the soccer field during that time. Therefore, the only possible time for Emily to have gone to the soccer field is between 2pm and 8pm when the field was open. The answer is (C).",
+            "model_answer": "Emily could have gone to the soccer field between 2pm to 8pm (C) because she was occupied during all the other times mentioned.",
             "correct": true
+        },
+        {
+            "id": 2,
+            "question": "Today, Susan went to the restaurant. Between what times could they have gone?\nWe know that:\nSusan woke up at 11am.\nLisa saw Susan taking photos near the Leaning Tower of Pisa from 11am to 1pm.\nWilliam saw Susan buying cookies at a bakery from 1pm to 3pm.\nJennifer saw Susan working at the office from 3pm to 6pm.\nJason saw Susan walking towards the Statue of Liberty from 6pm to 7pm.\nAshley saw Susan waiting at the airport from 7pm to 9pm.\nThe restaurant was closed after 10pm.\nBetween what times could Susan have gone to the restaurant?\nOptions:\n(A) 6pm to 7pm\n(B) 9pm to 10pm\n(C) 11am to 1pm\n(D) 7pm to 9pm",
+            "correct_answer": "(B)",
+            "model_answer": "Susan could have gone to the restaurant between 3pm and 6pm, since that is the only time period before the restaurant closed. Therefore, the answer is (D).",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Today, James went to the beach. Between what times could they have gone?\nWe know that:\nJames woke up at 5am.\nSean saw James walking towards the Statue of Liberty from 5am to 6am.\nMichael saw James driving to the water park from 6am to 7am.\nAnthony saw James reading at the library from 7am to 3pm.\nWilliam saw James getting a coffee at the cafe from 4pm to 9pm.\nThe beach was closed after 9pm.\nBetween what times could James have gone to the beach?\nOptions:\n(A) 7am to 3pm\n(B) 5am to 6am\n(C) 4pm to 9pm\n(D) 3pm to 4pm",
+            "correct_answer": "(D)",
+            "model_answer": "We know that James could not have gone to the beach after 9pm. The only time period before 9pm that James was not accounted for was between 7am to 3pm when he was seen reading at the library. Therefore, James could have gone to the beach between 3pm to 9pm when he was seen getting a coffee at the cafe. The answer is (C).",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Today, Jason went to the movies. Between what times could they have gone?\nWe know that:\nJason woke up at 10am.\nLinda saw Jason getting a coffee at the cafe from 10am to 3pm.\nJennifer saw Jason walking towards the Statue of Liberty from 6pm to 7pm.\nSean saw Jason buying a phone at the electronics store from 7pm to 10pm.\nThe movies was closed after 10pm.\nBetween what times could Jason have gone to the movies?\nOptions:\n(A) 3pm to 6pm\n(B) 10am to 3pm\n(C) 7pm to 10pm\n(D) 6pm to 7pm",
+            "correct_answer": "(A)",
+            "model_answer": "Based on the given information, Jason was seen at the cafe from 10am to 3pm and then seen walking towards the Statue of Liberty from 6pm to 7pm. The movies were closed after 10pm, and Jason was seen buying a phone at the electronics store from 7pm to 10pm. Therefore, Jason could have gone to the movies between 3pm and 6pm because that is the only time period that is not accounted for. The answer is (A).",
+            "correct": true
+        },
+        {
+            "id": 5,
+            "question": "Today, Elizabeth went to the amusement park. Between what times could they have gone?\nWe know that:\nElizabeth woke up at 6am.\nSarah saw Elizabeth taking photos near the Leaning Tower of Pisa from 8am to 9am.\nJessica saw Elizabeth working out at the gym from 9am to 3pm.\nBetty saw Elizabeth watching a movie at the theater from 3pm to 7pm.\nJames saw Elizabeth stretching at a yoga studio from 7pm to 8pm.\nThe amusement park was closed after 8pm.\nBetween what times could Elizabeth have gone to the amusement park?\nOptions:\n(A) 8am to 9am\n(B) 6am to 8am\n(C) 3pm to 7pm\n(D) 7pm to 8pm",
+            "correct_answer": "(B)",
+            "model_answer": "Elizabeth could have gone to the amusement park between 9am and 3pm when she was not seen by anyone. Therefore, the answer is (C).",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Today, Ashley went to the bookstore. Between what times could they have gone?\nWe know that:\nAshley woke up at 7am.\nLeslie saw Ashley buying a bike at the bike shop from 11am to 12pm.\nSusan saw Ashley working out at the gym from 12pm to 4pm.\nElizabeth saw Ashley waiting at the train station from 4pm to 7pm.\nEmily saw Ashley taking photos near the Leaning Tower of Pisa from 7pm to 9pm.\nThe bookstore was closed after 9pm.\nBetween what times could Ashley have gone to the bookstore?\nOptions:\n(A) 7pm to 9pm\n(B) 11am to 12pm\n(C) 12pm to 4pm\n(D) 7am to 11am",
+            "correct_answer": "(D)",
+            "model_answer": "Ashley was occupied from 11am to 9pm, so the only possible time they could have gone to the bookstore was between 7am and 11am. Answer: (D)",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "Today, Sarah went to the construction site. Between what times could they have gone?\nWe know that:\nSarah woke up at 6am.\nNancy saw Sarah fixing their computer at the electronic store from 8am to 2pm.\nBetty saw Sarah driving to the water park from 2pm to 3pm.\nKimberly saw Sarah buying clothes at the mall from 3pm to 4pm.\nEmily saw Sarah buying cookies at a bakery from 4pm to 6pm.\nDavid saw Sarah attending class at the school from 6pm to 8pm.\nThe construction site was closed after 8pm.\nBetween what times could Sarah have gone to the construction site?\nOptions:\n(A) 3pm to 4pm\n(B) 2pm to 3pm\n(C) 6am to 8am\n(D) 8am to 2pm",
+            "correct_answer": "(C)",
+            "model_answer": "We need to find the time period when Sarah was not seen by anyone and the construction site was still open. \nBased on the given information, Sarah was seen by someone from 8am to 8pm. \nTherefore, the possible time periods when she was not seen are:\n- 6am to 8am\n- 4pm to 6pm\nThe construction site was closed after 8pm, so the latest time she could have gone is 8pm. \nTherefore, the possible time periods when she could have gone to the construction site are:\n- 6am to 8am\n- 4pm to 6pm\n- 8pm\nAnswer: (A)",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Today, Leslie went to the orchestra hall. Between what times could they have gone?\nWe know that:\nLeslie woke up at 7am.\nRichard saw Leslie walking in the garden from 7am to 8am.\nLeslie saw Leslie buying cookies at a bakery from 8am to 9am.\nJason saw Leslie buying a bike at the bike shop from 9am to 10am.\nSamantha saw Leslie taking photos near the Eiffel Tower from 10am to 3pm.\nLinda saw Leslie taking photos near the Leaning Tower of Pisa from 6pm to 8pm.\nThe orchestra hall was closed after 8pm.\nBetween what times could Leslie have gone to the orchestra hall?\nOptions:\n(A) 3pm to 6pm\n(B) 9am to 10am\n(C) 7am to 8am\n(D) 10am to 3pm",
+            "correct_answer": "(A)",
+            "model_answer": "We can eliminate options (A) and (C) because Leslie was either taking photos near the Eiffel Tower or asleep during those times. We can eliminate option (D) because Leslie was already at the Eiffel Tower at 10am and stayed there until 3pm. That leaves us with option (B), between 9am to 10am when Leslie was seen buying a bike at the bike shop, as the only possible window of time for Leslie to have gone to the orchestra hall since it was closed after 8pm. \n\nOutput: (B)",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Today, Sarah went to the art studio. Between what times could they have gone?\nWe know that:\nSarah woke up at 9am.\nRichard saw Sarah buying a bike at the bike shop from 9am to 12pm.\nBetty saw Sarah waiting at the train station from 12pm to 1pm.\nMichael saw Sarah buying clothes at the mall from 1pm to 3pm.\nJennifer saw Sarah working out at the gym from 3pm to 6pm.\nHannah saw Sarah buying a phone at the electronics store from 6pm to 8pm.\nThe art studio was closed after 10pm.\nBetween what times could Sarah have gone to the art studio?\nOptions:\n(A) 9am to 12pm\n(B) 3pm to 6pm\n(C) 12pm to 1pm\n(D) 8pm to 10pm",
+            "correct_answer": "(D)",
+            "model_answer": "We need to find the time slots when Sarah was free to go to the art studio. From the given information, we can see that Sarah was busy from 9am to 8pm. Therefore, the only possible time she could have gone to the art studio is between 8pm to 10pm. The answer is (D).",
+            "correct": true
+        },
+        {
+            "id": 10,
+            "question": "Today, Sarah went to the clothing store. Between what times could they have gone?\nWe know that:\nSarah woke up at 9am.\nWilliam saw Sarah buying a bike at the bike shop from 9am to 12pm.\nEmily saw Sarah waiting at the airport from 12pm to 1pm.\nJennifer saw Sarah taking photos near the Eiffel Tower from 2pm to 5pm.\nJason saw Sarah driving to the water park from 5pm to 6pm.\nThe clothing store was closed after 6pm.\nBetween what times could Sarah have gone to the clothing store?\nOptions:\n(A) 1pm to 2pm\n(B) 5pm to 6pm\n(C) 9am to 12pm\n(D) 12pm to 1pm",
+            "correct_answer": "(A)",
+            "model_answer": "Sarah could have gone to the clothing store between 1pm and 2pm or between 6pm and the time the store closed. Therefore, the answer is (A).",
+            "correct": true
+        },
+        {
+            "id": 11,
+            "question": "Today, Richard went to the physics classroom. Between what times could they have gone?\nWe know that:\nRichard woke up at 7am.\nDavid saw Richard reading at the library from 10am to 11am.\nSamantha saw Richard sitting on a rooftop from 11am to 2pm.\nAshley saw Richard working at the office from 2pm to 4pm.\nHannah saw Richard fixing their computer at the electronic store from 4pm to 8pm.\nThe physics classroom was closed after 8pm.\nBetween what times could Richard have gone to the physics classroom?\nOptions:\n(A) 7am to 10am\n(B) 2pm to 4pm\n(C) 11am to 2pm\n(D) 4pm to 8pm",
+            "correct_answer": "(A)",
+            "model_answer": "Richard could have gone to the physics classroom between 10am and 11am or between 4pm and 8pm. \n\nReasoning: We know that Richard was either at the library or on the rooftop from 7am to 11am, and he was at the office or fixing a computer from 2pm to 8pm. Therefore, the only possible times during which he could have gone to the physics classroom are between 11am and 2pm (when he was on the rooftop) or between 4pm and 8pm (when he was at the electronic store). However, we know that the classroom was closed after 8pm, so the only valid option is between 10am and 11am. \n\nAnswer: (C)",
+            "correct": false
+        },
+        {
+            "id": 12,
+            "question": "Today, Hannah went to the park. Between what times could they have gone?\nWe know that:\nHannah woke up at 11am.\nMichael saw Hannah getting a coffee at the cafe from 11am to 3pm.\nJames saw Hannah buying clothes at the mall from 3pm to 4pm.\nHannah saw Hannah walking in the garden from 6pm to 8pm.\nLisa saw Hannah sitting on a rooftop from 8pm to 9pm.\nTiffany saw Hannah waiting at the train station from 9pm to 10pm.\nThe park was closed after 10pm.\nBetween what times could Hannah have gone to the park?\nOptions:\n(A) 4pm to 6pm\n(B) 6pm to 8pm\n(C) 8pm to 9pm\n(D) 3pm to 4pm",
+            "correct_answer": "(A)",
+            "model_answer": "To determine the possible times Hannah could have gone to the park, we need to identify the time periods where we don't know Hannah's whereabouts. We can see that we have a gap between 4pm to 6pm where we don't know where Hannah was, so she could have gone to the park during this time. Therefore, the answer is (A) 4pm to 6pm.",
+            "correct": true
+        },
+        {
+            "id": 13,
+            "question": "Today, Betty went to the art show. Between what times could they have gone?\nWe know that:\nBetty woke up at 8am.\nElizabeth saw Betty buying lunch at the deli from 8am to 10am.\nTiffany saw Betty fixing their computer at the electronic store from 10am to 1pm.\nSusan saw Betty taking photos near the Eiffel Tower from 1pm to 2pm.\nBetty saw Betty getting a coffee at the cafe from 7pm to 10pm.\nThe art show was closed after 10pm.\nBetween what times could Betty have gone to the art show?\nOptions:\n(A) 2pm to 7pm\n(B) 7pm to 10pm\n(C) 8am to 10am\n(D) 1pm to 2pm",
+            "correct_answer": "(A)",
+            "model_answer": "We can eliminate option (B) because Betty was getting a coffee at the cafe during that time. We can also eliminate option (C) because Betty was seen buying lunch at the deli during that time. Option (D) is also not possible because Betty was taking photos near the Eiffel Tower at 1pm to 2pm. Therefore, the only option left is (A), which is between 2pm to 7pm. \n\nAnswer: (A)",
+            "correct": true
+        },
+        {
+            "id": 14,
+            "question": "Today, Leslie went to the clothing store. Between what times could they have gone?\nWe know that:\nLeslie woke up at 5am.\nRichard saw Leslie buying a phone at the electronics store from 5am to 7am.\nJason saw Leslie waiting at the airport from 11am to 6pm.\nDavid saw Leslie attending class at the school from 6pm to 10pm.\nThe clothing store was closed after 10pm.\nBetween what times could Leslie have gone to the clothing store?\nOptions:\n(A) 11am to 6pm\n(B) 5am to 7am\n(C) 7am to 11am\n(D) 6pm to 10pm",
+            "correct_answer": "(C)",
+            "model_answer": "Leslie could have gone to the clothing store between 7am to 11am or from 6pm to 10pm, since these are the only time frames that are not accounted for in the given information. Therefore, the answer is (C).",
+            "correct": true
+        },
+        {
+            "id": 15,
+            "question": "Today, Sean went to the orchestra hall. Between what times could they have gone?\nWe know that:\nSean woke up at 5am.\nSarah saw Sean fixing their computer at the electronic store from 5am to 6am.\nAshley saw Sean buying clothes at the mall from 6am to 7am.\nJessica saw Sean sitting on a rooftop from 7am to 9am.\nSteven saw Sean walking towards the Statue of Liberty from 5pm to 8pm.\nMichael saw Sean reading at the library from 8pm to 9pm.\nThe orchestra hall was closed after 9pm.\nBetween what times could Sean have gone to the orchestra hall?\nOptions:\n(A) 9am to 5pm\n(B) 5am to 6am\n(C) 6am to 7am\n(D) 8pm to 9pm",
+            "correct_answer": "(A)",
+            "model_answer": "We can eliminate options A and D since Sean was seen elsewhere during those times. Option B is also unlikely since Sean was seen fixing a computer during that time. Therefore, the only plausible option is C, between 6am and 7am, since Sean was seen buying clothes at the mall until 7am and the orchestra hall was closed after 9pm. Therefore, Sean could have gone to the orchestra hall between 6am and 7am. \n\nOutput: (C)",
+            "correct": false
+        },
+        {
+            "id": 16,
+            "question": "Today, Jessica went to the basketball court. Between what times could they have gone?\nWe know that:\nJessica woke up at 5am.\nMichael saw Jessica buying clothes at the mall from 5am to 6am.\nSteven saw Jessica buying a bike at the bike shop from 6am to 7am.\nSean saw Jessica waiting at the train station from 7am to 2pm.\nElizabeth saw Jessica taking photos near the Eiffel Tower from 2pm to 6pm.\nSarah saw Jessica walking towards the Statue of Liberty from 6pm to 9pm.\nThe basketball court was closed after 10pm.\nBetween what times could Jessica have gone to the basketball court?\nOptions:\n(A) 6pm to 9pm\n(B) 5am to 6am\n(C) 9pm to 10pm\n(D) 2pm to 6pm",
+            "correct_answer": "(C)",
+            "model_answer": "We know Jessica was waiting at the train station between 7am to 2pm, and Elizabeth saw her taking photos near the Eiffel Tower from 2pm to 6pm. Therefore, Jessica was at the train station until at least 2pm, and she couldn't have gone to the basketball court before that time. We also know that Sarah saw Jessica walking towards the Statue of Liberty from 6pm to 9pm, so she couldn't have gone to the basketball court after that. Therefore, the only possible time for Jessica to have gone to the basketball court is between 5am to 6am when Michael saw her buying clothes at the mall. The answer is (B) 5am to 6am.",
+            "correct": false
+        },
+        {
+            "id": 17,
+            "question": "Today, Jessica went to the beach. Between what times could they have gone?\nWe know that:\nJessica woke up at 5am.\nEmily saw Jessica stretching at a yoga studio from 5am to 8am.\nThomas saw Jessica taking photos near the Eiffel Tower from 8am to 9am.\nRichard saw Jessica fixing their computer at the electronic store from 12pm to 3pm.\nKimberly saw Jessica watching a movie at the theater from 3pm to 7pm.\nSarah saw Jessica driving to the water park from 7pm to 10pm.\nThe beach was closed after 10pm.\nBetween what times could Jessica have gone to the beach?\nOptions:\n(A) 8am to 9am\n(B) 12pm to 3pm\n(C) 9am to 12pm\n(D) 5am to 8am",
+            "correct_answer": "(C)",
+            "model_answer": "Jessica could have gone to the beach between 9am to 12pm. \n\nFrom 5am to 8am, Jessica was at the yoga studio, so she couldn't have gone to the beach during that time. \nFrom 8am to 9am, Jessica was taking photos near the Eiffel Tower, so she couldn't have gone to the beach during that time either. \nFrom 9am to 12pm, there is a gap where we don't know where Jessica was, so she could have gone to the beach during this time. \nAfter 12pm, Jessica was at the electronic store and then the theater, so she couldn't have gone to the beach during those times. \nFinally, she was driving to the water park from 7pm to 10pm, and the beach was closed after 10pm. \n\nTherefore, the answer is (C) 9am to 12pm.",
+            "correct": true
+        },
+        {
+            "id": 18,
+            "question": "Today, Lisa went to the football field. Between what times could they have gone?\nWe know that:\nLisa woke up at 6am.\nEmily saw Lisa waiting at the airport from 8am to 10am.\nDavid saw Lisa attending class at the school from 10am to 1pm.\nLinda saw Lisa fixing their computer at the electronic store from 1pm to 3pm.\nHannah saw Lisa getting a coffee at the cafe from 3pm to 8pm.\nWilliam saw Lisa buying clothes at the mall from 8pm to 10pm.\nThe football field was closed after 10pm.\nBetween what times could Lisa have gone to the football field?\nOptions:\n(A) 1pm to 3pm\n(B) 6am to 8am\n(C) 10am to 1pm\n(D) 8pm to 10pm",
+            "correct_answer": "(B)",
+            "model_answer": "We know the football field was closed after 10pm, so Lisa couldn't have gone after that time. We also know that Lisa was seen at various places throughout the day, with no gap longer than 2 hours. Therefore, the only possible time she could have gone to the football field is between 6am to 8am when no one saw her. The answer is (B).",
+            "correct": true
+        },
+        {
+            "id": 19,
+            "question": "Today, Ashley went to the bookstore. Between what times could they have gone?\nWe know that:\nAshley woke up at 5am.\nJason saw Ashley buying lunch at the deli from 11am to 1pm.\nEmily saw Ashley driving to the water park from 1pm to 3pm.\nKimberly saw Ashley stretching at a yoga studio from 3pm to 6pm.\nThe bookstore was closed after 6pm.\nBetween what times could Ashley have gone to the bookstore?\nOptions:\n(A) 1pm to 3pm\n(B) 11am to 1pm\n(C) 3pm to 6pm\n(D) 5am to 11am",
+            "correct_answer": "(D)",
+            "model_answer": "Ashley could have gone to the bookstore between 11am to 1pm or from 3pm to 6pm, since Jason and Kimberly saw her before and after those times, respectively. Therefore, the answer is (B) or (C).",
+            "correct": false
         }
     ]
 }

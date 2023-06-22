@@ -19,7 +19,7 @@ def reply(model, answer_format, question):
             + question),
     ])
 
-def evaluate_model_on_dataset(*, name, model, data, question_column, answer_column, answer_format, is_correct, output_path):
+def evaluate_model_on_dataset(*, name, model, data, question_column, answer_column, answer_format, is_correct, output_path, limit=float('inf')):
     output_file_path = os.path.join(output_path, name + '.json')
     if os.path.exists(output_file_path):
         with open(output_file_path) as f:
@@ -29,7 +29,7 @@ def evaluate_model_on_dataset(*, name, model, data, question_column, answer_colu
     num_total = 0
     model_outputs = []
     print('Evaluating model on ', name)
-    for item in tqdm.tqdm(data):
+    for item in tqdm.tqdm(data.select(range(min(limit, len(data))))):
         question = item[question_column]
         correct_answer = item[answer_column]
         model_answer = reply(model, answer_format, question)
@@ -39,8 +39,6 @@ def evaluate_model_on_dataset(*, name, model, data, question_column, answer_colu
         if model_answer_is_correct:
             num_correct += 1
         num_total += 1
-        if num_total >= 2:
-            break # TODO: Only for testing. Remove.
 
     score = num_correct / num_total
 
@@ -72,6 +70,7 @@ def evaluate_model_on_gsm8k(model, output_path):
         answer_format='as a single number',
         is_correct=is_correct,
         output_path=output_path,
+        limit=100,
     )
 
 def evaluate_model_on_bbh(model, output_path):
@@ -98,7 +97,7 @@ def evaluate_model_on_bbh(model, output_path):
         'temporal_sequences',
         'tracking_shuffled_objects_five_objects',
         'tracking_shuffled_objects_seven_objects',
-        'tracking_shuffled_objects_three_objects'
+        'tracking_shuffled_objects_three_objects',
     ]
 
     accuracies = {
@@ -111,6 +110,7 @@ def evaluate_model_on_bbh(model, output_path):
             answer_format='as a single letter with parenthesis',
             is_correct=is_correct,
             output_path=output_path,
+            limit=20,
         ) for task in tasks
     }
 
