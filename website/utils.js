@@ -19,3 +19,15 @@ export function allowCharacterLineBreaks(text, characters = ['/', '_']) {
         out = out.replaceAll(char, char + '\u200b')
     return out
 }
+
+export async function fetchModels(baseUrl) {
+    return (await (await fetch(baseUrl + '/__index__.json')).json())
+}
+
+export function fetchFiles(baseUrl, models, benchmarkName, end='.json') {
+    return Promise.all(models
+        .filter(model => model.benchmarks.includes(benchmarkName))
+        .map(model => model.model_name)
+        .map(async model => [model, await fetch(baseUrl + '/' + benchmarkName + '/' + model.replace('/', '--') + end).then(r => r.json())])
+    )
+}

@@ -1,0 +1,19 @@
+{
+    "score": 0.5,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Alice, Bob, Claire, Dave, Eve, Fred, and Gertrude are on the same team in a soccer match. At the start of the match, they are each assigned to a position: Alice is playing striker, Bob is playing right winger, Claire is playing left winger, Dave is playing benchwarmer, Eve is playing goalkeeper, Fred is playing center midfielder, and Gertrude is playing cheerleader.\nAs the game progresses, pairs of players occasionally swap positions. First, Eve and Claire trade positions. Then, Gertrude and Alice trade positions. Then, Fred and Bob trade positions. Then, Dave and Fred trade positions. Then, Fred and Bob trade positions. Then, Bob and Eve trade positions. Finally, Claire and Alice trade positions. At the end of the match, Gertrude is playing\nOptions:\n(A) striker\n(B) right winger\n(C) left winger\n(D) benchwarmer\n(E) goalkeeper\n(F) center midfielder\n(G) cheerleader",
+            "correct_answer": "(A)",
+            "model_answer": "First, we can ignore Dave, since he never moves from his position as benchwarmer. \n\nNext, Eve and Claire trade positions, so Claire is now the goalkeeper and Eve is the left winger. \n\nThen, Gertrude and Alice trade positions, so Gertrude is now the striker and Alice is the cheerleader. \n\nNext, Fred and Bob trade positions, so Fred is now the right winger and Bob is the center midfielder. \n\nThen, Dave and Fred trade positions, so Dave is now the right winger and Fred is the benchwarmer. \n\nNext, Fred and Bob trade positions again, so Fred is back to being the center midfielder and Bob is the benchwarmer. \n\nFinally, Bob and Eve trade positions, so Bob is now the goalkeeper and Eve is the benchwarmer. \n\nTherefore, at the end of the match, Gertrude is playing (A) striker.",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Alice, Bob, Claire, Dave, Eve, Fred, and Gertrude are playing a game. At the start of the game, they are each holding a ball: Alice has a orange ball, Bob has a yellow ball, Claire has a brown ball, Dave has a white ball, Eve has a black ball, Fred has a red ball, and Gertrude has a purple ball.\nAs the game progresses, pairs of players trade balls. First, Claire and Bob swap balls. Then, Claire and Dave swap balls. Then, Fred and Gertrude swap balls. Then, Eve and Claire swap balls. Then, Eve and Fred swap balls. Then, Alice and Dave swap balls. Finally, Eve and Claire swap balls. At the end of the game, Eve has the\nOptions:\n(A) orange ball\n(B) yellow ball\n(C) brown ball\n(D) white ball\n(E) black ball\n(F) red ball\n(G) purple ball",
+            "correct_answer": "(E)",
+            "model_answer": "Step 1: Make a chart to keep track of who has which ball at each step of the game. \n\n|   | Alice | Bob | Claire | Dave | Eve | Fred | Gertrude |\n|---|-------|-----|--------|------|-----|------|----------|\n| 1 | orange|yellow|brown   |white |black|red   |purple    |\n| 2 |orange |brown|yellow  |white |black|red   |purple    |\n| 3 |orange |brown|white   |yellow|black|red   |purple    |\n| 4 |orange |brown|black   |yellow|white|red   |purple    |\n| 5 |orange |brown|black   |yellow|red  |white|purple    |\n| 6 |white  |brown|black   |orange|red  |yellow|purple   |\n| 7 |white  |brown|orange  |yellow|red  |black |purple    |\n|   |       |     |        |      |     |      |           |\n\nStep 2: Follow the ball swaps in order and update the chart accordingly. \n\nStep 3: Look at the final row of the chart to see who has the orange ball. \n\nAnswer: (D) white ball",
+            "correct": false
+        }
+    ]
+}

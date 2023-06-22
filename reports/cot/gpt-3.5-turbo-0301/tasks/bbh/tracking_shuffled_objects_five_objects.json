@@ -1,0 +1,19 @@
+{
+    "score": 0.5,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Alice, Bob, Claire, Dave, and Eve are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Patrick, Bob is dancing with Sam, Claire is dancing with Jamie, Dave is dancing with Lola, and Eve is dancing with Melissa.\nThroughout the song, the dancers often trade partners. First, Dave and Eve switch partners. Then, Dave and Alice switch partners. Then, Eve and Alice switch partners. Then, Claire and Bob switch partners. Finally, Dave and Alice switch partners. At the end of the dance, Alice is dancing with\nOptions:\n(A) Patrick\n(B) Sam\n(C) Jamie\n(D) Lola\n(E) Melissa",
+            "correct_answer": "(A)",
+            "model_answer": "1. Alice starts dancing with Patrick.\n2. Dave and Eve switch partners, so Dave starts dancing with Melissa and Eve starts dancing with Lola.\n3. Dave and Alice switch partners, so Dave starts dancing with Patrick and Alice starts dancing with Melissa.\n4. Eve and Alice switch partners, so Eve starts dancing with Patrick and Alice starts dancing with Lola.\n5. Claire and Bob switch partners, so Claire starts dancing with Sam and Bob starts dancing with Jamie.\n6. Dave and Alice switch partners again, so Dave starts dancing with Lola and Alice starts dancing with Jamie.\n\nAnswer: (C) Jamie",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Alice, Bob, Claire, Dave, and Eve are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Ophelia, Bob is dancing with Jamie, Claire is dancing with Melissa, Dave is dancing with Rodrigo, and Eve is dancing with Patrick.\nThroughout the song, the dancers often trade partners. First, Claire and Bob switch partners. Then, Claire and Eve switch partners. Then, Claire and Bob switch partners. Then, Eve and Dave switch partners. Finally, Claire and Alice switch partners. At the end of the dance, Alice is dancing with\nOptions:\n(A) Ophelia\n(B) Jamie\n(C) Melissa\n(D) Rodrigo\n(E) Patrick",
+            "correct_answer": "(C)",
+            "model_answer": "Since Alice only switches partners once with Claire at the end, we can ignore all other partner switches. Claire and Alice switch partners last, so Claire is currently dancing with Alice's partner, Ophelia. Therefore, Alice must be dancing with Claire's original partner, Melissa. Therefore, the answer is (C) Melissa.",
+            "correct": true
+        }
+    ]
+}

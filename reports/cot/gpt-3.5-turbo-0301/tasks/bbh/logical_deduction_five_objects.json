@@ -1,0 +1,19 @@
+{
+    "score": 0.5,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "The following paragraphs each describe a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a branch, there are five birds: a quail, an owl, a raven, a falcon, and a robin. The owl is the leftmost. The robin is to the left of the raven. The quail is the rightmost. The raven is the third from the left.\nOptions:\n(A) The quail is the rightmost\n(B) The owl is the rightmost\n(C) The raven is the rightmost\n(D) The falcon is the rightmost\n(E) The robin is the rightmost",
+            "correct_answer": "(A)",
+            "model_answer": "1. From the statement \"The owl is the leftmost,\" we know that the order of birds is: owl, _, _, _, _.\n2. From the statement \"The robin is to the left of the raven,\" we know that the order of birds is: owl, _, robin, raven, _.\n3. From the statement \"The raven is the third from the left,\" we know that the order of birds is: owl, _, raven, robin, _.\n4. From the statement \"The quail is the rightmost,\" we know that the order of birds is: owl, _, raven, robin, quail.\nTherefore, the answer is (A) The quail is the rightmost.",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "The following paragraphs each describe a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. In an antique car show, there are five vehicles: a hatchback, a bus, a convertible, a tractor, and a minivan. The tractor is older than the bus. The minivan is newer than the bus. The hatchback is the second-newest. The minivan is older than the convertible.\nOptions:\n(A) The hatchback is the second-oldest\n(B) The bus is the second-oldest\n(C) The convertible is the second-oldest\n(D) The tractor is the second-oldest\n(E) The minivan is the second-oldest",
+            "correct_answer": "(B)",
+            "model_answer": "1. The tractor is older than the bus.\n2. The minivan is newer than the bus.\n3. The hatchback is the second-newest.\n4. The minivan is older than the convertible.\n\nFrom statement 1, we know that the tractor is older than the bus. From statement 2, we know that the minivan is newer than the bus, and since the minivan is not the oldest, it must be the second-newest. Therefore, the hatchback must be older than the minivan but newer than the bus, making it the second-oldest.\n\nAnswer: (A) The hatchback is the second-oldest.",
+            "correct": false
+        }
+    ]
+}
