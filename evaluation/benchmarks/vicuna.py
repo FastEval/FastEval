@@ -159,7 +159,7 @@ def generate_reviews():
     while True:
         question_id = random.choice(list(questions.keys()))
         model_name1, model_name2 = min(review_count, key=review_count.get)
-        if review_count[(model_name1, model_name2)] >= 40:
+        if review_count[(model_name1, model_name2)] >= 80:
             break
         reviews.append({ 'question_id': question_id, 'model1': model_name1, 'model2': model_name2 })
         review_count[(model_name1, model_name2)] += 1
