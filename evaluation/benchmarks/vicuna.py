@@ -7,7 +7,7 @@ from evaluation.utils import replace_model_name_slashes, undo_replace_model_name
 def generate_assistant_replies(model_type, model_name):
     answers_filepath = os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json')
     if os.path.exists(answers_filepath):
-        return False
+        return
 
     model = create_model(model_type, model_name)
 
@@ -21,8 +21,6 @@ def generate_assistant_replies(model_type, model_name):
     os.makedirs(os.path.dirname(answers_filepath), exist_ok=True)
     with open(answers_filepath, 'w') as f:
         json.dump(answers, f, indent=4)
-
-    return True
 
 def create_reviewer_prompt(question, answer1, answer2):
     system_message = 'You are a helpful and precise assistant for checking the quality of the answer.'
@@ -69,12 +67,10 @@ def find_winner(line):
     for possible_match in possible_matches:
         if (possible_match + ' 1') in line:
             if winner_model is not None:
-                print(line)
                 return None
             winner_model = '1'
         elif (possible_match + ' 2') in line:
             if winner_model is not None:
-                print(line)
                 return None
             winner_model = '2'
 
@@ -93,13 +89,11 @@ def find_winner(line):
     for tie in ties:
         if tie in line:
             if winner_model is not None:
-                print(line)
                 return None
             winner_model = 'tie'
             break
     if line in ['Tie.']:
         if winner_model is not None:
-            print(line)
             return None
         winner_model = 'tie'
 
@@ -150,75 +144,74 @@ def generate_reviews():
 
     reviewer = create_model('openai', 'gpt-3.5-turbo-0613')
 
-    reviews = []
-    models_results = dict([(model, {
-        'num_matches': 0,
-        'num_wins': 0,
-        'num_ties': 0,
-    }) for model in models])
+    reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
+    if os.path.exists(reviews_filepath):
+        with open(reviews_filepath) as f:
+            reviews = json.load(f)
+    else:
+        os.makedirs(os.path.dirname(reviews_filepath), exist_ok=True)
+        reviews = []
 
-    for i in range(3000):
-        question_id = random.choice(list(questions.keys()))
-        model_name1, model_name2 = random.sample(models, 2)
-        reviews.append({
-            'question_id': question_id,
-            'model1': model_name1,
-            'model2': model_name2,
-        })
-
-    conversations = []
+    review_count = { (model_name1, model_name2): 0  for model_name1 in models for model_name2 in models if model_name1 != model_name2 }
     for review in reviews:
+        review_count[(review['model1'], review['model2'])] += 1
+
+    while True:
+        question_id = random.choice(list(questions.keys()))
+        model_name1, model_name2 = min(review_count, key=review_count.get)
+        if review_count[(model_name1, model_name2)] >= 20:
+            break
+        reviews.append({ 'question_id': question_id, 'model1': model_name1, 'model2': model_name2 })
+        review_count[(model_name1, model_name2)] += 1
+
+    conversation_review_indices = {}
+    conversations = []
+    for i, review in enumerate(reviews):
+        if 'review' in review:
+            continue
         question_id = review['question_id']
         system_message, prompter_message = create_reviewer_prompt(
             questions[question_id],
             answers[review['model1']][question_id],
             answers[review['model2']][question_id]
         )
+        conversation_review_indices[i] = len(conversations)
         conversations.append([
             ('system', system_message),
             ('user', prompter_message),
         ])
 
-    replies = compute_model_replies(reviewer, conversations)
+    replies = compute_model_replies(reviewer, conversations, num_threads=20)
 
     for i, review in enumerate(reviews):
+        if 'review' in review:
+            continue
         model_name1 = review['model1']
         model_name2 = review['model2']
 
-        reply = replies[i]
+        reply = replies[conversation_review_indices[i]]
         review['review'] = reply
 
         winner_model = find_winner(reply.split('\n')[-1].lower())
         review['winner_model'] = winner_model
         if winner_model is None:
-            print(reply)
             continue
-
-        models_results[model_name1]['num_matches'] += 1
-        models_results[model_name2]['num_matches'] += 1
-        if winner_model == '1':
-            models_results[model_name1]['num_wins'] += 1
-        elif winner_model == '2':
-            models_results[model_name2]['num_wins'] += 1
-        elif winner_model == 'tie':
-            models_results[model_name1]['num_ties'] += 1
-            models_results[model_name2]['num_ties'] += 1
 
     reviews = [review for review in reviews if review['winner_model'] is not None]
 
     elo_ranks = compute_elo_ranks(models, [(review['model1'], review['model2'], review['winner_model']) for review in reviews])
-    for model_name, model_results in models_results.items():
-        model_results['elo_rank'] = elo_ranks[model_name]
 
-    reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
-    os.makedirs(os.path.dirname(reviews_filepath), exist_ok=True)
     with open(reviews_filepath, 'w') as f:
-        json.dump({ 'reviews': reviews, 'models': models_results }, f, indent=4)
+        json.dump(reviews, f, indent=4)
+    elo_filepath = os.path.join('reports', 'vicuna', 'elo.json')
+    with open(elo_filepath, 'w') as f:
+        json.dump(elo_ranks, f, indent=4)
+
+    return len(conversations) > 0
 
 def evaluate_models(models, exclude_reviews):
-    did_evaluate_some_model = False
     for model_type, model_name in models:
-        if generate_assistant_replies(model_type, model_name):
-            did_evaluate_some_model = True
-    if not exclude_reviews and (did_evaluate_some_model or not os.path.exists('reports/vicuna/reviews.json')):
-        generate_reviews()
+        generate_assistant_replies(model_type, model_name)
+    if not exclude_reviews:
+        while generate_reviews():
+            pass

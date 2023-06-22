@@ -53,7 +53,7 @@ export async function createV(baseUrl, parameters) {
 
     const modelAnswersToFetch = (model1 === 'any' || model2 === 'any') ? modelNames : [model1, model2]
 
-    const [questions, { reviews }, ...answers] = await Promise.all([
+    const [questions, reviews, ...answers] = await Promise.all([
         fetch('./data/vicuna/questions.json').then(r => r.json()), // TODO Make relative to base url (probably change base url to root)
         fetch(baseUrl + '/vicuna/reviews.json').then(r => r.json()),
         ...modelAnswersToFetch.map(modelName => fetch(baseUrl + '/vicuna/answers/' + modelName.replace('/', '--') + '.json').then(r => r.json())),
@@ -64,6 +64,7 @@ export async function createV(baseUrl, parameters) {
     const samplesE = document.createElement('div')
     containerE.appendChild(samplesE)
     samplesE.classList.add('samples')
+    let numberOfRenderedReviews = 0
     for (const review of reviews) {
         const reviewIsRelevant = (model1 === 'any' && model2 === 'any')
             || (model1 === 'any' && [review.model1, review.model2].includes(model2))
@@ -76,6 +77,10 @@ export async function createV(baseUrl, parameters) {
         const reviewWinnerModelName = review['model' + review.winner_model]
         if (winnerModel !== 'any' && winnerModelName !== reviewWinnerModelName)
             continue
+
+        if (numberOfRenderedReviews > 100)
+            break
+        numberOfRenderedReviews++
 
         const questionId = review.question_id
         const question = questions[questionId]

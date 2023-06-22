@@ -50,13 +50,13 @@ def get_dtype(model_type: str, model_name: str):
         raise
     return get_model_class(model_type).get_dtype(model_name)
 
-def compute_model_replies(model, conversations):
+def compute_model_replies(model, conversations, *, num_threads=10):
     def reply(conversation_with_index):
         index, conversation = conversation_with_index
         reply = model.reply(conversation)
         return index, reply
 
-    with multiprocessing.pool.ThreadPool(10) as pool:
+    with multiprocessing.pool.ThreadPool(num_threads) as pool:
         iterator = pool.imap_unordered(reply, enumerate(conversations))
         replies_with_indices = list(tqdm.tqdm(iterator, total=len(conversations)))
 
