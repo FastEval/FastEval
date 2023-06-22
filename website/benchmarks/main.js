@@ -45,6 +45,18 @@ function computeModelRanks(models, getScore, allBenchmarks) {
         const commonBenchmarks = modelsByName[model1Name].benchmarks
             .filter(benchmark => modelsByName[model2Name].benchmarks.includes(benchmark))
 
+        if (commonBenchmarks.length === 1 && commonBenchmarks[0] === 'lm-evaluation-harness') {
+            const model1NumBenchmarks = modelsByName[model1Name].benchmarks.length
+            const model2NumBenchmarks = modelsByName[model2Name].benchmarks.length
+            if (model1NumBenchmarks === 1 && model2NumBenchmarks !== 1) {
+                performanceDifferences.set(modelPair, -1)
+                continue
+            } else if (model1NumBenchmarks !== 1 && model2NumBenchmarks === 1) {
+                performanceDifferences.set(modelPair, 1)
+                continue
+            }
+        }
+
         let performanceDifference = 0
         for (const benchmarkName of commonBenchmarks) {
             const model1Performance = getScore(model1Name, commonBenchmarks, benchmarkName)
