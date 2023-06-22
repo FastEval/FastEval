@@ -7,7 +7,6 @@ class ChatML(Huggingface):
         # https://github.com/openai/openai-python/blob/main/chatml.md
         super().__init__(
             model_path,
-            prefix='A conversation between a user and an LLM-based AI assistant. The assistant gives helpful and honest answers.\n\n',
             user='<|im_start|>user\n',
             assistant='<|im_start|>assistant\n',
             system='<|im_start|>system\n',
