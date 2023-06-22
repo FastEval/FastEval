@@ -61,9 +61,10 @@ function computeModelRanks(models, getScore, allBenchmarks) {
         }).reduce((a, b) => a + b, 0)
     }
 
-    const populationSize = 100
+    const initialPopulationSize = 100
+    const minPopulationSize = 20
     let population = []
-    for (let i = 0; i < populationSize; i++) {
+    for (let i = 0; i < initialPopulationSize; i++) {
         const rankings = new Map(modelNames.map(modelName => [modelName, Math.random()]))
         const loss = lossf(rankings)
         population.push([rankings, loss])
@@ -86,12 +87,22 @@ function computeModelRanks(models, getScore, allBenchmarks) {
         else
             population.push([newRanking, newLoss])
 
-        if (i % Math.round(populationSize / 5) === 0)
+        if (i % Math.round(initialPopulationSize / 5) === 0)
             population = population.toSorted(([ranking1, loss1], [ranking2, loss2]) => loss1 - loss2)
-                .slice(0, Math.ceil((1 - i / numIterations) * populationSize))
+                .slice(0, Math.max(minPopulationSize, Math.ceil((1 - i / numIterations) * initialPopulationSize)))
     }
 
-    return Object.fromEntries(population.toSorted(([ranking1, loss1], [ranking2, loss2]) => loss1 - loss2)[0][0].entries())
+    const populationSortedByLoss = population.toSorted(([ranking1, loss1], [ranking2, loss2]) => loss1 - loss2)
+    const lowestLoss = populationSortedByLoss[0][1]
+    const populationItemsWithLowestLoss = populationSortedByLoss.filter(([ranking, loss]) => loss === lowestLoss)
+        .map(([ranking, loss]) => [...ranking.entries()]
+            .toSorted(([model1Name, model1Rank], [model2Name, model2Rank]) => model2Rank - model1Rank))
+
+    let orderings = populationItemsWithLowestLoss
+    for (let i = models.length - 1; i >= 0; i--)
+        orderings = orderings.toSorted((ordering1, ordering2) => ordering1[i][0].localeCompare(ordering2[i][0]))
+
+    return Object.fromEntries(orderings[0])
 }
 
 export async function createBenchmarksIndexV(baseUrl) {
