@@ -11,14 +11,19 @@ lock = threading.Lock()
 pipeline = None
 current_batch = []
 
-def conversation_to_prompt(*, conversation, prefix, user, assistant, end):
-    conversation = put_system_message_in_prompter_message(conversation)
+def conversation_to_prompt(*, conversation, prefix, user, assistant, system, default_system, end):
+    if system is None:
+        conversation = put_system_message_in_prompter_message(conversation)
     prompt = prefix
+    if system is not None and conversation[0][0] != 'system':
+        conversation.insert(0, ('system', default_system))
     for item_type, item in conversation:
         if item_type == 'assistant':
             prompt += assistant + item + end
         elif item_type == 'user':
             prompt += user + item + end
+        elif item_type == 'system':
+            prompt += system + item + end
         else:
             raise
     prompt += assistant
@@ -105,7 +110,7 @@ def wait_for_response(condition):
             item['obtained_response'] = True
             return response
 
-def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assistant, end, prefix):
+def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assistant, system, default_system, end, prefix):
     global pipeline
 
     lock.acquire()
@@ -134,7 +139,8 @@ def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assis
     if end == 'tokenizer-eos-token':
         end = pipeline['tokenizer'].eos_token
 
-    prompt = conversation_to_prompt(conversation=conversation, prefix=prefix, user=user, assistant=assistant, end=end)
+    prompt = conversation_to_prompt(conversation=conversation, prefix=prefix, user=user,
+        assistant=assistant, system=system, default_system=default_system, end=end)
 
     condition = threading.Condition()
     current_batch.append({ 'prompt': prompt, 'condition': condition, 'pipeline': pipeline })
@@ -151,6 +157,8 @@ class Huggingface:
         prefix='',
         user: str,
         assistant: str,
+        system=None,
+        default_system='',
         end: str,
     ):
         if tokenizer_path is None:
@@ -163,6 +171,8 @@ class Huggingface:
         self.prefix = prefix
         self.user = user
         self.assistant = assistant
+        self.system = system
+        self.default_system = default_system
         self.end = end
 
     @staticmethod
@@ -171,4 +181,5 @@ class Huggingface:
 
     def reply(self, conversation):
         return run_pipeline(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
-            conversation=conversation, user=self.user, assistant=self.assistant, prefix=self.prefix, end=self.end)
+            conversation=conversation, user=self.user, assistant=self.assistant,
+            system=self.system, default_system=self.default_system, prefix=self.prefix, end=self.end)
