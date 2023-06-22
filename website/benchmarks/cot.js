@@ -1,4 +1,4 @@
-import { fetchModels, fetchFiles, allowCharacterLineBreaks } from '../utils.js'
+import { fetchModels, fetchFiles, allowCharacterLineBreaks, round } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
@@ -25,7 +25,7 @@ export async function createBigBenchHardE(baseUrl, models) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(modelName))
         for (const task of tasks)
-            rowE.insertCell().appendChild(createLinkE(modelScores.bbh.tasks[task], { task: 'bbh/' + task, model: modelName }))
+            rowE.insertCell().appendChild(createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }))
     }
 
     return containerE
@@ -52,7 +52,7 @@ export async function createTaskV(baseUrl, models, task, parameters) {
     infoE.append(
         createTextE('Task: ' + task),
         createTextE('Model: ' + modelName),
-        createTextE('Score: ' + data.score),
+        createTextE('Score: ' + round(data.score)),
     )
 
     const samplesE = document.createElement('div')
@@ -114,11 +114,11 @@ export async function createV(baseUrl, parameters) {
 
         for (const column of columns) {
             if (['gsm8k'].includes(column)) {
-                rowE.insertCell().appendChild(createLinkE(results[column], { task: column, model: modelName }))
+                rowE.insertCell().appendChild(createLinkE(round(results[column]), { task: column, model: modelName }))
             } else if (column === 'bbh') {
-                rowE.insertCell().appendChild(createTextE(results[column].average))
+                rowE.insertCell().appendChild(createTextE(round(results[column].average)))
             } else if (column === 'average') {
-                rowE.insertCell().appendChild(createTextE(results[column]))
+                rowE.insertCell().appendChild(createTextE(round(results[column])))
             }
         }
     }

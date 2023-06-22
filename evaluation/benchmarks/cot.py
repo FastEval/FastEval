@@ -43,7 +43,6 @@ def evaluate_model_on_dataset(*, name, model, data, question_column, answer_colu
     score = num_correct / num_total
 
     os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-    print(os.path.basename(output_file_path))
     with open(output_file_path, 'w') as f:
         json.dump({
             'score': score,
@@ -54,10 +53,10 @@ def evaluate_model_on_dataset(*, name, model, data, question_column, answer_colu
 
 def evaluate_model_on_gsm8k(model, output_path):
     def is_correct(model_answer, correct_answer):
-        model_answer_matches = re.findall(r'(\d+(,\d+)*(\.\d*)?)', model_answer)
+        model_answer_matches = re.findall(r'(\d+(,\d+)*(\.\d+)?)', model_answer)
         if len(model_answer_matches) == 0:
             return False
-        model_answer_processed = float(model_answer_matches[0][0].replace(',', ''))
+        model_answer_processed = float(model_answer_matches[-1][0].replace(',', ''))
         correct_answer_processed = float(correct_answer.split('\n')[-1].split('####')[1].strip())
         return abs(model_answer_processed - correct_answer_processed) < 1e-8
 
