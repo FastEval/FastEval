@@ -228,7 +228,10 @@ export async function createBenchmarksIndexV(baseUrl) {
     for (const [position, { model_name: model, benchmarks }] of modelsSortedByRank.entries()) {
         const rowE = tbodyE.insertRow()
 
-        createTableScoreCell(rowE, createTextE(position + 1))
+        if (benchmarks.length === 1 && benchmarks[0] === 'lm-evaluation-harness')
+            createTableScoreCell(rowE, createTextE('(' + (position + 1) + ')'))
+        else
+            createTableScoreCell(rowE, createTextE(position + 1))
 
         rowE.insertCell().appendChild(createTextE(model))
 
