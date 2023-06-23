@@ -1,6 +1,6 @@
 from .huggingface import Huggingface
 
-class Alpaca(Huggingface):
+class AlpacaWithoutPrefix(Huggingface):
     def __init__(self, model_path):
         super().__init__(
             model_path,
