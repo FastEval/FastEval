@@ -181,6 +181,9 @@ def generate_reviews():
             ('user', prompter_message),
         ])
 
+    if len(conversations) == 0:
+        return False
+
     replies = compute_model_replies(reviewer, conversations, num_threads=20)
 
     for i, review in enumerate(reviews):
@@ -207,7 +210,7 @@ def generate_reviews():
     with open(elo_filepath, 'w') as f:
         json.dump(elo_ranks, f, indent=4)
 
-    return len(conversations) > 0
+    return True
 
 def evaluate_models(models, exclude_reviews):
     for model_type, model_name in models:
