@@ -81,7 +81,7 @@ For these benchmarks (and also for evaluating `gpt-3.5-turbo` itself), you need 
 There are multiple methods for doing that, but the simplest one is to set the `OPENAI_API_KEY` environment variable to the API key you can obtain [here](https://platform.openai.com/account/api-keys).
 The cost of evaluating `gpt-3.5-turbo` or using it for benchmarks on another model is something like $5.
 
-## Prompt format
+### Prompt format
 
 Since this repository is about instruction following models and different instruction models require different prompt formatting, a corresponding implementation of the prompt format is needed to evaluate a model. The following model types are currently supported:
 - [OpenAI](https://platform.openai.com/docs/models)
