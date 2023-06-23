@@ -17,13 +17,18 @@ export async function createBigBenchHardE(baseUrl, models) {
     const tableHeadE = tableE.createTHead().insertRow()
     const tableBodyE = tableE.createTBody()
     tableHeadE.insertCell().appendChild(createTextE('Model'))
+    tableHeadE.insertCell().appendChild(createTextE('Average'))
 
     for (const task of tasks)
         tableHeadE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(task)))
 
-    for (const [modelName, modelScores] of scores) {
+    const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
+        model2Scores.bbh.average - model1Scores.bbh.average)
+
+    for (const [modelName, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(modelName))
+        rowE.insertCell().appendChild(createTextE(round(modelScores.bbh.average)))
         for (const task of tasks)
             rowE.insertCell().appendChild(createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }))
     }
