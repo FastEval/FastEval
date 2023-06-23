@@ -110,7 +110,7 @@
             "prompt": "\n\ndef string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n",
             "completion_processed": "def string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n    # create an empty string to store the sequence\n    sequence = \"\"\n    \n    # loop through the numbers from 0 to nclusive\n    for i in range(n + 1):\n        # add each number to the sequence with a space separator\n        sequence += str(i) + \" \"\n    \n    # return the sequence string\n    return sequence.strip()",
             "completion_raw": "Here is the complete implementation of the `string_sequence` function:\n```python\ndef string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n    # create an empty string to store the sequence\n    sequence = \"\"\n    \n    # loop through the numbers from 0 to nclusive\n    for i in range(n + 1):\n        # add each number to the sequence with a space separator\n        sequence += str(i) + \" \"\n    \n    # return the sequence string\n    return sequence.strip()\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/16",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.18292682926829268
+    "score": 0.18902439024390244
 }

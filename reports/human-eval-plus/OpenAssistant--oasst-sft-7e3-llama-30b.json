@@ -110,7 +110,7 @@
             "prompt": "\n\ndef string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n",
             "completion_processed": "def string_sequence(n: int) -> str:\n    numbers = list(range(n + 1))\n    return \" \".join(map(str, numbers))",
             "completion_raw": "```python\ndef string_sequence(n: int) -> str:\n    numbers = list(range(n + 1))\n    return \" \".join(map(str, numbers))\n\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/16",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.20121951219512196
+    "score": 0.2073170731707317
 }

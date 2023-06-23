@@ -110,7 +110,7 @@
             "prompt": "\n\ndef string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n",
             "completion_processed": "def string_sequence(n):\n    s = \"\"\n    for i in range(n+1):\n        s += str(i) + \" \"\n    return s[:-1]",
             "completion_raw": "```\ndef string_sequence(n):\n    s = \"\"\n    for i in range(n+1):\n        s += str(i) + \" \"\n    return s[:-1]\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/16",
@@ -425,7 +425,7 @@
             "prompt": "\n\ndef sum_to_n(n: int):\n    \"\"\"sum_to_n is a function that sums numbers from 1 to n.\n    >>> sum_to_n(30)\n    465\n    >>> sum_to_n(100)\n    5050\n    >>> sum_to_n(5)\n    15\n    >>> sum_to_n(10)\n    55\n    >>> sum_to_n(1)\n    1\n    \"\"\"\n",
             "completion_processed": "def sum_to_n(n: int):\n    \"\"\"Sum numbers from 1 to n and return the result\"\"\"\n    if n == 1:\n        return 1\n    elif n == 2:\n        return 1 + 2\n    else:\n        sum_to_num = 0\n        for i in range(1, n + 1):\n            sum_to_num += i\n        return sum_to_num",
             "completion_raw": "def sum_to_n(n: int):\n    \"\"\"Sum numbers from 1 to n and return the result\"\"\"\n    if n == 1:\n        return 1\n    elif n == 2:\n        return 1 + 2\n    else:\n        sum_to_num = 0\n        for i in range(1, n + 1):\n            sum_to_num += i\n        return sum_to_num\n\n# Test the function\nprint(sum_to_n(5)) # 15\nprint(sum_to_n(10)) # 55\nprint(sum_to_n(1)) # 1",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/61",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.14634146341463414
+    "score": 0.15853658536585366
 }
