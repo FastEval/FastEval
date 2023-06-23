@@ -104,7 +104,7 @@ Call the `evaluate.py` script in the following way:
 ./evaluate.py [-b <benchmark_name_1>...] -m model_type_1:model_name_1...
 ````
 - A benchmark name can be `all` (default), `openai-evals`, `vicuna`, `human-eval-plus`, `cot` or `lm-evaluation-harness`.
-- A model type can be either `openai`, `alpaca-without-prefix`, `alpaca-with-prefix`, `chatml`, `guanaco`, `open-assistant`, `wizard-lm-large` or `falcon-instruct`.
+- A model type can be either [`openai`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_ai.py), [`alpaca-without-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca.py), [`alpaca-with-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_with_prefix.py), [`chatml`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/chatml.py), [`guanaco`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/guanaco.py), [`open-assistant`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_assistant.py), [`wizard-lm-large`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/wizard_lm_large.py) or [`falcon-instruct`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/falcon_instruct.py).
 - A model name can be either a path to a local folder or a huggingface path.
 
 For example, use the following command to evaluate the [`pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) model from Open-Assistant on the OpenAI evals benchmark:
