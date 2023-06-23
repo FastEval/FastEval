@@ -362,11 +362,12 @@ export function computeRelativeOpenAiEvalsScores(openAiEvalsResults) {
         Object.fromEntries(Object.entries(reportByModelName).map(([modelName, { spec, final_report }]) => [modelName, getScores(spec, final_report)]))]))
     const maxScoresByFilename = Object.fromEntries(Object.entries(scoresByFilename).map(([reportFilename, scoresByModelName]) =>
         [reportFilename, Math.max(...Object.values(scoresByModelName))]))
+    const minScoresByFilename = Object.fromEntries(Object.entries(scoresByFilename).map(([reportFilename, scoresByModelName]) =>
+        [reportFilename, Math.min(...Object.values(scoresByModelName))]))
     const relativeScoresByFilename = Object.fromEntries(Object.entries(scoresByFilename).map(([reportFilename, scoresByModelName]) =>
-        [reportFilename, Object.fromEntries(Object.entries(scoresByModelName).map(([modelName, score]) => [modelName, score / maxScoresByFilename[reportFilename]]))]))
+        [reportFilename, Object.fromEntries(Object.entries(scoresByModelName).map(([modelName, score]) =>
+            [modelName, (score - minScoresByFilename[reportFilename]) / (maxScoresByFilename[reportFilename] - minScoresByFilename[reportFilename])]))]))
     const includedReportsFilenames = reportsFilenames.filter(reportFilename => {
-        if (firstModelResults[reportFilename].spec.run_config.eval_spec.cls == 'evals.elsuite.modelgraded.classify:ModelBasedClassify')
-            return false
         for (const relativeModelScore of Object.values(relativeScoresByFilename[reportFilename]))
             if (isNaN(relativeModelScore))
                 return false
