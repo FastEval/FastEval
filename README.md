@@ -1,7 +1,7 @@
 # Instruction following language model evaluation
 
 This repository contains code to automatically evaluate instruction following language models on benchmarks.
-It also contains the evaluation reports for different models as well as the code for the [website to view those reports](https://tju01.github.io/ilm-eval/).
+It also contains the evaluation reports for different models as well as the code for the [leaderboard to view those reports](https://tju01.github.io/ilm-eval/).
 
 ## Comparison to other leaderboards
 
@@ -129,4 +129,4 @@ The webserver usually runs on port `8000`, so you can go to http://127.0.0.1:800
 
 ## Contact
 
-If you encounter some problems with this code or if you have any questions or suggestions, you can either create a github issue or ping me on discord. My username is [tju01](https://discord.com/users/1090923181910532167) and you can find me on most of the open-source LLM discord servers.
+If you encounter some problems with this code or if you have any questions or suggestions, you can either create a github issue or ping me on discord. My username is [tju01](https://discord.com/users/1090923181910532167) and you can find me on many of the open-source LLM discord servers.
