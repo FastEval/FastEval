@@ -124,7 +124,7 @@ The webserver usually runs on port `8000`, so you can go to http://127.0.0.1:800
 
 If your model uses an unsupported prompt format, API client or is loaded in some other way than current models, you would need to add support for the model in the [`evaluation/models`](https://github.com/tju01/ilm-eval/tree/main/evaluation/models) folder and then register it in the `get_model_class()` function in [`evaluation/utils.py`](https://github.com/tju01/ilm-eval/blob/main/evaluation/utils.py). This is all that is needed to support a new model.
 
-If you have evaluated a model and want the results on the leaderboard, you can open a pull request with the results from `reports/` folder.
+If you have evaluated a model and want the results on the leaderboard, you can open a pull request with the files in the `reports/` folder that are added and changed when running `./evaluate.py`.
 
 ## Contact
 
