@@ -61,6 +61,9 @@ def evaluate_model(model_type, model_name):
     write_jsonl('human-eval-plus-tmp.jsonl', processed_replies)
     process_output = subprocess.run([
         'evalplus.evaluate',
+        '--parallel', str(os.cpu_count()),
+        '--min-time-limit', '10',
+        '--gt-time-limit-factor', '10',
         '--dataset', 'humaneval',
         '--samples', 'human-eval-plus-tmp.jsonl'
     ], capture_output=True, text=True).stdout
