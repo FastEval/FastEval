@@ -104,7 +104,7 @@ Call the `evaluate.py` script in the following way:
 ./evaluate.py [-b <benchmark_name_1>...] -m model_type_1:model_name_1...
 ````
 - A benchmark name can be `all` (default), `openai-evals`, `vicuna`, `human-eval-plus`, `cot` or `lm-evaluation-harness`.
-- A model type can be either `openai`, `alpaca`, `alpaca-with-prefix`, `chatml`, `guanaco`, `open-assistant`, `wizard-lm-large` or `falcon-instruct`.
+- A model type can be either `openai`, `alpaca-without-prefix`, `alpaca-with-prefix`, `chatml`, `guanaco`, `open-assistant`, `wizard-lm-large` or `falcon-instruct`.
 - A model name can be either a path to a local folder or a huggingface path.
 
 For example, use the following command to evaluate the [`pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) model from Open-Assistant on the OpenAI evals benchmark:

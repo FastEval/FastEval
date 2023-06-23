@@ -32,7 +32,7 @@ def get_model_class(model_type: str):
         return Guanaco
     if model_type == 'falcon-instruct':
         return FalconInstruct
-    if model_type == 'alpaca':
+    if model_type == 'alpaca-without-prefix':
         return Alpaca
     if model_type == 'wizard-lm-large':
         return WizardLMLarge
