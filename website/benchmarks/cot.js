@@ -108,7 +108,10 @@ export async function createV(baseUrl, parameters) {
             tableHeadE.insertCell().appendChild(createTextE(column))
     }
 
-    for (const [modelName, results] of scores) {
+    const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
+        model2Scores.average - model1Scores.average)
+
+    for (const [modelName, results] of sortedScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createTextE(modelName))
 
@@ -122,8 +125,6 @@ export async function createV(baseUrl, parameters) {
             }
         }
     }
-
-    console.log(scores)
 
     return containerE
 }
