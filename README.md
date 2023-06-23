@@ -95,14 +95,7 @@ The cost of evaluating `gpt-3.5-turbo` or using it for benchmarks on another mod
 
 ### Prompt format
 
-Since this repository is about instruction following models and different instruction models require different prompt formatting, a corresponding implementation of the prompt format is needed to evaluate a model. The following model types are currently supported:
-- [OpenAI](https://platform.openai.com/docs/models)
-- [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html)
-- [ChatML](https://github.com/openai/openai-python/blob/main/chatml.md)
-- [Open-Assistant](https://open-assistant.io)
-- [Falcon Instruct](https://huggingface.co/tiiuae)
-
-Note that some prompt formats are also used by other models. In this case, you can also use this tool. E.g. the alpaca prompt format is also used by other models like [`NousResearch/Nous-Hermes-13b`](https://huggingface.co/NousResearch/Nous-Hermes-13b).
+Since this repository is about instruction following models and different instruction models require different prompt formatting, a corresponding implementation of the prompt format or an API client is needed to evaluate a model. Currently, support is added for the following model types: [OpenAI](https://platform.openai.com/docs/models), [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) (also used by many other models like [`NousResearch/Nous-Hermes-13b`](https://huggingface.co/NousResearch/Nous-Hermes-13b)), [ChatML](https://github.com/openai/openai-python/blob/main/chatml.md), [Guanaco](https://huggingface.co/timdettmers/guanaco-65b-merged), [Open-Assistant](https://open-assistant.io), [WizardLM-Large](https://github.com/nlpxucan/WizardLM) and [Falcon Instruct](https://huggingface.co/tiiuae). If the model you want to evaluate is not supported, please see [here](#adding-a-new-model).
 
 ### Evaluation
 
@@ -111,7 +104,7 @@ Call the `evaluate.py` script in the following way:
 ./evaluate.py [-b <benchmark_name_1>...] -m model_type_1:model_name_1...
 ````
 - A benchmark name can be `all` (default), `openai-evals`, `vicuna`, `human-eval-plus`, `cot` or `lm-evaluation-harness`.
-- A model type can be either `openai`, `alpaca`, `alpaca-with-prefix`, `chatml`, `open-assistant` or `falcon-instruct`.
+- A model type can be either `openai`, `alpaca`, `alpaca-with-prefix`, `chatml`, `guanaco`, `open-assistant`, `wizard-lm-large` or `falcon-instruct`.
 - A model name can be either a path to a local folder or a huggingface path.
 
 For example, use the following command to evaluate the [`pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) model from Open-Assistant on the OpenAI evals benchmark:
@@ -126,6 +119,12 @@ If the report already exists, then the evaluation is skipped.
 Use `python3 -m http.server` in the root of this repository.
 This will start a simple webserver for static files.
 The webserver usually runs on port `8000`, so you can go to http://127.0.0.1:8000/ and view the results.
+
+## Adding a new model
+
+If your model uses an unsupported prompt format, API client or is loaded in some other way than current models, you would need to add support for the model in the [`evaluation/models`](https://github.com/tju01/ilm-eval/tree/main/evaluation/models) folder and then register it in the `get_model_class()` function in [`evaluation/utils.py`](https://github.com/tju01/ilm-eval/blob/main/evaluation/utils.py). This is all that is needed to support a new model.
+
+If you have evaluated a model and want the results on the leaderboard, you can open a pull request with the results from `reports/` folder.
 
 ## Contact
 
