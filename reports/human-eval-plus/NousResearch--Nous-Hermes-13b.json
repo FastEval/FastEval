@@ -117,7 +117,7 @@
             "prompt": "\n\ndef count_distinct_characters(string: str) -> int:\n    \"\"\" Given a string, find out how many distinct characters (regardless of case) does it consist of\n    >>> count_distinct_characters('xyzXYZ')\n    3\n    >>> count_distinct_characters('Jerry')\n    4\n    \"\"\"\n",
             "completion_processed": "def count_distinct_characters(string: str) -> int:\n    chars = set()\n    for c in string:\n        chars.add(c.lower())\n    return len(chars)",
             "completion_raw": "def count_distinct_characters(string: str) -> int:\n    chars = set()\n    for c in string:\n        chars.add(c.lower())\n    return len(chars)\n\n# This function counts the distinct characters in a given string, regardless of their case. \n# It creates a set of lowercase versions of each character in the string and then returns the length of the set. \n# For example, the input 'xyzXYZ' will have a distinct character count of 3.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/17",
@@ -348,7 +348,7 @@
             "prompt": "\n\ndef modp(n: int, p: int):\n    \"\"\"Return 2^n modulo p (be aware of numerics).\n    >>> modp(3, 5)\n    3\n    >>> modp(1101, 101)\n    2\n    >>> modp(0, 101)\n    1\n    >>> modp(3, 11)\n    8\n    >>> modp(100, 101)\n    1\n    \"\"\"\n",
             "completion_processed": "def modp(n: int, p: int):\n    \"\"\"Return 2^n modulo p (be aware of numerics).\"\"\"\n    return (1 << n) % p",
             "completion_raw": "def modp(n: int, p: int):\n    \"\"\"Return 2^n modulo p (be aware of numerics).\"\"\"\n    return (1 << n) % p",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/50",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.11585365853658537
+    "score": 0.12804878048780488
 }

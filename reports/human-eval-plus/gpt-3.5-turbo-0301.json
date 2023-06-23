@@ -110,7 +110,7 @@
             "prompt": "\n\ndef string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n",
             "completion_processed": "def string_sequence(n: int) -> str:\n    return \" \".join(str(i) for i in range(n+1))",
             "completion_raw": "def string_sequence(n: int) -> str:\n    return \" \".join(str(i) for i in range(n+1))",
-            "success": true
+            "success": false
         },
         {
             "task_id": "HumanEval/16",
@@ -257,7 +257,7 @@
             "prompt": "\n\ndef fizz_buzz(n: int):\n    \"\"\"Return the number of times the digit 7 appears in integers less than n which are divisible by 11 or 13.\n    >>> fizz_buzz(50)\n    0\n    >>> fizz_buzz(78)\n    2\n    >>> fizz_buzz(79)\n    3\n    \"\"\"\n",
             "completion_processed": "def fizz_buzz(n: int):\n    count = 0\n    for i in range(1, n):\n        if i % 11 == 0 or i % 13 == 0:\n            count += str(i).count('7')\n    return count",
             "completion_raw": "def fizz_buzz(n: int):\n    count = 0\n    for i in range(1, n):\n        if i % 11 == 0 or i % 13 == 0:\n            count += str(i).count('7')\n    return count",
-            "success": true
+            "success": false
         },
         {
             "task_id": "HumanEval/37",
@@ -663,7 +663,7 @@
             "prompt": "\n\ndef skjkasdkd(lst):\n    \"\"\"You are given a list of integers.\n    You need to find the largest prime value and return the sum of its digits.\n\n    Examples:\n    For lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3] the output should be 10\n    For lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1] the output should be 25\n    For lst = [1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3] the output should be 13\n    For lst = [0,724,32,71,99,32,6,0,5,91,83,0,5,6] the output should be 11\n    For lst = [0,81,12,3,1,21] the output should be 3\n    For lst = [0,8,1,2,1,7] the output should be 7\n    \"\"\"\n",
             "completion_processed": "def skjkasdkd(lst):\n    \n    def is_prime(n):\n        if n <= 1:\n            return False\n        for i in range(2, int(n**0.5)+1):\n            if n % i == 0:\n                return False\n        return True\n    \n    max_prime = 0\n    for num in lst:\n        if is_prime(num) and num > max_prime:\n            max_prime = num\n    \n    return sum(int(digit) for digit in str(max_prime))",
             "completion_raw": "def skjkasdkd(lst):\n    \n    def is_prime(n):\n        if n <= 1:\n            return False\n        for i in range(2, int(n**0.5)+1):\n            if n % i == 0:\n                return False\n        return True\n    \n    max_prime = 0\n    for num in lst:\n        if is_prime(num) and num > max_prime:\n            max_prime = num\n    \n    return sum(int(digit) for digit in str(max_prime))",
-            "success": true
+            "success": false
         },
         {
             "task_id": "HumanEval/95",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.6097560975609756
+    "score": 0.5914634146341463
 }

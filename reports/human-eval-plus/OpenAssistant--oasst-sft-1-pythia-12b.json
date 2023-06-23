@@ -166,7 +166,7 @@
             "prompt": "\n\ndef strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n",
             "completion_processed": "def strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n    if not string:\n        return 0\n    elif len(string) > 1:\n        return 1 + strlen(string[1:])\n    else:\n        return 1",
             "completion_raw": "Sure, here is your completed code:\n```\ndef strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n    if not string:\n        return 0\n    elif len(string) > 1:\n        return 1 + strlen(string[1:])\n    else:\n        return 1\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/24",
@@ -201,7 +201,7 @@
             "prompt": "from typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n",
             "completion_processed": "def concatenate(strings: List[str]):\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n    return ''.join(strings)",
             "completion_raw": "```python\ndef concatenate(strings: List[str]):\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n    return ''.join(strings)\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/29",
@@ -243,7 +243,7 @@
             "prompt": "\n\ndef unique(l: list):\n    \"\"\"Return sorted unique elements in a list\n    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [0, 2, 3, 5, 9, 123]\n    \"\"\"\n",
             "completion_processed": "def unique(l: list):\n    \"\"\"Return sorted unique elements in a list\n    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [0, 2, 3, 5, 9, 123]\n    \"\"\"\n    return sorted(set(l))",
             "completion_raw": "```Python\ndef unique(l: list):\n    \"\"\"Return sorted unique elements in a list\n    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [0, 2, 3, 5, 9, 123]\n    \"\"\"\n    return sorted(set(l))\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/35",
@@ -299,7 +299,7 @@
             "prompt": "\n\ndef incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\n    >>> incr_list([1, 2, 3])\n    [2, 3, 4]\n    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [6, 4, 6, 3, 4, 4, 10, 1, 124]\n    \"\"\"\n",
             "completion_processed": "def incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\n    >>> incr_list([1, 2, 3])\n    [2, 3, 4]\n    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [6, 4, 6, 3, 4, 4, 10, 1, 124]\n    \"\"\"\n    return [l[i] + 1 for i in range( len(l) )]",
             "completion_raw": "Here's your implementation:\n``` \ndef incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\n    >>> incr_list([1, 2, 3])\n    [2, 3, 4]\n    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [6, 4, 6, 3, 4, 4, 10, 1, 124]\n    \"\"\"\n    return [l[i] + 1 for i in range( len(l) )]\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/43",
@@ -376,7 +376,7 @@
             "prompt": "\n\ndef add(x: int, y: int):\n    \"\"\"Add two numbers x and y\n    >>> add(2, 3)\n    5\n    >>> add(5, 7)\n    12\n    \"\"\"\n",
             "completion_processed": "def add(x: int, y: int):\n    \"\"\"Add two numbers x and y\n    >>> add(2, 3)\n    5\n    >>> add(5, 7)\n    12\n    \"\"\"\n    return x + y",
             "completion_raw": "```\ndef add(x: int, y: int):\n    \"\"\"Add two numbers x and y\n    >>> add(2, 3)\n    5\n    >>> add(5, 7)\n    12\n    \"\"\"\n    return x + y\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/54",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.006097560975609756
+    "score": 0.036585365853658534
 }

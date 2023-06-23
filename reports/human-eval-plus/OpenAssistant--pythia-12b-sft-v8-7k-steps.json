@@ -222,7 +222,7 @@
             "prompt": "\n\ndef is_prime(n):\n    \"\"\"Return true if a given number is prime, and false otherwise.\n    >>> is_prime(6)\n    False\n    >>> is_prime(101)\n    True\n    >>> is_prime(11)\n    True\n    >>> is_prime(13441)\n    True\n    >>> is_prime(61)\n    True\n    >>> is_prime(4)\n    False\n    >>> is_prime(1)\n    False\n    \"\"\"\n",
             "completion_processed": "import random\n\ndef is_prime(n):\n    \"\"\"Return true if a given number is prime, and false otherwise.\n    >>> is_prime(6)\n    False\n    >>> is_prime(101)\n    True\n    >>> is_prime(11)\n    True\n    >>> is_prime(13441)\n    True\n    >>> is_prime(61)\n    True\n    >>> is_prime(4)\n    False\n    >>> is_prime(1)\n    False\n    \"\"\"\n    \n    # If n is less than 2 return False\n    if n < 2:\n        return False\n\n    # Check if n is divisible by any integer other than 1 and n\n    test_divisors = set()\n    for i in range(2, int(n**.5) + 1):\n        if i >= n:\n            test_divisors.add(n)\n        else:\n            if n % i == 0:\n                test_divisors.add(i)\n    \n    if len(test_divisors) == 0:\n        return True\n    else:\n        return False",
             "completion_raw": "The given code is incomplete. It is missing the implementation of the is_prime function. Here is the complete implementation of the is_prime function:\n\nimport random\n\ndef is_prime(n):\n    \"\"\"Return true if a given number is prime, and false otherwise.\n    >>> is_prime(6)\n    False\n    >>> is_prime(101)\n    True\n    >>> is_prime(11)\n    True\n    >>> is_prime(13441)\n    True\n    >>> is_prime(61)\n    True\n    >>> is_prime(4)\n    False\n    >>> is_prime(1)\n    False\n    \"\"\"\n    \n    # If n is less than 2 return False\n    if n < 2:\n        return False\n\n    # Check if n is divisible by any integer other than 1 and n\n    test_divisors = set()\n    for i in range(2, int(n**.5) + 1):\n        if i >= n:\n            test_divisors.add(n)\n        else:\n            if n % i == 0:\n                test_divisors.add(i)\n    \n    if len(test_divisors) == 0:\n        return True\n    else:\n        return False\n\nNote that the is_prime function uses the set data structure to store the divisors of the given number n. This makes the algorithm faster for large numbers. The random module is used to generate random numbers for testing purposes.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/32",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.054878048780487805
+    "score": 0.06097560975609756
 }

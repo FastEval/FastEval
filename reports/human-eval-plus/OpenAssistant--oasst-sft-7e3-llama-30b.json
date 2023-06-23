@@ -166,7 +166,7 @@
             "prompt": "\n\ndef strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n",
             "completion_processed": "def strlen(string: str) -> int:\n    count = 0\n    for char in string:\n        count += 1\n    return count",
             "completion_raw": "def strlen(string: str) -> int:\n    count = 0\n    for char in string:\n        count += 1\n    return count",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/24",
@@ -194,7 +194,7 @@
             "prompt": "\n\ndef flip_case(string: str) -> str:\n    \"\"\" For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n    >>> flip_case('Hello')\n    'hELLO'\n    \"\"\"\n",
             "completion_processed": "def flip_case(string: str) -> str:\n    \"\"\" For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n    >>> flip_case('Hello')\n    'hELLO'\n    \"\"\"\n    # Create an empty string\n    result = \"\"\n\n    # Iterate through each char in the string\n    for char in string:\n        # If the character is uppercase, convert it to lowercase\n        if char.isupper():\n            result += char.lower()\n        # If the character is lowercase, convert it to uppercase\n        else:\n            result += char.upper()\n    return result",
             "completion_raw": "def flip_case(string: str) -> str:\n    \"\"\" For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n    >>> flip_case('Hello')\n    'hELLO'\n    \"\"\"\n    # Create an empty string\n    result = \"\"\n\n    # Iterate through each char in the string\n    for char in string:\n        # If the character is uppercase, convert it to lowercase\n        if char.isupper():\n            result += char.lower()\n        # If the character is lowercase, convert it to uppercase\n        else:\n            result += char.upper()\n    return result",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/28",
@@ -208,7 +208,7 @@
             "prompt": "from typing import List\n\n\ndef filter_by_prefix(strings: List[str], prefix: str) -> List[str]:\n    \"\"\" Filter an input list of strings only for ones that start with a given prefix.\n    >>> filter_by_prefix([], 'a')\n    []\n    >>> filter_by_prefix(['abc', 'bcd', 'cde', 'array'], 'a')\n    ['abc', 'array']\n    \"\"\"\n",
             "completion_processed": "from typing import List\n\n\ndef filter_by_prefix(strings: List[str], prefix: str) -> List[str]:\n    \"\"\"Filter an input list of strings only for ones that start with a given prefix.\"\"\"\n    return [s for s in strings if s.startswith(prefix)]",
             "completion_raw": "```python\nfrom typing import List\n\n\ndef filter_by_prefix(strings: List[str], prefix: str) -> List[str]:\n    \"\"\"Filter an input list of strings only for ones that start with a given prefix.\"\"\"\n    return [s for s in strings if s.startswith(prefix)]\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/30",
@@ -285,7 +285,7 @@
             "prompt": "\n\ndef triples_sum_to_zero(l: list):\n    \"\"\"\n    triples_sum_to_zero takes a list of integers as an input.\n    it returns True if there are three distinct elements in the list that\n    sum to zero, and False otherwise.\n\n    >>> triples_sum_to_zero([1, 3, 5, 0])\n    False\n    >>> triples_sum_to_zero([1, 3, -2, 1])\n    True\n    >>> triples_sum_to_zero([1, 2, 3, 7])\n    False\n    >>> triples_sum_to_zero([2, 4, -5, 3, 9, 7])\n    True\n    >>> triples_sum_to_zero([1])\n    False\n    \"\"\"\n",
             "completion_processed": "def triples_sum_to_zero(l: list):\n    \"\"\"\n    triples_sum_to_zero takes a list of integers as an input.\n    it returns True if there are three distinct elements in the list that\n    sum to zero, and False otherwise.\n\n    >>> triples_sum_to_zero([1, 3, 5, 0])\n    False\n    >>> triples_sum_to_zero([1, 3, -2, 1])\n    True\n    >>> triples_sum_to_zero([1, 2, 3, 7])\n    False\n    >>> triples_sum_to_zero([2, 4, -5, 3, 9, 7])\n    True\n    >>> triples_sum_to_zero([1])\n    False\n    \"\"\"\n    if len(l) < 3:\n        return False\n\n    def find_triples(l):\n        for i in range(len(l)):\n            for j in range(i + 1, len(l)):\n                for k in range(j + 1, len(l)):\n                    if l[i] + l[j] + l[k] == 0:\n                        return (i, j, k)\n        return -1\n\n    return find_triples(l)!= -1",
             "completion_raw": "def triples_sum_to_zero(l: list):\n    \"\"\"\n    triples_sum_to_zero takes a list of integers as an input.\n    it returns True if there are three distinct elements in the list that\n    sum to zero, and False otherwise.\n\n    >>> triples_sum_to_zero([1, 3, 5, 0])\n    False\n    >>> triples_sum_to_zero([1, 3, -2, 1])\n    True\n    >>> triples_sum_to_zero([1, 2, 3, 7])\n    False\n    >>> triples_sum_to_zero([2, 4, -5, 3, 9, 7])\n    True\n    >>> triples_sum_to_zero([1])\n    False\n    \"\"\"\n    if len(l) < 3:\n        return False\n\n    def find_triples(l):\n        for i in range(len(l)):\n            for j in range(i + 1, len(l)):\n                for k in range(j + 1, len(l)):\n                    if l[i] + l[j] + l[k] == 0:\n                        return (i, j, k)\n        return -1\n\n    return find_triples(l)!= -1",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/41",
@@ -432,7 +432,7 @@
             "prompt": "\n\ndef correct_bracketing(brackets: str):\n    \"\"\" brackets is a string of \"(\" and \")\".\n    return True if every opening bracket has a corresponding closing bracket.\n\n    >>> correct_bracketing(\"(\")\n    False\n    >>> correct_bracketing(\"()\")\n    True\n    >>> correct_bracketing(\"(()())\")\n    True\n    >>> correct_bracketing(\")(()\")\n    False\n    \"\"\"\n",
             "completion_processed": "def correct_bracketing(brackets: str):\n    \"\"\" brackets is a string of \"(\" and \")\".\n    return True if every opening bracket has a corresponding closing bracket.\n\n    >>> correct_bracketing(\"(\")\n    False\n    >>> correct_bracketing(\"()\")\n    True\n    >>> correct_bracketing(\"(()())\")\n    True\n    >>> correct_bracketing(\")(()\")\n    False\n    \"\"\"\n    stack = []\n    for bracket in brackets:\n        if bracket == '(':\n            stack.append('(')\n        elif bracket == ')':\n            if not stack or stack[-1]!= '(':\n                return False\n            stack.pop()\n    \n    return not stack",
             "completion_raw": "def correct_bracketing(brackets: str):\n    \"\"\" brackets is a string of \"(\" and \")\".\n    return True if every opening bracket has a corresponding closing bracket.\n\n    >>> correct_bracketing(\"(\")\n    False\n    >>> correct_bracketing(\"()\")\n    True\n    >>> correct_bracketing(\"(()())\")\n    True\n    >>> correct_bracketing(\")(()\")\n    False\n    \"\"\"\n    stack = []\n    for bracket in brackets:\n        if bracket == '(':\n            stack.append('(')\n        elif bracket == ')':\n            if not stack or stack[-1]!= '(':\n                return False\n            stack.pop()\n    \n    return not stack",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/62",
@@ -551,7 +551,7 @@
             "prompt": "\ndef hex_key(num):\n    \"\"\"You have been tasked to write a function that receives \n    a hexadecimal number as a string and counts the number of hexadecimal \n    digits that are primes (prime number, or a prime, is a natural number \n    greater than 1 that is not a product of two smaller natural numbers).\n    Hexadecimal digits are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F.\n    Prime numbers are 2, 3, 5, 7, 11, 13, 17,...\n    So you have to determine a number of the following digits: 2, 3, 5, 7, \n    B (=decimal 11), D (=decimal 13).\n    Note: you may assume the input is always correct or empty string, \n    and symbols A,B,C,D,E,F are always uppercase.\n    Examples:\n    For num = \"AB\" the output should be 1.\n    For num = \"1077E\" the output should be 2.\n    For num = \"ABED1A33\" the output should be 4.\n    For num = \"123456789ABCDEF0\" the output should be 6.\n    For num = \"2020\" the output should be 2.\n    \"\"\"\n",
             "completion_processed": "def hex_key(num):\n    \"\"\"Counts the number of hexadecimal digits that are primes in a given hexadecimal number.\n    \n    Args:\n        num (str): The hexadecimal number.\n    \n    Returns:\n        int: The number of hexadecimal digits that are primes.\n    \"\"\"\n    prime_digits = [\"2\", \"3\", \"5\", \"7\", \"B\", \"D\"]\n    count = 0\n    for digit in num:\n        if digit.upper() in prime_digits:\n            count += 1\n    return count",
             "completion_raw": "def hex_key(num):\n    \"\"\"Counts the number of hexadecimal digits that are primes in a given hexadecimal number.\n    \n    Args:\n        num (str): The hexadecimal number.\n    \n    Returns:\n        int: The number of hexadecimal digits that are primes.\n    \"\"\"\n    prime_digits = [\"2\", \"3\", \"5\", \"7\", \"B\", \"D\"]\n    count = 0\n    for digit in num:\n        if digit.upper() in prime_digits:\n            count += 1\n    return count",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/79",
@@ -1055,7 +1055,7 @@
             "prompt": "\ndef x_or_y(n, x, y):\n    \"\"\"A simple program which should return the value of x if n is \n    a prime number and should return the value of y otherwise.\n\n    Examples:\n    for x_or_y(7, 34, 12) == 34\n    for x_or_y(15, 8, 5) == 5\n    \n    \"\"\"\n",
             "completion_processed": "def x_or_y(n, x, y):\n    \"\"\"A simple program which should return the value of x if n is \n    a prime number and should return the value of y otherwise.\n\n    Examples:\n    for x_or_y(7, 34, 12) == 34\n    for x_or_y(15, 8, 5) == 5\n    \n    \"\"\"\n    if n > 1:\n        for i in range(2, n):\n            if (n % i) == 0:\n                return y\n        return x\n    else:\n        return y",
             "completion_raw": "def x_or_y(n, x, y):\n    \"\"\"A simple program which should return the value of x if n is \n    a prime number and should return the value of y otherwise.\n\n    Examples:\n    for x_or_y(7, 34, 12) == 34\n    for x_or_y(15, 8, 5) == 5\n    \n    \"\"\"\n    if n > 1:\n        for i in range(2, n):\n            if (n % i) == 0:\n                return y\n        return x\n    else:\n        return y",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/151",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.15853658536585366
+    "score": 0.20121951219512196
 }

@@ -194,14 +194,14 @@
             "prompt": "\n\ndef flip_case(string: str) -> str:\n    \"\"\" For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n    >>> flip_case('Hello')\n    'hELLO'\n    \"\"\"\n",
             "completion_processed": "def flip_case(string: str) -> str:\n    \"\"\"For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\"\"\"\n    return string.swapcase()",
             "completion_raw": "Here's the complete implementation of the `flip_case` function:\n```python\ndef flip_case(string: str) -> str:\n    \"\"\"For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\"\"\"\n    return string.swapcase()\n```\nThis function takes a string input and returns the same string with the case flipped, i.e., lowercase characters converted to uppercase and vice versa. The `swapcase()` method of the string object is used to perform the case swapping.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/28",
             "prompt": "from typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n",
             "completion_processed": "def concatenate(strings: List[str]) -> str:\n    \"\"\"Concatenate list of strings into a single string\n    \n    Args:\n    strings (list): List of strings to concatenate\n    \n    Returns:\n    str: Concatenated string\n    \"\"\"\n    if not strings:\n        return \"\"\n    return \"\".join(strings)",
             "completion_raw": "Here's the complete implementation for the function that concatenates a list of strings into a single string:\n```python\ndef concatenate(strings: List[str]) -> str:\n    \"\"\"Concatenate list of strings into a single string\n    \n    Args:\n    strings (list): List of strings to concatenate\n    \n    Returns:\n    str: Concatenated string\n    \"\"\"\n    if not strings:\n        return \"\"\n    return \"\".join(strings)\n```\nThis function takes a list of strings as an input argument and uses the `join()` method to concatenate the strings into a single string. It then returns the concatenated string. If the list is empty, the function returns an empty string.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/29",
@@ -299,7 +299,7 @@
             "prompt": "\n\ndef incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\n    >>> incr_list([1, 2, 3])\n    [2, 3, 4]\n    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [6, 4, 6, 3, 4, 4, 10, 1, 124]\n    \"\"\"\n",
             "completion_processed": "def incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\"\"\"\n    return [x + 1 for x in l]",
             "completion_raw": "Here is the complete implementation of the `incr_list` function:\n```python\ndef incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\"\"\"\n    return [x + 1 for x in l]\n```\nThis function takes a list `l` as input and returns a new list with each element of `l` incremented by 1. The function does this by using a list comprehension to create a new list with each element of `l` incremented by 1. The function then returns the new list.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/43",
@@ -320,7 +320,7 @@
             "prompt": "\n\ndef triangle_area(a, h):\n    \"\"\"Given length of a side and high return area for a triangle.\n    >>> triangle_area(5, 3)\n    7.5\n    \"\"\"\n",
             "completion_processed": "def triangle_area(a, h):\n    return (a * h) / 2",
             "completion_raw": "def triangle_area(a, h):\n    return (a * h) / 2",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/46",
@@ -334,7 +334,7 @@
             "prompt": "\n\ndef median(l: list):\n    \"\"\"Return median of elements in the list l.\n    >>> median([3, 1, 2, 4, 5])\n    3\n    >>> median([-10, 4, 6, 1000, 10, 20])\n    15.0\n    \"\"\"\n",
             "completion_processed": "def median(l: list):\n    n = len(l)\n    l.sort()\n\n    if n % 2 == 0:\n        median = (l[n // 2 - 1] + l[n // 2]) / 2\n    else:\n        median = l[n // 2]\n\n    return median",
             "completion_raw": "Here's the complete function:\n```python\ndef median(l: list):\n    n = len(l)\n    l.sort()\n\n    if n % 2 == 0:\n        median = (l[n // 2 - 1] + l[n // 2]) / 2\n    else:\n        median = l[n // 2]\n\n    return median\n```\nThis function takes a list `l` as input and returns the median of its elements. It first takes the length of the list `n`, then sorts the list using the `sort()` method. \nIf the length of the list is even, the median is the average of the two middle elements. Otherwise, the median is the middle element.\nThe median is then returned as output.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/48",
@@ -432,7 +432,7 @@
             "prompt": "\n\ndef correct_bracketing(brackets: str):\n    \"\"\" brackets is a string of \"(\" and \")\".\n    return True if every opening bracket has a corresponding closing bracket.\n\n    >>> correct_bracketing(\"(\")\n    False\n    >>> correct_bracketing(\"()\")\n    True\n    >>> correct_bracketing(\"(()())\")\n    True\n    >>> correct_bracketing(\")(()\")\n    False\n    \"\"\"\n",
             "completion_processed": "def correct_bracketing(brackets: str) -> bool:\n    \"\"\"\n    brackets is a string of \"(\" and \")\".\n    return True if every opening bracket has a corresponding closing bracket.\n    \"\"\"\n    stack = []\n    for bracket in brackets:\n        if bracket == '(':\n            stack.append(bracket)\n        else:\n            if not stack:\n                return False\n            if stack[-1] == '(':\n                stack.pop()\n            else:\n                return False\n    return not stack",
             "completion_raw": "Here's the complete implementation of the `correct_bracketing` function:\n```python\ndef correct_bracketing(brackets: str) -> bool:\n    \"\"\"\n    brackets is a string of \"(\" and \")\".\n    return True if every opening bracket has a corresponding closing bracket.\n    \"\"\"\n    stack = []\n    for bracket in brackets:\n        if bracket == '(':\n            stack.append(bracket)\n        else:\n            if not stack:\n                return False\n            if stack[-1] == '(':\n                stack.pop()\n            else:\n                return False\n    return not stack\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/62",
@@ -502,7 +502,7 @@
             "prompt": "\ndef triangle_area(a, b, c):\n    '''\n    Given the lengths of the three sides of a triangle. Return the area of\n    the triangle rounded to 2 decimal points if the three sides form a valid triangle. \n    Otherwise return -1\n    Three sides make a valid triangle when the sum of any two sides is greater \n    than the third side.\n    Example:\n    triangle_area(3, 4, 5) == 6.00\n    triangle_area(1, 2, 10) == -1\n    '''\n",
             "completion_processed": "def triangle_area(a, b, c):\n    # check if the three sides form a valid triangle\n    if (a + b > c) and (b + c > a) and (c + a > b):\n        # calculate the semi-perimeter of the triangle and apply the formula for the area\n        s = (a + b + c) / 2\n        area = (s*(s-a)*(s-b)*(s-c))**0.5\n        # round off the area to 2 decimal points\n        area = round(area, 2)\n        return area\n    else:\n        return -1",
             "completion_raw": "Here is the complete implementation of the function `triangle_area`:\n```scss\ndef triangle_area(a, b, c):\n    # check if the three sides form a valid triangle\n    if (a + b > c) and (b + c > a) and (c + a > b):\n        # calculate the semi-perimeter of the triangle and apply the formula for the area\n        s = (a + b + c) / 2\n        area = (s*(s-a)*(s-b)*(s-c))**0.5\n        # round off the area to 2 decimal points\n        area = round(area, 2)\n        return area\n    else:\n        return -1\n```\nThis function takes in three arguments `a`, `b`, and `c` which represent the lengths of the three sides of a triangle. It first checks if these three sides form a valid triangle, where a valid triangle is defined as one where the sum of any two sides is greater than the third side. If a valid triangle is found, it calculates the semi-perimeter of the triangle and applies the formula for the area. The area is then rounded off to 2 decimal points and returned. If a valid triangle is not found, the function returns -1.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/72",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.1402439024390244
+    "score": 0.18292682926829268
 }

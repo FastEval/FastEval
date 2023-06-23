@@ -110,7 +110,7 @@
             "prompt": "\n\ndef string_sequence(n: int) -> str:\n    \"\"\" Return a string containing space-delimited numbers starting from 0 upto n inclusive.\n    >>> string_sequence(0)\n    '0'\n    >>> string_sequence(5)\n    '0 1 2 3 4 5'\n    \"\"\"\n",
             "completion_processed": "def string_sequence(n: int) -> str:\n    return ' '.join(str(i) for i in range(n+1))",
             "completion_raw": "def string_sequence(n: int) -> str:\n    return ' '.join(str(i) for i in range(n+1))",
-            "success": true
+            "success": false
         },
         {
             "task_id": "HumanEval/16",
@@ -663,7 +663,7 @@
             "prompt": "\n\ndef skjkasdkd(lst):\n    \"\"\"You are given a list of integers.\n    You need to find the largest prime value and return the sum of its digits.\n\n    Examples:\n    For lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3] the output should be 10\n    For lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1] the output should be 25\n    For lst = [1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3] the output should be 13\n    For lst = [0,724,32,71,99,32,6,0,5,91,83,0,5,6] the output should be 11\n    For lst = [0,81,12,3,1,21] the output should be 3\n    For lst = [0,8,1,2,1,7] the output should be 7\n    \"\"\"\n",
             "completion_processed": "def skjkasdkd(lst):\n    def is_prime(n):\n        if n < 2:\n            return False\n        for i in range(2, int(n ** 0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    largest_prime = 0\n    for num in lst:\n        if is_prime(num) and num > largest_prime:\n            largest_prime = num\n\n    return sum(int(digit) for digit in str(largest_prime))",
             "completion_raw": "def skjkasdkd(lst):\n    def is_prime(n):\n        if n < 2:\n            return False\n        for i in range(2, int(n ** 0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    largest_prime = 0\n    for num in lst:\n        if is_prime(num) and num > largest_prime:\n            largest_prime = num\n\n    return sum(int(digit) for digit in str(largest_prime))",
-            "success": true
+            "success": false
         },
         {
             "task_id": "HumanEval/95",
@@ -978,7 +978,7 @@
             "prompt": "\ndef special_factorial(n):\n    \"\"\"The Brazilian factorial is defined as:\n    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!\n    where n > 0\n\n    For example:\n    >>> special_factorial(4)\n    288\n\n    The function will receive an integer as input and should return the special\n    factorial of this integer.\n    \"\"\"\n",
             "completion_processed": "def special_factorial(n):\n    if n == 1:\n        return 1\n    return n * special_factorial(n-1)\n\ndef brazilian_factorial(n):\n    if n == 1:\n        return 1\n    return n * brazilian_factorial(n-1)\n\ndef special_factorial(n):\n    result = 1\n    for i in range(1, n+1):\n        result *= brazilian_factorial(i)\n    return result",
             "completion_raw": "def special_factorial(n):\n    if n == 1:\n        return 1\n    return n * special_factorial(n-1)\n\ndef brazilian_factorial(n):\n    if n == 1:\n        return 1\n    return n * brazilian_factorial(n-1)\n\ndef special_factorial(n):\n    result = 1\n    for i in range(1, n+1):\n        result *= brazilian_factorial(i)\n    return result",
-            "success": true
+            "success": false
         },
         {
             "task_id": "HumanEval/140",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.5853658536585366
+    "score": 0.5670731707317073
 }

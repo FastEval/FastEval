@@ -215,7 +215,7 @@
             "prompt": "\n\ndef get_positive(l: list):\n    \"\"\"Return only positive numbers in the list.\n    >>> get_positive([-1, 2, -4, 5, 6])\n    [2, 5, 6]\n    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])\n    [5, 3, 2, 3, 9, 123, 1]\n    \"\"\"\n",
             "completion_processed": "def get_positive(l: list):\n    \"\"\"Return only positive numbers in the list.\n\n    Args:\n        l (list): A list of numbers.\n\n    Returns:\n        list: A list containing only the positive numbers in the input list.\n    \"\"\"\n    return [x for x in l if x > 0]",
             "completion_raw": "Here's the implementation of the `get_positive` function:\n```python\ndef get_positive(l: list):\n    \"\"\"Return only positive numbers in the list.\n\n    Args:\n        l (list): A list of numbers.\n\n    Returns:\n        list: A list containing only the positive numbers in the input list.\n    \"\"\"\n    return [x for x in l if x > 0]\n```\nThe function uses a list comprehension to filter out only the positive numbers from the input list. It returns a new list containing only the elements of the input list that are greater than 0. This implementation will work regardless of the version of Python.\n\nNote: In Python 3.x, the input type for the list `l` is changed from `list` to `List[int]` and similarly for the return type, which are then automatically inferred type based on the contents of the function. Also, `x` is changed to `x` to be consistent with Python 3.x.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/31",
@@ -299,7 +299,7 @@
             "prompt": "\n\ndef incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\n    >>> incr_list([1, 2, 3])\n    [2, 3, 4]\n    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [6, 4, 6, 3, 4, 4, 10, 1, 124]\n    \"\"\"\n",
             "completion_processed": "def incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\"\"\"\n    return [x+1 for x in l]",
             "completion_raw": "def incr_list(l: list):\n    \"\"\"Return list with elements incremented by 1.\"\"\"\n    return [x+1 for x in l]",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/43",
@@ -334,7 +334,7 @@
             "prompt": "\n\ndef median(l: list):\n    \"\"\"Return median of elements in the list l.\n    >>> median([3, 1, 2, 4, 5])\n    3\n    >>> median([-10, 4, 6, 1000, 10, 20])\n    15.0\n    \"\"\"\n",
             "completion_processed": "def median(l: list):\n    \"\"\"Return median of elements in the list l.\n    >>> median([3, 1, 2, 4, 5])\n    3\n    >>> median([-10, 4, 6, 1000, 10, 20])\n    15.0\n    \"\"\"\n    l.sort()\n    length = len(l)\n    if length % 2 == 0:\n        return (l[length // 2 - 1] + l[length // 2]) / 2\n    elif length % 2 == 1:\n        return l[length // 2]\n    else:\n        return 0\n    # End of code portion. Do not add any other code here.",
             "completion_raw": "def median(l: list):\n    \"\"\"Return median of elements in the list l.\n    >>> median([3, 1, 2, 4, 5])\n    3\n    >>> median([-10, 4, 6, 1000, 10, 20])\n    15.0\n    \"\"\"\n    l.sort()\n    length = len(l)\n    if length % 2 == 0:\n        return (l[length // 2 - 1] + l[length // 2]) / 2\n    elif length % 2 == 1:\n        return l[length // 2]\n    else:\n        return 0\n    # End of code portion. Do not add any other code here.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/48",
@@ -691,7 +691,7 @@
             "prompt": "\ndef count_upper(s):\n    \"\"\"\n    Given a string s, count the number of uppercase vowels in even indices.\n    \n    For example:\n    count_upper('aBCdEf') returns 1\n    count_upper('abcdefg') returns 0\n    count_upper('dBBE') returns 0\n    \"\"\"\n",
             "completion_processed": "def count_upper(s):\n    \"\"\"\n    Given a string s, count the number of uppercase vowels in even indices.\n    \n    For example:\n    count_upper('aBCdEf') returns 1\n    count_upper('abcdefg') returns 0\n    count_upper('dBBE') returns 0\n    \"\"\"\n    count = 0\n    for i in range(0, len(s), 2):\n        if s[i] in \"AEIOU\":\n            count += 1\n    return count",
             "completion_raw": "```python\ndef count_upper(s):\n    \"\"\"\n    Given a string s, count the number of uppercase vowels in even indices.\n    \n    For example:\n    count_upper('aBCdEf') returns 1\n    count_upper('abcdefg') returns 0\n    count_upper('dBBE') returns 0\n    \"\"\"\n    count = 0\n    for i in range(0, len(s), 2):\n        if s[i] in \"AEIOU\":\n            count += 1\n    return count\n```\nThis code completes the `count_upper()` function by iterating over the string `s` in steps of two using the `range()` function. For each even index, the code checks whether the character at that index is an uppercase vowel (\"A\", \"E\", \"I\", \"O\", \"U\"). If it is, it increments the `count` variable. Finally, the function returns the value of `count`.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/99",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.0975609756097561
+    "score": 0.12195121951219512
 }

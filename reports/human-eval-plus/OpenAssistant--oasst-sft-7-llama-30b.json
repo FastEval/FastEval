@@ -194,14 +194,14 @@
             "prompt": "\n\ndef flip_case(string: str) -> str:\n    \"\"\" For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n    >>> flip_case('Hello')\n    'hELLO'\n    \"\"\"\n",
             "completion_processed": "def flip_case(string: str) -> str:\n    output = \"\"\n    for c in string:\n        if c.islower():\n            c = c.upper()\n        elif c.isupper():\n            c = c.lower()\n        output += c\n    return output",
             "completion_raw": "def flip_case(string: str) -> str:\n    output = \"\"\n    for c in string:\n        if c.islower():\n            c = c.upper()\n        elif c.isupper():\n            c = c.lower()\n        output += c\n    return output\n\nif __name__ == '__main__':\n    string = 'Hello'\n    print(flip_case(string))",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/28",
             "prompt": "from typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n",
             "completion_processed": "from typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\"Concatenate list of strings into a single string\n\n    Parameters:\n        strings (List[str]): The list of strings to be concatenated.\n\n    Returns:\n        str: A single string with the contents of the input list strings.\n\n    Examples:\n        Concatenate an empty list:\n        >>> concatenate([])\n        ''\n        >>>\n        Concatenate a list and the results should be:\n        >>> concatenate(['a', 'b', 'c'])\n        'abc'\n        >>>\n    \"\"\"\n    return ''.join(strings)",
             "completion_raw": "Here's the complete implementation of the `concatenate` function:\n```python\nfrom typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\"Concatenate list of strings into a single string\n\n    Parameters:\n        strings (List[str]): The list of strings to be concatenated.\n\n    Returns:\n        str: A single string with the contents of the input list strings.\n\n    Examples:\n        Concatenate an empty list:\n        >>> concatenate([])\n        ''\n        >>>\n        Concatenate a list and the results should be:\n        >>> concatenate(['a', 'b', 'c'])\n        'abc'\n        >>>\n    \"\"\"\n    return ''.join(strings)\n```\nThe `join` method of a string will join all the strings in the list with an empty separator. In the above implementation, this default separator will produce the result we want. The string `''.join(strings)` is essentially equivalent to `'strings'`. The parameter name `strings` is used to get the type inference from the `List[str]` annotation.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/29",
@@ -243,7 +243,7 @@
             "prompt": "\n\ndef unique(l: list):\n    \"\"\"Return sorted unique elements in a list\n    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [0, 2, 3, 5, 9, 123]\n    \"\"\"\n",
             "completion_processed": "def unique(l: list):\n    \"\"\"Return sorted unique elements in a list\n    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [0, 2, 3, 5, 9, 123]\n    \"\"\"\n    unique_elements = set(l)\n    sorted_unique = sorted(unique_elements)\n    return sorted_unique",
             "completion_raw": "def unique(l: list):\n    \"\"\"Return sorted unique elements in a list\n    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [0, 2, 3, 5, 9, 123]\n    \"\"\"\n    unique_elements = set(l)\n    sorted_unique = sorted(unique_elements)\n    return sorted_unique",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/35",
@@ -467,7 +467,7 @@
             "prompt": "\ndef digitSum(s):\n    \"\"\"Task\n    Write a function that takes a string as input and returns the sum of the upper characters only'\n    ASCII codes.\n\n    Examples:\n        digitSum(\"\") => 0\n        digitSum(\"abAB\") => 131\n        digitSum(\"abcCd\") => 67\n        digitSum(\"helloE\") => 69\n        digitSum(\"woArBld\") => 131\n        digitSum(\"aAaaaXa\") => 153\n    \"\"\"\n",
             "completion_processed": "def digitSum(s):\n    sum = 0\n    for c in s:\n        if c.isupper():\n            ascii_code = ord(c)\n            sum+= ascii_code\n    return sum",
             "completion_raw": "def digitSum(s):\n    sum = 0\n    for c in s:\n        if c.isupper():\n            ascii_code = ord(c)\n            sum+= ascii_code\n    return sum",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/67",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.13414634146341464
+    "score": 0.1524390243902439
 }

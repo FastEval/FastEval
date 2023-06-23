@@ -166,7 +166,7 @@
             "prompt": "\n\ndef strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n",
             "completion_processed": "def strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n    return len(string)",
             "completion_raw": "Here is the complete implementation of the strlen function:\n```python\ndef strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n    return len(string)\n```\nThe function takes a str parameter named string and returns an int representing the length of the string. The implementation uses the built-in `len()` function to calculate the length of the string. The function is tested using doctest, which automatically checks that the output matches the expected output for the given test cases.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/24",
@@ -194,7 +194,7 @@
             "prompt": "\n\ndef flip_case(string: str) -> str:\n    \"\"\" For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n    >>> flip_case('Hello')\n    'hELLO'\n    \"\"\"\n",
             "completion_processed": "def flip_case(string: str) -> str:\n    return ''.join(c.upper() if c.islower() else c.lower() for c in string)",
             "completion_raw": "Here's the complete implementation of the `flip_case` function:\n```python\ndef flip_case(string: str) -> str:\n    return ''.join(c.upper() if c.islower() else c.lower() for c in string)\n```\nThis function takes a string as input and returns a new string with all lowercase characters flipped to uppercase and all uppercase characters flipped to lowercase.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/28",
@@ -215,7 +215,7 @@
             "prompt": "\n\ndef get_positive(l: list):\n    \"\"\"Return only positive numbers in the list.\n    >>> get_positive([-1, 2, -4, 5, 6])\n    [2, 5, 6]\n    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])\n    [5, 3, 2, 3, 9, 123, 1]\n    \"\"\"\n",
             "completion_processed": "def get_positive(l: list):\n    return [num for num in l if num > 0]",
             "completion_raw": "def get_positive(l: list):\n    return [num for num in l if num > 0]",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/31",
@@ -306,7 +306,7 @@
             "prompt": "\n\ndef pairs_sum_to_zero(l):\n    \"\"\"\n    pairs_sum_to_zero takes a list of integers as an input.\n    it returns True if there are two distinct elements in the list that\n    sum to zero, and False otherwise.\n    >>> pairs_sum_to_zero([1, 3, 5, 0])\n    False\n    >>> pairs_sum_to_zero([1, 3, -2, 1])\n    False\n    >>> pairs_sum_to_zero([1, 2, 3, 7])\n    False\n    >>> pairs_sum_to_zero([2, 4, -5, 3, 5, 7])\n    True\n    >>> pairs_sum_to_zero([1])\n    False\n    \"\"\"\n",
             "completion_processed": "def pairs_sum_to_zero(l):\n    # check for len(l) >= 2\n    if len(l) < 2:\n        return False\n    for i in range(len(l)):\n        for j in range(i + 1, len(l)):\n            if l[i] + l[j] == 0:\n                return True\n    return False",
             "completion_raw": "```\ndef pairs_sum_to_zero(l):\n    # check for len(l) >= 2\n    if len(l) < 2:\n        return False\n    for i in range(len(l)):\n        for j in range(i + 1, len(l)):\n            if l[i] + l[j] == 0:\n                return True\n    return False\n```",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/44",
@@ -376,7 +376,7 @@
             "prompt": "\n\ndef add(x: int, y: int):\n    \"\"\"Add two numbers x and y\n    >>> add(2, 3)\n    5\n    >>> add(5, 7)\n    12\n    \"\"\"\n",
             "completion_processed": "def add(x: int, y: int) -> int:\n    \"\"\"Add two numbers x and y.\n    \n    Examples:\n    >>> add(2, 3)\n    5\n    >>> add(5, 7)\n    12\n    \"\"\"\n    return x + y",
             "completion_raw": "def add(x: int, y: int) -> int:\n    \"\"\"Add two numbers x and y.\n    \n    Examples:\n    >>> add(2, 3)\n    5\n    >>> add(5, 7)\n    12\n    \"\"\"\n    return x + y",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/54",
@@ -397,7 +397,7 @@
             "prompt": "\n\ndef correct_bracketing(brackets: str):\n    \"\"\" brackets is a string of \"<\" and \">\".\n    return True if every opening bracket has a corresponding closing bracket.\n\n    >>> correct_bracketing(\"<\")\n    False\n    >>> correct_bracketing(\"<>\")\n    True\n    >>> correct_bracketing(\"<<><>>\")\n    True\n    >>> correct_bracketing(\"><<>\")\n    False\n    \"\"\"\n",
             "completion_processed": "def correct_bracketing(brackets: str):\n    stack = []\n    for bracket in brackets:\n        if bracket == \"<\":\n            stack.append(bracket)\n        elif bracket == \">\":\n            if not stack or stack.pop()!= \"<\":\n                return False\n    return not stack",
             "completion_raw": "Here's the complete implementation of the `correct_bracketing` function:\n```python\ndef correct_bracketing(brackets: str):\n    stack = []\n    for bracket in brackets:\n        if bracket == \"<\":\n            stack.append(bracket)\n        elif bracket == \">\":\n            if not stack or stack.pop()!= \"<\":\n                return False\n    return not stack\n```\nThis function takes a string `brackets` as input, which contains only \"<\" and \">\". It returns `True` if every opening bracket has a corresponding closing bracket, and `False` otherwise.\n\nThe function uses a stack to keep track of the opening brackets. For each opening bracket \"<\", it pushes it onto the stack. For each closing bracket \">\", it pops the top element from the stack and checks if it's a corresponding opening bracket \"<\". If it's not, or if the stack is empty, the function returns `False`. If the stack is empty after processing all the brackets, the function returns `True`.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/57",
@@ -467,7 +467,7 @@
             "prompt": "\ndef digitSum(s):\n    \"\"\"Task\n    Write a function that takes a string as input and returns the sum of the upper characters only'\n    ASCII codes.\n\n    Examples:\n        digitSum(\"\") => 0\n        digitSum(\"abAB\") => 131\n        digitSum(\"abcCd\") => 67\n        digitSum(\"helloE\") => 69\n        digitSum(\"woArBld\") => 131\n        digitSum(\"aAaaaXa\") => 153\n    \"\"\"\n",
             "completion_processed": "def digitSum(s):\n    \"\"\"\n    >>> digitSum(\"\")\n    0\n    >>> digitSum(\"abAB\")\n    131\n    >>> digitSum(\"abcCd\")\n    67\n    >>> digitSum(\"helloE\")\n    69\n    >>> digitSum(\"woArBld\")\n    131\n    >>> digitSum(\"aAaaaXa\")\n    153\n    \"\"\"\n    return sum(ord(c) for c in s if c.isupper())",
             "completion_raw": "The missing part of the function implementation is the calculation of the sum of the upper characters only ASCII codes. Here is the complete function implementation:\n```python\ndef digitSum(s):\n    \"\"\"\n    >>> digitSum(\"\")\n    0\n    >>> digitSum(\"abAB\")\n    131\n    >>> digitSum(\"abcCd\")\n    67\n    >>> digitSum(\"helloE\")\n    69\n    >>> digitSum(\"woArBld\")\n    131\n    >>> digitSum(\"aAaaaXa\")\n    153\n    \"\"\"\n    return sum(ord(c) for c in s if c.isupper())\n```\nThe function takes a string `s` as input and returns the sum of the upper characters only ASCII codes. The function uses a generator expression to iterate over the characters in the string and checks if each character is uppercase using the `isupper()` method. The `ord()` function is used to convert each character to its ASCII code, which is then added to the running total using the `sum()` function.",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/67",
@@ -488,7 +488,7 @@
             "prompt": "\ndef search(lst):\n    '''\n    You are given a non-empty list of positive integers. Return the greatest integer that is greater than \n    zero, and has a frequency greater than or equal to the value of the integer itself. \n    The frequency of an integer is the number of times it appears in the list.\n    If no such a value exist, return -1.\n    Examples:\n        search([4, 1, 2, 2, 3, 1]) == 2\n        search([1, 2, 2, 3, 3, 3, 4, 4, 4]) == 3\n        search([5, 5, 4, 4, 4]) == -1\n    '''\n",
             "completion_processed": "def search(lst):\n    freq_dict = {}\n    for num in lst:\n        if num in freq_dict:\n            freq_dict[num] += 1\n        else:\n            freq_dict[num] = 1\n\n    largest_num = -1\n    for num in freq_dict:\n        if freq_dict[num] >= num and num > largest_num:\n            largest_num = num\n\n    return largest_num",
             "completion_raw": "def search(lst):\n    freq_dict = {}\n    for num in lst:\n        if num in freq_dict:\n            freq_dict[num] += 1\n        else:\n            freq_dict[num] = 1\n\n    largest_num = -1\n    for num in freq_dict:\n        if freq_dict[num] >= num and num > largest_num:\n            largest_num = num\n\n    return largest_num",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/70",
@@ -747,7 +747,7 @@
             "prompt": "\ndef f(n):\n    \"\"\" Implement the function f that takes n as a parameter,\n    and returns a list of size n, such that the value of the element at index i is the factorial of i if i is even\n    or the sum of numbers from 1 to i otherwise.\n    i starts from 1.\n    the factorial of i is the multiplication of the numbers from 1 to i (1 * 2 * ... * i).\n    Example:\n    f(5) == [1, 2, 6, 24, 15]\n    \"\"\"\n",
             "completion_processed": "def f(n):\n    result = []\n    for i in range(1, n+1):\n        if i % 2 == 0:\n            result.append(factorial(i))\n        else:\n            result.append(sum(range(1, i+1)))\n    return result\n\ndef factorial(n):\n    return 1 if n == 1 else n * factorial(n-1)",
             "completion_raw": "def f(n):\n    result = []\n    for i in range(1, n+1):\n        if i % 2 == 0:\n            result.append(factorial(i))\n        else:\n            result.append(sum(range(1, i+1)))\n    return result\n\ndef factorial(n):\n    return 1 if n == 1 else n * factorial(n-1)",
-            "success": false
+            "success": true
         },
         {
             "task_id": "HumanEval/107",
@@ -1149,5 +1149,5 @@
             "success": false
         }
     ],
-    "score": 0.17682926829268292
+    "score": 0.23170731707317074
 }
