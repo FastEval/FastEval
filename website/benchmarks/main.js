@@ -25,7 +25,7 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     }
 }
 
-function computeModelRanks(models, getScore, allBenchmarks) {
+function computeModelRanks(models, getScore, getTotalScore) {
     const modelNames = [...new Set(models.map(({ model_name: model }) => model))]
     const modelsByName = Object.fromEntries(models.map(model => [model.model_name, model]))
 
@@ -38,6 +38,10 @@ function computeModelRanks(models, getScore, allBenchmarks) {
         }
     }
 
+    const totalScores = {}
+    for (const modelName of modelNames)
+        totalScores[modelName] = getTotalScore(modelName, modelsByName[modelName].benchmarks)
+
     const performanceDifferences = new Map()
     for (const modelPair of modelPairs) {
         const [model1Name, model2Name] = modelPair
@@ -49,12 +53,17 @@ function computeModelRanks(models, getScore, allBenchmarks) {
             const model1NumBenchmarks = modelsByName[model1Name].benchmarks.length
             const model2NumBenchmarks = modelsByName[model2Name].benchmarks.length
             if (model1NumBenchmarks === 1 && model2NumBenchmarks !== 1) {
-                performanceDifferences.set(modelPair, -1)
+                performanceDifferences.set(modelPair, -Infinity)
                 continue
             } else if (model1NumBenchmarks !== 1 && model2NumBenchmarks === 1) {
-                performanceDifferences.set(modelPair, 1)
+                performanceDifferences.set(modelPair, Infinity)
                 continue
             }
+        }
+
+        if (totalScores[model1Name] !== null && totalScores[model2Name] !== null) {
+            performanceDifferences.set(modelPair, (totalScores[model1Name] < totalScores[model2Name]) ? -Infinity : Infinity)
+            continue
         }
 
         let performanceDifference = 0
@@ -72,6 +81,10 @@ function computeModelRanks(models, getScore, allBenchmarks) {
             const [model1Name, model2Name] = modelPair
             const performanceDifference = performanceDifferences.get(modelPair)
             const rankDifference = rankings.get(model1Name) - rankings.get(model2Name)
+            if (rankDifference > 0 && performanceDifference === -Infinity)
+                return 1e6
+            if (rankDifference < 0 && performanceDifference === Infinity)
+                return 1e6
             return (rankDifference > 0 && performanceDifference < 0 || rankDifference < 0 && performanceDifference > 0) ? 1 : 0
         }).reduce((a, b) => a + b, 0)
     }
@@ -204,7 +217,25 @@ export async function createBenchmarksIndexV(baseUrl) {
             / (benchmarkMaximums.get(benchmarkName) - benchmarkMinimums.get(benchmarkName))
     }
 
-    const modelRanks = computeModelRanks(models, getRelativeScore, allBenchmarks)
+    function getTotalScore(model, benchmarks) {
+        if (!benchmarks.includes('lm-evaluation-harness'))
+            return null
+        if (!benchmarks.includes('vicuna') || !(model in vicunaEvaluationResults))
+            return null
+        if (!benchmarks.includes('openai-evals'))
+            return null
+        if (!benchmarks.includes('human-eval-plus'))
+            return null
+        if (!benchmarks.includes('cot'))
+            return null
+
+        let relativeAverageScore = 0
+        for (const benchmarkName of allBenchmarks)
+            relativeAverageScore += getRelativeScore(model, benchmarks, benchmarkName) / allBenchmarks.length
+        return relativeAverageScore
+    }
+
+    const modelRanks = computeModelRanks(models, getRelativeScore, getTotalScore)
     const modelsSortedByRank = models.toSorted((model1, model2) => {
         const model1Rank = modelRanks[model1.model_name]
         const model2Rank = modelRanks[model2.model_name]
@@ -235,20 +266,11 @@ export async function createBenchmarksIndexV(baseUrl) {
 
         rowE.insertCell().appendChild(createTextE(model))
 
-        const allBenchmarkEvaluated = benchmarks.includes('lm-evaluation-harness')
-            && benchmarks.includes('vicuna') && model in vicunaEvaluationResults
-            && benchmarks.includes('openai-evals')
-            && benchmarks.includes('human-eval-plus')
-            && benchmarks.includes('cot')
-        if (allBenchmarkEvaluated) {
-            let relativeAverageScore = 0
-            for (const benchmarkName of allBenchmarks)
-                relativeAverageScore += getRelativeScore(model, benchmarks, benchmarkName) / allBenchmarks.length
-
-            createTableScoreCell(rowE, createTextE(round(relativeAverageScore)))
-        } else {
+        const totalScore = getTotalScore(model, benchmarks)
+        if (totalScore === null)
             createTableScoreCell(rowE, createTextE(''))
-        }
+        else
+            createTableScoreCell(rowE, createTextE(round(totalScore)))
 
         for (const benchmarkName of allBenchmarks) {
             const score = getScore(model, benchmarks, benchmarkName)
