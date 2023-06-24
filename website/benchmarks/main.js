@@ -29,18 +29,28 @@ function computeModelRanks(models, getScore, getTotalScore) {
     const modelNames = [...new Set(models.map(({ model_name: model }) => model))]
     const modelsByName = Object.fromEntries(models.map(model => [model.model_name, model]))
 
-    const modelPairs = []
-    for (const model1Name of modelNames) {
-        for (const model2Name of modelNames) {
-            if (model1Name === model2Name)
-                continue
-            modelPairs.push([model1Name, model2Name])
-        }
-    }
-
     const totalScores = {}
     for (const modelName of modelNames)
         totalScores[modelName] = getTotalScore(modelName, modelsByName[modelName].benchmarks)
+
+    const initialOrderTotalScore = modelNames.filter(modelName => totalScores[modelName] !== null)
+        .toSorted((model1Name, model2Name) => totalScores[model2Name] - totalScores[model1Name])
+    const initialOrderBaseModels = modelNames.filter(modelName =>
+        modelsByName[modelName].benchmarks.length === 1 && modelsByName[modelName].benchmarks[0] === 'lm-evaluation-harness')
+        .toSorted((model1Name, model2Name) => getScore(model2Name, ['lm-evaluation-harness'], 'lm-evaluation-harness')
+            - getScore(model1Name, ['lm-evaluation-harness'], 'lm-evaluation-harness'))
+    const initialFixedModels = initialOrderTotalScore.concat(initialOrderBaseModels)
+    const initialFixedScores = Object.fromEntries(initialFixedModels.map((modelName, index) => [modelName, initialFixedModels.length - index]))
+    const remainingModels = modelNames.filter(modelName => !initialFixedModels.includes(modelName))
+
+    const modelPairs = []
+    for (const [i, model1Name] of modelNames.entries()) {
+        for (const [j, model2Name] of modelNames.entries()) {
+            if (i === j)
+                break
+            modelPairs.push([model1Name, model2Name])
+        }
+    }
 
     const performanceDifferences = new Map()
     for (const modelPair of modelPairs) {
@@ -59,11 +69,6 @@ function computeModelRanks(models, getScore, getTotalScore) {
                 performanceDifferences.set(modelPair, Infinity)
                 continue
             }
-        }
-
-        if (totalScores[model1Name] !== null && totalScores[model2Name] !== null) {
-            performanceDifferences.set(modelPair, (totalScores[model1Name] < totalScores[model2Name]) ? -Infinity : Infinity)
-            continue
         }
 
         let performanceDifference = 0
@@ -91,16 +96,6 @@ function computeModelRanks(models, getScore, getTotalScore) {
             return (rankDifference > 0 && performanceDifference < 0 || rankDifference < 0 && performanceDifference > 0) ? 1 : 0
         }).reduce((a, b) => a + b, 0)
     }
-
-    const initialOrderTotalScore = modelNames.filter(modelName => totalScores[modelName] !== null)
-        .toSorted((model1Name, model2Name) => totalScores[model2Name] - totalScores[model1Name])
-    const initialOrderBaseModels = modelNames.filter(modelName =>
-        modelsByName[modelName].benchmarks.length === 1 && modelsByName[modelName].benchmarks[0] === 'lm-evaluation-harness')
-        .toSorted((model1Name, model2Name) => getScore(model2Name, ['lm-evaluation-harness'], 'lm-evaluation-harness')
-            - getScore(model1Name, ['lm-evaluation-harness'], 'lm-evaluation-harness'))
-    const initialFixedModels = initialOrderTotalScore.concat(initialOrderBaseModels)
-    const initialFixedScores = Object.fromEntries(initialFixedModels.map((modelName, index) => [modelName, initialFixedModels.length - index]))
-    const remainingModels = modelNames.filter(modelName => !initialFixedModels.includes(modelName))
 
     const initialPopulationSize = 100
     const minPopulationSize = 50
