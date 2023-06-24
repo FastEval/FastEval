@@ -7,7 +7,6 @@ from evaluation.models.open_assistant import OpenAssistant
 from evaluation.models.guanaco import Guanaco
 from evaluation.models.falcon_instruct import FalconInstruct
 from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
-from evaluation.models.wizard_lm_large import WizardLMLarge
 from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
 from evaluation.models.chatml import ChatML
 
@@ -34,8 +33,6 @@ def get_model_class(model_type: str):
         return FalconInstruct
     if model_type == 'alpaca-without-prefix':
         return AlpacaWithoutPrefix
-    if model_type == 'wizard-lm-large':
-        return WizardLMLarge
     if model_type == 'alpaca-with-prefix':
         return AlpacaWithPrefix
     if model_type == 'chatml':

@@ -27,7 +27,7 @@ def conversation_to_prompt(*, conversation, prefix, user, assistant, system, def
         else:
             raise
     prompt += assistant
-    return prompt
+    return prompt.strip()
 
 def process_current_batch():
     global current_batch
