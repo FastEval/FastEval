@@ -42,6 +42,7 @@ function computeModelRanks(models, getScore, getTotalScore) {
     const initialFixedModels = initialOrderTotalScore.concat(initialOrderBaseModels)
     const initialFixedScores = Object.fromEntries(initialFixedModels.map((modelName, index) => [modelName, initialFixedModels.length - index]))
     const remainingModels = modelNames.filter(modelName => !initialFixedModels.includes(modelName))
+    const minimumRemainingScore = initialOrderBaseModels.length
 
     const modelPairs = []
     for (const [i, model1Name] of modelNames.entries()) {
@@ -97,30 +98,38 @@ function computeModelRanks(models, getScore, getTotalScore) {
         }).reduce((a, b) => a + b, 0)
     }
 
+    function renormalize(rankings) {
+        return new Map([...rankings.entries()]
+            .toSorted(([model1Name, model1Rank], [model2Name, model2Rank]) => model2Rank - model1Rank)
+            .map(([modelName, previousModelRank], index) => [modelName, modelNames.length - index]))
+    }
+
     const initialPopulationSize = 100
-    const minPopulationSize = 50
+    const minPopulationSize = 20
     let population = []
     for (let i = 0; i < initialPopulationSize; i++) {
-        const rankings = new Map(modelNames.map(modelName => [modelName, initialFixedScores[modelName] ?? (Math.random()) * initialFixedModels.length]))
+        const rankings = renormalize(new Map(modelNames.map(modelName =>
+            [modelName, initialFixedScores[modelName] ?? (Math.random()) * initialFixedModels.length])))
         const loss = lossf(rankings)
         population.push([rankings, loss])
     }
 
-    const numIterations = 40_000
+    const numIterations = 10_000
     for (let i = 0; i < numIterations; i++) {
         const currentItemIndex = Math.floor(Math.random() * population.length)
         const [currentRanking, currentLoss] = population[currentItemIndex]
 
-        const newRanking = new Map(currentRanking)
-        for (const modelName of remainingModels)
-            newRanking.set(modelName, newRanking.get(modelName) + (Math.random() > 0.5 ? 1 : -1) * (1 - i / numIterations))
-        const newLoss = lossf(newRanking)
+        let newRanking = new Map(currentRanking)
 
-        if (newLoss > currentLoss)
-            continue
-        else if (Math.abs(newLoss - currentLoss) < 1e-6)
-            population[currentItemIndex] = [newRanking, newLoss]
-        else
+        for (const modelName of remainingModels) {
+            if (Math.random() < 1 / remainingModels.length)
+                newRanking.set(modelName, 1 + minimumRemainingScore + (Math.random() * (modelNames.length - minimumRemainingScore)))
+        }
+
+        newRanking = renormalize(newRanking)
+
+        const newLoss = lossf(newRanking)
+        if (newLoss <= currentLoss)
             population.push([newRanking, newLoss])
 
         if (i % Math.round(initialPopulationSize / 5) === 0)
