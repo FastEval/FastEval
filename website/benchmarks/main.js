@@ -92,22 +92,32 @@ function computeModelRanks(models, getScore, getTotalScore) {
         }).reduce((a, b) => a + b, 0)
     }
 
+    const initialOrderTotalScore = modelNames.filter(modelName => totalScores[modelName] !== null)
+        .toSorted((model1Name, model2Name) => totalScores[model2Name] - totalScores[model1Name])
+    const initialOrderBaseModels = modelNames.filter(modelName =>
+        modelsByName[modelName].benchmarks.length === 1 && modelsByName[modelName].benchmarks[0] === 'lm-evaluation-harness')
+        .toSorted((model1Name, model2Name) => getScore(model2Name, ['lm-evaluation-harness'], 'lm-evaluation-harness')
+            - getScore(model1Name, ['lm-evaluation-harness'], 'lm-evaluation-harness'))
+    const initialFixedModels = initialOrderTotalScore.concat(initialOrderBaseModels)
+    const initialFixedScores = Object.fromEntries(initialFixedModels.map((modelName, index) => [modelName, initialFixedModels.length - index]))
+    const remainingModels = modelNames.filter(modelName => !initialFixedModels.includes(modelName))
+
     const initialPopulationSize = 100
-    const minPopulationSize = 20
+    const minPopulationSize = 50
     let population = []
     for (let i = 0; i < initialPopulationSize; i++) {
-        const rankings = new Map(modelNames.map(modelName => [modelName, Math.random()]))
+        const rankings = new Map(modelNames.map(modelName => [modelName, initialFixedScores[modelName] ?? (Math.random()) * initialFixedModels.length]))
         const loss = lossf(rankings)
         population.push([rankings, loss])
     }
 
-    const numIterations = 20_000
+    const numIterations = 40_000
     for (let i = 0; i < numIterations; i++) {
         const currentItemIndex = Math.floor(Math.random() * population.length)
         const [currentRanking, currentLoss] = population[currentItemIndex]
 
         const newRanking = new Map(currentRanking)
-        for (const modelName of newRanking.keys())
+        for (const modelName of remainingModels)
             newRanking.set(modelName, newRanking.get(modelName) + (Math.random() > 0.5 ? 1 : -1) * (1 - i / numIterations))
         const newLoss = lossf(newRanking)
 
@@ -128,6 +138,8 @@ function computeModelRanks(models, getScore, getTotalScore) {
     const populationItemsWithLowestLoss = populationSortedByLoss.filter(([ranking, loss]) => loss === lowestLoss)
         .map(([ranking, loss]) => [...ranking.entries()]
             .toSorted(([model1Name, model1Rank], [model2Name, model2Rank]) => model2Rank - model1Rank))
+
+    console.log(lowestLoss)
 
     let orderings = populationItemsWithLowestLoss
     for (let i = models.length - 1; i >= 0; i--)
