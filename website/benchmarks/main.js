@@ -73,18 +73,21 @@ function computeModelRanks(models, getScore, getTotalScore) {
             performanceDifference += (model1Performance - model2Performance) / commonBenchmarks.length
         }
 
-        performanceDifferences.set(modelPair, performanceDifference)
+        if (performanceDifference !== 0)
+            performanceDifferences.set(modelPair, performanceDifference)
     }
 
     function lossf(rankings) {
         return modelPairs.map(modelPair => {
             const [model1Name, model2Name] = modelPair
+            if (!performanceDifferences.has(modelPair))
+                return 0
             const performanceDifference = performanceDifferences.get(modelPair)
             const rankDifference = rankings.get(model1Name) - rankings.get(model2Name)
             if (rankDifference > 0 && performanceDifference === -Infinity)
-                return 1e6
+                return 1e6 * rankDifference
             if (rankDifference < 0 && performanceDifference === Infinity)
-                return 1e6
+                return 1e6 * (-rankDifference)
             return (rankDifference > 0 && performanceDifference < 0 || rankDifference < 0 && performanceDifference > 0) ? 1 : 0
         }).reduce((a, b) => a + b, 0)
     }
@@ -110,7 +113,7 @@ function computeModelRanks(models, getScore, getTotalScore) {
 
         if (newLoss > currentLoss)
             continue
-        else if (newLoss === currentLoss)
+        else if (Math.abs(newLoss - currentLoss) < 1e-6)
             population[currentItemIndex] = [newRanking, newLoss]
         else
             population.push([newRanking, newLoss])
