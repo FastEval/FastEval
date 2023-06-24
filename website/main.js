@@ -9,7 +9,7 @@ async function main() {
         ? 'https://raw.githubusercontent.com/tju01/ilm-eval/main/reports'
         : './reports'
 
-    document.body.textContent = 'Loading...'
+    document.body.textContent = 'Loading. May take a few seconds...'
     const benchmarksV = await createBenchmarksV(url)
     document.body.replaceChildren(benchmarksV)
 }
