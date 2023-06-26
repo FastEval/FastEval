@@ -1,6 +1,7 @@
 import { createTextE } from '../components/text.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
-import { round } from '../utils.js'
+import { createModelsMap, round } from '../utils.js'
+import { createModelLinkE } from '../components/model-link.js'
 
 export function computeAverageScore(results) {
     return Object.values(results).map(r => r.acc_norm ?? r.acc).reduce((a, b) => a + b, 0) / Object.values(results).length * 100
@@ -26,9 +27,10 @@ export async function createV(baseUrl) {
         createTextE('. Scroll down to the section "Performance Benchmarks".'),
     )
 
-    const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json())
+    const models = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('lm-evaluation-harness'))
-        .map(model => model.model_name)
+    const modelsMap = createModelsMap(models)
+    const modelNames = models.map(model => model.model_name)
 
     const results = await Promise.all(modelNames.map(async model =>
         [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
@@ -50,7 +52,7 @@ export async function createV(baseUrl) {
 
     for (const modelName of modelNamesSortedByAverageScore) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createTextE(modelName))
+        rowE.insertCell().appendChild(createModelLinkE(modelName, modelsMap[modelName].url))
 
         for (const task of tasks) {
             let r = resultsMap[modelName].results[task]

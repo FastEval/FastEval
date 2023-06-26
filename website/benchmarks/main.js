@@ -7,6 +7,7 @@ import * as Vicuna from '../benchmarks/vicuna.js'
 import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
 import * as HumanEvalPlus from '../benchmarks/human-eval-plus.js'
 import * as CoT from '../benchmarks/cot.js'
+import { createModelLinkE } from '../components/model-link.js'
 
 async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     switch (benchmarkName) {
@@ -275,7 +276,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
 
-    for (const [position, { model_name: model, benchmarks }] of modelsSortedByRank.entries()) {
+    for (const [position, { model_name: model, benchmarks, url }] of modelsSortedByRank.entries()) {
         const rowE = tbodyE.insertRow()
 
         if (benchmarks.length === 1 && benchmarks[0] === 'lm-evaluation-harness')
@@ -283,7 +284,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         else
             createTableScoreCell(rowE, createTextE(position + 1))
 
-        rowE.insertCell().appendChild(createTextE(model))
+        rowE.insertCell().appendChild(createModelLinkE(model, url))
 
         const totalScore = getTotalScore(model, benchmarks)
         if (totalScore === null)

@@ -31,3 +31,7 @@ export function fetchFiles(baseUrl, models, benchmarkName, end='.json') {
         .map(async model => [model, await fetch(baseUrl + '/' + benchmarkName + '/' + model.replace('/', '--') + end).then(r => r.json())])
     )
 }
+
+export function createModelsMap(models) {
+    return Object.fromEntries(models.map(({ model_name, ...rest }) => [model_name, { ...rest }]))
+}

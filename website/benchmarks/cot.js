@@ -1,8 +1,9 @@
-import { fetchModels, fetchFiles, allowCharacterLineBreaks, round } from '../utils.js'
+import { fetchModels, fetchFiles, allowCharacterLineBreaks, round, createModelsMap } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
 import { createConversationItemE } from '../components/conversation-item.js'
+import { createModelLinkE } from '../components/model-link.js'
 
 export async function createBigBenchHardE(baseUrl, models) {
     const containerE = document.createElement('div')
@@ -25,9 +26,11 @@ export async function createBigBenchHardE(baseUrl, models) {
     const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
         model2Scores.bbh.average - model1Scores.bbh.average)
 
+    const modelsMap = createModelsMap(models)
+
     for (const [modelName, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createTextE(modelName))
+        rowE.insertCell().appendChild(createModelLinkE(modelName, modelsMap[modelName].url))
         rowE.insertCell().appendChild(createTextE(round(modelScores.bbh.average)))
         for (const task of tasks)
             rowE.insertCell().appendChild(createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }))
@@ -87,6 +90,7 @@ export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
 
     const models = await fetchModels(baseUrl)
+    const modelsMap = createModelsMap(models)
 
     if (parameters.has('task')) {
         containerE.appendChild(await createTaskV(baseUrl, models, parameters.get('task'), parameters))
@@ -118,7 +122,7 @@ export async function createV(baseUrl, parameters) {
 
     for (const [modelName, results] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createTextE(modelName))
+        rowE.insertCell().appendChild(createModelLinkE(modelName, modelsMap[modelName].url))
 
         for (const column of columns) {
             if (['gsm8k'].includes(column)) {
