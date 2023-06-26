@@ -60,6 +60,7 @@ export async function createV(baseUrl) {
     tableHeadE.insertCell().appendChild(createTextE('Model'))
 
     tableHeadE.insertCell().appendChild(createTextE('Average'))
+    tableHeadE.insertCell()
     for (const [taskId, taskName] of tasks)
         tableHeadE.insertCell().appendChild(createTextE(taskName))
 
@@ -71,6 +72,8 @@ export async function createV(baseUrl) {
         rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
 
         createTableScoreCell(rowE, createTextE(round(averageScores[modelName])))
+
+        rowE.insertCell()
 
         for (const [taskId, taskName] of tasks) {
             let r = resultsMap[modelName].results[taskId]

@@ -271,11 +271,12 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createTextE('Size'))
     theadE.insertCell().appendChild(createTextE('Model'))
     theadE.insertCell().appendChild(createTextE('Total'))
+    theadE.insertCell()
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
-    theadE.insertCell().appendChild(createLinkE('Vicuna Elo Rank', { benchmark: 'vicuna' }))
-    theadE.insertCell().appendChild(createTextE('HumanEval+'))
+    theadE.insertCell().appendChild(createLinkE('Elo Rank', { benchmark: 'vicuna' }))
+    theadE.insertCell().appendChild(createTextE('EvalPlus'))
     theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
-    theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
+    theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
 
     for (const [position, modelInformation] of modelsSortedByRank.entries()) {
@@ -297,6 +298,8 @@ export async function createBenchmarksIndexV(baseUrl) {
             createTableScoreCell(rowE, createTextE(''))
         else
             createTableScoreCell(rowE, createTextE(round(totalScore)))
+
+        rowE.insertCell()
 
         for (const benchmarkName of allBenchmarks) {
             const score = getScore(model, benchmarks, benchmarkName)
