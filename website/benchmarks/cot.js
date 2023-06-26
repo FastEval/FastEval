@@ -118,13 +118,19 @@ export async function createV(baseUrl, parameters) {
     const tableBodyE = tableE.createTBody()
     tableHeadE.insertCell().appendChild(createTextE('Model'))
 
-    const columns = ['gsm8k', 'bbh', 'average']
+    const columns = [
+        ['gsm8k', 'GSM8K'],
+        ['bbh', 'BBH'],
+    ]
 
-    for (const column of columns) {
-        if (column === 'bbh')
-            tableHeadE.insertCell().appendChild(createLinkE('bbh', { task: 'bbh' }))
+    tableHeadE.insertCell().appendChild(createTextE('Average'))
+    tableHeadE.insertCell()
+
+    for (const [columnId, columnName] of columns) {
+        if (columnId === 'bbh')
+            tableHeadE.insertCell().appendChild(createLinkE(columnName, { task: 'bbh' }))
         else
-            tableHeadE.insertCell().appendChild(createTextE(column))
+            tableHeadE.insertCell().appendChild(createTextE(columnName))
     }
 
     const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
@@ -134,13 +140,14 @@ export async function createV(baseUrl, parameters) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
 
-        for (const column of columns) {
-            if (['gsm8k'].includes(column)) {
-                rowE.insertCell().appendChild(createLinkE(round(results[column]), { task: column, model: modelName }))
-            } else if (column === 'bbh') {
-                rowE.insertCell().appendChild(createTextE(round(results[column].average)))
-            } else if (column === 'average') {
-                rowE.insertCell().appendChild(createTextE(round(results[column])))
+        rowE.insertCell().appendChild(createTextE(round(results['average'])))
+        rowE.insertCell()
+
+        for (const [columnId, columnName] of columns) {
+            if (columnId === 'gsm8k') {
+                rowE.insertCell().appendChild(createLinkE(round(results[columnId]), { task: columnId, model: modelName }))
+            } else if (columnId === 'bbh') {
+                rowE.insertCell().appendChild(createTextE(round(results[columnId].average)))
             }
         }
     }
