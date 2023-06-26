@@ -249,9 +249,9 @@ function createSelectedModelReportV(report, selectedSampleId) {
 }
 
 async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
-    const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json())
+    const models = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('openai-evals'))
-        .map(model => model.model_name)
+    const modelsMap = createModelsMap(models)
 
     const containerE = document.createElement('div')
 
@@ -267,7 +267,7 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
     finalReportInformationE.appendChild(createTextE('Name: ' + spec.eval_name))
     finalReportInformationE.appendChild(createTextE('Evaluation method: ' + spec.run_config.eval_spec.cls.split(':').slice(-1)))
 
-    const { view: modelSelectV, element: modelSelectE } = createModelSelectV('Model', modelNames)
+    const { view: modelSelectV, element: modelSelectE } = createModelSelectV('Model', modelsMap, false)
     containerE.appendChild(modelSelectV)
 
     modelSelectE.value = modelName.replace('/', '--')

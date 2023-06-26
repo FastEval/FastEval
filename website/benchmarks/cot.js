@@ -30,7 +30,7 @@ export async function createBigBenchHardE(baseUrl, models) {
 
     for (const [modelName, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelName, modelsMap[modelName]))
+        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
         rowE.insertCell().appendChild(createTextE(round(modelScores.bbh.average)))
         for (const task of tasks)
             rowE.insertCell().appendChild(createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }))
@@ -39,7 +39,7 @@ export async function createBigBenchHardE(baseUrl, models) {
     return containerE
 }
 
-export async function createTaskV(baseUrl, models, task, parameters) {
+export async function createTaskV(baseUrl, models, modelsMap, task, parameters) {
     if (task === 'bbh')
         return await createBigBenchHardE(baseUrl, models)
 
@@ -59,7 +59,7 @@ export async function createTaskV(baseUrl, models, task, parameters) {
     containerE.appendChild(infoE)
     infoE.append(
         createTextE('Task: ' + task),
-        createTextE('Model: ' + modelName),
+        createTextE('Model: ', createModelLinkE(modelsMap[modelName])),
         createTextE('Score: ' + round(data.score)),
     )
 
@@ -93,11 +93,21 @@ export async function createV(baseUrl, parameters) {
     const modelsMap = createModelsMap(models)
 
     if (parameters.has('task')) {
-        containerE.appendChild(await createTaskV(baseUrl, models, parameters.get('task'), parameters))
+        containerE.appendChild(await createTaskV(baseUrl, models, modelsMap, parameters.get('task'), parameters))
         return containerE
     }
 
     containerE.appendChild(createBackToMainPageE())
+
+    const cotHubLinkE = document.createElement('a')
+    cotHubLinkE.textContent = 'here'
+    cotHubLinkE.href = 'https://github.com/FranxYao/chain-of-thought-hub'
+    const explanationE = createTextE('This benchmark measures the CoT (chain-of-thought) reasoning capabilities. '
+        + 'It uses a set of questions (depending on the task) and prompts the model to first explain its reasoning step-by-step and then output the answer. '
+        + 'The reasoning itself is currently ignored and only the final answer is checked for correctness. '
+        + 'For another leaderboard that focuses more on this, see ', cotHubLinkE, '.')
+    explanationE.classList.add('cot-explanation')
+    containerE.appendChild(explanationE)
 
     const scores = await fetchFiles(baseUrl, models, 'cot', '/scores.json')
 

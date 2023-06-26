@@ -1,9 +1,10 @@
-import { computeUpdatedHash } from '../utils.js'
+import { computeUpdatedHash, createModelsMap } from '../utils.js'
 import { createConversationItemE } from '../components/conversation-item.js'
 import { createModelSelectV } from '../components/model-select.js'
 import { createSelectV } from '../components/select.js'
 import { createTextE } from '../components/text.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
+import { createModelLinkE } from '../components/model-link.js'
 
 export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
@@ -24,16 +25,17 @@ export async function createV(baseUrl, parameters) {
     )
     containerE.appendChild(explanationE)
 
-    const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json())
+    const models = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('vicuna'))
-        .map(model => model.model_name)
+    const modelsMap = createModelsMap(models)
+    const modelNames = models.map(model => model.model_name)
 
     const filterE = document.createElement('div')
     filterE.classList.add('vicuna__filter')
     containerE.appendChild(filterE)
-    const { view: select1V, element: select1E } = createModelSelectV('Model 1', ['any', ...modelNames])
+    const { view: select1V, element: select1E } = createModelSelectV('Model 1', modelsMap, true)
     filterE.appendChild(select1V)
-    const { view: select2V, element: select2E } = createModelSelectV('Model 2', ['any', ...modelNames])
+    const { view: select2V, element: select2E } = createModelSelectV('Model 2', modelsMap, true)
     filterE.appendChild(select2V)
     const { view: selectWinnerV, element: selectWinnerE } = createSelectV('Winner Model', ['any', 'Model 1', 'Model 2'], ['any', 'model1', 'model2'])
     filterE.appendChild(selectWinnerV)
@@ -93,9 +95,9 @@ export async function createV(baseUrl, parameters) {
         reviewE.append(
             createTextE('The following prompt was given:'),
             createConversationItemE('user', question),
-            createTextE('Assistant #1 (' + review.model1 + ') answered this way:'),
+            createTextE('Assistant #1 (', createModelLinkE(modelsMap[review.model1]), ') answered this way:'),
             createConversationItemE('assistant', answer1),
-            createTextE('Assistant #2 (' + review.model2 + ') answered this way:'),
+            createTextE('Assistant #2 (', createModelLinkE(modelsMap[review.model2]), ') answered this way:'),
             createConversationItemE('assistant', answer2),
             createTextE('The following review was given:'),
             createConversationItemE('assistant', review.review),
