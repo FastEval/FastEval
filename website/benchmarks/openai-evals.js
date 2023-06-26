@@ -319,8 +319,11 @@ export async function createEvalsIndexV(baseUrl) {
         .sort(([model1Name, score1], [model2Name, score2]) => score2 - score1)
         .map(([modelName, score]) => modelName)
 
-    for (const modelName of modelNamesByScore)
-        tableHeadE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
+    for (const modelName of modelNamesByScore) {
+        const modelNameE = createModelLinkE(modelsMap[modelName])
+        modelNameE.classList.add('vertical')
+        tableHeadE.insertCell().appendChild(modelNameE)
+    }
 
     const tr = tableBodyE.insertRow()
     tr.classList.add('relative-average-score')
