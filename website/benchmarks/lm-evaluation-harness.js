@@ -53,6 +53,20 @@ export async function createV(baseUrl) {
         ['openbookqa', 'OBQA'],
     ]
 
+    function getScore(modelName, taskId) {
+        const r = resultsMap[modelName].results[taskId]
+        return (r.acc_norm ?? r.acc) * 100
+    }
+
+    const taskIds = tasks.map(([taskId, taskName]) => taskId)
+    const taskIdsWithScores = taskIds.map(taskId => [taskId, modelNames.map(modelName => getScore(modelName, taskId))])
+    const taskIdToMinimumScore = Object.fromEntries(taskIdsWithScores.map(([taskId, scores]) => [taskId, Math.min(...scores)]))
+    const taskIdToMaximumScore = Object.fromEntries(taskIdsWithScores.map(([taskId, scores]) => [taskId, Math.max(...scores)]))
+
+    function getRelativeScore(modelName, taskId) {
+        return (getScore(modelName, taskId) - taskIdToMinimumScore[taskId]) / (taskIdToMaximumScore[taskId] - taskIdToMinimumScore[taskId])
+    }
+
     const reportsIndexE = document.createElement('table')
     containerE.appendChild(reportsIndexE)
     const tableHeadE = reportsIndexE.createTHead().insertRow()
@@ -75,11 +89,8 @@ export async function createV(baseUrl) {
 
         rowE.insertCell()
 
-        for (const [taskId, taskName] of tasks) {
-            let r = resultsMap[modelName].results[taskId]
-            r = (r.acc_norm ?? r.acc) * 100
-            createTableScoreCell(rowE, createTextE(round(r)))
-        }
+        for (const taskId of taskIds)
+            createTableScoreCell(rowE, createTextE(round(getScore(modelName, taskId))), getRelativeScore(modelName, taskId))
     }
 
     return containerE

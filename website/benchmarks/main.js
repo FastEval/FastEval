@@ -309,19 +309,16 @@ export async function createBenchmarksIndexV(baseUrl) {
             }
 
             const relativeScore = getRelativeScore(model, benchmarks, benchmarkName)
-            const colorRed = 1 - relativeScore
-            const colorGreen = relativeScore
-            const color = 'rgb(' + (128 + colorRed * 128) + ',' + (128 + colorGreen * 128) + ',128)'
 
             let text = round(score)
             if (benchmarkName === 'vicuna')
                 text = Math.round(score)
             if (benchmarkName === 'human-eval-plus') {
-                createTableScoreCell(rowE, createLinkE(text, { benchmark: 'human-eval-plus', model }), color)
+                createTableScoreCell(rowE, createLinkE(text, { benchmark: 'human-eval-plus', model }), relativeScore)
                 continue
             }
 
-            createTableScoreCell(rowE, createTextE(text), color)
+            createTableScoreCell(rowE, createTextE(text), relativeScore)
         }
     }
 
