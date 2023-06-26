@@ -103,7 +103,7 @@ export async function createV(baseUrl, parameters) {
             createConversationItemE('assistant', review.review),
             review.winner_model === 'tie'
                 ? createTextE('Therefore, the result is a tie.')
-                : createTextE('Therefore, assistant #' + review.winner_model + ' (' + reviewWinnerModelName + ') won.'),
+                : createTextE('Therefore, assistant #' + review.winner_model + ' (', createModelLinkE(modelsMap[reviewWinnerModelName]), ') won.'),
         )
     }
 
