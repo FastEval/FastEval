@@ -1,11 +1,12 @@
 import { createTextE } from './text.js'
+import { allowCharacterLineBreaks } from '../utils.js'
 
-export function createModelLinkE(modelName, url) {
-    if (url === undefined)
-        return createTextE(modelName)
+export function createModelLinkE(modelInformation) {
+    if (modelInformation.url === undefined)
+        return createTextE(modelInformation.short_name ?? modelInformation.model_name)
 
     const linkE = document.createElement('a')
-    linkE.textContent = modelName
-    linkE.href = url
+    linkE.textContent = allowCharacterLineBreaks(modelInformation.short_name ?? modelInformation.model_name)
+    linkE.href = modelInformation.url
     return linkE
 }

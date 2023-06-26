@@ -33,5 +33,5 @@ export function fetchFiles(baseUrl, models, benchmarkName, end='.json') {
 }
 
 export function createModelsMap(models) {
-    return Object.fromEntries(models.map(({ model_name, ...rest }) => [model_name, { ...rest }]))
+    return Object.fromEntries(models.map(({ model_name, ...rest }) => [model_name, { model_name: model_name, ...rest }]))
 }

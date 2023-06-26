@@ -30,7 +30,7 @@ export async function createBigBenchHardE(baseUrl, models) {
 
     for (const [modelName, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelName, modelsMap[modelName].url))
+        rowE.insertCell().appendChild(createModelLinkE(modelName, modelsMap[modelName]))
         rowE.insertCell().appendChild(createTextE(round(modelScores.bbh.average)))
         for (const task of tasks)
             rowE.insertCell().appendChild(createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }))
@@ -122,7 +122,7 @@ export async function createV(baseUrl, parameters) {
 
     for (const [modelName, results] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelName, modelsMap[modelName].url))
+        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
 
         for (const column of columns) {
             if (['gsm8k'].includes(column)) {

@@ -1,10 +1,11 @@
-import { round, allowCharacterLineBreaks, computeUpdatedHash } from '../utils.js'
+import { round, allowCharacterLineBreaks, computeUpdatedHash, createModelsMap } from '../utils.js'
 import { createConversationItemE } from '../components/conversation-item.js'
 import { createLinkE } from '../components/link.js'
 import { createModelSelectV } from '../components/model-select.js'
 import { createTextE } from '../components/text.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
+import { createModelLinkE } from '../components/model-link.js'
 
 function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
@@ -299,9 +300,10 @@ export async function createEvalsIndexV(baseUrl) {
     )
     containerE.appendChild(explanationE)
 
-    const modelNames = (await (await fetch(baseUrl + '/__index__.json')).json())
+    const models = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('openai-evals'))
-        .map(model => model.model_name)
+    const modelsMap = createModelsMap(models)
+    const modelNames = models.map(model => model.model_name)
 
     const reportsIndexE = document.createElement('table')
     containerE.appendChild(reportsIndexE)
@@ -318,7 +320,7 @@ export async function createEvalsIndexV(baseUrl) {
         .map(([modelName, score]) => modelName)
 
     for (const modelName of modelNamesByScore)
-        tableHeadE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(modelName)))
+        tableHeadE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
 
     const tr = tableBodyE.insertRow()
     tr.classList.add('relative-average-score')

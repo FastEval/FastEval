@@ -52,7 +52,7 @@ export async function createV(baseUrl) {
 
     for (const modelName of modelNamesSortedByAverageScore) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelName, modelsMap[modelName].url))
+        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
 
         for (const task of tasks) {
             let r = resultsMap[modelName].results[task]

@@ -276,7 +276,9 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createLinkE('lm-evaluation-harness', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
 
-    for (const [position, { model_name: model, benchmarks, url }] of modelsSortedByRank.entries()) {
+    for (const [position, modelInformation] of modelsSortedByRank.entries()) {
+        const { model_name: model, benchmarks } = modelInformation
+
         const rowE = tbodyE.insertRow()
 
         if (benchmarks.length === 1 && benchmarks[0] === 'lm-evaluation-harness')
@@ -284,7 +286,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         else
             createTableScoreCell(rowE, createTextE(position + 1))
 
-        rowE.insertCell().appendChild(createModelLinkE(model, url))
+        rowE.insertCell().appendChild(createModelLinkE(modelInformation))
 
         const totalScore = getTotalScore(model, benchmarks)
         if (totalScore === null)
