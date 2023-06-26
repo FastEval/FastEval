@@ -1,6 +1,13 @@
 import { createBenchmarksV } from './benchmarks/main.js'
 
+function toSorted(compareFn) {
+    return [...this].sort(compareFn)
+}
+
 async function main() {
+    if (Array.prototype.toSorted === undefined)
+        Array.prototype.toSorted = toSorted
+
     window.addEventListener('hashchange', () => {
         location.reload()
     })
