@@ -8,6 +8,7 @@ import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
 import * as HumanEvalPlus from '../benchmarks/human-eval-plus.js'
 import * as CoT from '../benchmarks/cot.js'
 import { createModelLinkE } from '../components/model-link.js'
+import { getModelNumParams } from '../utils.js'
 
 async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     switch (benchmarkName) {
@@ -267,6 +268,7 @@ export async function createBenchmarksIndexV(baseUrl) {
 
     const theadE = tableE.createTHead().insertRow()
     theadE.insertCell().appendChild(createTextE('Rank'))
+    theadE.insertCell().appendChild(createTextE('Size'))
     theadE.insertCell().appendChild(createTextE('Model'))
     theadE.insertCell().appendChild(createTextE('Total'))
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
@@ -285,6 +287,8 @@ export async function createBenchmarksIndexV(baseUrl) {
             createTableScoreCell(rowE, createTextE('(' + (position + 1) + ')'))
         else
             createTableScoreCell(rowE, createTextE(position + 1))
+
+        createTableScoreCell(rowE, createTextE(getModelNumParams(modelInformation)))
 
         rowE.insertCell().appendChild(createModelLinkE(modelInformation))
 

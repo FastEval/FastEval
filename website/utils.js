@@ -35,3 +35,11 @@ export function fetchFiles(baseUrl, models, benchmarkName, end='.json') {
 export function createModelsMap(models) {
     return Object.fromEntries(models.map(({ model_name, ...rest }) => [model_name, { model_name: model_name, ...rest }]))
 }
+
+export function getModelNumParams(modelInformation) {
+    const modelName = modelInformation.model_name
+    const match = modelName.match(/[0-9]+(B|b)/)
+    if (match !== null)
+        return match[0].toUpperCase()
+    return ''
+}
