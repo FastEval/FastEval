@@ -37,6 +37,8 @@ export function createModelsMap(models) {
 }
 
 export function getModelNumParams(modelInformation) {
+    if (modelInformation.num_params)
+        return modelInformation.num_params
     const modelName = modelInformation.model_name
     const match = modelName.match(/[0-9]+(B|b)/)
     if (match !== null)
