@@ -337,13 +337,15 @@ export async function createEvalsIndexV(baseUrl) {
         reportE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(spec.base_eval)))
 
         const reportScores = scores.scoresByFilename[reportFilename]
+        const relativeReportScores = scores.relativeScoresByFilename[reportFilename]
         for (const modelName of modelNamesByScore) {
             let score = reportScores[modelName]
             if (typeof score == 'number')
                 score = round(score)
             if (score == null)
                 score = '-'
-            createTableScoreCell(reportE, createLinkE(score, { report: spec.eval_name, model: modelName }))
+            createTableScoreCell(reportE, createLinkE(score, { report: spec.eval_name, model: modelName }),
+                relativeReportScores ? relativeReportScores[modelName] : null)
         }
     }
 
@@ -384,5 +386,5 @@ export function computeRelativeOpenAiEvalsScores(openAiEvalsResults) {
         [modelName, Object.values(relativeScoresByFilenameFiltered).map(relativeScores => relativeScores[modelName])])
     const averageRelativeScoresByModelName = Object.fromEntries(relativeScoresByModelName
         .map(([modelName, relativeScores]) => [modelName, relativeScores.reduce((a, b) => a + b, 0) / relativeScores.length]))
-    return { averageRelativeScoresByModelName, scoresByFilename }
+    return { averageRelativeScoresByModelName, scoresByFilename, relativeScoresByFilename: relativeScoresByFilenameFiltered }
 }
