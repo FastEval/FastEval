@@ -2,6 +2,8 @@ import torch
 import tqdm
 import multiprocessing.pool
 
+import evaluation.models.fastchat
+
 from evaluation.models.open_ai import OpenAI
 from evaluation.models.open_assistant import OpenAssistant
 from evaluation.models.guanaco import Guanaco
@@ -66,3 +68,6 @@ def compute_model_replies(model, conversations, *, num_threads=10):
         replies_with_indices = list(tqdm.tqdm(iterator, total=len(conversations)))
 
     return [reply_with_index[1] for reply_with_index in sorted(replies_with_indices, key=lambda item: item[0])]
+
+def register_exit_handlers():
+    evaluation.models.fastchat.register_exit_handler()
