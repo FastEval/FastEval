@@ -27,7 +27,7 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     }
 }
 
-function computeModelRanks(models, getScore, getTotalScore) {
+function computeModelRanks(models, getScore, getTotalScore, getCompletedBenchmarks) {
     const modelNames = [...new Set(models.map(({ model_name: model }) => model))]
     const modelsByName = Object.fromEntries(models.map(model => [model.model_name, model]))
 
@@ -59,12 +59,12 @@ function computeModelRanks(models, getScore, getTotalScore) {
     for (const modelPair of modelPairs) {
         const [model1Name, model2Name] = modelPair
 
-        const commonBenchmarks = modelsByName[model1Name].benchmarks
-            .filter(benchmark => modelsByName[model2Name].benchmarks.includes(benchmark))
+        const commonBenchmarks = getCompletedBenchmarks(model1Name, modelsByName[model1Name].benchmarks)
+            .filter(benchmark => getCompletedBenchmarks(model2Name, modelsByName[model2Name].benchmarks).includes(benchmark))
 
         if (commonBenchmarks.length === 1 && commonBenchmarks[0] === 'lm-evaluation-harness') {
-            const model1NumBenchmarks = modelsByName[model1Name].benchmarks.length
-            const model2NumBenchmarks = modelsByName[model2Name].benchmarks.length
+            const model1NumBenchmarks = getCompletedBenchmarks(model1Name, modelsByName[model1Name].benchmarks).length
+            const model2NumBenchmarks = getCompletedBenchmarks(model2Name, modelsByName[model2Name].benchmarks).length
             if (model1NumBenchmarks === 1 && model2NumBenchmarks !== 1) {
                 performanceDifferences.set(modelPair, -Infinity)
                 continue
@@ -145,8 +145,6 @@ function computeModelRanks(models, getScore, getTotalScore) {
         .map(([ranking, loss]) => [...ranking.entries()]
             .toSorted(([model1Name, model1Rank], [model2Name, model2Rank]) => model2Rank - model1Rank))
 
-    console.log(lowestLoss)
-
     let orderings = populationItemsWithLowestLoss
     for (let i = models.length - 1; i >= 0; i--)
         orderings = orderings.toSorted((ordering1, ordering2) => ordering1[i][0].localeCompare(ordering2[i][0]))
@@ -192,6 +190,14 @@ export async function createBenchmarksIndexV(baseUrl) {
 
     const humanEvalPlusResultsMap = Object.fromEntries(humanEvalPlusResults)
     const cotResultsMap = Object.fromEntries(cotResults)
+
+    function getCompletedBenchmarks(model, benchmarks) {
+        return benchmarks.filter(benchmark => {
+            if (benchmark === 'vicuna' && !(model in vicunaEvaluationResults))
+                return false
+            return true
+        })
+    }
 
     function getScore(model, benchmarks, benchmarkName) {
         if (!benchmarks.includes(benchmarkName))
@@ -256,7 +262,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         return relativeAverageScore
     }
 
-    const modelRanks = computeModelRanks(models, getRelativeScore, getTotalScore)
+    const modelRanks = computeModelRanks(models, getRelativeScore, getTotalScore, getCompletedBenchmarks)
     const modelsSortedByRank = models.toSorted((model1, model2) => {
         const model1Rank = modelRanks[model1.model_name]
         const model2Rank = modelRanks[model2.model_name]
