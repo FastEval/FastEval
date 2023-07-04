@@ -159,7 +159,7 @@ def generate_reviews():
     while True:
         question_id = random.choice(list(questions.keys()))
         model_name1, model_name2 = min(review_count, key=review_count.get)
-        if review_count[(model_name1, model_name2)] >= 80:
+        if review_count[(model_name1, model_name2)] >= 50:
             break
         reviews.append({ 'question_id': question_id, 'model1': model_name1, 'model2': model_name2 })
         review_count[(model_name1, model_name2)] += 1
@@ -184,7 +184,7 @@ def generate_reviews():
     if len(conversations) == 0:
         return False
 
-    replies = compute_model_replies(reviewer, conversations, num_threads=20)
+    replies = compute_model_replies(reviewer, conversations, num_threads=10)
 
     for i, review in enumerate(reviews):
         if 'review' in review:
