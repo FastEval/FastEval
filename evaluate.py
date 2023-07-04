@@ -5,7 +5,7 @@ import json
 import argparse
 
 from evaluation import benchmarks
-from evaluation.utils import register_exit_handlers
+from evaluation.utils import changed_exit_handlers
 
 def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_models, new_benchmarks):
     additional_models = set()
