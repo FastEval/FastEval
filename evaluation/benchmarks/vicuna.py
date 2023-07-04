@@ -1,6 +1,7 @@
 import os
 import json
 import random
+import numpy as np
 
 from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes, create_model, compute_model_replies
 
@@ -99,36 +100,44 @@ def find_winner(line):
 
     return winner_model
 
-def compute_elo_ranks_single_seed(model_names, matches):
-    SCALE = 400
-    BASE = 10
-    K = 32
+def mle(pmat, max_iter=1000):
+    # https://datascience.stackexchange.com/a/19079
 
-    model_ranks = dict([(model, 1000) for model in model_names])
+    n = pmat.shape[0]
+    wins = np.sum(pmat, axis=0)
+    params = np.ones(n, dtype=float)
+    for i in range(max_iter):
+        tiled = np.tile(params, (n, 1))
+        combined = 1.0 / (tiled + tiled.T)
+        np.fill_diagonal(combined, 0)
+        nxt = wins / np.sum(combined, axis=0)
+        nxt = nxt / np.mean(nxt)
+        if np.linalg.norm(nxt - params, ord=np.inf) < 1e-6:
+            return nxt
+        params = nxt
+    raise RuntimeError('did not converge')
+
+def compute_ranks(model_names, matches):
+    num_wins = np.zeros((len(model_names), len(model_names)))
+    model_name_to_index = { model_name: index for index, model_name in enumerate(model_names) }
+
     for model1, model2, winner_model in matches:
-        model1_rank = model_ranks[model1]
-        model2_rank = model_ranks[model2]
-        e1 = 1 / (1 + BASE ** ((model2_rank - model1_rank) / SCALE))
-        e2 = 1 / (1 + BASE ** ((model1_rank - model2_rank) / SCALE))
+        model1_index = model_name_to_index[model1]
+        model2_index = model_name_to_index[model2]
         if winner_model == '1':
-            sa = 1
+            num_wins[model1_index, model2_index] += 1
         elif winner_model == '2':
-            sa = 0
+            num_wins[model2_index, model1_index] += 1
         elif winner_model == 'tie':
-            sa = 0.5
-        model_ranks[model1] += K * (sa - e1)
-        model_ranks[model2] += K * (1 - sa - e2)
+            num_wins[model1_index, model2_index] += 0.5
+            num_wins[model2_index, model1_index] += 0.5
 
-    return model_ranks
+    ranking = -mle(num_wins)
+    min_rank = ranking.min()
+    max_rank = ranking.max()
+    ranking = { model_names[index]: ((rank - min_rank) / (max_rank - min_rank)) for index, rank in enumerate(ranking) }
 
-def compute_elo_ranks(model_names, matches):
-    model_ranks = dict([(model, 0) for model in model_names])
-    num_seeds = 10_000
-    for _ in range(num_seeds):
-        random.shuffle(matches)
-        for model_name, model_rank in compute_elo_ranks_single_seed(model_names, matches).items():
-            model_ranks[model_name] += model_rank / num_seeds
-    return model_ranks
+    return ranking
 
 def generate_reviews():
     with open('data/vicuna/questions.json') as f:
@@ -181,7 +190,8 @@ def generate_reviews():
             ('user', prompter_message),
         ])
 
-    if len(conversations) == 0:
+    ranks_filepath = os.path.join('reports', 'vicuna', 'ranks.json')
+    if len(conversations) == 0 and os.path.exists(ranks_filepath):
         return False
 
     replies = compute_model_replies(reviewer, conversations, num_threads=10)
@@ -202,13 +212,12 @@ def generate_reviews():
 
     reviews = [review for review in reviews if review['winner_model'] is not None]
 
-    elo_ranks = compute_elo_ranks(models, [(review['model1'], review['model2'], review['winner_model']) for review in reviews])
+    ranks = compute_ranks(models, [(review['model1'], review['model2'], review['winner_model']) for review in reviews])
 
     with open(reviews_filepath, 'w') as f:
         json.dump(reviews, f, indent=4)
-    elo_filepath = os.path.join('reports', 'vicuna', 'elo.json')
-    with open(elo_filepath, 'w') as f:
-        json.dump(elo_ranks, f, indent=4)
+    with open(ranks_filepath, 'w') as f:
+        json.dump(ranks, f, indent=4)
 
     return True
 

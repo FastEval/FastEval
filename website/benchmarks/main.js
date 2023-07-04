@@ -176,7 +176,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         humanEvalPlusResults,
         cotResults,
     ] = await Promise.all([
-        fetch(baseUrl + '/vicuna/elo.json').then(r => r.json()),
+        fetch(baseUrl + '/vicuna/ranks.json').then(r => r.json()),
         fetchFiles(baseUrl, models, 'openai-evals', '/__index__.json'),
         fetchFiles(baseUrl, models, 'lm-evaluation-harness'),
         fetchFiles(baseUrl, models, 'human-eval-plus'),
@@ -279,7 +279,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createTextE('Total'))
     theadE.insertCell()
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
-    theadE.insertCell().appendChild(createLinkE('Elo Rank', { benchmark: 'vicuna' }))
+    theadE.insertCell().appendChild(createLinkE('Vicuna Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createTextE('EvalPlus'))
     theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
     theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
@@ -317,8 +317,6 @@ export async function createBenchmarksIndexV(baseUrl) {
             const relativeScore = getRelativeScore(model, benchmarks, benchmarkName)
 
             let text = round(score)
-            if (benchmarkName === 'vicuna')
-                text = Math.round(score)
             if (benchmarkName === 'human-eval-plus') {
                 createTableScoreCell(rowE, createLinkE(text, { benchmark: 'human-eval-plus', model }), relativeScore)
                 continue
