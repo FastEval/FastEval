@@ -1,6 +1,7 @@
 import threading
 import subprocess
 
+import torch
 import openai
 import tenacity
 
@@ -82,3 +83,7 @@ class Fastchat(OpenAI):
         openai.api_base = 'http://localhost:8000/v1'
         openai.api_key = 'EMPTY'
         return super()._reply(conversation, self.model_name.split('/')[-1], 400)
+
+    @staticmethod
+    def get_dtype(model_path: str):
+        return torch.bfloat16

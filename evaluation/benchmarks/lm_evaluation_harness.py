@@ -32,3 +32,4 @@ def evaluate_model(model_type, model_name):
 def evaluate_models(models):
     for model_type, model_name in models:
         evaluate_model(model_type, model_name)
+    print('!!!!!!!!!!!!DONE!!!!!!!!!!!!!!')

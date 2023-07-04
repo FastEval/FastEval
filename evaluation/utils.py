@@ -1,5 +1,6 @@
 import atexit
 import signal
+from contextlib import contextmanager
 
 import torch
 import tqdm
@@ -83,7 +84,17 @@ def switch_gpu_model_type(new_model_type):
     if new_model_type == 'fastchat':
         evaluation.models.huggingface.unload_model()
 
-def register_exit_handlers():
+@contextmanager
+def changed_exit_handlers():
+    previous_sigterm = signal.getsignal(signal.SIGTERM)
+    previous_sigint = signal.getsignal(signal.SIGINT)
+
     atexit.register(unload_model)
     signal.signal(signal.SIGTERM, unload_model)
     signal.signal(signal.SIGINT, unload_model)
+
+    yield
+
+    atexit.unregister(unload_model)
+    signal.signal(signal.SIGTERM, previous_sigterm)
+    signal.signal(signal.SIGINT, previous_sigint)
