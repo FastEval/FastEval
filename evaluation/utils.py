@@ -9,6 +9,7 @@ from evaluation.models.falcon_instruct import FalconInstruct
 from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
 from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
 from evaluation.models.chatml import ChatML
+from evaluation.models.fastchat import Fastchat
 
 def replace_model_name_slashes(model_name: str) -> str:
     """
@@ -37,6 +38,8 @@ def get_model_class(model_type: str):
         return AlpacaWithPrefix
     if model_type == 'chatml':
         return ChatML
+    if model_type == 'fastchat':
+        return Fastchat
 
 def create_model(model_type: str, model_name: str):
     return get_model_class(model_type)(model_name)

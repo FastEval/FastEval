@@ -1,3 +1,5 @@
+import os
+
 import openai
 import tenacity
 
@@ -19,6 +21,8 @@ class OpenAI:
 
     @tenacity.retry(wait=tenacity.wait_random_exponential(min=1, max=180), stop=tenacity.stop_after_attempt(30), after=print_retry)
     def reply(self, conversation):
+        openai.api_base = 'https://api.openai.com/v1'
+        openai.api_key = os.environ['OPENAI_API_KEY']
         return openai.ChatCompletion.create(
             model=self.model_name,
             messages=[self._conversation_item_to_openai_format(item_type, item) for item_type, item in conversation],
