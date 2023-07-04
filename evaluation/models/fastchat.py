@@ -1,19 +1,29 @@
 import threading
 import subprocess
-import atexit
-import signal
 
 import openai
 import tenacity
 
 from .open_ai import OpenAI
 
+import evaluation.utils
+
 lock = threading.Lock()
 server = None
 
-def stop_server():
-    for process in server['processes']:
-        process.kill()
+def unload_model(use_lock=True):
+    global server
+
+    if use_lock:
+        lock.acquire()
+
+    if server is not None:
+        for process in server['processes']:
+            process.kill()
+        server = None
+
+    if use_lock:
+        lock.release()
 
 def print_process_output(process_name, process, output_type):
     for line in getattr(process, output_type):
@@ -56,10 +66,12 @@ def start_server(model_name):
 def ensure_model_is_loaded(model_name):
     lock.acquire()
 
+    evaluation.utils.switch_gpu_model_type('fastchat')
+
     if server is None:
         start_server(model_name)
     elif server['model_name'] != model_name:
-        stop_server()
+        unload_model(False)
         start_server(model_name)
 
     lock.release()
@@ -69,9 +81,4 @@ class Fastchat(OpenAI):
         ensure_model_is_loaded(self.model_name)
         openai.api_base = 'http://localhost:8000/v1'
         openai.api_key = 'EMPTY'
-        return super()._reply(conversation, self.model_name.split('/')[-1])
-
-def register_exit_handler():
-    atexit.register(stop_server)
-    signal.signal(signal.SIGTERM, stop_server)
-    signal.signal(signal.SIGINT, stop_server)
+        return super()._reply(conversation, self.model_name.split('/')[-1], 400)

@@ -1,17 +1,21 @@
+import atexit
+import signal
+
 import torch
 import tqdm
 import multiprocessing.pool
 
 import evaluation.models.fastchat
+import evaluation.models.huggingface
 
 from evaluation.models.open_ai import OpenAI
+from evaluation.models.fastchat import Fastchat
 from evaluation.models.open_assistant import OpenAssistant
 from evaluation.models.guanaco import Guanaco
 from evaluation.models.falcon_instruct import FalconInstruct
 from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
 from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
 from evaluation.models.chatml import ChatML
-from evaluation.models.fastchat import Fastchat
 
 def replace_model_name_slashes(model_name: str) -> str:
     """
@@ -69,5 +73,17 @@ def compute_model_replies(model, conversations, *, num_threads=10):
 
     return [reply_with_index[1] for reply_with_index in sorted(replies_with_indices, key=lambda item: item[0])]
 
+def unload_model():
+    evaluation.models.fastchat.unload_model()
+    evaluation.models.huggingface.unload_model()
+
+def switch_gpu_model_type(new_model_type):
+    if new_model_type == 'huggingface':
+        evaluation.models.fastchat.unload_model()
+    if new_model_type == 'fastchat':
+        evaluation.models.huggingface.unload_model()
+
 def register_exit_handlers():
-    evaluation.models.fastchat.register_exit_handler()
+    atexit.register(unload_model)
+    signal.signal(signal.SIGTERM, unload_model)
+    signal.signal(signal.SIGINT, unload_model)

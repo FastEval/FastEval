@@ -1,15 +1,30 @@
 import threading
 import uuid
 import time
+import gc
 
 import torch
 import transformers
 
 from .utils import put_system_message_in_prompter_message
+import evaluation.utils
 
 lock = threading.Lock()
 pipeline = None
 current_batch = []
+
+def unload_model(use_lock=True):
+    global pipeline
+
+    if use_lock:
+        lock.acquire()
+
+    if pipeline is not None:
+        pipeline = None
+        gc.collect()
+
+    if use_lock:
+        lock.release()
 
 def conversation_to_prompt(*, conversation, prefix, user, assistant, system, default_system, end):
     if system is None:
@@ -115,10 +130,13 @@ def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assis
 
     lock.acquire()
 
+    evaluation.utils.switch_gpu_model_type('huggingface')
+
     if (pipeline is None
             or pipeline['tokenizer_path'] != tokenizer_path
             or pipeline['model_path'] != model_path
             or pipeline['dtype'] != dtype):
+        unload_model(False)
         tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
         pipeline = {
             'tokenizer_path': tokenizer_path,
