@@ -1,8 +1,16 @@
+import atexit
+import signal
+from contextlib import contextmanager
+
 import torch
 import tqdm
 import multiprocessing.pool
 
+import evaluation.models.fastchat
+import evaluation.models.huggingface
+
 from evaluation.models.open_ai import OpenAI
+from evaluation.models.fastchat import Fastchat
 from evaluation.models.open_assistant import OpenAssistant
 from evaluation.models.guanaco import Guanaco
 from evaluation.models.falcon_instruct import FalconInstruct
@@ -37,6 +45,8 @@ def get_model_class(model_type: str):
         return AlpacaWithPrefix
     if model_type == 'chatml':
         return ChatML
+    if model_type == 'fastchat':
+        return Fastchat
 
 def create_model(model_type: str, model_name: str):
     return get_model_class(model_type)(model_name)
@@ -63,3 +73,28 @@ def compute_model_replies(model, conversations, *, num_threads=10):
         replies_with_indices = list(tqdm.tqdm(iterator, total=len(conversations)))
 
     return [reply_with_index[1] for reply_with_index in sorted(replies_with_indices, key=lambda item: item[0])]
+
+def unload_model():
+    evaluation.models.fastchat.unload_model()
+    evaluation.models.huggingface.unload_model()
+
+def switch_gpu_model_type(new_model_type):
+    if new_model_type == 'huggingface':
+        evaluation.models.fastchat.unload_model()
+    if new_model_type == 'fastchat':
+        evaluation.models.huggingface.unload_model()
+
+@contextmanager
+def changed_exit_handlers():
+    previous_sigterm = signal.getsignal(signal.SIGTERM)
+    previous_sigint = signal.getsignal(signal.SIGINT)
+
+    atexit.register(unload_model)
+    signal.signal(signal.SIGTERM, unload_model)
+    signal.signal(signal.SIGINT, unload_model)
+
+    yield
+
+    atexit.unregister(unload_model)
+    signal.signal(signal.SIGTERM, previous_sigterm)
+    signal.signal(signal.SIGINT, previous_sigint)
