@@ -1,6 +1,8 @@
 import threading
 import subprocess
 import os
+import re
+import json
 
 import torch
 import openai
@@ -84,11 +86,24 @@ class Fastchat(OpenAI):
     def __init__(self, model_name, *, max_new_tokens=400):
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
+    def _reply(self, conversation, model_name):
+        try:
+            return super()._reply(conversation, model_name)
+        except openai.error.APIError as error:
+            error_information = re.search("This model's maximum context length is ([0-9]+) tokens\. "
+                + 'However, you requested ([0-9]+) tokens \([0-9]+ in the messages, [0-9]+ in the completion\)\. '
+                + 'Please reduce the length of the messages or completion\.', json.loads(error.http_body)['message'])
+            maximum_context_length = int(error_information.group(1))
+            request_total_length = int(error_information.group(2))
+            num_tokens_too_much = request_total_length - maximum_context_length
+            reduced_max_new_tokens = self.max_new_tokens - num_tokens_too_much
+            return super()._reply(conversation, model_name, max_new_tokens=reduced_max_new_tokens)
+
     def reply(self, conversation):
         ensure_model_is_loaded(self.model_name)
         openai.api_base = 'http://localhost:8000/v1'
         openai.api_key = 'EMPTY'
-        return super()._reply(conversation, self.model_name.split('/')[-1])
+        return self._reply(conversation, self.model_name.split('/')[-1])
 
     @staticmethod
     def get_dtype(model_path: str):
