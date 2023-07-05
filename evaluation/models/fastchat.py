@@ -1,5 +1,6 @@
 import threading
 import subprocess
+import os
 
 import torch
 import openai
@@ -34,6 +35,8 @@ def start_server(model_name):
     global server
 
     print('[fastchat] Starting server for fastchat:' + model_name)
+
+    os.environ['FASTCHAT_WORKER_API_TIMEOUT'] = '1000000000'
 
     controller_process = subprocess.Popen(['python3', '-m', 'fastchat.serve.controller', '--host', '127.0.0.1'],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
