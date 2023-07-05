@@ -6,13 +6,13 @@ import { createConversationItemE } from '../components/conversation-item.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
-export async function createBigBenchHardE(baseUrl, models) {
+export async function createMultiTaskE(baseUrl, models, benchmark) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to CoT table', '#?benchmark=cot'))
 
     const scores = Object.entries(computeRelativeScores(Object.fromEntries(await fetchFiles(baseUrl, models, 'cot', '/scores.json'))))
-    const tasks = Object.keys(scores[0][1].bbh.tasks)
+    const tasks = Object.keys(scores[0][1][benchmark].tasks)
 
     const tableE = document.createElement('table')
     containerE.appendChild(tableE)
@@ -29,26 +29,26 @@ export async function createBigBenchHardE(baseUrl, models) {
     }
 
     const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
-        model2Scores.bbh.total - model1Scores.bbh.total)
+        model2Scores[benchmark].total - model1Scores[benchmark].total)
 
     const modelsMap = createModelsMap(models)
 
     for (const [modelName, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
-        rowE.insertCell().appendChild(createTextE(round(modelScores.bbh.total)))
+        rowE.insertCell().appendChild(createTextE(round(modelScores[benchmark].total)))
         rowE.insertCell()
         for (const task of tasks)
-            createTableScoreCell(rowE, createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }),
-                modelScores.bbh.tasks[task])
+            createTableScoreCell(rowE, createLinkE(round(modelScores[benchmark].tasks[task]), { task: benchmark + '/' + task, model: modelName }),
+                modelScores[benchmark].tasks[task])
     }
 
     return containerE
 }
 
 export async function createTaskV(baseUrl, models, modelsMap, task, parameters) {
-    if (task === 'bbh')
-        return await createBigBenchHardE(baseUrl, models)
+    if (['bbh', 'mmlu'].includes(task))
+        return await createMultiTaskE(baseUrl, models, task)
 
     const modelName = parameters.get('model')
 
@@ -83,7 +83,9 @@ export async function createTaskV(baseUrl, models, modelsMap, task, parameters) 
             createTextE('The following question was asked:'),
             createConversationItemE('user', item.question),
             createTextE('The following answer was expected:'),
-            createConversationItemE('assistant', item.correct_answer),
+            createConversationItemE('assistant', typeof item.correct_answer === 'number'
+                ? ('(' + ['A', 'B', 'C', 'D'][item.correct_answer] + ')')
+                : item.correct_answer),
             createTextE('The model responded in the following way:'),
             createConversationItemE('assistant', item.model_answer),
             createTextE('This answer was ' + (item.correct ? 'correct' : 'incorrect') + '.'),
@@ -128,14 +130,15 @@ export async function createV(baseUrl, parameters) {
     const columns = [
         ['gsm8k', 'GSM8K'],
         ['bbh', 'BBH'],
+        ['mmlu', 'MMLU'],
     ]
 
     tableHeadE.insertCell().appendChild(createTextE('Total'))
     tableHeadE.insertCell()
 
     for (const [columnId, columnName] of columns) {
-        if (columnId === 'bbh')
-            tableHeadE.insertCell().appendChild(createLinkE(columnName, { task: 'bbh' }))
+        if (['bbh', 'mmlu'].includes(columnId))
+            tableHeadE.insertCell().appendChild(createLinkE(columnName, { task: columnId }))
         else
             tableHeadE.insertCell().appendChild(createTextE(columnName))
     }
@@ -152,7 +155,7 @@ export async function createV(baseUrl, parameters) {
 
         for (const [columnId, columnName] of columns) {
             const cellE = columnId === 'gsm8k' ? createLinkE(round(results[columnId]), { task: columnId, model: modelName })
-                : columnId === 'bbh' ? createTextE(round(results[columnId].total)) : undefined
+                : ['bbh', 'mmlu'].includes(columnId) ? createTextE(round(results[columnId].total)) : undefined
             createTableScoreCell(rowE, cellE, results[columnId].total ?? results[columnId])
         }
     }
@@ -165,7 +168,7 @@ export function computeRelativeScores(absoluteScores) {
 
     const relativeScores = {}
     for (const modelName of modelNames)
-        relativeScores[modelName] = { bbh: { tasks: {} } }
+        relativeScores[modelName] = { bbh: { tasks: {} }, mmlu: { tasks: {} } }
 
     const gsm8k = Object.values(absoluteScores).map(e => e.gsm8k)
     const minGsm8k = Math.min(...gsm8k)
@@ -174,28 +177,30 @@ export function computeRelativeScores(absoluteScores) {
     for (const modelName of modelNames)
         relativeScores[modelName].gsm8k = (absoluteScores[modelName].gsm8k - minGsm8k) / (maxGsm8k - minGsm8k)
 
-    const bbhTasks = Object.keys(absoluteScores[modelNames[0]].bbh.tasks)
+    for (const benchmark of ['bbh', 'mmlu']) {
+        const tasks = Object.keys(absoluteScores[modelNames[0]][benchmark].tasks)
 
-    for (const taskName of bbhTasks) {
-        const values = Object.values(absoluteScores).map(e => e.bbh.tasks[taskName])
-        const min = Math.min(...values)
-        const max = Math.max(...values)
+        for (const taskName of tasks) {
+            const values = Object.values(absoluteScores).map(e => e[benchmark].tasks[taskName])
+            const min = Math.min(...values)
+            const max = Math.max(...values)
+            for (const modelName of modelNames)
+                relativeScores[modelName][benchmark].tasks[taskName] = (absoluteScores[modelName][benchmark].tasks[taskName] - min) / (max - min)
+        }
+
         for (const modelName of modelNames)
-            relativeScores[modelName].bbh.tasks[taskName] = (absoluteScores[modelName].bbh.tasks[taskName] - min) / (max - min)
+            relativeScores[modelName][benchmark].total = Object.values(relativeScores[modelName][benchmark].tasks).reduce((a, b) => a + b) / tasks.length
+
+        const scores = Object.values(relativeScores).map(e => e[benchmark].total)
+        const minScore = Math.min(...scores)
+        const maxScore = Math.max(...scores)
+
+        for (const modelName of modelNames)
+            relativeScores[modelName][benchmark].total = (relativeScores[modelName][benchmark].total - minScore) / (maxScore - minScore)
     }
 
     for (const modelName of modelNames)
-        relativeScores[modelName].bbh.total = Object.values(relativeScores[modelName].bbh.tasks).reduce((a, b) => a + b) / bbhTasks.length
-
-    const bbh = Object.values(relativeScores).map(e => e.bbh.total)
-    const minBbh = Math.min(...bbh)
-    const maxBbh = Math.max(...bbh)
-
-    for (const modelName of modelNames)
-        relativeScores[modelName].bbh.total = (relativeScores[modelName].bbh.total - minBbh) / (maxBbh - minBbh)
-
-    for (const modelName of modelNames)
-        relativeScores[modelName].total = (relativeScores[modelName].gsm8k + relativeScores[modelName].bbh.total) / 2
+        relativeScores[modelName].total = (relativeScores[modelName].gsm8k + relativeScores[modelName].bbh.total + relativeScores[modelName].mmlu.total) / 3
 
     return relativeScores
 }
