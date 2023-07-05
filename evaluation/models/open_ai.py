@@ -20,11 +20,14 @@ class OpenAI:
             return { 'role': 'assistant', 'content': item }
         raise
 
-    def _reply(self, conversation, model_name):
+    def _reply(self, conversation, model_name, max_new_tokens=None):
+        if max_new_tokens is None:
+            max_new_tokens = self.max_new_tokens
+
         return openai.ChatCompletion.create(
             model=model_name,
             messages=[self._conversation_item_to_openai_format(item_type, item) for item_type, item in conversation],
-            max_tokens=self.max_new_tokens,
+            max_tokens=max_new_tokens,
 
             # Hardcode default parameters from https://platform.openai.com/docs/api-reference/chat/create
             temperature=1.0,
