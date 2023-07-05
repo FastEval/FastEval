@@ -36,6 +36,8 @@ def print_process_output(process_name, process, output_type):
 def start_server(model_name):
     global server
 
+    use_vllm = True # TODO: Get that from somewhere. Not all models are supported.
+
     print('[fastchat] Starting server for fastchat:' + model_name)
 
     os.environ['FASTCHAT_WORKER_API_TIMEOUT'] = '1000000000'
@@ -49,7 +51,12 @@ def start_server(model_name):
 
     print('[fastchat] Started controller. Starting model_worker & openai_api_server next.')
 
-    model_process = subprocess.Popen(['python3', '-m', 'fastchat.serve.model_worker', '--host', '127.0.0.1', '--model-path', model_name],
+    if use_vllm:
+        worker_name = 'fastchat.serve.vllm_worker'
+    else:
+        worker_name = 'fastchat.serve.model_worker'
+
+    model_process = subprocess.Popen(['python3', '-m', worker_name, '--host', '127.0.0.1', '--model-path', model_name],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     api_process = subprocess.Popen(['python3', '-m', 'fastchat.serve.openai_api_server', '--host', '127.0.0.1', '--port', '8000'],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
