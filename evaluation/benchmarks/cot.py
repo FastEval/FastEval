@@ -5,10 +5,10 @@ import json
 import datasets
 import tqdm
 
-from evaluation.utils import create_model, replace_model_name_slashes
+from evaluation.utils import create_model, replace_model_name_slashes, compute_model_replies
 
-def reply(model, answer_format, question):
-    return model.reply([
+def create_conversation(answer_format, question):
+    return [
         ('user',
             'Please answer the following question step-by-step. '
             'Do not output the answer immediately. '
@@ -17,7 +17,7 @@ def reply(model, answer_format, question):
             'The final line should contain the answer ' + answer_format + ' without anything else.'
             '\n\n'
             + question),
-    ], max_new_tokens=1024)
+    ]
 
 def evaluate_model_on_dataset(*, name, model, data, question_column, answer_column, answer_format, is_correct,
         output_path, limit=float('inf'), create_question=None):
@@ -26,23 +26,32 @@ def evaluate_model_on_dataset(*, name, model, data, question_column, answer_colu
         with open(output_file_path) as f:
             return json.load(f)['score']
 
-    num_correct = 0
-    num_total = 0
-    model_outputs = []
     print('Evaluating model on ', name)
-    for item in tqdm.tqdm(data.select(range(min(limit, len(data))))):
+
+    num_total = 0
+    requests = []
+    for item in data.select(range(min(limit, len(data)))):
         if isinstance(question_column, str):
             question = item[question_column]
         elif isinstance(question_column, list):
             question = create_question({ column: item[column] for column in question_column })
         correct_answer = item[answer_column]
-        model_answer = reply(model, answer_format, question)
-        model_answer_is_correct = is_correct(model_answer=model_answer.split('\n')[-1], correct_answer=correct_answer)
-        model_outputs.append({ 'id': num_total, 'question': question, 'correct_answer': correct_answer,
+        conversation = create_conversation(answer_format, question)
+        requests.append({ 'id': num_total, 'question': question, 'correct_answer': correct_answer,
+            'conversation': conversation })
+        num_total += 1
+
+    model_answers = compute_model_replies(model, [request['conversation'] for request in requests])
+
+    model_outputs = []
+    num_correct = 0
+    for i, request in enumerate(requests):
+        model_answer = model_answers[i]
+        model_answer_is_correct = is_correct(model_answer=model_answer.split('\n')[-1], correct_answer=request['correct_answer'])
+        model_outputs.append({ 'id': request['id'], 'question': request['question'], 'correct_answer': request['correct_answer'],
             'model_answer': model_answer, 'correct': model_answer_is_correct })
         if model_answer_is_correct:
             num_correct += 1
-        num_total += 1
 
     score = num_correct / num_total
 
@@ -167,7 +176,7 @@ def evaluate_model(model_type, model_name):
     if os.path.exists(final_scores_file):
         return
 
-    model = create_model(model_type, model_name)
+    model = create_model(model_type, model_name, max_new_tokens=1024)
 
     tasks_path = os.path.join(output_folder, 'tasks')
 
