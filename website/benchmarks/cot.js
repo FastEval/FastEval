@@ -4,6 +4,7 @@ import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
 import { createConversationItemE } from '../components/conversation-item.js'
 import { createModelLinkE } from '../components/model-link.js'
+import { createTableScoreCell } from '../components/table-score-cell.js'
 
 export async function createBigBenchHardE(baseUrl, models) {
     const containerE = document.createElement('div')
@@ -19,9 +20,13 @@ export async function createBigBenchHardE(baseUrl, models) {
     const tableBodyE = tableE.createTBody()
     tableHeadE.insertCell().appendChild(createTextE('Model'))
     tableHeadE.insertCell().appendChild(createTextE('Total'))
+    tableHeadE.insertCell()
 
-    for (const task of tasks)
-        tableHeadE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(task)))
+    for (const task of tasks) {
+        const taskE = createTextE(allowCharacterLineBreaks(task))
+        taskE.classList.add('vertical')
+        tableHeadE.insertCell().appendChild(taskE)
+    }
 
     const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
         model2Scores.bbh.total - model1Scores.bbh.total)
@@ -32,8 +37,10 @@ export async function createBigBenchHardE(baseUrl, models) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
         rowE.insertCell().appendChild(createTextE(round(modelScores.bbh.total)))
+        rowE.insertCell()
         for (const task of tasks)
-            rowE.insertCell().appendChild(createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }))
+            createTableScoreCell(rowE, createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }),
+                modelScores.bbh.tasks[task])
     }
 
     return containerE
@@ -144,11 +151,9 @@ export async function createV(baseUrl, parameters) {
         rowE.insertCell()
 
         for (const [columnId, columnName] of columns) {
-            if (columnId === 'gsm8k') {
-                rowE.insertCell().appendChild(createLinkE(round(results[columnId]), { task: columnId, model: modelName }))
-            } else if (columnId === 'bbh') {
-                rowE.insertCell().appendChild(createTextE(round(results[columnId].total)))
-            }
+            const cellE = columnId === 'gsm8k' ? createLinkE(round(results[columnId]), { task: columnId, model: modelName })
+                : columnId === 'bbh' ? createTextE(round(results[columnId].total)) : undefined
+            createTableScoreCell(rowE, cellE, results[columnId].total ?? results[columnId])
         }
     }
 
