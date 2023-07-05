@@ -48,8 +48,8 @@ def get_model_class(model_type: str):
     if model_type == 'fastchat':
         return Fastchat
 
-def create_model(model_type: str, model_name: str):
-    return get_model_class(model_type)(model_name)
+def create_model(model_type: str, model_name: str, **kwargs):
+    return get_model_class(model_type)(model_name, **kwargs)
 
 def get_dtype(model_type: str, model_name: str):
     if model_type == 'base':

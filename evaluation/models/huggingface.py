@@ -70,7 +70,7 @@ def process_current_batch():
         # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
 
         # Parameters that control the length of the output
-        max_new_tokens=400,
+        max_new_tokens=pipeline['max_new_tokens'],
         min_new_tokens=1,
 
         # Parameters that control the generation strategy used
@@ -125,7 +125,7 @@ def wait_for_response(condition):
             item['obtained_response'] = True
             return response
 
-def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assistant, system, default_system, end, prefix):
+def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assistant, system, default_system, end, prefix, max_new_tokens):
     global pipeline
 
     lock.acquire()
@@ -135,7 +135,8 @@ def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assis
     if (pipeline is None
             or pipeline['tokenizer_path'] != tokenizer_path
             or pipeline['model_path'] != model_path
-            or pipeline['dtype'] != dtype):
+            or pipeline['dtype'] != dtype
+            or pipeline['max_new_tokens'] != max_new_tokens):
         unload_model(False)
         tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
         pipeline = {
@@ -152,6 +153,7 @@ def run_pipeline(*, tokenizer_path, model_path, dtype, conversation, user, assis
                 trust_remote_code=True,
                 device_map='auto'
             ),
+            'max_new_tokens': max_new_tokens
         }
 
     if end == 'tokenizer-eos-token':
@@ -178,6 +180,7 @@ class Huggingface:
         system=None,
         default_system='',
         end: str,
+        max_new_tokens=400,
     ):
         if tokenizer_path is None:
             tokenizer_path = model_path
@@ -193,6 +196,8 @@ class Huggingface:
         self.default_system = default_system
         self.end = end
 
+        self.max_new_tokens = max_new_tokens
+
     @staticmethod
     def get_dtype(model_path: str):
         return torch.float16
@@ -200,4 +205,5 @@ class Huggingface:
     def reply(self, conversation):
         return run_pipeline(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
             conversation=conversation, user=self.user, assistant=self.assistant,
-            system=self.system, default_system=self.default_system, prefix=self.prefix, end=self.end)
+            system=self.system, default_system=self.default_system, prefix=self.prefix, end=self.end,
+            max_new_tokens=self.max_new_tokens)

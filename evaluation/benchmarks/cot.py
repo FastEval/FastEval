@@ -17,7 +17,7 @@ def reply(model, answer_format, question):
             'The final line should contain the answer ' + answer_format + ' without anything else.'
             '\n\n'
             + question),
-    ])
+    ], max_new_tokens=1024)
 
 def evaluate_model_on_dataset(*, name, model, data, question_column, answer_column, answer_format, is_correct,
         output_path, limit=float('inf'), create_question=None):
