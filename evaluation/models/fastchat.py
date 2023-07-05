@@ -78,11 +78,14 @@ def ensure_model_is_loaded(model_name):
     lock.release()
 
 class Fastchat(OpenAI):
+    def __init__(self, model_name, *, max_new_tokens=400):
+        super().__init__(model_name, max_new_tokens=max_new_tokens)
+
     def reply(self, conversation):
         ensure_model_is_loaded(self.model_name)
         openai.api_base = 'http://localhost:8000/v1'
         openai.api_key = 'EMPTY'
-        return super()._reply(conversation, self.model_name.split('/')[-1], 400)
+        return super()._reply(conversation, self.model_name.split('/')[-1])
 
     @staticmethod
     def get_dtype(model_path: str):

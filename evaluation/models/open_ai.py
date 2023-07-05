@@ -7,8 +7,9 @@ def print_retry(error):
     print('Got error from OpenAI API. Retrying.', error)
 
 class OpenAI:
-    def __init__(self, model_name):
+    def __init__(self, model_name, *, max_new_tokens=1024):
         self.model_name = model_name
+        self.max_new_tokens = max_new_tokens
 
     def _conversation_item_to_openai_format(self, item_type, item):
         if item_type == 'system':
@@ -19,11 +20,11 @@ class OpenAI:
             return { 'role': 'assistant', 'content': item }
         raise
 
-    def _reply(self, conversation, model_name, max_tokens=1024):
+    def _reply(self, conversation, model_name):
         return openai.ChatCompletion.create(
             model=model_name,
             messages=[self._conversation_item_to_openai_format(item_type, item) for item_type, item in conversation],
-            max_tokens=max_tokens,
+            max_tokens=self.max_new_tokens,
 
             # Hardcode default parameters from https://platform.openai.com/docs/api-reference/chat/create
             temperature=1.0,
