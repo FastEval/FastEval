@@ -1,0 +1,75 @@
+{
+    "score": 0.6,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Identify the conclusion of the following argument. It is hard not to verify in our peers the same weakened intelligence due to emotions that we observe in our everyday patients. The arrogance of our consciousness, which in general, belongs to the strongest defense mechanisms, blocks the unconscious complexes. Because of this, it is difficult to convince people of the unconscious, and in turn to teach them what their conscious knowledge contradicts. (Sigmund Freud, The Origin and Development of Psychoanalysis)\n\n(A) It is hard not to verify in our peers the same weakened intelligence due to emotions that we observe in our everyday patients.\n(B) The arrogance of our consciousness, which in general, belongs to the strongest defense mechanisms, blocks the unconscious complexes.\n(C) Because of this, it is difficult to convince people of the unconscious, and in turn to teach them what their conscious knowledge contradicts.\n(D) It is difficult to convince people of the unconscious, and in turn to teach them what their conscious knowledge contradicts.",
+            "correct_answer": 3,
+            "model_answer": "The conclusion of the argument is (D) It is difficult to convince people of the unconscious, and in turn to teach them what their conscious knowledge contradicts.",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Select the best translation into predicate logic. David teaches Chris. (c: Chris; d: David; Txy: x teaches y)\n\n(A) Tdc\n(B) Tcd\n(C) Tcc\n(D) dTc",
+            "correct_answer": 0,
+            "model_answer": "The sentence states that David teaches Chris. We can translate this into predicate logic using the binary predicate \"Txy\" to mean \"x teaches y.\" We can let \"d\" represent David and \"c\" represent Chris. Therefore, the best translation would be \"Tdc.\" This reads as \"David teaches Chris.\" \n\nAnswer: (A)",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": " Select the best English interpretation of the given proposition, using the following translation key: Ax: x is an apartment Hx: x is a house Lx: x is large Bxy: x is bigger than y (\u2203x)[(Ax \u2022 Lx) \u2022 (\u2203y)(Hy \u2022 Bxy)]\n\n(A) Some large houses are bigger than some apartments.\n(B) Some houses are bigger than all large apartments.\n(C) Some large apartments are bigger than some houses.\n(D) Some houses are bigger thatn some large apartments.",
+            "correct_answer": 2,
+            "model_answer": "The proposition can be translated as: \"There exists an apartment that is large and there exists a house that is smaller than the apartment.\" This means that there is at least one large apartment and at least one house that is smaller than that apartment. Therefore, the best English interpretation is (D) Some houses are bigger than some large apartments.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Construct a complete truth table for the following argument. Then, using the truth table, determine whether the argument is valid or invalid. If the argument is invalid, choose an option which presents a counterexample. (There may be other counterexamples as well.)\n~G \u2283 H\n~H / G\n\n(A) Valid\n(B) Invalid. Counterexample when G and H are true\n(C) Invalid. Counterexample when G is true and H is false\n(D) Invalid. Counterexample when H is true and G is false",
+            "correct_answer": 0,
+            "model_answer": "First, we need to list all possible truth values for the propositions G and H. There are two propositions, so there are 2^2 = 4 rows in the truth table. \n\nFor each row, we can fill in the truth value for ~G and ~H by applying the negation operator. To find the truth value for the conditional ~G \u2283 H, we can use the truth table for \u2192: if the antecedent ~G is true and the consequent H is false, then the conditional is false, otherwise it is true. \n\n~G | H | ~G \u2283 H | ~H / G\n---------------------------\n T | T |    T    |   F\n T | F |    F    |   T\n F | T |    T    |   F\n F | F |    T    |   T\n\nNow we need to evaluate whether the argument is valid or invalid. In order for the argument to be valid, the premises must imply the conclusion in every case. This means that if we find a row where both premises are true, but the conclusion is false, then the argument is invalid. \n\nLooking at the truth table, we see that there is only one row where both premises are true: the first row where ~G is false and H is true. In this row, the conclusion ~H / G is also true, so the argument is valid. \n\nTherefore, the answer is (A) Valid.",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": " Use the following key to translate the given formula of PL to natural, English sentences.\nA: Marina reads a Percy Jackson book.\nB: Izzy plays Minecraft.\nC: Emily stops working.\nD: Russell makes dinner.\nE: Ashleigh stops by.\n(~B \u2022 E) \u2283 D\n\n(A) If it's not the case that both Izzy plays Minecraft and Ashleigh stops by then Russell makes dinner.\n(B) If it's both not the case that Izzy plays Minecraft and Ashleigh stops by then Russell makes dinner.\n(C) Izzy playing Minecraft and Ashleigh stopping by entails that Russell makes dinner.\n(D) Russell's making dinner is a sufficient condition for Izzy not playing Minecraft and Ashleigh stopping by.",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Identify the main connective and the atomic propositions in the formula.\n\nMain connective: \u2283 (conditional)\nAtomic propositions: B, E, D\n\nStep 2: Translate the atomic propositions using the key.\n\nB: Izzy plays Minecraft.\nE: Ashleigh stops by.\nD: Russell makes dinner.\n\nStep 3: Translate the formula using the key and logical equivalences.\n\n(~B \u2022 E) \u2283 D\n\u2261 ~(B) \u2228 E \u2283 D      (De Morgan's laws and definition of conditional)\n\u2261 (B \u2283 ~E) \u2228 D       (Material implication)\n\u2261 ~(B \u2283 ~E) \u2227 ~D     (De Morgan's laws)\n\nStep 4: Translate the final formula in natural, English sentences.\n\n(B \u2283 ~E) is equivalent to \"If Izzy plays Minecraft, then Ashleigh does not stop by.\" Therefore, the final formula is equivalent to \"Neither does Izzy play Minecraft nor does Ashleigh stop by if Russell does not make dinner.\"\n\nStep 5: Output the answer based on the final translation.\n\nAnswer: C",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": " Select the best English interpretation of the given proposition, using the following translation key: Ax: x is an apartment Hx: x is a house Lx: x is large Bxy: x is bigger than y (\u2203x)[Hx \u2022 (\u2200y)(Ay \u2283 Bxy)]\n\n(A) Some houses are smaller than all apartments.\n(B) Every house is bigger than every apartment.\n(C) Some apartment is smaller than every house.\n(D) Some houses are bigger than every apartment.",
+            "correct_answer": 3,
+            "model_answer": "The proposition can be translated as \"There exists a house such that for all apartments, the house is bigger than the apartment.\" This means that there is at least one house that is bigger than every single apartment. Therefore, the correct interpretation is (B) Every house is bigger than every apartment. (B)",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Construct a complete truth table for the following argument. Then, using the truth table, determine whether the argument is valid or invalid. If the argument is invalid, choose an option which presents a counterexample. (There may be other counterexamples as well.)\n~K \u2261 L / (K \u00b7 L) \u2228 (K \u00b7 ~L)\n\n(A) Valid\n(B) Invalid. Counterexample when K and L are true\n(C) Invalid. Counterexample when K is true and L is false\n(D) Invalid. Counterexample when L is true and K is false",
+            "correct_answer": 3,
+            "model_answer": "First, we need to construct a truth table for the argument. \n\n| K | L | ~K | ~K \u2261 L | K \u00b7 L | K \u00b7 ~L | (K \u00b7 L) \u2228 (K \u00b7 ~L) |\n|---|---|----|--------|-------|--------|--------------------|\n| T | T | F  | F      | T     | F      | T                  |\n| T | F | F  | T      | F     | T      | T                  |\n| F | T | T  | T      | F     | F      | F                  |\n| F | F | T  | F      | F     | F      | F                  |\n\nNext, we need to determine whether the argument is valid or invalid by analyzing the truth table. In order for the argument to be valid, the final column of the table must always be true. However, we can see that there are two rows where the final column is false (the third and fourth rows), meaning the argument is invalid.\n\nTherefore, we need to choose an option which presents a counterexample. Looking at the truth table, we can see that the third row (where K is false and L is true) provides a counterexample, as the premises in that row are true but the conclusion is false.\n\nTherefore, the answer is (C) Invalid. Counterexample when K is true and L is false.",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "Identify the antecedent of the following conditional proposition: If the university does not increase financial aid, either the president fails to approve it or the board of trustees prevents it.\n\n(A) The university increases financial aid.\n(B) The university does not increase financial aid.\n(C) The board of trustees prevents it.\n(D) The president fails to approve it.",
+            "correct_answer": 1,
+            "model_answer": "The antecedent of a conditional proposition is the \"if\" clause, which in this case is \"the university does not increase financial aid\". Therefore, the answer is (B).",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": " Which of the following propositions is an immediate (one-step) consequence in PL of the given premises?\n~E \u2283 ~F\nG \u2283 F\nH \u2228 ~E\nH \u2283 I\n~I\n\n(A) E \u2283 F\n(B) F \u2283 G\n(C) H \u2283 ~E\n(D) ~H",
+            "correct_answer": 3,
+            "model_answer": "1. From the first premise, we can use contraposition to infer that F \u2283 E.\n2. Using modus ponens on the second premise and the previous inference, we can infer G.\n3. From the third premise, we have two cases: either H is true or ~E is true.\n4. Case 1: If H is true, then using modus ponens on the fourth premise, we can infer I.\n5. Using modus ponens on the second premise and the previous inference, we can infer F.\n6. Using modus ponens on the first premise and the previous inference, we can infer E.\n7. Case 2: If ~E is true, then using the previous inference, we can infer ~F by modus ponens on the first premise.\n8. Using modus ponens on the second premise and the previous inference, we can infer G.\n9. From step 2 and step 5 (or step 8), we can infer that G is true.\n10. Therefore, the immediate consequence of the premises is (D) ~H.",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": " Which of the given formulas of PL is the best symbolization of the following sentence?\nEverybody loves Raymond, or not.\n\n(A) L\n(B) ~L\n(C) L \u2022 ~L\n(D) L \u2228 ~L",
+            "correct_answer": 3,
+            "model_answer": "The sentence states that either everybody loves Raymond or not. This is a classic case of disjunction, represented by the logical operator \"or\". The two options are \"everybody loves Raymond\" and \"not everybody loves Raymond\", which can be symbolized as L and ~L, respectively. Therefore, the best symbolization of the sentence is the disjunction of L and ~L. The answer is (D) L \u2228 ~L.",
+            "correct": true
+        }
+    ]
+}

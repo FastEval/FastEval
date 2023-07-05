@@ -1,0 +1,75 @@
+{
+    "score": 0.7,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Which of the following styles of fuzzer is more likely to explore paths covering every line of code in the following program?\n\n(A) Generational\n(B) Blackbox\n(C) Whitebox\n(D) Mutation-based",
+            "correct_answer": 2,
+            "model_answer": "To determine which style of fuzzer is more likely to explore paths covering every line of code in the given program, we need to consider the characteristics of each style.\n\nA generational fuzzer typically generates new test cases based on the results of previous ones. This means it may not explore paths that have not been encountered before.\n\nA blackbox fuzzer uses only inputs and outputs to generate test cases. It does not have any knowledge of the internal workings of the program.\n\nA whitebox fuzzer has knowledge of the internal workings of the program and uses this information to generate test cases.\n\nA mutation-based fuzzer creates variations of a seed input and tests each variation. It may not explore paths that are significantly different from the seed input.\n\nBased on these characteristics, the style of fuzzer that is most likely to explore paths covering every line of code is (C) Whitebox, as it has knowledge of the internal workings of the program and can use this information to generate test cases that exercise different parts of the code. \n\nTherefore, the answer is (C).",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Assume that a TLS connection has been established successfully between a client and a server. Establishing the session included checking the server certificate and executing a DiffieHelmann exchange, but the client did not provide a client certificate. Further, assume that the client and server are honest, that the client and server don\u2019t leak their keys, and that the cryptography is good. Which of the following attacks does TLS protect against?\n1. An attacker replaying bytes that a client sent earlier.\n2. An attacker impersonating the server.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "TLS protects against an attacker replaying bytes that a client sent earlier because each message is encrypted with a unique nonce that prevents replay attacks. However, TLS does not protect against an attacker impersonating the server if the attacker has obtained a valid server certificate, as the client will not be able to distinguish between the real server and the attacker. Therefore, the answer is (C) True, False.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "MIT\u2019s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?\n\n(A) The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.\n(B) When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket\u2019s maximum lifetime.\n(C) When a client connects to a server, the server compares the ticket\u2019s expiration time to the server\u2019s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.\n(D) When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC\u2019s clock, and refuses to authenticate the user if the KDC reports that the ticket is expired.",
+            "correct_answer": 2,
+            "model_answer": "The correct answer is (C). \n\nReasoning:\nThe question is asking about what ensures that an expired Kerberos ticket can no longer be used. Option (A) does not specify how the server distinguishes between expired and valid tickets, and therefore cannot be considered correct. Option (B) describes a timer that is set when a client connects to a server, but this has nothing to do with the ticket's maximum lifetime. Option (D) is close, but it does not explain how the KDC determines whether the ticket is still valid or not. \n\nOption (C) is the correct answer because it explains that the server compares the ticket's expiration time to its current clock, and refuses to authenticate the user if the ticket has expired. This is the most straightforward way to ensure that an expired ticket cannot be used.",
+            "correct": true
+        },
+        {
+            "id": 3,
+            "question": "In Message Condentiality, the transmitted message must make sense to only intended\n\n(A) Receiver\n(B) Sender\n(C) Modulor\n(D) Translator",
+            "correct_answer": 0,
+            "model_answer": "The concept of message confidentiality relates to ensuring that only the intended recipient can understand the transmitted message. Therefore, the answer is (A) Receiver.",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": "Which of the following is a remote Trojan?\n\n(A) Troya\n(B) DaCryptic\n(C) BankerA\n(D) Game-Troj",
+            "correct_answer": 0,
+            "model_answer": "To determine which of the following is a remote Trojan, we need to understand what a remote Trojan is. A remote Trojan is a type of Trojan that allows an attacker to gain remote access and control over the infected system. \n\nLooking at the options, we can eliminate Troya, DaCryptic, and BankerA as they are not specifically labeled as remote Trojans. \n\nThe option Game-Troj could potentially be a remote Trojan as it contains the word \"remote\" in its name. However, without further information or context, it is impossible to determine if Game-Troj is actually a remote Trojan.\n\nTherefore, the answer is (D) without any further information or context.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "______________ is a widespread app\u2019s coding mistake made by developers which could be exploited by an attacker for gaining access or malfunctioning your system.\n\n(A) Memory leakage\n(B) Buffer-overrun\n(C) Less processing power\n(D) Inefficient programming",
+            "correct_answer": 1,
+            "model_answer": "The mistake described in the question is commonly known as a security vulnerability, which refers to a weakness in the software that can be exploited by an attacker to gain unauthorized access or cause a malfunction. The question mentions a coding mistake, which narrows down the potential types of vulnerabilities. Out of the options given, \"Memory leakage\" and \"Buffer-overrun\" are both coding errors that could lead to security vulnerabilities. \"Less processing power\" and \"Inefficient programming\" are not directly related to security. Therefore, the answer is either (A) or (B). To choose between the two, we need to determine which one is more \"widespread.\" Memory leakage is a common issue, but buffer overruns are even more common and have been behind many notable security incidents. Therefore, the answer is (B) Buffer-overrun.",
+            "correct": true
+        },
+        {
+            "id": 6,
+            "question": "Consider the paper Native Client: A Sandbox for Portable, Untrusted x86 Native Code by Yee et al. Ben Bitdiddle notes that NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside its own data area, and does not execute instructions outside its own code. Ben thinks that with these restrictions alone, executing the sandboxed module must be safe; that is, he thinks validation is not needed. Ben is wrong. Circle the types of x86 machine instructions that the validator always forbids in sandboxed code. Please ignore trampoline and springboard code.\n\n(A) all instructions that modify segment state\n(B) all loads or stores to addresses that are not 0 mod 32\n(C) all indirect loads or stores (via an address in a register or variable)\n(D) all indirect jumps (via an address in a register or variable)",
+            "correct_answer": 0,
+            "model_answer": "Ben is wrong because although NaCl uses x86 segmentation to limit the sandboxed module's access to memory and instructions, it is still possible for a malicious module to bypass these restrictions. That's why NaCl uses a validator to ensure that the code is safe to execute within the sandbox. The validator checks the code against a set of rules to ensure that it only uses instructions that are safe. \n\nThe types of x86 machine instructions that the validator always forbids in sandboxed code are:\n(A) all instructions that modify segment state\n(C) all indirect loads or stores (via an address in a register or variable)\n(D) all indirect jumps (via an address in a register or variable)\n\nTherefore, the answer is (ACD).",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "____________ is also a part of darknet that is employed for transferring files anonymously.\n\n(A) Freenet\n(B) ARPANET\n(C) Stuxnet\n(D) Internet",
+            "correct_answer": 0,
+            "model_answer": "The term \"darknet\" refers to a hidden or anonymous network that is not indexed by search engines. One common use of darknet is to transfer files anonymously. Therefore, we need to identify a darknet platform that facilitates anonymous file transfers.\n\nOption A, Freenet, is a peer-to-peer network used for anonymous file sharing. It operates through a decentralized routing system where files are broken down into small parts and stored on different nodes, making it difficult to trace them back to the original source. Thus, option A is a strong possibility.\n\nOption B, ARPANET, is the precursor to the modern Internet and was never intended to be a darknet platform. Therefore, option B is unlikely.\n\nOption C, Stuxnet, is a computer worm that was designed to attack industrial control systems. It has nothing to do with anonymous file transfers or darknet networks. Therefore, option C is incorrect.\n\nOption D, Internet, is widely known to be a public network, where users have little to no anonymity. Thus, option D doesn't fit the description.\n\nTherefore, the answer is (A) Freenet.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Why apps developed in languages like C, C++ is prone to Buffer-overflow?\n\n(A) No string boundary checks in predefined functions\n(B) No storage check in the external memory\n(C) No processing power check\n(D) No database check",
+            "correct_answer": 0,
+            "model_answer": "Apps developed in languages like C, C++ are prone to Buffer-overflow due to (A) No string boundary checks in predefined functions.",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": "Man in the middle attack can endanger the security of Diffie Hellman method if two parties are not\n\n(A) Joined\n(B) Authenticated\n(C) Submitted\n(D) Shared",
+            "correct_answer": 1,
+            "model_answer": "The correct answer is (B) Authenticated.\n\nThe Diffie Hellman method is a key exchange algorithm used to establish a shared secret key between two parties over an insecure network. However, this method is vulnerable to a man-in-the-middle attack, where a third party intercepts and alters the communication between the two parties.\n\nIf the two parties are not authenticated, the man-in-the-middle attacker can intercept the initial key exchange and establish separate secret keys with each party. This allows the attacker to read and manipulate all the communication between the two parties, compromising the security of the method.\n\nTherefore, the security of the Diffie Hellman method depends on the two parties being authenticated to prevent a man-in-the-middle attack. The answer is (B) Authenticated.",
+            "correct": true
+        }
+    ]
+}

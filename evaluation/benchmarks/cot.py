@@ -19,7 +19,8 @@ def reply(model, answer_format, question):
             + question),
     ])
 
-def evaluate_model_on_dataset(*, name, model, data, question_column, answer_column, answer_format, is_correct, output_path, limit=float('inf')):
+def evaluate_model_on_dataset(*, name, model, data, question_column, answer_column, answer_format, is_correct,
+        output_path, limit=float('inf'), create_question=None):
     output_file_path = os.path.join(output_path, name + '.json')
     if os.path.exists(output_file_path):
         with open(output_file_path) as f:
@@ -30,7 +31,10 @@ def evaluate_model_on_dataset(*, name, model, data, question_column, answer_colu
     model_outputs = []
     print('Evaluating model on ', name)
     for item in tqdm.tqdm(data.select(range(min(limit, len(data))))):
-        question = item[question_column]
+        if isinstance(question_column, str):
+            question = item[question_column]
+        elif isinstance(question_column, list):
+            question = create_question({ column: item[column] for column in question_column })
         correct_answer = item[answer_column]
         model_answer = reply(model, answer_format, question)
         model_answer_is_correct = is_correct(model_answer=model_answer.split('\n')[-1], correct_answer=correct_answer)
@@ -117,6 +121,46 @@ def evaluate_model_on_bbh(model, output_path):
         'tasks': accuracies
     }
 
+def evaluate_model_on_mmlu(model, output_path):
+    # Can't we somehow get that from `datasets` directly? Haven't found a way...
+    tasks = ['abstract_algebra', 'anatomy', 'astronomy', 'business_ethics', 'clinical_knowledge', 'college_biology', 'college_chemistry',
+        'college_computer_science', 'college_mathematics', 'college_medicine', 'college_physics', 'computer_security', 'conceptual_physics',
+        'econometrics', 'electrical_engineering', 'elementary_mathematics', 'formal_logic', 'global_facts', 'high_school_biology', 'high_school_chemistry',
+        'high_school_computer_science', 'high_school_european_history', 'high_school_geography', 'high_school_government_and_politics',
+        'high_school_macroeconomics', 'high_school_mathematics', 'high_school_microeconomics', 'high_school_physics', 'high_school_psychology',
+        'high_school_statistics', 'high_school_us_history', 'high_school_world_history', 'human_aging', 'human_sexuality', 'international_law',
+        'jurisprudence', 'logical_fallacies', 'machine_learning', 'management', 'marketing', 'medical_genetics', 'miscellaneous', 'moral_disputes',
+        'moral_scenarios', 'nutrition', 'philosophy', 'prehistory', 'professional_accounting', 'professional_law', 'professional_medicine',
+        'professional_psychology', 'public_relations', 'security_studies', 'sociology', 'us_foreign_policy', 'virology', 'world_religions']
+
+    def create_question(columns):
+        return columns['question'] + '\n\n' + '\n'.join(['(' + name + ') ' + columns['choices'][index] for index, name in enumerate(['A', 'B', 'C', 'D'])])
+
+    def is_correct(model_answer, correct_answer):
+        model_answer_matches = re.findall(r'\([ABCD]\)', model_answer)
+        if len(model_answer_matches) == 0:
+            return False
+        return model_answer_matches[-1] == '(' + ['A', 'B', 'C', 'D'][correct_answer] + ')'
+
+    accuracies = {
+        task: evaluate_model_on_dataset(
+            name='mmlu/' + task,
+            model=model,
+            data=datasets.load_dataset('cais/mmlu', task)['test'],
+            question_column=['question', 'choices'],
+            create_question=create_question,
+            answer_column='answer',
+            answer_format='as a single letter with parenthesis',
+            is_correct=is_correct,
+            output_path=output_path,
+            limit=10,
+        ) for task in tasks
+    }
+
+    return {
+        'tasks': accuracies
+    }
+
 def evaluate_model(model_type, model_name):
     output_folder = os.path.join('reports', 'cot', replace_model_name_slashes(model_name))
     final_scores_file = os.path.join(output_folder, 'scores.json')
@@ -129,10 +173,12 @@ def evaluate_model(model_type, model_name):
 
     gsm8k_score = evaluate_model_on_gsm8k(model, tasks_path)
     bbh_scores = evaluate_model_on_bbh(model, tasks_path)
+    mmlu_scores = evaluate_model_on_mmlu(model, tasks_path)
 
     output = {
         'gsm8k': gsm8k_score,
         'bbh': bbh_scores,
+        'mmlu': mmlu_scores,
     }
 
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
