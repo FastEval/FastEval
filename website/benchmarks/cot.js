@@ -10,7 +10,7 @@ export async function createBigBenchHardE(baseUrl, models) {
 
     containerE.appendChild(createBackToMainPageE('← Back to CoT table', '#?benchmark=cot'))
 
-    const scores = await fetchFiles(baseUrl, models, 'cot', '/scores.json')
+    const scores = Object.entries(computeRelativeScores(Object.fromEntries(await fetchFiles(baseUrl, models, 'cot', '/scores.json'))))
     const tasks = Object.keys(scores[0][1].bbh.tasks)
 
     const tableE = document.createElement('table')
@@ -18,20 +18,20 @@ export async function createBigBenchHardE(baseUrl, models) {
     const tableHeadE = tableE.createTHead().insertRow()
     const tableBodyE = tableE.createTBody()
     tableHeadE.insertCell().appendChild(createTextE('Model'))
-    tableHeadE.insertCell().appendChild(createTextE('Average'))
+    tableHeadE.insertCell().appendChild(createTextE('Total'))
 
     for (const task of tasks)
         tableHeadE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(task)))
 
     const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
-        model2Scores.bbh.average - model1Scores.bbh.average)
+        model2Scores.bbh.total - model1Scores.bbh.total)
 
     const modelsMap = createModelsMap(models)
 
     for (const [modelName, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
-        rowE.insertCell().appendChild(createTextE(round(modelScores.bbh.average)))
+        rowE.insertCell().appendChild(createTextE(round(modelScores.bbh.total)))
         for (const task of tasks)
             rowE.insertCell().appendChild(createLinkE(round(modelScores.bbh.tasks[task]), { task: 'bbh/' + task, model: modelName }))
     }
@@ -109,7 +109,7 @@ export async function createV(baseUrl, parameters) {
     explanationE.classList.add('cot-explanation')
     containerE.appendChild(explanationE)
 
-    const scores = await fetchFiles(baseUrl, models, 'cot', '/scores.json')
+    const scores = computeRelativeScores(Object.fromEntries(await fetchFiles(baseUrl, models, 'cot', '/scores.json')))
 
     const tableE = document.createElement('table')
     containerE.appendChild(tableE)
@@ -123,7 +123,7 @@ export async function createV(baseUrl, parameters) {
         ['bbh', 'BBH'],
     ]
 
-    tableHeadE.insertCell().appendChild(createTextE('Average'))
+    tableHeadE.insertCell().appendChild(createTextE('Total'))
     tableHeadE.insertCell()
 
     for (const [columnId, columnName] of columns) {
@@ -133,24 +133,64 @@ export async function createV(baseUrl, parameters) {
             tableHeadE.insertCell().appendChild(createTextE(columnName))
     }
 
-    const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
-        model2Scores.average - model1Scores.average)
+    const sortedScores = Object.entries(scores).sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
+        model2Scores.total - model1Scores.total)
 
     for (const [modelName, results] of sortedScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
 
-        rowE.insertCell().appendChild(createTextE(round(results['average'])))
+        rowE.insertCell().appendChild(createTextE(round(results['total'])))
         rowE.insertCell()
 
         for (const [columnId, columnName] of columns) {
             if (columnId === 'gsm8k') {
                 rowE.insertCell().appendChild(createLinkE(round(results[columnId]), { task: columnId, model: modelName }))
             } else if (columnId === 'bbh') {
-                rowE.insertCell().appendChild(createTextE(round(results[columnId].average)))
+                rowE.insertCell().appendChild(createTextE(round(results[columnId].total)))
             }
         }
     }
 
     return containerE
+}
+
+export function computeRelativeScores(absoluteScores) {
+    const modelNames = Object.keys(absoluteScores)
+
+    const relativeScores = {}
+    for (const modelName of modelNames)
+        relativeScores[modelName] = { bbh: { tasks: {} } }
+
+    const gsm8k = Object.values(absoluteScores).map(e => e.gsm8k)
+    const minGsm8k = Math.min(...gsm8k)
+    const maxGsm8k = Math.max(...gsm8k)
+
+    for (const modelName of modelNames)
+        relativeScores[modelName].gsm8k = (absoluteScores[modelName].gsm8k - minGsm8k) / (maxGsm8k - minGsm8k)
+
+    const bbhTasks = Object.keys(absoluteScores[modelNames[0]].bbh.tasks)
+
+    for (const taskName of bbhTasks) {
+        const values = Object.values(absoluteScores).map(e => e.bbh.tasks[taskName])
+        const min = Math.min(...values)
+        const max = Math.max(...values)
+        for (const modelName of modelNames)
+            relativeScores[modelName].bbh.tasks[taskName] = (absoluteScores[modelName].bbh.tasks[taskName] - min) / (max - min)
+    }
+
+    for (const modelName of modelNames)
+        relativeScores[modelName].bbh.total = Object.values(relativeScores[modelName].bbh.tasks).reduce((a, b) => a + b) / bbhTasks.length
+
+    const bbh = Object.values(relativeScores).map(e => e.bbh.total)
+    const minBbh = Math.min(...bbh)
+    const maxBbh = Math.max(...bbh)
+
+    for (const modelName of modelNames)
+        relativeScores[modelName].bbh.total = (relativeScores[modelName].bbh.total - minBbh) / (maxBbh - minBbh)
+
+    for (const modelName of modelNames)
+        relativeScores[modelName].total = (relativeScores[modelName].gsm8k + relativeScores[modelName].bbh.total) / 2
+
+    return relativeScores
 }

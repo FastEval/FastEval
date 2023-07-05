@@ -188,8 +188,9 @@ export async function createBenchmarksIndexV(baseUrl) {
     const averageLmEvaluationHarnessScores =  Object.fromEntries(lmEvaluationHarnessResults.map(([modelName, results]) =>
         [modelName, LMEvaluationHarness.computeAverageScore(results.results)]))
 
+    const cotResultsMap = CoT.computeRelativeScores(Object.fromEntries(cotResults))
+
     const humanEvalPlusResultsMap = Object.fromEntries(humanEvalPlusResults)
-    const cotResultsMap = Object.fromEntries(cotResults)
 
     function getCompletedBenchmarks(model, benchmarks) {
         return benchmarks.filter(benchmark => {
@@ -212,7 +213,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         else if (benchmarkName === 'human-eval-plus')
             return humanEvalPlusResultsMap[model].score
         else if (benchmarkName === 'cot')
-            return cotResultsMap[model].average
+            return cotResultsMap[model].total
 
         return null
     }
