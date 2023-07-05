@@ -114,8 +114,7 @@ def evaluate_model_on_bbh(model, output_path):
     }
 
     return {
-        'tasks': accuracies,
-        'average': sum(accuracies.values()) / len(accuracies.values())
+        'tasks': accuracies
     }
 
 def evaluate_model(model_type, model_name):
@@ -130,12 +129,10 @@ def evaluate_model(model_type, model_name):
 
     gsm8k_score = evaluate_model_on_gsm8k(model, tasks_path)
     bbh_scores = evaluate_model_on_bbh(model, tasks_path)
-    scores = [gsm8k_score, bbh_scores['average']]
 
     output = {
         'gsm8k': gsm8k_score,
         'bbh': bbh_scores,
-        'average': sum(scores) / len(scores),
     }
 
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
