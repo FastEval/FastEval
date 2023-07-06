@@ -1,0 +1,75 @@
+{
+    "score": 0.5,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Which of the following styles of fuzzer is more likely to explore paths covering every line of code in the following program?\n\n(A) Generational\n(B) Blackbox\n(C) Whitebox\n(D) Mutation-based",
+            "correct_answer": 2,
+            "model_answer": "A and D. Generational and Mutation-based fuzzers aim to uncover all code paths for a given function, while (B) and (C) only target a specific goal.",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Assume that a TLS connection has been established successfully between a client and a server. Establishing the session included checking the server certificate and executing a DiffieHelmann exchange, but the client did not provide a client certificate. Further, assume that the client and server are honest, that the client and server don\u2019t leak their keys, and that the cryptography is good. Which of the following attacks does TLS protect against?\n1. An attacker replaying bytes that a client sent earlier.\n2. An attacker impersonating the server.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "The answers to the options are:\n(D) False, True.\n\nExplanation:\nA TLS connection has the following properties that cause the protective areas of the properties to be correct. Both victim and attacker are considered honest, expert and careful in order to achieve the TLS connection and it is assumed that the attacker does not break the generic cryptography of money. Therefore:\n\nBackground:\nAn attacker replaying bytes that a client sent earlier. => No protection (B)\nAn attacker impersonating the server. => No protection (B)\nTLS is outdated, but can answer this question. It is binary, session-oriented and single-message based security service. Even though it is under the attack of neither man-in-the-middle nor PuName-in-the middle attacks, it is still vulnerable to the attack.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "MIT\u2019s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?\n\n(A) The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.\n(B) When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket\u2019s maximum lifetime.\n(C) When a client connects to a server, the server compares the ticket\u2019s expiration time to the server\u2019s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.\n(D) When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC\u2019s clock, and refuses to authenticate the user if the KDC reports that the ticket is expired.",
+            "correct_answer": 2,
+            "model_answer": "The answer is not (D) because if the server sends a query to the KDC to check if the ticket is still valid, then the client would still hold the ticket, which defeats the purpose.\n\nIt could be (A), (B), or (C), but I cannot say for sure without knowing more information.",
+            "correct": true
+        },
+        {
+            "id": 3,
+            "question": "In Message Condentiality, the transmitted message must make sense to only intended\n\n(A) Receiver\n(B) Sender\n(C) Modulor\n(D) Translator",
+            "correct_answer": 0,
+            "model_answer": "(A) Receiver",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": "Which of the following is a remote Trojan?\n\n(A) Troya\n(B) DaCryptic\n(C) BankerA\n(D) Game-Troj",
+            "correct_answer": 0,
+            "model_answer": "The following are remote Trojans:\n\nB: DaCryptic, the payload is a loader that drops a crypter, which makes the Trojan capable of cloaking the malicious files it downloads from a command and control (C&C) server.\nC: BankerA, this Trojan downloads its components and backdoors from its C&C, so it's a remote Trojan that makes use of its e-mail stealing capabilities and data exfiltration components.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "______________ is a widespread app\u2019s coding mistake made by developers which could be exploited by an attacker for gaining access or malfunctioning your system.\n\n(A) Memory leakage\n(B) Buffer-overrun\n(C) Less processing power\n(D) Inefficient programming",
+            "correct_answer": 1,
+            "model_answer": "* A memory leakage occurs when a program or process allocates memory but is unable to release it back to the operating system, causing an ever-growing consumption of available memory while the program is running. This can cause a decrease in performance, or the program may eventually crash when all available memory is taken.\n* Buffer-overrun is a type of security flaw that allows an attacker to inject malicious code into a program's buffer overwrites with the input data (from a user). This can cause crashes, incorrect execution or even arbitrary code execution.\n* Less processing power can occur when an attacker sends a large amount of traffic to a device, overwhelming the CPU and causing it to slow down or crash.\n* Inefficient programming does not necessarily pose a security threat, but it can cause a decrease in performance. However, it is not a common programming mistake that can be exploited by an attacker.\n\nTherefore, (A) memory leakage and (B) buffer-overrun.",
+            "correct": true
+        },
+        {
+            "id": 6,
+            "question": "Consider the paper Native Client: A Sandbox for Portable, Untrusted x86 Native Code by Yee et al. Ben Bitdiddle notes that NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside its own data area, and does not execute instructions outside its own code. Ben thinks that with these restrictions alone, executing the sandboxed module must be safe; that is, he thinks validation is not needed. Ben is wrong. Circle the types of x86 machine instructions that the validator always forbids in sandboxed code. Please ignore trampoline and springboard code.\n\n(A) all instructions that modify segment state\n(B) all loads or stores to addresses that are not 0 mod 32\n(C) all indirect loads or stores (via an address in a register or variable)\n(D) all indirect jumps (via an address in a register or variable)",
+            "correct_answer": 0,
+            "model_answer": "The answer is (D) all indirect jumps (via an address in a register or variable).\n\nExplanation:\n\nThe question relates to the Native Client (NaCl) sandboxing mechanism, which is designed to ensure that sandboxed modules cannot read or write memory outside of their own data area, nor execute instructions outside their own code. It is mentioned that NaCl uses Intel x86 segmentation to enforce these restrictions.\n\nBen Bitdiddle claims that with these restrictions, executing the sandboxed module must be safe; validation (i.e. verification of the module's safety before it is executed) is not needed. However, this is incorrect.\n\nTo understand why validation is still needed, it is necessary to consider the types of x86 machine instructions that the validator must always forbid in sandboxed code. The instructions that the validator must always forbid are those that may allow the sandboxed module to bypass or circumvent the restrictions imposed by NaCl.\n\nIndirect jumps (i.e. jumps via an address stored in a register or variable) are of particular concern because they can potentially allow the sandboxed module to jump to memory locations outside its own data area, thus bypassing the memory restrictions. Therefore, the validator must always forbid all indirect jumps (V).\n\nLoads and stores, administrative overhead instructions (INS/OUTS and LOADALL), and complex addressing modes can also be used to either directly modify code pointers or generate frequent accesses to arbitrary locations, which can constitute indirect jumps. Therefore, they can also be forbidden (B).\n\nMB-based instructions trigger expensive context switches and should be avoided or statically therefore eliminated. Therefore, they can also be forbidden (C).\n\nModifying segment state can lead to\n\na) Br danials when the code segment selector is used in jmp, and\nb) Use of invalid code segment selector, therefore they can also be forbidden (A).\n\nThus, the validator must be able to understand and enforce these restrictions in order to ensure the safety of the NaCl sandbox. These restrictions are also",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "____________ is also a part of darknet that is employed for transferring files anonymously.\n\n(A) Freenet\n(B) ARPANET\n(C) Stuxnet\n(D) Internet",
+            "correct_answer": 0,
+            "model_answer": "First, Freenet is a decentralized network used for publishing and accessing information anonymously. It is often used to protect free speech and privacy. Freenet has a strong focus on privacy and security, making it a good option for anonymous file transfers.\n\nSecond, ARPANET was the predecessor of the internet and was developed for the US Department of Defense. While it was used for secure information exchange, it lacked the privacy features that Freenet provides.\n\nThird, Freenet and ARPANET were both decentralized networks, but Stuxnet and the internet are centralized networks. Stuxnet is a computer worm that targets industrial control systems and disrupts them. It is not used as a file-sharing platform.\n\nThe answer, therefore, is (A) Freenet.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Why apps developed in languages like C, C++ is prone to Buffer-overflow?\n\n(A) No string boundary checks in predefined functions\n(B) No storage check in the external memory\n(C) No processing power check\n(D) No database check",
+            "correct_answer": 0,
+            "model_answer": "The reason that apps developed in languages like C and",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Man in the middle attack can endanger the security of Diffie Hellman method if two parties are not\n\n(A) Joined\n(B) Authenticated\n(C) Submitted\n(D) Shared",
+            "correct_answer": 1,
+            "model_answer": "A man-in-the-middle (MitM) attack can occur when two parties are communicating with each other, and a third party intercepts and modifies their communication. In the case of the Diffie-Hellman key exchange, if two parties are not communicating securely, an attacker may be able to intercept the communication.\n\nTherefore, the answer is (D): Shared.\n\nThe Diffie\u2013Hellman method enables two parties to securely share a common key, even if they only exchange a small amount of information. The method involves agreeing on a large prime number and preserving a tentative common key without sharing it. This is then encrypted using a small amount of exchanged information combined with a secret key, to form a final common key. This common key can be used for symmetric encryption to share data securely",
+            "correct": false
+        }
+    ]
+}
