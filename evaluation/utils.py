@@ -32,22 +32,20 @@ def undo_replace_model_name_slashes(model_name: str) -> str:
     return model_name.replace('--', '/')
 
 def get_model_class(model_type: str):
-    if model_type == 'openai':
-        return OpenAI
-    if model_type == 'open-assistant':
-        return OpenAssistant
-    if model_type == 'guanaco':
-        return Guanaco
-    if model_type == 'falcon-instruct':
-        return FalconInstruct
-    if model_type == 'alpaca-without-prefix':
-        return AlpacaWithoutPrefix
-    if model_type == 'alpaca-with-prefix':
-        return AlpacaWithPrefix
-    if model_type == 'chatml':
-        return ChatML
-    if model_type == 'fastchat':
-        return Fastchat
+    model_classes = {
+        'openai': OpenAI,
+        'fastchat': Fastchat,
+        'open-assistant': OpenAssistant,
+        'guanaco': Guanaco,
+        'falcon-instruct': FalconInstruct,
+        'alpaca-without-prefix': AlpacaWithoutPrefix,
+        'alpaca-with-prefix': AlpacaWithPrefix,
+        'chatml': ChatML,
+    }
+
+    if model_type in model_classes:
+        return model_classes[model_type]
+
     raise
 
 def create_model(model_type: str, model_name: str, **kwargs):
@@ -56,7 +54,7 @@ def create_model(model_type: str, model_name: str, **kwargs):
 config_dict_cache = {}
 def get_config_dict(model_name):
     if model_name in config_dict_cache:
-        return config_dict
+        return config_dict_cache[model_name]
     config_dict = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
     config_dict_cache[model_name] = config_dict
     return config_dict
@@ -66,12 +64,10 @@ def get_dtype(model_name: str):
 
 def is_vllm_supported(model_name: str):
     model_type = get_config_dict(model_name).model_type
-    if model_type == 'llama':
+    if model_type in ['llama', 'gpt_neox', 'gpt_bigcode']:
         return True
-    if model_type == 'RefinedWeb':
+    if model_type in ['RefinedWeb']:
         return False
-    if model_type == 'gpt_neox':
-        return True
     raise
 
 def compute_model_replies(model, conversations):
