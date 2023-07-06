@@ -1,0 +1,75 @@
+{
+    "score": 0.2,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Which of the following styles of fuzzer is more likely to explore paths covering every line of code in the following program?\n\n(A) Generational\n(B) Blackbox\n(C) Whitebox\n(D) Mutation-based",
+            "correct_answer": 2,
+            "model_answer": "Answer: (D) Mutation-based\n\nExplanation:\nA generational fuzzer starts by creating a set of seeds, or starting points, for the program. These seeds are used to explore a small portion of the program at a time. The seeds are then mutated and used to explore a larger portion of the program. As the fuzzer explores more of the program, it creates more seeds and mutates them.\n\nIn this case, a mutation-based fuzzer would likely be effective at exploring paths through the program, as it can randomly modify the seeds it generates to create new paths. However, a generational fuzzer may also be effective in this case, as it can start by exploring a small portion of the program and gradually expand its search area as it discovers more paths.",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Assume that a TLS connection has been established successfully between a client and a server. Establishing the session included checking the server certificate and executing a DiffieHelmann exchange, but the client did not provide a client certificate. Further, assume that the client and server are honest, that the client and server don\u2019t leak their keys, and that the cryptography is good. Which of the following attacks does TLS protect against?\n1. An attacker replaying bytes that a client sent earlier.\n2. An attacker impersonating the server.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "(A) True, True\n\nData securely transmitted through a TLS connection is integrity protected through the use of signature verification. If an attacker were to replay bytes that a client sent earlier, those bytes would not match the original signed data, resulting in an error and exposing the plaintext data to the attacker.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "MIT\u2019s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?\n\n(A) The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.\n(B) When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket\u2019s maximum lifetime.\n(C) When a client connects to a server, the server compares the ticket\u2019s expiration time to the server\u2019s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.\n(D) When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC\u2019s clock, and refuses to authenticate the user if the KDC reports that the ticket is expired.",
+            "correct_answer": 2,
+            "model_answer": "We can eliminate (B) as it refers to the timeout setting at the client, not the server. And since (C) checks the server time, it can not be correct. Finally, (D) doesn't apply because the KDC is not queried during the authentication process. Therefore, the only correct answer is (A) MIT's Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals), which ensures that an expired Kerberos ticket can no longer be used.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "In Message Condentiality, the transmitted message must make sense to only intended\n\n(A) Receiver\n(B) Sender\n(C) Modulor\n(D) Translator",
+            "correct_answer": 0,
+            "model_answer": "Modulo. When you have a large message, you can only send part of it at a time, so you need a way to subtract the parts you haven't sent from the total. Modulo is one way to do this.\n\nWhen you want to send a message to several people, you can use a modular sum. For example, to send a message to five people who each get a different part, you would calculate five modulo 4. (ore our example, you would send the first part to person 1, the second to person 2, and so on). In this case, person 1 would get 2, person 2 would get 1, and so on.\n\nThe modulo operator allows you to calculate a value without having to know the whole value at once. It works by dividing the left hand side of the equation by the right hand side and returning the rest.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Which of the following is a remote Trojan?\n\n(A) Troya\n(B) DaCryptic\n(C) BankerA\n(D) Game-Troj",
+            "correct_answer": 0,
+            "model_answer": "To answer this question step-by-step:\n\n1.  Determine whether the code being reviewed is a virus or a trojan. A virus is a program that is designed to damage or disrupt a computer system, while a trojan is a program that is designed to steal information or perform other malicious activities.\n2.  Examine the code for any specific features or functionality that could be associated with a virus or trojan.\n3.  Based on the features and functionality identified in step 2, determine which of the options listed is likely a remote Trojan.\n4.  If you are unable to determine which option is likely a remote Trojan, review the code again and look for additional features or functionality that could be associated with a virus or trojan.\n5.  Once you have determined which option is likely a remote Trojan, output the letter associated with the option (A), followed by the parenthesis (()).",
+            "correct": true
+        },
+        {
+            "id": 5,
+            "question": "______________ is a widespread app\u2019s coding mistake made by developers which could be exploited by an attacker for gaining access or malfunctioning your system.\n\n(A) Memory leakage\n(B) Buffer-overrun\n(C) Less processing power\n(D) Inefficient programming",
+            "correct_answer": 1,
+            "model_answer": "Of the given options, \"C\" is the most probable cause. A buffer overflow occurs when a program writes beyond the bounds of a buffer, memory location being used to store data. This can result in arbitrary code execution. Inefficient programming can cause performance issues, but it is less likely to be the cause in this case.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Consider the paper Native Client: A Sandbox for Portable, Untrusted x86 Native Code by Yee et al. Ben Bitdiddle notes that NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside its own data area, and does not execute instructions outside its own code. Ben thinks that with these restrictions alone, executing the sandboxed module must be safe; that is, he thinks validation is not needed. Ben is wrong. Circle the types of x86 machine instructions that the validator always forbids in sandboxed code. Please ignore trampoline and springboard code.\n\n(A) all instructions that modify segment state\n(B) all loads or stores to addresses that are not 0 mod 32\n(C) all indirect loads or stores (via an address in a register or variable)\n(D) all indirect jumps (via an address in a register or variable)",
+            "correct_answer": 0,
+            "model_answer": "There are no types of x86 machine instructions that the validator always forbids in sandboxed code. The validator only checks that the code cannot perform operations that would escalate the privileges of the program.\n\nRegarding Ben Bitdiddle's concerns about the segregation of memory, it is true that segmentation can be used to control access to memory. However, the validator does not fully enforce memory segmentation policies, as it only checks that memory accesses are within the bounds of the sandboxed module's data area and do not access memory outside of the module's code area.\n\nRegarding Ben Bitdiddle's concerns about the isolation of code, NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside of its own data area. However, even with these measures in place, it is possible for an attacker to gain control of the sandboxed module's execution environment by exploiting vulnerabilities in the underlying system.\n\nIt is important to note that security cannot be achieved solely through mitigation measures such as segregation and isolation of code. Instead, it requires a combination of these and other measures, such as proper code review and testing, to identify and prevent security vulnerabilities.",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "____________ is also a part of darknet that is employed for transferring files anonymously.\n\n(A) Freenet\n(B) ARPANET\n(C) Stuxnet\n(D) Internet",
+            "correct_answer": 0,
+            "model_answer": "(A) Freenet\n\nFreenet is a decentralized network of computers, also known as a \"mesh network\", that allows its users to communicate over an encrypted, decentralized network without requiring a central server or portal. Since all messages on Freenet are encrypted before they are sent, it is designed to be tamperproof and resistant to attacks by governments, corporations, or individuals.\n\nIn terms of darknet usage, Freenet is most likely used as a platform for communicating over the darknet in a secure and anonymous manner. It can be used to send messages, share files, and access hidden websites on the darknet, all while protecting the user's privacy.\n\nOverall, Freenet is a valid darknet platform that can be used for communication and information sharing.",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Why apps developed in languages like C, C++ is prone to Buffer-overflow?\n\n(A) No string boundary checks in predefined functions\n(B) No storage check in the external memory\n(C) No processing power check\n(D) No database check",
+            "correct_answer": 0,
+            "model_answer": "Going by the text given, (A) appears to be the correct answer.",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": "Man in the middle attack can endanger the security of Diffie Hellman method if two parties are not\n\n(A) Joined\n(B) Authenticated\n(C) Submitted\n(D) Shared",
+            "correct_answer": 1,
+            "model_answer": "joined",
+            "correct": false
+        }
+    ]
+}
