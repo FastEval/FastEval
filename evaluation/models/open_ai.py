@@ -3,10 +3,14 @@ import os
 import openai
 import tenacity
 
+from evaluation.constants import NUM_THREADS_OPENAI
+
 def print_retry(error):
     print('Got error from OpenAI API. Retrying.', error)
 
 class OpenAI:
+    num_threads = NUM_THREADS_OPENAI
+
     def __init__(self, model_name, *, max_new_tokens=1024):
         self.model_name = model_name
         self.max_new_tokens = max_new_tokens

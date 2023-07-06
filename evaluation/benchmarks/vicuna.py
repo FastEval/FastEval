@@ -194,7 +194,7 @@ def generate_reviews():
     if len(conversations) == 0 and os.path.exists(ranks_filepath):
         return False
 
-    replies = compute_model_replies(reviewer, conversations, num_threads=10)
+    replies = compute_model_replies(reviewer, conversations)
 
     for i, review in enumerate(reviews):
         if 'review' in review:

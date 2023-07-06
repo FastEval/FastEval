@@ -10,6 +10,7 @@ import vllm
 
 from .utils import put_system_message_in_prompter_message
 import evaluation.utils
+from evaluation.constants import NUM_THREADS_LOCAL_MODEL
 
 lock = threading.Lock()
 model = None
@@ -216,6 +217,8 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
         return wait_for_response(condition, use_vllm)
 
 class Huggingface:
+    num_threads = NUM_THREADS_LOCAL_MODEL
+
     def __init__(
         self,
         model_path: str,

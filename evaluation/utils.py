@@ -56,13 +56,13 @@ def get_dtype(model_name: str):
     config_dict = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
     return getattr(config_dict, 'torch_dtype')
 
-def compute_model_replies(model, conversations, *, num_threads=10):
+def compute_model_replies(model, conversations):
     def reply(conversation_with_index):
         index, conversation = conversation_with_index
         reply = model.reply(conversation)
         return index, reply
 
-    with multiprocessing.pool.ThreadPool(num_threads) as pool:
+    with multiprocessing.pool.ThreadPool(min(model.num_threads, len(conversations))) as pool:
         iterator = pool.imap_unordered(reply, enumerate(conversations))
         replies_with_indices = list(tqdm.tqdm(iterator, total=len(conversations)))
 
