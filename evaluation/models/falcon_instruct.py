@@ -12,7 +12,5 @@ class FalconInstruct(Huggingface):
             assistant='Assistant: ',
             end='\n',
 
-            use_vllm=False,
-
             **kwargs,
         )

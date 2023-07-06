@@ -11,13 +11,6 @@ class OpenAssistant(Huggingface):
         else:
             raise
 
-        if 'falcon' in model_path:
-            use_vllm = False
-        elif 'pythia' in model_path or 'llama' in model_path:
-            use_vllm = True
-        else:
-            raise
-
         super().__init__(
             model_path,
             user='<|prompter|>',

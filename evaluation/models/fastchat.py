@@ -34,10 +34,8 @@ def print_process_output(process_name, process, output_type):
     for line in getattr(process, output_type):
         print('[fastchat ' + process_name + ']', line, end='')
 
-def start_server(model_name):
+def start_server(model_name, use_vllm):
     global server
-
-    use_vllm = True # TODO: Get that from somewhere. Not all models are supported.
 
     print('[fastchat] Starting server for fastchat:' + model_name)
 
@@ -75,18 +73,19 @@ def start_server(model_name):
     server = {
         'model_name': model_name,
         'processes': [controller_process, model_process, api_process],
+        'use_vllm': use_vllm,
     }
 
-def ensure_model_is_loaded(model_name):
+def ensure_model_is_loaded(model_name, use_vllm):
     lock.acquire()
 
     evaluation.utils.switch_gpu_model_type('fastchat')
 
     if server is None:
-        start_server(model_name)
-    elif server['model_name'] != model_name:
+        start_server(model_name, use_vllm)
+    elif server['model_name'] != model_name or server['use_vllm'] != use_vllm:
         unload_model(False)
-        start_server(model_name)
+        start_server(model_name, use_vllm)
 
     lock.release()
 
@@ -94,6 +93,7 @@ class Fastchat(OpenAI):
     num_threads = NUM_THREADS_LOCAL_MODEL
 
     def __init__(self, model_name, *, max_new_tokens=400):
+        self.use_vllm = evaluation.utils.is_vllm_supported(model_path)
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
     def _reply(self, conversation, model_name):
@@ -110,7 +110,7 @@ class Fastchat(OpenAI):
             return super()._reply(conversation, model_name, max_new_tokens=reduced_max_new_tokens)
 
     def reply(self, conversation):
-        ensure_model_is_loaded(self.model_name)
+        ensure_model_is_loaded(self.model_name, use_vllm=self.use_vllm)
         openai.api_base = 'http://localhost:8000/v1'
         openai.api_key = 'EMPTY'
         return self._reply(conversation, self.model_name.split('/')[-1])

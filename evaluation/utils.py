@@ -48,13 +48,31 @@ def get_model_class(model_type: str):
         return ChatML
     if model_type == 'fastchat':
         return Fastchat
+    raise
 
 def create_model(model_type: str, model_name: str, **kwargs):
     return get_model_class(model_type)(model_name, **kwargs)
 
-def get_dtype(model_name: str):
+config_dict_cache = {}
+def get_config_dict(model_name):
+    if model_name in config_dict_cache:
+        return config_dict
     config_dict = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
-    return getattr(config_dict, 'torch_dtype')
+    config_dict_cache[model_name] = config_dict
+    return config_dict
+
+def get_dtype(model_name: str):
+    return get_config_dict(model_name).torch_dtype
+
+def is_vllm_supported(model_name: str):
+    model_type = get_config_dict(model_name).model_type
+    if model_type == 'llama':
+        return True
+    if model_type == 'RefinedWeb':
+        return False
+    if model_type == 'gpt_neox':
+        return True
+    raise
 
 def compute_model_replies(model, conversations):
     if len(conversations) == 0:
