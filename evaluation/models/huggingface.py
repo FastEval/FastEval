@@ -2,6 +2,7 @@ import threading
 import uuid
 import time
 import gc
+import asyncio
 
 import torch
 import transformers
@@ -13,9 +14,12 @@ import evaluation.utils
 lock = threading.Lock()
 model = None
 current_batch = []
+vllm_event_loop = None
 
 def unload_model(use_lock=True):
     global model
+    global current_batch
+    global vllm_event_loop
 
     if use_lock:
         lock.acquire()
@@ -23,6 +27,11 @@ def unload_model(use_lock=True):
     if model is not None:
         model = None
         gc.collect()
+
+    current_batch = []
+    if vllm_event_loop is not None:
+        vllm_event_loop.stop()
+        vllm_event_loop = None
 
     if use_lock:
         lock.release()
@@ -48,55 +57,39 @@ def process_current_batch():
 
     prompts = [batch_item['prompt'] for batch_item in current_batch]
 
-    if model['use_vllm']:
-        responses = model['model']['model'].generate(prompts, vllm.SamplingParams(
-            # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
+    responses = model['model'](
+        prompts,
 
-            best_of=None,
-            presence_penalty = 0.0,
-            frequency_penalty=0.0,
-            temperature=1.0,
-            top_p=1.0,
-            top_k=-1,
-            use_beam_search=False,
-            max_tokens=model['max_new_tokens'],
-        ), use_tqdm=False)
+        # See the following link for more details & a list of the parameters
+        # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
 
-        responses = [response.outputs[0].text.replace(model['model']['eos_token'], '') for response in responses]
-    else:
-        responses = model['model'](
-            prompts,
+        # Parameters that control the length of the output
+        max_new_tokens=model['max_new_tokens'],
+        min_new_tokens=1,
 
-            # See the following link for more details & a list of the parameters
-            # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
+        # Parameters that control the generation strategy used
+        do_sample=True,
+        num_beams=1,
 
-            # Parameters that control the length of the output
-            max_new_tokens=model['max_new_tokens'],
-            min_new_tokens=1,
+        # Parameters for manipulation of the model output logits
+        temperature=1.0,
+        top_k=0,
+        top_p=1.0,
+        typical_p=1.0,
+        epsilon_cutoff=0.0,
+        eta_cutoff=0.0,
+        diversity_penalty=0.0,
+        repetition_penalty=1.0,
+        encoder_repetition_penalty=1.0,
+        length_penalty=1.0,
+        no_repeat_ngram_size=0,
+        renormalize_logits=False,
 
-            # Parameters that control the generation strategy used
-            do_sample=True,
-            num_beams=1,
+        # Special tokens that can be used at generation time
+        eos_token_id=model['tokenizer'].eos_token_id,
+    )
 
-            # Parameters for manipulation of the model output logits
-            temperature=1.0,
-            top_k=0,
-            top_p=1.0,
-            typical_p=1.0,
-            epsilon_cutoff=0.0,
-            eta_cutoff=0.0,
-            diversity_penalty=0.0,
-            repetition_penalty=1.0,
-            encoder_repetition_penalty=1.0,
-            length_penalty=1.0,
-            no_repeat_ngram_size=0,
-            renormalize_logits=False,
-
-            # Special tokens that can be used at generation time
-            eos_token_id=model['tokenizer'].eos_token_id,
-        )
-
-        responses = [responses[i][0]['generated_text'][len(current_batch[i]['prompt']):] for response in responses]
+    responses = [responses[i][0]['generated_text'][len(current_batch[i]['prompt']):] for response in responses]
 
     for i in range(len(current_batch)):
         current_batch[i]['response'] = responses[i]
@@ -113,9 +106,10 @@ def process_current_batch():
 
     lock.release()
 
-def wait_for_response(condition):
-    thread = threading.Thread(target=process_current_batch)
-    thread.start()
+def wait_for_response(condition, use_vllm):
+    if not use_vllm:
+        thread = threading.Thread(target=process_current_batch)
+        thread.start()
 
     with condition:
         condition.wait()
@@ -125,16 +119,29 @@ def wait_for_response(condition):
             item['obtained_response'] = True
             return response
 
+def execute_vllm_requests():
+    global vllm_event_loop
+
+    assert vllm_event_loop is None
+    vllm_event_loop = asyncio.new_event_loop()
+    vllm_event_loop.run_forever()
+
 def create_model(*, model_path, tokenizer_path, dtype, use_vllm):
     if use_vllm:
+        model = vllm.AsyncLLMEngine.from_engine_args(vllm.AsyncEngineArgs(
+            model=model_path,
+            tokenizer=tokenizer_path,
+            tensor_parallel_size=torch.cuda.device_count(),
+            dtype=str(dtype).replace('torch.', ''),
+        ))
+
+        executor_thread = threading.Thread(target=execute_vllm_requests)
+        executor_thread.start()
+
         return {
             'eos_token': transformers.AutoTokenizer.from_pretrained(tokenizer_path).eos_token,
-            'model': vllm.LLM(
-                model=model_path,
-                tokenizer=tokenizer_path,
-                tensor_parallel_size=torch.cuda.device_count(),
-                dtype=str(dtype).replace('torch.', ''),
-            )
+            'model': model,
+            'executor_thread': executor_thread,
         }
     else:
         return transformers.pipeline(
@@ -145,6 +152,33 @@ def create_model(*, model_path, tokenizer_path, dtype, use_vllm):
             trust_remote_code=True,
             device_map='auto'
         )
+
+async def vllm_respond_to_prompt(*, prompt, prompt_model):
+    assert prompt_model is model
+
+    response_generator = prompt_model['model']['model'].generate(prompt, vllm.SamplingParams(
+        # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
+
+        best_of=None,
+        presence_penalty = 0.0,
+        frequency_penalty=0.0,
+        temperature=1.0,
+        top_p=1.0,
+        top_k=-1,
+        use_beam_search=False,
+        max_tokens=prompt_model['max_new_tokens'],
+    ), request_id=uuid.uuid4())
+
+    response = None
+    async for response_part in response_generator:
+        if not response_part.finished:
+            continue
+        assert response is None
+        outputs = response_part.outputs
+        assert len(outputs) == 1
+        response = outputs[0].text
+
+    return response.replace(prompt_model['model']['eos_token'], '')
 
 def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, use_vllm):
     global model
@@ -157,6 +191,7 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             or model['tokenizer_path'] != tokenizer_path
             or model['model_path'] != model_path
             or model['dtype'] != dtype
+            or model['use_vllm'] != use_vllm
             or model['max_new_tokens'] != max_new_tokens):
         unload_model(False)
         model = {
@@ -169,10 +204,15 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
         }
 
     condition = threading.Condition()
-    current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model })
 
-    lock.release()
-    return wait_for_response(condition)
+    if use_vllm:
+        future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model), vllm_event_loop)
+        lock.release()
+        return future.result()
+    else:
+        current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model })
+        lock.release()
+        return wait_for_response(condition, use_vllm)
 
 class Huggingface:
     def __init__(
