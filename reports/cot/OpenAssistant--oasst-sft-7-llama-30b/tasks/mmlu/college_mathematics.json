@@ -1,0 +1,75 @@
+{
+    "score": 0.2,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Let k be the number of real solutions of the equation e^x + x - 2 = 0 in the interval [0, 1], and let n be the number of real solutions that are not in [0, 1]. Which of the following is true?\n\n(A) k = 0 and n = 1\n(B) k = 1 and n = 0\n(C) k = n = 1\n(D) k > 1",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, we need to first find the solutions of the equation e^x + x - 2 = 0 in the interval [0, 1]. We can do this by following these steps:\n\n1. Notice that e^x > x for x < 0, so the equation e^x + x - 2 = 0 only has real solutions if x > 0.\n2. Divide both sides of the equation by e^x to obtain x + 1 = 2e^x.\n3. Substitute x + 1 = 2e^x into the equation and obtain e^x = (x + 1)/2.\n4. We know that the left-hand side of the equation is positive, so we can conclude that x > 0.\n5. Substitute x = y - 1 into the equation to obtain the equation y/(y-1) = (x+1)/2.\n6. Solve for y:\ny/(y-1)=(x+1)/2\ny(y-1)=(x+1)(2y-2)\ny(y-1)=2xy-2y- x\ny-1=x+1\ny=x+2\n\nNow we know that the left-hand side of the equation is positive, so we can conclude that x > 0 and y > x+3 > x+1 = 1.\n7. The solutions for x that lie within the interval [0, 1] are x = 0 and x = 1.\n8. Since there are exactly two real solutions for x that lie within the interval [0, 1], we know that n = 1 and k = 0.\n\nTherefore, the answer is (A).",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Up to isomorphism, how many additive abelian groups G of order 16 have the property that x + x + x + x = 0 for each x in G ?\n\n(A) 0\n(B) 1\n(C) 2\n(D) 3",
+            "correct_answer": 3,
+            "model_answer": "The additive abelian group of order 16 must be one of four candidates:\n\n(C1) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15} under addition modulo 16, or\n(C2) {0, 1} x {0, 1} with componentwise addition and multiplication modulo 2, or\n(C3) {0, x, x^2, x^3, x^4} under multiplication modulo 5, or\n(C4) {0, 1, y, y^2} with componentwise addition and multiplication modulo 3.\n\nA 4-element abelian group cannot be written as cyclic group of prime order. All of the candidates satisfy the property that x + x + x + x = 0 for each x in G, so there are exactly 4 such groups.\n\nTherefore, the answer is (D) 3.",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": "Suppose P is the set of polynomials with coefficients in Z_5 and degree less than or equal to 7. If the operator D sends p(x) in P to its derivative p\u2032(x), what are the dimensions of the null space n and range r of D?\n\n(A) n = 1 and r = 6\n(B) n = 1 and r = 7\n(C) n = 2 and r = 5\n(D) n = 2 and r = 6",
+            "correct_answer": 3,
+            "model_answer": "To find the dimensions of the null space n and range r of D, we can use row and column operations to reduce the matrix of D to its Row Echelon Form (REF) or row reduced echelon form (RREF).\n\nFirst, we need to identify the coefficient matrix of the homogeneous system D(p) = 0. Let's call it A.\n\nTo find out the dimensions of the null space n and range r of D '', we need to look for the defining equations of the two subspaces.\n\nThe defining equations of the null space n will be the equations deemed by the last non-zero column of A.\n\nThe defining equations of the range r will be the linear combinations of the defining equations of the null space n.\n\nAfter finding the dim(null(A)) = 1 and dim(range(A)) = 6, the answer is B.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "The shortest distance from the curve xy = 8 to the origin is\n\n(A) 4\n(B) 8\n(C) 16\n(D) 2sqrt(2)",
+            "correct_answer": 0,
+            "model_answer": "\u200b",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "There are 25 suitcases, 5 of which are damaged. Three suitcases are selected at random. What is the probability that exactly 2 are damaged?\n\n(A) 2/69\n(B) 1/30\n(C) 2/23\n(D) 12/125",
+            "correct_answer": 2,
+            "model_answer": "To find the probability of exactly 2 of 3 randomly selected suitcases being damaged, we can use the concept of combinations. First, we need to find the total number of ways to choose 3 suitcases out of 25. There are a total of 25 C 3 = 1530 ways to choose 3 suitcases out of 25.\n\nNext, we need to find the number of ways to choose exactly 2 of the 5 damaged suitcases and 1 of the 20 non-damaged suitcases. We can do this by multiplying the number of ways to choose 2 of the damaged suitcases (5 C 2) by the number of ways to choose 1 of the non-damaged suitcases (20 C 1), and then adding this to the number of combinations where all 3 suitcases are non-damaged (20 C 3).\n\n(A) To find the number of combinations where all 3 suitcases are non-damaged, we can use the formula (n C k, j) = (n C k) x (n C j):\n\n25 C 3 = 1530 = (25 C 0) * (25 C 3) = (25 C 0) * (25 C 2) * (25 C 1)\n\nSo nCj = 25C1 = 25\nj = 3\n\nThen there are (25 C k, j) = (25 C k) x (25 C j) = 25C2 x 25C1 = 1500 such combinations.\n\n(B) Now we need to find the number of combinations where exactly 2 of the suitcases are damaged and one non-damaged. There are 5 C 2 = 10 ways to choose 2 of the damaged suitcases.\n\nNext, we need to find the number of ways to choose 1 of the non-damaged suitcases. Since there are 20 such suitcases, there are 20C1 = 20 ways to choose 1 non-damaged suitcase.\n\nSo there are a total of (5 C 2) x 20C1 = 10 x 20 = 200 combinations where exactly 2 of the 3 suitcases are damaged.\n\n(C) Finally, we need to find the total number of combinations, which is the probability of the event occurring. There are a total of n C k = 25 C 3 = 1530 possible combinations.\n\nIn this case, there are 200 of the combinations that have exactly 2 damaged suitcases (200 / 1530 = 2/23)\n\nThe answer is (C) 2/23\n\n((A) 2/69, (B) 1/30, (C) 2/23, (D) 12/125).",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Let (Z_{10} , +, x) be the ring of integers modulo 10, and let S be the subset of Z_{10} represented by {0, 2, 4, 6, 8}. Which of the following statements is FALSE?\n\n(A) (S, +, x) is closed under addition modulo 10.\n(B) (S, +, x) is closed under multiplication modulo 10.\n(C) (S, +, x) has an identity under addition modulo 10.\n(D) (S, +, x) has no identity under multiplication modulo 10.",
+            "correct_answer": 3,
+            "model_answer": "A) (S, +, x) is closed under addition modulo 10.\n\nTo show that (S, +, x) is closed under addition modulo 10, we need to prove that if a and b are elements of S, then their sum a + b is also an element of S. We can verify this by checking that the sum of any two elements in S is always a multiple of 10, which is equivalent to being in S. For example, 0 + 2 = 2, 2 + 4 = 6, and so on. Since the sum of any two elements in S is always in S, (S, +, x) is closed under addition modulo 10.\n\nB) (S, +, x) is closed under multiplication modulo 10.\n\nTo show that (S, +, x) is closed under multiplication modulo 10, we need to prove that if a and b are elements of S, then their product ab is also an element of S. We can verify this by checking that the product of any two elements in S is always a multiple of 10, which is equivalent to being in S. For example, 0 * 2 = 0, 2 * 4 = 8, and so on. Since the product of any two elements in S is always in S, (S, +, x) is closed under multiplication modulo 10.\n\nC) (S, +, x) has an identity under addition modulo 10.\n\nAn identity element for addition in (S, +, x) would need to be an element e such that for any a in S, e + a = a + e = a. In other words, e + a = a and a + e = a. One way to check for the existence of such an element is to look for an element in S that is \"neutral\" with respect to addition modulo 10. We can see that this is not possible because any two elements in S have the same remainder modulo 10 when added together. For example, 0 + 2 = 2, 2 + 4 = 6, and so on. Therefore, there is no identity element in (S, +, x) under addition modulo 10. This statement is therefore FALSE.\n\nD) (S, +, x) has no identity under multiplication modulo 10.\n\nAn identity element for multiplication in (S, +, x) would need to be an element e such that for any a in S, e * a = a * e = a^2. In other words, e * a = a^2 and a * e = a^2. One way to check for the existence of such an element is to look for an element in S that is \"neutral\" with respec",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "A ladder 9 meters in length is leaning against a vertical wall on level ground. As the bottom end of the ladder is moved away from the wall at a constant rate of 2 meters per second, the top end slides downward along the wall. How fast, in meters per second, will the top end of the ladder be sliding downward at the moment the top end is 3 meters above the ground?\n\n(A) 12*sqrt(2)\n(B) 6*sqrt(2)\n(C) 4*sqrt(2)\n(D) 1/(2*sqrt(2))",
+            "correct_answer": 2,
+            "model_answer": "\u200b",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "Consider a segment of length 10. Points A and B are chosen randomly such that A and B divide the segment into three smaller segments. What is the probability that the three smaller segments could form the sides of a triangle?\n\n(A) 0\n(B) 10%\n(C) 25%\n(D) 50%",
+            "correct_answer": 2,
+            "model_answer": "Points A and B divide the 10-length segment into three smaller segments of length 10, 10, and 10. The probability that the three smaller segments could form the sides of a triangle is 0.\n\n(A)",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Let V be a finite-dimensional real vector space and let P be a linear transformation of V such that P^2 = P. Which of the following must be true?\nI. P is invertible.\nII. P is diagonalizable.\nIII. P is either the identity transformation or the zero transformation.\n\n(A) None\n(B) I only\n(C) II only\n(D) III only",
+            "correct_answer": 2,
+            "model_answer": "To solve this problem, we need to recall some properties of linear transformations and diagonalization.\n\nA linear transformation P of a finite-dimensional real vector space V is said to be diagonalizable if there exists a basis of V consisting of eigenvectors of P. This means that for each eigenvector v, there exists a scalar c(v) such that P(v) = c(v)v.\n\nThe Jordan Normal Form Theorem states that every matrix is similar to a Jordan matrix, which is a block diagonal matrix with eigenvalue blocks on the diagonal. Therefore, any linear transformation is similar to a diagonalizable matrix, meaning that it can be diagonalized by a linear transformation.\n\nNow, let us consider the given condition: P^2 = P. This implies that for any vector v in V, P^2(v) = P(v). In other words, P(v) = 2P(v) for any vector v in V. Therefore, for any eigenvector v with eigenvalue c(v), we have P(v) = 2P(v), which means that c(v) = 0 or c(v) = 2.\n\nSo, the eigenvalues of P are either 0 or 2, and the eigenvectors corresponding to the eigenvalue 2 form an invariant subspace of P.\n\nNext, we need to determine which of the three conditions must be true. Let us analyze each one:\n\n* I. P is invertible. This means that there exists a linear transformation Q such that PQ = QP = I. However, we know that P is not invertible, because it does not have a one-to-one correspondence with its range. Therefore, option I is not correct.\n\n* II. P is diagonalizable. We have shown that P(v) = 0 or c(v) = 2 for every eigenvector v of P. This means that P is diagonalizable with the two linearly independent eigenvectors {v1, v2} where P(v1) = v1 and P(v2) = 2v2. Therefore, option II is correct.\n\n* III. P is either the identity transformation or the zero transformation. We know that P(v) = 0 for some vector v in V, because P(v2) = 0. Therefore, P is not the identity transformation. However, it is not the zero transformation either, because P(v1) = v1 and P(v2) = 2v2 are linearly independent eigenvectors. Therefore, option III is not correct.\n\nWe have shown that option II is correct: P is diagonalizable. So the correct answer is:\n\n(C) II only",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": "Which of the following is true?\n\n(A) Every compact space is complete\n(B) Every complete space is compact\n(C) Neither (a) nor (b).\n(D)  Both (a) and (b).",
+            "correct_answer": 0,
+            "model_answer": "To determine the correct option, I will use the following reasoning:\n\n1. Definition of compact space: A space X is compact if every open cover of X has a finite subcover.\n2. Definition of complete space: A space X is complete if it is joined with any of its convergent sequences.\n3. Relationship between compact and complete spaces: In general, not all compact spaces are complete, but all complete spaces are compact.\n\nNow, let's match the options with the above statement:\n\n(A) Every compact space is complete. This statement is false, as not all compact spaces are complete.\n\n(B) Every complete space is compact. This statement is true.\n\n(C) Neither (a) nor (b). This statement is mostly false, as every complete space is compact. However, there are examples of compact spaces that are not complete.\n\n(D) Both (a) and (b). This statement is also false, as not all compact spaces are complete.\n\nSo, the answer is: \n\nB",
+            "correct": false
+        }
+    ]
+}
