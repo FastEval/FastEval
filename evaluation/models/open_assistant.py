@@ -26,11 +26,3 @@ class OpenAssistant(Huggingface):
             use_vllm=use_vllm,
             **kwargs,
         )
-
-    @staticmethod
-    def get_dtype(model_path: str):
-        if 'pythia' in model_path or 'llama' in model_path:
-            return torch.float16
-        elif 'falcon' in model_path:
-            return torch.bfloat16
-        raise

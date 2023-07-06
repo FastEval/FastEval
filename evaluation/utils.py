@@ -1,10 +1,11 @@
 import atexit
 import signal
 from contextlib import contextmanager
+import multiprocessing.pool
 
 import torch
 import tqdm
-import multiprocessing.pool
+import transformers
 
 import evaluation.models.fastchat
 import evaluation.models.huggingface
@@ -51,16 +52,9 @@ def get_model_class(model_type: str):
 def create_model(model_type: str, model_name: str, **kwargs):
     return get_model_class(model_type)(model_name, **kwargs)
 
-def get_dtype(model_type: str, model_name: str):
-    if model_type == 'base':
-        if 'llama' in model_name:
-            return torch.float16
-        if 'falcon' in model_name:
-            return torch.bfloat16
-        if 'mpt' in model_name:
-            return torch.bfloat16
-        raise
-    return get_model_class(model_type).get_dtype(model_name)
+def get_dtype(model_name: str):
+    config_dict = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+    return getattr(config_dict, 'torch_dtype')
 
 def compute_model_replies(model, conversations, *, num_threads=10):
     def reply(conversation_with_index):

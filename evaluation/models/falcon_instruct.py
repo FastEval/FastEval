@@ -16,7 +16,3 @@ class FalconInstruct(Huggingface):
 
             **kwargs,
         )
-
-    @staticmethod
-    def get_dtype(model_path: str):
-        return torch.bfloat16
