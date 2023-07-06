@@ -16,6 +16,5 @@ class OpenAssistant(Huggingface):
             user='<|prompter|>',
             assistant='<|assistant|>',
             end=eos_token,
-            use_vllm=use_vllm,
             **kwargs,
         )
