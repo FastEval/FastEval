@@ -231,7 +231,7 @@ class Huggingface:
         default_system='',
         end: str,
         max_new_tokens=400,
-        use_vllm=True,
+        use_vllm=None,
     ):
         if tokenizer_path is None:
             tokenizer_path = model_path
@@ -248,7 +248,11 @@ class Huggingface:
         self.end = end
 
         self.max_new_tokens = max_new_tokens
-        self.use_vllm = use_vllm
+
+        if use_vllm is None:
+            self.use_vllm = evaluation.utils.is_vllm_supported(model_path)
+        else:
+            self.use_vllm = use_vllm
 
     def _conversation_to_prompt(self, conversation):
         if self.system is None:
