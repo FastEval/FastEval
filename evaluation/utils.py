@@ -57,6 +57,9 @@ def get_dtype(model_name: str):
     return getattr(config_dict, 'torch_dtype')
 
 def compute_model_replies(model, conversations):
+    if len(conversations) == 0:
+        return []
+
     def reply(conversation_with_index):
         index, conversation = conversation_with_index
         reply = model.reply(conversation)
