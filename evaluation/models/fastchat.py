@@ -93,7 +93,7 @@ class Fastchat(OpenAI):
     num_threads = NUM_THREADS_LOCAL_MODEL
 
     def __init__(self, model_name, *, max_new_tokens=400):
-        self.use_vllm = evaluation.utils.is_vllm_supported(model_path)
+        self.use_vllm = evaluation.utils.is_vllm_supported(model_name)
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
     def _reply(self, conversation, model_name):
