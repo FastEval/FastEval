@@ -11,6 +11,7 @@ import tenacity
 from .open_ai import OpenAI
 
 import evaluation.utils
+from evaluation.constants import NUM_THREADS_LOCAL_MODEL
 
 lock = threading.Lock()
 server = None
@@ -90,6 +91,8 @@ def ensure_model_is_loaded(model_name):
     lock.release()
 
 class Fastchat(OpenAI):
+    num_threads = NUM_THREADS_LOCAL_MODEL
+
     def __init__(self, model_name, *, max_new_tokens=400):
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
