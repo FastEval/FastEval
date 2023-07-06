@@ -3,7 +3,7 @@ import torch
 from .huggingface import Huggingface
 
 class FalconInstruct(Huggingface):
-    def __init__(self, model_path):
+    def __init__(self, model_path, **kwargs):
         super().__init__(
             model_path,
 
@@ -11,6 +11,10 @@ class FalconInstruct(Huggingface):
             user='User: ',
             assistant='Assistant: ',
             end='\n',
+
+            use_vllm=False,
+
+            **kwargs,
         )
 
     @staticmethod
