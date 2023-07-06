@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Find the degree for the given field extension Q(sqrt(2), sqrt(3), sqrt(18)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "'(A) 0' is the only option that makes sense because any other option would involve a square root of a number larger than 2 or 3, which is not a legal field extension.\n\n'(B) 4' is incorrect because the extension has degree 2, not 4.\n\n'(C) 2' is incorrect because the extension has degree 3, not 2.\n\n'(D) 6' is incorrect because the extension has degree 6, not 2.",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Let p = (1, 2, 5, 4)(2, 3) in S_5 . Find the index of <p> in S_5.\n\n(A) 8\n(B) 2\n(C) 24\n(D) 120",
+            "correct_answer": 2,
+            "model_answer": "Here is a possible approach to solving this problem:\n\n- Find the representative of the conjugacy class of <p> in S_5. This representative will be a cycle, and its index will be the desired index.\n\n- Write a program that can find the representative of a conjugacy class in S_n. This can be done by using the cycle algorithm or other algorithms for finding cycles in graphs.\n\n- Use the representative of the conjugacy class of <p> to find its index in S_5.\n\nHere is the code for the approach:\n\n```java\n// Find the representative of the conjugacy class of p\ncyclist = cycleBuild(p);\nint index = cyclist.getLength();\n```\n\n- Write the function `cycleBuild` that takes a permutations as input and returns the representative of the conjugacy class of the permutation. This can be done by finding the longest suffix of the permutation that is also a prefix of another longer suffix, and using this to form the representative of the conjugacy class.\n\n- Use the `findIndex` method of the `SparseVector` class to find the index of the representative of the conjugacy class of <p> in S_5. The index of the representative will be stored in the `index` variable.\n\nHere is the code for the `findIndex` method:\n\n```java\n// Find the index of the representative of the conjugacy class of p in S_n\nint i = -1;\nfor (int j = 0; j < n; j++) {\n    if (p[j] == i) {\n        i = j;\n    }\n}\nindex = i;\n```\n\nOnce the index of <p> has been found, the corresponding letter can be found by looking up the value of p at that index in the array <p>.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^5 + 3x^3 + x^2 + 2x in Z_5\n\n(A) 0\n(B) 1\n(C) 0,1\n(D) 0,4",
+            "correct_answer": 3,
+            "model_answer": "Let's break this down:\n\nX^5 + 3X^3 + X^2 + 2X\n\n translates to:\n\nX^5 + 3(0)^3 + (0)^2 + 2(0)\n\nUsing the fact that \"X^5\" is the null polynomial of order 5, this can be simplified to:\n\n(0)^5 + 3(0)^3 + 2(0)\n\nSince the field is Z_5, all powers of 0 will be equal to 0 with the exception of 0^5, which is also equal to 0 since it is the null polynomial in that field. Therefore, the only possible answer is (A).",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Statement 1 | A factor group of a non-Abelian group is non-Abelian. Statement 2 | If K is a normal subgroup of H and H is a normal subgroup of G, then K is a normal subgroup of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "(A) True, True\n\nSince normal subgroups preserve multiplication, in this case since K is a normal subgroup of H and H is a normal subspace of G, K is a normal subspace of G as well.\n\nTherefore statement 2 is true.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Find the product of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x) = 2x^2 - 4x + 2 in Z_8[x].\n\n(A) 2x^2 + 5\n(B) 6x^2 + 4x + 6\n(C) 0\n(D) x^2 + 1",
+            "correct_answer": 1,
+            "model_answer": "Explanation:\n\nTo find the product of the given polynomials we need to first manipulate them to form a gcd. We can do this by setting the two smallest powers of x to zero and then factorizing the expression.\n\nSetting the smallest powers of x to zero gives us the following equations:\n\n4x - 5 = 0 (rounded to the nearest integer)\n2x^2 - 4x + 2 = 0 (factorized)\n\nSolving these equations gives us the following answers:\n\n(A) 2x^2 + 5 = 0 (because the 2nd power of x is 0)\n(B) 6x^2 + 4x + 6 = 0 (because the 2nd and 4th powers of x are 0)\n(C) 0 (because the 2nd power of x is 0)\n(D) x^2 + 1 = 0 (because the square root of 1 is 0)\n\nTherefore, the product of the given polynomials in the given polynomial ring is equal to 0, which is answer (C).",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Statement 1 | If a group has an element of order 15 it must have at least 8 elements of order 15. Statement 2 | If a group has more than 8 elements of order 15, it must have at least 16 elements of order 15.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "Let's first analyze Statement 1:\n\nIf a group has an element of order 15, it means that there is an element in the group whose order is 15. \n\nThere are 8 elements in the group with order 15: 3, 4, 6, 7, 8, 9, 10, 11 and 12. \n\nBecause there is at least one element with order 15, the group must have at least 8 elements with order 15.\n\nHence, (A) is the correct answer.\n\nNext, let's analyze Statement 2:\n\nIf a group has more than 8 elements of order 15, it means that there are at least 9 elements in the group with order 15.\n\nHere are 9 elements in the group with order 15: 3, 4, 6, 7, 8, 9, 10, 11, 12 and 13. \n\nSince the group has at least 9 elements with order 15, it must have at least 16 elements with order 15.\n\nHence, (D) is the correct answer.\n\nWhen answering questions like these, it's important to break down the problem into smaller steps, and to consider all the possible cases before making a decision. This way, you can avoid making mistakes and reach a correct conclusion.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Statement 1 | Every homomorphic image of a group G is isomorphic to a factor group of G. Statement 2 | The homomorphic images of a group G are the same (up to isomorphism) as the factor groups of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "Step one: Explain your reasoning.\n\nProof:\nLet H be a homomorphic image of G. Then, H is a group with a mapping f: G -> H such that f(a) = f(b) if and only if a = b for all a, b in G.\n\nSince f is a mapping from G -> H, we have:\n\nf(gh) = f(g)f(h) for all g, h in G\n\nApplying the identity obedience rule (IO), we have:\n\nf(a)f(b) = f(ab) for all a, b in G\n\nBy some algebraic manipulation, this can be rewritten as:\n\n(f(g))^{-1}f(g) = (f(g))^{-1}f(ga)f(gb) for all a, b in G\n\nUnder the assumption that G is a group, we can apply distributivity to both sides and conclude that:\n\nf(a)f(b) = f(ab) for all a, b in G\n\nStep two: Check the answer choices.\n\nA: True, True\nB: False, False\nC: False, False\nD: True, True\n\nThe correct answer is (A).",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "Statement 1 | A ring homomorphism is one to one if and only if the kernel is {0}. Statement 2 | Q is an ideal in R.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "Here is my analysis:\n\n Statement 1: \n\nA ring homomorfism is one to one if and only if the kernel is {0}.\n\nIf the ring homomorfism is one-to-one, then the kernel of the mapping must be {0}. If the kernel of the mapping is not {0}, then the mapping is not one-to-one. Conversely, if the kernel of the mapping is {0}, then it follows that the mapping is one-to-one and therefore invertible.\n\nStatement 2: \n\nQ is an ideal in R.\n\nLet's first look at the condition for an ideal to be proper in a ring. A proper ideal in a ring R is a proper subset of R that is closed under addition and scalar multiplication.\n\nTo check if Q is a proper ideal, we need to check if it meets the condition for a proper ideal. Q satisfies the condition if and only if it is not the zero element of R, which can be expressed as Q \u2260 {0}.\n\nIf Q \u2260 {0}, then Q is not a proper ideal, and therefore Q is not an ideal in R. On the other hand, if Q = {0}, then Q is a proper ideal in R, satisfying the condition for being an ideal.\n\nTherefore, True is the correct answer to the question.",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Find the degree for the given field extension Q(sqrt(2) + sqrt(3)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "Let's first find the discriminant D of the extension.\ndiscriminant(Q(sqrt(2) + sqrt(3)) | Q) = -16\nD = -16\n now we need to find the roots of equation x^2 + 16 = 0\nthe solutions are:\nx = -4, x = -2\n\nTherefore the degree of the extension is 2.",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^3 + 2x + 2 in Z_7\n\n(A) 1\n(B) 2\n(C) 2,3\n(D) 6",
+            "correct_answer": 2,
+            "model_answer": "I believe the answer is C.\n\nThe polynomial can be factored into:\nx^3 + 2x + 2 = (x + 1)(x^2 + x + 1)\n\nAll zeros of the quadratic term (x + 1) are 1 and -1, thus there are 2 solutions to this factorisation. Additionally, all zeros of the linear term x^2 + x + 1 must come from the unique solution of x = -1, and thus there are a total of 3 zeros in Z_7 of the given polynomial.\n\nTherefore the only possible answer is C, where the zeros are -1, 1, and 3.",
+            "correct": false
+        }
+    ]
+}
