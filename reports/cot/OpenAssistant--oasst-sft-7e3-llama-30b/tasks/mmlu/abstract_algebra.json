@@ -1,0 +1,75 @@
+{
+    "score": 0.2,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Find the degree for the given field extension Q(sqrt(2), sqrt(3), sqrt(18)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "(A) 0\nNeeds more context. Ask a follow-up question.",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Let p = (1, 2, 5, 4)(2, 3) in S_5 . Find the index of <p> in S_5.\n\n(A) 8\n(B) 2\n(C) 24\n(D) 120",
+            "correct_answer": 2,
+            "model_answer": "\u200b",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^5 + 3x^3 + x^2 + 2x in Z_5\n\n(A) 0\n(B) 1\n(C) 0,1\n(D) 0,4",
+            "correct_answer": 3,
+            "model_answer": "Step 1: Find the value of the polynomial at x=0. We have x^5 + x^3 + x^2 + 2x when x=0:\n\n0^5 + 0^3 + 0^2 + 2(0) = 0 + 0 + 0 + 0 = 0\n\nStep 2: Check if 0 is a root of the polynomial. We have seen that it is. However, it is a good practice to check if it is a double root or a single root. This is done by evaluating the derivative of the polynomial at x=0:\n\n(5*x^4 + 3*x^2 + 2) when x=0 = 0*4 + 0*2 + 2 = 0\n\nSince the value of the polynomial and its derivative at x=0 both equal 0, we have found a double root.\n\nStep 3: Look for other solutions by using the quadratic formula. Since we have found a double root, we can consider the polynomial as a quadratic in (x-0):\n\n(x-0)^2 = (x^2 - 2x) + 1 = (x^2 - 2x - 1) = (x - 1)^2 - 1\n\nThe discriminant must be a square in the field in order to have a solution in the field. Since we are working in Z_5, the only square roots of 1 are 1 and 4. Therefore, the only other solution is x=4.\n\nStep 4: Check if the solution is correct. We have found that x=4 is a solution. Let's verify it:\n\n(x-0)^2 = (x^2 - 2x) + 1 = (x^2 - 2x - 1) = (x - 1)^2 - 1 when x=4 = (4-1)^2 - 1 = 1^2 - 1 = 0\n\nTherefore, the polynomial has a double zero at x=0 and a single zero at x=4.\n\nStep 5: Output the answer.\n\n(C) 0,1",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Statement 1 | A factor group of a non-Abelian group is non-Abelian. Statement 2 | If K is a normal subgroup of H and H is a normal subgroup of G, then K is a normal subgroup of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "The question is asking to determine the truth values of two statements: Statement 1, \"A factor group of a non-Abelian group is non-Abelian,\" and Statement 2, \"If K is a normal subgroup of H and H is a normal subgroup of G, then K is a normal subgroup of G.\"\n\nFor the first statement (A), it is true that a factor group of a non-Abelian group is non-Abelian.\n\nFor the second statement (B), it is true that if K is a normal subgroup of H and H is a normal subgroup of G, then K is a normal subgroup of G.\n\nTherefore, the answer is (A), True, True.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Find the product of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x) = 2x^2 - 4x + 2 in Z_8[x].\n\n(A) 2x^2 + 5\n(B) 6x^2 + 4x + 6\n(C) 0\n(D) x^2 + 1",
+            "correct_answer": 1,
+            "model_answer": "The given polynomial ring is R = Z_8[x]. The product of the polynomials f(x) and g(x) can be found by multiplying their coefficients, which gives 8x^2 + 10x - 4x^2 + 20x - 4 - 2x^2 + 4x + 2  = 2x^2 - 4x + 2x^2 + 4x - 2 = 2x^2 + 2x.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Statement 1 | If a group has an element of order 15 it must have at least 8 elements of order 15. Statement 2 | If a group has more than 8 elements of order 15, it must have at least 16 elements of order 15.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "Based on the given statements, we can form the following arguments:\n\nArgument 1:\nPremise 1: If a group has an element of order 15, it must have at least 1 element of order 15.\nPremise 2: An element of order 15 is in the group.\nConclusion: Therefore, the group has at least 1 element of order 15.\n\nPremise 3: If a group has at least 1 element of order 15, it must have at least 8 elements of order 15.\nConclusion: Therefore, the group has at least 8 elements of order 15.\n\nArgument 2:\nPremise 1: If a group has more than 8 elements of order 15, it must have at least 16 elements of order 15.\nPremise 2: The group has more than 8 elements of order 15.\nConclusion: Therefore, the group has at least 16 elements of order 15.\n\nNow let's evaluate each of the given options:\n\nOption (A):\n\nPremise 1: If a group has an element of order 15, it must have at least 1 element of order 15.\nConclusion 1: True.\n\nPremise 2: If a group has at least 1 element of order 15, it must have at least 8 elements of order 15.\nConclusion 2: True.\n\nOption (B):\n\nPremise 1: If a group has an element of order 15, it must have at least 1 element of order 15.\nConclusion 1: False.\n\nPremise 2: If a group has at least 1 element of order 15, it must have at least 8 elements of order 15.\nConclusion 2: False.\n\nOption (C):\n\nPremise 1: If a group has an element of order 15, it must have at least 1 element of order 15.\nConclusion 1: True.\n\nPremise 2: If a group has more than 8 elements of order 15, it must have at least 16 elements of order 15.\nConclusion 2: False.\n\nOption (D):\n\nPremise 1: If a group has an element of order 15, it must have at least 1 element of order 15.\nConclusion 1: False.\n\nPremise 2: If a group has more than 8 elements of order 15, it must have at least 16 elements of order 15.\nConclusion 2: True.\n\nTherefore, the correct answer is (D) False, True.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Statement 1 | Every homomorphic image of a group G is isomorphic to a factor group of G. Statement 2 | The homomorphic images of a group G are the same (up to isomorphism) as the factor groups of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "The statement \"Every homomorphic image of a group G is isomorphic to a factor group of G\" is equivalent to saying that every homomorphic image of G is isomorphic to a subgroup of G. If this is true, then every homomorphic image of G will be a factor group of G. In order for this to happen, every homomorphic image of G must be a subgroup of G. So, in order to determine whether Statement 1 is true or false, we need to know the following:\n\nDoes every homomorphic image of a group G contain a subgroup of G?\n\nIf the answer is yes, then Statement 1 is true and the answer is (A) True, True.\nIf the answer is no, then Statement 1 is false and we need to consider Statement 2.\n\nWe also need to determine whether Statement 2 is true or false. Statement 2 states that the homomorphic images of a group G are the same (up to isomorphism) as the factor groups of G. If this is true, then every homomorphic image of G must contain at least one subgroup of G. This means that every homomorphic image of G must be a factor group of G. So, in order to determine whether Statement 2 is true or false, we need to know the following:\n\nAre all homomorphic images of a group G factor groups of G?\n\nIf the answer is yes, then Statement 2 is true and the answer is (A) True, True.\nIf the answer is no, then Statement 2 is false and the answer is (B) False, False.\n\nIf Statement 1 is false, then both statements cannot both be true, so the answer will be either (B) False, False or (C) True, False. If Statement 2 is false, then the answer will be (C) True, False. If Statement 1 is true and Statement 2 is false, then the answer will be (B) False, False.\n\nThe answer is (A) True, True.",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "Statement 1 | A ring homomorphism is one to one if and only if the kernel is {0}. Statement 2 | Q is an ideal in R.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "The statement (B) False, False is not necessarily true.\n\nTo prove this, we will use the Ker- image theorem.\n\nLet $\\pi:R\\rightarrow R/$Q$ be the quotient map. The kernel of $\\pi$ is Q.\n\nIf $\\pi$ is one-to-one, then Q would be equal to {0}, making it an ideal.\n\nTherefore, for this to be true it must be that $\\pi$ is not one-to-one.\n\nTherefore, (D) False, True is the correct answer.$answer = \"D\" (\"False\" \"True\")$",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Find the degree for the given field extension Q(sqrt(2) + sqrt(3)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "To determine the degree of the field extension Q(sqrt(2) + sqrt(3)) over Q:\n\n1. We need to find the minimum polynomial of sqrt(2) + sqrt(3) over Q.\n2. We can factor the polynomial x^2 - 2 - 3x + 1 as (x - 1)(x - 1) in Q[x].\n3. The polynomial x^2 - 2 - 3x + 1 factors as (x - 1)^2 - 2 in Q[sqrt(2)][x].\n4. Therefore, sqrt(2) + sqrt(3) is a root of the quadratic (x - 1)^2 - 2 in Q[sqrt(2)][x], which means that sqrt(2) + sqrt(3) is an element of Q[sqrt(2)][sqrt(3)].\n5. The minimal polynomial of sqrt(3) over Q[sqrt(2)] is x^2 - 3, so we need to find the minimum polynomial of sqrt(2) over Q[sqrt(2)][sqrt(3)].\n6. We have sqrt(2) + sqrt(3) = (sqrt(2) + sqrt(3))(sqrt(2) - sqrt(3))/(sqrt(2) - sqrt(3)) = sqrt(2) - sqrt(3) + sqrt(2)sqrt(2 - 3) = sqrt(2) - sqrt(3) + sqrt(2).\n7. This means that sqrt(2) is a square in Q[sqrt(2)][sqrt(3)].\n8. Therefore, the minimum polynomial of sqrt(2) over Q[sqrt(2)][sqrt(3)] is a quadratic, which means that the degree of Q(sqrt(2) + sqrt(3)) over Q is 2.\n\nThe answer is (C) 2.",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^3 + 2x + 2 in Z_7\n\n(A) 1\n(B) 2\n(C) 2,3\n(D) 6",
+            "correct_answer": 2,
+            "model_answer": "Step 1: We are looking for the solutions to the equation x^3 + 2x + 2 = 0 in the field Z_7.\nStep 2: We can use the fact that a polynomial of degree 3 can have at most 3 roots.\nStep 3: We can use the Factor Theorem to find the roots of this polynomial. The Factor Theorem states that if a polynomial f(x) has a factor (x - a) and a belongs to the field that the polynomial is defined over, then f(a) = 0.\nStep 4: We need to find factors of the form (x - a) where a belongs to Z_7. Since Z_7 is a field with 7 elements, we can check all the possible values of a in Z_7.\nStep 5: To find factors of x^3 + 2x + 2, we need to find expressions of the form a^3, a^2b, ac, b^3, b^2c, bc^2, c^3, where a, b, and c are elements of Z_7.\nStep 6: We can express x^3 as (x + a)^3 = x^3 + 3x^2*a + 3x*a^2 + a^3. Similarly, we can express x^2*y = (x^2 + 2x)*(y^3 + 2y)^2 = x^2*y^3 + x^2*2y^2 + xy^3 + 2xy^2.\nStep 7: Substituting a = -1, 0, and 1, and b = 0, 1, and 2, and c = 0, 1, and 2, and expanding, we get the following expressions: a^3 = -1^3 = -1, a^2b = -1*0^2 = 0, ac = -1*1*0 = 0, b^3 = 0^3 = 0, b^2c = 2*0^2*1 = 0, bc^2 = 2*1*0^2 = 0, c^3 = 1^3 = 1.\nStep 8: Using these expressions, we can build the following polynomial: x^3 + 2x + 2 = x^3 - 1 + x^2*0 + x*0^2 + 2*1^3 = (x - 1)*(x + 1)*(x - 1).\nStep 9: By the Factor Theorem, the solutions to the equation x^3 + 2x + 2 = 0 are the values of x that multiply to yield -1 in the field Z_7.\nStep 10: The only value in Z_7 that satisfies this condition is -1, as (-1)(-1)(-1) = -1.\nStep 11: Therefore, the solutions to the equation x^3 + 2x + 2 = 0 in the field Z_7 are 1.\nStep 12: The answer is (A).\n(A)",
+            "correct": false
+        }
+    ]
+}
