@@ -133,6 +133,7 @@ def create_model(*, model_path, tokenizer_path, dtype, use_vllm):
             tokenizer=tokenizer_path,
             tensor_parallel_size=torch.cuda.device_count(),
             dtype=str(dtype).replace('torch.', ''),
+            disable_log_requests=True,
         ))
 
         executor_thread = threading.Thread(target=execute_vllm_requests)
