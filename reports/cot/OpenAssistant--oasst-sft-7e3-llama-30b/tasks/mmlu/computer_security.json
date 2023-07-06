@@ -1,0 +1,75 @@
+{
+    "score": 0.5,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Which of the following styles of fuzzer is more likely to explore paths covering every line of code in the following program?\n\n(A) Generational\n(B) Blackbox\n(C) Whitebox\n(D) Mutation-based",
+            "correct_answer": 2,
+            "model_answer": "To determine which of the styles of fuzzer is more likely to explore paths covering every line of code in the following program, we need to consider the following:\n\n1. Generational fuzzing works by creating a pool of inputs and then mutating them to create new inputs. This can help to explore a large search space, but the coverage of individual lines of code may not be as complete.\n2. Blackbox fuzzing works by sending inputs into the program and observing the output to determine if the input is valid or invalid. This approach may not be as effective at exploring every line of code, as it may not be able to determine which specific lines of code are executed.\n3. Whitebox fuzzing works by using internal knowledge of the program's code to generate inputs and observe execution. This can be effective at exploring every line of code, as it has internal knowledge of the program.\n4. Mutation-based fuzzing works by creating new inputs by mutating existing inputs. This can be effective at exploring a large search space, but the coverage of individual lines of code may not be as complete.\n\nBased on the information above, we can conclude that (C) Whitebox fuzzing is more likely to explore paths covering every line of code in the following program.\n\nAnswer: (C) Whitebox.",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Assume that a TLS connection has been established successfully between a client and a server. Establishing the session included checking the server certificate and executing a DiffieHelmann exchange, but the client did not provide a client certificate. Further, assume that the client and server are honest, that the client and server don\u2019t leak their keys, and that the cryptography is good. Which of the following attacks does TLS protect against?\n1. An attacker replaying bytes that a client sent earlier.\n2. An attacker impersonating the server.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "(A) True, True.\n\nTLS provides protection against both attacks listed in the question.\n\nFirstly, attackers are prevented from replaying bytes sent by a client. This is because TLS uses a mechanism called the \"MAC\" (Message Authentication Code), which checks every message exchanged during the session to ensure that it has not been tampered with or altered. This ensures that only legitimate messages are allowed and any attempt to replay an older message will be detected and discarded.\n\nSecondly, attackers are prevented from impersonating the server. This is because TLS uses a mechanism called the \"server key exchange\", which allows the client to verify the server's identity by checking its public key against a trusted list of known keys. Additionally, the session is encrypted, which makes it impossible for attackers to intercept and read the messages exchanged between the client and server. Any attempt by an attacker to impersonate the server will result in a failed authentication and the session will be terminated.\n\nThe answer is (A) True, True.",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": "MIT\u2019s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?\n\n(A) The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.\n(B) When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket\u2019s maximum lifetime.\n(C) When a client connects to a server, the server compares the ticket\u2019s expiration time to the server\u2019s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.\n(D) When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC\u2019s clock, and refuses to authenticate the user if the KDC reports that the ticket is expired.",
+            "correct_answer": 2,
+            "model_answer": "First, we need to understand the purpose of a Kerberos ticket. A Kerberos ticket is a temporary pass that allows a client to authenticate with a server in a secure manner. It contains information such as the client's username, the server's address, and a timestamp that indicates when the ticket was created and when it will expire. The maximum ticket lifetime is set by the Kerberos Key Distribution Center (KDC) and is typically 24 hours for most user principals.\n\nNow, let's analyze the given options:\n\n(A) The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.\n\nThis option is not correct because if a client has an expired ticket, the KDC would not refuse to establish a new connection. Instead, the client would need to request a new ticket.\n\n(B) When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket\u2019s maximum lifetime.\n\nThis option is also not correct because it is not the server that terminates the connection. Instead, the connection remains open as long as the client needs it.\n\n(C) When a client connects to a server, the server compares the ticket\u2019s expiration time to the server\u2019s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.\n\nThis option is closer to the correct answer because it describes the basic process of ticket validation. The server checks the timestamp in the ticket and compares it to its own clock to ensure that the ticket has not expired.\n\n(D) When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC\u2019s clock, and refuses to authenticate the user if the KDC reports that the ticket is expired.\n\nThis option is the correct answer. When a client connects to a server, the server sends a query to the KDC to verify the authenticity of the ticket. The KDC checks its own clock and compares it to the",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "In Message Condentiality, the transmitted message must make sense to only intended\n\n(A) Receiver\n(B) Sender\n(C) Modulor\n(D) Translator",
+            "correct_answer": 0,
+            "model_answer": "(A) Receiver",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": "Which of the following is a remote Trojan?\n\n(A) Troya\n(B) DaCryptic\n(C) BankerA\n(D) Game-Troj",
+            "correct_answer": 0,
+            "model_answer": "(D) Game-Troj",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "______________ is a widespread app\u2019s coding mistake made by developers which could be exploited by an attacker for gaining access or malfunctioning your system.\n\n(A) Memory leakage\n(B) Buffer-overrun\n(C) Less processing power\n(D) Inefficient programming",
+            "correct_answer": 1,
+            "model_answer": "(B) Buffer-overrun is a common coding mistake made by developers where a hacker can exploit it and gain unauthorized access or take control of the system.",
+            "correct": true
+        },
+        {
+            "id": 6,
+            "question": "Consider the paper Native Client: A Sandbox for Portable, Untrusted x86 Native Code by Yee et al. Ben Bitdiddle notes that NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside its own data area, and does not execute instructions outside its own code. Ben thinks that with these restrictions alone, executing the sandboxed module must be safe; that is, he thinks validation is not needed. Ben is wrong. Circle the types of x86 machine instructions that the validator always forbids in sandboxed code. Please ignore trampoline and springboard code.\n\n(A) all instructions that modify segment state\n(B) all loads or stores to addresses that are not 0 mod 32\n(C) all indirect loads or stores (via an address in a register or variable)\n(D) all indirect jumps (via an address in a register or variable)",
+            "correct_answer": 0,
+            "model_answer": "The question asks to identify the types of x86 machine instructions that the validator always forbids in sandboxed code, as described in the paper Native Client: A Sandbox for Portable, Untrusted x86 Native Code by Yee et al.\n\nTo answer this question, we need to understand the assumptions made by Ben Bitdiddle and why he is wrong. Ben thinks that with the restrictions of NaCl (not reading or writing memory outside its own data area and not executing instructions outside its own code), executing the sandboxed module must be safe and that validation is not needed. However, this is incorrect, as validation is still necessary.\n\nTo identify the types of instructions that the validator always forbids, we need to understand the goals of validation. The validation checks that certain instructions and operations are not performed by the sandboxed code, as these operations could compromise the safety of the system or allow the sandboxed code to break out of the sandbox.\n\nAfter analyzing the validation logic, we can conclude that (D) all indirect jumps (via an address in a register or variable) are always forbidden in sandboxed code. This is because indirect jumps can be used to jump to arbitrary locations in memory, which could allow the sandboxed code to jump to code outside its own data area or to data that it should not have access to. Therefore, the validator always forbids all indirect jumps in sandboxed code.",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "____________ is also a part of darknet that is employed for transferring files anonymously.\n\n(A) Freenet\n(B) ARPANET\n(C) Stuxnet\n(D) Internet",
+            "correct_answer": 0,
+            "model_answer": "The question asks for the answer to be found in the options provided. The question mentions a \"part of darknet\" used for file transfer. Since the question mentions a specific technology that is known to be used in darknets, it would likely be in the options provided.\n\n(A) Freenet\nThe Freenet project provides some of the same anonymity features as darknets. However, this question asks for a specific part of darknets, so I would keep looking.\n\n(B) ARPANET\nARPANET was the early version of the current internet. While it provided some basic file transfer features, the question asks for a part of darknet specifically, so I would keep looking.\n\n(C) Stuxnet\nStuxnet is a piece of malware that became famous for its unintended dissemination. While it does use file transfer over the internet, it does not do so specifically as part of a darknet, so I would keep looking.\n\n(D) Internet\nThe internet is a large network of interconnected computers. While darknets are sometimes hidden inside the internet, they are not officially a part of it. While some parts of darknets may use the internet for file transfer, the question specifically asks for a part of darknet, so I would keep looking.\n\nThe answer is (D) Internet, which does not match any of the provided options. However, I should also take a closer look at (A) Freenet, which overlaps with some features of darknets.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Why apps developed in languages like C, C++ is prone to Buffer-overflow?\n\n(A) No string boundary checks in predefined functions\n(B) No storage check in the external memory\n(C) No processing power check\n(D) No database check",
+            "correct_answer": 0,
+            "model_answer": "(B) No storage check in the external memory.\n\nBuffer overflows can occur when an attacker sends in data designed to cause a buffer overflow. This can be achieved by sending in data designed to cause a buffer overflow, often by sending in data that is longer than the buffer is designed to handle. This can cause the buffer to overflow and overwrite adjacent memory locations. This can be used to gain control of the program and execute arbitrary code.\n\nFor this reason, languages like C and C++ are particularly prone to buffer overflows, as these languages do not provide built-in memory safety checks. This means that it is up to the programmer to ensure that buffers are properly sized and that data is properly sanitized before being written to memory.",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Man in the middle attack can endanger the security of Diffie Hellman method if two parties are not\n\n(A) Joined\n(B) Authenticated\n(C) Submitted\n(D) Shared",
+            "correct_answer": 1,
+            "model_answer": "\u200b",
+            "correct": false
+        }
+    ]
+}
