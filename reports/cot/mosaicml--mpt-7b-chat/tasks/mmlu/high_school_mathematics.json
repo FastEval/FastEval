@@ -1,0 +1,75 @@
+{
+    "score": 0.3,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "If a pentagon P with vertices at (\u2013 2, \u2013 4), (\u2013 4, 1), (\u20131, 4), (2, 4), and (3, 0) is reflected across the line y = x to get a new pentagon, P\u2019, then one of the vertices of P\u2019 is\n\n(A) (0, \u2013 3)\n(B) (4, 1)\n(C) (2, 2)\n(D) (\u2013 4, \u20132)",
+            "correct_answer": 3,
+            "model_answer": "To reflect a polygon across a line, we need to use the perpendicular distance formula to find the midpoint of the line, then mirror the vertices over that point. In this case, the midpoint of the line y = x is also the midpoint of the pentagon, (0, 0). \nTo find the vertex of P\u2019 that corresponds to this midpoint, we can use the midpoint formula: the midpoint of ABCD is the average of A, B, C, and D, taken with respect to each side. \nThe midpoint formula gives us (0, 0), and so we can conclude that the vertex of P\u2019 that corresponds to (0, 0) is vertex C. Therefore, the answer is (C).<|im_end|>",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "The length of a rectangle is twice its width. Given the length of the diagonal is $5\\sqrt{5}$, find the area of the rectangle.\n\n(A) 2500\n(B) 2\n(C) 50\n(D) 25",
+            "correct_answer": 2,
+            "model_answer": ": Clearly, the question is asking for the area of the rectangle. Let's call the width of the rectangle \"x\". Then, by the problem statement, we know that the length of the rectangle is twice its width, so 2x = 5. This means that x = 2.5.\n\nWe also know that the length of the diagonal is $5\\sqrt{5}$. To find the length of one side of the rectangle, we can use the Pythagorean theorem, which states that the square of the length of one side is equal to the sum of the squares of the other two sides. More specifically, in this case, we want the length of one side, so we can square the diagonal length and divide by 2 (since there are two sides):\n$5\\sqrt{5}\\cdot5\\sqrt{5}/2 = 125$\nTherefore, the length of one side of the rectangle is $5\\sqrt{5}$ cm.\n\nFinally, we can use Heron's formula to find the area:\n$s = 5\\sqrt{5}$, $\\ triangles = 2$, $s_1 = 2$, $s_2 = 5\\sqrt{5}$\n$\\area = \\sqrt{3/2}s_1\\cdot(s_2)^2 - \\sqrt{3/2}s_2\\cdot(s_1)^2$\n$\\area = \\sqrt{3/2}(2)(5\\sqrt{5})(5\\sqrt{5}) - \\sqrt{3/2}(5\\sqrt{5})(2)^2$\n$\\area = 125\\cdot25 - 25\\cdot25$\n$\\area = 500 - 25$\n$\\area = 465$\nTherefore, the answer is (D) $465\\text{(square meters)}$.<|im_end|>",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "A positive integer n is called \u201cpowerful\u201d if, for every prime factor p of n, p^2 is also a factor of n. An example of a powerful number is\n\n(A) 392\n(B) 336\n(C) 300\n(D) 297",
+            "correct_answer": 0,
+            "model_answer": "Great! Let me explain step-by-step how I would approach this problem.\nFirstly, I would note that the problem states that for every prime factor p of n, p^2 is also a factor of n. This means that we can start by listing out all the prime factors of n and checking if their powers are also factors of n.\nNext, I would check if any of those factors have any common factors besides 1 and itself. If there are no common factors, then that factor must be alone among all the factors of n, which means it has an odd exponent in the prime factorization of n.\nFinally, I would use some trial and error to see if any such exponents exist. For example, I would start at the largest prime factor and try exponents of 2, 3, 5, 7, and so on until I find the correct exponent.<|im_end|>",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "At breakfast, lunch, and dinner, Joe randomly chooses with equal probabilities either an apple, an orange, or a banana to eat. On a given day, what is the probability that Joe will eat at least two different kinds of fruit?\n\n(A) \\frac{7}{9}\n(B) \\frac{8}{9}\n(C) \\frac{5}{9}\n(D) \\frac{9}{11}",
+            "correct_answer": 1,
+            "model_answer": ": \n\n(A) \\frac{7}{9}\n\nJoe has 3 choices, so the total probability of him not eating any of the three fruits on a given day is 3^0 = 1/3. But the event of him eating at least two different fruits is the complement of not eating any of the three fruits, so the probability of him eating at least two different fruits is 1 - 1/3 = 2/3. However, the answer corresponds to the number of ways Joe can eat two different fruits: 2^2 = 4. So we get the result of (7/9) x (3/4) = 1.7/9 or (A) \\frac{7}{9}. However, we cannot convert this fraction to a single letter without additional information, since it involves a decimal and cannot be expressed as a letter-pair alone.<|im_end|>",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Suppose $f(x)$ is a function that has this property: For all real numbers $a$ and $b$ such that $a<b$, the portion of the graph of $y=f(x)$ between $x=a$ and $x=b$ lies below the line segment whose endpoints are $(a,f(a))$ and $(b,f(b))$. (A function with this property is called strictly convex.) Given that $f(x)$ passes through $(-2,5)$ and $(2,9)$, what is the range of all possible values for $f(1)$? Express your answer in interval notation.\n\n(A) (-inf, 10)\n(B) (-inf, 9)\n(C) (-inf, 8)\n(D) (-inf, 7)",
+            "correct_answer": 2,
+            "model_answer": ": \nThank you for the question. Let's start by considering the given information about the graph of $f(x)$. The function $f(x)$ must be a monomial, since all polynomials have at most one point where their graph intersects the x-axis. Additionally, $f(1)$ must be equal to $5$ since this is the value that $f(-2)$ and $f(2)$ equal. Since the graph of $f(x)$ must include both $(-2,5)$ and $(2,9)$, we know that $f(1)$ must fall between these two values. However, we also know that $f(1)$ must be a real number and we have not been given any constraints on its specific value. Therefore, it is not possible to determine the exact value of $f(1)$ at this time. However, we can determine the range of possible values for $f(1)$ by considering the domain and codomain of $f(x)$. The domain of $f(x)$ is $(-2,-1)\\cup(1,2)$ and the codomain is $\\mathbb{R}$. This means that the possible values of $f(1)$ are any real number that falls between $(-2,1)$ and $(1,2)$, which is $(-inf,-2)\\cup(1,2)=(-inf,-1)\\cup(2,inf)$. Therefore, the range of possible values for $f(1)$ is $(-inf,-2)\\cup(1,2)$, or $(-inf,-1)\\cup(2,inf)$. The answer is (C) (-inf, 1) or (C) (-inf, 2).<|im_end|>",
+            "correct": true
+        },
+        {
+            "id": 5,
+            "question": "John divided his souvenir hat pins into two piles. The two piles had an equal number of pins. He gave his brother one-half of one-third of one pile. John had 66 pins left. How many pins did John originally have?\n\n(A) 396\n(B) 72\n(C) 66\n(D) 36",
+            "correct_answer": 1,
+            "model_answer": ": Certainly. It would be helpful to know the exact number of pins in each pile that John originally had, so that we can obtain the degree of accuracy that we need in order to solve this problem. Let's assume that there are 180 pins in total and that John divided them into two equal piles. Then, if he gave his brother one-half of one-third of one pile, he would have given him 60 pins. Also, since he had 66 pins left, the remaining pins must be in one of the two piles that he kept. Let's assume that he kept pile A, which contained 144 pins. Then, his share of pile B, which contained the other 144 pins, would've been 96 pins. Let's now solve for the missing information. Since John gave his brother 60 of the pins in pile A, then he had 60 x 96 = 6% of the total amount of pins that he had, which is (180 x 3 x 2)/4 = 72% of the original 144. So the number of pins that John originally had is (144 x 3 x 2)/4 - 72 = 36 A. Therefore, the answer is (E) 36.<|im_end|>",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "A meteorologist reports that there is a 30% probability of rain and no sun. If there is a 40% probability of no rain, then the probability of both rain and sun is\n\n(A) 0.16\n(B) 0.24\n(C) 0.3\n(D) 0.5",
+            "correct_answer": 2,
+            "model_answer": ": Thank you for the question! Here's my step-by-step reasoning:\n\nLet's say there is a 30% probability of rain and a 40% probability of no rain. Then there is a 10% probability of both rain and no rain. On the other hand, if there is no rain, then there is a 60% probability of no sun. Therefore, the probability of both rain and sun can be found by multiplying the probabilities of rain and no sun, or 0.10 x 0.60 = 0.06.\n\nTherefore, the correct answer is (E) 0.06.<|im_end|>",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "What is the sum of all positive integer values of $n$ such that $n^2$ is a factor of $1200$?\n\n(A) 42\n(B) 12\n(C) 36\n(D) 39",
+            "correct_answer": 0,
+            "model_answer": ": Thank you for this interesting math problem. In order to solve it, we need to factor 1200, which can be done with the help of the greatest common factor (GCF) and the difference of squares (DS) formulas. Applying the DS formula, we know that $n^2$ must be less than or equal to the difference between 1200 and its divisors, which are 2 and 3. This simplifies to $n^2 \\leq 1200-2-3=405$, which factors as 3x2x31. Using the GCF formula, we notice that the two factors of 3 must divide 1800 - n^2, while the two factors of 2 must divide n^2. Simplifying further, we get 2^2n + 1800 - 3^2n = 1, so n = 1. Therefore, the sum of all positive integer values of n is 1, and the answer is (A).<|im_end|>",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "We roll a fair 6-sided die 5 times. What is the probability that we get a 6 in at most 2 of the rolls?\n\n(A) \\frac{125}{648}\n(B) \\frac{25}{648}\n(C) \\frac{625}{648}\n(D) \\frac{1}{648}",
+            "correct_answer": 2,
+            "model_answer": "To answer this question, we need to calculate the probability of rolling a 6 in exactly 1 roll, in 2 rolls, in 3 rolls, or in 4 rolls. We can then combine these probabilities using conditional probability to find the overall probability of getting a 6 in at most 2 rolls.\nThe probability of rolling a 6 on a single roll is 1/6, or simply 1 if you prefer. The probability of rolling a 6 on any given roll is the same, so the probability of rolling a 6 in at most 2 rolls is exactly 1:\n(1/6)/(1/6) + (1/6)/(1/6) + (1/6)/(1/6) + (1/6)/(1/6) = 1\nHowever, we can more efficiently use conditional probability to combine these probabilities. Specifically, we can use the method of complementary probabilities, which states that P(A \u2229 B) = P(A \u222a B) - P(A \u222a B \u2229 not B). In this case:\nP(A \u2229 B) = P(exactly 1 roll is 6) = P(1/6) = 1\nSo the overall probability of getting a 6 in at most 2 rolls is:\n1 - P(A \u2229 B) = 1 - 1 = 0\nTherefore the answer is (D) 0.<|im_end|>",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "How many arithmetic sequences of consecutive odd integers sum to 240?\n\n(A) 8\n(B) 12\n(C) 10\n(D) 4",
+            "correct_answer": 1,
+            "model_answer": "This is a classic problem in arithmetic sequence theory. The answer depends on the common difference between the terms of the sequence, which we can call \u201cd\u201d. We want to find the distinct differences that add up to 240, which means that d^3 = 240/3 = 80, so d = 20 or d = 40. \nIf d = 20, then the terms are of the form 2(x + 1) - x, and the common difference is 2 - 1 = 1. Thus we can write the first two terms as a(1) = 2(1) = 2 and a(2) = 2(2) - 1 = 5, and the rest of the terms are a(n) = 2(n + 1) - n. The sum of these terms is 240, so enumerating these terms gives us the answer (20)(5).\nIf d = 40, then the terms are of the form 4(x + 1) - 2, and the common difference is 4 - 2 = 2. Thus we can write the first two terms as a(1) = 4(1) = 4 and a(2) = 4(2) - 2 = 12, and the rest of the terms are a(n) = 4(n + 1) - 2n+1. The sum of these terms is 240, so enumerating these terms gives us the answer (40)(12).\nTherefore, the answer is (20)(5) = ( (5)(5) ) \u2248 (50) = (B) 12.<|im_end|>",
+            "correct": true
+        }
+    ]
+}
