@@ -15,8 +15,3 @@ class ChatML(Huggingface):
             end='<|im_end|>\n',
             **kwargs,
         )
-
-    @staticmethod
-    def get_dtype(model_path: str):
-        if model_path.startswith('mosaicml/mpt-'):
-            return torch.bfloat16

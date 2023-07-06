@@ -194,7 +194,7 @@ class Huggingface:
 
         self.tokenizer_path = tokenizer_path
         self.model_path = model_path
-        self.dtype = self.__class__.get_dtype(model_path)
+        self.dtype = evaluation.utils.get_dtype(model_path)
 
         self.prefix = prefix
         self.user = user
@@ -205,10 +205,6 @@ class Huggingface:
 
         self.max_new_tokens = max_new_tokens
         self.use_vllm = use_vllm
-
-    @staticmethod
-    def get_dtype(model_path: str):
-        return torch.float16
 
     def _conversation_to_prompt(self, conversation):
         if self.system is None:

@@ -17,7 +17,7 @@ def evaluate_model(model_type, model_name):
 
     model_args = ','.join([k + '=' + str(v) for k, v in ({
         'pretrained': model_name,
-        'dtype': str(get_dtype(model_type, model_name)).replace('torch.', ''),
+        'dtype': str(get_dtype(model_name)).replace('torch.', ''),
         'trust_remote_code': True,
         'use_accelerate': True,
     }).items()])
