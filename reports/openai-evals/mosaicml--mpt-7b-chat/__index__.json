@@ -141,41 +141,6 @@
             "accuracy": 0.0
         }
     },
-    "match_banking77.test.v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "match_banking77.test.v1",
-            "base_eval": "match_banking77",
-            "split": "test",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "banking77/samples.jsonl"
-                    },
-                    "key": "match_banking77.test.v1",
-                    "group": "banking77"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704163348TFHPQ3SD",
-            "created_at": "2023-07-04 16:33:48.915457"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "belarusian-lexicon.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -493,6 +458,41 @@
             "accuracy": 0.25
         }
     },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704155013FSNDOCJT",
+            "created_at": "2023-07-04 15:50:13.611458"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
     "connect4.s1.v1.json": {
         "spec": {
             "completion_fns": [
@@ -606,49 +606,6 @@
             "score": 0.8888888888888888
         }
     },
-    "coqa-closedqa-relevance.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "coqa-closedqa-relevance.dev.v0",
-            "base_eval": "coqa-closedqa-relevance",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "coqa/samples.jsonl",
-                        "modelgraded_spec": "closedqa",
-                        "modelgraded_spec_args": {
-                            "criteria": "relevance: Is the submission referring to a real quote from the text?"
-                        }
-                    },
-                    "key": "coqa-closedqa-relevance.dev.v0",
-                    "group": "coqa-ex"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704163014EIZXYPUB",
-            "created_at": "2023-07-04 16:30:14.766333"
-        },
-        "final_report": {
-            "counts/Y": 7,
-            "counts/N": 2,
-            "score": 0.7777777777777778
-        }
-    },
     "coqa-closedqa-correct.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -690,6 +647,49 @@
             "counts/Y": 8,
             "counts/N": 1,
             "score": 0.8888888888888888
+        }
+    },
+    "coqa-closedqa-relevance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "coqa-closedqa-relevance.dev.v0",
+            "base_eval": "coqa-closedqa-relevance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "relevance: Is the submission referring to a real quote from the text?"
+                        }
+                    },
+                    "key": "coqa-closedqa-relevance.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704163014EIZXYPUB",
+            "created_at": "2023-07-04 16:30:14.766333"
+        },
+        "final_report": {
+            "counts/Y": 7,
+            "counts/N": 2,
+            "score": 0.7777777777777778
         }
     },
     "coqa-match.dev.v0.json": {
@@ -935,6 +935,51 @@
         },
         "final_report": {
             "accuracy": 0.25
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704154544UDWDR7UR",
+            "created_at": "2023-07-04 15:45:44.925867"
+        },
+        "final_report": {
+            "counts/Yes": 8,
+            "counts/No": 2,
+            "score": 0.8
         }
     },
     "dutch-lexicon.dev.v0.json": {
@@ -1183,41 +1228,6 @@
             "accuracy": 0.1
         }
     },
-    "forth-stack-sim-detailed.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "forth-stack-sim-detailed.dev.v0",
-            "base_eval": "forth-stack-sim-detailed",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "forth_stack_sim/detailed_samples.jsonl"
-                    },
-                    "key": "forth-stack-sim-detailed.dev.v0",
-                    "group": "forth-stack-sim"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704162527VJOFMXSR",
-            "created_at": "2023-07-04 16:25:27.527489"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "forth-stack-sim-basic.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1248,6 +1258,41 @@
             "created_by": "",
             "run_id": "230704162516WBOLMR6H",
             "created_at": "2023-07-04 16:25:16.354948"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "forth-stack-sim-detailed.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "forth-stack-sim-detailed.dev.v0",
+            "base_eval": "forth-stack-sim-detailed",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/detailed_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-detailed.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704162527VJOFMXSR",
+            "created_at": "2023-07-04 16:25:27.527489"
         },
         "final_report": {
             "accuracy": 0.0
@@ -1323,6 +1368,41 @@
             "accuracy": 0.25
         }
     },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307041555476W2ZWNVU",
+            "created_at": "2023-07-04 15:55:47.814641"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
     "heart-disease.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1392,6 +1472,42 @@
         "final_report": {
             "accuracy": 0.2,
             "f1_score": 0.1576923076923077
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704162137E3AHADQC",
+            "created_at": "2023-07-04 16:21:37.877725"
+        },
+        "final_report": {
+            "accuracy": 0.2
         }
     },
     "hindi_upsc.dev.v0.json": {
@@ -1709,42 +1825,6 @@
             "accuracy": 0.0
         }
     },
-    "hellaswag.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "hellaswag.val.ab-v1",
-            "base_eval": "hellaswag",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://hellaswag?split=validation",
-                        "instructions": "Choose the most plausible continuation for the story."
-                    },
-                    "key": "hellaswag.val.ab-v1",
-                    "group": "language"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704162137E3AHADQC",
-            "created_at": "2023-07-04 16:21:37.877725"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
     "last-word-nth.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -1921,6 +2001,41 @@
             "accuracy": 0.0
         }
     },
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704163348TFHPQ3SD",
+            "created_at": "2023-07-04 16:33:48.915457"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
     "medmcqa.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1991,25 +2106,29 @@
             "accuracy": 0.0
         }
     },
-    "mmlu-world-religions.val.ab-v1.json": {
+    "mg-humor-people_jp.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
+                "fastchat:mosaicml/mpt-7b-chat",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "mmlu-world-religions.val.ab-v1",
-            "base_eval": "mmlu-world-religions",
-            "split": "val",
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
+                    "fastchat:mosaicml/mpt-7b-chat",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "dataset": "hf://cais/mmlu?name=world_religions&split=validation"
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
                     },
-                    "key": "mmlu-world-religions.val.ab-v1",
-                    "group": "mmlu"
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -2019,1971 +2138,15 @@
                 }
             },
             "created_by": "",
-            "run_id": "230704161853DEPSG4BD",
-            "created_at": "2023-07-04 16:18:53.731948"
+            "run_id": "230704154633MKKVYZ4P",
+            "created_at": "2023-07-04 15:46:33.754950"
         },
         "final_report": {
-            "accuracy": 0.3157894736842105
-        }
-    },
-    "mmlu-virology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-virology.val.ab-v1",
-            "base_eval": "mmlu-virology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=virology&split=validation"
-                    },
-                    "key": "mmlu-virology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161834IV637HF5",
-            "created_at": "2023-07-04 16:18:34.142819"
-        },
-        "final_report": {
-            "accuracy": 0.3333333333333333
-        }
-    },
-    "mmlu-us-foreign-policy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-us-foreign-policy.val.ab-v1",
-            "base_eval": "mmlu-us-foreign-policy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=us_foreign_policy&split=validation"
-                    },
-                    "key": "mmlu-us-foreign-policy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161817ETYIT24J",
-            "created_at": "2023-07-04 16:18:17.423206"
-        },
-        "final_report": {
-            "accuracy": 0.2727272727272727
-        }
-    },
-    "mmlu-sociology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-sociology.val.ab-v1",
-            "base_eval": "mmlu-sociology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=sociology&split=validation"
-                    },
-                    "key": "mmlu-sociology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161755JRKXDFB2",
-            "created_at": "2023-07-04 16:17:55.899355"
-        },
-        "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "mmlu-security-studies.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-security-studies.val.ab-v1",
-            "base_eval": "mmlu-security-studies",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=security_studies&split=validation"
-                    },
-                    "key": "mmlu-security-studies.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161728PD7XPYEG",
-            "created_at": "2023-07-04 16:17:28.844896"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-public-relations.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-public-relations.val.ab-v1",
-            "base_eval": "mmlu-public-relations",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=public_relations&split=validation"
-                    },
-                    "key": "mmlu-public-relations.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161713NWLHXV3T",
-            "created_at": "2023-07-04 16:17:13.135972"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "mmlu-professional-psychology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-professional-psychology.val.ab-v1",
-            "base_eval": "mmlu-professional-psychology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_psychology&split=validation"
-                    },
-                    "key": "mmlu-professional-psychology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161642PDD2J4EX",
-            "created_at": "2023-07-04 16:16:42.701277"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-professional-medicine.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-professional-medicine.val.ab-v1",
-            "base_eval": "mmlu-professional-medicine",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_medicine&split=validation"
-                    },
-                    "key": "mmlu-professional-medicine.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161614EQFTNR3V",
-            "created_at": "2023-07-04 16:16:14.383548"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-professional-law.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-professional-law.val.ab-v1",
-            "base_eval": "mmlu-professional-law",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_law&split=validation"
-                    },
-                    "key": "mmlu-professional-law.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161551JLUMULWF",
-            "created_at": "2023-07-04 16:15:51.341568"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-professional-accounting.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-professional-accounting.val.ab-v1",
-            "base_eval": "mmlu-professional-accounting",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_accounting&split=validation"
-                    },
-                    "key": "mmlu-professional-accounting.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161516ZLJEY6WB",
-            "created_at": "2023-07-04 16:15:16.896396"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-prehistory.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-prehistory.val.ab-v1",
-            "base_eval": "mmlu-prehistory",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=prehistory&split=validation"
-                    },
-                    "key": "mmlu-prehistory.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161455HDJPHZXC",
-            "created_at": "2023-07-04 16:14:55.911958"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-philosophy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-philosophy.val.ab-v1",
-            "base_eval": "mmlu-philosophy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=philosophy&split=validation"
-                    },
-                    "key": "mmlu-philosophy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161433A5LEEI7J",
-            "created_at": "2023-07-04 16:14:33.878063"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-nutrition.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-nutrition.val.ab-v1",
-            "base_eval": "mmlu-nutrition",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=nutrition&split=validation"
-                    },
-                    "key": "mmlu-nutrition.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161410XQ7O5OIM",
-            "created_at": "2023-07-04 16:14:10.348459"
-        },
-        "final_report": {
-            "accuracy": 0.5
-        }
-    },
-    "mmlu-moral-scenarios.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-moral-scenarios.val.ab-v1",
-            "base_eval": "mmlu-moral-scenarios",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=moral_scenarios&split=validation"
-                    },
-                    "key": "mmlu-moral-scenarios.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307041613427SFVTWEU",
-            "created_at": "2023-07-04 16:13:42.972717"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-moral-disputes.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-moral-disputes.val.ab-v1",
-            "base_eval": "mmlu-moral-disputes",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=moral_disputes&split=validation"
-                    },
-                    "key": "mmlu-moral-disputes.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161318EBNW3UT6",
-            "created_at": "2023-07-04 16:13:18.474471"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-miscellaneous.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-miscellaneous.val.ab-v1",
-            "base_eval": "mmlu-miscellaneous",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=miscellaneous&split=validation"
-                    },
-                    "key": "mmlu-miscellaneous.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161259TFKBLQZX",
-            "created_at": "2023-07-04 16:12:59.742148"
-        },
-        "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "mmlu-medical-genetics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-medical-genetics.val.ab-v1",
-            "base_eval": "mmlu-medical-genetics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=medical_genetics&split=validation"
-                    },
-                    "key": "mmlu-medical-genetics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161245NLO5M4OJ",
-            "created_at": "2023-07-04 16:12:45.101887"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-marketing.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-marketing.val.ab-v1",
-            "base_eval": "mmlu-marketing",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=marketing&split=validation"
-                    },
-                    "key": "mmlu-marketing.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307041612257W73TMVO",
-            "created_at": "2023-07-04 16:12:25.630885"
-        },
-        "final_report": {
-            "accuracy": 0.45
-        }
-    },
-    "mmlu-management.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-management.val.ab-v1",
-            "base_eval": "mmlu-management",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=management&split=validation"
-                    },
-                    "key": "mmlu-management.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161211CGIJT5IO",
-            "created_at": "2023-07-04 16:12:11.523249"
-        },
-        "final_report": {
-            "accuracy": 0.45454545454545453
-        }
-    },
-    "mmlu-machine-learning.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-machine-learning.val.ab-v1",
-            "base_eval": "mmlu-machine-learning",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=machine_learning&split=validation"
-                    },
-                    "key": "mmlu-machine-learning.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161156A6Y3QQNP",
-            "created_at": "2023-07-04 16:11:56.972635"
-        },
-        "final_report": {
-            "accuracy": 0.36363636363636365
-        }
-    },
-    "mmlu-logical-fallacies.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-logical-fallacies.val.ab-v1",
-            "base_eval": "mmlu-logical-fallacies",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=logical_fallacies&split=validation"
-                    },
-                    "key": "mmlu-logical-fallacies.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161138NVG6SIEU",
-            "created_at": "2023-07-04 16:11:38.523853"
-        },
-        "final_report": {
-            "accuracy": 0.3333333333333333
-        }
-    },
-    "mmlu-jurisprudence.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-jurisprudence.val.ab-v1",
-            "base_eval": "mmlu-jurisprudence",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=jurisprudence&split=validation"
-                    },
-                    "key": "mmlu-jurisprudence.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161123DPUZHPYY",
-            "created_at": "2023-07-04 16:11:23.231100"
-        },
-        "final_report": {
-            "accuracy": 0.2727272727272727
-        }
-    },
-    "mmlu-international-law.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-international-law.val.ab-v1",
-            "base_eval": "mmlu-international-law",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=international_law&split=validation"
-                    },
-                    "key": "mmlu-international-law.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161104BYPRE3RF",
-            "created_at": "2023-07-04 16:11:04.495907"
-        },
-        "final_report": {
-            "accuracy": 0.23076923076923078
-        }
-    },
-    "mmlu-human-sexuality.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-human-sexuality.val.ab-v1",
-            "base_eval": "mmlu-human-sexuality",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=human_sexuality&split=validation"
-                    },
-                    "key": "mmlu-human-sexuality.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161048S557K2HR",
-            "created_at": "2023-07-04 16:10:48.281132"
-        },
-        "final_report": {
-            "accuracy": 0.3333333333333333
-        }
-    },
-    "mmlu-human-aging.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-human-aging.val.ab-v1",
-            "base_eval": "mmlu-human-aging",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=human_aging&split=validation"
-                    },
-                    "key": "mmlu-human-aging.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161029QQN6LQOS",
-            "created_at": "2023-07-04 16:10:29.342389"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-world-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-world-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-world-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_world_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-world-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704161005UCC5XTGH",
-            "created_at": "2023-07-04 16:10:05.203046"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-us-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-us-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-us-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_us_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-us-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160939L25NONXD",
-            "created_at": "2023-07-04 16:09:39.014286"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-high-school-statistics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-statistics.val.ab-v1",
-            "base_eval": "mmlu-high-school-statistics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_statistics&split=validation"
-                    },
-                    "key": "mmlu-high-school-statistics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160912IB3R34H4",
-            "created_at": "2023-07-04 16:09:12.047599"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-high-school-psychology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-psychology.val.ab-v1",
-            "base_eval": "mmlu-high-school-psychology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_psychology&split=validation"
-                    },
-                    "key": "mmlu-high-school-psychology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160851PKD5GPLH",
-            "created_at": "2023-07-04 16:08:51.789815"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-physics.val.ab-v1",
-            "base_eval": "mmlu-high-school-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_physics&split=validation"
-                    },
-                    "key": "mmlu-high-school-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307041608216MMWRZF5",
-            "created_at": "2023-07-04 16:08:21.251793"
-        },
-        "final_report": {
-            "accuracy": 0.058823529411764705
-        }
-    },
-    "mmlu-high-school-microeconomics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-microeconomics.val.ab-v1",
-            "base_eval": "mmlu-high-school-microeconomics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_microeconomics&split=validation"
-                    },
-                    "key": "mmlu-high-school-microeconomics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160759BNHNTQIE",
-            "created_at": "2023-07-04 16:07:59.458519"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-high-school-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-mathematics.val.ab-v1",
-            "base_eval": "mmlu-high-school-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_mathematics&split=validation"
-                    },
-                    "key": "mmlu-high-school-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160730TVJ5OF2U",
-            "created_at": "2023-07-04 16:07:30.468489"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-high-school-macroeconomics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-macroeconomics.val.ab-v1",
-            "base_eval": "mmlu-high-school-macroeconomics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_macroeconomics&split=validation"
-                    },
-                    "key": "mmlu-high-school-macroeconomics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160708Q42666CD",
-            "created_at": "2023-07-04 16:07:08.090104"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-high-school-government-and-politics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-government-and-politics.val.ab-v1",
-            "base_eval": "mmlu-high-school-government-and-politics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_government_and_politics&split=validation"
-                    },
-                    "key": "mmlu-high-school-government-and-politics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160646P74LBRES",
-            "created_at": "2023-07-04 16:06:46.498288"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-high-school-geography.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-geography.val.ab-v1",
-            "base_eval": "mmlu-high-school-geography",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_geography&split=validation"
-                    },
-                    "key": "mmlu-high-school-geography.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307041606273GM24OND",
-            "created_at": "2023-07-04 16:06:27.514657"
-        },
-        "final_report": {
-            "accuracy": 0.45
-        }
-    },
-    "mmlu-high-school-european-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-european-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-european-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_european_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-european-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160604MEFHZQZK",
-            "created_at": "2023-07-04 16:06:04.991619"
-        },
-        "final_report": {
-            "accuracy": 0.3888888888888889
-        }
-    },
-    "mmlu-high-school-computer-science.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-computer-science.val.ab-v1",
-            "base_eval": "mmlu-high-school-computer-science",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_computer_science&split=validation"
-                    },
-                    "key": "mmlu-high-school-computer-science.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160550CGF2LRS2",
-            "created_at": "2023-07-04 16:05:50.659946"
-        },
-        "final_report": {
-            "accuracy": 0.2222222222222222
-        }
-    },
-    "mmlu-high-school-chemistry.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-chemistry.val.ab-v1",
-            "base_eval": "mmlu-high-school-chemistry",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_chemistry&split=validation"
-                    },
-                    "key": "mmlu-high-school-chemistry.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160528BLSQBMOP",
-            "created_at": "2023-07-04 16:05:28.448304"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-high-school-biology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-high-school-biology.val.ab-v1",
-            "base_eval": "mmlu-high-school-biology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_biology&split=validation"
-                    },
-                    "key": "mmlu-high-school-biology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160506KCX5CWEH",
-            "created_at": "2023-07-04 16:05:06.451864"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-global-facts.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-global-facts.val.ab-v1",
-            "base_eval": "mmlu-global-facts",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=global_facts&split=validation"
-                    },
-                    "key": "mmlu-global-facts.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160452A7OYEDLU",
-            "created_at": "2023-07-04 16:04:52.849300"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-formal-logic.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-formal-logic.val.ab-v1",
-            "base_eval": "mmlu-formal-logic",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=formal_logic&split=validation"
-                    },
-                    "key": "mmlu-formal-logic.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160417JXBE3BVS",
-            "created_at": "2023-07-04 16:04:17.486324"
-        },
-        "final_report": {
-            "accuracy": 0.07142857142857142
-        }
-    },
-    "mmlu-elementary-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-elementary-mathematics.val.ab-v1",
-            "base_eval": "mmlu-elementary-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=elementary_mathematics&split=validation"
-                    },
-                    "key": "mmlu-elementary-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160358AMMGRGQ7",
-            "created_at": "2023-07-04 16:03:58.071118"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-electrical-engineering.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-electrical-engineering.val.ab-v1",
-            "base_eval": "mmlu-electrical-engineering",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=electrical_engineering&split=validation"
-                    },
-                    "key": "mmlu-electrical-engineering.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307041603403ALIOQEL",
-            "created_at": "2023-07-04 16:03:40.809139"
-        },
-        "final_report": {
-            "accuracy": 0.125
-        }
-    },
-    "mmlu-econometrics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-econometrics.val.ab-v1",
-            "base_eval": "mmlu-econometrics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=econometrics&split=validation"
-                    },
-                    "key": "mmlu-econometrics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307041603216FG4TJES",
-            "created_at": "2023-07-04 16:03:21.949224"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-conceptual-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-conceptual-physics.val.ab-v1",
-            "base_eval": "mmlu-conceptual-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=conceptual_physics&split=validation"
-                    },
-                    "key": "mmlu-conceptual-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160302XV4AV7FL",
-            "created_at": "2023-07-04 16:03:02.763692"
-        },
-        "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "mmlu-computer-security.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-computer-security.val.ab-v1",
-            "base_eval": "mmlu-computer-security",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=computer_security&split=validation"
-                    },
-                    "key": "mmlu-computer-security.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160246YHP6LJDY",
-            "created_at": "2023-07-04 16:02:46.781834"
-        },
-        "final_report": {
-            "accuracy": 0.2727272727272727
-        }
-    },
-    "mmlu-college-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-college-physics.val.ab-v1",
-            "base_eval": "mmlu-college-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_physics&split=validation"
-                    },
-                    "key": "mmlu-college-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23070416022743JTNRLN",
-            "created_at": "2023-07-04 16:02:27.431873"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-college-medicine.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-college-medicine.val.ab-v1",
-            "base_eval": "mmlu-college-medicine",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_medicine&split=validation"
-                    },
-                    "key": "mmlu-college-medicine.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160205K7XBU3NW",
-            "created_at": "2023-07-04 16:02:05.967655"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-college-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-college-mathematics.val.ab-v1",
-            "base_eval": "mmlu-college-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_mathematics&split=validation"
-                    },
-                    "key": "mmlu-college-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160145O2R43FW5",
-            "created_at": "2023-07-04 16:01:45.402510"
-        },
-        "final_report": {
-            "accuracy": 0.18181818181818182
-        }
-    },
-    "mmlu-college-computer-science.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-college-computer-science.val.ab-v1",
-            "base_eval": "mmlu-college-computer-science",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_computer_science&split=validation"
-                    },
-                    "key": "mmlu-college-computer-science.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307041601304E2NFZYO",
-            "created_at": "2023-07-04 16:01:30.576810"
-        },
-        "final_report": {
-            "accuracy": 0.18181818181818182
-        }
-    },
-    "mmlu-college-chemistry.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-college-chemistry.val.ab-v1",
-            "base_eval": "mmlu-college-chemistry",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_chemistry&split=validation"
-                    },
-                    "key": "mmlu-college-chemistry.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160116HIVNYZ6N",
-            "created_at": "2023-07-04 16:01:16.210796"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "mmlu-college-biology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-college-biology.val.ab-v1",
-            "base_eval": "mmlu-college-biology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_biology&split=validation"
-                    },
-                    "key": "mmlu-college-biology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160057SMCVCDN7",
-            "created_at": "2023-07-04 16:00:57.888318"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-clinical-knowledge.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-clinical-knowledge.val.ab-v1",
-            "base_eval": "mmlu-clinical-knowledge",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=clinical_knowledge&split=validation"
-                    },
-                    "key": "mmlu-clinical-knowledge.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160037LJGHC65E",
-            "created_at": "2023-07-04 16:00:37.926727"
-        },
-        "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "mmlu-business-ethics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-business-ethics.val.ab-v1",
-            "base_eval": "mmlu-business-ethics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=business_ethics&split=validation"
-                    },
-                    "key": "mmlu-business-ethics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704160021R332TLMD",
-            "created_at": "2023-07-04 16:00:21.709638"
-        },
-        "final_report": {
-            "accuracy": 0.2727272727272727
-        }
-    },
-    "mmlu-astronomy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-astronomy.val.ab-v1",
-            "base_eval": "mmlu-astronomy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=astronomy&split=validation"
-                    },
-                    "key": "mmlu-astronomy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307041600024YGFNNTV",
-            "created_at": "2023-07-04 16:00:02.490427"
-        },
-        "final_report": {
-            "accuracy": 0.125
-        }
-    },
-    "mmlu-anatomy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-anatomy.val.ab-v1",
-            "base_eval": "mmlu-anatomy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=anatomy&split=validation"
-                    },
-                    "key": "mmlu-anatomy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155945WLB4UQGE",
-            "created_at": "2023-07-04 15:59:45.973081"
-        },
-        "final_report": {
-            "accuracy": 0.42857142857142855
-        }
-    },
-    "mmlu-abstract-algebra.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "mmlu-abstract-algebra.val.ab-v1",
-            "base_eval": "mmlu-abstract-algebra",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=abstract_algebra&split=validation"
-                    },
-                    "key": "mmlu-abstract-algebra.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155924ZTQAADEW",
-            "created_at": "2023-07-04 15:59:24.173101"
-        },
-        "final_report": {
-            "accuracy": 0.18181818181818182
+            "counts/1": 15,
+            "counts/4": 1,
+            "counts/2": 2,
+            "counts/3": 2,
+            "score": 1.45
         }
     },
     "moral_exceptQA.test.v1.json": {
@@ -4056,6 +2219,42 @@
             "accuracy": 0.13333333333333333
         }
     },
+    "naughty_strings_fuzzy.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "naughty_strings_fuzzy.test.v1",
+            "base_eval": "naughty_strings_fuzzy",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/samples.jsonl"
+                    },
+                    "key": "naughty_strings_fuzzy.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704155820FFNN7SWK",
+            "created_at": "2023-07-04 15:58:20.013404"
+        },
+        "final_report": {
+            "accuracy": 0.4,
+            "f1_score": 0.2146031746031746
+        }
+    },
     "naughty_strings_graded.test.v1.json": {
         "spec": {
             "completion_fns": [
@@ -4096,42 +2295,6 @@
             "counts/No": 9,
             "counts/Unsure": 1,
             "score": 0.525
-        }
-    },
-    "naughty_strings_fuzzy.test.v1.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "naughty_strings_fuzzy.test.v1",
-            "base_eval": "naughty_strings_fuzzy",
-            "split": "test",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
-                    "args": {
-                        "samples_jsonl": "naughty_strings/samples.jsonl"
-                    },
-                    "key": "naughty_strings_fuzzy.test.v1",
-                    "group": "naughty_strings"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155820FFNN7SWK",
-            "created_at": "2023-07-04 15:58:20.013404"
-        },
-        "final_report": {
-            "accuracy": 0.4,
-            "f1_score": 0.2146031746031746
         }
     },
     "number-pattern.dev.v0.json": {
@@ -4310,25 +2473,29 @@
             "f1_score": 0.0
         }
     },
-    "hand_ranks.test.v1.json": {
+    "rap-people-vs-fruits.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
+                "fastchat:mosaicml/mpt-7b-chat",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "hand_ranks.test.v1",
-            "base_eval": "hand_ranks",
-            "split": "test",
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
+                    "fastchat:mosaicml/mpt-7b-chat",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
                     },
-                    "key": "hand_ranks.test.v1",
-                    "group": "poker_hand_ranks"
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -4338,11 +2505,54 @@
                 }
             },
             "created_by": "",
-            "run_id": "2307041555476W2ZWNVU",
-            "created_at": "2023-07-04 15:55:47.814641"
+            "run_id": "230704154858O4AFI42X",
+            "created_at": "2023-07-04 15:48:58.344327"
         },
         "final_report": {
-            "accuracy": 0.05
+            "counts/Yes": 7,
+            "counts/No": 2,
+            "score": 0.7777777777777778
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704154741B4IAVIQ2",
+            "created_at": "2023-07-04 15:47:41.656003"
+        },
+        "final_report": {
+            "counts/No": 4,
+            "counts/Yes": 5,
+            "score": 0.5555555555555556
         }
     },
     "regex.match.dev.v0.json": {
@@ -4702,13 +2912,13 @@
             "accuracy": 0.15
         }
     },
-    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
                 "fastchat:mosaicml/mpt-7b-chat"
             ],
-            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
-            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
@@ -4717,9 +2927,9 @@
                 "eval_spec": {
                     "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
                     },
-                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
                     "group": "stock-options"
                 },
                 "seed": 20220722,
@@ -4730,81 +2940,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "230704155325XKWZ2VFD",
-            "created_at": "2023-07-04 15:53:25.149394"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "stock-option-terms-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
-            "base_eval": "stock-option-terms-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155308XJESIOPX",
-            "created_at": "2023-07-04 15:53:08.866106"
+            "run_id": "230704155233RVEUAIS4",
+            "created_at": "2023-07-04 15:52:33.733592"
         },
         "final_report": {
             "accuracy": 0.25
-        }
-    },
-    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-option-terms-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155250RNZABV7J",
-            "created_at": "2023-07-04 15:52:50.615540"
-        },
-        "final_report": {
-            "accuracy": 0.15
         }
     },
     "stock-option-terms-bull-call-spread.dev.v0.json": {
@@ -4842,13 +2982,13 @@
             "accuracy": 0.0
         }
     },
-    "stock-option-terms-bear-call-spread.dev.v0.json": {
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
                 "fastchat:mosaicml/mpt-7b-chat"
             ],
-            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
-            "base_eval": "stock-option-terms-bear-call-spread",
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
@@ -4857,9 +2997,9 @@
                 "eval_spec": {
                     "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
                     },
-                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
                     "group": "stock-options"
                 },
                 "seed": 20220722,
@@ -4870,11 +3010,186 @@
                 }
             },
             "created_by": "",
-            "run_id": "230704155233RVEUAIS4",
-            "created_at": "2023-07-04 15:52:33.733592"
+            "run_id": "230704155325XKWZ2VFD",
+            "created_at": "2023-07-04 15:53:25.149394"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704155250RNZABV7J",
+            "created_at": "2023-07-04 15:52:50.615540"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704155308XJESIOPX",
+            "created_at": "2023-07-04 15:53:08.866106"
         },
         "final_report": {
             "accuracy": 0.25
+        }
+    },
+    "stock-options-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "stock-options-bear-call-spread.dev.v0",
+            "base_eval": "stock-options-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_options_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-options-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704155101UYMSQQLK",
+            "created_at": "2023-07-04 15:51:01.960901"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-options-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "stock-options-bull-call-spread.dev.v0",
+            "base_eval": "stock-options-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_options_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-options-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704155112J62NAZW6",
+            "created_at": "2023-07-04 15:51:12.926389"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-options-inverse-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "stock-options-inverse-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-options-inverse-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_options_inverse_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-options-inverse-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704155121XPTPT5V2",
+            "created_at": "2023-07-04 15:51:21.110150"
+        },
+        "final_report": {
+            "accuracy": 0.0
         }
     },
     "stock-options-inverse-iron-condor-spread.dev.v0.json": {
@@ -4942,111 +3257,6 @@
             "created_by": "",
             "run_id": "230704155138TP5A3GQQ",
             "created_at": "2023-07-04 15:51:38.869802"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155121XPTPT5V2",
-            "created_at": "2023-07-04 15:51:21.110150"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-bull-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "stock-options-bull-call-spread.dev.v0",
-            "base_eval": "stock-options-bull-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_bull_call_spread.jsonl"
-                    },
-                    "key": "stock-options-bull-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155112J62NAZW6",
-            "created_at": "2023-07-04 15:51:12.926389"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-bear-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "stock-options-bear-call-spread.dev.v0",
-            "base_eval": "stock-options-bear-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_bear_call_spread.jsonl"
-                    },
-                    "key": "stock-options-bear-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155101UYMSQQLK",
-            "created_at": "2023-07-04 15:51:01.960901"
         },
         "final_report": {
             "accuracy": 0.0
@@ -5158,6 +3368,42 @@
             "f1_score": 0.07380952380952381
         }
     },
+    "test-fuzzy-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:mosaicml/mpt-7b-chat"
+            ],
+            "eval_name": "test-fuzzy-match.s1.simple-v0",
+            "base_eval": "test-fuzzy-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:mosaicml/mpt-7b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-fuzzy-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230704155025SSWRUFRB",
+            "created_at": "2023-07-04 15:50:25.543420"
+        },
+        "final_report": {
+            "accuracy": 1.0,
+            "f1_score": 0.7142857142857143
+        }
+    },
     "test-includes-ignore-case.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -5229,42 +3475,6 @@
             "accuracy": 0.3333333333333333
         }
     },
-    "test-fuzzy-match.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "test-fuzzy-match.s1.simple-v0",
-            "base_eval": "test-fuzzy-match",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
-                    "args": {
-                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
-                    },
-                    "key": "test-fuzzy-match.s1.simple-v0",
-                    "group": "test-basic"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155025SSWRUFRB",
-            "created_at": "2023-07-04 15:50:25.543420"
-        },
-        "final_report": {
-            "accuracy": 1.0,
-            "f1_score": 0.7142857142857143
-        }
-    },
     "test-match.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -5298,211 +3508,6 @@
         },
         "final_report": {
             "accuracy": 0.6666666666666666
-        }
-    },
-    "computer-science-problems.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat"
-            ],
-            "eval_name": "computer-science-problems.s1.simple-v0",
-            "base_eval": "computer-science-problems",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "test_comp_sci/questions.jsonl"
-                    },
-                    "key": "computer-science-problems.s1.simple-v0",
-                    "group": "test-comp-sci"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704155013FSNDOCJT",
-            "created_at": "2023-07-04 15:50:13.611458"
-        },
-        "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "rap-people-vs-fruits.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "rap-people-vs-fruits.dev.v0",
-            "base_eval": "rap-people-vs-fruits",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "battle"
-                    },
-                    "key": "rap-people-vs-fruits.dev.v0",
-                    "group": "test-modelgraded-battle"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704154858O4AFI42X",
-            "created_at": "2023-07-04 15:48:58.344327"
-        },
-        "final_report": {
-            "counts/Yes": 7,
-            "counts/No": 2,
-            "score": 0.7777777777777778
-        }
-    },
-    "rap-people-vs-people.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "rap-people-vs-people.dev.v0",
-            "base_eval": "rap-people-vs-people",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "battle"
-                    },
-                    "key": "rap-people-vs-people.dev.v0",
-                    "group": "test-modelgraded-battle"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704154741B4IAVIQ2",
-            "created_at": "2023-07-04 15:47:41.656003"
-        },
-        "final_report": {
-            "counts/No": 4,
-            "counts/Yes": 5,
-            "score": 0.5555555555555556
-        }
-    },
-    "mg-humor-people_jp.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "mg-humor-people_jp.dev.v0",
-            "base_eval": "mg-humor-people_jp",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
-                        "eval_type": "cot_classify_jp",
-                        "modelgraded_spec": "humor_jp"
-                    },
-                    "key": "mg-humor-people_jp.dev.v0",
-                    "group": "test-modelgraded-generated"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704154633MKKVYZ4P",
-            "created_at": "2023-07-04 15:46:33.754950"
-        },
-        "final_report": {
-            "counts/1": 15,
-            "counts/4": 1,
-            "counts/2": 2,
-            "counts/3": 2,
-            "score": 1.45
-        }
-    },
-    "diversity.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:mosaicml/mpt-7b-chat",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "diversity.dev.v0",
-            "base_eval": "diversity",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:mosaicml/mpt-7b-chat",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "diversity",
-                        "multicomp_n": 4,
-                        "sample_kwargs": {
-                            "temperature": 0.4
-                        }
-                    },
-                    "key": "diversity.dev.v0",
-                    "group": "test-modelgraded"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m fastchat:mosaicml/mpt-7b-chat",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230704154544UDWDR7UR",
-            "created_at": "2023-07-04 15:45:44.925867"
-        },
-        "final_report": {
-            "counts/Yes": 8,
-            "counts/No": 2,
-            "score": 0.8
         }
     },
     "three-pt-mapping.dev.v0.json": {

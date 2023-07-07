@@ -141,41 +141,6 @@
             "accuracy": 0.0
         }
     },
-    "match_banking77.test.v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "match_banking77.test.v1",
-            "base_eval": "match_banking77",
-            "split": "test",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "banking77/samples.jsonl"
-                    },
-                    "key": "match_banking77.test.v1",
-                    "group": "banking77"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621192444P4OEIYUI",
-            "created_at": "2023-06-21 19:24:44.250709"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
     "belarusian-lexicon.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -493,6 +458,41 @@
             "accuracy": 0.2
         }
     },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306212320014DUIFPUP",
+            "created_at": "2023-06-21 23:20:01.746340"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
     "connect4.s1.v1.json": {
         "spec": {
             "completion_fns": [
@@ -563,24 +563,30 @@
             "accuracy": 0.05
         }
     },
-    "coqa-match.dev.v0.json": {
+    "coqa-closedqa-conciseness.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "coqa-match.dev.v0",
-            "base_eval": "coqa-match",
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "samples_jsonl": "coqa/match.jsonl"
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
                     },
-                    "key": "coqa-match.dev.v0",
+                    "key": "coqa-closedqa-conciseness.dev.v0",
                     "group": "coqa-ex"
                 },
                 "seed": 20220722,
@@ -591,11 +597,13 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306211942387P2P4CYS",
-            "created_at": "2023-06-21 19:42:38.235897"
+            "run_id": "230621195256AGF2VZHN",
+            "created_at": "2023-06-21 19:52:56.835047"
         },
         "final_report": {
-            "accuracy": 0.4
+            "counts/Y": 7,
+            "counts/N": 2,
+            "score": 0.7777777777777778
         }
     },
     "coqa-closedqa-correct.dev.v0.json": {
@@ -684,30 +692,24 @@
             "score": 0.8888888888888888
         }
     },
-    "coqa-closedqa-conciseness.dev.v0.json": {
+    "coqa-match.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "openai:gpt-3.5-turbo-0301"
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
             ],
-            "eval_name": "coqa-closedqa-conciseness.dev.v0",
-            "base_eval": "coqa-closedqa-conciseness",
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                    "openai:gpt-3.5-turbo-0301"
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "coqa/samples.jsonl",
-                        "modelgraded_spec": "closedqa",
-                        "modelgraded_spec_args": {
-                            "criteria": "conciseness: Is the answer concise and to the point?"
-                        }
+                        "samples_jsonl": "coqa/match.jsonl"
                     },
-                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "key": "coqa-match.dev.v0",
                     "group": "coqa-ex"
                 },
                 "seed": 20220722,
@@ -718,13 +720,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "230621195256AGF2VZHN",
-            "created_at": "2023-06-21 19:52:56.835047"
+            "run_id": "2306211942387P2P4CYS",
+            "created_at": "2023-06-21 19:42:38.235897"
         },
         "final_report": {
-            "counts/Y": 7,
-            "counts/N": 2,
-            "score": 0.7777777777777778
+            "accuracy": 0.4
         }
     },
     "crepe.dev.v2.json": {
@@ -935,6 +935,51 @@
         },
         "final_report": {
             "accuracy": 0.3
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230621233259VYMZBP7N",
+            "created_at": "2023-06-21 23:32:59.934676"
+        },
+        "final_report": {
+            "counts/Yes": 7,
+            "counts/No": 3,
+            "score": 0.7
         }
     },
     "dutch-lexicon.dev.v0.json": {
@@ -1183,41 +1228,6 @@
             "accuracy": 0.45
         }
     },
-    "forth-stack-sim.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "forth-stack-sim.dev.v0",
-            "base_eval": "forth-stack-sim",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
-                    },
-                    "key": "forth-stack-sim.dev.v0",
-                    "group": "forth-stack-sim"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212020263J7TZQ5J",
-            "created_at": "2023-06-21 20:20:26.040019"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "forth-stack-sim-basic.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1288,6 +1298,41 @@
             "accuracy": 0.0
         }
     },
+    "forth-stack-sim.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "forth-stack-sim.dev.v0",
+            "base_eval": "forth-stack-sim",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
+                    },
+                    "key": "forth-stack-sim.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306212020263J7TZQ5J",
+            "created_at": "2023-06-21 20:20:26.040019"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
     "greek-vocabulary.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1321,6 +1366,41 @@
         },
         "final_report": {
             "accuracy": 0.25
+        }
+    },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306212241052FM7LJRF",
+            "created_at": "2023-06-21 22:41:05.889139"
+        },
+        "final_report": {
+            "accuracy": 0.15
         }
     },
     "heart-disease.v0.json": {
@@ -1392,6 +1472,42 @@
         "final_report": {
             "accuracy": 0.15,
             "f1_score": 0.03564425770308123
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306212054274DIWFMGK",
+            "created_at": "2023-06-21 20:54:27.868923"
+        },
+        "final_report": {
+            "accuracy": 0.0
         }
     },
     "hindi_upsc.dev.v0.json": {
@@ -1639,41 +1755,6 @@
             "accuracy": 0.13333333333333333
         }
     },
-    "knot-theory-unknotting-problem.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "knot-theory-unknotting-problem.dev.v0",
-            "base_eval": "knot-theory-unknotting-problem",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
-                    },
-                    "key": "knot-theory-unknotting-problem.dev.v0",
-                    "group": "knot-theory"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621205317KB5EU6XR",
-            "created_at": "2023-06-21 20:53:17.806544"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "knot-theory-unknotting-number.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1709,26 +1790,25 @@
             "accuracy": 0.0
         }
     },
-    "hellaswag.val.ab-v1.json": {
+    "knot-theory-unknotting-problem.dev.v0.json": {
         "spec": {
             "completion_fns": [
                 "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
             ],
-            "eval_name": "hellaswag.val.ab-v1",
-            "base_eval": "hellaswag",
-            "split": "val",
+            "eval_name": "knot-theory-unknotting-problem.dev.v0",
+            "base_eval": "knot-theory-unknotting-problem",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
                     "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "dataset": "hf://hellaswag?split=validation",
-                        "instructions": "Choose the most plausible continuation for the story."
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
                     },
-                    "key": "hellaswag.val.ab-v1",
-                    "group": "language"
+                    "key": "knot-theory-unknotting-problem.dev.v0",
+                    "group": "knot-theory"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -1738,8 +1818,8 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306212054274DIWFMGK",
-            "created_at": "2023-06-21 20:54:27.868923"
+            "run_id": "230621205317KB5EU6XR",
+            "created_at": "2023-06-21 20:53:17.806544"
         },
         "final_report": {
             "accuracy": 0.0
@@ -1921,6 +2001,41 @@
             "accuracy": 0.05
         }
     },
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230621192444P4OEIYUI",
+            "created_at": "2023-06-21 19:24:44.250709"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
     "medmcqa.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1991,25 +2106,29 @@
             "accuracy": 0.0
         }
     },
-    "mmlu-abstract-algebra.val.ab-v1.json": {
+    "mg-humor-people_jp.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "mmlu-abstract-algebra.val.ab-v1",
-            "base_eval": "mmlu-abstract-algebra",
-            "split": "val",
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "dataset": "hf://cais/mmlu?name=abstract_algebra&split=validation"
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
                     },
-                    "key": "mmlu-abstract-algebra.val.ab-v1",
-                    "group": "mmlu"
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -2019,1971 +2138,16 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306212117363OX4SEPR",
-            "created_at": "2023-06-21 21:17:36.755758"
+            "run_id": "230621232733QUWDTJ4N",
+            "created_at": "2023-06-21 23:27:33.716183"
         },
         "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-anatomy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-anatomy.val.ab-v1",
-            "base_eval": "mmlu-anatomy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=anatomy&split=validation"
-                    },
-                    "key": "mmlu-anatomy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621211839TUACU5S6",
-            "created_at": "2023-06-21 21:18:39.238496"
-        },
-        "final_report": {
-            "accuracy": 0.2857142857142857
-        }
-    },
-    "mmlu-astronomy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-astronomy.val.ab-v1",
-            "base_eval": "mmlu-astronomy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=astronomy&split=validation"
-                    },
-                    "key": "mmlu-astronomy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621211901B7HAHOC7",
-            "created_at": "2023-06-21 21:19:01.945953"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-business-ethics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-business-ethics.val.ab-v1",
-            "base_eval": "mmlu-business-ethics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=business_ethics&split=validation"
-                    },
-                    "key": "mmlu-business-ethics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621211957PWJAJGDS",
-            "created_at": "2023-06-21 21:19:57.993319"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-clinical-knowledge.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-clinical-knowledge.val.ab-v1",
-            "base_eval": "mmlu-clinical-knowledge",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=clinical_knowledge&split=validation"
-                    },
-                    "key": "mmlu-clinical-knowledge.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621212045HCE57DNW",
-            "created_at": "2023-06-21 21:20:45.916354"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-college-biology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-college-biology.val.ab-v1",
-            "base_eval": "mmlu-college-biology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_biology&split=validation"
-                    },
-                    "key": "mmlu-college-biology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621212115OHY262GV",
-            "created_at": "2023-06-21 21:21:15.269271"
-        },
-        "final_report": {
-            "accuracy": 0.0625
-        }
-    },
-    "mmlu-college-chemistry.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-college-chemistry.val.ab-v1",
-            "base_eval": "mmlu-college-chemistry",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_chemistry&split=validation"
-                    },
-                    "key": "mmlu-college-chemistry.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621212227ETJ24G6W",
-            "created_at": "2023-06-21 21:22:27.721514"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-college-computer-science.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-college-computer-science.val.ab-v1",
-            "base_eval": "mmlu-college-computer-science",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_computer_science&split=validation"
-                    },
-                    "key": "mmlu-college-computer-science.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621212351NFAXCY7L",
-            "created_at": "2023-06-21 21:23:51.759702"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-college-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-college-mathematics.val.ab-v1",
-            "base_eval": "mmlu-college-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_mathematics&split=validation"
-                    },
-                    "key": "mmlu-college-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621212449KEV6X5AX",
-            "created_at": "2023-06-21 21:24:49.465091"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-college-medicine.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-college-medicine.val.ab-v1",
-            "base_eval": "mmlu-college-medicine",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_medicine&split=validation"
-                    },
-                    "key": "mmlu-college-medicine.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212126544PXD4LOM",
-            "created_at": "2023-06-21 21:26:54.281678"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-college-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-college-physics.val.ab-v1",
-            "base_eval": "mmlu-college-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_physics&split=validation"
-                    },
-                    "key": "mmlu-college-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621212816VG24MN7F",
-            "created_at": "2023-06-21 21:28:16.520191"
-        },
-        "final_report": {
-            "accuracy": 0.18181818181818182
-        }
-    },
-    "mmlu-computer-security.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-computer-security.val.ab-v1",
-            "base_eval": "mmlu-computer-security",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=computer_security&split=validation"
-                    },
-                    "key": "mmlu-computer-security.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621212932E2ICGWXT",
-            "created_at": "2023-06-21 21:29:32.360434"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-conceptual-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-conceptual-physics.val.ab-v1",
-            "base_eval": "mmlu-conceptual-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=conceptual_physics&split=validation"
-                    },
-                    "key": "mmlu-conceptual-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213035XQPELQIH",
-            "created_at": "2023-06-21 21:30:35.518872"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-econometrics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-econometrics.val.ab-v1",
-            "base_eval": "mmlu-econometrics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=econometrics&split=validation"
-                    },
-                    "key": "mmlu-econometrics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213103JQVB5KPP",
-            "created_at": "2023-06-21 21:31:03.775984"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-electrical-engineering.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-electrical-engineering.val.ab-v1",
-            "base_eval": "mmlu-electrical-engineering",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=electrical_engineering&split=validation"
-                    },
-                    "key": "mmlu-electrical-engineering.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213211WJ4EMPTJ",
-            "created_at": "2023-06-21 21:32:11.599753"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "mmlu-elementary-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-elementary-mathematics.val.ab-v1",
-            "base_eval": "mmlu-elementary-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=elementary_mathematics&split=validation"
-                    },
-                    "key": "mmlu-elementary-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212132546N65MDXN",
-            "created_at": "2023-06-21 21:32:54.877750"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-formal-logic.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-formal-logic.val.ab-v1",
-            "base_eval": "mmlu-formal-logic",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=formal_logic&split=validation"
-                    },
-                    "key": "mmlu-formal-logic.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213350JSYLETIN",
-            "created_at": "2023-06-21 21:33:50.239628"
-        },
-        "final_report": {
-            "accuracy": 0.07142857142857142
-        }
-    },
-    "mmlu-global-facts.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-global-facts.val.ab-v1",
-            "base_eval": "mmlu-global-facts",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=global_facts&split=validation"
-                    },
-                    "key": "mmlu-global-facts.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213612ANZC2K76",
-            "created_at": "2023-06-21 21:36:12.641375"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-high-school-biology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-biology.val.ab-v1",
-            "base_eval": "mmlu-high-school-biology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_biology&split=validation"
-                    },
-                    "key": "mmlu-high-school-biology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213634LA4WGLKQ",
-            "created_at": "2023-06-21 21:36:34.751145"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-chemistry.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-chemistry.val.ab-v1",
-            "base_eval": "mmlu-high-school-chemistry",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_chemistry&split=validation"
-                    },
-                    "key": "mmlu-high-school-chemistry.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213718UZHXQXWO",
-            "created_at": "2023-06-21 21:37:18.809598"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-high-school-computer-science.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-computer-science.val.ab-v1",
-            "base_eval": "mmlu-high-school-computer-science",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_computer_science&split=validation"
-                    },
-                    "key": "mmlu-high-school-computer-science.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213949II4SUSXX",
-            "created_at": "2023-06-21 21:39:49.560469"
-        },
-        "final_report": {
-            "accuracy": 0.3333333333333333
-        }
-    },
-    "mmlu-high-school-european-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-european-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-european-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_european_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-european-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214021EJGO5NF5",
-            "created_at": "2023-06-21 21:40:21.054300"
-        },
-        "final_report": {
-            "accuracy": 0.1111111111111111
-        }
-    },
-    "mmlu-high-school-geography.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-geography.val.ab-v1",
-            "base_eval": "mmlu-high-school-geography",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_geography&split=validation"
-                    },
-                    "key": "mmlu-high-school-geography.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214437HFLXHXN4",
-            "created_at": "2023-06-21 21:44:37.761422"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-high-school-government-and-politics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-government-and-politics.val.ab-v1",
-            "base_eval": "mmlu-high-school-government-and-politics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_government_and_politics&split=validation"
-                    },
-                    "key": "mmlu-high-school-government-and-politics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214503NHW6EOZB",
-            "created_at": "2023-06-21 21:45:03.746801"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-high-school-macroeconomics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-macroeconomics.val.ab-v1",
-            "base_eval": "mmlu-high-school-macroeconomics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_macroeconomics&split=validation"
-                    },
-                    "key": "mmlu-high-school-macroeconomics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214527V2ILULTK",
-            "created_at": "2023-06-21 21:45:27.660467"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-mathematics.val.ab-v1",
-            "base_eval": "mmlu-high-school-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_mathematics&split=validation"
-                    },
-                    "key": "mmlu-high-school-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214609V42J7EAL",
-            "created_at": "2023-06-21 21:46:09.290259"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-microeconomics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-microeconomics.val.ab-v1",
-            "base_eval": "mmlu-high-school-microeconomics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_microeconomics&split=validation"
-                    },
-                    "key": "mmlu-high-school-microeconomics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214853M3UVU5ZO",
-            "created_at": "2023-06-21 21:48:53.023866"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-high-school-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-physics.val.ab-v1",
-            "base_eval": "mmlu-high-school-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_physics&split=validation"
-                    },
-                    "key": "mmlu-high-school-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214930LSJLR7EE",
-            "created_at": "2023-06-21 21:49:30.514324"
-        },
-        "final_report": {
-            "accuracy": 0.058823529411764705
-        }
-    },
-    "mmlu-high-school-psychology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-psychology.val.ab-v1",
-            "base_eval": "mmlu-high-school-psychology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_psychology&split=validation"
-                    },
-                    "key": "mmlu-high-school-psychology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621215149SJGE62M2",
-            "created_at": "2023-06-21 21:51:49.070692"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-high-school-statistics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-statistics.val.ab-v1",
-            "base_eval": "mmlu-high-school-statistics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_statistics&split=validation"
-                    },
-                    "key": "mmlu-high-school-statistics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212152385VDWBRBS",
-            "created_at": "2023-06-21 21:52:38.553759"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-us-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-us-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-us-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_us_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-us-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621215401KQWFTKFK",
-            "created_at": "2023-06-21 21:54:01.026798"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-high-school-world-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-high-school-world-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-world-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_world_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-world-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062121582952UU2CBH",
-            "created_at": "2023-06-21 21:58:29.905925"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-human-aging.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-human-aging.val.ab-v1",
-            "base_eval": "mmlu-human-aging",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=human_aging&split=validation"
-                    },
-                    "key": "mmlu-human-aging.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212200502WZWYCVG",
-            "created_at": "2023-06-21 22:00:50.855385"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-human-sexuality.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-human-sexuality.val.ab-v1",
-            "base_eval": "mmlu-human-sexuality",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=human_sexuality&split=validation"
-                    },
-                    "key": "mmlu-human-sexuality.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220111M7NB34RF",
-            "created_at": "2023-06-21 22:01:11.199131"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "mmlu-international-law.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-international-law.val.ab-v1",
-            "base_eval": "mmlu-international-law",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=international_law&split=validation"
-                    },
-                    "key": "mmlu-international-law.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220134KB42LYKF",
-            "created_at": "2023-06-21 22:01:34.305445"
-        },
-        "final_report": {
-            "accuracy": 0.07692307692307693
-        }
-    },
-    "mmlu-jurisprudence.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-jurisprudence.val.ab-v1",
-            "base_eval": "mmlu-jurisprudence",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=jurisprudence&split=validation"
-                    },
-                    "key": "mmlu-jurisprudence.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220158R44HO34H",
-            "created_at": "2023-06-21 22:01:58.248968"
-        },
-        "final_report": {
-            "accuracy": 0.2727272727272727
-        }
-    },
-    "mmlu-logical-fallacies.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-logical-fallacies.val.ab-v1",
-            "base_eval": "mmlu-logical-fallacies",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=logical_fallacies&split=validation"
-                    },
-                    "key": "mmlu-logical-fallacies.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220233D7I5MNLO",
-            "created_at": "2023-06-21 22:02:33.886696"
-        },
-        "final_report": {
-            "accuracy": 0.16666666666666666
-        }
-    },
-    "mmlu-machine-learning.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-machine-learning.val.ab-v1",
-            "base_eval": "mmlu-machine-learning",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=machine_learning&split=validation"
-                    },
-                    "key": "mmlu-machine-learning.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220252V7LWG4MV",
-            "created_at": "2023-06-21 22:02:52.141071"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-management.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-management.val.ab-v1",
-            "base_eval": "mmlu-management",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=management&split=validation"
-                    },
-                    "key": "mmlu-management.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220352DU5CPPBI",
-            "created_at": "2023-06-21 22:03:52.830407"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-marketing.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-marketing.val.ab-v1",
-            "base_eval": "mmlu-marketing",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=marketing&split=validation"
-                    },
-                    "key": "mmlu-marketing.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212204047J5O6Y73",
-            "created_at": "2023-06-21 22:04:04.279574"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-medical-genetics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-medical-genetics.val.ab-v1",
-            "base_eval": "mmlu-medical-genetics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=medical_genetics&split=validation"
-                    },
-                    "key": "mmlu-medical-genetics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220430BN3VI3IO",
-            "created_at": "2023-06-21 22:04:30.501066"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-miscellaneous.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-miscellaneous.val.ab-v1",
-            "base_eval": "mmlu-miscellaneous",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=miscellaneous&split=validation"
-                    },
-                    "key": "mmlu-miscellaneous.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220451JYP7ZKJA",
-            "created_at": "2023-06-21 22:04:51.479340"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-moral-disputes.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-moral-disputes.val.ab-v1",
-            "base_eval": "mmlu-moral-disputes",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=moral_disputes&split=validation"
-                    },
-                    "key": "mmlu-moral-disputes.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220549UUWPNB2N",
-            "created_at": "2023-06-21 22:05:49.787352"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-moral-scenarios.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-moral-scenarios.val.ab-v1",
-            "base_eval": "mmlu-moral-scenarios",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=moral_scenarios&split=validation"
-                    },
-                    "key": "mmlu-moral-scenarios.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220644XBQ2NGFK",
-            "created_at": "2023-06-21 22:06:44.970942"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-nutrition.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-nutrition.val.ab-v1",
-            "base_eval": "mmlu-nutrition",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=nutrition&split=validation"
-                    },
-                    "key": "mmlu-nutrition.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220916QPQRNR6D",
-            "created_at": "2023-06-21 22:09:16.910440"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-philosophy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-philosophy.val.ab-v1",
-            "base_eval": "mmlu-philosophy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=philosophy&split=validation"
-                    },
-                    "key": "mmlu-philosophy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212210086M36OYDR",
-            "created_at": "2023-06-21 22:10:08.892626"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-prehistory.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-prehistory.val.ab-v1",
-            "base_eval": "mmlu-prehistory",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=prehistory&split=validation"
-                    },
-                    "key": "mmlu-prehistory.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221042KBIVUTMA",
-            "created_at": "2023-06-21 22:10:42.074948"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-professional-accounting.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-professional-accounting.val.ab-v1",
-            "base_eval": "mmlu-professional-accounting",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_accounting&split=validation"
-                    },
-                    "key": "mmlu-professional-accounting.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221114WENY73HY",
-            "created_at": "2023-06-21 22:11:14.915602"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-professional-law.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-professional-law.val.ab-v1",
-            "base_eval": "mmlu-professional-law",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_law&split=validation"
-                    },
-                    "key": "mmlu-professional-law.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221301UUGMM6W3",
-            "created_at": "2023-06-21 22:13:01.370824"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-professional-medicine.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-professional-medicine.val.ab-v1",
-            "base_eval": "mmlu-professional-medicine",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_medicine&split=validation"
-                    },
-                    "key": "mmlu-professional-medicine.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221516PJK7PEYX",
-            "created_at": "2023-06-21 22:15:16.907865"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-professional-psychology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-professional-psychology.val.ab-v1",
-            "base_eval": "mmlu-professional-psychology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_psychology&split=validation"
-                    },
-                    "key": "mmlu-professional-psychology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062122164967WIXUG5",
-            "created_at": "2023-06-21 22:16:49.070682"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-public-relations.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-public-relations.val.ab-v1",
-            "base_eval": "mmlu-public-relations",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=public_relations&split=validation"
-                    },
-                    "key": "mmlu-public-relations.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221819KALFDESX",
-            "created_at": "2023-06-21 22:18:19.084611"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-security-studies.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-security-studies.val.ab-v1",
-            "base_eval": "mmlu-security-studies",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=security_studies&split=validation"
-                    },
-                    "key": "mmlu-security-studies.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221847YPQRG6JB",
-            "created_at": "2023-06-21 22:18:47.810805"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-sociology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-sociology.val.ab-v1",
-            "base_eval": "mmlu-sociology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=sociology&split=validation"
-                    },
-                    "key": "mmlu-sociology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221935DK4624S7",
-            "created_at": "2023-06-21 22:19:35.574633"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-us-foreign-policy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-us-foreign-policy.val.ab-v1",
-            "base_eval": "mmlu-us-foreign-policy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=us_foreign_policy&split=validation"
-                    },
-                    "key": "mmlu-us-foreign-policy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621222003CSAK25Z3",
-            "created_at": "2023-06-21 22:20:03.069179"
-        },
-        "final_report": {
-            "accuracy": 0.18181818181818182
-        }
-    },
-    "mmlu-virology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-virology.val.ab-v1",
-            "base_eval": "mmlu-virology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=virology&split=validation"
-                    },
-                    "key": "mmlu-virology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621222043FPZBONZE",
-            "created_at": "2023-06-21 22:20:43.549597"
-        },
-        "final_report": {
-            "accuracy": 0.1111111111111111
-        }
-    },
-    "mmlu-world-religions.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "mmlu-world-religions.val.ab-v1",
-            "base_eval": "mmlu-world-religions",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=world_religions&split=validation"
-                    },
-                    "key": "mmlu-world-religions.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621222217ZABDTVO4",
-            "created_at": "2023-06-21 22:22:17.394879"
-        },
-        "final_report": {
-            "accuracy": 0.10526315789473684
+            "counts/1": 2,
+            "counts/2": 7,
+            "counts/3": 7,
+            "counts/4": 3,
+            "counts/__invalid__": 1,
+            "score": 2.5
         }
     },
     "moral_exceptQA.test.v1.json": {
@@ -4311,25 +2475,29 @@
             "f1_score": 0.0
         }
     },
-    "hand_ranks.test.v1.json": {
+    "rap-people-vs-fruits.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "hand_ranks.test.v1",
-            "base_eval": "hand_ranks",
-            "split": "test",
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
                     },
-                    "key": "hand_ranks.test.v1",
-                    "group": "poker_hand_ranks"
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -4339,11 +2507,54 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306212241052FM7LJRF",
-            "created_at": "2023-06-21 22:41:05.889139"
+            "run_id": "2306212324097GTZUEJ4",
+            "created_at": "2023-06-21 23:24:09.611391"
         },
         "final_report": {
-            "accuracy": 0.15
+            "counts/No": 4,
+            "counts/Yes": 5,
+            "score": 0.5555555555555556
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23062123202662GGPBVQ",
+            "created_at": "2023-06-21 23:20:26.261799"
+        },
+        "final_report": {
+            "counts/Yes": 3,
+            "counts/No": 6,
+            "score": 0.3333333333333333
         }
     },
     "regex.match.dev.v0.json": {
@@ -4703,6 +2914,181 @@
             "accuracy": 0.35
         }
     },
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306212304583NN3CELV",
+            "created_at": "2023-06-21 23:04:58.841356"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230621230552QYTY2YU5",
+            "created_at": "2023-06-21 23:05:52.021520"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230621231143TN5SD3QC",
+            "created_at": "2023-06-21 23:11:43.566348"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306212307017JGZC3DW",
+            "created_at": "2023-06-21 23:07:01.184580"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230621230928FKWJUHHH",
+            "created_at": "2023-06-21 23:09:28.319814"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
     "stock-options-bear-call-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4808,41 +3194,6 @@
             "accuracy": 0.0
         }
     },
-    "stock-options-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-options-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621225714W6WJZHK6",
-            "created_at": "2023-06-21 22:57:14.822849"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "stock-options-inverse-iron-condor-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4878,13 +3229,13 @@
             "accuracy": 0.0
         }
     },
-    "stock-option-terms-bear-call-spread.dev.v0.json": {
+    "stock-options-iron-condor-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
                 "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
             ],
-            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
-            "base_eval": "stock-option-terms-bear-call-spread",
+            "eval_name": "stock-options-iron-condor-spread.dev.v0",
+            "base_eval": "stock-options-iron-condor-spread",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
@@ -4893,9 +3244,9 @@
                 "eval_spec": {
                     "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
                     },
-                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "key": "stock-options-iron-condor-spread.dev.v0",
                     "group": "stock-options"
                 },
                 "seed": 20220722,
@@ -4906,151 +3257,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306212304583NN3CELV",
-            "created_at": "2023-06-21 23:04:58.841356"
+            "run_id": "230621225714W6WJZHK6",
+            "created_at": "2023-06-21 22:57:14.822849"
         },
         "final_report": {
             "accuracy": 0.0
-        }
-    },
-    "stock-option-terms-bull-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
-            "base_eval": "stock-option-terms-bull-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-bull-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621230552QYTY2YU5",
-            "created_at": "2023-06-21 23:05:52.021520"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-option-terms-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212307017JGZC3DW",
-            "created_at": "2023-06-21 23:07:01.184580"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-option-terms-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
-            "base_eval": "stock-option-terms-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621230928FKWJUHHH",
-            "created_at": "2023-06-21 23:09:28.319814"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
-            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621231143TN5SD3QC",
-            "created_at": "2023-06-21 23:11:43.566348"
-        },
-        "final_report": {
-            "accuracy": 0.05
         }
     },
     "swedish-spelling.dev.v0.json": {
@@ -5159,41 +3370,6 @@
             "f1_score": 0.0
         }
     },
-    "test-match.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "test-match.s1.simple-v0",
-            "base_eval": "test-match",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "test_match/samples.jsonl"
-                    },
-                    "key": "test-match.s1.simple-v0",
-                    "group": "test-basic"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212319595AD72UGE",
-            "created_at": "2023-06-21 23:19:59.401504"
-        },
-        "final_report": {
-            "accuracy": 0.3333333333333333
-        }
-    },
     "test-fuzzy-match.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -5228,41 +3404,6 @@
         "final_report": {
             "accuracy": 0.0,
             "f1_score": 0.0
-        }
-    },
-    "test-includes.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "test-includes.s1.simple-v0",
-            "base_eval": "test-includes",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.includes:Includes",
-                    "args": {
-                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
-                    },
-                    "key": "test-includes.s1.simple-v0",
-                    "group": "test-basic"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621232000PYTOQWI5",
-            "created_at": "2023-06-21 23:20:00.732638"
-        },
-        "final_report": {
-            "accuracy": 0.0
         }
     },
     "test-includes-ignore-case.s1.simple-v0.json": {
@@ -5301,13 +3442,48 @@
             "accuracy": 0.0
         }
     },
-    "computer-science-problems.s1.simple-v0.json": {
+    "test-includes.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
                 "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
             ],
-            "eval_name": "computer-science-problems.s1.simple-v0",
-            "base_eval": "computer-science-problems",
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230621232000PYTOQWI5",
+            "created_at": "2023-06-21 23:20:00.732638"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
             "split": "s1",
             "run_config": {
                 "completion_fns": [
@@ -5316,10 +3492,10 @@
                 "eval_spec": {
                     "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                        "samples_jsonl": "test_match/samples.jsonl"
                     },
-                    "key": "computer-science-problems.s1.simple-v0",
-                    "group": "test-comp-sci"
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -5329,182 +3505,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306212320014DUIFPUP",
-            "created_at": "2023-06-21 23:20:01.746340"
+            "run_id": "2306212319595AD72UGE",
+            "created_at": "2023-06-21 23:19:59.401504"
         },
         "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "rap-people-vs-people.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "rap-people-vs-people.dev.v0",
-            "base_eval": "rap-people-vs-people",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "battle"
-                    },
-                    "key": "rap-people-vs-people.dev.v0",
-                    "group": "test-modelgraded-battle"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062123202662GGPBVQ",
-            "created_at": "2023-06-21 23:20:26.261799"
-        },
-        "final_report": {
-            "counts/Yes": 3,
-            "counts/No": 6,
-            "score": 0.3333333333333333
-        }
-    },
-    "rap-people-vs-fruits.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "rap-people-vs-fruits.dev.v0",
-            "base_eval": "rap-people-vs-fruits",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "battle"
-                    },
-                    "key": "rap-people-vs-fruits.dev.v0",
-                    "group": "test-modelgraded-battle"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212324097GTZUEJ4",
-            "created_at": "2023-06-21 23:24:09.611391"
-        },
-        "final_report": {
-            "counts/No": 4,
-            "counts/Yes": 5,
-            "score": 0.5555555555555556
-        }
-    },
-    "mg-humor-people_jp.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "mg-humor-people_jp.dev.v0",
-            "base_eval": "mg-humor-people_jp",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
-                        "eval_type": "cot_classify_jp",
-                        "modelgraded_spec": "humor_jp"
-                    },
-                    "key": "mg-humor-people_jp.dev.v0",
-                    "group": "test-modelgraded-generated"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621232733QUWDTJ4N",
-            "created_at": "2023-06-21 23:27:33.716183"
-        },
-        "final_report": {
-            "counts/1": 2,
-            "counts/2": 7,
-            "counts/3": 7,
-            "counts/4": 3,
-            "counts/__invalid__": 1,
-            "score": 2.5
-        }
-    },
-    "diversity.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "diversity.dev.v0",
-            "base_eval": "diversity",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "diversity",
-                        "multicomp_n": 4,
-                        "sample_kwargs": {
-                            "temperature": 0.4
-                        }
-                    },
-                    "key": "diversity.dev.v0",
-                    "group": "test-modelgraded"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621233259VYMZBP7N",
-            "created_at": "2023-06-21 23:32:59.934676"
-        },
-        "final_report": {
-            "counts/Yes": 7,
-            "counts/No": 3,
-            "score": 0.7
+            "accuracy": 0.3333333333333333
         }
     },
     "three-pt-mapping.dev.v0.json": {
