@@ -99,7 +99,7 @@ Since this repository is about instruction following models and different instru
 
 ### Evaluation
 
-⚠️ Running `evaluate.py` currently executes untrusted code from models with remote code and when using the EvalPlus benchmark. There is currently no sandbox, so make sure to only execute the code in a reasonable isolated environment.
+⚠️ Running `evaluate.py` currently executes untrusted code (from models with remote code, LLM generated code when using HumanEval+). There is currently no sandbox, so make sure to only execute the code in a reasonable isolated environment.
 
 Call the `evaluate.py` script in the following way:
 ```
