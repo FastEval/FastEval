@@ -797,41 +797,6 @@
             "accuracy": 0.05
         }
     },
-    "decrypt-caesar-cipher.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:lmsys/vicuna-7b-v1.3"
-            ],
-            "eval_name": "decrypt-caesar-cipher.dev.v0",
-            "base_eval": "decrypt-caesar-cipher",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:lmsys/vicuna-7b-v1.3"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "decrypt_caesar_cipher/samples.jsonl"
-                    },
-                    "key": "decrypt-caesar-cipher.dev.v0",
-                    "group": "decrypt-caesar-cipher"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -b openai-evals -m fastchat:lmsys/vicuna-7b-v1.3",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230706003937PCOB2MOD",
-            "created_at": "2023-07-06 00:39:37.842277"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "determinant.test.v1.json": {
         "spec": {
             "completion_fns": [
@@ -2589,41 +2554,6 @@
             "accuracy": 0.4
         }
     },
-    "rot13.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:lmsys/vicuna-7b-v1.3"
-            ],
-            "eval_name": "rot13.s1.simple-v0",
-            "base_eval": "rot13",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:lmsys/vicuna-7b-v1.3"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "rot13/rot13.jsonl"
-                    },
-                    "key": "rot13.s1.simple-v0",
-                    "group": "rot13"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -b openai-evals -m fastchat:lmsys/vicuna-7b-v1.3",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230706010652AZXQESUL",
-            "created_at": "2023-07-06 01:06:52.419342"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "rucola.test.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3121,146 +3051,6 @@
             "accuracy": 0.0
         }
     },
-    "stock-options-bull-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:lmsys/vicuna-7b-v1.3"
-            ],
-            "eval_name": "stock-options-bull-call-spread.dev.v0",
-            "base_eval": "stock-options-bull-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:lmsys/vicuna-7b-v1.3"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_bull_call_spread.jsonl"
-                    },
-                    "key": "stock-options-bull-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -b openai-evals -m fastchat:lmsys/vicuna-7b-v1.3",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230706010750X4PBBDZO",
-            "created_at": "2023-07-06 01:07:50.979883"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:lmsys/vicuna-7b-v1.3"
-            ],
-            "eval_name": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:lmsys/vicuna-7b-v1.3"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -b openai-evals -m fastchat:lmsys/vicuna-7b-v1.3",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230706010757H4OCMP2E",
-            "created_at": "2023-07-06 01:07:57.878339"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:lmsys/vicuna-7b-v1.3"
-            ],
-            "eval_name": "stock-options-inverse-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:lmsys/vicuna-7b-v1.3"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -b openai-evals -m fastchat:lmsys/vicuna-7b-v1.3",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230706010812IUFZ3X6C",
-            "created_at": "2023-07-06 01:08:12.408043"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:lmsys/vicuna-7b-v1.3"
-            ],
-            "eval_name": "stock-options-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:lmsys/vicuna-7b-v1.3"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -b openai-evals -m fastchat:lmsys/vicuna-7b-v1.3",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2307060108046LBEFVJW",
-            "created_at": "2023-07-06 01:08:04.005641"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "swedish-spelling.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3577,41 +3367,6 @@
         },
         "final_report": {
             "accuracy": 0.1
-        }
-    },
-    "unified-patch.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "fastchat:lmsys/vicuna-7b-v1.3"
-            ],
-            "eval_name": "unified-patch.dev.v0",
-            "base_eval": "unified-patch",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "fastchat:lmsys/vicuna-7b-v1.3"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.includes:Includes",
-                    "args": {
-                        "samples_jsonl": "unified_patch/samples.jsonl"
-                    },
-                    "key": "unified-patch.dev.v0",
-                    "group": "unified-patch"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -b openai-evals -m fastchat:lmsys/vicuna-7b-v1.3",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230706011137F5NXNP7U",
-            "created_at": "2023-07-06 01:11:37.554214"
-        },
-        "final_report": {
-            "accuracy": 0.0
         }
     },
     "us-tort-law.dev.v0.json": {

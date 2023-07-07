@@ -797,41 +797,6 @@
             "accuracy": 0.0
         }
     },
-    "decrypt-caesar-cipher.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-            ],
-            "eval_name": "decrypt-caesar-cipher.dev.v0",
-            "base_eval": "decrypt-caesar-cipher",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "decrypt_caesar_cipher/samples.jsonl"
-                    },
-                    "key": "decrypt-caesar-cipher.dev.v0",
-                    "group": "decrypt-caesar-cipher"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230618170800X4PUOVLP",
-            "created_at": "2023-06-18 17:08:00.390457"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "determinant.test.v1.json": {
         "spec": {
             "completion_fns": [
@@ -2590,41 +2555,6 @@
             "accuracy": 0.3
         }
     },
-    "rot13.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-            ],
-            "eval_name": "rot13.s1.simple-v0",
-            "base_eval": "rot13",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "rot13/rot13.jsonl"
-                    },
-                    "key": "rot13.s1.simple-v0",
-                    "group": "rot13"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306181822066AZEILFE",
-            "created_at": "2023-06-18 18:22:06.363852"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "rucola.test.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3122,146 +3052,6 @@
             "accuracy": 0.0
         }
     },
-    "stock-options-bull-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-            ],
-            "eval_name": "stock-options-bull-call-spread.dev.v0",
-            "base_eval": "stock-options-bull-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_bull_call_spread.jsonl"
-                    },
-                    "key": "stock-options-bull-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230618182604HRV4COEW",
-            "created_at": "2023-06-18 18:26:04.676723"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-            ],
-            "eval_name": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230618182615IT7KJLGG",
-            "created_at": "2023-06-18 18:26:15.690174"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-            ],
-            "eval_name": "stock-options-inverse-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230618182730TNZRA2VD",
-            "created_at": "2023-06-18 18:27:30.828783"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-            ],
-            "eval_name": "stock-options-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230618182658AVALZQIW",
-            "created_at": "2023-06-18 18:26:58.999100"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "swedish-spelling.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3578,41 +3368,6 @@
         },
         "final_report": {
             "accuracy": 0.1
-        }
-    },
-    "unified-patch.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-            ],
-            "eval_name": "unified-patch.dev.v0",
-            "base_eval": "unified-patch",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.includes:Includes",
-                    "args": {
-                        "samples_jsonl": "unified_patch/samples.jsonl"
-                    },
-                    "key": "unified-patch.dev.v0",
-                    "group": "unified-patch"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230618185616TAMTHSFQ",
-            "created_at": "2023-06-18 18:56:16.821409"
-        },
-        "final_report": {
-            "accuracy": 0.0
         }
     },
     "us-tort-law.dev.v0.json": {

@@ -797,41 +797,6 @@
             "accuracy": 0.05
         }
     },
-    "decrypt-caesar-cipher.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-            ],
-            "eval_name": "decrypt-caesar-cipher.dev.v0",
-            "base_eval": "decrypt-caesar-cipher",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "decrypt_caesar_cipher/samples.jsonl"
-                    },
-                    "key": "decrypt-caesar-cipher.dev.v0",
-                    "group": "decrypt-caesar-cipher"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230615002701BLUQU6ZE",
-            "created_at": "2023-06-15 00:27:01.086329"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "determinant.test.v1.json": {
         "spec": {
             "completion_fns": [
@@ -2590,41 +2555,6 @@
             "accuracy": 0.15
         }
     },
-    "rot13.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-            ],
-            "eval_name": "rot13.s1.simple-v0",
-            "base_eval": "rot13",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "rot13/rot13.jsonl"
-                    },
-                    "key": "rot13.s1.simple-v0",
-                    "group": "rot13"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306150653513O37VFMX",
-            "created_at": "2023-06-15 06:53:51.326673"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "rucola.test.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3122,146 +3052,6 @@
             "accuracy": 0.0
         }
     },
-    "stock-options-bull-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-            ],
-            "eval_name": "stock-options-bull-call-spread.dev.v0",
-            "base_eval": "stock-options-bull-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_bull_call_spread.jsonl"
-                    },
-                    "key": "stock-options-bull-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306150739134GBPDIEC",
-            "created_at": "2023-06-15 07:39:13.171178"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-            ],
-            "eval_name": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306150740462VZSHMNE",
-            "created_at": "2023-06-15 07:40:46.409485"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-            ],
-            "eval_name": "stock-options-inverse-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230615074243U7T2T4WX",
-            "created_at": "2023-06-15 07:42:43.670753"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-            ],
-            "eval_name": "stock-options-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230615074133M32MIZ4I",
-            "created_at": "2023-06-15 07:41:33.089698"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "swedish-spelling.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3575,41 +3365,6 @@
             "created_by": "",
             "run_id": "230615085718GK7HNH2H",
             "created_at": "2023-06-15 08:57:18.032769"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "unified-patch.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-            ],
-            "eval_name": "unified-patch.dev.v0",
-            "base_eval": "unified-patch",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/falcon-40b-sft-top1-560"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.includes:Includes",
-                    "args": {
-                        "samples_jsonl": "unified_patch/samples.jsonl"
-                    },
-                    "key": "unified-patch.dev.v0",
-                    "group": "unified-patch"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230615091820OZTKX4S2",
-            "created_at": "2023-06-15 09:18:20.857086"
         },
         "final_report": {
             "accuracy": 0.0

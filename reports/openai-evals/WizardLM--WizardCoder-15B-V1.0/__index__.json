@@ -797,41 +797,6 @@
             "accuracy": 0.0
         }
     },
-    "decrypt-caesar-cipher.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "decrypt-caesar-cipher.dev.v0",
-            "base_eval": "decrypt-caesar-cipher",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "decrypt_caesar_cipher/samples.jsonl"
-                    },
-                    "key": "decrypt-caesar-cipher.dev.v0",
-                    "group": "decrypt-caesar-cipher"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621200457CFD6WOFG",
-            "created_at": "2023-06-21 20:04:57.286929"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "determinant.test.v1.json": {
         "spec": {
             "completion_fns": [
@@ -2592,41 +2557,6 @@
             "accuracy": 0.15
         }
     },
-    "rot13.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "rot13.s1.simple-v0",
-            "base_eval": "rot13",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "rot13/rot13.jsonl"
-                    },
-                    "key": "rot13.s1.simple-v0",
-                    "group": "rot13"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621224419N4U4FTXF",
-            "created_at": "2023-06-21 22:44:19.493002"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "rucola.test.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3124,146 +3054,6 @@
             "accuracy": 0.0
         }
     },
-    "stock-options-bull-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-options-bull-call-spread.dev.v0",
-            "base_eval": "stock-options-bull-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_bull_call_spread.jsonl"
-                    },
-                    "key": "stock-options-bull-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212252545HVCA4WC",
-            "created_at": "2023-06-21 22:52:54.204751"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062122534573LEN7ZA",
-            "created_at": "2023-06-21 22:53:45.117232"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-inverse-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-options-inverse-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-inverse-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_inverse_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-inverse-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621230108WKMMY7TL",
-            "created_at": "2023-06-21 23:01:08.403483"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "stock-options-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "stock-options-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621225714W6WJZHK6",
-            "created_at": "2023-06-21 22:57:14.822849"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "swedish-spelling.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -3577,41 +3367,6 @@
             "created_by": "",
             "run_id": "230621233622OZKQH43L",
             "created_at": "2023-06-21 23:36:22.065197"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "unified-patch.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-            ],
-            "eval_name": "unified-patch.dev.v0",
-            "base_eval": "unified-patch",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.includes:Includes",
-                    "args": {
-                        "samples_jsonl": "unified_patch/samples.jsonl"
-                    },
-                    "key": "unified-patch.dev.v0",
-                    "group": "unified-patch"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -b openai-evals -m alpaca-with-prefix:WizardLM/WizardCoder-15B-V1.0",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621234730RDM2EPOU",
-            "created_at": "2023-06-21 23:47:30.550522"
         },
         "final_report": {
             "accuracy": 0.0

@@ -109,6 +109,13 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
         'knot-theory-code-conversion.dev.v0',
         'naughty_strings.test.v1',
         'reverse-string.s1.simple-v0',
+        'decrypt-caesar-cipher.dev.v0',
+        'rot13.s1.simple-v0',
+        'stock-options-bull-call-spread.dev.v0',
+        'stock-options-inverse-iron-butterfly-spread.dev.v0',
+        'stock-options-inverse-iron-condor-spread.dev.v0',
+        'stock-options-iron-condor-spread.dev.v0',
+        'unified-patch.dev.v0',
     ]
 
     other_excluded_evals = [
