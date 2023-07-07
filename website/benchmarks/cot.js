@@ -11,8 +11,9 @@ export async function createMultiTaskE(baseUrl, models, benchmark) {
 
     containerE.appendChild(createBackToMainPageE('← Back to CoT table', '#?benchmark=cot'))
 
-    const scores = Object.entries(computeRelativeScores(Object.fromEntries(await fetchFiles(baseUrl, models, 'cot', '/scores.json'))))
-    const tasks = Object.keys(scores[0][1][benchmark].tasks)
+    const absoluteScores = await fetchFiles(baseUrl, models, 'cot', '/scores.json')
+    const relativeScores = Object.entries(computeRelativeScores(Object.fromEntries(absoluteScores)))
+    const tasks = Object.keys(relativeScores[0][1][benchmark].tasks)
 
     const tableE = document.createElement('table')
     containerE.appendChild(tableE)
@@ -28,19 +29,22 @@ export async function createMultiTaskE(baseUrl, models, benchmark) {
         tableHeadE.insertCell().appendChild(taskE)
     }
 
-    const sortedScores = scores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
+    const sortedRelativeScores = relativeScores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
         model2Scores[benchmark].total - model1Scores[benchmark].total)
 
     const modelsMap = createModelsMap(models)
 
-    for (const [modelName, modelScores] of sortedScores) {
+    for (const [index, [modelName, modelRelativeScores]] of sortedRelativeScores.entries()) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName], false))
-        rowE.insertCell().appendChild(createTextE(round(modelScores[benchmark].total)))
+        rowE.insertCell().appendChild(createTextE(round(modelRelativeScores[benchmark].total)))
         rowE.insertCell()
         for (const task of tasks)
-            createTableScoreCell(rowE, createLinkE(round(modelScores[benchmark].tasks[task]), { task: benchmark + '/' + task, model: modelName }),
-                modelScores[benchmark].tasks[task])
+            createTableScoreCell(
+                rowE,
+                createLinkE(round(absoluteScores[index][1][benchmark].tasks[task]), { task: benchmark + '/' + task, model: modelName }),
+                modelRelativeScores[benchmark].tasks[task]
+            )
     }
 
     return containerE
