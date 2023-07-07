@@ -141,41 +141,6 @@
             "accuracy": 0.0
         }
     },
-    "match_banking77.test.v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "match_banking77.test.v1",
-            "base_eval": "match_banking77",
-            "split": "test",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "banking77/samples.jsonl"
-                    },
-                    "key": "match_banking77.test.v1",
-                    "group": "banking77"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626092846DU7LVTWE",
-            "created_at": "2023-06-26 09:28:46.049175"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "belarusian-lexicon.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -493,6 +458,41 @@
             "accuracy": 0.35
         }
     },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306261126083JICA5EU",
+            "created_at": "2023-06-26 11:26:08.940993"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
     "connect4.s1.v1.json": {
         "spec": {
             "completion_fns": [
@@ -563,24 +563,30 @@
             "accuracy": 0.0
         }
     },
-    "coqa-match.dev.v0.json": {
+    "coqa-closedqa-conciseness.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
+                "falcon-instruct:tiiuae/falcon-7b-instruct",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "coqa-match.dev.v0",
-            "base_eval": "coqa-match",
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                    "falcon-instruct:tiiuae/falcon-7b-instruct",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "samples_jsonl": "coqa/match.jsonl"
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
                     },
-                    "key": "coqa-match.dev.v0",
+                    "key": "coqa-closedqa-conciseness.dev.v0",
                     "group": "coqa-ex"
                 },
                 "seed": 20220722,
@@ -591,11 +597,13 @@
                 }
             },
             "created_by": "",
-            "run_id": "230626093732HH44MRTR",
-            "created_at": "2023-06-26 09:37:32.043753"
+            "run_id": "2306260947036HYYZSTH",
+            "created_at": "2023-06-26 09:47:03.717808"
         },
         "final_report": {
-            "accuracy": 0.4
+            "counts/N": 6,
+            "counts/Y": 3,
+            "score": 0.3333333333333333
         }
     },
     "coqa-closedqa-correct.dev.v0.json": {
@@ -684,30 +692,24 @@
             "score": 0.1111111111111111
         }
     },
-    "coqa-closedqa-conciseness.dev.v0.json": {
+    "coqa-match.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct",
-                "openai:gpt-3.5-turbo-0301"
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
             ],
-            "eval_name": "coqa-closedqa-conciseness.dev.v0",
-            "base_eval": "coqa-closedqa-conciseness",
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct",
-                    "openai:gpt-3.5-turbo-0301"
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "coqa/samples.jsonl",
-                        "modelgraded_spec": "closedqa",
-                        "modelgraded_spec_args": {
-                            "criteria": "conciseness: Is the answer concise and to the point?"
-                        }
+                        "samples_jsonl": "coqa/match.jsonl"
                     },
-                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "key": "coqa-match.dev.v0",
                     "group": "coqa-ex"
                 },
                 "seed": 20220722,
@@ -718,13 +720,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306260947036HYYZSTH",
-            "created_at": "2023-06-26 09:47:03.717808"
+            "run_id": "230626093732HH44MRTR",
+            "created_at": "2023-06-26 09:37:32.043753"
         },
         "final_report": {
-            "counts/N": 6,
-            "counts/Y": 3,
-            "score": 0.3333333333333333
+            "accuracy": 0.4
         }
     },
     "crepe.dev.v2.json": {
@@ -935,6 +935,51 @@
         },
         "final_report": {
             "accuracy": 0.2
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626113212LIREWKTS",
+            "created_at": "2023-06-26 11:32:12.249211"
+        },
+        "final_report": {
+            "counts/Yes": 9,
+            "counts/No": 1,
+            "score": 0.9
         }
     },
     "dutch-lexicon.dev.v0.json": {
@@ -1183,41 +1228,6 @@
             "accuracy": 0.65
         }
     },
-    "forth-stack-sim.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "forth-stack-sim.dev.v0",
-            "base_eval": "forth-stack-sim",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
-                    },
-                    "key": "forth-stack-sim.dev.v0",
-                    "group": "forth-stack-sim"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626100255JZALJFTT",
-            "created_at": "2023-06-26 10:02:55.179310"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "forth-stack-sim-basic.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1288,6 +1298,41 @@
             "accuracy": 0.0
         }
     },
+    "forth-stack-sim.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "forth-stack-sim.dev.v0",
+            "base_eval": "forth-stack-sim",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
+                    },
+                    "key": "forth-stack-sim.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626100255JZALJFTT",
+            "created_at": "2023-06-26 10:02:55.179310"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
     "greek-vocabulary.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1321,6 +1366,41 @@
         },
         "final_report": {
             "accuracy": 0.45
+        }
+    },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626105324BMWAXJKV",
+            "created_at": "2023-06-26 10:53:24.618165"
+        },
+        "final_report": {
+            "accuracy": 0.0
         }
     },
     "heart-disease.v0.json": {
@@ -1392,6 +1472,42 @@
         "final_report": {
             "accuracy": 0.05,
             "f1_score": 0.05
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626102151STXKQOBK",
+            "created_at": "2023-06-26 10:21:51.583395"
+        },
+        "final_report": {
+            "accuracy": 0.15
         }
     },
     "hindi_upsc.dev.v0.json": {
@@ -1639,41 +1755,6 @@
             "accuracy": 0.13333333333333333
         }
     },
-    "knot-theory-unknotting-problem.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "knot-theory-unknotting-problem.dev.v0",
-            "base_eval": "knot-theory-unknotting-problem",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
-                    },
-                    "key": "knot-theory-unknotting-problem.dev.v0",
-                    "group": "knot-theory"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102117E7BEKB6Z",
-            "created_at": "2023-06-26 10:21:17.181122"
-        },
-        "final_report": {
-            "accuracy": 0.3888888888888889
-        }
-    },
     "knot-theory-unknotting-number.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1709,26 +1790,25 @@
             "accuracy": 0.1
         }
     },
-    "hellaswag.val.ab-v1.json": {
+    "knot-theory-unknotting-problem.dev.v0.json": {
         "spec": {
             "completion_fns": [
                 "falcon-instruct:tiiuae/falcon-7b-instruct"
             ],
-            "eval_name": "hellaswag.val.ab-v1",
-            "base_eval": "hellaswag",
-            "split": "val",
+            "eval_name": "knot-theory-unknotting-problem.dev.v0",
+            "base_eval": "knot-theory-unknotting-problem",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
                     "falcon-instruct:tiiuae/falcon-7b-instruct"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "dataset": "hf://hellaswag?split=validation",
-                        "instructions": "Choose the most plausible continuation for the story."
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
                     },
-                    "key": "hellaswag.val.ab-v1",
-                    "group": "language"
+                    "key": "knot-theory-unknotting-problem.dev.v0",
+                    "group": "knot-theory"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -1738,11 +1818,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "230626102151STXKQOBK",
-            "created_at": "2023-06-26 10:21:51.583395"
+            "run_id": "230626102117E7BEKB6Z",
+            "created_at": "2023-06-26 10:21:17.181122"
         },
         "final_report": {
-            "accuracy": 0.15
+            "accuracy": 0.3888888888888889
         }
     },
     "last-word-nth.s1.simple-v0.json": {
@@ -1921,6 +2001,41 @@
             "accuracy": 0.1
         }
     },
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626092846DU7LVTWE",
+            "created_at": "2023-06-26 09:28:46.049175"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
     "medmcqa.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1991,25 +2106,29 @@
             "accuracy": 0.0
         }
     },
-    "mmlu-abstract-algebra.val.ab-v1.json": {
+    "mg-humor-people_jp.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
+                "falcon-instruct:tiiuae/falcon-7b-instruct",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "mmlu-abstract-algebra.val.ab-v1",
-            "base_eval": "mmlu-abstract-algebra",
-            "split": "val",
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                    "falcon-instruct:tiiuae/falcon-7b-instruct",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "dataset": "hf://cais/mmlu?name=abstract_algebra&split=validation"
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
                     },
-                    "key": "mmlu-abstract-algebra.val.ab-v1",
-                    "group": "mmlu"
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -2019,1971 +2138,15 @@
                 }
             },
             "created_by": "",
-            "run_id": "230626102707WMJNQ6RG",
-            "created_at": "2023-06-26 10:27:07.211308"
+            "run_id": "230626113011NQZB2KBK",
+            "created_at": "2023-06-26 11:30:11.658432"
         },
         "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-anatomy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-anatomy.val.ab-v1",
-            "base_eval": "mmlu-anatomy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=anatomy&split=validation"
-                    },
-                    "key": "mmlu-anatomy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102722KWUIAWQF",
-            "created_at": "2023-06-26 10:27:22.794706"
-        },
-        "final_report": {
-            "accuracy": 0.21428571428571427
-        }
-    },
-    "mmlu-astronomy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-astronomy.val.ab-v1",
-            "base_eval": "mmlu-astronomy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=astronomy&split=validation"
-                    },
-                    "key": "mmlu-astronomy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102735CK5QPGMA",
-            "created_at": "2023-06-26 10:27:35.571362"
-        },
-        "final_report": {
-            "accuracy": 0.3125
-        }
-    },
-    "mmlu-business-ethics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-business-ethics.val.ab-v1",
-            "base_eval": "mmlu-business-ethics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=business_ethics&split=validation"
-                    },
-                    "key": "mmlu-business-ethics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102756J2ZQAAVR",
-            "created_at": "2023-06-26 10:27:56.254495"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-clinical-knowledge.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-clinical-knowledge.val.ab-v1",
-            "base_eval": "mmlu-clinical-knowledge",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=clinical_knowledge&split=validation"
-                    },
-                    "key": "mmlu-clinical-knowledge.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102815G6BSEN2Y",
-            "created_at": "2023-06-26 10:28:15.907565"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-college-biology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-college-biology.val.ab-v1",
-            "base_eval": "mmlu-college-biology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_biology&split=validation"
-                    },
-                    "key": "mmlu-college-biology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102833DKGIDYUG",
-            "created_at": "2023-06-26 10:28:33.324050"
-        },
-        "final_report": {
-            "accuracy": 0.0625
-        }
-    },
-    "mmlu-college-chemistry.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-college-chemistry.val.ab-v1",
-            "base_eval": "mmlu-college-chemistry",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_chemistry&split=validation"
-                    },
-                    "key": "mmlu-college-chemistry.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102854OTBAHHF5",
-            "created_at": "2023-06-26 10:28:54.709550"
-        },
-        "final_report": {
-            "accuracy": 0.125
-        }
-    },
-    "mmlu-college-computer-science.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-college-computer-science.val.ab-v1",
-            "base_eval": "mmlu-college-computer-science",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_computer_science&split=validation"
-                    },
-                    "key": "mmlu-college-computer-science.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102907I572NOAV",
-            "created_at": "2023-06-26 10:29:07.673269"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-college-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-college-mathematics.val.ab-v1",
-            "base_eval": "mmlu-college-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_mathematics&split=validation"
-                    },
-                    "key": "mmlu-college-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102940XUFRSYKN",
-            "created_at": "2023-06-26 10:29:40.669077"
-        },
-        "final_report": {
-            "accuracy": 0.18181818181818182
-        }
-    },
-    "mmlu-college-medicine.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-college-medicine.val.ab-v1",
-            "base_eval": "mmlu-college-medicine",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_medicine&split=validation"
-                    },
-                    "key": "mmlu-college-medicine.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626102957UAZRGKHW",
-            "created_at": "2023-06-26 10:29:57.133877"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-college-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-college-physics.val.ab-v1",
-            "base_eval": "mmlu-college-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_physics&split=validation"
-                    },
-                    "key": "mmlu-college-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103024GZAIJZET",
-            "created_at": "2023-06-26 10:30:24.871494"
-        },
-        "final_report": {
-            "accuracy": 0.36363636363636365
-        }
-    },
-    "mmlu-computer-security.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-computer-security.val.ab-v1",
-            "base_eval": "mmlu-computer-security",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=computer_security&split=validation"
-                    },
-                    "key": "mmlu-computer-security.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103041WQYZWS2H",
-            "created_at": "2023-06-26 10:30:41.990444"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-conceptual-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-conceptual-physics.val.ab-v1",
-            "base_eval": "mmlu-conceptual-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=conceptual_physics&split=validation"
-                    },
-                    "key": "mmlu-conceptual-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103106C3ZO3VAJ",
-            "created_at": "2023-06-26 10:31:06.494311"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-econometrics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-econometrics.val.ab-v1",
-            "base_eval": "mmlu-econometrics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=econometrics&split=validation"
-                    },
-                    "key": "mmlu-econometrics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261031282NQQVKBD",
-            "created_at": "2023-06-26 10:31:28.498596"
-        },
-        "final_report": {
-            "accuracy": 0.08333333333333333
-        }
-    },
-    "mmlu-electrical-engineering.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-electrical-engineering.val.ab-v1",
-            "base_eval": "mmlu-electrical-engineering",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=electrical_engineering&split=validation"
-                    },
-                    "key": "mmlu-electrical-engineering.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103150GCORB4J2",
-            "created_at": "2023-06-26 10:31:50.215054"
-        },
-        "final_report": {
-            "accuracy": 0.125
-        }
-    },
-    "mmlu-elementary-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-elementary-mathematics.val.ab-v1",
-            "base_eval": "mmlu-elementary-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=elementary_mathematics&split=validation"
-                    },
-                    "key": "mmlu-elementary-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103209DRMDGTP7",
-            "created_at": "2023-06-26 10:32:09.573480"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-formal-logic.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-formal-logic.val.ab-v1",
-            "base_eval": "mmlu-formal-logic",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=formal_logic&split=validation"
-                    },
-                    "key": "mmlu-formal-logic.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103237NUP34GRI",
-            "created_at": "2023-06-26 10:32:37.873690"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-global-facts.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-global-facts.val.ab-v1",
-            "base_eval": "mmlu-global-facts",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=global_facts&split=validation"
-                    },
-                    "key": "mmlu-global-facts.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103311DUHSCSA4",
-            "created_at": "2023-06-26 10:33:11.757603"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-high-school-biology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-biology.val.ab-v1",
-            "base_eval": "mmlu-high-school-biology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_biology&split=validation"
-                    },
-                    "key": "mmlu-high-school-biology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261033263BXKRBI6",
-            "created_at": "2023-06-26 10:33:26.416053"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-chemistry.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-chemistry.val.ab-v1",
-            "base_eval": "mmlu-high-school-chemistry",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_chemistry&split=validation"
-                    },
-                    "key": "mmlu-high-school-chemistry.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103350MS6KMW4Q",
-            "created_at": "2023-06-26 10:33:50.416962"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-computer-science.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-computer-science.val.ab-v1",
-            "base_eval": "mmlu-high-school-computer-science",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_computer_science&split=validation"
-                    },
-                    "key": "mmlu-high-school-computer-science.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103422O6YBKTOP",
-            "created_at": "2023-06-26 10:34:22.898467"
-        },
-        "final_report": {
-            "accuracy": 0.2222222222222222
-        }
-    },
-    "mmlu-high-school-european-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-european-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-european-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_european_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-european-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103441XIUL2TVA",
-            "created_at": "2023-06-26 10:34:41.101334"
-        },
-        "final_report": {
-            "accuracy": 0.05555555555555555
-        }
-    },
-    "mmlu-high-school-geography.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-geography.val.ab-v1",
-            "base_eval": "mmlu-high-school-geography",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_geography&split=validation"
-                    },
-                    "key": "mmlu-high-school-geography.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103510HTVIPT6V",
-            "created_at": "2023-06-26 10:35:10.319321"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-high-school-government-and-politics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-government-and-politics.val.ab-v1",
-            "base_eval": "mmlu-high-school-government-and-politics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_government_and_politics&split=validation"
-                    },
-                    "key": "mmlu-high-school-government-and-politics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103528464D62LT",
-            "created_at": "2023-06-26 10:35:28.654371"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-macroeconomics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-macroeconomics.val.ab-v1",
-            "base_eval": "mmlu-high-school-macroeconomics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_macroeconomics&split=validation"
-                    },
-                    "key": "mmlu-high-school-macroeconomics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103551AEV55HHM",
-            "created_at": "2023-06-26 10:35:51.829145"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-high-school-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-mathematics.val.ab-v1",
-            "base_eval": "mmlu-high-school-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_mathematics&split=validation"
-                    },
-                    "key": "mmlu-high-school-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103611CE3STYCQ",
-            "created_at": "2023-06-26 10:36:11.600774"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-high-school-microeconomics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-microeconomics.val.ab-v1",
-            "base_eval": "mmlu-high-school-microeconomics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_microeconomics&split=validation"
-                    },
-                    "key": "mmlu-high-school-microeconomics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103647DAHKNLBC",
-            "created_at": "2023-06-26 10:36:47.940219"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-physics.val.ab-v1",
-            "base_eval": "mmlu-high-school-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_physics&split=validation"
-                    },
-                    "key": "mmlu-high-school-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103716KU6BMFV2",
-            "created_at": "2023-06-26 10:37:16.497190"
-        },
-        "final_report": {
-            "accuracy": 0.17647058823529413
-        }
-    },
-    "mmlu-high-school-psychology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-psychology.val.ab-v1",
-            "base_eval": "mmlu-high-school-psychology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_psychology&split=validation"
-                    },
-                    "key": "mmlu-high-school-psychology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261037392BUJN4T7",
-            "created_at": "2023-06-26 10:37:39.972767"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "mmlu-high-school-statistics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-statistics.val.ab-v1",
-            "base_eval": "mmlu-high-school-statistics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_statistics&split=validation"
-                    },
-                    "key": "mmlu-high-school-statistics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103758G4SR4QFX",
-            "created_at": "2023-06-26 10:37:58.892470"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-high-school-us-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-us-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-us-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_us_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-us-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103823IHORG3KR",
-            "created_at": "2023-06-26 10:38:23.005184"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-high-school-world-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-high-school-world-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-world-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_world_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-world-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626103933QL6AD5SB",
-            "created_at": "2023-06-26 10:39:33.076994"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-human-aging.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-human-aging.val.ab-v1",
-            "base_eval": "mmlu-human-aging",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=human_aging&split=validation"
-                    },
-                    "key": "mmlu-human-aging.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104008SZNLBPAF",
-            "created_at": "2023-06-26 10:40:08.541230"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-human-sexuality.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-human-sexuality.val.ab-v1",
-            "base_eval": "mmlu-human-sexuality",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=human_sexuality&split=validation"
-                    },
-                    "key": "mmlu-human-sexuality.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104025M5RXZYGH",
-            "created_at": "2023-06-26 10:40:25.272296"
-        },
-        "final_report": {
-            "accuracy": 0.08333333333333333
-        }
-    },
-    "mmlu-international-law.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-international-law.val.ab-v1",
-            "base_eval": "mmlu-international-law",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=international_law&split=validation"
-                    },
-                    "key": "mmlu-international-law.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104041TYJUXIIW",
-            "created_at": "2023-06-26 10:40:41.832935"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-jurisprudence.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-jurisprudence.val.ab-v1",
-            "base_eval": "mmlu-jurisprudence",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=jurisprudence&split=validation"
-                    },
-                    "key": "mmlu-jurisprudence.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104059QTBRP4K6",
-            "created_at": "2023-06-26 10:40:59.251805"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-logical-fallacies.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-logical-fallacies.val.ab-v1",
-            "base_eval": "mmlu-logical-fallacies",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=logical_fallacies&split=validation"
-                    },
-                    "key": "mmlu-logical-fallacies.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104112GSNZYJKM",
-            "created_at": "2023-06-26 10:41:12.198433"
-        },
-        "final_report": {
-            "accuracy": 0.2222222222222222
-        }
-    },
-    "mmlu-machine-learning.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-machine-learning.val.ab-v1",
-            "base_eval": "mmlu-machine-learning",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=machine_learning&split=validation"
-                    },
-                    "key": "mmlu-machine-learning.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104129GYNEM5X4",
-            "created_at": "2023-06-26 10:41:29.388830"
-        },
-        "final_report": {
-            "accuracy": 0.18181818181818182
-        }
-    },
-    "mmlu-management.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-management.val.ab-v1",
-            "base_eval": "mmlu-management",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=management&split=validation"
-                    },
-                    "key": "mmlu-management.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104157DUO7M7KI",
-            "created_at": "2023-06-26 10:41:57.513565"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-marketing.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-marketing.val.ab-v1",
-            "base_eval": "mmlu-marketing",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=marketing&split=validation"
-                    },
-                    "key": "mmlu-marketing.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261042094XPJXPUF",
-            "created_at": "2023-06-26 10:42:09.190515"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-medical-genetics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-medical-genetics.val.ab-v1",
-            "base_eval": "mmlu-medical-genetics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=medical_genetics&split=validation"
-                    },
-                    "key": "mmlu-medical-genetics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104230OSMCWZXJ",
-            "created_at": "2023-06-26 10:42:30.972484"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-miscellaneous.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-miscellaneous.val.ab-v1",
-            "base_eval": "mmlu-miscellaneous",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=miscellaneous&split=validation"
-                    },
-                    "key": "mmlu-miscellaneous.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104244SLM4GVAU",
-            "created_at": "2023-06-26 10:42:44.495889"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-moral-disputes.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-moral-disputes.val.ab-v1",
-            "base_eval": "mmlu-moral-disputes",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=moral_disputes&split=validation"
-                    },
-                    "key": "mmlu-moral-disputes.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104303ENRAN7DV",
-            "created_at": "2023-06-26 10:43:03.733298"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-moral-scenarios.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-moral-scenarios.val.ab-v1",
-            "base_eval": "mmlu-moral-scenarios",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=moral_scenarios&split=validation"
-                    },
-                    "key": "mmlu-moral-scenarios.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104321FT2A7FYC",
-            "created_at": "2023-06-26 10:43:21.456615"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-nutrition.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-nutrition.val.ab-v1",
-            "base_eval": "mmlu-nutrition",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=nutrition&split=validation"
-                    },
-                    "key": "mmlu-nutrition.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062610434963PRUFED",
-            "created_at": "2023-06-26 10:43:49.632617"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-philosophy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-philosophy.val.ab-v1",
-            "base_eval": "mmlu-philosophy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=philosophy&split=validation"
-                    },
-                    "key": "mmlu-philosophy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104411YSGJ37VU",
-            "created_at": "2023-06-26 10:44:11.248523"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "mmlu-prehistory.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-prehistory.val.ab-v1",
-            "base_eval": "mmlu-prehistory",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=prehistory&split=validation"
-                    },
-                    "key": "mmlu-prehistory.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104430NCXWYK5H",
-            "created_at": "2023-06-26 10:44:30.420669"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-professional-accounting.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-professional-accounting.val.ab-v1",
-            "base_eval": "mmlu-professional-accounting",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_accounting&split=validation"
-                    },
-                    "key": "mmlu-professional-accounting.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261044593ZCORM5W",
-            "created_at": "2023-06-26 10:44:59.722685"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-professional-law.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-professional-law.val.ab-v1",
-            "base_eval": "mmlu-professional-law",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_law&split=validation"
-                    },
-                    "key": "mmlu-professional-law.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104530RMREZCB6",
-            "created_at": "2023-06-26 10:45:30.573451"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "mmlu-professional-medicine.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-professional-medicine.val.ab-v1",
-            "base_eval": "mmlu-professional-medicine",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_medicine&split=validation"
-                    },
-                    "key": "mmlu-professional-medicine.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104552BTUYNM6C",
-            "created_at": "2023-06-26 10:45:52.303579"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-professional-psychology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-professional-psychology.val.ab-v1",
-            "base_eval": "mmlu-professional-psychology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_psychology&split=validation"
-                    },
-                    "key": "mmlu-professional-psychology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104610FPPA6VXE",
-            "created_at": "2023-06-26 10:46:10.995021"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-public-relations.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-public-relations.val.ab-v1",
-            "base_eval": "mmlu-public-relations",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=public_relations&split=validation"
-                    },
-                    "key": "mmlu-public-relations.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104633LAJ2U755",
-            "created_at": "2023-06-26 10:46:33.134678"
-        },
-        "final_report": {
-            "accuracy": 0.16666666666666666
-        }
-    },
-    "mmlu-security-studies.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-security-studies.val.ab-v1",
-            "base_eval": "mmlu-security-studies",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=security_studies&split=validation"
-                    },
-                    "key": "mmlu-security-studies.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261046557ZDTY7DS",
-            "created_at": "2023-06-26 10:46:55.278590"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-sociology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-sociology.val.ab-v1",
-            "base_eval": "mmlu-sociology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=sociology&split=validation"
-                    },
-                    "key": "mmlu-sociology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104716FPCHWAT4",
-            "created_at": "2023-06-26 10:47:16.596270"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-us-foreign-policy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-us-foreign-policy.val.ab-v1",
-            "base_eval": "mmlu-us-foreign-policy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=us_foreign_policy&split=validation"
-                    },
-                    "key": "mmlu-us-foreign-policy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104735P4BPTNQX",
-            "created_at": "2023-06-26 10:47:35.032501"
-        },
-        "final_report": {
-            "accuracy": 0.2727272727272727
-        }
-    },
-    "mmlu-virology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-virology.val.ab-v1",
-            "base_eval": "mmlu-virology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=virology&split=validation"
-                    },
-                    "key": "mmlu-virology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626104751P3HXJ6QL",
-            "created_at": "2023-06-26 10:47:51.648943"
-        },
-        "final_report": {
-            "accuracy": 0.3888888888888889
-        }
-    },
-    "mmlu-world-religions.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "mmlu-world-religions.val.ab-v1",
-            "base_eval": "mmlu-world-religions",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=world_religions&split=validation"
-                    },
-                    "key": "mmlu-world-religions.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261048265MI7ALWJ",
-            "created_at": "2023-06-26 10:48:26.492190"
-        },
-        "final_report": {
-            "accuracy": 0.2631578947368421
+            "counts/1": 5,
+            "counts/3": 7,
+            "counts/2": 7,
+            "counts/__invalid__": 1,
+            "score": 2.05
         }
     },
     "moral_exceptQA.test.v1.json": {
@@ -4310,25 +2473,29 @@
             "f1_score": 0.0
         }
     },
-    "hand_ranks.test.v1.json": {
+    "rap-people-vs-fruits.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
+                "falcon-instruct:tiiuae/falcon-7b-instruct",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "hand_ranks.test.v1",
-            "base_eval": "hand_ranks",
-            "split": "test",
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                    "falcon-instruct:tiiuae/falcon-7b-instruct",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
                     },
-                    "key": "hand_ranks.test.v1",
-                    "group": "poker_hand_ranks"
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -4338,11 +2505,54 @@
                 }
             },
             "created_by": "",
-            "run_id": "230626105324BMWAXJKV",
-            "created_at": "2023-06-26 10:53:24.618165"
+            "run_id": "2306261128356HLIXOR4",
+            "created_at": "2023-06-26 11:28:35.321462"
         },
         "final_report": {
-            "accuracy": 0.0
+            "counts/Yes": 4,
+            "counts/No": 5,
+            "score": 0.4444444444444444
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626112625E5SSKU7J",
+            "created_at": "2023-06-26 11:26:25.160031"
+        },
+        "final_report": {
+            "counts/Yes": 7,
+            "counts/No": 2,
+            "score": 0.7777777777777778
         }
     },
     "regex.match.dev.v0.json": {
@@ -4702,6 +2912,181 @@
             "accuracy": 0.05
         }
     },
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626112206QZV3PWLO",
+            "created_at": "2023-06-26 11:22:06.809253"
+        },
+        "final_report": {
+            "accuracy": 0.08333333333333333
+        }
+    },
+    "stock-option-terms-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306261122175FLZ2TOQ",
+            "created_at": "2023-06-26 11:22:17.181246"
+        },
+        "final_report": {
+            "accuracy": 0.125
+        }
+    },
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626112331PMM63VAZ",
+            "created_at": "2023-06-26 11:23:31.009271"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626112224ZEXKBYDN",
+            "created_at": "2023-06-26 11:22:24.091858"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306261123047N36DS6J",
+            "created_at": "2023-06-26 11:23:04.781783"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
     "stock-options-bear-call-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4807,41 +3192,6 @@
             "accuracy": 0.0
         }
     },
-    "stock-options-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "stock-options-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626112042ENO4IR3G",
-            "created_at": "2023-06-26 11:20:42.081924"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "stock-options-inverse-iron-condor-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4877,13 +3227,13 @@
             "accuracy": 0.0
         }
     },
-    "stock-option-terms-bear-call-spread.dev.v0.json": {
+    "stock-options-iron-condor-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
                 "falcon-instruct:tiiuae/falcon-7b-instruct"
             ],
-            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
-            "base_eval": "stock-option-terms-bear-call-spread",
+            "eval_name": "stock-options-iron-condor-spread.dev.v0",
+            "base_eval": "stock-options-iron-condor-spread",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
@@ -4892,9 +3242,9 @@
                 "eval_spec": {
                     "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
                     },
-                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "key": "stock-options-iron-condor-spread.dev.v0",
                     "group": "stock-options"
                 },
                 "seed": 20220722,
@@ -4905,151 +3255,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "230626112206QZV3PWLO",
-            "created_at": "2023-06-26 11:22:06.809253"
-        },
-        "final_report": {
-            "accuracy": 0.08333333333333333
-        }
-    },
-    "stock-option-terms-bull-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
-            "base_eval": "stock-option-terms-bull-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-bull-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261122175FLZ2TOQ",
-            "created_at": "2023-06-26 11:22:17.181246"
-        },
-        "final_report": {
-            "accuracy": 0.125
-        }
-    },
-    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-option-terms-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626112224ZEXKBYDN",
-            "created_at": "2023-06-26 11:22:24.091858"
+            "run_id": "230626112042ENO4IR3G",
+            "created_at": "2023-06-26 11:20:42.081924"
         },
         "final_report": {
             "accuracy": 0.0
-        }
-    },
-    "stock-option-terms-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
-            "base_eval": "stock-option-terms-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261123047N36DS6J",
-            "created_at": "2023-06-26 11:23:04.781783"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
-            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626112331PMM63VAZ",
-            "created_at": "2023-06-26 11:23:31.009271"
-        },
-        "final_report": {
-            "accuracy": 0.05
         }
     },
     "swedish-spelling.dev.v0.json": {
@@ -5158,41 +3368,6 @@
             "f1_score": 0.006722689075630252
         }
     },
-    "test-match.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "test-match.s1.simple-v0",
-            "base_eval": "test-match",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "test_match/samples.jsonl"
-                    },
-                    "key": "test-match.s1.simple-v0",
-                    "group": "test-basic"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626112538TNJCZRS3",
-            "created_at": "2023-06-26 11:25:38.210510"
-        },
-        "final_report": {
-            "accuracy": 0.3333333333333333
-        }
-    },
     "test-fuzzy-match.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -5227,41 +3402,6 @@
         "final_report": {
             "accuracy": 0.0,
             "f1_score": 0.16666666666666666
-        }
-    },
-    "test-includes.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct"
-            ],
-            "eval_name": "test-includes.s1.simple-v0",
-            "base_eval": "test-includes",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.includes:Includes",
-                    "args": {
-                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
-                    },
-                    "key": "test-includes.s1.simple-v0",
-                    "group": "test-basic"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626112545BD3XW2Z4",
-            "created_at": "2023-06-26 11:25:45.937448"
-        },
-        "final_report": {
-            "accuracy": 0.0
         }
     },
     "test-includes-ignore-case.s1.simple-v0.json": {
@@ -5300,13 +3440,48 @@
             "accuracy": 0.0
         }
     },
-    "computer-science-problems.s1.simple-v0.json": {
+    "test-includes.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
                 "falcon-instruct:tiiuae/falcon-7b-instruct"
             ],
-            "eval_name": "computer-science-problems.s1.simple-v0",
-            "base_eval": "computer-science-problems",
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "falcon-instruct:tiiuae/falcon-7b-instruct"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230626112545BD3XW2Z4",
+            "created_at": "2023-06-26 11:25:45.937448"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "falcon-instruct:tiiuae/falcon-7b-instruct"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
             "split": "s1",
             "run_config": {
                 "completion_fns": [
@@ -5315,10 +3490,10 @@
                 "eval_spec": {
                     "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                        "samples_jsonl": "test_match/samples.jsonl"
                     },
-                    "key": "computer-science-problems.s1.simple-v0",
-                    "group": "test-comp-sci"
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -5328,181 +3503,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306261126083JICA5EU",
-            "created_at": "2023-06-26 11:26:08.940993"
+            "run_id": "230626112538TNJCZRS3",
+            "created_at": "2023-06-26 11:25:38.210510"
         },
         "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "rap-people-vs-people.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "rap-people-vs-people.dev.v0",
-            "base_eval": "rap-people-vs-people",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "battle"
-                    },
-                    "key": "rap-people-vs-people.dev.v0",
-                    "group": "test-modelgraded-battle"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626112625E5SSKU7J",
-            "created_at": "2023-06-26 11:26:25.160031"
-        },
-        "final_report": {
-            "counts/Yes": 7,
-            "counts/No": 2,
-            "score": 0.7777777777777778
-        }
-    },
-    "rap-people-vs-fruits.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "rap-people-vs-fruits.dev.v0",
-            "base_eval": "rap-people-vs-fruits",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "battle"
-                    },
-                    "key": "rap-people-vs-fruits.dev.v0",
-                    "group": "test-modelgraded-battle"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306261128356HLIXOR4",
-            "created_at": "2023-06-26 11:28:35.321462"
-        },
-        "final_report": {
-            "counts/Yes": 4,
-            "counts/No": 5,
-            "score": 0.4444444444444444
-        }
-    },
-    "mg-humor-people_jp.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "mg-humor-people_jp.dev.v0",
-            "base_eval": "mg-humor-people_jp",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
-                        "eval_type": "cot_classify_jp",
-                        "modelgraded_spec": "humor_jp"
-                    },
-                    "key": "mg-humor-people_jp.dev.v0",
-                    "group": "test-modelgraded-generated"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626113011NQZB2KBK",
-            "created_at": "2023-06-26 11:30:11.658432"
-        },
-        "final_report": {
-            "counts/1": 5,
-            "counts/3": 7,
-            "counts/2": 7,
-            "counts/__invalid__": 1,
-            "score": 2.05
-        }
-    },
-    "diversity.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "falcon-instruct:tiiuae/falcon-7b-instruct",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "diversity.dev.v0",
-            "base_eval": "diversity",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "falcon-instruct:tiiuae/falcon-7b-instruct",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "diversity",
-                        "multicomp_n": 4,
-                        "sample_kwargs": {
-                            "temperature": 0.4
-                        }
-                    },
-                    "key": "diversity.dev.v0",
-                    "group": "test-modelgraded"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230626113212LIREWKTS",
-            "created_at": "2023-06-26 11:32:12.249211"
-        },
-        "final_report": {
-            "counts/Yes": 9,
-            "counts/No": 1,
-            "score": 0.9
+            "accuracy": 0.3333333333333333
         }
     },
     "three-pt-mapping.dev.v0.json": {

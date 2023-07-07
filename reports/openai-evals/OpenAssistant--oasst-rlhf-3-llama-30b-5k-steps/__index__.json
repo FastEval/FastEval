@@ -141,41 +141,6 @@
             "accuracy": 0.0
         }
     },
-    "match_banking77.test.v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "match_banking77.test.v1",
-            "base_eval": "match_banking77",
-            "split": "test",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "banking77/samples.jsonl"
-                    },
-                    "key": "match_banking77.test.v1",
-                    "group": "banking77"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621191914J7HIRXD7",
-            "created_at": "2023-06-21 19:19:14.747060"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "belarusian-lexicon.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -493,6 +458,41 @@
             "accuracy": 0.25
         }
     },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230622012519M4CXL5EQ",
+            "created_at": "2023-06-22 01:25:19.046308"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
     "connect4.s1.v1.json": {
         "spec": {
             "completion_fns": [
@@ -563,24 +563,30 @@
             "accuracy": 0.15
         }
     },
-    "coqa-match.dev.v0.json": {
+    "coqa-closedqa-conciseness.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "coqa-match.dev.v0",
-            "base_eval": "coqa-match",
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "samples_jsonl": "coqa/match.jsonl"
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
                     },
-                    "key": "coqa-match.dev.v0",
+                    "key": "coqa-closedqa-conciseness.dev.v0",
                     "group": "coqa-ex"
                 },
                 "seed": 20220722,
@@ -591,11 +597,13 @@
                 }
             },
             "created_by": "",
-            "run_id": "230621195255WR64XXOR",
-            "created_at": "2023-06-21 19:52:55.342609"
+            "run_id": "230621195649CS27GI47",
+            "created_at": "2023-06-21 19:56:49.198665"
         },
         "final_report": {
-            "accuracy": 0.8
+            "counts/Y": 6,
+            "counts/N": 3,
+            "score": 0.6666666666666666
         }
     },
     "coqa-closedqa-correct.dev.v0.json": {
@@ -684,30 +692,24 @@
             "score": 0.8888888888888888
         }
     },
-    "coqa-closedqa-conciseness.dev.v0.json": {
+    "coqa-match.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                "openai:gpt-3.5-turbo-0301"
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
             ],
-            "eval_name": "coqa-closedqa-conciseness.dev.v0",
-            "base_eval": "coqa-closedqa-conciseness",
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                    "openai:gpt-3.5-turbo-0301"
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "coqa/samples.jsonl",
-                        "modelgraded_spec": "closedqa",
-                        "modelgraded_spec_args": {
-                            "criteria": "conciseness: Is the answer concise and to the point?"
-                        }
+                        "samples_jsonl": "coqa/match.jsonl"
                     },
-                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "key": "coqa-match.dev.v0",
                     "group": "coqa-ex"
                 },
                 "seed": 20220722,
@@ -718,13 +720,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "230621195649CS27GI47",
-            "created_at": "2023-06-21 19:56:49.198665"
+            "run_id": "230621195255WR64XXOR",
+            "created_at": "2023-06-21 19:52:55.342609"
         },
         "final_report": {
-            "counts/Y": 6,
-            "counts/N": 3,
-            "score": 0.6666666666666666
+            "accuracy": 0.8
         }
     },
     "crepe.dev.v2.json": {
@@ -935,6 +935,51 @@
         },
         "final_report": {
             "accuracy": 0.3
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306220149365MH74CSW",
+            "created_at": "2023-06-22 01:49:36.732414"
+        },
+        "final_report": {
+            "counts/Yes": 8,
+            "counts/No": 2,
+            "score": 0.8
         }
     },
     "dutch-lexicon.dev.v0.json": {
@@ -1183,41 +1228,6 @@
             "accuracy": 0.45
         }
     },
-    "forth-stack-sim.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "forth-stack-sim.dev.v0",
-            "base_eval": "forth-stack-sim",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
-                    },
-                    "key": "forth-stack-sim.dev.v0",
-                    "group": "forth-stack-sim"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212031597LW5M5QH",
-            "created_at": "2023-06-21 20:31:59.020656"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "forth-stack-sim-basic.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1288,6 +1298,41 @@
             "accuracy": 0.0
         }
     },
+    "forth-stack-sim.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "forth-stack-sim.dev.v0",
+            "base_eval": "forth-stack-sim",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
+                    },
+                    "key": "forth-stack-sim.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306212031597LW5M5QH",
+            "created_at": "2023-06-21 20:31:59.020656"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
     "greek-vocabulary.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1321,6 +1366,41 @@
         },
         "final_report": {
             "accuracy": 0.55
+        }
+    },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230622002518J2OICURM",
+            "created_at": "2023-06-22 00:25:18.553124"
+        },
+        "final_report": {
+            "accuracy": 0.1
         }
     },
     "heart-disease.v0.json": {
@@ -1392,6 +1472,42 @@
         "final_report": {
             "accuracy": 0.15,
             "f1_score": 0.14095238095238094
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230621210551T6FARZ5A",
+            "created_at": "2023-06-21 21:05:51.841156"
+        },
+        "final_report": {
+            "accuracy": 0.25
         }
     },
     "hindi_upsc.dev.v0.json": {
@@ -1639,41 +1755,6 @@
             "accuracy": 0.2
         }
     },
-    "knot-theory-unknotting-problem.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "knot-theory-unknotting-problem.dev.v0",
-            "base_eval": "knot-theory-unknotting-problem",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
-                    },
-                    "key": "knot-theory-unknotting-problem.dev.v0",
-                    "group": "knot-theory"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621210231DQU4ASJX",
-            "created_at": "2023-06-21 21:02:31.762709"
-        },
-        "final_report": {
-            "accuracy": 0.5
-        }
-    },
     "knot-theory-unknotting-number.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1709,26 +1790,25 @@
             "accuracy": 0.15
         }
     },
-    "hellaswag.val.ab-v1.json": {
+    "knot-theory-unknotting-problem.dev.v0.json": {
         "spec": {
             "completion_fns": [
                 "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
             ],
-            "eval_name": "hellaswag.val.ab-v1",
-            "base_eval": "hellaswag",
-            "split": "val",
+            "eval_name": "knot-theory-unknotting-problem.dev.v0",
+            "base_eval": "knot-theory-unknotting-problem",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
                     "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "dataset": "hf://hellaswag?split=validation",
-                        "instructions": "Choose the most plausible continuation for the story."
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
                     },
-                    "key": "hellaswag.val.ab-v1",
-                    "group": "language"
+                    "key": "knot-theory-unknotting-problem.dev.v0",
+                    "group": "knot-theory"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -1738,11 +1818,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "230621210551T6FARZ5A",
-            "created_at": "2023-06-21 21:05:51.841156"
+            "run_id": "230621210231DQU4ASJX",
+            "created_at": "2023-06-21 21:02:31.762709"
         },
         "final_report": {
-            "accuracy": 0.25
+            "accuracy": 0.5
         }
     },
     "last-word-nth.s1.simple-v0.json": {
@@ -1921,6 +2001,41 @@
             "accuracy": 0.0
         }
     },
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230621191914J7HIRXD7",
+            "created_at": "2023-06-21 19:19:14.747060"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
     "medmcqa.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -1991,25 +2106,29 @@
             "accuracy": 0.0
         }
     },
-    "mmlu-abstract-algebra.val.ab-v1.json": {
+    "mg-humor-people_jp.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "mmlu-abstract-algebra.val.ab-v1",
-            "base_eval": "mmlu-abstract-algebra",
-            "split": "val",
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "dataset": "hf://cais/mmlu?name=abstract_algebra&split=validation"
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
                     },
-                    "key": "mmlu-abstract-algebra.val.ab-v1",
-                    "group": "mmlu"
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -2019,1971 +2138,15 @@
                 }
             },
             "created_by": "",
-            "run_id": "2306212131545LLTTPYK",
-            "created_at": "2023-06-21 21:31:54.204149"
+            "run_id": "230622014215HR762HEJ",
+            "created_at": "2023-06-22 01:42:15.441808"
         },
         "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-anatomy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-anatomy.val.ab-v1",
-            "base_eval": "mmlu-anatomy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=anatomy&split=validation"
-                    },
-                    "key": "mmlu-anatomy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213335GYUE6JFW",
-            "created_at": "2023-06-21 21:33:35.188688"
-        },
-        "final_report": {
-            "accuracy": 0.35714285714285715
-        }
-    },
-    "mmlu-astronomy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-astronomy.val.ab-v1",
-            "base_eval": "mmlu-astronomy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=astronomy&split=validation"
-                    },
-                    "key": "mmlu-astronomy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213437C5LG5WEP",
-            "created_at": "2023-06-21 21:34:37.611760"
-        },
-        "final_report": {
-            "accuracy": 0.6875
-        }
-    },
-    "mmlu-business-ethics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-business-ethics.val.ab-v1",
-            "base_eval": "mmlu-business-ethics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=business_ethics&split=validation"
-                    },
-                    "key": "mmlu-business-ethics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213713DXLOXVQP",
-            "created_at": "2023-06-21 21:37:13.607233"
-        },
-        "final_report": {
-            "accuracy": 0.45454545454545453
-        }
-    },
-    "mmlu-clinical-knowledge.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-clinical-knowledge.val.ab-v1",
-            "base_eval": "mmlu-clinical-knowledge",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=clinical_knowledge&split=validation"
-                    },
-                    "key": "mmlu-clinical-knowledge.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621213955XO7CGLK5",
-            "created_at": "2023-06-21 21:39:55.524336"
-        },
-        "final_report": {
-            "accuracy": 0.4
-        }
-    },
-    "mmlu-college-biology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-college-biology.val.ab-v1",
-            "base_eval": "mmlu-college-biology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_biology&split=validation"
-                    },
-                    "key": "mmlu-college-biology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214205UD2JGETF",
-            "created_at": "2023-06-21 21:42:05.181220"
-        },
-        "final_report": {
-            "accuracy": 0.1875
-        }
-    },
-    "mmlu-college-chemistry.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-college-chemistry.val.ab-v1",
-            "base_eval": "mmlu-college-chemistry",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_chemistry&split=validation"
-                    },
-                    "key": "mmlu-college-chemistry.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214427DV75YHJ2",
-            "created_at": "2023-06-21 21:44:27.538252"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
-    "mmlu-college-computer-science.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-college-computer-science.val.ab-v1",
-            "base_eval": "mmlu-college-computer-science",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_computer_science&split=validation"
-                    },
-                    "key": "mmlu-college-computer-science.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621214543TYT347BR",
-            "created_at": "2023-06-21 21:45:43.492443"
-        },
-        "final_report": {
-            "accuracy": 0.45454545454545453
-        }
-    },
-    "mmlu-college-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-college-mathematics.val.ab-v1",
-            "base_eval": "mmlu-college-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_mathematics&split=validation"
-                    },
-                    "key": "mmlu-college-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212148117F5CPRAL",
-            "created_at": "2023-06-21 21:48:11.443295"
-        },
-        "final_report": {
-            "accuracy": 0.09090909090909091
-        }
-    },
-    "mmlu-college-medicine.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-college-medicine.val.ab-v1",
-            "base_eval": "mmlu-college-medicine",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_medicine&split=validation"
-                    },
-                    "key": "mmlu-college-medicine.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621215200ZYRZP3SG",
-            "created_at": "2023-06-21 21:52:00.606848"
-        },
-        "final_report": {
-            "accuracy": 0.5
-        }
-    },
-    "mmlu-college-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-college-physics.val.ab-v1",
-            "base_eval": "mmlu-college-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=college_physics&split=validation"
-                    },
-                    "key": "mmlu-college-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621215355ELNWNQR4",
-            "created_at": "2023-06-21 21:53:55.130360"
-        },
-        "final_report": {
-            "accuracy": 0.45454545454545453
-        }
-    },
-    "mmlu-computer-security.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-computer-security.val.ab-v1",
-            "base_eval": "mmlu-computer-security",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=computer_security&split=validation"
-                    },
-                    "key": "mmlu-computer-security.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621215607MAEF6JF5",
-            "created_at": "2023-06-21 21:56:07.350071"
-        },
-        "final_report": {
-            "accuracy": 0.2727272727272727
-        }
-    },
-    "mmlu-conceptual-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-conceptual-physics.val.ab-v1",
-            "base_eval": "mmlu-conceptual-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=conceptual_physics&split=validation"
-                    },
-                    "key": "mmlu-conceptual-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621215819P4KM6QAJ",
-            "created_at": "2023-06-21 21:58:19.244773"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-econometrics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-econometrics.val.ab-v1",
-            "base_eval": "mmlu-econometrics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=econometrics&split=validation"
-                    },
-                    "key": "mmlu-econometrics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220100TIS3BZBF",
-            "created_at": "2023-06-21 22:01:00.131452"
-        },
-        "final_report": {
-            "accuracy": 0.16666666666666666
-        }
-    },
-    "mmlu-electrical-engineering.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-electrical-engineering.val.ab-v1",
-            "base_eval": "mmlu-electrical-engineering",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=electrical_engineering&split=validation"
-                    },
-                    "key": "mmlu-electrical-engineering.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212202142HOWISHZ",
-            "created_at": "2023-06-21 22:02:14.621430"
-        },
-        "final_report": {
-            "accuracy": 0.3125
-        }
-    },
-    "mmlu-elementary-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-elementary-mathematics.val.ab-v1",
-            "base_eval": "mmlu-elementary-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=elementary_mathematics&split=validation"
-                    },
-                    "key": "mmlu-elementary-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220447VDM3UX4Y",
-            "created_at": "2023-06-21 22:04:47.820172"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-formal-logic.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-formal-logic.val.ab-v1",
-            "base_eval": "mmlu-formal-logic",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=formal_logic&split=validation"
-                    },
-                    "key": "mmlu-formal-logic.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220640GUQMMPOY",
-            "created_at": "2023-06-21 22:06:40.943016"
-        },
-        "final_report": {
-            "accuracy": 0.42857142857142855
-        }
-    },
-    "mmlu-global-facts.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-global-facts.val.ab-v1",
-            "base_eval": "mmlu-global-facts",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=global_facts&split=validation"
-                    },
-                    "key": "mmlu-global-facts.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621220926L34KNZHU",
-            "created_at": "2023-06-21 22:09:26.308815"
-        },
-        "final_report": {
-            "accuracy": 0.6
-        }
-    },
-    "mmlu-high-school-biology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-biology.val.ab-v1",
-            "base_eval": "mmlu-high-school-biology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_biology&split=validation"
-                    },
-                    "key": "mmlu-high-school-biology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221143KHPGRH7N",
-            "created_at": "2023-06-21 22:11:43.480279"
-        },
-        "final_report": {
-            "accuracy": 0.3
-        }
-    },
-    "mmlu-high-school-chemistry.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-chemistry.val.ab-v1",
-            "base_eval": "mmlu-high-school-chemistry",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_chemistry&split=validation"
-                    },
-                    "key": "mmlu-high-school-chemistry.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621221549ZRX2DK2U",
-            "created_at": "2023-06-21 22:15:49.730856"
-        },
-        "final_report": {
-            "accuracy": 0.2
-        }
-    },
-    "mmlu-high-school-computer-science.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-computer-science.val.ab-v1",
-            "base_eval": "mmlu-high-school-computer-science",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_computer_science&split=validation"
-                    },
-                    "key": "mmlu-high-school-computer-science.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621222103J62MOSZK",
-            "created_at": "2023-06-21 22:21:03.479195"
-        },
-        "final_report": {
-            "accuracy": 0.3333333333333333
-        }
-    },
-    "mmlu-high-school-european-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-european-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-european-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_european_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-european-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621222208JSJOYVGW",
-            "created_at": "2023-06-21 22:22:08.277104"
-        },
-        "final_report": {
-            "accuracy": 0.3888888888888889
-        }
-    },
-    "mmlu-high-school-geography.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-geography.val.ab-v1",
-            "base_eval": "mmlu-high-school-geography",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_geography&split=validation"
-                    },
-                    "key": "mmlu-high-school-geography.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621222510ZUMYZGBI",
-            "created_at": "2023-06-21 22:25:10.454820"
-        },
-        "final_report": {
-            "accuracy": 0.65
-        }
-    },
-    "mmlu-high-school-government-and-politics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-government-and-politics.val.ab-v1",
-            "base_eval": "mmlu-high-school-government-and-politics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_government_and_politics&split=validation"
-                    },
-                    "key": "mmlu-high-school-government-and-politics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621222723H5GBZEBX",
-            "created_at": "2023-06-21 22:27:23.063189"
-        },
-        "final_report": {
-            "accuracy": 0.4
-        }
-    },
-    "mmlu-high-school-macroeconomics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-macroeconomics.val.ab-v1",
-            "base_eval": "mmlu-high-school-macroeconomics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_macroeconomics&split=validation"
-                    },
-                    "key": "mmlu-high-school-macroeconomics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621223005MXUTXLXD",
-            "created_at": "2023-06-21 22:30:05.542260"
-        },
-        "final_report": {
-            "accuracy": 0.4
-        }
-    },
-    "mmlu-high-school-mathematics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-mathematics.val.ab-v1",
-            "base_eval": "mmlu-high-school-mathematics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_mathematics&split=validation"
-                    },
-                    "key": "mmlu-high-school-mathematics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621223358YYHM4MIH",
-            "created_at": "2023-06-21 22:33:58.957282"
-        },
-        "final_report": {
-            "accuracy": 0.1
-        }
-    },
-    "mmlu-high-school-microeconomics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-microeconomics.val.ab-v1",
-            "base_eval": "mmlu-high-school-microeconomics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_microeconomics&split=validation"
-                    },
-                    "key": "mmlu-high-school-microeconomics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621223831OZTVQVP7",
-            "created_at": "2023-06-21 22:38:31.681845"
-        },
-        "final_report": {
-            "accuracy": 0.45
-        }
-    },
-    "mmlu-high-school-physics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-physics.val.ab-v1",
-            "base_eval": "mmlu-high-school-physics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_physics&split=validation"
-                    },
-                    "key": "mmlu-high-school-physics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621224202LOINMAHJ",
-            "created_at": "2023-06-21 22:42:02.885982"
-        },
-        "final_report": {
-            "accuracy": 0.29411764705882354
-        }
-    },
-    "mmlu-high-school-psychology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-psychology.val.ab-v1",
-            "base_eval": "mmlu-high-school-psychology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_psychology&split=validation"
-                    },
-                    "key": "mmlu-high-school-psychology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621224442GZTOGZZO",
-            "created_at": "2023-06-21 22:44:42.614596"
-        },
-        "final_report": {
-            "accuracy": 0.75
-        }
-    },
-    "mmlu-high-school-statistics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-statistics.val.ab-v1",
-            "base_eval": "mmlu-high-school-statistics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_statistics&split=validation"
-                    },
-                    "key": "mmlu-high-school-statistics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621224750PKMPQ74U",
-            "created_at": "2023-06-21 22:47:50.926839"
-        },
-        "final_report": {
-            "accuracy": 0.4
-        }
-    },
-    "mmlu-high-school-us-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-us-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-us-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_us_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-us-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621225149HKQIKBDM",
-            "created_at": "2023-06-21 22:51:49.707908"
-        },
-        "final_report": {
-            "accuracy": 0.6
-        }
-    },
-    "mmlu-high-school-world-history.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-high-school-world-history.val.ab-v1",
-            "base_eval": "mmlu-high-school-world-history",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=high_school_world_history&split=validation"
-                    },
-                    "key": "mmlu-high-school-world-history.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621225453NNPRHD7Y",
-            "created_at": "2023-06-21 22:54:53.653779"
-        },
-        "final_report": {
-            "accuracy": 0.45
-        }
-    },
-    "mmlu-human-aging.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-human-aging.val.ab-v1",
-            "base_eval": "mmlu-human-aging",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=human_aging&split=validation"
-                    },
-                    "key": "mmlu-human-aging.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306212257257UUMDG5L",
-            "created_at": "2023-06-21 22:57:25.673094"
-        },
-        "final_report": {
-            "accuracy": 0.6
-        }
-    },
-    "mmlu-human-sexuality.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-human-sexuality.val.ab-v1",
-            "base_eval": "mmlu-human-sexuality",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=human_sexuality&split=validation"
-                    },
-                    "key": "mmlu-human-sexuality.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621230124Q6HE27KY",
-            "created_at": "2023-06-21 23:01:24.911470"
-        },
-        "final_report": {
-            "accuracy": 0.16666666666666666
-        }
-    },
-    "mmlu-international-law.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-international-law.val.ab-v1",
-            "base_eval": "mmlu-international-law",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=international_law&split=validation"
-                    },
-                    "key": "mmlu-international-law.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621230243VVEMCUHT",
-            "created_at": "2023-06-21 23:02:43.384380"
-        },
-        "final_report": {
-            "accuracy": 0.46153846153846156
-        }
-    },
-    "mmlu-jurisprudence.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-jurisprudence.val.ab-v1",
-            "base_eval": "mmlu-jurisprudence",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=jurisprudence&split=validation"
-                    },
-                    "key": "mmlu-jurisprudence.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621230503EDKMV7DE",
-            "created_at": "2023-06-21 23:05:03.057725"
-        },
-        "final_report": {
-            "accuracy": 0.5454545454545454
-        }
-    },
-    "mmlu-logical-fallacies.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-logical-fallacies.val.ab-v1",
-            "base_eval": "mmlu-logical-fallacies",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=logical_fallacies&split=validation"
-                    },
-                    "key": "mmlu-logical-fallacies.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621230643EITIWJQC",
-            "created_at": "2023-06-21 23:06:43.952002"
-        },
-        "final_report": {
-            "accuracy": 0.4444444444444444
-        }
-    },
-    "mmlu-machine-learning.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-machine-learning.val.ab-v1",
-            "base_eval": "mmlu-machine-learning",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=machine_learning&split=validation"
-                    },
-                    "key": "mmlu-machine-learning.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621231015RRO6DNKA",
-            "created_at": "2023-06-21 23:10:15.098561"
-        },
-        "final_report": {
-            "accuracy": 0.18181818181818182
-        }
-    },
-    "mmlu-management.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-management.val.ab-v1",
-            "base_eval": "mmlu-management",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=management&split=validation"
-                    },
-                    "key": "mmlu-management.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062123114057FUESAT",
-            "created_at": "2023-06-21 23:11:40.544136"
-        },
-        "final_report": {
-            "accuracy": 0.36363636363636365
-        }
-    },
-    "mmlu-marketing.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-marketing.val.ab-v1",
-            "base_eval": "mmlu-marketing",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=marketing&split=validation"
-                    },
-                    "key": "mmlu-marketing.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621231252KKL4WHCG",
-            "created_at": "2023-06-21 23:12:52.886378"
-        },
-        "final_report": {
-            "accuracy": 0.75
-        }
-    },
-    "mmlu-medical-genetics.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-medical-genetics.val.ab-v1",
-            "base_eval": "mmlu-medical-genetics",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=medical_genetics&split=validation"
-                    },
-                    "key": "mmlu-medical-genetics.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062123141727MIA22I",
-            "created_at": "2023-06-21 23:14:17.882439"
-        },
-        "final_report": {
-            "accuracy": 0.9090909090909091
-        }
-    },
-    "mmlu-miscellaneous.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-miscellaneous.val.ab-v1",
-            "base_eval": "mmlu-miscellaneous",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=miscellaneous&split=validation"
-                    },
-                    "key": "mmlu-miscellaneous.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062123155074U3BSF4",
-            "created_at": "2023-06-21 23:15:50.264534"
-        },
-        "final_report": {
-            "accuracy": 0.7
-        }
-    },
-    "mmlu-moral-disputes.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-moral-disputes.val.ab-v1",
-            "base_eval": "mmlu-moral-disputes",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=moral_disputes&split=validation"
-                    },
-                    "key": "mmlu-moral-disputes.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621231810ZCLYX4Z5",
-            "created_at": "2023-06-21 23:18:10.094077"
-        },
-        "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "mmlu-moral-scenarios.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-moral-scenarios.val.ab-v1",
-            "base_eval": "mmlu-moral-scenarios",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=moral_scenarios&split=validation"
-                    },
-                    "key": "mmlu-moral-scenarios.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621232055VVVT5PZG",
-            "created_at": "2023-06-21 23:20:55.996188"
-        },
-        "final_report": {
-            "accuracy": 0.05
-        }
-    },
-    "mmlu-nutrition.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-nutrition.val.ab-v1",
-            "base_eval": "mmlu-nutrition",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=nutrition&split=validation"
-                    },
-                    "key": "mmlu-nutrition.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621232502ZXGS6BMR",
-            "created_at": "2023-06-21 23:25:02.448468"
-        },
-        "final_report": {
-            "accuracy": 0.5
-        }
-    },
-    "mmlu-philosophy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-philosophy.val.ab-v1",
-            "base_eval": "mmlu-philosophy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=philosophy&split=validation"
-                    },
-                    "key": "mmlu-philosophy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621232743COJEKO3T",
-            "created_at": "2023-06-21 23:27:43.032301"
-        },
-        "final_report": {
-            "accuracy": 0.5
-        }
-    },
-    "mmlu-prehistory.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-prehistory.val.ab-v1",
-            "base_eval": "mmlu-prehistory",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=prehistory&split=validation"
-                    },
-                    "key": "mmlu-prehistory.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621233048N6JNKUFQ",
-            "created_at": "2023-06-21 23:30:48.597175"
-        },
-        "final_report": {
-            "accuracy": 0.5
-        }
-    },
-    "mmlu-professional-accounting.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-professional-accounting.val.ab-v1",
-            "base_eval": "mmlu-professional-accounting",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_accounting&split=validation"
-                    },
-                    "key": "mmlu-professional-accounting.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621233356QHUD4RXT",
-            "created_at": "2023-06-21 23:33:56.052961"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "mmlu-professional-law.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-professional-law.val.ab-v1",
-            "base_eval": "mmlu-professional-law",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_law&split=validation"
-                    },
-                    "key": "mmlu-professional-law.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621233731CNSNL4SF",
-            "created_at": "2023-06-21 23:37:31.505316"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "mmlu-professional-medicine.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-professional-medicine.val.ab-v1",
-            "base_eval": "mmlu-professional-medicine",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_medicine&split=validation"
-                    },
-                    "key": "mmlu-professional-medicine.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621234124IYTK5NKF",
-            "created_at": "2023-06-21 23:41:24.854458"
-        },
-        "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "mmlu-professional-psychology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-professional-psychology.val.ab-v1",
-            "base_eval": "mmlu-professional-psychology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=professional_psychology&split=validation"
-                    },
-                    "key": "mmlu-professional-psychology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "23062123452173OZ2NYP",
-            "created_at": "2023-06-21 23:45:21.284828"
-        },
-        "final_report": {
-            "accuracy": 0.45
-        }
-    },
-    "mmlu-public-relations.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-public-relations.val.ab-v1",
-            "base_eval": "mmlu-public-relations",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=public_relations&split=validation"
-                    },
-                    "key": "mmlu-public-relations.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621234859WN6DCZIH",
-            "created_at": "2023-06-21 23:48:59.030813"
-        },
-        "final_report": {
-            "accuracy": 0.3333333333333333
-        }
-    },
-    "mmlu-security-studies.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-security-studies.val.ab-v1",
-            "base_eval": "mmlu-security-studies",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=security_studies&split=validation"
-                    },
-                    "key": "mmlu-security-studies.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621235050LDZJL56N",
-            "created_at": "2023-06-21 23:50:50.745332"
-        },
-        "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "mmlu-sociology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-sociology.val.ab-v1",
-            "base_eval": "mmlu-sociology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=sociology&split=validation"
-                    },
-                    "key": "mmlu-sociology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621235402KA6M6QUI",
-            "created_at": "2023-06-21 23:54:02.341921"
-        },
-        "final_report": {
-            "accuracy": 0.6
-        }
-    },
-    "mmlu-us-foreign-policy.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-us-foreign-policy.val.ab-v1",
-            "base_eval": "mmlu-us-foreign-policy",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=us_foreign_policy&split=validation"
-                    },
-                    "key": "mmlu-us-foreign-policy.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621235621EOLEIWLB",
-            "created_at": "2023-06-21 23:56:21.988312"
-        },
-        "final_report": {
-            "accuracy": 0.6363636363636364
-        }
-    },
-    "mmlu-virology.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-virology.val.ab-v1",
-            "base_eval": "mmlu-virology",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=virology&split=validation"
-                    },
-                    "key": "mmlu-virology.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230621235901BUEE7BPR",
-            "created_at": "2023-06-21 23:59:01.160949"
-        },
-        "final_report": {
-            "accuracy": 0.2777777777777778
-        }
-    },
-    "mmlu-world-religions.val.ab-v1.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "mmlu-world-religions.val.ab-v1",
-            "base_eval": "mmlu-world-religions",
-            "split": "val",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
-                    "args": {
-                        "dataset": "hf://cais/mmlu?name=world_religions&split=validation"
-                    },
-                    "key": "mmlu-world-religions.val.ab-v1",
-                    "group": "mmlu"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622000217HES6FANN",
-            "created_at": "2023-06-22 00:02:17.076423"
-        },
-        "final_report": {
-            "accuracy": 0.631578947368421
+            "counts/1": 11,
+            "counts/2": 5,
+            "counts/3": 3,
+            "counts/4": 1,
+            "score": 1.7
         }
     },
     "moral_exceptQA.test.v1.json": {
@@ -4310,25 +2473,29 @@
             "f1_score": 0.0
         }
     },
-    "hand_ranks.test.v1.json": {
+    "rap-people-vs-fruits.dev.v0.json": {
         "spec": {
             "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                "openai:gpt-3.5-turbo-0301"
             ],
-            "eval_name": "hand_ranks.test.v1",
-            "base_eval": "hand_ranks",
-            "split": "test",
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
             "run_config": {
                 "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                    "openai:gpt-3.5-turbo-0301"
                 ],
                 "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
                     "args": {
-                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
                     },
-                    "key": "hand_ranks.test.v1",
-                    "group": "poker_hand_ranks"
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -4338,11 +2505,53 @@
                 }
             },
             "created_by": "",
-            "run_id": "230622002518J2OICURM",
-            "created_at": "2023-06-22 00:25:18.553124"
+            "run_id": "230622013523M7MOMX44",
+            "created_at": "2023-06-22 01:35:23.182669"
         },
         "final_report": {
-            "accuracy": 0.1
+            "counts/Yes": 6,
+            "counts/No": 3,
+            "score": 0.6666666666666666
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                "openai:gpt-3.5-turbo-0301"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
+                    "openai:gpt-3.5-turbo-0301"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230622012755QAGW54HB",
+            "created_at": "2023-06-22 01:27:55.586470"
+        },
+        "final_report": {
+            "counts/Yes": 9,
+            "score": 1.0
         }
     },
     "regex.match.dev.v0.json": {
@@ -4702,6 +2911,181 @@
             "accuracy": 0.35
         }
     },
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230622010735DGFENWSO",
+            "created_at": "2023-06-22 01:07:35.749646"
+        },
+        "final_report": {
+            "accuracy": 0.08333333333333333
+        }
+    },
+    "stock-option-terms-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230622010806HOTW7HXU",
+            "created_at": "2023-06-22 01:08:06.840499"
+        },
+        "final_report": {
+            "accuracy": 0.375
+        }
+    },
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2306220110433LVJ7HNJ",
+            "created_at": "2023-06-22 01:10:43.125439"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230622010820RYDLI2CJ",
+            "created_at": "2023-06-22 01:08:20.240681"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230622010907O5KSRUJC",
+            "created_at": "2023-06-22 01:09:07.509669"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
     "stock-options-bear-call-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4807,41 +3191,6 @@
             "accuracy": 0.0
         }
     },
-    "stock-options-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "stock-options-iron-condor-spread.dev.v0",
-            "base_eval": "stock-options-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-options-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622005924CV23Z7KR",
-            "created_at": "2023-06-22 00:59:24.859678"
-        },
-        "final_report": {
-            "accuracy": 0.0
-        }
-    },
     "stock-options-inverse-iron-condor-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
@@ -4877,13 +3226,13 @@
             "accuracy": 0.0
         }
     },
-    "stock-option-terms-bear-call-spread.dev.v0.json": {
+    "stock-options-iron-condor-spread.dev.v0.json": {
         "spec": {
             "completion_fns": [
                 "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
             ],
-            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
-            "base_eval": "stock-option-terms-bear-call-spread",
+            "eval_name": "stock-options-iron-condor-spread.dev.v0",
+            "base_eval": "stock-options-iron-condor-spread",
             "split": "dev",
             "run_config": {
                 "completion_fns": [
@@ -4892,9 +3241,9 @@
                 "eval_spec": {
                     "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                        "samples_jsonl": "stock_options/stock_options_iron_condor_spread.jsonl"
                     },
-                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "key": "stock-options-iron-condor-spread.dev.v0",
                     "group": "stock-options"
                 },
                 "seed": 20220722,
@@ -4905,151 +3254,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "230622010735DGFENWSO",
-            "created_at": "2023-06-22 01:07:35.749646"
+            "run_id": "230622005924CV23Z7KR",
+            "created_at": "2023-06-22 00:59:24.859678"
         },
         "final_report": {
-            "accuracy": 0.08333333333333333
-        }
-    },
-    "stock-option-terms-bull-call-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
-            "base_eval": "stock-option-terms-bull-call-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-bull-call-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622010806HOTW7HXU",
-            "created_at": "2023-06-22 01:08:06.840499"
-        },
-        "final_report": {
-            "accuracy": 0.375
-        }
-    },
-    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
-            "base_eval": "stock-option-terms-iron-butterfly-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622010820RYDLI2CJ",
-            "created_at": "2023-06-22 01:08:20.240681"
-        },
-        "final_report": {
-            "accuracy": 0.25
-        }
-    },
-    "stock-option-terms-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
-            "base_eval": "stock-option-terms-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622010907O5KSRUJC",
-            "created_at": "2023-06-22 01:09:07.509669"
-        },
-        "final_report": {
-            "accuracy": 0.15
-        }
-    },
-    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
-            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
-                    },
-                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
-                    "group": "stock-options"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306220110433LVJ7HNJ",
-            "created_at": "2023-06-22 01:10:43.125439"
-        },
-        "final_report": {
-            "accuracy": 0.2
+            "accuracy": 0.0
         }
     },
     "swedish-spelling.dev.v0.json": {
@@ -5158,41 +3367,6 @@
             "f1_score": 0.0
         }
     },
-    "test-match.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "test-match.s1.simple-v0",
-            "base_eval": "test-match",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.match:Match",
-                    "args": {
-                        "samples_jsonl": "test_match/samples.jsonl"
-                    },
-                    "key": "test-match.s1.simple-v0",
-                    "group": "test-basic"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622012138XRWUSP53",
-            "created_at": "2023-06-22 01:21:38.854862"
-        },
-        "final_report": {
-            "accuracy": 0.6666666666666666
-        }
-    },
     "test-fuzzy-match.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
@@ -5227,41 +3401,6 @@
         "final_report": {
             "accuracy": 0.6666666666666666,
             "f1_score": 0.09120444772618685
-        }
-    },
-    "test-includes.s1.simple-v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-            ],
-            "eval_name": "test-includes.s1.simple-v0",
-            "base_eval": "test-includes",
-            "split": "s1",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.basic.includes:Includes",
-                    "args": {
-                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
-                    },
-                    "key": "test-includes.s1.simple-v0",
-                    "group": "test-basic"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622012324ZLTVCYQB",
-            "created_at": "2023-06-22 01:23:24.799677"
-        },
-        "final_report": {
-            "accuracy": 1.0
         }
     },
     "test-includes-ignore-case.s1.simple-v0.json": {
@@ -5300,13 +3439,48 @@
             "accuracy": 0.6666666666666666
         }
     },
-    "computer-science-problems.s1.simple-v0.json": {
+    "test-includes.s1.simple-v0.json": {
         "spec": {
             "completion_fns": [
                 "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
             ],
-            "eval_name": "computer-science-problems.s1.simple-v0",
-            "base_eval": "computer-science-problems",
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230622012324ZLTVCYQB",
+            "created_at": "2023-06-22 01:23:24.799677"
+        },
+        "final_report": {
+            "accuracy": 1.0
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
             "split": "s1",
             "run_config": {
                 "completion_fns": [
@@ -5315,10 +3489,10 @@
                 "eval_spec": {
                     "cls": "evals.elsuite.basic.match:Match",
                     "args": {
-                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                        "samples_jsonl": "test_match/samples.jsonl"
                     },
-                    "key": "computer-science-problems.s1.simple-v0",
-                    "group": "test-comp-sci"
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
                 },
                 "seed": 20220722,
                 "max_samples": null,
@@ -5328,180 +3502,11 @@
                 }
             },
             "created_by": "",
-            "run_id": "230622012519M4CXL5EQ",
-            "created_at": "2023-06-22 01:25:19.046308"
+            "run_id": "230622012138XRWUSP53",
+            "created_at": "2023-06-22 01:21:38.854862"
         },
         "final_report": {
-            "accuracy": 0.35
-        }
-    },
-    "rap-people-vs-people.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "rap-people-vs-people.dev.v0",
-            "base_eval": "rap-people-vs-people",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "battle"
-                    },
-                    "key": "rap-people-vs-people.dev.v0",
-                    "group": "test-modelgraded-battle"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622012755QAGW54HB",
-            "created_at": "2023-06-22 01:27:55.586470"
-        },
-        "final_report": {
-            "counts/Yes": 9,
-            "score": 1.0
-        }
-    },
-    "rap-people-vs-fruits.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "rap-people-vs-fruits.dev.v0",
-            "base_eval": "rap-people-vs-fruits",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "battle"
-                    },
-                    "key": "rap-people-vs-fruits.dev.v0",
-                    "group": "test-modelgraded-battle"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622013523M7MOMX44",
-            "created_at": "2023-06-22 01:35:23.182669"
-        },
-        "final_report": {
-            "counts/Yes": 6,
-            "counts/No": 3,
-            "score": 0.6666666666666666
-        }
-    },
-    "mg-humor-people_jp.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "mg-humor-people_jp.dev.v0",
-            "base_eval": "mg-humor-people_jp",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
-                        "eval_type": "cot_classify_jp",
-                        "modelgraded_spec": "humor_jp"
-                    },
-                    "key": "mg-humor-people_jp.dev.v0",
-                    "group": "test-modelgraded-generated"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "230622014215HR762HEJ",
-            "created_at": "2023-06-22 01:42:15.441808"
-        },
-        "final_report": {
-            "counts/1": 11,
-            "counts/2": 5,
-            "counts/3": 3,
-            "counts/4": 1,
-            "score": 1.7
-        }
-    },
-    "diversity.dev.v0.json": {
-        "spec": {
-            "completion_fns": [
-                "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                "openai:gpt-3.5-turbo-0301"
-            ],
-            "eval_name": "diversity.dev.v0",
-            "base_eval": "diversity",
-            "split": "dev",
-            "run_config": {
-                "completion_fns": [
-                    "open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps",
-                    "openai:gpt-3.5-turbo-0301"
-                ],
-                "eval_spec": {
-                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
-                    "args": {
-                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
-                        "eval_type": "cot_classify",
-                        "modelgraded_spec": "diversity",
-                        "multicomp_n": 4,
-                        "sample_kwargs": {
-                            "temperature": 0.4
-                        }
-                    },
-                    "key": "diversity.dev.v0",
-                    "group": "test-modelgraded"
-                },
-                "seed": 20220722,
-                "max_samples": null,
-                "command": "./evaluate.py -e -m open-assistant:OpenAssistant/oasst-rlhf-3-llama-30b-5k-steps -b openai-evals",
-                "initial_settings": {
-                    "visible": true
-                }
-            },
-            "created_by": "",
-            "run_id": "2306220149365MH74CSW",
-            "created_at": "2023-06-22 01:49:36.732414"
-        },
-        "final_report": {
-            "counts/Yes": 8,
-            "counts/No": 2,
-            "score": 0.8
+            "accuracy": 0.6666666666666666
         }
     },
     "three-pt-mapping.dev.v0.json": {
