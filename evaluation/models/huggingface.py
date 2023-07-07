@@ -10,7 +10,7 @@ import vllm
 
 from .utils import put_system_message_in_prompter_message
 import evaluation.utils
-from evaluation.constants import NUM_THREADS_LOCAL_MODEL
+from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
 lock = threading.Lock()
 model = None
@@ -230,7 +230,7 @@ class Huggingface:
         system=None,
         default_system='',
         end: str,
-        max_new_tokens=400,
+        max_new_tokens=DEFAULT_MAX_NEW_TOKENS,
         use_vllm=None,
     ):
         if tokenizer_path is None:

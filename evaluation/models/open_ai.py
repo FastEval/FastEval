@@ -3,7 +3,7 @@ import os
 import openai
 import tenacity
 
-from evaluation.constants import NUM_THREADS_OPENAI
+from evaluation.constants import NUM_THREADS_OPENAI, DEFAULT_MAX_NEW_TOKENS
 
 def print_retry(error):
     print('Got error from OpenAI API. Retrying.', error)
@@ -11,7 +11,7 @@ def print_retry(error):
 class OpenAI:
     num_threads = NUM_THREADS_OPENAI
 
-    def __init__(self, model_name, *, max_new_tokens=1024):
+    def __init__(self, model_name, *, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
         self.model_name = model_name
         self.max_new_tokens = max_new_tokens
 

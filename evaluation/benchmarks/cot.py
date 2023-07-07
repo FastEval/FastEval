@@ -6,6 +6,7 @@ import datasets
 import tqdm
 
 from evaluation.utils import create_model, replace_model_name_slashes, compute_model_replies
+from evaluation.constants import COT_MAX_NEW_TOKENS
 
 def create_conversation(answer_format, question):
     return [
@@ -204,7 +205,7 @@ def evaluate_model(model_type, model_name):
     if os.path.exists(final_scores_file):
         return
 
-    model = create_model(model_type, model_name, max_new_tokens=1024)
+    model = create_model(model_type, model_name, max_new_tokens=COT_MAX_NEW_TOKENS)
 
     tasks_path = os.path.join(output_folder, 'tasks')
 
