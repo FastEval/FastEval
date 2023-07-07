@@ -31,7 +31,7 @@ There are a number of other leaderboards for LLMs. Here is a comparison of how t
 <summary>HuggingFace Open LLM Leaderboard: https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard</summary>
 
 - HF Open LLM Leaderboard is not specifically focused on instruction following language models. The main thing that matters for instruction following LLMs is 0-shot performance and the only task that is evaluated with 0-shot there is TruthfulQA which is very limited.
-- More recently, HF Open LLM Leaderboard added human & GPT-4 evaluations which _does_ evaluate the instruction following capabilities. The GPT-4 evaluation is esentially what [Vicuna](https://lmsys.org/blog/2023-03-30-vicuna/) introduced. This repository (ilm-eval) also contains this vicuna benchmark, though currently only with GPT-3.5 because I still don't have access to GPT-4.
+- More recently, HF Open LLM Leaderboard added human & GPT-4 evaluations which _does_ evaluate the instruction following capabilities. The GPT-4 evaluation is esentially what [Vicuna](https://lmsys.org/blog/2023-03-30-vicuna/) introduced. This repository (ilm-eval) also contains this vicuna benchmark, though currently only with GPT-3.5.
 - However, ilm-eval also contains other benchmarks like [OpenAI evals](https://github.com/openai/evals) and [HumanEval+](https://github.com/evalplus/evalplus) which HF Open LLM Leaderboard doesn't contain. This repository also uses lm-evaluation-harness, but in a different way to focus only on 0-shot performance.
 - While one part of their leaderboard uses [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) and the evaluation [seems to be straightforward](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard/discussions/60), the GPT-4 evaluation code doesn't seem to be open source at the moment.
 - The model outputs are not stored on the HF Open LLM Leaderboard. By comparison, ilm-eval also stores model outputs for most benchmarks (except lm-evaluation-harness) and they can be viewed [on the website](https://tju01.github.io/ilm-eval/) in addition to just the resulting scores.
@@ -62,7 +62,7 @@ There are a number of other leaderboards for LLMs. Here is a comparison of how t
 
 Right now, the following benchmarks are supported:
 - [OpenAI evals](https://github.com/openai/evals): Contains various tasks to measure different capabilities of instruction-following language models. Uses both basic tasks that are just compared to the solution directly and model-graded tasks where another language model is used for evaluation.
-- [Vicuna Ranking](https://lmsys.org/blog/2023-03-30-vicuna): Uses another more capable model like `gpt-4` or `gpt-3.5-turbo` for comparing outputs of different models and computes win rates and rankings based on these comparisons.
+- [Vicuna Ranking](https://lmsys.org/blog/2023-03-30-vicuna): Uses another more capable model like `gpt-4` or `gpt-3.5-turbo` (used here) for comparing outputs of different models and computes win rates and rankings based on these comparisons.
 - [HumanEval+](https://github.com/evalplus/evalplus): Gives the model the start of a function as input with a docstring comment on what the function is supposed to do. The model should then complete the code. The model output code is evaluated for correctness by running it against a few tests.
 - CoT: This focuses specifically on the chain-of-thought capabilities of the model. It prompts the model to respond to a set of questions step-by-step. Currently it only combines [GSM8K](https://github.com/openai/grade-school-math), [BBH](https://github.com/suzgunmirac/BIG-Bench-Hard) and [MMLU](https://arxiv.org/abs/2009.03300) though that may be expanded in the future.
 - [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness): This is the only benchmark that does not take the prompt format into account. However, despite this fact, lm-evaluation-harness is popular for evaluating instruction following language models. It is therefore part of the evaluation here together with other benchmarks that take the prompt format into account.
@@ -89,8 +89,8 @@ pip install -r requirements.txt
 ### OpenAI API
 
 Some benchmarks use `gpt-3.5-turbo` as a model to judge the output of another model. This is the case for `OpenAI evals` as well as for `Vicuna Rank`.
-For these benchmarks (and also for evaluating `gpt-3.5-turbo` itself), you need to configure an OpenAI API key.
-There are multiple methods for doing that, but the simplest one is to set the `OPENAI_API_KEY` environment variable to the API key you can obtain [here](https://platform.openai.com/account/api-keys).
+For these benchmarks (and also for evaluating `gpt-3.5-turbo` itself), you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable.
+Make sure to set this environment variable, other methods of configuring the API key won't work.
 The cost of evaluating `gpt-3.5-turbo` or using it for benchmarks on another model is something like $5.
 
 ### Prompt format
