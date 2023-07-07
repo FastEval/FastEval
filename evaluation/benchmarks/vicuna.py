@@ -4,6 +4,7 @@ import random
 import numpy as np
 
 from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes, create_model, compute_model_replies
+from evaluation.constants import JUDGE_MAX_NEW_TOKENS
 
 def generate_assistant_replies(model_type, model_name):
     answers_filepath = os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json')
@@ -151,7 +152,7 @@ def generate_reviews():
             answers[model_name] = json.load(f)
     models = list(answers.keys())
 
-    reviewer = create_model('openai', 'gpt-3.5-turbo-0613')
+    reviewer = create_model('openai', 'gpt-3.5-turbo-0613', max_new_tokens=JUDGE_MAX_NEW_TOKENS)
 
     reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
     if os.path.exists(reviews_filepath):
