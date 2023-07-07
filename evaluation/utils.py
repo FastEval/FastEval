@@ -85,7 +85,7 @@ def compute_model_replies(model, conversations):
 
     return [reply_with_index[1] for reply_with_index in sorted(replies_with_indices, key=lambda item: item[0])]
 
-def unload_model():
+def unload_model(*args, **kwargs):
     evaluation.models.fastchat.unload_model()
     evaluation.models.huggingface.unload_model()
 
