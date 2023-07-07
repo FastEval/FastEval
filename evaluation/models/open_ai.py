@@ -24,11 +24,14 @@ class OpenAI:
             return { 'role': 'assistant', 'content': item }
         raise
 
-    def _reply(self, conversation, model_name, max_new_tokens=None):
+    def _reply(self, *, conversation, model_name, api_base, api_key, max_new_tokens=None):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
 
         return openai.ChatCompletion.create(
+            api_base=api_base,
+            api_key=api_key,
+
             model=model_name,
             messages=[self._conversation_item_to_openai_format(item_type, item) for item_type, item in conversation],
             max_tokens=max_new_tokens,
@@ -42,6 +45,9 @@ class OpenAI:
 
     @tenacity.retry(wait=tenacity.wait_random_exponential(min=1, max=180), stop=tenacity.stop_after_attempt(30), after=print_retry)
     def reply(self, conversation):
-        openai.api_base = 'https://api.openai.com/v1'
-        openai.api_key = os.environ['OPENAI_API_KEY']
-        return self._reply(conversation, self.model_name)
+        return self._reply(
+            conversation=conversation,
+            model_name=self.model_name,
+            api_base='https://api.openai.com/v1',
+            api_key=os.environ['OPENAI_API_KEY'],
+        )
