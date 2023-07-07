@@ -5,7 +5,7 @@ import json
 import argparse
 
 from evaluation import benchmarks
-from evaluation.utils import changed_exit_handlers
+from evaluation.utils import changed_exit_handlers, unload_model
 
 def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_models, new_benchmarks):
     additional_models = set()
@@ -62,6 +62,8 @@ def main():
             for item in models_and_benchmarks if 'openai-evals' in item['benchmarks']])
         benchmarks.vicuna.evaluate_models([(item['model_type'], item['model_name'])
             for item in models_and_benchmarks if 'vicuna' in item['benchmarks']], exclude_reviews=args.exclude_vicuna_reviews)
+
+    unload_model()
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         json.dump(models_and_benchmarks, f, indent=4)
