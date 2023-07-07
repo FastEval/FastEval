@@ -99,6 +99,8 @@ Since this repository is about instruction following models and different instru
 
 ### Evaluation
 
+⚠️ Running `evaluate.py` currently executes untrusted code from models with remote code and when using the EvalPlus benchmark. There is currently no sandbox, so make sure to only execute the code in a reasonable isolated environment.
+
 Call the `evaluate.py` script in the following way:
 ```
 ./evaluate.py [-b <benchmark_name_1>...] -m model_type_1:model_name_1...
