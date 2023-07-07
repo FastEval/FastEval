@@ -35,7 +35,7 @@ export async function createMultiTaskE(baseUrl, models, benchmark) {
 
     for (const [modelName, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
+        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName], false))
         rowE.insertCell().appendChild(createTextE(round(modelScores[benchmark].total)))
         rowE.insertCell()
         for (const task of tasks)
