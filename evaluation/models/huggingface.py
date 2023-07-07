@@ -85,12 +85,9 @@ def process_current_batch():
         length_penalty=1.0,
         no_repeat_ngram_size=0,
         renormalize_logits=False,
-
-        # Special tokens that can be used at generation time
-        eos_token_id=model['tokenizer'].eos_token_id,
     )
 
-    responses = [responses[i][0]['generated_text'][len(current_batch[i]['prompt']):] for response in responses]
+    responses = [responses[i][0]['generated_text'][len(current_batch[i]['prompt']):] for i in range(len(responses))]
 
     for i in range(len(current_batch)):
         current_batch[i]['response'] = responses[i]
