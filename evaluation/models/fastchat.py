@@ -31,25 +31,75 @@ def unload_model(use_lock=True):
     if use_lock:
         lock.release()
 
+def should_filter_process_output(process_name, line):
+    if process_name == 'model':
+        if 'POST /worker_generate' in line and '200 OK' in line:
+            return True
+        if 'POST /count_token' in line and '200 OK' in line:
+            return True
+        if 'POST /model_details' in line and '200 OK' in line:
+            return True
+        if 'POST /worker_get_conv_template' in line and '200 OK' in line:
+            return True
+        if 'model_worker | Send heart beat. Models:' in line:
+            return True
+        if 'INFO | torch.distributed.distributed_c10d | Added key:' in line:
+            return True
+        if 'INFO | torch.distributed.distributed_c10d | Rank 0:' in line:
+            return True
+        if 'INFO | model_worker | Register to controller' in line:
+            return True
+    elif process_name == 'controller':
+        if 'POST /get_worker_address' in line and '200 OK' in line:
+            return True
+        if 'controller | Receive heart beat.' in line:
+            return True
+        if 'POST /receive_heart_beat' in line and '200 OK' in line:
+            return True
+        if "INFO | controller | names: ['http://localhost:21002'], " in line and ", ret: http://localhost:21002" in line:
+            return True
+        if 'INFO | controller | args: Namespace' in line:
+            return True
+        if 'INFO | controller | Register a new worker:' in line:
+            return True
+        if 'INFO | controller | Register done:' in line:
+            return True
+        if 'POST /register_worker' in line and '200 OK' in line:
+            return True
+
+    common_filter = [
+        'INFO:     Started server process',
+        'INFO:     Waiting for application startup.',
+        'INFO:     Application startup complete.',
+        'INFO:     Uvicorn running on',
+    ]
+
+    for item in common_filter:
+        if item in line:
+            return True
+
+    return False
+
+def print_process_output_line(process_name, line):
+    if should_filter_process_output(process_name, line):
+        return
+    print('[fastchat ' + process_name + ']', line, end='')
+
 def print_process_output(process_name, process):
     for line in process.stderr:
-        print('[fastchat ' + process_name + ']', line, end='')
+        print_process_output_line(process_name, line)
 
 def start_server(model_name, use_vllm):
     global server
-
-    print('[fastchat] Starting server for fastchat:' + model_name)
 
     os.environ['FASTCHAT_WORKER_API_TIMEOUT'] = '1000000000'
 
     controller_process = subprocess.Popen(['python3', '-m', 'fastchat.serve.controller', '--host', '127.0.0.1'],
         stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
     for line in controller_process.stderr:
-        print('[fastchat controller]', line, end='')
+        print_process_output_line('controller', line)
         if 'Uvicorn running on' in line:
             break
-
-    print('[fastchat] Started controller. Starting model_worker & openai_api_server next.')
 
     if use_vllm:
         worker_name = 'fastchat.serve.vllm_worker'
@@ -66,7 +116,7 @@ def start_server(model_name, use_vllm):
 
     for process_name, process in [('model', model_process), ('api', api_process)]:
         for line in process.stderr:
-            print('[fastchat ' + process_name + ']', line, end='')
+            print_process_output_line(process_name, line)
             if 'Uvicorn running on' in line:
                 break
 
