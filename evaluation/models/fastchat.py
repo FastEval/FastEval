@@ -31,8 +31,8 @@ def unload_model(use_lock=True):
     if use_lock:
         lock.release()
 
-def print_process_output(process_name, process, output_type):
-    for line in getattr(process, output_type):
+def print_process_output(process_name, process):
+    for line in process.stderr:
         print('[fastchat ' + process_name + ']', line, end='')
 
 def start_server(model_name, use_vllm):
@@ -71,8 +71,7 @@ def start_server(model_name, use_vllm):
                 break
 
     for process_name, process in [('controller', controller_process), ('model', model_process), ('api', api_process)]:
-        for output_type in ['stdout', 'stderr']:
-            threading.Thread(target=print_process_output, args=(process_name, process, output_type)).start()
+        threading.Thread(target=print_process_output, args=(process_name, process)).start()
 
     server = {
         'model_name': model_name,
