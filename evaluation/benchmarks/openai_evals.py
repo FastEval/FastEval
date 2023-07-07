@@ -8,6 +8,7 @@ import evals.registry
 import evals.cli.oaieval
 
 from evaluation.utils import replace_model_name_slashes, create_model
+from evaluation.constants import JUDGE_MAX_NEW_TOKENS, OPENAI_EVALS_JUDGE
 
 def convert_conversation(prompt: typing.Union[str, list[dict[str, str]]]):
     if isinstance(prompt, str):
@@ -58,17 +59,16 @@ class CompletionFn(evals.api.CompletionFn):
 class Registry(evals.registry.Registry):
     def __init__(self):
         super().__init__()
-        self.previous_model_name = None
-        self.previous_model = None
 
     def make_completion_fn(self, model_type_and_name: str) -> CompletionFn:
         model_type, model_name = model_type_and_name.split(':')
-        if model_type == 'openai':
-            return CompletionFn(create_model(model_type, model_name))
-        if self.previous_model_name != model_name:
-            self.previous_model_name = model_name
-            self.previous_model = create_model(model_type, model_name)
-        return CompletionFn(self.previous_model)
+        # TODO: The reviewer has a larger number of tokens than normally.
+        # However, we currently don't check whether it's the reviewer model but whether it's the same model as the reviewer.
+        # Meaning that if we now evaluate the same model as OPENAI_EVALS_JUDGE, then we will also increase the number of tokens
+        # for that model which is unfair. Fix that.
+        if model_type == OPENAI_EVALS_JUDGE[0] and model_name == OPENAI_EVALS_JUDGE[1]:
+            return CompletionFn(create_model(model_type, model_name, max_new_tokens=JUDGE_MAX_NEW_TOKENS))
+        return CompletionFn(create_model(model_type, model_name))
 
     # Prevent errors about OpenAI API key missing even if we don't use OpenAI models
     api_model_ids = []
@@ -76,7 +76,7 @@ class Registry(evals.registry.Registry):
 def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
     models = model_type + ':' + model_name
     if eval.cls == 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
-        models += ',openai:gpt-3.5-turbo-0301'
+        models += ',' + OPENAI_EVALS_JUDGE[0] + ':' + OPENAI_EVALS_JUDGE[1]
 
     tmpfile = os.path.join('.tmp', 'openai-evals', str(uuid.uuid4()) + '.json')
     os.makedirs(os.path.dirname(tmpfile), exist_ok=True)
