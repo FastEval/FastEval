@@ -105,6 +105,8 @@ def start_server(model_name, use_vllm):
         worker_name = 'fastchat.serve.vllm_worker'
         if model_name in ['lmsys/vicuna-7b-v1.3', 'lmsys/vicuna-33b-v1.3']:
             additional_worker_args = ['--tokenizer', 'hf-internal-testing/llama-tokenizer']
+        else:
+            additional_worker_args = []
     else:
         worker_name = 'fastchat.serve.model_worker'
         additional_worker_args = []
