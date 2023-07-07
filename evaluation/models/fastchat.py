@@ -11,6 +11,7 @@ import tenacity
 from .open_ai import OpenAI
 
 import evaluation.utils
+from .utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL
 
 lock = threading.Lock()
@@ -113,6 +114,7 @@ class Fastchat(OpenAI):
             return super()._reply(conversation, model_name, max_new_tokens=reduced_max_new_tokens)
 
     def reply(self, conversation):
+        conversation = put_system_message_in_prompter_message(conversation)
         ensure_model_is_loaded(self.model_name, use_vllm=self.use_vllm)
         openai.api_base = 'http://localhost:8000/v1'
         openai.api_key = 'EMPTY'
