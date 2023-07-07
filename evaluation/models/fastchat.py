@@ -43,7 +43,7 @@ def start_server(model_name, use_vllm):
     os.environ['FASTCHAT_WORKER_API_TIMEOUT'] = '1000000000'
 
     controller_process = subprocess.Popen(['python3', '-m', 'fastchat.serve.controller', '--host', '127.0.0.1'],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
     for line in controller_process.stderr:
         print('[fastchat controller]', line, end='')
         if 'Uvicorn running on' in line:
@@ -60,9 +60,9 @@ def start_server(model_name, use_vllm):
         additional_worker_args = []
 
     model_process = subprocess.Popen(['python3', '-m', worker_name, '--host', '127.0.0.1', '--model-path', model_name, *additional_worker_args],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
     api_process = subprocess.Popen(['python3', '-m', 'fastchat.serve.openai_api_server', '--host', '127.0.0.1', '--port', '8000'],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
 
     for process_name, process in [('model', model_process), ('api', api_process)]:
         for line in process.stderr:
