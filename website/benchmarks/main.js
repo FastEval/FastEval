@@ -271,6 +271,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     })
 
     const tableE = document.createElement('table')
+    tableE.classList.add('main__table')
     containerE.appendChild(tableE)
 
     const theadE = tableE.createTHead().insertRow()
@@ -326,6 +327,13 @@ export async function createBenchmarksIndexV(baseUrl) {
             createTableScoreCell(rowE, createTextE(text), relativeScore)
         }
     }
+
+    const disclaimerE = createTextE('Disclaimer: '
+        + 'Unless mentioned otherwise, do not compare scores to those on other leaderboards or those obtained using different evaluation code. '
+        + 'The implementation can be different. Scores should only be compared between different models on this leaderboard. '
+        + 'Also note that scores are often normalized and may therefore change as more models are added.')
+    disclaimerE.classList.add('main__disclaimer')
+    containerE.appendChild(disclaimerE)
 
     return containerE
 }
