@@ -282,7 +282,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell()
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
     theadE.insertCell().appendChild(createLinkE('Vicuna Rank', { benchmark: 'vicuna' }))
-    theadE.insertCell().appendChild(createTextE('EvalPlus'))
+    theadE.insertCell().appendChild(createTextE('HumanEval+'))
     theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
     theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
