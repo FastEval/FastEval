@@ -9,7 +9,7 @@ import { createTableScoreCell } from '../components/table-score-cell.js'
 export async function createMultiTaskE(baseUrl, models, benchmark) {
     const containerE = document.createElement('div')
 
-    containerE.appendChild(createBackToMainPageE('← Back to CoT table', '#?benchmark=cot'))
+    containerE.appendChild(createBackToMainPageE('← Back to CoT table', { 'benchmark': 'cot' }))
 
     const absoluteScores = await fetchFiles(baseUrl, models, 'cot', '/scores.json')
     const relativeScores = Object.entries(computeRelativeScores(Object.fromEntries(absoluteScores)))
@@ -58,9 +58,9 @@ export async function createTaskV(baseUrl, models, modelsMap, task, parameters) 
 
     const containerE = document.createElement('div')
 
-    let previousUrl = '#?benchmark=cot'
+    let previousUrl = { 'benchmark': 'cot' }
     if (task.includes('/'))
-        previousUrl += '&task=' + task.split('/').slice(0, -1).join('/')
+        previousUrl['task'] = task.split('/').slice(0, -1).join('/')
     containerE.appendChild(createBackToMainPageE('← Back to table', previousUrl))
 
     const data = await (await fetch('reports/cot/' + modelName.replace('/', '--') + '/tasks/' + task + '.json')).json()

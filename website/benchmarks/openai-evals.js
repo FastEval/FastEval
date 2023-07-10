@@ -255,7 +255,7 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
 
     const containerE = document.createElement('div')
 
-    containerE.appendChild(createBackToMainPageE('← Back to table', '#?benchmark=openai-evals'))
+    containerE.appendChild(createBackToMainPageE('← Back to table', { 'benchmark': 'openai-evals' }))
 
     const reportUrl = baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/' + evalName + '.json'
     const report = await (await fetch(reportUrl)).text()
