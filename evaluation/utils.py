@@ -67,6 +67,8 @@ def get_dtype(model_name: str):
 def is_vllm_supported(model_name: str):
     if 'starchat' in model_name:
         return False # https://github.com/vllm-project/vllm/issues/380
+    if 'starcoder' in model_name:
+        return False # https://github.com/vllm-project/vllm/issues/393
     model_type = get_config_dict(model_name).model_type
     if model_type in ['llama', 'gpt_neox', 'gpt_bigcode', 'mpt']:
         return True
