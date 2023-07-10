@@ -63,7 +63,7 @@ export async function createTaskV(baseUrl, models, modelsMap, task, parameters) 
         previousUrl['task'] = task.split('/').slice(0, -1).join('/')
     containerE.appendChild(createBackToMainPageE('← Back to table', previousUrl))
 
-    const data = await (await fetch('reports/cot/' + modelName.replace('/', '--') + '/tasks/' + task + '.json')).json()
+    const data = await (await fetch(baseUrl + '/cot/' + modelName.replace('/', '--') + '/tasks/' + task + '.json')).json()
 
     const infoE = document.createElement('div')
     infoE.classList.add('cot__information')
