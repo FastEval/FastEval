@@ -18,6 +18,7 @@ from evaluation.models.falcon_instruct import FalconInstruct
 from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
 from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
 from evaluation.models.chatml import ChatML
+from evaluation.models.starchat import Starchat
 
 def replace_model_name_slashes(model_name: str) -> str:
     """
@@ -41,6 +42,7 @@ def get_model_class(model_type: str):
         'alpaca-without-prefix': AlpacaWithoutPrefix,
         'alpaca-with-prefix': AlpacaWithPrefix,
         'chatml': ChatML,
+        'starchat': Starchat,
     }
 
     if model_type in model_classes:
@@ -63,6 +65,8 @@ def get_dtype(model_name: str):
     return get_config_dict(model_name).torch_dtype
 
 def is_vllm_supported(model_name: str):
+    if 'starchat' in model_name:
+        return False # https://github.com/vllm-project/vllm/issues/380
     model_type = get_config_dict(model_name).model_type
     if model_type in ['llama', 'gpt_neox', 'gpt_bigcode', 'mpt']:
         return True
