@@ -175,12 +175,14 @@ export async function createBenchmarksIndexV(baseUrl) {
         lmEvaluationHarnessResults,
         humanEvalPlusResults,
         cotResults,
+        mtBenchResults,
     ] = await Promise.all([
         fetch(baseUrl + '/vicuna/ranks.json').then(r => r.json()),
         fetchFiles(baseUrl, models, 'openai-evals', '/__index__.json'),
         fetchFiles(baseUrl, models, 'lm-evaluation-harness'),
         fetchFiles(baseUrl, models, 'human-eval-plus'),
         fetchFiles(baseUrl, models, 'cot', '/scores.json'),
+        fetchFiles(baseUrl, models, 'mt-bench', '/scores.json'),
     ])
 
     const relativeOpenAiEvalsScores = OpenAIEvals.computeRelativeOpenAiEvalsScores(Object.fromEntries(openaiEvalsResults)).averageRelativeScoresByModelName
@@ -189,6 +191,8 @@ export async function createBenchmarksIndexV(baseUrl) {
         [modelName, LMEvaluationHarness.computeAverageScore(results.results)]))
 
     const cotResultsMap = CoT.computeRelativeScores(Object.fromEntries(cotResults))
+
+    const mtBenchResultsMap = Object.fromEntries(mtBenchResults)
 
     const humanEvalPlusResultsMap = Object.fromEntries(humanEvalPlusResults)
 
@@ -214,11 +218,13 @@ export async function createBenchmarksIndexV(baseUrl) {
             return humanEvalPlusResultsMap[model].score
         else if (benchmarkName === 'cot')
             return cotResultsMap[model].total
+        else if (benchmarkName === 'mt-bench')
+            return mtBenchResultsMap[model].average
 
         return null
     }
 
-    const allBenchmarks = ['openai-evals', 'vicuna', 'human-eval-plus', 'cot', 'lm-evaluation-harness']
+    const allBenchmarks = ['openai-evals', 'vicuna', 'mt-bench', 'human-eval-plus', 'cot', 'lm-evaluation-harness']
 
     const benchmarkMinimums = new Map()
     const benchmarkMaximums = new Map()
@@ -258,8 +264,11 @@ export async function createBenchmarksIndexV(baseUrl) {
             return null
 
         let relativeAverageScore = 0
-        for (const benchmarkName of allBenchmarks)
+        for (const benchmarkName of allBenchmarks) {
+            if (benchmarkName === 'mt-bench')
+                continue
             relativeAverageScore += getRelativeScore(model, benchmarks, benchmarkName) / allBenchmarks.length
+        }
         return relativeAverageScore
     }
 
@@ -282,6 +291,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell()
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
     theadE.insertCell().appendChild(createLinkE('Vicuna Rank', { benchmark: 'vicuna' }))
+    theadE.insertCell().appendChild(createTextE('MT-Bench'))
     theadE.insertCell().appendChild(createTextE('HumanEval+'))
     theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
     theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
