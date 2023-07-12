@@ -151,9 +151,9 @@ class Fastchat(OpenAI):
         self.use_vllm = evaluation.utils.is_vllm_supported(model_name)
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
-    def _reply(self, *, conversation, model_name, api_base, api_key):
+    def _reply(self, *, conversation, model_name, api_base, api_key, temperature):
         try:
-            return super()._reply(conversation=conversation, model_name=model_name, api_base=api_base, api_key=api_key)
+            return super()._reply(conversation=conversation, model_name=model_name, api_base=api_base, api_key=api_key, temperature=temperature)
         except openai.error.APIError as error:
             error_information = re.search("This model's maximum context length is ([0-9]+) tokens\. "
                 + 'However, you requested ([0-9]+) tokens \([0-9]+ in the messages, [0-9]+ in the completion\)\. '
@@ -163,9 +163,10 @@ class Fastchat(OpenAI):
             num_tokens_too_much = request_total_length - maximum_context_length
             reduced_max_new_tokens = self.max_new_tokens - num_tokens_too_much
             return super()._reply(conversation=conversation, model_name=model_name, api_base=api_base, api_key=api_key,
-                max_new_tokens=reduced_max_new_tokens)
+                max_new_tokens=reduced_max_new_tokens, temperature=temperature)
 
-    def reply(self, conversation):
+    def reply(self, conversation, temperature=None):
         conversation = put_system_message_in_prompter_message(conversation)
         ensure_model_is_loaded(self.model_name, use_vllm=self.use_vllm)
-        return self._reply(conversation=conversation, model_name=self.model_name.split('/')[-1], api_base='http://localhost:8000/v1', api_key='EMPTY')
+        return self._reply(conversation=conversation, model_name=self.model_name.split('/')[-1], temperature=temperature,
+            api_base='http://localhost:8000/v1', api_key='EMPTY')
