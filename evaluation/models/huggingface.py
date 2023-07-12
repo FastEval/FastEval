@@ -152,8 +152,11 @@ def create_model(*, model_path, tokenizer_path, dtype, use_vllm):
             device_map='auto'
         )
 
-async def vllm_respond_to_prompt(*, prompt, prompt_model):
+async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
     assert prompt_model is model
+
+    if temperature is None:
+        temperature = 1.0
 
     response_generator = prompt_model['model']['model'].generate(prompt, vllm.SamplingParams(
         # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
@@ -161,7 +164,7 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model):
         best_of=None,
         presence_penalty = 0.0,
         frequency_penalty=0.0,
-        temperature=1.0,
+        temperature=temperature,
         top_p=1.0,
         top_k=-1,
         use_beam_search=False,
@@ -179,7 +182,7 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model):
 
     return response.replace(prompt_model['model']['eos_token'], '')
 
-def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, use_vllm):
+def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, use_vllm, temperature):
     global model
 
     lock.acquire()
@@ -205,10 +208,12 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
     condition = threading.Condition()
 
     if use_vllm:
-        future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model), vllm_event_loop)
+        future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model, temperature=temperature), vllm_event_loop)
         lock.release()
         return future.result()
     else:
+        if temperature is not None:
+            raise Exception('Temperature is currently not supported for models that can\'t use vLLM.')
         current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model })
         lock.release()
         return wait_for_response(condition, use_vllm)
@@ -269,9 +274,9 @@ class Huggingface:
         prompt += self.assistant
         return prompt.strip()
 
-    def reply(self, conversation):
+    def reply(self, conversation, temperature=None):
         prompt = self._conversation_to_prompt(conversation)
         response = run_inference(prompt=prompt, tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
-            max_new_tokens=self.max_new_tokens, use_vllm=self.use_vllm)
+            max_new_tokens=self.max_new_tokens, use_vllm=self.use_vllm, temperature=temperature)
         response = response.split(self.user)[0] # some models continue to simulate the user and further assistant conversation
         return response.strip()
