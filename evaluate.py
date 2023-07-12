@@ -29,7 +29,7 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     return existing_models_and_benchmarks
 
 def main():
-    all_benchmarks = ['openai-evals', 'vicuna', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
+    all_benchmarks = ['openai-evals', 'vicuna', 'mt-bench', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
@@ -53,13 +53,15 @@ def main():
             for item in models_and_benchmarks if 'cot' in item['benchmarks']])
         benchmarks.human_eval_plus.evaluate_models([(item['model_type'], item['model_name'])
             for item in models_and_benchmarks if 'human-eval-plus' in item['benchmarks']])
+        benchmarks.openai_evals.evaluate_models([(item['model_type'], item['model_name'])
+            for item in models_and_benchmarks if 'openai-evals' in item['benchmarks']])
+        benchmarks.mt_bench.evaluate_models([(item['model_type'], item['model_name'])
+            for item in models_and_benchmarks if 'mt-bench' in item['benchmarks']])
 
     benchmarks.lm_evaluation_harness.evaluate_models([(item['model_type'], item['model_name'])
         for item in models_and_benchmarks if 'lm-evaluation-harness' in item['benchmarks']])
 
     with changed_exit_handlers():
-        benchmarks.openai_evals.evaluate_models([(item['model_type'], item['model_name'])
-            for item in models_and_benchmarks if 'openai-evals' in item['benchmarks']])
         benchmarks.vicuna.evaluate_models([(item['model_type'], item['model_name'])
             for item in models_and_benchmarks if 'vicuna' in item['benchmarks']], exclude_reviews=args.exclude_vicuna_reviews)
 
