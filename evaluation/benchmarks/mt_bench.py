@@ -1,5 +1,8 @@
 import os
 import json
+import re
+import ast
+import statistics
 
 from evaluation.utils import replace_model_name_slashes, create_model, compute_model_replies
 
@@ -110,7 +113,7 @@ def compute_judge_replies(model_name):
     } for turn_number in [0, 1] for question_id in questions.keys()]
 
     # TODO: Only for testing. Replace with gpt-4 later.
-    # TODO: Maybe increase the maximum number of output tokens?
+    # TODO: Maybe increase the maximum number of output tokens? Actually it's 2028 in fastchat!
     judge_model = create_model('openai', 'gpt-3.5-turbo-0613')
 
     judge_replies = compute_model_replies(judge_model, [item['conversation'] for item in judge_conversations])
@@ -124,7 +127,50 @@ def compute_judge_replies(model_name):
     with open(judge_replies_filepath, 'w') as f:
         json.dump(judge_replies, f, indent=4)
 
+def compute_model_score(model_name):
+    scores_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), 'scores.json')
+    if os.path.exists(scores_filepath):
+        return
+
+    judge_replies_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), 'judge-replies.json')
+    with open(judge_replies_filepath) as f:
+        judge_replies = json.load(f)
+
+    first_turn_ratings = []
+    second_turn_ratings = []
+    for item in judge_replies:
+        question_id = item['question_id']
+        turn_number = item['turn_number']
+        judge_reply = item['judge_reply']
+
+        match = re.search('\[\[(\d+\.?\d*)\]\]', judge_reply)
+        if not match:
+            match = re.search('\[(\d+\.?\d*)\]', judge_reply)
+        if not match:
+            continue
+
+        # TODO: Why is this used (in original fastchat) instead of just parsing string to float?
+        rating = ast.literal_eval(match.groups()[0])
+        if turn_number == 0:
+            first_turn_ratings.append(rating)
+        else:
+            second_turn_ratings.append(rating)
+
+    average_first_turn_rating = statistics.mean(first_turn_ratings)
+    average_second_turn_rating = statistics.mean(second_turn_ratings)
+
+    scores = {
+        'first_turn': average_first_turn_rating,
+        'second_turn': average_second_turn_rating,
+        'average': (average_first_turn_rating + average_second_turn_rating) / 2,
+    }
+
+    os.makedirs(os.path.dirname(scores_filepath), exist_ok=True)
+    with open(scores_filepath, 'w') as f:
+        json.dump(scores, f, indent=4)
+
 def evaluate_models(models):
     for model_type, model_name in models:
         generate_assistant_replies(model_type, model_name)
         compute_judge_replies(model_name)
+        compute_model_score(model_name)
