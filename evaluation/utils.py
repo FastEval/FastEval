@@ -72,7 +72,7 @@ def is_vllm_supported(model_name: str):
     model_type = get_config_dict(model_name).model_type
     if model_type in ['llama', 'gpt_neox', 'gpt_bigcode', 'mpt']:
         return True
-    if model_type in ['RefinedWeb', 'RefinedWebModel']:
+    if model_type in ['RefinedWeb', 'RefinedWebModel', 'falcon']:
         return False
     raise
 
