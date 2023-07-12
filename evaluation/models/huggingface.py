@@ -56,13 +56,14 @@ def process_current_batch():
     for batch_item in current_batch:
         assert batch_item['model'] is model
 
-    temperatures = [batch_item['temperature'] or 1.0 for batch_item in current_batch]
+    temperatures = [batch_item['temperature'] if batch_item['temperature'] is not None else 1.0 for batch_item in current_batch]
     temperatures_to_batch_items = { temperature: [] for temperature in set(temperatures) }
     for i, batch_item in enumerate(current_batch):
         temperature = batch_item['temperature']
         temperatures_to_batch_items[temperature].append(batch_item)
 
     for temperature, batch_items_with_specific_temperature in temperatures_to_batch_items.items():
+        print('TEMPERATURE = ', temperature)
         prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_temperature]
         responses = model['model'](
             prompts,
@@ -75,7 +76,7 @@ def process_current_batch():
             min_new_tokens=1,
 
             # Parameters that control the generation strategy used
-            do_sample=True,
+            do_sample=temperature > 1e-8,
             num_beams=1,
 
             # Parameters for manipulation of the model output logits
