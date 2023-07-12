@@ -82,7 +82,10 @@ def compute_model_replies(model, conversations):
 
     def reply(conversation_with_index):
         index, conversation = conversation_with_index
-        reply = model.reply(conversation)
+        if isinstance(conversation, str):
+            reply = model.reply(conversation)
+        elif isinstance(conversation, dict):
+            reply = model.reply(conversation['conversation'], temperature=conversation['temperature'])
         return index, reply
 
     with multiprocessing.pool.ThreadPool(min(model.num_threads, len(conversations))) as pool:

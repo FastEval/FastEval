@@ -34,15 +34,22 @@ def generate_assistant_replies(model_type, model_name):
 
     questions_items = questions.items()
 
-    first_turn_conversations = [[('user', question['turns'][0])] for _question_id, question in questions_items]
+    first_turn_conversations = [{
+        'conversation': [('user', question['turns'][0])],
+        'temperature': question['temperature'],
+    } for _question_id, question in questions_items]
+
     first_turn_replies = compute_model_replies(model, first_turn_conversations)
     first_turn_replies = { question_id: first_turn_replies[i] for i, (question_id, _question) in enumerate(questions_items) }
 
-    second_turn_conversations = [[
-        ('user', question['turns'][0]),
-        ('assistant', first_turn_replies[question_id]),
-        ('user', question['turns'][1]),
-    ] for question_id, question in questions_items]
+    second_turn_conversations = [{
+        'conversation': [
+            ('user', question['turns'][0]),
+            ('assistant', first_turn_replies[question_id]),
+            ('user', question['turns'][1]),
+        ],
+        'temperature': question['temperature'],
+    } for question_id, question in questions_items]
 
     second_turn_replies = compute_model_replies(model, second_turn_conversations)
     second_turn_replies = { question_id: second_turn_replies[i] for i, (question_id, _question) in enumerate(questions_items) }
@@ -117,7 +124,11 @@ def compute_judge_replies(model_name):
     # For LMSys it's more like the primary benchmark, but here it's not.
     judge_model = create_model('openai', 'gpt-3.5-turbo-0613', max_new_tokens=2048)
 
-    judge_replies = compute_model_replies(judge_model, [item['conversation'] for item in judge_conversations])
+    judge_replies = compute_model_replies(judge_model, [{
+        'conversation': item['conversation'],
+        'temperature': 0,
+    } for item in judge_conversations])
+
     judge_replies = [{
         'question_id': judge_conversations[i]['question_id'],
         'turn_number': judge_conversations[i]['turn_number'],

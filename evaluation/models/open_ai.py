@@ -24,9 +24,11 @@ class OpenAI:
             return { 'role': 'assistant', 'content': item }
         raise
 
-    def _reply(self, *, conversation, model_name, api_base, api_key, max_new_tokens=None):
+    def _reply(self, *, conversation, model_name, api_base, api_key, max_new_tokens=None, temperature=None):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
+        if temperature is None:
+            temperature = 1.0
 
         return openai.ChatCompletion.create(
             api_base=api_base,
@@ -37,17 +39,18 @@ class OpenAI:
             max_tokens=max_new_tokens,
 
             # Hardcode default parameters from https://platform.openai.com/docs/api-reference/chat/create
-            temperature=1.0,
+            temperature=temperature,
             top_p=1.0,
             presence_penalty=0,
             frequency_penalty=0,
         )['choices'][0]['message']['content']
 
     @tenacity.retry(wait=tenacity.wait_random_exponential(min=1, max=180), stop=tenacity.stop_after_attempt(30), after=print_retry)
-    def reply(self, conversation):
+    def reply(self, conversation, temperature=None):
         return self._reply(
             conversation=conversation,
             model_name=self.model_name,
             api_base='https://api.openai.com/v1',
             api_key=os.environ['OPENAI_API_KEY'],
+            temperature=temperature,
         )
