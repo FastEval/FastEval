@@ -56,41 +56,46 @@ def process_current_batch():
     for batch_item in current_batch:
         assert batch_item['model'] is model
 
-    prompts = [batch_item['prompt'] for batch_item in current_batch]
+    temperatures = [batch_item['temperature'] or 1.0 for batch_item in current_batch]
+    temperatures_to_batch_items = { temperature: [] for temperature in set(temperatures) }
+    for i, batch_item in enumerate(current_batch):
+        temperature = batch_item['temperature']
+        temperatures_to_batch_items[temperature].append(batch_item)
 
-    responses = model['model'](
-        prompts,
+    for temperature, batch_items_with_specific_temperature in temperatures_to_batch_items.items():
+        prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_temperature]
+        responses = model['model'](
+            prompts,
 
-        # See the following link for more details & a list of the parameters
-        # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
+            # See the following link for more details & a list of the parameters
+            # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
 
-        # Parameters that control the length of the output
-        max_new_tokens=model['max_new_tokens'],
-        min_new_tokens=1,
+            # Parameters that control the length of the output
+            max_new_tokens=model['max_new_tokens'],
+            min_new_tokens=1,
 
-        # Parameters that control the generation strategy used
-        do_sample=True,
-        num_beams=1,
+            # Parameters that control the generation strategy used
+            do_sample=True,
+            num_beams=1,
 
-        # Parameters for manipulation of the model output logits
-        temperature=1.0,
-        top_k=0,
-        top_p=1.0,
-        typical_p=1.0,
-        epsilon_cutoff=0.0,
-        eta_cutoff=0.0,
-        diversity_penalty=0.0,
-        repetition_penalty=1.0,
-        encoder_repetition_penalty=1.0,
-        length_penalty=1.0,
-        no_repeat_ngram_size=0,
-        renormalize_logits=False,
-    )
+            # Parameters for manipulation of the model output logits
+            temperature=temperature,
+            top_k=0,
+            top_p=1.0,
+            typical_p=1.0,
+            epsilon_cutoff=0.0,
+            eta_cutoff=0.0,
+            diversity_penalty=0.0,
+            repetition_penalty=1.0,
+            encoder_repetition_penalty=1.0,
+            length_penalty=1.0,
+            no_repeat_ngram_size=0,
+            renormalize_logits=False,
+        )
 
-    responses = [responses[i][0]['generated_text'][len(current_batch[i]['prompt']):] for i in range(len(responses))]
-
-    for i in range(len(current_batch)):
-        current_batch[i]['response'] = responses[i]
+        responses = [responses[i][0]['generated_text'][len(prompts[i]):] for i in range(len(batch_items_with_specific_temperature))]
+        for i in range(len(batch_items_with_specific_temperature)):
+            batch_items_with_specific_temperature[i]['response'] = responses[i]
 
     for item in current_batch:
         item['obtained_response'] = False
@@ -213,9 +218,7 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
         lock.release()
         return future.result()
     else:
-        if temperature is not None:
-            raise Exception('Temperature is currently not supported for models that can\'t use vLLM.')
-        current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model })
+        current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model, 'temperature': temperature })
         lock.release()
         return wait_for_response(condition, use_vllm)
 
