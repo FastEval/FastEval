@@ -39,7 +39,7 @@ def execute_vllm_requests():
     vllm_event_loop.run_forever()
 
 def create_model(*, model_path, tokenizer_path, dtype):
-    model = vllm.AsyncLLMEngine.from_engine_args(vllm.AsyncEngineArgs(
+    engine = vllm.AsyncLLMEngine.from_engine_args(vllm.AsyncEngineArgs(
         model=model_path,
         tokenizer=tokenizer_path,
         tensor_parallel_size=torch.cuda.device_count(),
@@ -51,11 +51,7 @@ def create_model(*, model_path, tokenizer_path, dtype):
     executor_thread = threading.Thread(target=execute_vllm_requests)
     executor_thread.start()
 
-    return {
-        'eos_token': transformers.AutoTokenizer.from_pretrained(tokenizer_path).eos_token,
-        'model': model,
-        'executor_thread': executor_thread,
-    }
+    return { 'engine': engine, 'executor_thread': executor_thread }
 
 async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
     assert prompt_model is model
@@ -63,11 +59,11 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
     if temperature is None:
         temperature = 1.0
 
-    response_generator = prompt_model['model']['model'].generate(prompt, vllm.SamplingParams(
+    response_generator = prompt_model['model']['engine'].generate(prompt, vllm.SamplingParams(
         # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
 
         best_of=None,
-        presence_penalty = 0.0,
+        presence_penalty=0.0,
         frequency_penalty=0.0,
         temperature=temperature,
         top_p=1.0,
@@ -85,7 +81,7 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
         assert len(outputs) == 1
         response = outputs[0].text
 
-    return response.replace(prompt_model['model']['eos_token'], '')
+    return response.replace(prompt_model['eos_token'], '')
 
 def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature):
     global model
@@ -104,8 +100,9 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             'tokenizer_path': tokenizer_path,
             'model_path': model_path,
             'dtype': dtype,
-            'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
             'max_new_tokens': max_new_tokens,
+            'eos_token': transformers.AutoTokenizer.from_pretrained(tokenizer_path).eos_token,
+            'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
         }
 
     future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model, temperature=temperature), vllm_event_loop)

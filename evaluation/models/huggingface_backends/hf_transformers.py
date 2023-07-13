@@ -53,7 +53,7 @@ def process_current_batch():
 
     for temperature, batch_items_with_specific_temperature in temperatures_to_batch_items.items():
         prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_temperature]
-        responses = model['model'](
+        responses = model['pipeline'](
             prompts,
 
             # See the following link for more details & a list of the parameters
@@ -106,23 +106,15 @@ def wait_for_response(condition):
 
     with condition:
         condition.wait()
-    for item in current_batch:
-        if item['condition'] == condition:
-            response = item['response']
-            item['obtained_response'] = True
-            return response
 
-def create_model(*, model_path, tokenizer_path, dtype):
-    tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
-    tokenizer.padding_side = 'left'
-    return transformers.pipeline(
-        'text-generation',
-        model=model_path,
-        tokenizer=tokenizer,
-        torch_dtype=dtype,
-        trust_remote_code=True,
-        device_map='auto'
-    )
+    for item in current_batch:
+        if item['condition'] != condition:
+            continue
+        response = item['response']
+        item['obtained_response'] = True
+        return response
+
+    raise
 
 def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size):
     global model
@@ -137,17 +129,25 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             or model['dtype'] != dtype
             or model['max_new_tokens'] != max_new_tokens):
         unload_model(False)
+        tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
+        tokenizer.padding_side = 'left'
         model = {
             'tokenizer_path': tokenizer_path,
             'model_path': model_path,
             'dtype': dtype,
-            'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
             'max_new_tokens': max_new_tokens,
             'max_batch_size': max_batch_size,
+            'pipeline': transformers.pipeline(
+                'text-generation',
+                model=model_path,
+                tokenizer=tokenizer,
+                torch_dtype=dtype,
+                trust_remote_code=True,
+                device_map='auto'
+            ),
         }
 
     condition = threading.Condition()
-
     current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model, 'temperature': temperature })
     lock.release()
     return wait_for_response(condition)

@@ -24,14 +24,10 @@ class Huggingface:
         default_system='',
         end: str,
         max_new_tokens=DEFAULT_MAX_NEW_TOKENS,
-        use_vllm=None,
     ):
-        if tokenizer_path is None:
-            tokenizer_path = model_path
-
-        self.tokenizer_path = tokenizer_path
         self.model_path = model_path
-        self.dtype = evaluation.utils.get_dtype(model_path)
+
+        self.tokenizer_path = model_path if tokenizer_path is None else tokenizer_path
 
         self.prefix = prefix
         self.user = user
@@ -42,10 +38,8 @@ class Huggingface:
 
         self.max_new_tokens = max_new_tokens
 
-        if use_vllm is None:
-            self.use_vllm = evaluation.utils.is_vllm_supported(model_path)
-        else:
-            self.use_vllm = use_vllm
+        self.dtype = evaluation.utils.get_dtype(model_path)
+        self.use_vllm = evaluation.utils.is_vllm_supported(model_path)
 
         if self.use_vllm:
             self.num_threads = NUM_THREADS_LOCAL_MODEL
@@ -86,4 +80,5 @@ class Huggingface:
             response = evaluation.models.huggingface_backends.hf_transformers.run_inference(**common_kwargs, max_batch_size=self.num_threads)
 
         response = response.split(self.user)[0] # some models continue to simulate the user and further assistant conversation
-        return response.strip()
+        response = response.strip()
+        return response
