@@ -1,6 +1,7 @@
 import evaluation.models.models
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm
+import evaluation.models.huggingface_backends.tgi
 from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
@@ -39,12 +40,14 @@ class Huggingface:
         self.max_new_tokens = max_new_tokens
 
         self.dtype = evaluation.models.models.get_dtype(model_path)
-        self.use_vllm = evaluation.models.models.is_vllm_supported(model_path)
+        self.backend = evaluation.models.models.get_huggingface_backend(model_path)
 
-        if self.use_vllm:
+        if self.backend == 'vllm' or self.backend == 'tgi':
             self.num_threads = NUM_THREADS_LOCAL_MODEL
-        else:
+        elif self.backend == 'hf_transformers':
             self.num_threads = get_max_batch_size(model_path, max_new_tokens)
+        else:
+            raise
 
     def _conversation_to_prompt(self, conversation):
         if self.system is None:
@@ -74,10 +77,14 @@ class Huggingface:
             'temperature': temperature,
         }
 
-        if self.use_vllm:
+        if self.backend == 'vllm':
             response = evaluation.models.huggingface_backends.vllm.run_inference(**common_kwargs)
-        else:
+        elif self.backend == 'tgi':
+            response = evaluation.models.huggingface_backends.tgi.run_inference(**common_kwargs)
+        elif self.backend == 'hf_transformers':
             response = evaluation.models.huggingface_backends.hf_transformers.run_inference(**common_kwargs, max_batch_size=self.num_threads)
+        else:
+            raise
 
         response = response.split(self.user)[0] # some models continue to simulate the user and further assistant conversation
         response = response.strip()
