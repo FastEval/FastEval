@@ -4,6 +4,9 @@ import torch
 import transformers
 import tqdm
 
+import evaluation.models.fastchat
+import evaluation.models.huggingface_backends.hf_transformers
+import evaluation.models.huggingface_backends.vllm
 from evaluation.models.open_ai import OpenAI
 from evaluation.models.fastchat import Fastchat
 from evaluation.models.open_assistant import OpenAssistant
@@ -13,10 +16,6 @@ from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
 from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
 from evaluation.models.chatml import ChatML
 from evaluation.models.starchat import Starchat
-
-import evaluation.models.fastchat
-import evaluation.models.huggingface_backends.hf_transformers
-import evaluation.models.huggingface_backends.vllm
 
 config_dict_cache = {}
 
@@ -93,10 +92,10 @@ def switch_gpu_model_type(new_model_type):
         'fastchat': evaluation.models.fastchat.unload_model,
     }
 
-    for model_type, unload_model in unload_model_functions.items():
+    for model_type, unload_model_function in unload_model_functions.items():
         if model_type == new_model_type:
             continue
-        unload_model()
+        unload_model_function()
 
 def unload_model(*args, **kwargs):
     switch_gpu_model_type(None)

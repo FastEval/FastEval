@@ -5,7 +5,8 @@ import ast
 
 from evalplus.data import get_human_eval_plus, write_jsonl
 
-from evaluation.utils import replace_model_name_slashes, create_model, compute_model_replies
+from evaluation.utils import replace_model_name_slashes
+from evaluation.models.models import create_model, compute_model_replies
 
 def postprocess_model_reply(model_reply):
     for item in ['```Python', '```python', '```py', '```']:

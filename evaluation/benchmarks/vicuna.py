@@ -3,7 +3,8 @@ import json
 import random
 import numpy as np
 
-from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes, create_model, compute_model_replies
+from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes
+from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import JUDGE_MAX_NEW_TOKENS, VICUNA_JUDGE
 
 def generate_assistant_replies(model_type, model_name):

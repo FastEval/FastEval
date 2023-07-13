@@ -5,7 +5,8 @@ import json
 import datasets
 import tqdm
 
-from evaluation.utils import create_model, replace_model_name_slashes, compute_model_replies
+from evaluation.utils import replace_model_name_slashes,
+from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS
 
 def create_conversation(answer_format, question):

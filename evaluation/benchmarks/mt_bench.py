@@ -4,7 +4,8 @@ import re
 import ast
 import statistics
 
-from evaluation.utils import replace_model_name_slashes, create_model, compute_model_replies
+from evaluation.utils import replace_model_name_slashes
+from evaluation.models.models import create_model, compute_model_replies
 
 def get_temperature(category):
     return ({
