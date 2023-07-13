@@ -105,9 +105,15 @@ BUILD_EXTENSIONS=True make install
 
 # https://github.com/huggingface/text-generation-inference/issues/539
 # https://github.com/HazyResearch/flash-attention/issues/246
-pip install flash-attn==1.0.5
+# pip install flash-attn==1.0.5
+
+cd server
+make install-flash-attention
+make install-vllm
+cd ..
 
 deactivate
+cd ..
 ```
 </details>
 
