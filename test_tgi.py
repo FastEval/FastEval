@@ -2,7 +2,7 @@
 
 # export PATH=$PATH:/workspace/ilm-eval/text-generation-inference/target/release
 # export USE_FLASH_ATTENTION=TRUE
-# text-generation-launcher --model-id OpenAssistant/falcon-7b-sft-mix-2000 --max-total-tokens 4096 --max-input-length 2048 --hostname 127.0.0.1 --port 1234 --huggingface-hub-cache /workspace/huggingface-cache --dtype b-float16 --trust-remote-code
+# text-generation-launcher --model-id OpenAssistant/falcon-7b-sft-mix-2000 --max-total-tokens 4096 --max-input-length 2048 --hostname 127.0.0.1 --port 1234 --huggingface-hub-cache /workspace/huggingface-cache --dtype b-float16
 
 from text_generation import Client
 
