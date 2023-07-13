@@ -63,7 +63,6 @@ def process_current_batch():
         temperatures_to_batch_items[temperature].append(batch_item)
 
     for temperature, batch_items_with_specific_temperature in temperatures_to_batch_items.items():
-        print('TEMPERATURE = ', temperature)
         prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_temperature]
         responses = model['model'](
             prompts,
@@ -92,6 +91,8 @@ def process_current_batch():
             length_penalty=1.0,
             no_repeat_ngram_size=0,
             renormalize_logits=False,
+
+            batch_size=model['max_batch_size'],
         )
 
         responses = [responses[i][0]['generated_text'][len(prompts[i]):] for i in range(len(batch_items_with_specific_temperature))]
@@ -150,10 +151,12 @@ def create_model(*, model_path, tokenizer_path, dtype, use_vllm):
             'executor_thread': executor_thread,
         }
     else:
+        tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
+        tokenizer.padding_side = 'left'
         return transformers.pipeline(
             'text-generation',
             model=model_path,
-            tokenizer=transformers.AutoTokenizer.from_pretrained(tokenizer_path),
+            tokenizer=tokenizer,
             torch_dtype=dtype,
             trust_remote_code=True,
             device_map='auto'
@@ -189,7 +192,7 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
 
     return response.replace(prompt_model['model']['eos_token'], '')
 
-def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, use_vllm, temperature):
+def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, use_vllm, temperature, max_batch_size):
     global model
 
     lock.acquire()
@@ -209,7 +212,8 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             'dtype': dtype,
             'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype, use_vllm=use_vllm),
             'use_vllm': use_vllm,
-            'max_new_tokens': max_new_tokens
+            'max_new_tokens': max_new_tokens,
+            'max_batch_size': max_batch_size,
         }
 
     condition = threading.Condition()
@@ -223,9 +227,14 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
         lock.release()
         return wait_for_response(condition, use_vllm)
 
-class Huggingface:
-    num_threads = NUM_THREADS_LOCAL_MODEL
+def get_max_batch_size(model_path, max_new_tokens):
+    # TODO: Check amount of GPU ram, check model size, dtype & estimate how much RAM model takes.
+    # Then estimate how much ram is needed for the tokens and estimate the batch size we can fit.
 
+    # Currently disabled. Performance benefit is questionable...
+    return 1
+
+class Huggingface:
     def __init__(
         self,
         model_path: str,
@@ -261,6 +270,11 @@ class Huggingface:
         else:
             self.use_vllm = use_vllm
 
+        if self.use_vllm:
+            self.num_threads = NUM_THREADS_LOCAL_MODEL
+        else:
+            self.num_threads = get_max_batch_size(model_path, max_new_tokens)
+
     def _conversation_to_prompt(self, conversation):
         if self.system is None:
             conversation = put_system_message_in_prompter_message(conversation)
@@ -282,6 +296,6 @@ class Huggingface:
     def reply(self, conversation, temperature=None):
         prompt = self._conversation_to_prompt(conversation)
         response = run_inference(prompt=prompt, tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
-            max_new_tokens=self.max_new_tokens, use_vllm=self.use_vllm, temperature=temperature)
+            max_new_tokens=self.max_new_tokens, use_vllm=self.use_vllm, temperature=temperature, max_batch_size=self.num_threads)
         response = response.split(self.user)[0] # some models continue to simulate the user and further assistant conversation
         return response.strip()
