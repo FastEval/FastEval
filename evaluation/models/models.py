@@ -1,3 +1,4 @@
+import os
 import multiprocessing.pool
 
 import torch
@@ -72,11 +73,18 @@ def is_tgi_supported(model_path: str):
         'tiiuae/falcon-7b-instruct',
     ]
 
+def is_tgi_installed():
+    return os.path.exists('text-generation-inference')
+
 def get_huggingface_backend(model_path: str):
     if is_vllm_supported(model_path):
         return 'vllm'
     if is_tgi_supported(model_path):
-        return 'tgi'
+        if is_tgi_installed():
+            return 'tgi'
+        else:
+            print('WARNING: The model "' + model_path + '" can be greatly accelerated by text-generation-inference, but it is not installed.')
+            return 'hf_transformers'
     return 'hf_transformers'
 
 def compute_model_replies(model, conversations):
