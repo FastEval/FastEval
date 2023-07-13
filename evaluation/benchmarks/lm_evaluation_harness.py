@@ -3,7 +3,8 @@ import json
 
 import lm_eval.evaluator
 
-from ..utils import replace_model_name_slashes, get_dtype
+from ..utils import replace_model_name_slashes
+from evaluation.models.models import get_dtype
 
 def evaluate_model(model_type, model_name):
     if model_type == 'openai':

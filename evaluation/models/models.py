@@ -1,3 +1,9 @@
+import multiprocessing.pool
+
+import torch
+import transformers
+import tqdm
+
 from evaluation.models.open_ai import OpenAI
 from evaluation.models.fastchat import Fastchat
 from evaluation.models.open_assistant import OpenAssistant
@@ -12,7 +18,9 @@ import evaluation.models.fastchat
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm
 
-def get_model_class(model_type: str):
+config_dict_cache = {}
+
+def create_model(model_type: str, model_name: str, **kwargs):
     model_classes = {
         'openai': OpenAI,
         'fastchat': Fastchat,
@@ -25,15 +33,13 @@ def get_model_class(model_type: str):
         'starchat': Starchat,
     }
 
-    if model_type in model_classes:
-        return model_classes[model_type]
+    if model_type not in model_classes:
+        raise Exception('Unknown model type "' + model_type + '"')
 
-    raise
+    model_class = model_classes[model_type]
 
-def create_model(model_type: str, model_name: str, **kwargs):
-    return get_model_class(model_type)(model_name, **kwargs)
+    return model_class(model_name, **kwargs)
 
-config_dict_cache = {}
 def get_config_dict(model_name):
     if model_name in config_dict_cache:
         return config_dict_cache[model_name]
@@ -49,11 +55,13 @@ def is_vllm_supported(model_name: str):
         return False # https://github.com/vllm-project/vllm/issues/380
     if 'starcoder' in model_name:
         return False # https://github.com/vllm-project/vllm/issues/393
+
     model_type = get_config_dict(model_name).model_type
     if model_type in ['llama', 'gpt_neox', 'gpt_bigcode', 'mpt']:
         return True
     if model_type in ['RefinedWeb', 'RefinedWebModel', 'falcon']:
         return False
+
     raise
 
 def compute_model_replies(model, conversations):
@@ -62,10 +70,14 @@ def compute_model_replies(model, conversations):
 
     def reply(conversation_with_index):
         index, conversation = conversation_with_index
+
         if isinstance(conversation, str):
             reply = model.reply(conversation)
         elif isinstance(conversation, dict):
             reply = model.reply(conversation['conversation'], temperature=conversation['temperature'])
+        else:
+            raise
+
         return index, reply
 
     with multiprocessing.pool.ThreadPool(min(model.num_threads, len(conversations))) as pool:

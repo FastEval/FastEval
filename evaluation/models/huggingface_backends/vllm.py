@@ -7,7 +7,7 @@ import torch
 import transformers
 import vllm
 
-import evaluation.utils
+import evaluation.models.models
 
 lock = threading.Lock()
 model = None
@@ -88,7 +88,7 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
 
     lock.acquire()
 
-    evaluation.utils.switch_gpu_model_type('vllm')
+    evaluation.models.models.switch_gpu_model_type('vllm')
 
     if (model is None
             or model['tokenizer_path'] != tokenizer_path

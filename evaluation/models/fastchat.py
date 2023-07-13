@@ -11,6 +11,7 @@ import tenacity
 from .open_ai import OpenAI
 
 import evaluation.utils
+import evaluation.models.models
 from .utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
@@ -134,7 +135,7 @@ def start_server(model_name, use_vllm):
 def ensure_model_is_loaded(model_name, use_vllm):
     lock.acquire()
 
-    evaluation.utils.switch_gpu_model_type('fastchat')
+    evaluation.models.models.switch_gpu_model_type('fastchat')
 
     if server is None:
         start_server(model_name, use_vllm)
@@ -148,7 +149,7 @@ class Fastchat(OpenAI):
     num_threads = NUM_THREADS_LOCAL_MODEL
 
     def __init__(self, model_name, *, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
-        self.use_vllm = evaluation.utils.is_vllm_supported(model_name)
+        self.use_vllm = evaluation.models.models.is_vllm_supported(model_name)
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
     def _reply(self, *, conversation, model_name, api_base, api_key, temperature):
