@@ -12,10 +12,12 @@ import evaluation.models.models
 lock = threading.Lock()
 model = None
 vllm_event_loop = None
+vllm_event_loop_ready = None
 
 def unload_model(use_lock=True):
     global model
     global vllm_event_loop
+    global vllm_event_loop_ready
 
     if use_lock:
         lock.acquire()
@@ -28,17 +30,28 @@ def unload_model(use_lock=True):
         vllm_event_loop.stop()
         vllm_event_loop = None
 
+    vllm_event_loop_ready = None
+
     if use_lock:
         lock.release()
 
 def execute_vllm_requests():
     global vllm_event_loop
+    global vllm_event_loop_ready
 
     assert vllm_event_loop is None
     vllm_event_loop = asyncio.new_event_loop()
+
+    condition = vllm_event_loop_ready
+    vllm_event_loop_ready = None
+    with condition:
+        condition.notify_all()
+
     vllm_event_loop.run_forever()
 
 def create_model(*, model_path, tokenizer_path, dtype):
+    global vllm_event_loop_ready
+
     engine = vllm.AsyncLLMEngine.from_engine_args(vllm.AsyncEngineArgs(
         model=model_path,
         tokenizer=tokenizer_path,
@@ -47,6 +60,8 @@ def create_model(*, model_path, tokenizer_path, dtype):
         disable_log_requests=True,
         trust_remote_code=True,
     ))
+
+    vllm_event_loop_ready = threading.Condition()
 
     executor_thread = threading.Thread(target=execute_vllm_requests)
     executor_thread.start()
@@ -104,6 +119,13 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             'eos_token': transformers.AutoTokenizer.from_pretrained(tokenizer_path).eos_token,
             'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
         }
+
+    condition = vllm_event_loop_ready
+    if condition is not None:
+        with condition:
+            condition.wait(1)
+
+    assert vllm_event_loop is not None
 
     future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model, temperature=temperature), vllm_event_loop)
     lock.release()
