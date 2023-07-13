@@ -1,6 +1,6 @@
 import atexit
 import signal
-import contextlib.contextmanager
+from contextlib import contextmanager
 
 import evaluation.models.models
 
@@ -16,7 +16,7 @@ def replace_model_name_slashes(model_name: str) -> str:
 def undo_replace_model_name_slashes(model_name: str) -> str:
     return model_name.replace('--', '/')
 
-@contextlib.contextmanager
+@contextmanager
 def changed_exit_handlers():
     previous_sigterm = signal.getsignal(signal.SIGTERM)
     previous_sigint = signal.getsignal(signal.SIGINT)

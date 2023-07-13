@@ -7,7 +7,8 @@ import evals
 import evals.registry
 import evals.cli.oaieval
 
-from evaluation.utils import replace_model_name_slashes, create_model
+from evaluation.utils import replace_model_name_slashes
+from evaluation.models.models import create_model
 from evaluation.constants import JUDGE_MAX_NEW_TOKENS, OPENAI_EVALS_JUDGE
 
 def convert_conversation(prompt: typing.Union[str, list[dict[str, str]]]):

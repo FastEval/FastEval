@@ -5,7 +5,7 @@ import json
 import datasets
 import tqdm
 
-from evaluation.utils import replace_model_name_slashes,
+from evaluation.utils import replace_model_name_slashes
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS
 
