@@ -3,8 +3,9 @@ import json
 import random
 import numpy as np
 
-from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes, create_model, compute_model_replies
-from evaluation.constants import JUDGE_MAX_NEW_TOKENS, VICUNA_JUDGE
+from evaluation.utils import replace_model_name_slashes, undo_replace_model_name_slashes
+from evaluation.models.models import create_model, compute_model_replies
+from evaluation.constants import VICUNA_JUDGE_MAX_NEW_TOKENS, VICUNA_JUDGE
 
 def generate_assistant_replies(model_type, model_name):
     answers_filepath = os.path.join('reports', 'vicuna', 'answers', replace_model_name_slashes(model_name) + '.json')
@@ -152,7 +153,7 @@ def generate_reviews():
             answers[model_name] = json.load(f)
     models = list(answers.keys())
 
-    reviewer = create_model(*VICUNA_JUDGE, max_new_tokens=JUDGE_MAX_NEW_TOKENS)
+    reviewer = create_model(*VICUNA_JUDGE, max_new_tokens=VICUNA_JUDGE_MAX_NEW_TOKENS)
 
     reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
     if os.path.exists(reviews_filepath):

@@ -4,7 +4,9 @@ import re
 import ast
 import statistics
 
-from evaluation.utils import replace_model_name_slashes, create_model, compute_model_replies
+from evaluation.utils import replace_model_name_slashes
+from evaluation.models.models import create_model, compute_model_replies
+from evaluation.constants import MT_BENCH_JUDGE_MAX_NEW_TOKENS, MT_BENCH_JUDGE
 
 def get_temperature(category):
     return ({
@@ -118,10 +120,7 @@ def compute_judge_replies(model_name):
         'conversation': create_judge_conversation(questions, answers, judge_prompt_templates, turn_number, question_id),
     } for turn_number in [0, 1] for question_id in questions.keys()]
 
-    # TODO: LMSys uses GPT-4 I think. But it's kind of expensive.
-    # And MT-Bench is just one benchmark among others on this leaderboard...
-    # For LMSys it's more like the primary benchmark, but here it's not.
-    judge_model = create_model('openai', 'gpt-3.5-turbo-0613', max_new_tokens=2048)
+    judge_model = create_model(*MT_BENCH_JUDGE, max_new_tokens=MT_BENCH_JUDGE_MAX_NEW_TOKENS)
 
     judge_replies = compute_model_replies(judge_model, [{
         'conversation': item['conversation'],

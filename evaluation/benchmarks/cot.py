@@ -5,8 +5,13 @@ import json
 import datasets
 import tqdm
 
-from evaluation.utils import create_model, replace_model_name_slashes, compute_model_replies
+from evaluation.utils import replace_model_name_slashes
+from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS
+
+GSM8K_LIMIT = 100
+BBH_LIMIT_PER_TASK = 20
+MMLU_LIMIT_PER_TASK = 10
 
 def create_conversation(answer_format, question):
     return [
@@ -82,7 +87,7 @@ def evaluate_model_on_gsm8k(output_path):
         answer_format='as a single number',
         is_correct=is_correct,
         output_path=output_path,
-        limit=100,
+        limit=GSM8K_LIMIT,
     )
 
     model_requests = next(evaluator)
@@ -145,7 +150,7 @@ def evaluate_model_on_bbh(output_path):
         answer_format='as a single letter with parenthesis',
         is_correct=is_correct,
         output_path=output_path,
-        limit=20,
+        limit=BBH_LIMIT_PER_TASK,
     ) for task in tasks])
 
     model_responses = yield next(evaluators)
@@ -158,7 +163,6 @@ def evaluate_model_on_bbh(output_path):
     }
 
 def evaluate_model_on_mmlu(output_path):
-    # Can't we somehow get that from `datasets` directly? Haven't found a way...
     tasks = ['abstract_algebra', 'anatomy', 'astronomy', 'business_ethics', 'clinical_knowledge', 'college_biology', 'college_chemistry',
         'college_computer_science', 'college_mathematics', 'college_medicine', 'college_physics', 'computer_security', 'conceptual_physics',
         'econometrics', 'electrical_engineering', 'elementary_mathematics', 'formal_logic', 'global_facts', 'high_school_biology', 'high_school_chemistry',
@@ -187,7 +191,7 @@ def evaluate_model_on_mmlu(output_path):
         answer_format='as a single letter with parenthesis',
         is_correct=is_correct,
         output_path=output_path,
-        limit=10,
+        limit=MMLU_LIMIT_PER_TASK,
     ) for task in tasks])
 
     model_responses = yield next(evaluators)

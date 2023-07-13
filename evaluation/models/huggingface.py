@@ -1,7 +1,7 @@
-from .utils import put_system_message_in_prompter_message
-import evaluation.utils
+import evaluation.models.models
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm
+from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
 def get_max_batch_size(model_path, max_new_tokens):
@@ -38,8 +38,8 @@ class Huggingface:
 
         self.max_new_tokens = max_new_tokens
 
-        self.dtype = evaluation.utils.get_dtype(model_path)
-        self.use_vllm = evaluation.utils.is_vllm_supported(model_path)
+        self.dtype = evaluation.models.models.get_dtype(model_path)
+        self.use_vllm = evaluation.models.models.is_vllm_supported(model_path)
 
         if self.use_vllm:
             self.num_threads = NUM_THREADS_LOCAL_MODEL
