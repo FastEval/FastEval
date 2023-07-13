@@ -4,15 +4,12 @@ import os
 import re
 import json
 
-import torch
 import openai
-import tenacity
 
 from .open_ai import OpenAI
 
-import evaluation.utils
 import evaluation.models.models
-from .utils import put_system_message_in_prompter_message
+from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
 lock = threading.Lock()

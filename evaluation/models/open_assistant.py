@@ -1,5 +1,3 @@
-import torch
-
 from .huggingface import Huggingface
 
 class OpenAssistant(Huggingface):
@@ -9,7 +7,7 @@ class OpenAssistant(Huggingface):
         elif 'pythia' in model_path or 'falcon' in model_path or 'starcoder' in model_path:
             eos_token = '<|endoftext|>'
         else:
-            raise
+            raise Exception('This type of OpenAssistant model is not supported yet.')
 
         super().__init__(
             model_path,

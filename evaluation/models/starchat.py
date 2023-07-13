@@ -1,5 +1,3 @@
-import torch
-
 from .huggingface import Huggingface
 
 class Starchat(Huggingface):
