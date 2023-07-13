@@ -1,4 +1,6 @@
 import os
+import time
+import random
 import threading
 import subprocess
 
@@ -33,7 +35,14 @@ def start_server(*, model_path, tokenizer_path, dtype):
         + os.path.join(cwd, 'text-generation-inference/target/release') + ':'
         + os.environ['PATH'])
 
-    port = 1234
+    port = random.randint(9_000, 10_000)
+
+    if dtype == torch.float16:
+        dtype_arg = 'float16'
+    elif dtype == torch.bfloat16:
+        dtype_arg = 'b-float16'
+    else:
+        raise Exception('This dtype is not supported by text-generation-inference')
 
     process = subprocess.Popen([
         'text-generation-launcher',
@@ -43,7 +52,7 @@ def start_server(*, model_path, tokenizer_path, dtype):
         '--hostname', '127.0.0.1',
         '--port', str(port),
         '--huggingface-hub-cache', '/workspace/huggingface-cache',
-        '--dtype', 'b-float16'
+        '--dtype', dtype_arg,
     ], env=new_environment, stdout=subprocess.PIPE, text=True)
 
     for line in process.stdout:
@@ -51,7 +60,6 @@ def start_server(*, model_path, tokenizer_path, dtype):
         if 'text_generation_router' in line and 'Connected' in line:
             break
 
-    import time
     time.sleep(5)
 
     return {
