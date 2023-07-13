@@ -84,7 +84,32 @@ cd ilm-eval
 python3.10 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+deactivate
 ```
+
+<details>
+<summary>Install text-generation-inference for improved performance for some models</summary>
+
+```bash
+# Install `rust`, `protobuf-compiler`, `libssl-dev`, `gcc` and `pkg-config`.
+# The following code assumes an ubuntu system.
+apt install rustc rust-all protobuf-compiler libprotobuf-dev libssl-dev gcc pkg-config
+
+# Install `text-generation-inference`
+# Run this code inside the `ilm-eval` folder s.t. the git clone happens to `ilm-eval/text-generation-inference`
+git clone --depth 1 https://github.com/huggingface/text-generation-inference.git
+cd text-generation-inference
+python3.10 -m venv .venv
+source .venv/bin/activate
+BUILD_EXTENSIONS=True make install
+
+# https://github.com/huggingface/text-generation-inference/issues/539
+# https://github.com/HazyResearch/flash-attention/issues/246
+pip install flash-attn==1.0.5
+
+deactivate
+```
+</details>
 
 ### OpenAI API
 
