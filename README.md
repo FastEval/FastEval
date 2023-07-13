@@ -84,34 +84,42 @@ cd ilm-eval
 python3.10 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-deactivate
 ```
 
 <details>
-<summary>Install text-generation-inference for improved performance for some models</summary>
+<summary>Install text-generation-inference for greatly improved performance for some models (e.g. Falcon, StarCoder)</summary>
+
+By default, ilm-eval tries to use [vLLM](https://github.com/vllm-project/vllm) to do fast inference. When supported, this is a lot (~20x) faster than using huggingface transformers. However, vLLM does not support all models. An alternative to vLLM with similar performance is [text-generation-inference](https://github.com/huggingface/text-generation-inference). While it also doesn't support all models either, it can serve as a useful addition to vLLM and together they support many models.
+
+While vLLM is part of the `requirements.txt` and therefore already installed if you followed the above installation instructions, installing text-generation-inference is more complex. If all the models you need are supported in vLLM, then you don't need to follow these instructions. If some model (e.g. Falcon, StarCoder) is not supported in vLLM, then it's probably worth setting up text-generation-inference:
 
 ```bash
 # Install `rust`, `protobuf-compiler`, `libssl-dev`, `gcc` and `pkg-config`.
 # The following code assumes an ubuntu system.
-apt install rustc rust-all protobuf-compiler libprotobuf-dev libssl-dev gcc pkg-config
+apt install rust-all protobuf-compiler libssl-dev gcc pkg-config # libprotobuf-dev
 
 # Install `text-generation-inference`
-# Run this code inside the `ilm-eval` folder s.t. the git clone happens to `ilm-eval/text-generation-inference`
+# Run this code inside the `ilm-eval` folder
+# I.e. the `git clone` should happen to `ilm-eval/text-generation-inference`.
 git clone --depth 1 https://github.com/huggingface/text-generation-inference.git
 cd text-generation-inference
+
+# We will use *a second virtual environment* specifically for `text-generation-inference`.
+# This is to avoid package conflicts.
 python3.10 -m venv .venv
 source .venv/bin/activate
+
 BUILD_EXTENSIONS=True make install
 
-# https://github.com/huggingface/text-generation-inference/issues/539
-# https://github.com/HazyResearch/flash-attention/issues/246
-# pip install flash-attn==1.0.5
-
 cd server
+# This will take a long time
 make install-flash-attention
+# Installs *a part* of vLLM used in text-generation-inference.
+# This is not the full vLLM that we already installed.
 make install-vllm
 cd ..
 
+# Return to the virtual environment for `ilm-eval`.
 deactivate
 cd ..
 ```
