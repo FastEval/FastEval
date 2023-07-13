@@ -28,7 +28,6 @@ def generate_assistant_replies(model_type, model_name):
     with open('data/mt-bench/questions.json') as f:
         questions = json.load(f)
 
-    # TODO Actually use those temperatures
     for question in questions.values():
         question['temperature'] = get_temperature(question['category'])
 
