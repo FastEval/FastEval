@@ -8,7 +8,8 @@ import tqdm
 import transformers
 
 import evaluation.models.fastchat
-import evaluation.models.huggingface
+import evaluation.models.huggingface_backends.hf_transformers
+import evaluation.models.huggingface_backends.vllm
 
 from evaluation.models.open_ai import OpenAI
 from evaluation.models.fastchat import Fastchat
@@ -94,15 +95,20 @@ def compute_model_replies(model, conversations):
 
     return [reply_with_index[1] for reply_with_index in sorted(replies_with_indices, key=lambda item: item[0])]
 
-def unload_model(*args, **kwargs):
-    evaluation.models.fastchat.unload_model()
-    evaluation.models.huggingface.unload_model()
-
 def switch_gpu_model_type(new_model_type):
-    if new_model_type == 'huggingface':
-        evaluation.models.fastchat.unload_model()
-    if new_model_type == 'fastchat':
-        evaluation.models.huggingface.unload_model()
+    unload_model_functions = {
+        'hf_transformers': evaluation.models.huggingface_backends.hf_transformers.unload_model,
+        'vllm': evaluation.models.huggingface_backends.vllm.unload_model,
+        'fastchat': evaluation.models.fastchat.unload_model,
+    }
+
+    for model_type, unload_model in unload_model_functions.items():
+        if model_type == new_model_type:
+            continue
+        unload_model()
+
+def unload_model(*args, **kwargs):
+    switch_gpu_model_type(None)
 
 @contextmanager
 def changed_exit_handlers():

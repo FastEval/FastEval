@@ -1,231 +1,8 @@
-import threading
-import uuid
-import time
-import gc
-import asyncio
-
-import torch
-import transformers
-import vllm
-
 from .utils import put_system_message_in_prompter_message
 import evaluation.utils
+import evaluation.models.huggingface_backends.hf_transformers
+import evaluation.models.huggingface_backends.vllm
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
-
-lock = threading.Lock()
-model = None
-current_batch = []
-vllm_event_loop = None
-
-def unload_model(use_lock=True):
-    global model
-    global current_batch
-    global vllm_event_loop
-
-    if use_lock:
-        lock.acquire()
-
-    if model is not None:
-        model = None
-        gc.collect()
-
-    current_batch = []
-    if vllm_event_loop is not None:
-        vllm_event_loop.stop()
-        vllm_event_loop = None
-
-    if use_lock:
-        lock.release()
-
-def process_current_batch():
-    global current_batch
-
-    time.sleep(0.05)
-
-    lock.acquire()
-
-    if len(current_batch) == 0:
-        lock.release()
-        return
-
-    # We just store a reference to the model here to make sure that the prompt is evaluated with the correct model
-    # It could theoretically happen (in the rest of the code), that while we are waiting for some responses to be computed,
-    # the underlying model should be changed. This is not something that should currently happen since we evaluate one
-    # model at a time and wait for all the responses before switching the model.
-    # But just to prevent future possible bugs, we make really sure that we have the correct model here.
-    for batch_item in current_batch:
-        assert batch_item['model'] is model
-
-    temperatures = [batch_item['temperature'] if batch_item['temperature'] is not None else 1.0 for batch_item in current_batch]
-    temperatures_to_batch_items = { temperature: [] for temperature in set(temperatures) }
-    for i, batch_item in enumerate(current_batch):
-        temperature = batch_item['temperature']
-        temperatures_to_batch_items[temperature].append(batch_item)
-
-    for temperature, batch_items_with_specific_temperature in temperatures_to_batch_items.items():
-        prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_temperature]
-        responses = model['model'](
-            prompts,
-
-            # See the following link for more details & a list of the parameters
-            # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
-
-            # Parameters that control the length of the output
-            max_new_tokens=model['max_new_tokens'],
-            min_new_tokens=1,
-
-            # Parameters that control the generation strategy used
-            do_sample=temperature > 1e-8,
-            num_beams=1,
-
-            # Parameters for manipulation of the model output logits
-            temperature=temperature,
-            top_k=0,
-            top_p=1.0,
-            typical_p=1.0,
-            epsilon_cutoff=0.0,
-            eta_cutoff=0.0,
-            diversity_penalty=0.0,
-            repetition_penalty=1.0,
-            encoder_repetition_penalty=1.0,
-            length_penalty=1.0,
-            no_repeat_ngram_size=0,
-            renormalize_logits=False,
-
-            batch_size=model['max_batch_size'],
-        )
-
-        responses = [responses[i][0]['generated_text'][len(prompts[i]):] for i in range(len(batch_items_with_specific_temperature))]
-        for i in range(len(batch_items_with_specific_temperature)):
-            batch_items_with_specific_temperature[i]['response'] = responses[i]
-
-    for item in current_batch:
-        item['obtained_response'] = False
-        with item['condition']:
-            item['condition'].notify_all()
-
-    while not all(item['obtained_response'] for item in current_batch):
-        time.sleep(0.01)
-
-    current_batch = []
-
-    lock.release()
-
-def wait_for_response(condition, use_vllm):
-    if not use_vllm:
-        thread = threading.Thread(target=process_current_batch)
-        thread.start()
-
-    with condition:
-        condition.wait()
-    for item in current_batch:
-        if item['condition'] == condition:
-            response = item['response']
-            item['obtained_response'] = True
-            return response
-
-def execute_vllm_requests():
-    global vllm_event_loop
-
-    assert vllm_event_loop is None
-    vllm_event_loop = asyncio.new_event_loop()
-    vllm_event_loop.run_forever()
-
-def create_model(*, model_path, tokenizer_path, dtype, use_vllm):
-    if use_vllm:
-        model = vllm.AsyncLLMEngine.from_engine_args(vllm.AsyncEngineArgs(
-            model=model_path,
-            tokenizer=tokenizer_path,
-            tensor_parallel_size=torch.cuda.device_count(),
-            dtype=str(dtype).replace('torch.', ''),
-            disable_log_requests=True,
-            trust_remote_code=True,
-        ))
-
-        executor_thread = threading.Thread(target=execute_vllm_requests)
-        executor_thread.start()
-
-        return {
-            'eos_token': transformers.AutoTokenizer.from_pretrained(tokenizer_path).eos_token,
-            'model': model,
-            'executor_thread': executor_thread,
-        }
-    else:
-        tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
-        tokenizer.padding_side = 'left'
-        return transformers.pipeline(
-            'text-generation',
-            model=model_path,
-            tokenizer=tokenizer,
-            torch_dtype=dtype,
-            trust_remote_code=True,
-            device_map='auto'
-        )
-
-async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
-    assert prompt_model is model
-
-    if temperature is None:
-        temperature = 1.0
-
-    response_generator = prompt_model['model']['model'].generate(prompt, vllm.SamplingParams(
-        # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
-
-        best_of=None,
-        presence_penalty = 0.0,
-        frequency_penalty=0.0,
-        temperature=temperature,
-        top_p=1.0,
-        top_k=-1,
-        use_beam_search=False,
-        max_tokens=prompt_model['max_new_tokens'],
-    ), request_id=uuid.uuid4())
-
-    response = None
-    async for response_part in response_generator:
-        if not response_part.finished:
-            continue
-        assert response is None
-        outputs = response_part.outputs
-        assert len(outputs) == 1
-        response = outputs[0].text
-
-    return response.replace(prompt_model['model']['eos_token'], '')
-
-def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, use_vllm, temperature, max_batch_size):
-    global model
-
-    lock.acquire()
-
-    evaluation.utils.switch_gpu_model_type('huggingface')
-
-    if (model is None
-            or model['tokenizer_path'] != tokenizer_path
-            or model['model_path'] != model_path
-            or model['dtype'] != dtype
-            or model['use_vllm'] != use_vllm
-            or model['max_new_tokens'] != max_new_tokens):
-        unload_model(False)
-        model = {
-            'tokenizer_path': tokenizer_path,
-            'model_path': model_path,
-            'dtype': dtype,
-            'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype, use_vllm=use_vllm),
-            'use_vllm': use_vllm,
-            'max_new_tokens': max_new_tokens,
-            'max_batch_size': max_batch_size,
-        }
-
-    condition = threading.Condition()
-
-    if use_vllm:
-        future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model, temperature=temperature), vllm_event_loop)
-        lock.release()
-        return future.result()
-    else:
-        current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model, 'temperature': temperature })
-        lock.release()
-        return wait_for_response(condition, use_vllm)
 
 def get_max_batch_size(model_path, max_new_tokens):
     # TODO: Check amount of GPU ram, check model size, dtype & estimate how much RAM model takes.
@@ -294,8 +71,19 @@ class Huggingface:
         return prompt.strip()
 
     def reply(self, conversation, temperature=None):
-        prompt = self._conversation_to_prompt(conversation)
-        response = run_inference(prompt=prompt, tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
-            max_new_tokens=self.max_new_tokens, use_vllm=self.use_vllm, temperature=temperature, max_batch_size=self.num_threads)
+        common_kwargs = {
+            'prompt': self._conversation_to_prompt(conversation),
+            'tokenizer_path': self.tokenizer_path,
+            'model_path': self.model_path,
+            'dtype': self.dtype,
+            'max_new_tokens': self.max_new_tokens,
+            'temperature': temperature,
+        }
+
+        if self.use_vllm:
+            response = evaluation.models.huggingface_backends.vllm.run_inference(**common_kwargs)
+        else:
+            response = evaluation.models.huggingface_backends.hf_transformers.run_inference(**common_kwargs, max_batch_size=self.num_threads)
+
         response = response.split(self.user)[0] # some models continue to simulate the user and further assistant conversation
         return response.strip()
