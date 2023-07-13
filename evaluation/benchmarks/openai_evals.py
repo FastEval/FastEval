@@ -9,7 +9,7 @@ import evals.cli.oaieval
 
 from evaluation.utils import replace_model_name_slashes
 from evaluation.models.models import create_model
-from evaluation.constants import JUDGE_MAX_NEW_TOKENS, OPENAI_EVALS_JUDGE
+from evaluation.constants import OPENAI_EVALS_JUDGE_MAX_NEW_TOKENS, OPENAI_EVALS_JUDGE
 
 def convert_conversation(prompt: typing.Union[str, list[dict[str, str]]]):
     if isinstance(prompt, str):
@@ -68,7 +68,7 @@ class Registry(evals.registry.Registry):
         # Meaning that if we now evaluate the same model as OPENAI_EVALS_JUDGE, then we will also increase the number of tokens
         # for that model which is unfair. Fix that.
         if model_type == OPENAI_EVALS_JUDGE[0] and model_name == OPENAI_EVALS_JUDGE[1]:
-            return CompletionFn(create_model(model_type, model_name, max_new_tokens=JUDGE_MAX_NEW_TOKENS))
+            return CompletionFn(create_model(model_type, model_name, max_new_tokens=OPENAI_EVALS_JUDGE_MAX_NEW_TOKENS))
         return CompletionFn(create_model(model_type, model_name))
 
     # Prevent errors about OpenAI API key missing even if we don't use OpenAI models
