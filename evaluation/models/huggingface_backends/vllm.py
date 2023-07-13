@@ -14,10 +14,6 @@ model = None
 vllm_event_loop = None
 
 def unload_model(use_lock=True):
-    print('UNLOAD_MODEL')
-    import time
-    time.sleep(5)
-
     global model
     global vllm_event_loop
 
@@ -67,8 +63,6 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
     if temperature is None:
         temperature = 1.0
 
-    print('HEYYYYYYYYYYYYYYYYYYY')
-
     response_generator = prompt_model['model']['model'].generate(prompt, vllm.SamplingParams(
         # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
 
@@ -82,20 +76,14 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
         max_tokens=prompt_model['max_new_tokens'],
     ), request_id=uuid.uuid4())
 
-    print('NEXT STEP')
-
     response = None
     async for response_part in response_generator:
-        print('foo')
         if not response_part.finished:
             continue
         assert response is None
         outputs = response_part.outputs
         assert len(outputs) == 1
         response = outputs[0].text
-        print('bar')
-
-    print('DONEEEEEEEEEEEEEEEE')
 
     return response.replace(prompt_model['model']['eos_token'], '')
 
@@ -111,7 +99,6 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             or model['model_path'] != model_path
             or model['dtype'] != dtype
             or model['max_new_tokens'] != max_new_tokens):
-        print('UNLOAD IT')
         unload_model(False)
         model = {
             'tokenizer_path': tokenizer_path,
