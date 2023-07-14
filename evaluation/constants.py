@@ -12,3 +12,5 @@ MT_BENCH_JUDGE_MAX_NEW_TOKENS = 2048
 OPENAI_EVALS_JUDGE = ('openai', 'gpt-3.5-turbo-0613')
 VICUNA_JUDGE = ('openai', 'gpt-3.5-turbo-0613')
 MT_BENCH_JUDGE = ('openai', 'gpt-3.5-turbo-0613')
+
+HUMAN_EVAL_PLUS_TEMPERATURE = 0

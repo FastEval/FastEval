@@ -7,6 +7,7 @@ from evalplus.data import get_human_eval_plus, write_jsonl
 
 from evaluation.utils import replace_model_name_slashes
 from evaluation.models.models import create_model, compute_model_replies
+from evaluation.constants import HUMAN_EVAL_PLUS_TEMPERATURE
 
 def postprocess_model_reply(model_reply):
     for item in ['```Python', '```python', '```py', '```']:
@@ -55,7 +56,10 @@ def evaluate_model(model_type, model_name):
     dataset = get_human_eval_plus()
     task_ids = dataset.keys()
     prompts = [dataset[task_id]['prompt'] for task_id in task_ids]
-    raw_replies = compute_model_replies(model, [create_conversation(prompt) for prompt in prompts])
+    raw_replies = compute_model_replies(model, [{
+        'conversation': create_conversation(prompt),
+        'temperature': HUMAN_EVAL_PLUS_TEMPERATURE,
+    } for prompt in prompts])
     processed_replies = [{ 'task_id': task_id, 'completion': postprocess_model_reply(raw_replies[i]) }
         for i, task_id in enumerate(task_ids)]
 
