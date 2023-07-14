@@ -10,7 +10,7 @@ cd text-generation-inference
 
 # We will use *a second virtual environment* specifically for `text-generation-inference`. This is to avoid package conflicts.
 python3.10 -m venv .venv
-source .venv/bin/activate
+. .venv/bin/activate
 
 # This is needed for parallel builds which are significantly faster.
 pip install ninja
