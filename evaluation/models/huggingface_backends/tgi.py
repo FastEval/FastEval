@@ -56,7 +56,6 @@ def start_server(*, model_path, tokenizer_path, dtype):
         '--max-input-length', '2048',
         '--hostname', '127.0.0.1',
         '--port', str(port),
-        '--huggingface-hub-cache', '/workspace/huggingface-cache',
         '--dtype', dtype_arg,
     ], env=new_environment, stdout=subprocess.PIPE, text=True)
 
