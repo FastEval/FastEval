@@ -96,6 +96,8 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
         assert len(outputs) == 1
         response = outputs[0].text
 
+    return response
+
 def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature):
     global model
 
