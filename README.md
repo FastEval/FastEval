@@ -87,7 +87,7 @@ pip install -r requirements.txt
 ```
 
 <details>
-<summary>Install text-generation-inference for greatly improved performance for some models (e.g. Falcon, StarCoder)</summary>
+<summary>Install text-generation-inference for ~20x faster performance for some models like Falcon and StarCoder</summary>
 
 By default, ilm-eval tries to use [vLLM](https://github.com/vllm-project/vllm) to do fast inference. When supported, this is a lot (~20x) faster than using huggingface transformers. However, vLLM does not support all models. An alternative to vLLM with similar performance is [text-generation-inference](https://github.com/huggingface/text-generation-inference). While it also doesn't support all models either, it can serve as a useful addition to vLLM and together they support many models.
 
