@@ -98,7 +98,7 @@ def compute_model_replies(model, conversations):
     def reply(conversation_with_index):
         index, conversation = conversation_with_index
 
-        if isinstance(conversation, str):
+        if isinstance(conversation, list):
             reply = model.reply(conversation)
         elif isinstance(conversation, dict):
             reply = model.reply(conversation['conversation'], temperature=conversation['temperature'])
