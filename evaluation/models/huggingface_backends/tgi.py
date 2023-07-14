@@ -19,7 +19,7 @@ def unload_model(use_lock=True):
         lock.acquire()
 
     if server_information is not None:
-        server_information['server']['process'].kill()
+        server_information['server']['process'].terminate()
         server_information = None
 
     if use_lock:
