@@ -90,8 +90,25 @@ class Huggingface:
         else:
             raise
 
-        response = response.replace(self.end, '')
-        response = response.replace(self.eos_token, '').replace(self.eos_token.replace('\n', '').strip(), '')
-        response = response.split(self.user)[0] # some models continue to simulate the user and further assistant conversation
-        response = response.strip()
+        # Some models continue to simulate the user and further assistant conversation
+        response = response.split(self.user)[0]
+
+        final_substrings_to_remove = []
+        for special_token in [self.end, self.eos_token]:
+            final_substrings_to_remove += [special_token, special_token.replace('\n', ''),
+                special_token.replace('\n', '').strip(), special_token.strip()]
+        final_substrings_to_remove.append('\n')
+        final_substrings_to_remove.append(' ')
+
+        while True:
+            for substring in final_substrings_to_remove:
+                if response.endswith(substring):
+                    response = response[:-len(substring)]
+                    break
+            else:
+                break
+
+        response = response.lstrip('\n')
+        response = response.lstrip()
+
         return response
