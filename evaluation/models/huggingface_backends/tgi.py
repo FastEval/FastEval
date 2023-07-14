@@ -96,6 +96,8 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
 
     lock.release()
 
+    if temperature is None:
+        temperature = 1.0
     if temperature > 1e-8:
         kwargs = { 'temperature': temperature, 'do_sample': True }
     else:
