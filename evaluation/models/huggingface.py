@@ -1,3 +1,5 @@
+import transformers
+
 import evaluation.models.models
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm
@@ -29,6 +31,8 @@ class Huggingface:
         self.model_path = model_path
 
         self.tokenizer_path = model_path if tokenizer_path is None else tokenizer_path
+
+        self.eos_token = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path).eos_token
 
         self.prefix = prefix
         self.user = user
@@ -86,6 +90,8 @@ class Huggingface:
         else:
             raise
 
+        response = response.replace(self.end, '')
+        response = response.replace(self.eos_token, '').replace(self.eos_token.replace('\n', '').strip(), '')
         response = response.split(self.user)[0] # some models continue to simulate the user and further assistant conversation
         response = response.strip()
         return response

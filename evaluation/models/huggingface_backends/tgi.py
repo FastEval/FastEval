@@ -5,7 +5,6 @@ import torch
 import threading
 import subprocess
 
-import transformers
 from text_generation import Client
 
 import evaluation.models.models
@@ -91,12 +90,10 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             'tokenizer_path': tokenizer_path,
             'model_path': model_path,
             'dtype': dtype,
-            'eos_token': transformers.AutoTokenizer.from_pretrained(tokenizer_path).eos_token,
             'server': start_server(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
         }
 
     client = Client('http://127.0.0.1:' + str(server_information['server']['port']), timeout=1_000_000)
-    eos_token = server_information['eos_token']
 
     lock.release()
 
@@ -107,12 +104,10 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
     else:
         kwargs = { 'do_sample': False }
 
-    response = client.generate(prompt,
+    return client.generate(prompt,
         max_new_tokens=max_new_tokens,
         repetition_penalty=1.0,
         return_full_text=False,
         best_of=1,
         **kwargs,
     ).generated_text
-
-    return response.replace(eos_token, '')
