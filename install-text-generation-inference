@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if test ! -e evaluate.py2 ; then
+    echo 'ERROR: Please run this command from the `ilm-eval` directory'
+    exit
+fi
+
+git clone --depth 1 https://github.com/huggingface/text-generation-inference.git
+cd text-generation-inference
+
+# We will use *a second virtual environment* specifically for `text-generation-inference`. This is to avoid package conflicts.
+python3.10 -m venv .venv
+source .venv/bin/activate
+
+# This is needed for parallel builds which are significantly faster.
+pip install ninja
+
+BUILD_EXTENSIONS=True make install
+
+cd server
+make install-flash-attention
+make install-vllm # Installs *a part* of vLLM used in text-generation-inference. This is not the full vLLM that we already installed.
