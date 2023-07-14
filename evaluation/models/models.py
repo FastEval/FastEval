@@ -66,7 +66,7 @@ def is_vllm_supported(model_name: str):
     raise Exception('Model "' + model_name + '" has unknown model type "' + model_type + '"')
 
 def is_tgi_supported(model_name: str):
-    if 'startchat' in model_name:
+    if 'starchat' in model_name:
         return True
     if 'starcoder' in model_name:
         return True
