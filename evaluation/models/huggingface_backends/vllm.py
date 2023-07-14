@@ -96,8 +96,6 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
         assert len(outputs) == 1
         response = outputs[0].text
 
-    return response.replace(prompt_model['eos_token'], '')
-
 def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature):
     global model
 
@@ -116,7 +114,6 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             'model_path': model_path,
             'dtype': dtype,
             'max_new_tokens': max_new_tokens,
-            'eos_token': transformers.AutoTokenizer.from_pretrained(tokenizer_path).eos_token,
             'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
         }
 

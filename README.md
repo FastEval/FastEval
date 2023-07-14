@@ -86,6 +86,22 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+<details>
+<summary>Install text-generation-inference for ~20x faster performance for some models like Falcon and StarCoder</summary>
+
+By default, ilm-eval tries to use [vLLM](https://github.com/vllm-project/vllm) to do fast inference. When supported, this is a lot (~20x) faster than using huggingface transformers. However, vLLM does not support all models. An alternative to vLLM with similar performance is [text-generation-inference](https://github.com/huggingface/text-generation-inference). While it also doesn't support all models either, it can serve as a useful addition to vLLM and together they support many models.
+
+While vLLM is part of the `requirements.txt` and therefore already installed if you followed the above installation instructions, installing text-generation-inference requires additional steps. If all the models you need are supported in vLLM, then you don't need to follow these instructions. If some model (e.g. Falcon, StarCoder) is not supported in vLLM, then it's probably worth setting up text-generation-inference:
+
+```bash
+# Install various system packages. The following code assumes an ubuntu system.
+apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make python3.10-dev
+
+# Install text-generation-inference to the `ilm-eval/text-generation-inference` folder.
+./install-text-generation-inference
+```
+</details>
+
 ### OpenAI API
 
 Some benchmarks use `gpt-3.5-turbo` as a model to judge the output of another model. This is the case for `OpenAI evals` as well as for `Vicuna Rank`.
