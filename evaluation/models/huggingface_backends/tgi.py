@@ -57,6 +57,7 @@ def start_server(*, model_path, tokenizer_path, dtype):
         '--hostname', '127.0.0.1',
         '--port', str(port),
         '--dtype', dtype_arg,
+        '--max-concurrent-requests', '1024',
     ], env=new_environment, stdout=subprocess.PIPE, text=True)
 
     for line in process.stdout:
