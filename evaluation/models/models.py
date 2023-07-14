@@ -63,15 +63,19 @@ def is_vllm_supported(model_name: str):
     if model_type in ['RefinedWeb', 'RefinedWebModel', 'falcon']:
         return False
 
-    raise
+    raise Exception('Model "' + model_name + '" has unknown model type "' + model_type + '"')
 
-def is_tgi_supported(model_path: str):
-    return model_path in [
-        'OpenAssistant/falcon-40b-sft-mix-1226',
-        'OpenAssistant/falcon-40b-sft-top1-560',
-        'tiiuae/falcon-40b-instruct',
-        'tiiuae/falcon-7b-instruct',
-    ]
+def is_tgi_supported(model_name: str):
+    if 'startchat' in model_name:
+        return True
+    if 'starcoder' in model_name:
+        return True
+
+    model_type = get_config_dict(model_name).model_type
+    if model_type in ['RefinedWeb', 'RefinedWebModel', 'falcon']:
+        return True
+
+    raise Exception('Model "' + model_name + '" has unknown model type "' + model_type + '"')
 
 def is_tgi_installed():
     return os.path.exists('text-generation-inference')
