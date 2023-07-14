@@ -100,8 +100,15 @@ class Huggingface:
         final_substrings_to_remove.append('\n')
         final_substrings_to_remove.append(' ')
 
+        final_substrings_to_remove = [substring for substring in final_substrings_to_remove if substring != '']
+
+        final_substrings_to_remove_unique = []
+        for substring in final_substrings_to_remove:
+            if substring not in final_substrings_to_remove_unique:
+                final_substrings_to_remove_unique.append(substring)
+
         while True:
-            for substring in final_substrings_to_remove:
+            for substring in final_substrings_to_remove_unique:
                 if response.endswith(substring):
                     response = response[:-len(substring)]
                     break
