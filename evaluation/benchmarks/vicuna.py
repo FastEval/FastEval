@@ -153,6 +153,9 @@ def generate_reviews():
             answers[model_name] = json.load(f)
     models = list(answers.keys())
 
+    if len(models) == 0:
+        return False
+
     reviewer = create_model(*VICUNA_JUDGE, max_new_tokens=VICUNA_JUDGE_MAX_NEW_TOKENS)
 
     reviews_filepath = os.path.join('reports', 'vicuna', 'reviews.json')
