@@ -76,7 +76,7 @@ def evaluate_model_on_gsm8k(output_path):
         if len(model_answer_matches) == 0:
             return False
         model_answer_processed = float(model_answer_matches[-1][0].replace(',', ''))
-        correct_answer_processed = float(correct_answer.split('\n')[-1].split('####')[1].strip())
+        correct_answer_processed = float(correct_answer.split('\n')[-1].split('####')[1].replace(',', '').strip())
         return abs(model_answer_processed - correct_answer_processed) < 1e-8
 
     evaluator = evaluate_model_on_dataset(
@@ -115,12 +115,28 @@ def combine_evaluators(evaluators):
 
     yield scores
 
+def find_multiple_choice_answer(*, model_answer, options):
+    regex_to_try = [
+        r'\([' + options + r']\)', # "The answer is (A)."
+        r' [' + options + r']\)', # "The answer is A)."
+        r' [' + options + r']$', # "The answer is A"
+        r' [' + options + r'][^a-zA-Z]', # "The answer is A."
+        r'[^a-zA-Z][' + options + r']$', # "The answer is:A"
+        r'[^a-zA-Z][' + options + r'][^a-zA-Z]', # "The answer is:A."
+    ]
+
+    for regex in regex_to_try:
+        model_answer_matches = re.findall(regex, model_answer)
+        if len(model_answer_matches) != 0:
+            return re.sub('[^' + options + ']', '', model_answer_matches[-1])
+
+    return None
+
 def evaluate_model_on_bbh(output_path):
     def is_correct(model_answer, correct_answer):
-        model_answer_matches = re.findall(r'\([ABCDEFGHIJKLMNOPQRSTUVWXYZ]\)', model_answer)
-        if len(model_answer_matches) == 0:
-            return False
-        return model_answer_matches[-1] == correct_answer
+        model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+        correct_answer = correct_answer.replace('(', '').replace(')', '')
+        return model_answer == correct_answer
 
     tasks = [
         'date_understanding',
@@ -177,10 +193,8 @@ def evaluate_model_on_mmlu(output_path):
         return columns['question'] + '\n\n' + '\n'.join(['(' + name + ') ' + columns['choices'][index] for index, name in enumerate(['A', 'B', 'C', 'D'])])
 
     def is_correct(model_answer, correct_answer):
-        model_answer_matches = re.findall(r'\([ABCD]\)', model_answer)
-        if len(model_answer_matches) == 0:
-            return False
-        return model_answer_matches[-1] == '(' + ['A', 'B', 'C', 'D'][correct_answer] + ')'
+        model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCD')
+        return model_answer == ['A', 'B', 'C', 'D'][correct_answer]
 
     evaluators = combine_evaluators([evaluate_model_on_dataset(
         name='mmlu/' + task,
