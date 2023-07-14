@@ -2,7 +2,7 @@ import transformers
 
 import evaluation.models.models
 import evaluation.models.huggingface_backends.hf_transformers
-import evaluation.models.huggingface_backends.vllm
+import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
 from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
@@ -82,7 +82,7 @@ class Huggingface:
         }
 
         if self.backend == 'vllm':
-            response = evaluation.models.huggingface_backends.vllm.run_inference(**common_kwargs)
+            response = evaluation.models.huggingface_backends.vllm_backend.run_inference(**common_kwargs)
         elif self.backend == 'tgi':
             response = evaluation.models.huggingface_backends.tgi.run_inference(**common_kwargs)
         elif self.backend == 'hf_transformers':
