@@ -7,7 +7,7 @@ import tqdm
 
 import evaluation.models.fastchat
 import evaluation.models.huggingface_backends.hf_transformers
-import evaluation.models.huggingface_backends.vllm
+import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
 from evaluation.models.open_ai import OpenAI
 from evaluation.models.fastchat import Fastchat
@@ -116,7 +116,7 @@ def compute_model_replies(model, conversations):
 def switch_gpu_model_type(new_model_type):
     unload_model_functions = {
         'hf_transformers': evaluation.models.huggingface_backends.hf_transformers.unload_model,
-        'vllm': evaluation.models.huggingface_backends.vllm.unload_model,
+        'vllm': evaluation.models.huggingface_backends.vllm_backend.unload_model,
         'fastchat': evaluation.models.fastchat.unload_model,
         'tgi': evaluation.models.huggingface_backends.tgi.unload_model,
     }
