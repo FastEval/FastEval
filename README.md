@@ -108,11 +108,11 @@ cd text-generation-inference
 # This is to avoid package conflicts.
 python3.10 -m venv .venv
 source .venv/bin/activate
+pip install ninja
 
 BUILD_EXTENSIONS=True make install
 
 cd server
-# This will take a long time
 make install-flash-attention
 # Installs *a part* of vLLM used in text-generation-inference.
 # This is not the full vLLM that we already installed.
