@@ -94,9 +94,9 @@ By default, ilm-eval tries to use [vLLM](https://github.com/vllm-project/vllm) t
 While vLLM is part of the `requirements.txt` and therefore already installed if you followed the above installation instructions, installing text-generation-inference is more complex. If all the models you need are supported in vLLM, then you don't need to follow these instructions. If some model (e.g. Falcon, StarCoder) is not supported in vLLM, then it's probably worth setting up text-generation-inference:
 
 ```bash
-# Install `rust-all`, `protobuf-compiler`, `libssl-dev`, `gcc` and `pkg-config`.
+# Install `rust-all`, `protobuf-compiler`, `libssl-dev`, `gcc` and `pkg-config`, `g++`, `make`.
 # The following code assumes an ubuntu system.
-apt install rust-all protobuf-compiler libssl-dev gcc pkg-config
+apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make
 
 # Install `text-generation-inference`
 # Run this code inside the `ilm-eval` folder
