@@ -9,8 +9,8 @@ from evaluation.utils import replace_model_name_slashes
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS
 
-GSM8K_LIMIT = 100
-BBH_LIMIT_PER_TASK = 20
+GSM8K_LIMIT = 500
+BBH_LIMIT_PER_TASK = 30
 MMLU_LIMIT_PER_TASK = 10
 
 def create_conversation(answer_format, question):
