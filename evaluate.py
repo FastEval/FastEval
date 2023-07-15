@@ -53,16 +53,16 @@ def main():
         with open('reports/__index__.json') as f:
             models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.models, args.benchmarks)
 
-    evaluation_functions = {
-        'human-eval-plus': benchmarks.human_eval_plus.evaluate_model,
-        'cot': benchmarks.cot.evaluate_model,
-        'openai-evals': benchmarks.openai_evals.evaluate_model,
-        'mt-bench': benchmarks.mt_bench.evaluate_model,
-    }
+    evaluation_functions = [
+        ('human-eval-plus', benchmarks.human_eval_plus.evaluate_model),
+        ('cot', benchmarks.cot.evaluate_model),
+        ('openai-evals', benchmarks.openai_evals.evaluate_model),
+        ('mt-bench', benchmarks.mt_bench.evaluate_model),
+    ]
 
     with changed_exit_handlers():
         for item in models_and_benchmarks:
-            for benchmark_name, evaluation_function in evaluation_functions.items():
+            for benchmark_name, evaluation_function in evaluation_functions:
                 if benchmark_name in item['benchmarks']:
                     evaluation_function(item['model_type'], item['model_name'])
             unload_model()
