@@ -54,7 +54,7 @@ def evaluate_model(model_type, model_name):
     model = create_model(model_type, model_name)
 
     dataset = get_human_eval_plus()
-    task_ids = dataset.keys()
+    task_ids = list(dataset.keys()) * 3
     prompts = [dataset[task_id]['prompt'] for task_id in task_ids]
     raw_replies = compute_model_replies(model, [{
         'conversation': create_conversation(prompt),
