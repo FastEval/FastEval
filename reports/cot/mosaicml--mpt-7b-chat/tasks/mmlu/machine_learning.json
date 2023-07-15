@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Statement 1| Linear regression estimator has the smallest variance among all unbiased estimators. Statement 2| The coefficients \u03b1 assigned to the classifiers assembled by AdaBoost are always non-negative.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": ": Sure, let's break down each statement and examine the reasoning behind them. Statement 1 suggests that in the case of unbiased estimators, the linear regression estimator will have the smallest variance. This is because linear regression assumes a linear relationship between the input features and the output variable. This means that it is relatively easy to approximate the true function f(X) using linear regression, resulting in a small variance. On the other hand, non-linear functions will require a larger sample size to accurately approximate f(X). Statement 2 is True for AdaBoost since the coefficients \u03b1 assigned to the decision tree classifier are non-negative by definition. Negative coefficients would not represent a classification (since negative values indicate that the classifier should reject the example), and therefore would not be included in AdaBoost's treatment. Putting it all together, the answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Statement 1| RoBERTa pretrains on a corpus that is approximate 10x larger than the corpus BERT pretrained on. Statement 2| ResNeXts in 2018 usually used tanh activation functions.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 2,
+            "model_answer": ": Statement 1 implies that the corpus used for RoBERTa pretraining is approximately 10 times larger than the corpus used for BERT pretraining. This is because RoBERTa pretrains on a corpus that is \"approximate 10x larger than the corpus BERT pretrained on\" (statement 1). \nStatement 2 states that ResNeXts usually use the \"tanh\" activation function in 2018. However, ResNeXts do not use the tanh activation function in all cases. The 2018 paper \"Xception: Deep Learning for Computer Vision\" uses the ReLU activation function in ResNeXts. Therefore, statement 2 cannot be true. \nCombining these two statements, we can conclude that the answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Statement 1| Support vector machines, like logistic regression models, give a probability distribution over the possible labels given an input example. Statement 2| We would expect the support vectors to remain the same in general as we move from a linear kernel to higher order polynomial kernels.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": ": Thank you for your question. Here\u2019s my reasoning for answering (A):\n\nStatement 1 implies that SVMs produce a probability distribution over the possible labels given an input example. This suggests that like logistic regression models, SVMs are able to make predictions about the likelihood of a particular label for a given example.\n\nStatement 2 relates to the effect of changing the kernel function on the support vectors of an SVM. The support vectors are the examples closest to the decision boundary, and they play a key role in determining the efficacy of an SVM. The statement suggests that in general, the support vectors are expected to remain the same as the order of the polynomial kernel function increases. This is because higher-order polynomial kernels can approximate the decision boundary better than linear kernels, so it\u2019s reasonable to expect that the support vectors will also remain relatively unchanged.\n\nBased on this reasoning, I conclude that the answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "A machine learning problem involves four attributes plus a class. The attributes have 3, 2, 2, and 2 possible values each. The class has 3 possible values. How many maximum possible different examples are there?\n\n(A) 12\n(B) 24\n(C) 48\n(D) 72",
+            "correct_answer": 3,
+            "model_answer": ": \nTo answer this question, we need to understand the concept of examples in a machine learning problem. In machine learning, we use examples to train a model, which we can then use to make predictions on new, unseen data. \nThe number of possible examples is equal to the number of possible combinations that can be made from the number of attributes and the possible values for each attribute. \nIn this case, we have four attributes with 3, 2, 2, and 2 possible values each, and a class with 3 possible values. Therefore, the number of possible examples is:\n3^4 * 2^4 * 2^4 * 2^4 = 36 * 16 * 16 * 16 = 6816 \nSo the correct answer is (D) 72.",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": "As of 2020, which architecture is best for classifying high-resolution images?\n\n(A) convolutional networks\n(B) graph networks\n(C) fully connected networks\n(D) RBF networks",
+            "correct_answer": 0,
+            "model_answer": ": \n\nConvolutional networks have been found to be the most effective for classifying high-resolution images as of 2020. This is due to the fact that they are designed to extract features from images, which are then used to classify the images. The key advantage of convolutional networks is their ability to compress the spatial information of the image into feature maps, thus reducing the computational complexity of the network. This allows for faster and more efficient processing of high-resolution images. Additionally, convolutional networks have been shown to outperform other types of neural networks, such as fully connected networks and radial basis function networks, when it comes to image classification tasks. Therefore, convolutional networks are currently the best option for classifying high-resolution images as of 2020.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Statement 1| The log-likelihood of the data will always increase through successive iterations of the expectation maximation algorithm. Statement 2| One disadvantage of Q-learning is that it can only be used when the learner has prior knowledge of how its actions affect its environment.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": ":Thank you for the question!  I'll do my best to explain.  This question involves understanding the nature of two different machine learning algorithms, called \"expectation maximization\" and \"Q-learning\".  Let me first describe these algorithms:  \n\nExpectation maximization is a generic algorithm for maximizing a probability distribution, which can be useful in various contexts such as parameter estimation or data modeling.  Q-learning is a specific algorithm for machine learning in the area of reinforcement learning, where the goal is to learn how to take actions in an environment in order to maximize a reward.  Reinforcement learning algorithms such as Q-learning can be useful in many real-world applications such as games or robotics.  \n\nNow, to answer the question.  Both statements are true.  Statement 1 states that the log-likelihood of the data will always increase through successive iterations of the expectation maximation algorithm.  This is indeed true, as the expectation maximation algorithm works by iteratively adjusting the parameters of a model in order to better fit the data, and as a result the likelihood or probability of the data given the model parameters will always increase with each iteration.  \n\nStatement 2 says that one disadvantage of Q-learning is that it can only be used when the learner has prior knowledge of how its actions affect its environment.  This is also true, as the Q-learning algorithm relies on the learner having some prior knowledge of the environment and the relationship between the learner's actions and the environment's responses.  If the learner has no such prior knowledge, then Q-learning cannot be used.  That being said, there are other reinforcement learning algorithms that do not require prior knowledge of the environment and can be used in more general cases, such as Delta-learning or SARSA.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Let us say that we have computed the gradient of our cost function and stored it in a vector g. What is the cost of one gradient descent update given the gradient?\n\n(A) O(D)\n(B) O(N)\n(C) O(ND)\n(D) O(ND^2)",
+            "correct_answer": 0,
+            "model_answer": ": Sure! In gradient descent, we are trying to minimize the cost function by adjusting the parameters of our model in the direction of the negative gradient. This means that we need to evaluate the cost function and the gradient at each iteration. The cost of one gradient descent update is determined by the number of evaluations of the cost function and the gradient that are required. \nFor example, if we have a dataset with N samples and a model with D parameters, then the cost of one gradient descent update would be O(ND). This is because we need to evaluate the cost function and the gradient for each sample in the dataset, and for each parameter in the model.\n(B) O(N) would be incorrect, since we only need to evaluate the cost function and the gradient once for the entire dataset, not once for each sample.\n(C) O(ND) would also be incorrect, since we only need to evaluate the cost function and the gradient once for the entire dataset, not once for each sample and once for each parameter.\n(D) O(ND^2) would be correct, since we would need to evaluate the cost function and the gradient separately for each sample and each parameter, resulting in a total of ND evaluations.",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "Statement 1| For a continuous random variable x and its probability distribution function p(x), it holds that 0 \u2264 p(x) \u2264 1 for all x. Statement 2| Decision tree is learned by minimizing information gain.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": ": Sure, I can help you with that! Let\u2019s stare at the question a bit and try to break it down. Statement 1 tells us that for a continuous random variable \u201cx\u201d, its probability distribution function \u201cp(x)\u201d must lie between 0 and 1 for every value of \u201cx\u201d. Statement 2 informs us that \u201cDecision tree\u201d is learned by minimizing information gain. \nLet\u2019s take a moment to see if we can form any testable hypotheses from these statements. Statement 1 suggests that \u201cp(x)\u201d is some function of \u201cx\u201d that determines the probability of \u201cx\u201d taking some particular value. Since \u201c0 \u2264 p(x) \u2264 1\u201d for all \u201cx\u201d, this means that \u201cp(x)\u201d can only take on values of 0, 1, 1/2, or 1/2 at any given point on the \u201cx\u201d axis. Statement 2 suggests that Information Gain is a measure of how much information we gain from one particular attribute when splitting our data on that attribute. Since information gain decreases as the impurity of the attribute increases, we would expect that splitting on the most important attribute for our task will result in the lowest information gain. \nNow, given these hypotheses, which answer do we pick? Well, we can start by testing statement 1 by looking at each possible value of \u201c0\u201d, \u201c1\u201d, \u201c1/2\u201d, and \u201c1/2\u201d. For each one, we can see whether 0 \u2264 p(x) \u2264 1 for all \u201cx\u201d, and if so, we can conclude that statement 1 is true. For statement 2, we can test our hypothesis about the importance of Information Gain by analyzing various decision trees and comparing their performance based on information gain. For example, we can examine decision trees that split on different attributes and see which one does best according to information gain. We can also try perfecting our own decision tree by tweaking the Information Gain criteria and see how that affects the end result. \nAfter",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": ": To determine the number of independent parameters needed for this Bayesian Network, we need to look at the number of directed edges between each node. In this case, there are three possible directed edges: H -> U, U <- P, and P <- W. Therefore, we have three independent parameters needed for this Bayesian Network. (The answer is 3.)",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "As the number of training examples goes to infinity, your model trained on that data will have:\n\n(A) Lower variance\n(B) Higher variance\n(C) Same variance\n(D) None of the above",
+            "correct_answer": 0,
+            "model_answer": ": To answer this question, we need to understand what the concept of variance refers to in the context of machine learning. Variance is a measure of how spread out the values of a particular variable are in a dataset. In other words, variance measures how much the data varies around the mean.\n\nTherefore, if the number of training examples goes to infinity, it is likely that the variance of the model trained on that data will decrease. This is because if there are more training examples available, the model will be able to better learn the patterns and relationships within the data, resulting in a lower variance.\n\nHowever, it is important to note that variance is not always a desirable property in machine learning models. Generally speaking, lower variance is often preferred as it indicates the model is more stable and less prone to overfitting to the training data. However, in some cases higher variance may be desirable if it leads to better generalization performance on unseen data.\n\nIn conclusion, the answer is B.",
+            "correct": false
+        }
+    ]
+}

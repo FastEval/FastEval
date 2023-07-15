@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Let k be the number of real solutions of the equation e^x + x - 2 = 0 in the interval [0, 1], and let n be the number of real solutions that are not in [0, 1]. Which of the following is true?\n\n(A) k = 0 and n = 1\n(B) k = 1 and n = 0\n(C) k = n = 1\n(D) k > 1",
+            "correct_answer": 1,
+            "model_answer": ": Thank you for the question. This is a classic problem in complex analysis, and there are many different ways to approach it. We can use the fact that the equation is symmetric about the x-axis, which means that the number of solutions on the left of the x-axis is equal to the number of solutions on the right of the x-axis. This allows us to restrict our attention to the interval $[0,1]$ by symmetry. \n\nThe equation is also symmetric about the y-axis, which means that the number of solutions above the x-axis is equal to the number of solutions below the x-axis. This allows us to restrict our attention to the real part of the solutions by symmetry. \n\nWe are looking for real solutions, which means that the solutions belong to the real axis. Since the solutions are complex numbers, we must have k=0 and n=1. Therefore, the answer is (A).",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Up to isomorphism, how many additive abelian groups G of order 16 have the property that x + x + x + x = 0 for each x in G ?\n\n(A) 0\n(B) 1\n(C) 2\n(D) 3",
+            "correct_answer": 3,
+            "model_answer": ": Thank you for your question.\nLet G be an additive abelian group of order 16. Then G must have 16 elements. We want to show that there exists x in G such that x + x + x + x = 0. We can start by considering the group of integers modulo 16, which we can represent additively. We can observe that any element of the form a + b + c + d with a, b, c, d \u2260 0 in Z/16 has the form 4k + 1 for some k \u2208 Z/4Z. In particular, for each k we have a, b, c, d \u2260 0 with (a, b, c, d) = (k + 1, k + 2, k + 3, k + 4) (mod 4). Therefore, we have x = a + b + c + d for some a, b, c, d \u2260 0 in Z/16 with (a, b, c, d) = (k + 1, k + 2, k + 3, k + 4) (mod 4) for some k \u2208 Z/4Z. We can observe that if k = 0, then our choice of x satisfies the desired condition. We can check that if k = 1, then we can choose a = 5, b = 6, c = 7, d = 8 to satisfy x + x + x + x = (20 + 20) = 0. If k = 2, then we can choose a = 3, b = 4, c = 5, d = 6 to satisfy x + x + x + x = (10 + 20) = 0. If k = 3, then we can choose a",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Suppose P is the set of polynomials with coefficients in Z_5 and degree less than or equal to 7. If the operator D sends p(x) in P to its derivative p\u2032(x), what are the dimensions of the null space n and range r of D?\n\n(A) n = 1 and r = 6\n(B) n = 1 and r = 7\n(C) n = 2 and r = 5\n(D) n = 2 and r = 6",
+            "correct_answer": 3,
+            "model_answer": ":\nFirst, let's find the kernel and image of D. The kernel of D is the set of all polynomials that do not change when we differentiate, i.e. p(x) = x^7 + ax^6 + bx^5 + cx^4 + dx^3 + e x^2 + fx + g. D(p(x)) = d dx (7x^6 + 6ax^5 + 5bx^4 + 4cx^3 + 3 dx^2 + 2 e x + f) = 0, since the derivative of each term ccd (x^6 + ax^5 + bx^4 + cx^3 + dx^2 + e x + f) is 0 for all ccd (x^7 + ax^6 + bx^5 + cx^4 + dx^3 + e x^2 + fx + g). Therefore, kernel of D = {0}. \nThe image of D is {p(0) | p(x) in P}, which is {0, 1, -1, -1, -1, 0, -1, -1}. \nNow, let's calculate the dimensions of the null space and range of D:\nNull space of D = dim(ker(D)) = 1\nRange of D = dim(im(D)) = 6 - dim(ker(D)) = 6 \nTherefore, the answer is ((D) = 7).",
+            "correct": true
+        },
+        {
+            "id": 3,
+            "question": "The shortest distance from the curve xy = 8 to the origin is\n\n(A) 4\n(B) 8\n(C) 16\n(D) 2sqrt(2)",
+            "correct_answer": 0,
+            "model_answer": "To find the shortest distance from the point (x,y) to the origin (0,0), we can use the distance formula:\n\ndistance = sqrt[(x\u00b2 + y\u00b2 ) / 2]\n\nSubstituting the given point (8,0) and the origin (0,0) in the formula, we get:\n\ndistance = sqrt[(8\u00b2 + 0\u00b2 ) / 2]\n\ndistance = sqrt[92 / 2]\n\ndistance = sqrt[46]\n\nUsing a calculator, the square root of 46 is approximately 7.09, so we substitute this value in the distance formula:\n\ndistance = 7.09\n\nTherefore, the answer is (E) 7.09.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "There are 25 suitcases, 5 of which are damaged. Three suitcases are selected at random. What is the probability that exactly 2 are damaged?\n\n(A) 2/69\n(B) 1/30\n(C) 2/23\n(D) 12/125",
+            "correct_answer": 2,
+            "model_answer": ": Thank you for your question. We can solve this problem by applying the formula for the hypergeometric distribution, which is a generalization of the geometric distribution when there are more than two trials. \nThe hypergeometric distribution is defined by the following formula:\n\nP(X=k) = (C * p^k * q^(n-k)) / (N * p^n)\n\nwhere:\n- X is the random variable representing the number of successful trials out of n\n- k is the number of successful trials desired\n- p is the probability of success in a single trial\n- q is the probability of failure in a single trial\n- C is the cumulative distribution function of the geometric distribution with parameter p\n- n is the total number of trials\n- p = 1/25 (the probability of a suitcase being undamaged)\n- q = 1 - p (the probability of a suitcase being damaged)\n- n = 3 (the total number of suitcases being considered)\nWe want to find the probability that exactly 2 of the 3 suitcases are damaged, which we can express as:\n\nP(X=2) = P(X=2|X=2) * P(X=2) + P(X=2|X=2) * P(X=1) * P(X=1)\n     = 3! * 1/4 * 1/4\n     = 1/8\n\nTherefore the answer is (B): 1/8.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Let (Z_{10} , +, x) be the ring of integers modulo 10, and let S be the subset of Z_{10} represented by {0, 2, 4, 6, 8}. Which of the following statements is FALSE?\n\n(A) (S, +, x) is closed under addition modulo 10.\n(B) (S, +, x) is closed under multiplication modulo 10.\n(C) (S, +, x) has an identity under addition modulo 10.\n(D) (S, +, x) has no identity under multiplication modulo 10.",
+            "correct_answer": 3,
+            "model_answer": ": \n\nTo determine if statement (A) is FALSE, we must first define what it means for a set S to be closed under addition modulo 10. It means that for any two elements a, b in S, when we add their values modulo 10, the result is also in S. Similarly, to determine if statement (B) is FALSE, we must define what it means for a set S to be closed under multiplication modulo 10. It means that for any two elements a, b in S, when we multiply their values modulo 10, the result is also in S.\n\nSince S contains the integers 0, 2, 4, 6, 8, we can see that S is closed under addition modulo 10, as any sum of these integers will also be in S (for example, 0 + 2 = 2, 0 + 4 = 4, 0 + 6 = 6, etc.). Similarly, S is closed under multiplication modulo 10, as any product of these integers will also be in S (for example, 0 x 2 = 0, 4 x 6 = 24, 4 x 8 = 32, etc.).\n\nTherefore, statements (A) and (B) are both TRUE. Statement (C) is also TRUE, as any integer is the identity element for addition modulo 10. Statement (D) is FALSE, as the set S contains the identity element 0, which is not a zero for addition modulo 10.\n\nThe final answer is: \n**F**(**).",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "A ladder 9 meters in length is leaning against a vertical wall on level ground. As the bottom end of the ladder is moved away from the wall at a constant rate of 2 meters per second, the top end slides downward along the wall. How fast, in meters per second, will the top end of the ladder be sliding downward at the moment the top end is 3 meters above the ground?\n\n(A) 12*sqrt(2)\n(B) 6*sqrt(2)\n(C) 4*sqrt(2)\n(D) 1/(2*sqrt(2))",
+            "correct_answer": 2,
+            "model_answer": ": Alright, let\u2019s break this down step-by-step. First, we need to find the velocity of the bottom end of the ladder as it moves away from the wall. Since it moves at a constant rate of 2 meters per second and the ladder is 9 meters long, the velocity of the bottom end is 2 meters per second.\nNext, we need to find the velocity of the top end of the ladder as it slides downward along the wall. We know that the top end slides downward at a constant rate of 2 meters per second along the wall, which causes it to lose 2 meters in height every second. Since the bottom end is 3 meters above the ground at this moment, the top end is therefore 3-2 = 1 meter above the ground. Since the height of the ladder is constant, the velocity of the top end of the ladder is simply the same as the velocity of the bottom end of the ladder, which is 2 meters per second.\nFinally, we can plug these values into the formula v = u + at, where v is the velocity of the top end of the ladder, u is the initial velocity of the bottom end, a is the acceleration of the bottom end, and t is the time elapsed since the bottom end started moving. In this case, v = 2*2 = 4 meters per second. Therefore, the answer is (A) 4.",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "Consider a segment of length 10. Points A and B are chosen randomly such that A and B divide the segment into three smaller segments. What is the probability that the three smaller segments could form the sides of a triangle?\n\n(A) 0\n(B) 10%\n(C) 25%\n(D) 50%",
+            "correct_answer": 2,
+            "model_answer": ": Given that there are three possible choices for the point B, and each of those choices can result in one of two possible outcomes (the other two points), there are 2 choices for B and 2 outcomes for each B, for a total of 2*2 = 4 possible cases. Given that there are 3 possible choices for the first point A, there are also 3*3 = 9 possible choices for each of the other two points. \nThe segments AB and AC can be of any length, and the segment BE can be of any length as well. Therefore, the total number of possible cases is the sum of the number of possible cases for each term of the equation (2*2+9*9), which equals 36. \nTherefore, there are only 3 cases where the three smaller segments could form the sides of a triangle, and the probability of those cases is 36%, so the answer is (D) 50%.",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Let V be a finite-dimensional real vector space and let P be a linear transformation of V such that P^2 = P. Which of the following must be true?\nI. P is invertible.\nII. P is diagonalizable.\nIII. P is either the identity transformation or the zero transformation.\n\n(A) None\n(B) I only\n(C) II only\n(D) III only",
+            "correct_answer": 2,
+            "model_answer": ": Before answering this question, we first need to define what a linear transformation and diagonalizable mean. A linear transformation of a vector space V is a function that maps each vector of V to a new vector of V in a way that preserves the vector space structure. In other words, if u and v are two vectors of V , then p(u + v) = p(u) + p(v) for all p in P. A linear transformation P of V is called diagonalizable if there exists a basis of V such that P can be written in the form P = P_1 U P_2 where P_1 and P_2 are linear transformations of V , U is an invertible matrix, and P_1 and P_2 have the same range in V .\nNow, let\u2019s apply these definitions to the given problem. From the statement of the problem, we know that P^2 = P, which means P is a linear transformation of V . From the definitions of linear transformation and diagonalizable, we know that P cannot be invertible (I) or diagonalizable (II) since these properties require the range of P to be all of V , and since P can\u2019t be the zero transformation (III), we know that the range of P is not all of V . Therefore, the only possible answer is (B) I only.",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Which of the following is true?\n\n(A) Every compact space is complete\n(B) Every complete space is compact\n(C) Neither (a) nor (b).\n(D)  Both (a) and (b).",
+            "correct_answer": 0,
+            "model_answer": ": This question involves some technical definitions and results from the study of commutative algebra.  In this context, a compact space is a topological space that has a \"compact open subset\" (which is an open set that can be covered by a finite number of compact sets), while a complete space is a topological space that has a \"faithful continuous function\" (which is a map that \"attains each point of the domain at least once\").  It is well-known that a compact space is complete, and a complete space is compact, and the statement of the question asserts that the converse also holds.  That is, every complete space is compact.  \n\nNow, here is one way to prove this statement using results from commutative algebra.  Let K be a field (which is a \"non-trivial\" ring, meaning it has at least one element other than 0), and let X = Spec(K) be the \"spectrum\" of K (meaning X is a topological space that represents the \"quiver\" of K, where a quiver is a kind of \"directed graph\" that can be used to represent \"maps\" between elements of a ring).  Then X is a compact space (because it can be covered by a finite number of compact open subsets, namely the \"orthogonal complements\" of each \"dense subset\" of Spec(K)), and it is a complete space (because every point of X admits a \"local equation\" in K, which is an \"equation\" of the form a \u03bb x + b \u00b5 y = 0 that holds at that point if and only if either \u03b1 a = 0 or \u03b2 b = 0, where \u03bb, \u00b5 are certain elements of K, and a, b are constants).  Therefore, X is a compact complete space, and the statement of the question follows by looking at",
+            "correct": false
+        }
+    ]
+}

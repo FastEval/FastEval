@@ -1,0 +1,3483 @@
+{
+    "aba_mrpc_true_false.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "aba_mrpc_true_false.dev.v0",
+            "base_eval": "aba_mrpc_true_false",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "aba_mrpc_true_false/samples.jsonl"
+                    },
+                    "key": "aba_mrpc_true_false.dev.v0",
+                    "group": "aba-mrpc-true-false"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003003HMUCFAVP",
+            "created_at": "2023-07-15 00:30:03.131202"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "algebra-word-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "algebra-word-problems.s1.simple-v0",
+            "base_eval": "algebra-word-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "algebra_word_problems/samples.jsonl"
+                    },
+                    "key": "algebra-word-problems.s1.simple-v0",
+                    "group": "algebra-word-problems"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150031117RAL23MN",
+            "created_at": "2023-07-15 00:31:11.669178"
+        },
+        "final_report": {
+            "accuracy": 0.16666666666666666
+        }
+    },
+    "anagrams.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "anagrams.test.v1",
+            "base_eval": "anagrams",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "anagrams/fewshot.jsonl",
+                        "num_few_shot": 5,
+                        "samples_jsonl": "anagrams/samples.jsonl"
+                    },
+                    "key": "anagrams.test.v1",
+                    "group": "anagrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003113RCT2ZMYF",
+            "created_at": "2023-07-15 00:31:13.487383"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "balance-chemical-equation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "balance-chemical-equation.dev.v0",
+            "base_eval": "balance-chemical-equation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "balance_chemical_equation/samples.jsonl"
+                    },
+                    "key": "balance-chemical-equation.dev.v0",
+                    "group": "balance-chemical-equation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003118SB75TQ2H",
+            "created_at": "2023-07-15 00:31:18.901609"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003127GQJONTBC",
+            "created_at": "2023-07-15 00:31:27.197115"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "belarusian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "belarusian-lexicon.dev.v0",
+            "base_eval": "belarusian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "belarusian_lexicon/samples.jsonl"
+                    },
+                    "key": "belarusian-lexicon.dev.v0",
+                    "group": "belarusian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003132TGX6LC7Z",
+            "created_at": "2023-07-15 00:31:32.544416"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "bigrams.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "bigrams.dev.v0",
+            "base_eval": "bigrams",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bigrams/samples.jsonl"
+                    },
+                    "key": "bigrams.dev.v0",
+                    "group": "bigrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003137IR7XQPTE",
+            "created_at": "2023-07-15 00:31:37.134074"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "bitwise.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "bitwise.dev.v0",
+            "base_eval": "bitwise",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bitwise/samples.jsonl"
+                    },
+                    "key": "bitwise.dev.v0",
+                    "group": "bitwise"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003142GIAZUUSB",
+            "created_at": "2023-07-15 00:31:42.207475"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "born-first.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "born-first.dev.v0",
+            "base_eval": "born-first",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "born_first/born_first.jsonl"
+                    },
+                    "key": "born-first.dev.v0",
+                    "group": "born-first"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003148ULIGRGUR",
+            "created_at": "2023-07-15 00:31:48.193346"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "brazilian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "brazilian-lexicon.dev.v0",
+            "base_eval": "brazilian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "brazilian-lexicon/samples.jsonl"
+                    },
+                    "key": "brazilian-lexicon.dev.v0",
+                    "group": "brazilian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003156VG7WD4I4",
+            "created_at": "2023-07-15 00:31:56.827947"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "bulgarian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "bulgarian-lexicon.dev.v0",
+            "base_eval": "bulgarian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bulgarian-lexicon/samples.jsonl"
+                    },
+                    "key": "bulgarian-lexicon.dev.v0",
+                    "group": "bulgarian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003201GNWIVFUM",
+            "created_at": "2023-07-15 00:32:01.599087"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "chess-piece-count.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "chess-piece-count.s1.simple-v0",
+            "base_eval": "chess-piece-count",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess_piece_count/fuzzy_match.jsonl"
+                    },
+                    "key": "chess-piece-count.s1.simple-v0",
+                    "group": "chess-piece-count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003207ZXIR76YZ",
+            "created_at": "2023-07-15 00:32:07.950637"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "f1_score": 0.0
+        }
+    },
+    "chess.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "chess.match.dev.v0",
+            "base_eval": "chess",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess/match.jsonl"
+                    },
+                    "key": "chess.match.dev.v0",
+                    "group": "chess"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003214FZ6OJRBS",
+            "created_at": "2023-07-15 00:32:14.172684"
+        },
+        "final_report": {
+            "accuracy": 0.25,
+            "f1_score": 0.05
+        }
+    },
+    "compare-countries-area.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "compare-countries-area.dev.v0",
+            "base_eval": "compare-countries-area",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "compare-countries-area/samples.jsonl"
+                    },
+                    "key": "compare-countries-area.dev.v0",
+                    "group": "compare-countries-area"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003219BXNRIZKP",
+            "created_at": "2023-07-15 00:32:19.797440"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "connect4.s1.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "connect4.s1.v1",
+            "base_eval": "connect4",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "connect4/samples.jsonl"
+                    },
+                    "key": "connect4.s1.v1",
+                    "group": "connect-4"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003224FP25YOQ2",
+            "created_at": "2023-07-15 00:32:24.734439"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "convert-hex-hsl-lightness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "convert-hex-hsl-lightness.dev.v0",
+            "base_eval": "convert-hex-hsl-lightness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "convert-hex-hsl-lightness/samples.jsonl"
+                    },
+                    "key": "convert-hex-hsl-lightness.dev.v0",
+                    "group": "convert-hex-hsl-lightness"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003336ZYAB277R",
+            "created_at": "2023-07-15 00:33:36.244641"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "coqa-match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "coqa/match.jsonl"
+                    },
+                    "key": "coqa-match.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150033433GSG3RFZ",
+            "created_at": "2023-07-15 00:33:43.074083"
+        },
+        "final_report": {
+            "accuracy": 0.8
+        }
+    },
+    "coqa-closedqa-correct.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-correct.dev.v0",
+            "base_eval": "coqa-closedqa-correct",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "correctness: Is the answer correct?"
+                        }
+                    },
+                    "key": "coqa-closedqa-correct.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003347XV6GR6KH",
+            "created_at": "2023-07-15 00:33:47.916746"
+        },
+        "final_report": {
+            "counts/Y": 6,
+            "counts/N": 3,
+            "score": 0.6666666666666666
+        }
+    },
+    "coqa-closedqa-relevance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-relevance.dev.v0",
+            "base_eval": "coqa-closedqa-relevance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "relevance: Is the submission referring to a real quote from the text?"
+                        }
+                    },
+                    "key": "coqa-closedqa-relevance.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150033594HJPTXUF",
+            "created_at": "2023-07-15 00:33:59.906765"
+        },
+        "final_report": {
+            "counts/N": 1,
+            "counts/Y": 8,
+            "score": 0.8888888888888888
+        }
+    },
+    "coqa-closedqa-conciseness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
+                    },
+                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071500341335XBXZVH",
+            "created_at": "2023-07-15 00:34:13.735908"
+        },
+        "final_report": {
+            "counts/Y": 7,
+            "counts/N": 2,
+            "score": 0.7777777777777778
+        }
+    },
+    "crepe.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "crepe.dev.v2",
+            "base_eval": "crepe",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "crepe/samples.jsonl"
+                    },
+                    "key": "crepe.dev.v2",
+                    "group": "crepe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003425XNAMR7PH",
+            "created_at": "2023-07-15 00:34:25.141153"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "cube-pack.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "cube-pack.dev.v0",
+            "base_eval": "cube-pack",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "cube-pack/samples.jsonl"
+                    },
+                    "key": "cube-pack.dev.v0",
+                    "group": "cube-pack"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003437QLA6DLRB",
+            "created_at": "2023-07-15 00:34:37.866616"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "determinant.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "determinant.test.v1",
+            "base_eval": "determinant",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "determinant/samples.jsonl"
+                    },
+                    "key": "determinant.test.v1",
+                    "group": "determinant"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003443GZQJTK7M",
+            "created_at": "2023-07-15 00:34:43.315695"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "diagrammatic_logic.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "diagrammatic_logic.dev.v2",
+            "base_eval": "diagrammatic_logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "diagrammatic_logic/samples.jsonl"
+                    },
+                    "key": "diagrammatic_logic.dev.v2",
+                    "group": "diagrammatic_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003453Z6TCR5FU",
+            "created_at": "2023-07-15 00:34:53.524042"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "dice-rotation-sequence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "dice-rotation-sequence.dev.v0",
+            "base_eval": "dice-rotation-sequence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dice-rotation-sequence/samples.jsonl"
+                    },
+                    "key": "dice-rotation-sequence.dev.v0",
+                    "group": "dice-rotation-sequence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003501NTODQMY3",
+            "created_at": "2023-07-15 00:35:01.856992"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "dutch-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "dutch-lexicon.dev.v0",
+            "base_eval": "dutch-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dutch-lexicon/samples.jsonl"
+                    },
+                    "key": "dutch-lexicon.dev.v0",
+                    "group": "dutch-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003509MVVX2FI6",
+            "created_at": "2023-07-15 00:35:09.852812"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "emoji-riddle.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "emoji-riddle.s1.simple-v0",
+            "base_eval": "emoji-riddle",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "emoji_riddle/fuzzy_match.jsonl"
+                    },
+                    "key": "emoji-riddle.s1.simple-v0",
+                    "group": "emoji-riddle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003514D3ONRDZ3",
+            "created_at": "2023-07-15 00:35:14.524807"
+        },
+        "final_report": {
+            "accuracy": 0.3,
+            "f1_score": 0.30333333333333334
+        }
+    },
+    "emotional-intelligence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "emotional-intelligence.dev.v0",
+            "base_eval": "emotional-intelligence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "emotional-intelligence/samples.jsonl"
+                    },
+                    "key": "emotional-intelligence.dev.v0",
+                    "group": "emotional-intelligence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003520P4PS3NCG",
+            "created_at": "2023-07-15 00:35:20.280986"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "escher-sentences.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "escher-sentences.dev.v0",
+            "base_eval": "escher-sentences",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "escher_sentences/samples.jsonl"
+                    },
+                    "key": "escher-sentences.dev.v0",
+                    "group": "escher-sentences"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003527ZIXPFDFI",
+            "created_at": "2023-07-15 00:35:27.064473"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "fcc_amateur_extra.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "fcc_amateur_extra.dev.v0",
+            "base_eval": "fcc_amateur_extra",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "fcc_amateur_extra/samples.jsonl"
+                    },
+                    "key": "fcc_amateur_extra.dev.v0",
+                    "group": "fcc_amateur_extra"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003542LDJBGNAZ",
+            "created_at": "2023-07-15 00:35:42.891825"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "first-letters.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "first-letters.dev.v0",
+            "base_eval": "first-letters",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "first-letters/samples.jsonl"
+                    },
+                    "key": "first-letters.dev.v0",
+                    "group": "first-letters"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003550IFR4HMYZ",
+            "created_at": "2023-07-15 00:35:50.736598"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "formal-logic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "formal-logic.dev.v0",
+            "base_eval": "formal-logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "formal_logic/formal_logic_expressions.jsonl"
+                    },
+                    "key": "formal-logic.dev.v0",
+                    "group": "formal_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003555ORDNRR4U",
+            "created_at": "2023-07-15 00:35:55.707313"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "forth-stack-sim.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "forth-stack-sim.dev.v0",
+            "base_eval": "forth-stack-sim",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
+                    },
+                    "key": "forth-stack-sim.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150036025YLKCIEV",
+            "created_at": "2023-07-15 00:36:02.190350"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "forth-stack-sim-basic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "forth-stack-sim-basic.dev.v0",
+            "base_eval": "forth-stack-sim-basic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/basic_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-basic.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003608HX3433UT",
+            "created_at": "2023-07-15 00:36:08.174509"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "forth-stack-sim-detailed.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "forth-stack-sim-detailed.dev.v0",
+            "base_eval": "forth-stack-sim-detailed",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/detailed_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-detailed.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150036144W74JXIG",
+            "created_at": "2023-07-15 00:36:14.518206"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "greek-vocabulary.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "greek-vocabulary.dev.v0",
+            "base_eval": "greek-vocabulary",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "greek_vocabulary/samples.jsonl"
+                    },
+                    "key": "greek-vocabulary.dev.v0",
+                    "group": "greek-vocabulary"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003624765USKH2",
+            "created_at": "2023-07-15 00:36:24.240636"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "heart-disease.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "heart-disease.v0",
+            "base_eval": "heart-disease",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "heart-disease/samples.jsonl"
+                    },
+                    "key": "heart-disease.v0",
+                    "group": "heart-disease"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150036297UTUUWL4",
+            "created_at": "2023-07-15 00:36:29.173443"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "hebrew-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "hebrew-rhyme.v0",
+            "base_eval": "hebrew-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "hebrew_rhyme/samples.jsonl"
+                    },
+                    "key": "hebrew-rhyme.v0",
+                    "group": "hebrew-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003634EXOU6HPU",
+            "created_at": "2023-07-15 00:36:34.947774"
+        },
+        "final_report": {
+            "accuracy": 0.3,
+            "f1_score": 0.325
+        }
+    },
+    "hindi_upsc.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "hindi_upsc.dev.v0",
+            "base_eval": "hindi_upsc",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "hindi_upsc/samples.jsonl"
+                    },
+                    "key": "hindi_upsc.dev.v0",
+                    "group": "hindi_upsc"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003641TLSJT4LE",
+            "created_at": "2023-07-15 00:36:41.671429"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "imperial_date_to_string.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "imperial_date_to_string.dev.v0",
+            "base_eval": "imperial_date_to_string",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "imperial_date_to_string/samples.jsonl"
+                    },
+                    "key": "imperial_date_to_string.dev.v0",
+                    "group": "imperial_date_to_string"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003743TOLN5KS5",
+            "created_at": "2023-07-15 00:37:43.667332"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "infiniteloop-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "infiniteloop-match.s1.simple-v0",
+            "base_eval": "infiniteloop-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "infiniteloop-match/infiniteloop-match.jsonl"
+                    },
+                    "key": "infiniteloop-match.s1.simple-v0",
+                    "group": "infiniteloop-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003749JXHRGEWD",
+            "created_at": "2023-07-15 00:37:49.726017"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "invoices.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "invoices.dev.v0",
+            "base_eval": "invoices",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "invoices/match.jsonl"
+                    },
+                    "key": "invoices.dev.v0",
+                    "group": "invoices"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003755J7ELD5TJ",
+            "created_at": "2023-07-15 00:37:55.022422"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "japanese-national-medical-exam01.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "japanese-national-medical-exam01.dev.v0",
+            "base_eval": "japanese-national-medical-exam01",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese-national-medical-exam01/japanese-national-medical-exam01.jsonl"
+                    },
+                    "key": "japanese-national-medical-exam01.dev.v0",
+                    "group": "japanese-national-medical-exam01"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003813W75WODUV",
+            "created_at": "2023-07-15 00:38:13.955119"
+        },
+        "final_report": {
+            "accuracy": 0.06666666666666667
+        }
+    },
+    "japanese_driving_license.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "japanese_driving_license.s1.simple-v0",
+            "base_eval": "japanese_driving_license",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese_driving_license/samples.jsonl"
+                    },
+                    "key": "japanese_driving_license.s1.simple-v0",
+                    "group": "japanese_driving_license"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003820HEZ5NLDK",
+            "created_at": "2023-07-15 00:38:20.643152"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "job_listing_title_for_a_caregiver_in_japan.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+            "base_eval": "job_listing_title_for_a_caregiver_in_japan",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "job_listing_title_for_a_caregiver_in_japan/samples.jsonl"
+                    },
+                    "key": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+                    "group": "job_listing_title_for_a_caregiver_in_japan"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003826EKO53TPK",
+            "created_at": "2023-07-15 00:38:26.134264"
+        },
+        "final_report": {
+            "accuracy": 0.26666666666666666
+        }
+    },
+    "knot-theory-unknotting-problem.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "knot-theory-unknotting-problem.dev.v0",
+            "base_eval": "knot-theory-unknotting-problem",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-problem.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150038525U3MAXD6",
+            "created_at": "2023-07-15 00:38:52.466544"
+        },
+        "final_report": {
+            "accuracy": 0.4444444444444444
+        }
+    },
+    "knot-theory-unknotting-number.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "knot-theory-unknotting-number.dev.v0",
+            "base_eval": "knot-theory-unknotting-number",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-numbers.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-number.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071500385726FG3EAJ",
+            "created_at": "2023-07-15 00:38:57.191280"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003931H5HDHXEK",
+            "created_at": "2023-07-15 00:39:31.325087"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "last-word-nth.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "last-word-nth.s1.simple-v0",
+            "base_eval": "last-word-nth",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "last_word_nth/samples.jsonl"
+                    },
+                    "key": "last-word-nth.s1.simple-v0",
+                    "group": "last-word-nth"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715003956HM3YBNEP",
+            "created_at": "2023-07-15 00:39:56.237486"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "lat_long_identify.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "lat_long_identify.dev.v0",
+            "base_eval": "lat_long_identify",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "lat_long_identify/samples.jsonl"
+                    },
+                    "key": "lat_long_identify.dev.v0",
+                    "group": "lat_long_identify"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004023KQL5XJQA",
+            "created_at": "2023-07-15 00:40:23.164896"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "logic-statements.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "logic-statements.dev.v0",
+            "base_eval": "logic-statements",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "logic-statements/logic-statements.jsonl"
+                    },
+                    "key": "logic-statements.dev.v0",
+                    "group": "logic-statements"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004029XM4YLGFA",
+            "created_at": "2023-07-15 00:40:29.455693"
+        },
+        "final_report": {
+            "accuracy": 0.05,
+            "f1_score": 0.05
+        }
+    },
+    "logiqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "logiqa.dev.v0",
+            "base_eval": "logiqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "logiqa/logiqa.jsonl"
+                    },
+                    "key": "logiqa.dev.v0",
+                    "group": "logiqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004048RQLUIXWM",
+            "created_at": "2023-07-15 00:40:48.763096"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "map-electronic-component-part-to-fact.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "map-electronic-component-part-to-fact.dev.v0",
+            "base_eval": "map-electronic-component-part-to-fact",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "map-electronic-component-part-to-fact/samples.jsonl"
+                    },
+                    "key": "map-electronic-component-part-to-fact.dev.v0",
+                    "group": "map-electronic-component-part-to-fact"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004105LBIWKQRQ",
+            "created_at": "2023-07-15 00:41:05.958303"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "medmcqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "medmcqa.dev.v0",
+            "base_eval": "medmcqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "medmcqa/samples.jsonl"
+                    },
+                    "key": "medmcqa.dev.v0",
+                    "group": "medmcqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004110KXUBHLYJ",
+            "created_at": "2023-07-15 00:41:10.990602"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "mendelian_inheritance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "mendelian_inheritance.dev.v0",
+            "base_eval": "mendelian_inheritance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "mendelian_inheritance/samples.jsonl"
+                    },
+                    "key": "mendelian_inheritance.dev.v0",
+                    "group": "mendelian_inheritance"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004116B4TC3PUT",
+            "created_at": "2023-07-15 00:41:16.883057"
+        },
+        "final_report": {
+            "accuracy": 0.0625
+        }
+    },
+    "moral_exceptQA.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "moral_exceptQA.test.v1",
+            "base_eval": "moral_exceptQA",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "moral_exceptQA/samples.jsonl"
+                    },
+                    "key": "moral_exceptQA.test.v1",
+                    "group": "moral_exceptQA"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004125R5DLPSPM",
+            "created_at": "2023-07-15 00:41:25.122333"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "multi-step-equations.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "multi-step-equations.dev.v0",
+            "base_eval": "multi-step-equations",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "multi-step-equations/samples.jsonl"
+                    },
+                    "key": "multi-step-equations.dev.v0",
+                    "group": "multi-step-equations"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004130D7QVGCMF",
+            "created_at": "2023-07-15 00:41:30.735249"
+        },
+        "final_report": {
+            "accuracy": 0.13333333333333333
+        }
+    },
+    "naughty_strings_fuzzy.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "naughty_strings_fuzzy.test.v1",
+            "base_eval": "naughty_strings_fuzzy",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/samples.jsonl"
+                    },
+                    "key": "naughty_strings_fuzzy.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150041357PIAP7OQ",
+            "created_at": "2023-07-15 00:41:35.003730"
+        },
+        "final_report": {
+            "accuracy": 0.75,
+            "f1_score": 0.7015384615384616
+        }
+    },
+    "naughty_strings_graded.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "naughty_strings_graded.test.v1",
+            "base_eval": "naughty_strings_graded",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/security.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "security"
+                    },
+                    "key": "naughty_strings_graded.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150041447IJLMD56",
+            "created_at": "2023-07-15 00:41:44.221785"
+        },
+        "final_report": {
+            "counts/Unsure": 8,
+            "counts/No": 4,
+            "counts/__invalid__": 1,
+            "counts/Yes": 7,
+            "score": 0.55
+        }
+    },
+    "number-pattern.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "number-pattern.dev.v0",
+            "base_eval": "number-pattern",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_pattern/samples.jsonl"
+                    },
+                    "key": "number-pattern.dev.v0",
+                    "group": "number-pattern"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004150XLM53GYS",
+            "created_at": "2023-07-15 00:41:50.455092"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "number-reading.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "number-reading.dev.v0",
+            "base_eval": "number-reading",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_reading/number_reading.jsonl"
+                    },
+                    "key": "number-reading.dev.v0",
+                    "group": "number-reading"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004156SQ2OGYKZ",
+            "created_at": "2023-07-15 00:41:56.142678"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "partially_solved_crossword_clues.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "partially_solved_crossword_clues.dev.v0",
+            "base_eval": "partially_solved_crossword_clues",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "partially_solved_crossword_clues/samples.jsonl"
+                    },
+                    "key": "partially_solved_crossword_clues.dev.v0",
+                    "group": "partially_solved_crossword_clues"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004201VVYDYO45",
+            "created_at": "2023-07-15 00:42:01.054033"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "pattern_identification.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "pattern_identification.dev.v0",
+            "base_eval": "pattern_identification",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "pattern_identification/samples.v0.jsonl"
+                    },
+                    "key": "pattern_identification.dev.v0",
+                    "group": "pattern_identification"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004206C5UCNDG3",
+            "created_at": "2023-07-15 00:42:06.002717"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "ph-calculation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "ph-calculation.dev.v0",
+            "base_eval": "ph-calculation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "ph_calculation/samples.jsonl"
+                    },
+                    "key": "ph-calculation.dev.v0",
+                    "group": "ph_calculation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004243EGNAXSCA",
+            "created_at": "2023-07-15 00:42:43.192666"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "f1_score": 0.0
+        }
+    },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150042484S2VA4O2",
+            "created_at": "2023-07-15 00:42:48.884181"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "regex.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "regex.match.dev.v0",
+            "base_eval": "regex",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "regex-match/samples.jsonl"
+                    },
+                    "key": "regex.match.dev.v0",
+                    "group": "regex-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004256C6HG5W6M",
+            "created_at": "2023-07-15 00:42:56.765473"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "rucola.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "rucola.test.v0",
+            "base_eval": "rucola",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "rucola/samples.jsonl",
+                        "few_shot_jsonl": "rucola/few_shot.jsonl",
+                        "num_few_shot": 4
+                    },
+                    "key": "rucola.test.v0",
+                    "group": "rucola"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004301GXFSJVW2",
+            "created_at": "2023-07-15 00:43:01.678154"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "russe.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "russe.test.v0",
+            "base_eval": "russe",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russe/samples.jsonl",
+                        "few_shot_jsonl": "russe/few_shot.jsonl",
+                        "num_few_shot": 2
+                    },
+                    "key": "russe.test.v0",
+                    "group": "russe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004307NQJBWGYO",
+            "created_at": "2023-07-15 00:43:07.986674"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "russian-nlp-tasks.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "russian-nlp-tasks.dev.v0",
+            "base_eval": "russian-nlp-tasks",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian-nlp-tasks/samples.jsonl"
+                    },
+                    "key": "russian-nlp-tasks.dev.v0",
+                    "group": "russian-nlp-tasks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004314NQFJAQIG",
+            "created_at": "2023-07-15 00:43:14.549282"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "russian-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "russian-rhyme.v0",
+            "base_eval": "russian-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "russian-rhyme/samples.jsonl"
+                    },
+                    "key": "russian-rhyme.v0",
+                    "group": "russian-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004322XIEUHK6F",
+            "created_at": "2023-07-15 00:43:22.412785"
+        },
+        "final_report": {
+            "accuracy": 0.23529411764705882,
+            "f1_score": 0.292436974789916
+        }
+    },
+    "russian_medical.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "russian_medical.dev.v0",
+            "base_eval": "russian_medical",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian_medical/samples.jsonl"
+                    },
+                    "key": "russian_medical.dev.v0",
+                    "group": "russian_medical"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004328I3YGQSIM",
+            "created_at": "2023-07-15 00:43:28.102342"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "sarcasm.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "sarcasm.test.v1",
+            "base_eval": "sarcasm",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sarcasm/samples.jsonl",
+                        "few_shot_jsonl": "sarcasm/few_shot.jsonl",
+                        "num_few_shot": 5
+                    },
+                    "key": "sarcasm.test.v1",
+                    "group": "sarcasm"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004329UJHBNUTV",
+            "created_at": "2023-07-15 00:43:29.635289"
+        },
+        "final_report": {
+            "accuracy": 0.8
+        }
+    },
+    "simple-knowledge-mongolian.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "simple-knowledge-mongolian.dev.v0",
+            "base_eval": "simple-knowledge-mongolian",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "simple-knowledge-mongolian/samples.v0.jsonl"
+                    },
+                    "key": "simple-knowledge-mongolian.dev.v0",
+                    "group": "simple-knowledge-mongolian"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150043355J47H3SU",
+            "created_at": "2023-07-15 00:43:35.762293"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "sort-numbers.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "sort-numbers.s1.simple-v0",
+            "base_eval": "sort-numbers",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sort_numeric/samples.jsonl"
+                    },
+                    "key": "sort-numbers.s1.simple-v0",
+                    "group": "sort-numeric"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004340PHKBYNB2",
+            "created_at": "2023-07-15 00:43:40.863398"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "stock-options-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "stock-options-bear-call-spread.dev.v0",
+            "base_eval": "stock-options-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_options_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-options-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004346DLFSD4HS",
+            "created_at": "2023-07-15 00:43:46.862173"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150043517NJJU4FG",
+            "created_at": "2023-07-15 00:43:51.097192"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004354NYM3KJCR",
+            "created_at": "2023-07-15 00:43:54.396759"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004356Z3MXSKKL",
+            "created_at": "2023-07-15 00:43:56.758975"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004402QWC57PAO",
+            "created_at": "2023-07-15 00:44:02.359285"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004408LZRTE6E5",
+            "created_at": "2023-07-15 00:44:08.147690"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "swedish-spelling.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "swedish-spelling.dev.v0",
+            "base_eval": "swedish-spelling",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "swedish-spelling/samples.jsonl"
+                    },
+                    "key": "swedish-spelling.dev.v0",
+                    "group": "swedish-spelling"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004413P6UGAH4Z",
+            "created_at": "2023-07-15 00:44:13.813261"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "taxes.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "taxes.dev.v0",
+            "base_eval": "taxes",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "taxes/samples.jsonl"
+                    },
+                    "key": "taxes.dev.v0",
+                    "group": "taxes"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004418RQXCDI6N",
+            "created_at": "2023-07-15 00:44:18.616516"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "tempo_to_measure_count.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "tempo_to_measure_count.dev.v0",
+            "base_eval": "tempo_to_measure_count",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "tempo_to_measure_count/samples.jsonl"
+                    },
+                    "key": "tempo_to_measure_count.dev.v0",
+                    "group": "tempo_to_measure_count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004424AATRVNHN",
+            "created_at": "2023-07-15 00:44:24.817695"
+        },
+        "final_report": {
+            "accuracy": 0.05,
+            "f1_score": 0.0
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_match/samples.jsonl"
+                    },
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004430VOE4PZCJ",
+            "created_at": "2023-07-15 00:44:30.551055"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "test-fuzzy-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "test-fuzzy-match.s1.simple-v0",
+            "base_eval": "test-fuzzy-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-fuzzy-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150044315AYIBA3D",
+            "created_at": "2023-07-15 00:44:31.786231"
+        },
+        "final_report": {
+            "accuracy": 1.0,
+            "f1_score": 0.6952380952380953
+        }
+    },
+    "test-includes.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004434JTO2SPX7",
+            "created_at": "2023-07-15 00:44:34.072480"
+        },
+        "final_report": {
+            "accuracy": 0.6666666666666666
+        }
+    },
+    "test-includes-ignore-case.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "test-includes-ignore-case.s1.simple-v0",
+            "base_eval": "test-includes-ignore-case",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl",
+                        "ignore_case": true
+                    },
+                    "key": "test-includes-ignore-case.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004436HN5DY2WM",
+            "created_at": "2023-07-15 00:44:36.268357"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004438SJLHMQDI",
+            "created_at": "2023-07-15 00:44:38.510541"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004444KYQEYJJD",
+            "created_at": "2023-07-15 00:44:44.620839"
+        },
+        "final_report": {
+            "counts/No": 5,
+            "counts/Yes": 4,
+            "score": 0.4444444444444444
+        }
+    },
+    "rap-people-vs-fruits.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150046012FA6DX3A",
+            "created_at": "2023-07-15 00:46:01.811346"
+        },
+        "final_report": {
+            "counts/Yes": 6,
+            "counts/__invalid__": 1,
+            "counts/No": 2,
+            "score": 0.6666666666666666
+        }
+    },
+    "mg-humor-people_jp.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
+                    },
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004725URMLKFHF",
+            "created_at": "2023-07-15 00:47:25.780136"
+        },
+        "final_report": {
+            "counts/4": 1,
+            "counts/__invalid__": 3,
+            "counts/3": 4,
+            "counts/1": 7,
+            "counts/2": 5,
+            "score": 1.8
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004826CH62CHHR",
+            "created_at": "2023-07-15 00:48:26.048631"
+        },
+        "final_report": {
+            "counts/No": 5,
+            "counts/Yes": 5,
+            "score": 0.5
+        }
+    },
+    "three-pt-mapping.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "three-pt-mapping.dev.v0",
+            "base_eval": "three-pt-mapping",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "three-pt-mapping/three_pt_mapping.jsonl"
+                    },
+                    "key": "three-pt-mapping.dev.v0",
+                    "group": "three-pt-mapping"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004848CNIIFDHP",
+            "created_at": "2023-07-15 00:48:48.103186"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "ukraine-eit.val.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "ukraine-eit.val.v0",
+            "base_eval": "ukraine-eit",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "ukraine_eit/samples.jsonl"
+                    },
+                    "key": "ukraine-eit.val.v0",
+                    "group": "ukraine-eit"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004853D4VGN3QQ",
+            "created_at": "2023-07-15 00:48:53.780768"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "us-tort-law.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "us-tort-law.dev.v0",
+            "base_eval": "us-tort-law",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "us_tort_law/few_shot.jsonl",
+                        "num_few_shot": 4,
+                        "samples_jsonl": "us_tort_law/samples.jsonl"
+                    },
+                    "key": "us-tort-law.dev.v0",
+                    "group": "us-tort-law"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004908PQKV7PWB",
+            "created_at": "2023-07-15 00:49:08.213331"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "utility_price_parsing.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "utility_price_parsing.dev.v0",
+            "base_eval": "utility_price_parsing",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "utility_price_parsing/samples.jsonl"
+                    },
+                    "key": "utility_price_parsing.dev.v0",
+                    "group": "utility_price_parsing"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307150049247HOS4LZQ",
+            "created_at": "2023-07-15 00:49:24.779218"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "which-is-heavier.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "fastchat:lmsys/vicuna-33b-v1.3"
+            ],
+            "eval_name": "which-is-heavier.dev.v0",
+            "base_eval": "which-is-heavier",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "fastchat:lmsys/vicuna-33b-v1.3"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "which_is_heavier/which_is_heavier.jsonl"
+                    },
+                    "key": "which-is-heavier.dev.v0",
+                    "group": "which-is-heavier"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -e -m fastchat:lmsys/vicuna-33b-v1.3",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715004950ZLEBERXI",
+            "created_at": "2023-07-15 00:49:50.601792"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    }
+}

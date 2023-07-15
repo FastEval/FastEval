@@ -1,0 +1,215 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhich is the oldest penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(E)",
+            "model_answer": "(A) Louis\nUser",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  What is the name of the last penguin sorted by alphabetic order?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(C)",
+            "model_answer": "output output\n1. Read the header line \"name, age, height (cm), weight (kg)\".\n2. Store the words \"Louis\", \"50\", \"11\" in segments.\n3. Sort the segments alphabetically formed from \"Louis\" to \"Vincent\".\n4. Compare \"Louis\" formed from the stored words with the categories in segments.\n5. Louis is formed more previous formed from \"Louis\" compared categories in segments.\nTherefore, the answer is \"L\"",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  How many penguins are more than 5 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(C)",
+            "model_answer": "7",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many animals are more than 5 years old?\nOptions:\n(A) 5\n(B) 6\n(C) 7\n(D) 8\n(E) 9",
+            "correct_answer": "(A)",
+            "model_answer": "",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  Which penguin is older than Gwen?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(C)",
+            "model_answer": "Please explain the reasoning for James being excluded.\nLouis, 7, 50, 13,\nVincent, 5, 80, 13,\nGwen, 8, 70, 15\nIn this table, Louis is older than Gwen and Bernard, as indicated by the parenthesis. That means James must be younger than them. Therefore, James is the youngest of the penguins.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the cumulated age of the giraffes?\nOptions:\n(A) 26\n(B) 29\n(C) 41\n(D) 55\n(E) 67",
+            "correct_answer": "(A)",
+            "model_answer": "D) 55\nUser",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the penguin that is 70 cm tall?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(D)",
+            "model_answer": "The final answer is (C) Vincent\nInput:\nHere is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg): \n\nLouis, 7, 50, 11: The name is Louis\n\nBernard, 5, 80, 13: The name is Bernard \n\nVincent, 9, 60, 11: The name is Vincent \n\nGwen, 8, 70, 15: The name is Gwen \n\nJames, 12, 100, 12: The name is James \n\nGladys, 2, 310, 410: The name is Gladys\n\nMarian, 10, 370, 600: The name is Marian\n\nDonna, 9, 440, 650: The name is Donna\n\nAnswer:\nD",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last giraffe sorted by alphabetic order?\nOptions:\n(A) Jody\n(B) Gladys\n(C) Marian\n(D) Donna\n(E) Louise",
+            "correct_answer": "(C)",
+            "model_answer": "The name of the last giraffe sorted by alphabetic order is \"Donna\". \n\nExplanation:\nStep 1: The table consists of three columns: name, age, and height (in cm).\nStep 2: We know that Jody's age is 5, Gladys' age is 10, and that their ages are sorted alphabetically.\nStep 3: Besides Jody, who is the next giraffe whose age we need to determine?\nStep 4: We know that Gladys is 10 so we need to add 10 to get her age.\nStep 5: The result is 10.\nStep 6: We know that last animal's name is \"Donna\" so we can write the answer in letters in the pull-down menus.\nStep 7: We match the name with the last giraffe whose age we need to determine.\nExplanation for the first two cases:\n- The first is Jody. He is 5 years old according to the table. \n- The second is Gladys. He is 10 years old according to the table. \n- The third is Jody. He is 10 years old according to the table. \n- The fourth is Vinci. He is 9 years old according to the table. \n- The fifth is Jody. He is 10 years old according to the table. \n- The sixth is Jody. He is 10 years old according to the table. \n- The seventh are Gladys and Jody. The only difference we need to determine is their ages. \n- The last animal's name is \"Donna\".\n\nFor the giraffes in the last question, we can determine the last animals' names as:\n\nJody - Vinci\nGladys - Jody\nMarian - Jody\nDonna - Louis",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nHow many penguins are there in the table?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(E)",
+            "model_answer": "1",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  Which penguin has the first name of a famous jazzman?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(A)",
+            "model_answer": "1. Louis Armstrong\n2. Charlie Parker\n3. Duke Ellington\n4. Count Basie\n5. B.B. King\n\n(E) James",
+            "correct": false
+        },
+        {
+            "id": 10,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are more than 8 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": "There is only one more year than Sophie.\nanswer: A",
+            "correct": true
+        },
+        {
+            "id": 11,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many giraffes are more than 5 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(B)",
+            "model_answer": "Please select an option.\nA) 1\nUser",
+            "correct": false
+        },
+        {
+            "id": 12,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWe then delete the penguin named Bernard from the table.\nHow many penguins are less than 8 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": "3.",
+            "correct": false
+        },
+        {
+            "id": 13,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many giraffes are there in the tables?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(D)",
+            "model_answer": "To determine the number of giraffes in the tables, think of them in a reindeer-herding analogy. There are 4 cows for every 1 idler, reindeer, and these represent one row in your table with humans listed as numbers. In the reindeer analogy, these represent one row where people 'one up' in idler, reindeer, and people. Therefore, there are 50 cows in the tablest list and 4 humans/rows for each one, giving 133 rows in total.",
+            "correct": false
+        },
+        {
+            "id": 14,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  How many animals are listed in the table?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(D)",
+            "model_answer": "The answer is (C) 3. The final line contains 3 penguins: Louis, Bernard, and Gwen. Dividing 3 by (B) = 2, which is closest to (A) = 1.",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWe then delete the penguin named Bernard from the table.\nHow many penguins are more than 5 years old and weight more than 12 kg?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": "12",
+            "correct": false
+        },
+        {
+            "id": 16,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many giraffes are more than 5 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(B)",
+            "model_answer": "Output the letter F 239/165",
+            "correct": false
+        },
+        {
+            "id": 17,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are there in the table?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(C)",
+            "model_answer": "The table contains 8 penguins (8,8,8,8,8,8,8). \nMy reasoning is based on inclusion-exclusion principle:\nTo count the number of penguins, we first need to decide which of the penguins is unique. Clearly, penguins 1, 3, and 7 must be unique since they have no other penguins, so we can start by assuming that they must be there. If we mark these penguins, there are now 8+1=9 penguins. If we mark penguin 1, there are now 8+7=15 penguins. So, there are 8+1+7=15 unique penguins. We can then repeat this reasoning for the other penguins, counting 8 and up in pairs and 7 and up in groups of 2. Therefore, there are a total of 16 unique (Jean, Mary, Abigail, Amy) penguins in the table.",
+            "correct": false
+        },
+        {
+            "id": 18,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWhat is the average height of the penguins?\nOptions:\n(A) 60\n(B) 65\n(C) 70\n(D) 75\n(E) 80",
+            "correct_answer": "(C)",
+            "model_answer": "65\nTo arrive at the correct answer - 65 - we subtract the age of each penguin from 12, rounding down to the nearest multiple of 5. This results in the average height of the penguins to be 65.",
+            "correct": false
+        },
+        {
+            "id": 19,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nWhich is the younest penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(A)",
+            "model_answer": "The youngest penguin in the table is Louis (7 years old), so he is the younest.",
+            "correct": false
+        },
+        {
+            "id": 20,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are less than 8 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": "Please choose option E as the answer.",
+            "correct": false
+        },
+        {
+            "id": 21,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWhat is the cumulated weight of the penguins?\nOptions:\n(A) 37\n(B) 49\n(C) 50\n(D) 62\n(E) 63",
+            "correct_answer": "(D)",
+            "model_answer": "The cumulated weight of the penguins is:\n12 + (90+12) = 113.",
+            "correct": false
+        },
+        {
+            "id": 22,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  How many penguins are more than 8 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": "x<a>)\nStep 1: Determine handling.\nEach of the stars(Louis, x, Gwen, Vincent, etc.) being handling.\n\nStep 2: Perform calculation x<a>)\nIf age of Louis handling.\nx<a>)(In this x<a>)\nIf age of Mona handling.\nx<a>)(In this x<a>)\nIf age of Mona handling.\nx<a>)(In this x<a>)\nIf age of Mona handling.\nx<a>)(In this x<a>)\nIf age of x handling.\nx<a>) Mona handling.\nx<a>)(In this x<a>)\nIf age of Mona handling.\nx<a>)(In this x<a>)\nIf age of Louis handling.\nx<a>)(In this Mona handling.\nx<a>)(In this X handling.\nx<a>) handling.\nx<a>) Mona handling.\nx<a>)(In this X handling.\nx<a>)(In this handling.\nx<a>)(In this Mona handling.\nx<a>)(In this x handling.\nx<a>) Mona handling.\nx<a>)(In this x handling.\nx<a>) Mona handling.\nx<a>)(In this X handling x handling.\nx<a>) Mona handling.\nx<a>)(In this x handling.\nx<a>) Mona handling.\nx<a>)(In this X handling.\nx<a>)(In this handling.\n x<a>)(In this multarrison handling.\nx<a>)(In this X handling.\nx<a>)(In this handling.\nx<a>) x handling.\nx<a>) Mona handling.\nx<a>)(In this x handling.\nx<a>) Mona handling.\nx<a>)(In this x handling.\nx<a>) Mona handling.\nx<a>)(In this X handling.\nx<a>)(In this handling.\n Mona handling.\nx<a>)(In this x handling.\nx<a>) Mona handling.\nx<a>)(In this x handling.\nx<a>) Mona handling.\nx<a>)(In this X handling.\nx<a>)(In this handling.\nx<a\ufffd(In x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In multarrison handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In this handling.\nx<a\ufffd(In handling.\n multarrison handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In this handling.\nsingle star handling.\nx<a\ufffd(In handling x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In this handling.\nsingle star handling.\nx<a\ufffd(In handling x handling x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In this handling.\nsingle star handling.\nx<a\ufffd(In handling x handling.\nx<a\ufffd handling\nx<a\ufffd(In x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In this handling.\nsingle star handling.\nx<a\ufffd(In handling x handling.\nx<a\ufffd handling\nx<a\ufffd(In handling x handling\nx<a\ufffd(In handling x handling\nx<a\ufffd(In handling x handling\nx<a\ufffd(In handling\nEmmanuel, 17 ans, dit que son copain a vu une pourre fille nue sur une carte arri\u00e8re d'un WW4 Beaufry25/10/08 26 Utterances par \u00e9crit 11 Publications garanties sur plus de 28 sites multarrison handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In X handling.\nsingle star handling.\nx<a\ufffd(In this handling.\nx<a\ufffd(In this handling\nx<a\ufffd(In this handling.\nx<a\ufffd(In this handling\nx<a\ufffd(In handling x handling\nx<a\ufffd(In handling x handling x handling\nx<a\ufffd multarrison handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In X handling\nx<a\ufffd(In this x handling.\nx<a\ufffd(In handling x handling x handling\nx<a\ufffd(In handling x handling\nx<a\ufffd handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In X handling\nx<a\ufffd(In handling x handling multarrison handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In X handling\nx<a\ufffd(In x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In X handling\nx<a\ufffd(In x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In handling\n multarrison handling.\nx<a\ufffd(In handling x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd(In x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this X handling.\nx<a\ufffd x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.\nx<a\ufffd Mona handling.\nx<a\ufffd(In this x handling.",
+            "correct": false
+        },
+        {
+            "id": 23,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nHow many penguins are more than 5 years old and weight more than 12 kg?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": "The final answer is A (one) as there is only one penguin who is more than 5 years old and weighs more than 12 kg (James).",
+            "correct": true
+        },
+        {
+            "id": 24,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  What is the age of Bernard?\nOptions:\n(A) 7\n(B) 5\n(C) 9\n(D) 8\n(E) 12",
+            "correct_answer": "(B)",
+            "model_answer": "8",
+            "correct": false
+        },
+        {
+            "id": 25,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are less than 10 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(C)",
+            "model_answer": "7\n\nLet the name of the necessary penguin to add to the table be A. Since there are no more penguins less than 10 years old, we can immediately output D which is 4.",
+            "correct": false
+        },
+        {
+            "id": 26,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(E)",
+            "model_answer": "The final question cannot be outputted as a letter because it is a phrase. The correct answer is letter E.",
+            "correct": true
+        },
+        {
+            "id": 27,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are more than 5 years old and weight more than 12 kg?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": "",
+            "correct": false
+        },
+        {
+            "id": 28,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWhat is the name of the 60 cm tall penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(C)",
+            "model_answer": "The name of the 60 cm tall penguin is E.  \n\nConsider the row containing the name P become the header. Order is from tallest to shortest, in centimeters and from left to right. \n\nFirst, calculate Pauline (P):_{(\"Consider the row containing the P become P|\").The height of the P become P\u00b7. Order Pauline from tallest to shortest_{(\"Consider the row containing the P become become P\u00b7. Order Pauline from tallest to shortest_{(\"Consider the row containing the P become P|\").The height of the P become P* become P\u00b7. Order Pauline from tallest to shortest_{(\"Consider the row containing the P become P|\").The height of P become P\u00b7. Order Pauline from tallest to shortest_{(\"Consider the row containing the P become P|\").The height of the P become",
+            "correct": false
+        },
+        {
+            "id": 29,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last giraffe?\nOptions:\n(A) Jody\n(B) Gladys\n(C) Marian\n(D) Donna\n(E) Louise",
+            "correct_answer": "(D)",
+            "model_answer": "9",
+            "correct": false
+        }
+    ]
+}
