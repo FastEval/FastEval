@@ -54,8 +54,8 @@ def main():
             models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.models, args.benchmarks)
 
     evaluation_functions = {
-        'cot': benchmarks.cot.evaluate_model,
         'human-eval-plus': benchmarks.human_eval_plus.evaluate_model,
+        'cot': benchmarks.cot.evaluate_model,
         'openai-evals': benchmarks.openai_evals.evaluate_model,
         'mt-bench': benchmarks.mt_bench.evaluate_model,
     }
