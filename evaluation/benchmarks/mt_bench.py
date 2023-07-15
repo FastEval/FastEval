@@ -4,7 +4,7 @@ import re
 import ast
 import statistics
 
-from evaluation.utils import replace_model_name_slashes
+from evaluation.utils import replace_model_name_slashes, process_with_thread_pool
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import MT_BENCH_JUDGE_MAX_NEW_TOKENS, MT_BENCH_JUDGE
 
@@ -20,6 +20,22 @@ def get_temperature(category):
         'humanities': 0.1,
     })[category]
 
+def generate_single_conversation_assistant_replies(model_and_question):
+    model, question = model_and_question
+
+    first_turn_conversation = [('user', question['turns'][0])]
+    first_turn_reply = model.reply(first_turn_conversation, temperature=question['temperature'])
+
+    second_turn_conversation = [
+        ('user', question['turns'][0]),
+        ('assistant', first_turn_reply),
+        ('user', question['turns'][1]),
+    ]
+
+    second_turn_reply = model.reply(second_turn_conversation, temperature=question['temperature'])
+
+    return [first_turn_reply, second_turn_reply]
+
 def generate_assistant_replies(model_type, model_name):
     answers_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), 'answers.json')
     if os.path.exists(answers_filepath):
@@ -33,29 +49,15 @@ def generate_assistant_replies(model_type, model_name):
     for question in questions.values():
         question['temperature'] = get_temperature(question['category'])
 
-    questions_items = questions.items()
+    questions_items = list(questions.items())
 
-    first_turn_conversations = [{
-        'conversation': [('user', question['turns'][0])],
-        'temperature': question['temperature'],
-    } for _question_id, question in questions_items]
+    model_replies = process_with_thread_pool(
+        num_threads=model.num_threads,
+        items=[(model, question) for question_id, question in questions_items],
+        process_function=generate_single_conversation_assistant_replies,
+    )
 
-    first_turn_replies = compute_model_replies(model, first_turn_conversations)
-    first_turn_replies = { question_id: first_turn_replies[i] for i, (question_id, _question) in enumerate(questions_items) }
-
-    second_turn_conversations = [{
-        'conversation': [
-            ('user', question['turns'][0]),
-            ('assistant', first_turn_replies[question_id]),
-            ('user', question['turns'][1]),
-        ],
-        'temperature': question['temperature'],
-    } for question_id, question in questions_items]
-
-    second_turn_replies = compute_model_replies(model, second_turn_conversations)
-    second_turn_replies = { question_id: second_turn_replies[i] for i, (question_id, _question) in enumerate(questions_items) }
-
-    all_replies = { question_id: [first_turn_replies[question_id], second_turn_replies[question_id]] for question_id in questions.keys() }
+    all_replies = { question_id: model_replies[i] for i, (question_id, question) in enumerate(questions_items) }
 
     os.makedirs(os.path.dirname(answers_filepath), exist_ok=True)
     with open(answers_filepath, 'w') as f:

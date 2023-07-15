@@ -1,6 +1,9 @@
 import atexit
 import signal
+import multiprocessing.pool
 from contextlib import contextmanager
+
+import tqdm
 
 import evaluation.models.models
 
@@ -30,3 +33,15 @@ def changed_exit_handlers():
     atexit.unregister(evaluation.models.models.unload_model)
     signal.signal(signal.SIGTERM, previous_sigterm)
     signal.signal(signal.SIGINT, previous_sigint)
+
+def process_with_thread_pool(*, num_threads, items, process_function):
+    def process_with_index(item_with_index):
+        index, item = item_with_index
+        result = process_function(item)
+        return index, result
+
+    with multiprocessing.pool.ThreadPool(min(num_threads, len(items))) as pool:
+        iterator = pool.imap_unordered(process_with_index, enumerate(items))
+        results_with_indices = list(tqdm.tqdm(iterator, total=len(items)))
+
+    return [result_with_index[1] for result_with_index in sorted(results_with_indices, key=lambda item: item[0])]

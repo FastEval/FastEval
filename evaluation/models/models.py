@@ -1,11 +1,10 @@
 import os
-import multiprocessing.pool
 
 import torch
 import transformers
-import tqdm
 
 import evaluation.args
+import evaluation.utils
 import evaluation.models.fastchat
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm_backend
@@ -100,9 +99,7 @@ def compute_model_replies(model, conversations):
     if len(conversations) == 0:
         return []
 
-    def reply(conversation_with_index):
-        index, conversation = conversation_with_index
-
+    def reply(conversation):
         if isinstance(conversation, list):
             reply = model.reply(conversation)
         elif isinstance(conversation, dict):
@@ -110,13 +107,13 @@ def compute_model_replies(model, conversations):
         else:
             raise
 
-        return index, reply
+        return reply
 
-    with multiprocessing.pool.ThreadPool(min(model.num_threads, len(conversations))) as pool:
-        iterator = pool.imap_unordered(reply, enumerate(conversations))
-        replies_with_indices = list(tqdm.tqdm(iterator, total=len(conversations)))
-
-    return [reply_with_index[1] for reply_with_index in sorted(replies_with_indices, key=lambda item: item[0])]
+    return evaluation.utils.process_with_thread_pool(
+        num_threads=model.num_threads,
+        items=conversations,
+        process_function=reply,
+    )
 
 def switch_gpu_model_type(new_model_type):
     unload_model_functions = {
