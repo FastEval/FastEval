@@ -68,7 +68,7 @@ def create_model(*, model_path, tokenizer_path, dtype):
 
     return { 'engine': engine, 'executor_thread': executor_thread }
 
-async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
+async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature, max_new_tokens):
     assert prompt_model is model
 
     if temperature is None:
@@ -84,7 +84,7 @@ async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature):
         top_p=1.0,
         top_k=-1,
         use_beam_search=False,
-        max_tokens=prompt_model['max_new_tokens'],
+        max_tokens=max_new_tokens,
     ), request_id=uuid.uuid4())
 
     response = None
@@ -108,14 +108,12 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
     if (model is None
             or model['tokenizer_path'] != tokenizer_path
             or model['model_path'] != model_path
-            or model['dtype'] != dtype
-            or model['max_new_tokens'] != max_new_tokens):
+            or model['dtype'] != dtype):
         unload_model(False)
         model = {
             'tokenizer_path': tokenizer_path,
             'model_path': model_path,
             'dtype': dtype,
-            'max_new_tokens': max_new_tokens,
             'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
         }
 
@@ -126,6 +124,7 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
 
     assert vllm_event_loop is not None
 
-    future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model, temperature=temperature), vllm_event_loop)
+    future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model,
+        temperature=temperature, max_new_tokens=max_new_tokens), vllm_event_loop)
     lock.release()
     return future.result()
