@@ -30,12 +30,11 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     return existing_models_and_benchmarks
 
 def main():
-    all_benchmarks = ['openai-evals', 'vicuna', 'mt-bench', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
+    all_benchmarks = ['openai-evals', 'mt-bench', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
     parser.add_argument('-m', '--models', nargs='+')
-    parser.add_argument('-e', '--exclude-vicuna-reviews', default=False, action='store_true')
     args = parser.parse_args()
 
     if 'all' in args.benchmarks:
@@ -54,7 +53,6 @@ def main():
         'human-eval-plus': benchmarks.human_eval_plus.evaluate_model,
         'openai-evals': benchmarks.openai_evals.evaluate_model,
         'mt-bench': benchmarks.mt_bench.evaluate_model,
-        'vicuna': benchmarks.vicuna.evaluate_model,
     }
 
     with changed_exit_handlers():
@@ -67,9 +65,6 @@ def main():
     for item in models_and_benchmarks:
         if 'lm-evaluation-harness' in item['benchmarks']:
             benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'])
-
-    if not args.exclude_vicuna_reviews:
-        benchmarks.vicuna.generate_all_reviews()
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         json.dump(models_and_benchmarks, f, indent=4)

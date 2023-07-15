@@ -3,7 +3,6 @@ import { createLinkE } from '../components/link.js'
 import { createTextE } from '../components/text.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 import * as OpenAIEvals from '../benchmarks/openai-evals.js'
-import * as Vicuna from '../benchmarks/vicuna.js'
 import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
 import * as HumanEvalPlus from '../benchmarks/human-eval-plus.js'
 import * as CoT from '../benchmarks/cot.js'
@@ -14,8 +13,6 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     switch (benchmarkName) {
         case 'openai-evals':
             return await OpenAIEvals.createV(baseUrl, parameters)
-        case 'vicuna':
-            return await Vicuna.createV(baseUrl, parameters)
         case 'lm-evaluation-harness':
             return await LMEvaluationHarness.createV(baseUrl)
         case 'human-eval-plus':
@@ -27,7 +24,7 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     }
 }
 
-function computeModelRanks(models, getScore, getTotalScore, getCompletedBenchmarks) {
+function computeModelRanks(models, getScore, getTotalScore) {
     const modelNames = [...new Set(models.map(({ model_name: model }) => model))]
     const modelsByName = Object.fromEntries(models.map(model => [model.model_name, model]))
 
@@ -59,12 +56,12 @@ function computeModelRanks(models, getScore, getTotalScore, getCompletedBenchmar
     for (const modelPair of modelPairs) {
         const [model1Name, model2Name] = modelPair
 
-        const commonBenchmarks = getCompletedBenchmarks(model1Name, modelsByName[model1Name].benchmarks)
-            .filter(benchmark => getCompletedBenchmarks(model2Name, modelsByName[model2Name].benchmarks).includes(benchmark))
+        const commonBenchmarks = modelsByName[model1Name].benchmarks
+            .filter(benchmark => modelsByName[model2Name].benchmarks.includes(benchmark))
 
         if (commonBenchmarks.length === 1 && commonBenchmarks[0] === 'lm-evaluation-harness') {
-            const model1NumBenchmarks = getCompletedBenchmarks(model1Name, modelsByName[model1Name].benchmarks).length
-            const model2NumBenchmarks = getCompletedBenchmarks(model2Name, modelsByName[model2Name].benchmarks).length
+            const model1NumBenchmarks = modelsByName[model1Name].benchmarks.length
+            const model2NumBenchmarks = modelsByName[model2Name].benchmarks.length
             if (model1NumBenchmarks === 1 && model2NumBenchmarks !== 1) {
                 performanceDifferences.set(modelPair, -Infinity)
                 continue
@@ -170,14 +167,12 @@ export async function createBenchmarksIndexV(baseUrl) {
     const models = await fetchModels(baseUrl)
 
     const [
-        vicunaEvaluationResults,
         openaiEvalsResults,
         lmEvaluationHarnessResults,
         humanEvalPlusResults,
         cotResults,
         mtBenchResults,
     ] = await Promise.all([
-        fetch(baseUrl + '/vicuna/ranks.json').then(r => r.json()),
         fetchFiles(baseUrl, models, 'openai-evals', '/__index__.json'),
         fetchFiles(baseUrl, models, 'lm-evaluation-harness'),
         fetchFiles(baseUrl, models, 'human-eval-plus'),
@@ -196,22 +191,12 @@ export async function createBenchmarksIndexV(baseUrl) {
 
     const humanEvalPlusResultsMap = Object.fromEntries(humanEvalPlusResults)
 
-    function getCompletedBenchmarks(model, benchmarks) {
-        return benchmarks.filter(benchmark => {
-            if (benchmark === 'vicuna' && !(model in vicunaEvaluationResults))
-                return false
-            return true
-        })
-    }
-
     function getScore(model, benchmarks, benchmarkName) {
         if (!benchmarks.includes(benchmarkName))
             return null
 
         if (benchmarkName === 'lm-evaluation-harness')
             return averageLmEvaluationHarnessScores[model]
-        else if (benchmarkName === 'vicuna' && model in vicunaEvaluationResults)
-            return vicunaEvaluationResults[model]
         else if (benchmarkName === 'openai-evals')
             return relativeOpenAiEvalsScores[model]
         else if (benchmarkName === 'human-eval-plus')
@@ -224,7 +209,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         return null
     }
 
-    const allBenchmarks = ['openai-evals', 'vicuna', 'mt-bench', 'human-eval-plus', 'cot', 'lm-evaluation-harness']
+    const allBenchmarks = ['openai-evals', 'mt-bench', 'human-eval-plus', 'cot', 'lm-evaluation-harness']
 
     const benchmarkMinimums = new Map()
     const benchmarkMaximums = new Map()
@@ -254,8 +239,6 @@ export async function createBenchmarksIndexV(baseUrl) {
     function getTotalScore(model, benchmarks) {
         if (!benchmarks.includes('lm-evaluation-harness'))
             return null
-        if (!benchmarks.includes('vicuna') || !(model in vicunaEvaluationResults))
-            return null
         if (!benchmarks.includes('openai-evals'))
             return null
         if (!benchmarks.includes('human-eval-plus'))
@@ -272,7 +255,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         return relativeAverageScore
     }
 
-    const modelRanks = computeModelRanks(models, getRelativeScore, getTotalScore, getCompletedBenchmarks)
+    const modelRanks = computeModelRanks(models, getRelativeScore, getTotalScore)
     const modelsSortedByRank = models.toSorted((model1, model2) => {
         const model1Rank = modelRanks[model1.model_name]
         const model2Rank = modelRanks[model2.model_name]
@@ -290,7 +273,6 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createTextE('Total'))
     theadE.insertCell()
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
-    theadE.insertCell().appendChild(createLinkE('Vicuna Rank', { benchmark: 'vicuna' }))
     theadE.insertCell().appendChild(createTextE('MT-Bench'))
     theadE.insertCell().appendChild(createTextE('HumanEval+'))
     theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
