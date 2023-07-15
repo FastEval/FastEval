@@ -58,6 +58,7 @@ def start_server(*, model_path, tokenizer_path, dtype):
         '--port', str(port),
         '--dtype', dtype_arg,
         '--max-concurrent-requests', '1024',
+        '--num-shard', str(torch.cuda.device_count()),
     ], env=new_environment, stdout=subprocess.PIPE, text=True)
 
     for line in process.stdout:
