@@ -37,6 +37,7 @@ def main():
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
     parser.add_argument('-m', '--models', nargs='+')
     parser.add_argument('--force-backend', choices=['hf_transformers', 'tgi', 'vllm'], required=False)
+    parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=16000)
     args = parser.parse_args()
 
     evaluation.args.cmd_arguments = args
