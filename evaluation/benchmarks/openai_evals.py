@@ -244,8 +244,10 @@ def create_reports_index_file(model_name: str):
         json.dump(reports_metadata, reports_index_file, indent=4)
 
 def evaluate_model(model_type: str, model_name: str):
-    os.environ['EVALS_THREADS'] = '20'
     os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
+
+    model = create_model(model_type, model_name)
+    os.environ['EVALS_THREADS'] = str(min(model.num_threads, 20))
 
     registry = Registry()
     run_multiple_evals(registry, model_type, model_name, [eval for eval in registry.get_evals(['*'])])
