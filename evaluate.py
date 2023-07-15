@@ -49,24 +49,27 @@ def main():
         with open('reports/__index__.json') as f:
             models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.models, args.benchmarks)
 
-    with changed_exit_handlers():
-        benchmarks.cot.evaluate_models([(item['model_type'], item['model_name'])
-            for item in models_and_benchmarks if 'cot' in item['benchmarks']])
-        benchmarks.human_eval_plus.evaluate_models([(item['model_type'], item['model_name'])
-            for item in models_and_benchmarks if 'human-eval-plus' in item['benchmarks']])
-        benchmarks.openai_evals.evaluate_models([(item['model_type'], item['model_name'])
-            for item in models_and_benchmarks if 'openai-evals' in item['benchmarks']])
-        benchmarks.mt_bench.evaluate_models([(item['model_type'], item['model_name'])
-            for item in models_and_benchmarks if 'mt-bench' in item['benchmarks']])
-
-    benchmarks.lm_evaluation_harness.evaluate_models([(item['model_type'], item['model_name'])
-        for item in models_and_benchmarks if 'lm-evaluation-harness' in item['benchmarks']])
+    evaluation_functions = {
+        'cot': benchmarks.cot.evaluate_model,
+        'human-eval-plus': benchmarks.human_eval_plus.evaluate_model,
+        'openai-evals': benchmarks.openai_evals.evaluate_model,
+        'mt-bench': benchmarks.mt_bench.evaluate_model,
+        'vicuna': benchmarks.vicuna.evaluate_model,
+    }
 
     with changed_exit_handlers():
-        benchmarks.vicuna.evaluate_models([(item['model_type'], item['model_name'])
-            for item in models_and_benchmarks if 'vicuna' in item['benchmarks']], exclude_reviews=args.exclude_vicuna_reviews)
+        for item in models_and_benchmarks:
+            for benchmark_name, evaluation_function in evaluation_functions.items():
+                if benchmark_name in item['benchmarks']:
+                    evaluation_function(item['model_type'], item['model_name'])
+            unload_model()
 
-    unload_model()
+    for item in models_and_benchmarks:
+        if 'lm-evaluation-harness' in item['benchmarks']:
+            benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'])
+
+    if not args.exclude_vicuna_reviews:
+        benchmarks.vicuna.generate_all_reviews()
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         json.dump(models_and_benchmarks, f, indent=4)

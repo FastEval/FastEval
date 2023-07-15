@@ -226,9 +226,9 @@ def generate_reviews():
 
     return True
 
-def evaluate_models(models, exclude_reviews):
-    for model_type, model_name in models:
-        generate_assistant_replies(model_type, model_name)
-    if not exclude_reviews:
-        while generate_reviews():
-            pass
+def evaluate_model(model_type, model_name):
+    generate_assistant_replies(model_type, model_name)
+
+def generate_all_reviews():
+    while generate_reviews():
+        pass

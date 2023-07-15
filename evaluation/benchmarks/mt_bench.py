@@ -179,8 +179,7 @@ def compute_model_score(model_name):
     with open(scores_filepath, 'w') as f:
         json.dump(scores, f, indent=4)
 
-def evaluate_models(models):
-    for model_type, model_name in models:
-        generate_assistant_replies(model_type, model_name)
-        compute_judge_replies(model_name)
-        compute_model_score(model_name)
+def evaluate_model(model_type, model_name):
+    generate_assistant_replies(model_type, model_name)
+    compute_judge_replies(model_name)
+    compute_model_score(model_name)
