@@ -1,0 +1,3481 @@
+{
+    "aba_mrpc_true_false.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "aba_mrpc_true_false.dev.v0",
+            "base_eval": "aba_mrpc_true_false",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "aba_mrpc_true_false/samples.jsonl"
+                    },
+                    "key": "aba_mrpc_true_false.dev.v0",
+                    "group": "aba-mrpc-true-false"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715214951DK4J7U5A",
+            "created_at": "2023-07-15 21:49:51.604567"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "algebra-word-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "algebra-word-problems.s1.simple-v0",
+            "base_eval": "algebra-word-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "algebra_word_problems/samples.jsonl"
+                    },
+                    "key": "algebra-word-problems.s1.simple-v0",
+                    "group": "algebra-word-problems"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215156EEKM3NHQ",
+            "created_at": "2023-07-15 21:51:56.137706"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "anagrams.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "anagrams.test.v1",
+            "base_eval": "anagrams",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "anagrams/fewshot.jsonl",
+                        "num_few_shot": 5,
+                        "samples_jsonl": "anagrams/samples.jsonl"
+                    },
+                    "key": "anagrams.test.v1",
+                    "group": "anagrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215156KDAN45VF",
+            "created_at": "2023-07-15 21:51:56.784685"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "balance-chemical-equation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "balance-chemical-equation.dev.v0",
+            "base_eval": "balance-chemical-equation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "balance_chemical_equation/samples.jsonl"
+                    },
+                    "key": "balance-chemical-equation.dev.v0",
+                    "group": "balance-chemical-equation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215157YJXMHFCE",
+            "created_at": "2023-07-15 21:51:57.965840"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215159HHNY3YVU",
+            "created_at": "2023-07-15 21:51:59.164174"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "belarusian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "belarusian-lexicon.dev.v0",
+            "base_eval": "belarusian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "belarusian_lexicon/samples.jsonl"
+                    },
+                    "key": "belarusian-lexicon.dev.v0",
+                    "group": "belarusian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215201DAXNZLCO",
+            "created_at": "2023-07-15 21:52:01.966271"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "bigrams.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "bigrams.dev.v0",
+            "base_eval": "bigrams",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bigrams/samples.jsonl"
+                    },
+                    "key": "bigrams.dev.v0",
+                    "group": "bigrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215202FBPJUGLL",
+            "created_at": "2023-07-15 21:52:02.631887"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "bitwise.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "bitwise.dev.v0",
+            "base_eval": "bitwise",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bitwise/samples.jsonl"
+                    },
+                    "key": "bitwise.dev.v0",
+                    "group": "bitwise"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152152042ZUWCOJA",
+            "created_at": "2023-07-15 21:52:04.818487"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "born-first.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "born-first.dev.v0",
+            "base_eval": "born-first",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "born_first/born_first.jsonl"
+                    },
+                    "key": "born-first.dev.v0",
+                    "group": "born-first"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215206WT57T4PB",
+            "created_at": "2023-07-15 21:52:06.389921"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "brazilian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "brazilian-lexicon.dev.v0",
+            "base_eval": "brazilian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "brazilian-lexicon/samples.jsonl"
+                    },
+                    "key": "brazilian-lexicon.dev.v0",
+                    "group": "brazilian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215207PTEGSMRN",
+            "created_at": "2023-07-15 21:52:07.447843"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "bulgarian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "bulgarian-lexicon.dev.v0",
+            "base_eval": "bulgarian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bulgarian-lexicon/samples.jsonl"
+                    },
+                    "key": "bulgarian-lexicon.dev.v0",
+                    "group": "bulgarian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215208QN2O775W",
+            "created_at": "2023-07-15 21:52:08.266508"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "chess-piece-count.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "chess-piece-count.s1.simple-v0",
+            "base_eval": "chess-piece-count",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess_piece_count/fuzzy_match.jsonl"
+                    },
+                    "key": "chess-piece-count.s1.simple-v0",
+                    "group": "chess-piece-count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215208LL3JGIW5",
+            "created_at": "2023-07-15 21:52:08.910916"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "f1_score": 0.0
+        }
+    },
+    "chess.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "chess.match.dev.v0",
+            "base_eval": "chess",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess/match.jsonl"
+                    },
+                    "key": "chess.match.dev.v0",
+                    "group": "chess"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215213KNHHYTZG",
+            "created_at": "2023-07-15 21:52:13.998565"
+        },
+        "final_report": {
+            "accuracy": 0.45,
+            "f1_score": 0.05
+        }
+    },
+    "compare-countries-area.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "compare-countries-area.dev.v0",
+            "base_eval": "compare-countries-area",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "compare-countries-area/samples.jsonl"
+                    },
+                    "key": "compare-countries-area.dev.v0",
+                    "group": "compare-countries-area"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215215UEFEGSKX",
+            "created_at": "2023-07-15 21:52:15.172913"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "connect4.s1.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "connect4.s1.v1",
+            "base_eval": "connect4",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "connect4/samples.jsonl"
+                    },
+                    "key": "connect4.s1.v1",
+                    "group": "connect-4"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215216DC3SGW4U",
+            "created_at": "2023-07-15 21:52:16.217976"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "convert-hex-hsl-lightness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "convert-hex-hsl-lightness.dev.v0",
+            "base_eval": "convert-hex-hsl-lightness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "convert-hex-hsl-lightness/samples.jsonl"
+                    },
+                    "key": "convert-hex-hsl-lightness.dev.v0",
+                    "group": "convert-hex-hsl-lightness"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215218JC3SVL6M",
+            "created_at": "2023-07-15 21:52:18.960426"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "coqa-match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "coqa/match.jsonl"
+                    },
+                    "key": "coqa-match.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215221VIFKDBRS",
+            "created_at": "2023-07-15 21:52:21.589828"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "coqa-closedqa-correct.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-correct.dev.v0",
+            "base_eval": "coqa-closedqa-correct",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "correctness: Is the answer correct?"
+                        }
+                    },
+                    "key": "coqa-closedqa-correct.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215224LNKQMZSQ",
+            "created_at": "2023-07-15 21:52:24.349271"
+        },
+        "final_report": {
+            "counts/N": 4,
+            "counts/Y": 5,
+            "score": 0.5555555555555556
+        }
+    },
+    "coqa-closedqa-relevance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-relevance.dev.v0",
+            "base_eval": "coqa-closedqa-relevance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "relevance: Is the submission referring to a real quote from the text?"
+                        }
+                    },
+                    "key": "coqa-closedqa-relevance.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215235O3U36AS4",
+            "created_at": "2023-07-15 21:52:35.817362"
+        },
+        "final_report": {
+            "counts/Y": 8,
+            "counts/N": 1,
+            "score": 0.8888888888888888
+        }
+    },
+    "coqa-closedqa-conciseness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
+                    },
+                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215245FLLXQPAT",
+            "created_at": "2023-07-15 21:52:45.941891"
+        },
+        "final_report": {
+            "counts/Y": 9,
+            "score": 1.0
+        }
+    },
+    "crepe.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "crepe.dev.v2",
+            "base_eval": "crepe",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "crepe/samples.jsonl"
+                    },
+                    "key": "crepe.dev.v2",
+                    "group": "crepe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215255DQTY4QQH",
+            "created_at": "2023-07-15 21:52:55.008320"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "cube-pack.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "cube-pack.dev.v0",
+            "base_eval": "cube-pack",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "cube-pack/samples.jsonl"
+                    },
+                    "key": "cube-pack.dev.v0",
+                    "group": "cube-pack"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215259YSH2AVWZ",
+            "created_at": "2023-07-15 21:52:59.737550"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "determinant.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "determinant.test.v1",
+            "base_eval": "determinant",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "determinant/samples.jsonl"
+                    },
+                    "key": "determinant.test.v1",
+                    "group": "determinant"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215300ADD7CM4U",
+            "created_at": "2023-07-15 21:53:00.801731"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "diagrammatic_logic.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "diagrammatic_logic.dev.v2",
+            "base_eval": "diagrammatic_logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "diagrammatic_logic/samples.jsonl"
+                    },
+                    "key": "diagrammatic_logic.dev.v2",
+                    "group": "diagrammatic_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215302I46TMPC5",
+            "created_at": "2023-07-15 21:53:02.122641"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "dice-rotation-sequence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "dice-rotation-sequence.dev.v0",
+            "base_eval": "dice-rotation-sequence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dice-rotation-sequence/samples.jsonl"
+                    },
+                    "key": "dice-rotation-sequence.dev.v0",
+                    "group": "dice-rotation-sequence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215305FIUM2A6X",
+            "created_at": "2023-07-15 21:53:05.547789"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "dutch-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "dutch-lexicon.dev.v0",
+            "base_eval": "dutch-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dutch-lexicon/samples.jsonl"
+                    },
+                    "key": "dutch-lexicon.dev.v0",
+                    "group": "dutch-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071521531065W7VJN6",
+            "created_at": "2023-07-15 21:53:10.917926"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "emoji-riddle.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "emoji-riddle.s1.simple-v0",
+            "base_eval": "emoji-riddle",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "emoji_riddle/fuzzy_match.jsonl"
+                    },
+                    "key": "emoji-riddle.s1.simple-v0",
+                    "group": "emoji-riddle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215311GWA3QMYP",
+            "created_at": "2023-07-15 21:53:11.554188"
+        },
+        "final_report": {
+            "accuracy": 0.15,
+            "f1_score": 0.2
+        }
+    },
+    "emotional-intelligence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "emotional-intelligence.dev.v0",
+            "base_eval": "emotional-intelligence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "emotional-intelligence/samples.jsonl"
+                    },
+                    "key": "emotional-intelligence.dev.v0",
+                    "group": "emotional-intelligence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215312UVDXHGYH",
+            "created_at": "2023-07-15 21:53:12.640730"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "escher-sentences.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "escher-sentences.dev.v0",
+            "base_eval": "escher-sentences",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "escher_sentences/samples.jsonl"
+                    },
+                    "key": "escher-sentences.dev.v0",
+                    "group": "escher-sentences"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215319EJWFJ7WP",
+            "created_at": "2023-07-15 21:53:19.433687"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "fcc_amateur_extra.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "fcc_amateur_extra.dev.v0",
+            "base_eval": "fcc_amateur_extra",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "fcc_amateur_extra/samples.jsonl"
+                    },
+                    "key": "fcc_amateur_extra.dev.v0",
+                    "group": "fcc_amateur_extra"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215320RXXFFXGM",
+            "created_at": "2023-07-15 21:53:20.091796"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "first-letters.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "first-letters.dev.v0",
+            "base_eval": "first-letters",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "first-letters/samples.jsonl"
+                    },
+                    "key": "first-letters.dev.v0",
+                    "group": "first-letters"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152153226CR66M5U",
+            "created_at": "2023-07-15 21:53:22.459042"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "formal-logic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "formal-logic.dev.v0",
+            "base_eval": "formal-logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "formal_logic/formal_logic_expressions.jsonl"
+                    },
+                    "key": "formal-logic.dev.v0",
+                    "group": "formal_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215323VKUBCUXY",
+            "created_at": "2023-07-15 21:53:23.740908"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "forth-stack-sim.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "forth-stack-sim.dev.v0",
+            "base_eval": "forth-stack-sim",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
+                    },
+                    "key": "forth-stack-sim.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215326BJPEUM4W",
+            "created_at": "2023-07-15 21:53:26.219267"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "forth-stack-sim-basic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "forth-stack-sim-basic.dev.v0",
+            "base_eval": "forth-stack-sim-basic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/basic_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-basic.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215327CRT6DUS7",
+            "created_at": "2023-07-15 21:53:27.953281"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "forth-stack-sim-detailed.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "forth-stack-sim-detailed.dev.v0",
+            "base_eval": "forth-stack-sim-detailed",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/detailed_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-detailed.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215329DXCCQOUD",
+            "created_at": "2023-07-15 21:53:29.830065"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "greek-vocabulary.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "greek-vocabulary.dev.v0",
+            "base_eval": "greek-vocabulary",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "greek_vocabulary/samples.jsonl"
+                    },
+                    "key": "greek-vocabulary.dev.v0",
+                    "group": "greek-vocabulary"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215333MUUD5KZQ",
+            "created_at": "2023-07-15 21:53:33.904220"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "heart-disease.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "heart-disease.v0",
+            "base_eval": "heart-disease",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "heart-disease/samples.jsonl"
+                    },
+                    "key": "heart-disease.v0",
+                    "group": "heart-disease"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215334RHQX2D25",
+            "created_at": "2023-07-15 21:53:34.540688"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "hebrew-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "hebrew-rhyme.v0",
+            "base_eval": "hebrew-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "hebrew_rhyme/samples.jsonl"
+                    },
+                    "key": "hebrew-rhyme.v0",
+                    "group": "hebrew-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215335ECTKEFDB",
+            "created_at": "2023-07-15 21:53:35.609453"
+        },
+        "final_report": {
+            "accuracy": 0.55,
+            "f1_score": 0.55
+        }
+    },
+    "hindi_upsc.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "hindi_upsc.dev.v0",
+            "base_eval": "hindi_upsc",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "hindi_upsc/samples.jsonl"
+                    },
+                    "key": "hindi_upsc.dev.v0",
+                    "group": "hindi_upsc"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215336TQJVTJBE",
+            "created_at": "2023-07-15 21:53:36.618156"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "imperial_date_to_string.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "imperial_date_to_string.dev.v0",
+            "base_eval": "imperial_date_to_string",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "imperial_date_to_string/samples.jsonl"
+                    },
+                    "key": "imperial_date_to_string.dev.v0",
+                    "group": "imperial_date_to_string"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215354AGJCY2K7",
+            "created_at": "2023-07-15 21:53:54.656245"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "infiniteloop-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "infiniteloop-match.s1.simple-v0",
+            "base_eval": "infiniteloop-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "infiniteloop-match/infiniteloop-match.jsonl"
+                    },
+                    "key": "infiniteloop-match.s1.simple-v0",
+                    "group": "infiniteloop-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215355FF4S6JDI",
+            "created_at": "2023-07-15 21:53:55.611907"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "invoices.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "invoices.dev.v0",
+            "base_eval": "invoices",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "invoices/match.jsonl"
+                    },
+                    "key": "invoices.dev.v0",
+                    "group": "invoices"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215400HJYTZ4EO",
+            "created_at": "2023-07-15 21:54:00.522649"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "japanese-national-medical-exam01.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "japanese-national-medical-exam01.dev.v0",
+            "base_eval": "japanese-national-medical-exam01",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese-national-medical-exam01/japanese-national-medical-exam01.jsonl"
+                    },
+                    "key": "japanese-national-medical-exam01.dev.v0",
+                    "group": "japanese-national-medical-exam01"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215406KUEBPZTS",
+            "created_at": "2023-07-15 21:54:06.623521"
+        },
+        "final_report": {
+            "accuracy": 0.13333333333333333
+        }
+    },
+    "japanese_driving_license.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "japanese_driving_license.s1.simple-v0",
+            "base_eval": "japanese_driving_license",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese_driving_license/samples.jsonl"
+                    },
+                    "key": "japanese_driving_license.s1.simple-v0",
+                    "group": "japanese_driving_license"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215412OVURS2OI",
+            "created_at": "2023-07-15 21:54:12.214978"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "job_listing_title_for_a_caregiver_in_japan.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+            "base_eval": "job_listing_title_for_a_caregiver_in_japan",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "job_listing_title_for_a_caregiver_in_japan/samples.jsonl"
+                    },
+                    "key": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+                    "group": "job_listing_title_for_a_caregiver_in_japan"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215415N67BPMRK",
+            "created_at": "2023-07-15 21:54:15.517473"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "knot-theory-unknotting-problem.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "knot-theory-unknotting-problem.dev.v0",
+            "base_eval": "knot-theory-unknotting-problem",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-problem.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215435WQ7S6E4C",
+            "created_at": "2023-07-15 21:54:35.225319"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "knot-theory-unknotting-number.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "knot-theory-unknotting-number.dev.v0",
+            "base_eval": "knot-theory-unknotting-number",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-numbers.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-number.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215436RIK7BMNT",
+            "created_at": "2023-07-15 21:54:36.503983"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215440PEG5UZXQ",
+            "created_at": "2023-07-15 21:54:40.207455"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "last-word-nth.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "last-word-nth.s1.simple-v0",
+            "base_eval": "last-word-nth",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "last_word_nth/samples.jsonl"
+                    },
+                    "key": "last-word-nth.s1.simple-v0",
+                    "group": "last-word-nth"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215444CKQFKNX5",
+            "created_at": "2023-07-15 21:54:44.432587"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "lat_long_identify.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "lat_long_identify.dev.v0",
+            "base_eval": "lat_long_identify",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "lat_long_identify/samples.jsonl"
+                    },
+                    "key": "lat_long_identify.dev.v0",
+                    "group": "lat_long_identify"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215445EEJTAEDV",
+            "created_at": "2023-07-15 21:54:45.199230"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "logic-statements.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "logic-statements.dev.v0",
+            "base_eval": "logic-statements",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "logic-statements/logic-statements.jsonl"
+                    },
+                    "key": "logic-statements.dev.v0",
+                    "group": "logic-statements"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215446QEYBGANY",
+            "created_at": "2023-07-15 21:54:46.716110"
+        },
+        "final_report": {
+            "accuracy": 0.3,
+            "f1_score": 0.3
+        }
+    },
+    "logiqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "logiqa.dev.v0",
+            "base_eval": "logiqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "logiqa/logiqa.jsonl"
+                    },
+                    "key": "logiqa.dev.v0",
+                    "group": "logiqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152154492TKV5PR4",
+            "created_at": "2023-07-15 21:54:49.516512"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "map-electronic-component-part-to-fact.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "map-electronic-component-part-to-fact.dev.v0",
+            "base_eval": "map-electronic-component-part-to-fact",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "map-electronic-component-part-to-fact/samples.jsonl"
+                    },
+                    "key": "map-electronic-component-part-to-fact.dev.v0",
+                    "group": "map-electronic-component-part-to-fact"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152155085JXV2M2M",
+            "created_at": "2023-07-15 21:55:08.137368"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "medmcqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "medmcqa.dev.v0",
+            "base_eval": "medmcqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "medmcqa/samples.jsonl"
+                    },
+                    "key": "medmcqa.dev.v0",
+                    "group": "medmcqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215511YLETEDCK",
+            "created_at": "2023-07-15 21:55:11.439711"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "mendelian_inheritance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "mendelian_inheritance.dev.v0",
+            "base_eval": "mendelian_inheritance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "mendelian_inheritance/samples.jsonl"
+                    },
+                    "key": "mendelian_inheritance.dev.v0",
+                    "group": "mendelian_inheritance"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215513GDB456SC",
+            "created_at": "2023-07-15 21:55:13.324888"
+        },
+        "final_report": {
+            "accuracy": 0.0625
+        }
+    },
+    "moral_exceptQA.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "moral_exceptQA.test.v1",
+            "base_eval": "moral_exceptQA",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "moral_exceptQA/samples.jsonl"
+                    },
+                    "key": "moral_exceptQA.test.v1",
+                    "group": "moral_exceptQA"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215519BPLVSTUV",
+            "created_at": "2023-07-15 21:55:19.787264"
+        },
+        "final_report": {
+            "accuracy": 0.8
+        }
+    },
+    "multi-step-equations.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "multi-step-equations.dev.v0",
+            "base_eval": "multi-step-equations",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "multi-step-equations/samples.jsonl"
+                    },
+                    "key": "multi-step-equations.dev.v0",
+                    "group": "multi-step-equations"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215521VPJZQCTB",
+            "created_at": "2023-07-15 21:55:21.879242"
+        },
+        "final_report": {
+            "accuracy": 0.13333333333333333
+        }
+    },
+    "naughty_strings_fuzzy.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "naughty_strings_fuzzy.test.v1",
+            "base_eval": "naughty_strings_fuzzy",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/samples.jsonl"
+                    },
+                    "key": "naughty_strings_fuzzy.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152155244SSYIQGN",
+            "created_at": "2023-07-15 21:55:24.697072"
+        },
+        "final_report": {
+            "accuracy": 0.5,
+            "f1_score": 0.5
+        }
+    },
+    "naughty_strings_graded.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "naughty_strings_graded.test.v1",
+            "base_eval": "naughty_strings_graded",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/security.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "security"
+                    },
+                    "key": "naughty_strings_graded.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215525TJ7HA7Q3",
+            "created_at": "2023-07-15 21:55:25.531426"
+        },
+        "final_report": {
+            "counts/No": 9,
+            "counts/Unsure": 3,
+            "counts/Yes": 8,
+            "score": 0.475
+        }
+    },
+    "number-pattern.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "number-pattern.dev.v0",
+            "base_eval": "number-pattern",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_pattern/samples.jsonl"
+                    },
+                    "key": "number-pattern.dev.v0",
+                    "group": "number-pattern"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215533UGYQJBTZ",
+            "created_at": "2023-07-15 21:55:33.645371"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "number-reading.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "number-reading.dev.v0",
+            "base_eval": "number-reading",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_reading/number_reading.jsonl"
+                    },
+                    "key": "number-reading.dev.v0",
+                    "group": "number-reading"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152155343EO6QWEX",
+            "created_at": "2023-07-15 21:55:34.845204"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "partially_solved_crossword_clues.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "partially_solved_crossword_clues.dev.v0",
+            "base_eval": "partially_solved_crossword_clues",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "partially_solved_crossword_clues/samples.jsonl"
+                    },
+                    "key": "partially_solved_crossword_clues.dev.v0",
+                    "group": "partially_solved_crossword_clues"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215535EQLQEIES",
+            "created_at": "2023-07-15 21:55:35.487158"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "pattern_identification.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "pattern_identification.dev.v0",
+            "base_eval": "pattern_identification",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "pattern_identification/samples.v0.jsonl"
+                    },
+                    "key": "pattern_identification.dev.v0",
+                    "group": "pattern_identification"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215536R4JUKOWO",
+            "created_at": "2023-07-15 21:55:36.488419"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "ph-calculation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "ph-calculation.dev.v0",
+            "base_eval": "ph-calculation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "ph_calculation/samples.jsonl"
+                    },
+                    "key": "ph-calculation.dev.v0",
+                    "group": "ph_calculation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215602NYMCVKEC",
+            "created_at": "2023-07-15 21:56:02.335296"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "f1_score": 0.0
+        }
+    },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215607G7XCQQXO",
+            "created_at": "2023-07-15 21:56:07.122687"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "regex.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "regex.match.dev.v0",
+            "base_eval": "regex",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "regex-match/samples.jsonl"
+                    },
+                    "key": "regex.match.dev.v0",
+                    "group": "regex-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215608T2FL63X2",
+            "created_at": "2023-07-15 21:56:08.723159"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "rucola.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "rucola.test.v0",
+            "base_eval": "rucola",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "rucola/samples.jsonl",
+                        "few_shot_jsonl": "rucola/few_shot.jsonl",
+                        "num_few_shot": 4
+                    },
+                    "key": "rucola.test.v0",
+                    "group": "rucola"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215609UPTEQGM4",
+            "created_at": "2023-07-15 21:56:09.497166"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "russe.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "russe.test.v0",
+            "base_eval": "russe",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russe/samples.jsonl",
+                        "few_shot_jsonl": "russe/few_shot.jsonl",
+                        "num_few_shot": 2
+                    },
+                    "key": "russe.test.v0",
+                    "group": "russe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215613Q7IKF72W",
+            "created_at": "2023-07-15 21:56:13.031777"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "russian-nlp-tasks.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "russian-nlp-tasks.dev.v0",
+            "base_eval": "russian-nlp-tasks",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian-nlp-tasks/samples.jsonl"
+                    },
+                    "key": "russian-nlp-tasks.dev.v0",
+                    "group": "russian-nlp-tasks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215615D5TOCPNT",
+            "created_at": "2023-07-15 21:56:15.259193"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "russian-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "russian-rhyme.v0",
+            "base_eval": "russian-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "russian-rhyme/samples.jsonl"
+                    },
+                    "key": "russian-rhyme.v0",
+                    "group": "russian-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071521561963S5UXTT",
+            "created_at": "2023-07-15 21:56:19.263203"
+        },
+        "final_report": {
+            "accuracy": 0.23529411764705882,
+            "f1_score": 0.19999999999999998
+        }
+    },
+    "russian_medical.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "russian_medical.dev.v0",
+            "base_eval": "russian_medical",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian_medical/samples.jsonl"
+                    },
+                    "key": "russian_medical.dev.v0",
+                    "group": "russian_medical"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215623DC3FSIHV",
+            "created_at": "2023-07-15 21:56:23.371849"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "sarcasm.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "sarcasm.test.v1",
+            "base_eval": "sarcasm",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sarcasm/samples.jsonl",
+                        "few_shot_jsonl": "sarcasm/few_shot.jsonl",
+                        "num_few_shot": 5
+                    },
+                    "key": "sarcasm.test.v1",
+                    "group": "sarcasm"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215625P6MHXDHU",
+            "created_at": "2023-07-15 21:56:25.172283"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "simple-knowledge-mongolian.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "simple-knowledge-mongolian.dev.v0",
+            "base_eval": "simple-knowledge-mongolian",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "simple-knowledge-mongolian/samples.v0.jsonl"
+                    },
+                    "key": "simple-knowledge-mongolian.dev.v0",
+                    "group": "simple-knowledge-mongolian"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215627PLGC7OYP",
+            "created_at": "2023-07-15 21:56:27.405535"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "sort-numbers.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "sort-numbers.s1.simple-v0",
+            "base_eval": "sort-numbers",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sort_numeric/samples.jsonl"
+                    },
+                    "key": "sort-numbers.s1.simple-v0",
+                    "group": "sort-numeric"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215628LRGFPES6",
+            "created_at": "2023-07-15 21:56:28.875840"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "stock-options-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "stock-options-bear-call-spread.dev.v0",
+            "base_eval": "stock-options-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_options_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-options-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215630LQ6TUYMJ",
+            "created_at": "2023-07-15 21:56:30.175416"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215631UYKPPZAJ",
+            "created_at": "2023-07-15 21:56:31.437942"
+        },
+        "final_report": {
+            "accuracy": 0.08333333333333333
+        }
+    },
+    "stock-option-terms-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152156324BAVJMSU",
+            "created_at": "2023-07-15 21:56:32.570893"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152156333T4RJEJZ",
+            "created_at": "2023-07-15 21:56:33.620447"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152156356A242L64",
+            "created_at": "2023-07-15 21:56:35.787010"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215639IF646W2S",
+            "created_at": "2023-07-15 21:56:39.128895"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "swedish-spelling.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "swedish-spelling.dev.v0",
+            "base_eval": "swedish-spelling",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "swedish-spelling/samples.jsonl"
+                    },
+                    "key": "swedish-spelling.dev.v0",
+                    "group": "swedish-spelling"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215641TPAZQYZK",
+            "created_at": "2023-07-15 21:56:41.588954"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "taxes.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "taxes.dev.v0",
+            "base_eval": "taxes",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "taxes/samples.jsonl"
+                    },
+                    "key": "taxes.dev.v0",
+                    "group": "taxes"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152156434TUBFFDH",
+            "created_at": "2023-07-15 21:56:43.048159"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "tempo_to_measure_count.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "tempo_to_measure_count.dev.v0",
+            "base_eval": "tempo_to_measure_count",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "tempo_to_measure_count/samples.jsonl"
+                    },
+                    "key": "tempo_to_measure_count.dev.v0",
+                    "group": "tempo_to_measure_count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215644W77ZL7EV",
+            "created_at": "2023-07-15 21:56:44.380908"
+        },
+        "final_report": {
+            "accuracy": 0.1,
+            "f1_score": 0.0
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_match/samples.jsonl"
+                    },
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215646JZUR6WJ5",
+            "created_at": "2023-07-15 21:56:46.360163"
+        },
+        "final_report": {
+            "accuracy": 1.0
+        }
+    },
+    "test-fuzzy-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "test-fuzzy-match.s1.simple-v0",
+            "base_eval": "test-fuzzy-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-fuzzy-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152156465B44UGGT",
+            "created_at": "2023-07-15 21:56:46.798617"
+        },
+        "final_report": {
+            "accuracy": 0.6666666666666666,
+            "f1_score": 0.6666666666666666
+        }
+    },
+    "test-includes.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215647AWDSI6NP",
+            "created_at": "2023-07-15 21:56:47.338825"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "test-includes-ignore-case.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "test-includes-ignore-case.s1.simple-v0",
+            "base_eval": "test-includes-ignore-case",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl",
+                        "ignore_case": true
+                    },
+                    "key": "test-includes-ignore-case.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215647F2SU7MP3",
+            "created_at": "2023-07-15 21:56:47.784505"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215648GCDDRW4G",
+            "created_at": "2023-07-15 21:56:48.483181"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152156495YKLXA2R",
+            "created_at": "2023-07-15 21:56:49.734668"
+        },
+        "final_report": {
+            "counts/No": 5,
+            "counts/__invalid__": 2,
+            "counts/Yes": 2,
+            "score": 0.2222222222222222
+        }
+    },
+    "rap-people-vs-fruits.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215735PC3N3FMI",
+            "created_at": "2023-07-15 21:57:35.346582"
+        },
+        "final_report": {
+            "counts/No": 8,
+            "counts/Yes": 1,
+            "score": 0.1111111111111111
+        }
+    },
+    "mg-humor-people_jp.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
+                    },
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715215815DFTF7F4G",
+            "created_at": "2023-07-15 21:58:15.188371"
+        },
+        "final_report": {
+            "counts/3": 7,
+            "counts/1": 4,
+            "counts/__invalid__": 2,
+            "counts/2": 5,
+            "counts/4": 2,
+            "score": 2.25
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715220336BYIRQ4U5",
+            "created_at": "2023-07-15 22:03:36.205337"
+        },
+        "final_report": {
+            "counts/No": 3,
+            "counts/Yes": 7,
+            "score": 0.7
+        }
+    },
+    "three-pt-mapping.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "three-pt-mapping.dev.v0",
+            "base_eval": "three-pt-mapping",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "three-pt-mapping/three_pt_mapping.jsonl"
+                    },
+                    "key": "three-pt-mapping.dev.v0",
+                    "group": "three-pt-mapping"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715220351B47V3MP3",
+            "created_at": "2023-07-15 22:03:51.464235"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "ukraine-eit.val.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "ukraine-eit.val.v0",
+            "base_eval": "ukraine-eit",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "ukraine_eit/samples.jsonl"
+                    },
+                    "key": "ukraine-eit.val.v0",
+                    "group": "ukraine-eit"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715220352MIMDQAGZ",
+            "created_at": "2023-07-15 22:03:52.304012"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "us-tort-law.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "us-tort-law.dev.v0",
+            "base_eval": "us-tort-law",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "us_tort_law/few_shot.jsonl",
+                        "num_few_shot": 4,
+                        "samples_jsonl": "us_tort_law/samples.jsonl"
+                    },
+                    "key": "us-tort-law.dev.v0",
+                    "group": "us-tort-law"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715220431UATR3EXB",
+            "created_at": "2023-07-15 22:04:31.475295"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "utility_price_parsing.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "utility_price_parsing.dev.v0",
+            "base_eval": "utility_price_parsing",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "utility_price_parsing/samples.jsonl"
+                    },
+                    "key": "utility_price_parsing.dev.v0",
+                    "group": "utility_price_parsing"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230715220439RQODPGPQ",
+            "created_at": "2023-07-15 22:04:39.072959"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "which-is-heavier.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "chatml:mosaicml/mpt-30b-chat"
+            ],
+            "eval_name": "which-is-heavier.dev.v0",
+            "base_eval": "which-is-heavier",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "chatml:mosaicml/mpt-30b-chat"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "which_is_heavier/which_is_heavier.jsonl"
+                    },
+                    "key": "which-is-heavier.dev.v0",
+                    "group": "which-is-heavier"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m chatml:mosaicml/mpt-30b-chat --force-backend tgi --tgi-max-batch-total-tokens 60000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307152204524E5TBVHY",
+            "created_at": "2023-07-15 22:04:52.705847"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    }
+}
