@@ -1,0 +1,75 @@
+{
+    "score": 0.5,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Find the degree for the given field extension Q(sqrt(2), sqrt(3), sqrt(18)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "The degree of a field extension L over a field K is the smallest positive integer n such that all elements of L can be expressed as a finite linear combination of n elements of K with coefficients in K.\n\nTo find the degree of the field extension Q(sqrt(2), sqrt(3), sqrt(18)) over Q, we can express each of the given elements as linear combinations of elements of Q. Here are the steps:\n\n1. Express sqrt(2) as a linear combination of elements of Q: sqrt(2) = (1 + sqrt(3))/2 = (1 + (1 + sqrt(-3))/2) = (1 + (1 + 3i)/2) = (1 + (3 - 3i)/2) = (1 + (3 + 1)/2) = (1 + 3)/2 = (2 + 1)*(3 - 1)/2 = (2 + 3)/2 = (2 + 1)*(3 + 1)/2 = (2 + 5)/2.\n\n2. Express sqrt(3) as a linear combination of elements of Q: sqrt(3) = (1 + sqrt(3))/2 = (1 + (1 + sqrt(3))/2) = (1 + (1 + 3i)/2) = (1 + (3 - 3i)/2) = (1 + (3 + 1)/2) = (1 + 3)/2 = (2 + 1)*(3 - 1)/2 = (2 + 3)/2 = (2 + 1)*(3 + 1)/2 = (2 + 5)/2.\n\n3. Express sqrt(18) as a linear combination of elements of Q: sqrt(18) = (1 + sqrt(3))/2 = (1 + (1 + sqrt(3))/2) = (1 + (1 + 3)*(1 + sqrt(9)))/2 = (1 + (3 - 3i)*(1 + sqrt(9)))/2 = (1 + (3 + 1)*(1 + sqrt(9)))/2.\n\nBy construction, we have shown that each element of Q(sqrt(2), sqrt(3), sqrt(18)) can be written as a finite linear combination of elements of Q with coefficients in Q. Hence, the degree of this field extension over Q is 3, since each element can be expressed as a linear combination of 3 elements of Q. Therefore, the correct answer is:\n\n(B) 4",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Let p = (1, 2, 5, 4)(2, 3) in S_5 . Find the index of <p> in S_5.\n\n(A) 8\n(B) 2\n(C) 24\n(D) 120",
+            "correct_answer": 2,
+            "model_answer": "To solve this problem, we can first write out all possible elements of S_5 in cycle notation, that is, as a product of disjoint cycles. The cycles in S_5 are (1,2,3), (1,2,4), (1,2,5), (1,3,4), (1,3,5), (1,4,5), (2,3,4), and (2,3,5), so the possible elements of S_5 are (1,2,3,4,5), (1,2,4,5), (1,2,5,3,4), (1,3,4,5), (1,3,5,2,4), (1,4,5,3,2), (1,5,3,2,4), (2,3,4,5), (2,3,5,4,1), (2,4,5,3,1), (2,5,4,3,1), (3,4,5,2,1), (3,5,4,2,1), (4,5,3,2,1), and (5,3,2,4,1).\n\nNext, we can write out all possible elements of S_4 in cycle notation, that is, as a product of disjoint cycles. The cycles in S_4 are (1,2,3), (1,2,4), (1,3,4), (1,3,5), (1,4,5), (2,3,4), and (2,4,5), so the possible elements of S_4 are (1,2,3,4), (1,2,4,5), (1,3,4,5), (1,3,5,2,4), (1,4,5,3,2), (1,5,3,2,4), (2,3,4,5), (2,4,5,3,1), (2,5,4,3,1), (3,4,5,2,1), (3,5,4,2,1), (4,5,3,2,1), and (5,4,3,2,1).\n\nNow we can compare the two lists of elements to find the index of (p, (2,3)) in S_5. We can see that the element (p, (2,3)) is not in S_5, but it is in S_4. Therefore, the index of (p, (2,3)) in S_5 is equal to the index of (p, (2,3)) in S_4 plus the number of elements in S_5 not in S_4, which is 24.\n\nThe answer is (C) 24.",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^5 + 3x^3 + x^2 + 2x in Z_5\n\n(A) 0\n(B) 1\n(C) 0,1\n(D) 0,4",
+            "correct_answer": 3,
+            "model_answer": "To find the zeros of x^5 + 3x^3 + x^2 + 2x in the finite field Z_5, we can use the Lagrange resolvent theorem.\n\n(1) First, write the polynomial as x^5 + 3x + x^2 + 1, where we have added another term 1 to create a new polynomial with coefficients in Z_5.\n\n(2) Factorize the new polynomial as (x + 1)(x^4 + x + 1).\n\n(3) According to the Lagrange resolvent theorem, if the polynomial f(x) = x^n + a_1x^{n-1} + ... + a_nx^n has linear factors in Z_q, then f(x) mod (x + 1) = (x + 1)^r, where r = q - n.\n\n(4) Similarly, if f(x) = x^n + a_1x^{n-1} + ... + a_nx^n mod (x^2 + 1), then f(x) mod (x^2 + 1) = (x^2 + 1)^r, where r = q - n.\n\n(5) Now, we have two factors (x + 1) and (x^2 + 1) for our polynomial x^5 + 3x + x^2 + 1.\n\n(6) According to the Lagrange resolvent theorem, since the degree of the polynomial is 5, so q = 5. Therefore, the possible values of r are 1 and 4, since 4 = 5 - 1.\n\n(7) Try substituting x = (x + 1)(x^2 + 1)^(4/5) in the polynomial, and check which of the two factors will give zero if their product is not a unit.\n\n(8) Solving for x, we get x = (x + 1)(x^2 + 1)^(4/5) = 1. Therefore, x = 1 is a root of the polynomial, and x = (x + 1)(x^2 + 1) = (x + 1)(x - 1) is not.\n\n(9) Substituting x = 1 mod (x + 1), we get x^5 + 3x + x^2 + 1 = 1 + 3 + 1 + 1x = 1x + 5 = (x + 1x)^2 = 1.\n\n(10) Since 1 is a root of x^5 + 3x + x^2 + 1 mod (x + 1), so it satisfies the equation x^5 + 3x + x^2 + 1 - 1 = 0.\n\n(11) Therefore, the possible values of x such that x^5 + 3x + x^2 + 1 - 1 = 0 are 0 and 1.\n\n(12) Since 0 is a root of x^5 + 3x + x^2 + 1 mod (x + 1), so it satisfies the equation x^5 + 3x + x^2 + 1 - 0 = 1.\n\n(13) Therefore, the possible values of x such that x^5 + 3x + x^2 + 1 - 0 = 1 are 1 and 2.\n\n(14) Finally, since x = 1 is a root of x^5 + 3x + x^2 + 1 mod (x + 1)^2, so it satisfies the equation x^5 + 3x + x^2 + 1 - 1 = 1.\n\n(15) Therefore, the possible values of x such that x^5 + 3x + x^2 + 1 - 1 = 1 are 1 and 2.\n\nHence, the zeros of x^5 + 3x + x^2 + 1 in Z_5 are 0, 1, and 2.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Statement 1 | A factor group of a non-Abelian group is non-Abelian. Statement 2 | If K is a normal subgroup of H and H is a normal subgroup of G, then K is a normal subgroup of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "My reasoning is as follows:\n\nStatement 1 is true because you cannot have an Abelian group with a non-Abelian factor group.\n\nStatement 2 is true because if H is a normal subgroup of G, then G controls the membership of elements of H and thus, G must also control the membership of the elements of K because H is a normal subgroup of K.\n\nTherefore, the best answer is:\n\n(B) False, False",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": "Find the product of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x) = 2x^2 - 4x + 2 in Z_8[x].\n\n(A) 2x^2 + 5\n(B) 6x^2 + 4x + 6\n(C) 0\n(D) x^2 + 1",
+            "correct_answer": 1,
+            "model_answer": "To find the product of two polynomials f(x) = 4x - 5 and g(x) = 2x^2 - 4x + 2, we need to follow these steps:\n\n1. First, let's assume that f(x) and g(x) are both in the ring Z_8[x]. This means that all variables in the polynomials f(x) and g(x) are integers modulo 8.\n2. What are the coefficients of x^2 in f(x) and g(x)?\n* In f(x), the coefficient of x^2 is 2.\n* In g(x), the coefficient of x^2 is 2.\n3. What are the coefficients of x in f(x) and g(x)?\n* In f(x), the coefficient of x is -5.\n* In g(x), the coefficient of x is 4.\n4. What are the coefficients of x in the product of f(x) and g(x)?\n* When we multiply f(x)*g(x), the coefficient of x in the product is equal to the sum of the coefficients of x in each polynomial: (-5) + 4 = -1.\n5. Now, let's check if the polynomial fg(x) = 2x^2 + 5x - 2 is in Z_8[x].\n* The 0 in fg(x) is represented by 0, which is congruent to 0 modulo 8.\n* The 2 in fg(x) is represented by 2, which is congruent to 2 modulo 8.\n* The 5 in fg(x) is represented by 5, which is congruent to 5 modulo 8.\n* The 1 in fg(x) is represented by 7, which is congruent to 1 modulo 8.\n6. Since the polynomial fg(x) is in Z_8[x], we can write the correct answer as: (D) x^2 + 1.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Statement 1 | If a group has an element of order 15 it must have at least 8 elements of order 15. Statement 2 | If a group has more than 8 elements of order 15, it must have at least 16 elements of order 15.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "Statement 1 is true because the group must have a subgroup of order 15 in order to have an element of order 15. If a group has a subgroup of order 15, then it must have at least 8 elements of order 15 because the subgroup could be formed by taking any 8 elements of order 15. Therefore, statement 1 is true.\n\nStatement 2 is false because if a group has more than 8 elements of order 15, it does not necessarily have at least 16 elements of order 15. For example, the group of 15 elements could have a subgroup of order 15 formed by taking any 8 elements of order 15. Therefore, statement 2 is false.\n\nThe answer is (C) True, False.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Statement 1 | Every homomorphic image of a group G is isomorphic to a factor group of G. Statement 2 | The homomorphic images of a group G are the same (up to isomorphism) as the factor groups of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "Statement 1 - True because every homomorphic image is a subgroup, which means it is isomorphic by definition.\nStatement 2 - False because every homomorphic image is not necessarily a factor group. A homomorphic image just means an isomorphic subgroup, which can come from either normal or inner homomorphism. A factor group, however, comes only from a normal homomorphism.",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "Statement 1 | A ring homomorphism is one to one if and only if the kernel is {0}. Statement 2 | Q is an ideal in R.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "Statement 1: Given a ring homomorphism f:R -> S, it is one-to-one if and only if ker(f)={0}.\n(A) True, True: This statement is true because the statement is saying that statement 1 is true AND statement 2 is true.\n(B) False, False: This statement is false because both statement 1 and statement 2 are false.\n(C) True, False: This statement is false because statement 1 is true but statement 2 is false.\n(D) False, True: This statement is false because statement 1 is false but statement 2 is true.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Find the degree for the given field extension Q(sqrt(2) + sqrt(3)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "To find the degree of the field extension Q(\u221a2+\u221a3) over Q, we can use the fact that the degree of a field extension is the degree of its field of fractions.\n\nFirst, we need to identify the field of fractions for Q(\u221a2+\u221a3). This can be done by finding the set of all rational expressions in just \u221a2 and \u221a3 such that their denominators are the squarefree integers from Q. \n\nWe can see that \u221a2 and \u221a3 are irreducible over Q, so their field of fractions is just Q(\u221a2,\u221a3). This is a field with two elements and the degree of this field is 2.\n\nNow, to find the degree of Q(\u221a2+\u221a3) over Q, we need to find the degree of Q(\u221a2,\u221a3) over the field of two elements.\n\nThe only non-trivial field automorphism of Q(\u221a2,\u221a3) is the automorphism that swaps \u221a2 with \u221a3. Since the degree of a field extension is the degree of its field of fractions, we can conclude that the degree of Q(\u221a2+\u221a3) over Q is 2.\nThe answer is (C) 2.",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^3 + 2x + 2 in Z_7\n\n(A) 1\n(B) 2\n(C) 2,3\n(D) 6",
+            "correct_answer": 2,
+            "model_answer": "To find all zeros of x^3 + 2x + 2 in Z_7, we need to use the following steps:\n\n1. Factorize the polynomial as: x^3 + 2x + 2 = (x - 2)(x^2 + 1)\n2. Use Euclidean algorithm or find the greatest common divisor (GCD) of x - 2 and x^2 + 1. The GCD of x - 2 and x^2 + 1 is 1.\n3. This means that x - 2 and x^2 + 1 are co-prime. In ring theory, if two elements are co-prime then at least one of them must divide into the product. In this case, x-2 divides into the product.\n4. Hence, x - 2 is a factor of x^3 + 2x + 2.\n5. This implies that the set of zeros of x^3 + 2x + 2 consists of the repeated elements [2,1] and [2,2].\n6. We are not asked to find the repeated elements, so the answer is (D) 6.\n\nThe answer is option D: 6.",
+            "correct": false
+        }
+    ]
+}
