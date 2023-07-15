@@ -1,0 +1,75 @@
+{
+    "score": 0.3,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Which of the following styles of fuzzer is more likely to explore paths covering every line of code in the following program?\n\n(A) Generational\n(B) Blackbox\n(C) Whitebox\n(D) Mutation-based",
+            "correct_answer": 2,
+            "model_answer": "The most suitable option to explore paths covering every line of code in this program is (D) Mutation-based fuzzing. \n\nReasoning: \nIn mutation-based fuzzing, the input is mutated in a controlled manner to explore the code coverage. This can potentially expose edge cases and vulnerabilities that can be exploited by attackers. In contrast, generational fuzzing and blackbox fuzzing focus on generating test cases based on partial information of the program.\n\nWhitebox fuzzing also explores paths covering every line of code but it requires knowledge of the code structure and function of the program. This approach can be less effective for finding vulnerabilities compared to mutation-based fuzzing if the code is complex and the understanding of the whitebox tester is limited.",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Assume that a TLS connection has been established successfully between a client and a server. Establishing the session included checking the server certificate and executing a DiffieHelmann exchange, but the client did not provide a client certificate. Further, assume that the client and server are honest, that the client and server don\u2019t leak their keys, and that the cryptography is good. Which of the following attacks does TLS protect against?\n1. An attacker replaying bytes that a client sent earlier.\n2. An attacker impersonating the server.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "1. An attacker replaying bytes that a client sent earlier.\n2. An attacker impersonating the server.\n\n(A) True, True\n\nAnswer: (A) True, True",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": "MIT\u2019s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?\n\n(A) The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.\n(B) When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket\u2019s maximum lifetime.\n(C) When a client connects to a server, the server compares the ticket\u2019s expiration time to the server\u2019s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.\n(D) When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC\u2019s clock, and refuses to authenticate the user if the KDC reports that the ticket is expired.",
+            "correct_answer": 2,
+            "model_answer": "The answer is A. The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.\n\nExplanation:\n\nIn MIT's Kerberos KDC server, a maximum ticket lifetime of 24 hours is set for most user principals. This means that after 24 hours, the ticket expires and becomes invalid. When a client tries to connect to a server using an expired ticket, the KDC server refuses to establish a new connection between the client and the server, thus ensuring that the expired ticket can no longer be used.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "In Message Condentiality, the transmitted message must make sense to only intended\n\n(A) Receiver\n(B) Sender\n(C) Modulor\n(D) Translator",
+            "correct_answer": 0,
+            "model_answer": "The final line should contain the answer as a single letter with parenthesis without anything else. To find the answer, we need to determine which party the transmitted message must make sense to according to the given text. \n\nIn Message Condentiality, the word \"must\" indicates a necessity, suggesting that the transmitted message must be understood only by the intended receiver for the message to be effective. Therefore, the answer is:\n\n(A) Receiver",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": "Which of the following is a remote Trojan?\n\n(A) Troya\n(B) DaCryptic\n(C) BankerA\n(D) Game-Troj",
+            "correct_answer": 0,
+            "model_answer": "A remote Trojan, also known as a backdoor Trojan, is a type of malware that allows an attacker to gain unauthorized remote access to a computer system or network. It typically uses some form of encryption to hide its unauthorized activities and communications from the system's legitimate users and administrators. \n\nTo determine which of the given options is a remote Trojan, we need to look at the behavior and capabilities of each option:\n\n(A) Troya: This is a Trojan that hides the fact that a user is logged into a system, and can perform tasks such as viewing and modifying files, and creating new accounts. While it may have remote access capabilities, it is not specifically described as a remote Trojan.\n\n(B) DaCryptic: This is a Trojan that encrypts files on a system and demands payment in exchange for the decryption key. While it may have remote access capabilities, it is not specifically described as a remote Trojan.\n\n(C) BankerA: This is a Trojan that steals banking login credentials and personal information. While it may have remote access capabilities, it is not specifically described as a remote Trojan.\n\n(D) Game-Troj: This is a Trojan that disguises itself as a game or utility program, but contains malicious code that can perform actions such as displaying pop-up ads or stealing sensitive information. While it may have remote access capabilities, it is not specifically described as a remote Trojan.\n\nOut of all the options, only one is specifically described as a remote Trojan, which is (D) Game-Troj. Therefore, the answer is:\n\n(D) Game-Troj",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "______________ is a widespread app\u2019s coding mistake made by developers which could be exploited by an attacker for gaining access or malfunctioning your system.\n\n(A) Memory leakage\n(B) Buffer-overrun\n(C) Less processing power\n(D) Inefficient programming",
+            "correct_answer": 1,
+            "model_answer": "The answer is A, which stands for \"Memory leakage\".\nReasoning:\nMemory leakage is a common mistake made by developers whereby a program allocates memory but never releases it, causing the system to run low on memory and potentially crash. This can be exploited by an attacker to gain access to sensitive information or cause malfunctioning of the system. This type of vulnerability is known as a memory-based buffer overflow attack. \nWhile the other options are also coding mistakes, they are not as widespread or readily exploitable as memory leakage. \nTherefore, the correct answer is A, Memory leakage.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Consider the paper Native Client: A Sandbox for Portable, Untrusted x86 Native Code by Yee et al. Ben Bitdiddle notes that NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside its own data area, and does not execute instructions outside its own code. Ben thinks that with these restrictions alone, executing the sandboxed module must be safe; that is, he thinks validation is not needed. Ben is wrong. Circle the types of x86 machine instructions that the validator always forbids in sandboxed code. Please ignore trampoline and springboard code.\n\n(A) all instructions that modify segment state\n(B) all loads or stores to addresses that are not 0 mod 32\n(C) all indirect loads or stores (via an address in a register or variable)\n(D) all indirect jumps (via an address in a register or variable)",
+            "correct_answer": 0,
+            "model_answer": "To solve this question, we need to analyze the statement made by Ben Bitdiddle and understand the restrictions that NaCl imposes on the sandboxed module. \n\nFrom the given statement, we can infer that NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside its own data area. This means that the code within the sandboxed module is only allowed to access a specific segment of memory which is designated for it.\n\nAdditionally, we are told that NaCl also imposes a restriction on the sandboxed module to not execute instructions outside its own code. This means that the code within the sandboxed module is only allowed to execute instructions that fall within its designated code segment.\n\nHowever, Ben thinks that with these restrictions alone, executing the sandboxed module must be safe, and validation is not needed. This is where we need to disagree with Ben. Just because the sandboxed module is restricted from accessing certain segments of memory or executing instructions outside its designated code segment, it does not mean that it is safe to run without validation.\n\nTo validate the sandboxed module, we need to look for specific types of x86 machine instructions that the validator always forbids in sandboxed code. We are given the following options to choose from:\n\n(A) all instructions that modify segment state\n(B) all loads or stores to addresses that are not 0 mod 32\n(C) all indirect loads or stores (via an address in a register or variable)\n(D) all indirect jumps (via an address in a register or variable)\n\nBased on the information provided in the statement, we can eliminate options (A) and (D) as they are not related to modifying memory segments or accessing unauthorized segments of memory.\n\nNow, we are left with options (B) and (C). Both of these options involve accessing memory, which is related to the restriction on accessing only the designated memory segment. We can conclude that validation is necessary to ensure that the sandboxed module does not try to access unauthorized segments of memory.\n\nTherefore, the correct answer is (B) all loads or stores to addresses that are not 0 mod 32.",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "____________ is also a part of darknet that is employed for transferring files anonymously.\n\n(A) Freenet\n(B) ARPANET\n(C) Stuxnet\n(D) Internet",
+            "correct_answer": 0,
+            "model_answer": "First, we need to understand the concept of a darknet. A darknet is a network of networks that is not accessible to the general public. \n\nNext, we need to understand that there are different ways to transfer files anonymously on the internet. However, we are specifically looking for an answer that involves a part of a darknet. Therefore, we can eliminate options (D) Internet immediately.\n\nNow, let's consider the remaining options:\n\n(A) Freenet - Freenet is a darknet that allows users to share files anonymously. It is a peer-to-peer platform that utilizes a free and open source software called Freenet.\n\n(B) ARPANET - ARPANET is a pioneering internetworking project that was funded by the United States Department of Defense. While ARPANET was a secure network, it was not a darknet in the traditional sense of the term.\n\n(C) Stuxnet - Stuxnet is a computer worm that was discovered in 2010. It was used to target and exploit vulnerabilities in industrial systems, most notably in Iran's nuclear programme. While this was a sophisticated form of cyber attack, it does not involve a darknet or the transfer of files anonymously.\n\nTherefore, the answer is (A) Freenet.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Why apps developed in languages like C, C++ is prone to Buffer-overflow?\n\n(A) No string boundary checks in predefined functions\n(B) No storage check in the external memory\n(C) No processing power check\n(D) No database check",
+            "correct_answer": 0,
+            "model_answer": "The correct answer is (A) No string boundary checks in predefined functions.\n\nExplanation:\n\nBuffer-overflow is a common security vulnerability in computer programs that is caused by writing or copying too much data into a buffer (a region of memory) that is too small. In languages like C and C++, the programmers have to be very careful when dealing with strings because the comparison of strings is done using a single character and counting the number of characters. Thus, any string that is larger than the buffer will cause the rest of the characters to be stored in other memory locations, leading to unexpected behavior or even code execution with higher privileges. This can happen when a program fails to check for string boundaries before using pointers to access data in memory. By incorporating string boundary checks in predefined functions, the possibility of buffer-overflow can be minimized.",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Man in the middle attack can endanger the security of Diffie Hellman method if two parties are not\n\n(A) Joined\n(B) Authenticated\n(C) Submitted\n(D) Shared",
+            "correct_answer": 1,
+            "model_answer": "To break the security of the Diffie-Hellman method, an attacker (a man-in-the-middle) can insert themselves between two parties and intercept their communication. To do this, the attacker must be able to:\n\n1. Listen in on the communication between the two parties.\n2. Create a new public and private key pair for themselves.\n3. Impersonate one of the parties in the communication.\n4. Decrypt any messages that were sent between the two parties.\n\nIf an attacker is successful in this, they can intercept and read any messages that are sent between the two parties, and even send messages as if they were one of the parties. This is because the attacker can present the public key from their own key pair to the other party, and the other party will use that public key to encrypt messages to the attacker. Later, the attacker can decrypt those messages using their private key. This allows the attacker to read any message sent between the two parties.\n\nTherefore, the correct answer is (D) Shared.",
+            "correct": false
+        }
+    ]
+}

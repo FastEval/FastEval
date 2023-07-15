@@ -1,0 +1,75 @@
+{
+    "score": 0.3,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Let x = 1. What is x << 3 in Python 3?\n\n(A) 1\n(B) 3\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "In Python 3, the left shift operator (<<) is used to shift the bits to the left by a specified number of bits. When a number is shifted left, each bit is shifted left by one position, and any bits that shift off the right are discarded. For example, if we have the number 1 in binary, it is 00000001. If we shift it left by 3 bits, it becomes 00000011 (1 shifted left by 3 bits becomes 5 in decimal).\n\nSo, when x = 1, x << 3 results in 1 shifted left by 3 bits, which is 00000101 in binary. Converting this back to decimal gives us 5. Answer: (A) 1",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "In Python 3, which of the following function convert a string to an int in python?\n\n(A) int(x [,base])\n(B) long(x [,base] )\n(C) float(x)\n(D) str(x)",
+            "correct_answer": 0,
+            "model_answer": "To answer this question, we need to consider what it means for a function to convert a string to an int in Python 3. In Python, strings are immutable, meaning they can't be changed once they're created. When we want to work with a string as though it were a numeric value, we need to convert it to an int or float. There are a few ways to do this, but for our purposes, we'll consider the built-in conversion functions in Python 3.\n\nThe first function in the list is:\n\n(A) int(x [,base])\n\nThis function takes a string 'x' and a base (optional) and converts the string to an int. It doesn't matter what the base is, since we're only concerned with converting strings to ints, we can omit the base argument. So, the function we're looking for is (A): int(x).",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": "A user enters a Web address in a browser, and a request for a file is sent to a Web server. Which of the following best describes how the file is sent to the user?\n\n(A) The file is broken into packets for transmission. The packets must be reassembled upon receipt.\n(B) The file is broken into packets for transmission. The user's browser must request each packet in order until all packets are received.\n(C) The server attempts to connect directly to the user's computer. If the connection is successful, the entire file is sent. If the connection is unsuccessful, an error message is sent to the user.\n(D) The server repeatedly attempts to connect directly to the user's computer until a connection is made. Once the connection is made, the entire file is sent.",
+            "correct_answer": 0,
+            "model_answer": "The correct answer is:\n\n(B) The file is broken into packets for transmission. The user's browser must request each packet in order until all packets are received.\n\nExplanation:\nWhen a user enters a Web address in a browser, a request for a file is sent to a Web server. The Web server then sends the requested file to the user's computer. The file is broken into smaller pieces called packets for transmission. These packets are then sent over the internet to the user's computer. The user's browser must request each packet in order until all packets are received. Once all the packets are received, the browser can reassemble them into the original file. This is option (B). Option (A) describes a different scenario where the packets do not need to be reassembled. Options (C) and (D) describe other scenarios that are not applicable to file transfer over the internet.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Digital images are often represented by the red, green, and blue values (an RGB triplet) of each individual pixel in the image. A photographer is manipulating a digital image and overwriting the original image. Which of the following describes a lossless transformation of the digital image?\n\n(A) Compressing the image in a way that may lose information but will suffer only a small loss of image quality.\n(B) Creating the gray scale of an image by averaging the amounts of red, green, and blue in each pixel and assigning this new value to the corresponding pixel in the new image. The new value of each pixel represents a shade of gray, ranging from white to black.\n(C) Creating the negative of an image by creating a new RGB triplet for each pixel in which each value is calculated by subtracting the original value from 255. The negative of an image is reversed from the original; light areas appear dark, and colors are reversed.\n(D) Modifying part of the image by taking the pixels in one part of the picture and copying them to the pixels in another part of the picture.",
+            "correct_answer": 2,
+            "model_answer": "The correct answer is (B) creating the gray scale of an image by averaging the amounts of red, green, and blue in each pixel and assigning this new value to the corresponding pixel in the new image. The reason for this answer is that lossless transformation retains all the information in the original image. In this case, the gray scale image is created by averaging the amounts of red, green, and blue in each pixel, which results in a new image with the same amount of information as the original image. The other options may result in loss of information, which is not lossless.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "A programmer is writing a program that is intended to be able to process large amounts of data. Which of the following considerations is LEAST likely to affect the ability of the program to process larger data sets?\n\n(A) How long the program takes to run\n(B) How many programming statements the program contains\n(C) How much memory the program requires as it runs\n(D) How much storage space the program requires as it runs",
+            "correct_answer": 1,
+            "model_answer": "I would need input or information to provide an informed response.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Suppose the characters 0,1, . . . ,8,9,A,B,C,D, E,F are used to represent a hexadecimal (base-16) number. Here A = 10, B = 11, . . . ,F = 15. What is the largest base-10 integer that can be represented with a two-digit hexadecimal number, such as 14 or 3A?\n\n(A) 32\n(B) 225\n(C) 255\n(D) 256",
+            "correct_answer": 2,
+            "model_answer": "To find the largest base-10 integer that can be represented with a two-digit hexadecimal number, we need to convert the two-digit hexadecimal number back into its decimal equivalent. \nWe know that A = 10, B = 11, . . . ,F = 15 in hexadecimal, and 0 = 0 in decimal. Therefore, we can build up the decimal number by concatenating the corresponding digits in decimal for each hexadecimal digit. \nFor example, the hexadecimal number 14 is equivalent to the decimal number 20 in decimal. \nSimilarly, we can convert any two-digit hexadecimal number into its decimal equivalent by concatenating the corresponding digits in decimal for each hexadecimal digit. \nTherefore, the largest base-10 integer that can be represented with a two-digit hexadecimal number is 255 (in decimal).",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "A large data set contains information about all students majoring in computer science in colleges across the United States. The data set contains the following information about each student.\n   \u00b0 The student's gender\n   \u00b0 The state in which the student attends college\n   \u00b0 The student's grade point average on a 4.0 scale\n\n Which of the following questions could be answered by analyzing only information in the data set?\n\n(A) Do students majoring in computer science tend to have higher grade point averages than students majoring in other subjects?\n(B) How many states have a higher percentage of female computer science majors than male computer science majors attending college in that state?\n(C) What percent of students attending college in a certain state are majoring in computer science?\n(D) Which college has the highest number of students majoring in computer science?",
+            "correct_answer": 1,
+            "model_answer": "The information provided is insufficient to answer questions (D) about individual colleges. Only information about all students majoring in computer science in colleges across the United States is available. Past exam performance data for individual colleges would be needed to answer question (D).",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "The code segment below uses the procedure IsFound (list, item), which returns true if item appears in list and returns false otherwise. The list resultList is initially empty.\n  FOR EACH item IN inputList1{\n IF (isFound (inputList2, item) )\n APPEND (resultList, item)\n }\n Which of the following best describes the contents of resultList after the code segment is executed?\n\n(A) All elements in inputListl followed by all elements in inputList2\n(B) Only elements that appear in both inputListl and inputList2\n(C) Only elements that appear in either inputListl or inputList2 but not in both lists\n(D) Only elements that appear in inputListl but not in inputList2",
+            "correct_answer": 1,
+            "model_answer": "The code segment iterates through each item in inputList1 and checks if it appears in inputList2 using the procedure isFound. If the item appears in both lists, it is appended to resultList. \nTherefore, the best description of the contents of resultList after the code segment is executed is (B) - only elements that appear in both inputListl and inputList2.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "A program is expressed in a programming language. Which of the following is true of the program?\n\n(A) The program can also be expressed as binary code, but will be more easily understood by humans when expressed in a higher-level programming language.\n(B) The program can also be expressed as binary code, which will reduce the likelihood of errors.\n(C) The program cannot be expressed as binary code, because binary code can only be used to represent data.\n(D) Some parts of the program can be expressed as binary code, but operations must be expressed using a higher-level programming language.",
+            "correct_answer": 0,
+            "model_answer": "The correct answer is A.\n\nExplanation: A program is a set of instructions written in a programming language. These instructions are translated into binary code (machine code) by a compiler or interpreter, which is then executed by a computer. While it is true that the program can be expressed as binary code, it is often more easily understood by humans when expressed in a higher-level programming language. This is because higher-level languages use concepts and symbols that are familiar to humans, making it easier to read, write, and debug code. Therefore, option A is true of the program.",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": "In Python 3, what is the output of print tuple[0] if tuple = ( 'abcd', 786 , 2.23, 'john', 70.2 )?\n\n(A) ( 'abcd', 786 , 2.23, 'john', 70.2 )\n(B) abcd\n(C) Error\n(D) None of the above.",
+            "correct_answer": 1,
+            "model_answer": "To answer this question step by step, we need to see what happens when we use `print tuple[0]` with the given input value of `tuple`. \nHere is the evaluation of `print tuple[0]` with `tuple = ( 'abcd', 786 , 2.23, 'john', 70.2 )`:\nFirst, we get the value of `tuple[0]` which is `'abcd'`. Since this is a string, it is printed as is when we use the `print` function with no other parameters.\nSo, the output of `print tuple[0]` with `tuple = ( 'abcd', 786 , 2.23, 'john', 70.2 )` will be:\n```\n'abcd'\n```",
+            "correct": false
+        }
+    ]
+}
