@@ -247,11 +247,8 @@ export async function createBenchmarksIndexV(baseUrl) {
             return null
 
         let relativeAverageScore = 0
-        for (const benchmarkName of allBenchmarks) {
-            if (benchmarkName === 'mt-bench')
-                continue
+        for (const benchmarkName of allBenchmarks)
             relativeAverageScore += getRelativeScore(model, benchmarks, benchmarkName) / allBenchmarks.length
-        }
         return relativeAverageScore
     }
 
