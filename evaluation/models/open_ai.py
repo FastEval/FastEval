@@ -3,17 +3,24 @@ import os
 import openai
 import tenacity
 
-from evaluation.constants import NUM_THREADS_OPENAI, DEFAULT_MAX_NEW_TOKENS
+from evaluation.constants import NUM_THREADS_OPENAI_GPT3_5, NUM_THREADS_OPENAI_GPT4, DEFAULT_MAX_NEW_TOKENS
 
 def print_retry(error):
     print('Got error from OpenAI API. Retrying.', error)
 
 class OpenAI:
-    num_threads = NUM_THREADS_OPENAI
-
     def __init__(self, model_name, *, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
         self.model_name = model_name
         self.max_new_tokens = max_new_tokens
+
+        if hasattr(self, 'num_threads'):
+            return # For classes that extend this OpenAI class.
+        elif self.model_name.startswith('gpt-3.5-turbo'):
+            self.num_threads = NUM_THREADS_OPENAI_GPT3_5
+        elif self.model_name.startswith('gpt-4'):
+            self.num_threads = NUM_THREADS_OPENAI_GPT4
+        else:
+            raise Exception('Unknown OpenAI model.')
 
     def _conversation_item_to_openai_format(self, item_type, item):
         if item_type == 'system':
