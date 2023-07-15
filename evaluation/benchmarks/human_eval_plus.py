@@ -104,7 +104,3 @@ def evaluate_model(model_type, model_name):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w') as f:
         json.dump(output, f, indent=4)
-
-def evaluate_models(models):
-    for model_type, model_name in models:
-        evaluate_model(model_type, model_name)

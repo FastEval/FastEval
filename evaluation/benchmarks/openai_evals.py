@@ -250,7 +250,3 @@ def evaluate_model(model_type: str, model_name: str):
     registry = Registry()
     run_multiple_evals(registry, model_type, model_name, [eval for eval in registry.get_evals(['*'])])
     create_reports_index_file(model_name)
-
-def evaluate_models(models: list[dict[str, str]]):
-    for model_type, model_name in models:
-        evaluate_model(model_type, model_name)

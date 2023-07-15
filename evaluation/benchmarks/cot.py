@@ -243,7 +243,3 @@ def evaluate_model(model_type, model_name):
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
     with open(final_scores_file, 'w') as f:
         json.dump(scores, f, indent=4)
-
-def evaluate_models(models):
-    for model_type, model_name in models:
-        evaluate_model(model_type, model_name)
