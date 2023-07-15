@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "The access matrix approach to protection has the difficulty that\n\n(A) the matrix, if stored directly, is large and can be clumsy to manage\n(B) it is not capable of expressing complex protection requirements\n(C) deciding whether a process has access to a resource is undecidable\n(D) there is no way to express who has rights to change the access matrix itself",
+            "correct_answer": 0,
+            "model_answer": "(A) Unfortunately, but it would be difficult for me to store the matrix directly since it is quite large. However, it would be worth it in terms of efficiency and readability. \n(B) It can be seen as undecidable within this context, as any complexity in selection can potentially cause large confusion. \n(C) This question can be answered using mathematical logic, however it may be difficult to define a process or matrix that can easily address these complexities. \n(D) Hopefully, there will be further innovations in techniques that can simplify this process over time.",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "An integer c is a common divisor of two integers x and y if and only if c is a divisor of x and c is a divisor of y. Which of the following sets of integers could possibly be the set of all common divisors of two integers?\n\n(A) {-6,-2, -1, 1, 2, 6}\n(B) {-6, -2, -1, 0, 1, 2, 6}\n(C) {-6, -3, -2, -1, 1, 2, 3, 6}\n(D) {-6, -3, -2, -1, 0, 1, 2, 3, 6}",
+            "correct_answer": 2,
+            "model_answer": "Which set of integers is the set of all common divisors of 2 and 6?\n\n(A) {-6, -2, -1, 0, 1, 2, 6} is the set of all common divisors of 2 and 6. In this set, the largest number divisible by all three is 6, which shares the second and third positions with 2 and 3, respectively. The numbers 6, 2, and 3 divide 6 in the set, ensuring that every number in this set is divisible by all three.\n\nIn B, there are numbers 6, -6, and -2 which divide 6, ensuring that all numbers in B are divisible by all three.\n\nIn C, there are numbers 3, -3, and -6 which divide 0 and 3. In this case, there are numbers 3, -2, and 2 that divide 59.\n\nIn D, there are numbers 2, -2, and 59 which divide 6, ensuring that all numbers in the set B are divisible by 59.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "In the NoNicks operating system, the time required by a single file-read operation has four nonoverlapping components:\ndisk seek time-25 msec\ndisk latency time-8 msec\ndisk transfer time- 1 msec per 1,000 bytes\noperating system overhead-1 msec per 1,000 bytes + 10 msec\nIn version 1 of the system, the file read retrieved blocks of 1,000 bytes. In version 2, the file read (along with the underlying layout on disk) was modified to retrieve blocks of 4,000 bytes. The ratio of-the time required to read a large file under version 2 to the time required to read the same large file under version 1 is approximately\n\n(A) 1:4\n(B) 1:3.5\n(C) 1:1\n(D) 1.1:1",
+            "correct_answer": 1,
+            "model_answer": "Based on the information provided in the question, I must choose answer option D. 1.1:1 is required in this case. The question does not provide information on the size of the file, the required encode, or any specific encoding format. However, according to the given steps of the file read operation, the same size can be applied in all cases. Since post (a) is needed to be parsed first and post (b) is double the size, the required encode cannot be higher than post (a). Therefore, the correct answer is D (1.1:1).",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "You want to cluster 7 points into 3 clusters using the k-Means Clustering algorithm. Suppose after the first iteration, clusters C1, C2 and C3 contain the following two-dimensional points: C1 contains the 2 points: {(0,6), (6,0)} C2 contains the 3 points: {(2,2), (4,4), (6,6)} C3 contains the 2 points: {(5,5), (7,7)} What are the cluster centers computed for these 3 clusters?\n\n(A) C1: (3,3), C2: (4,4), C3: (6,6)\n(B) C1: (3,3), C2: (6,6), C3: (12,12)\n(C) C1: (6,6), C2: (12,12), C3: (12,12)\n(D) C1: (0,0), C2: (48,48), C3: (35,35)",
+            "correct_answer": 0,
+            "model_answer": "(12,9)\n\n<p><strong>Step-by-step reasoning:</strong></p>\n<ul>\n<li>Cluster 1:\n(1) (b) [Here, there is actually one point in common, which should be indicated by the number \"1\".]</li>\n<li>Cluster 2:\n(2) (provides the largest spatial distance between the points in the clusters.</li>\n<li>C1 actually corresponds to the endpoints of the red box (b) in the first iteration. However, the result is not proper because red box (b) should be put inside C1 actually.</li>\n<li>C2 actually has the two points (b*) but two points in C2 that in a scattered manner. The result is plausible.</li>\n<li>C3 in the second iteration has the (b) point which is inside C1 actually, however, the result is not correct (b* should be put inside C1 actually). The result is proper.</li>\n</ul>",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Any set of Boolean operators that is sufficient to represent all Boolean expressions is said to be complete. Which of the following is NOT complete?\n\n(A) {AND, NOT}\n(B) {NOT, OR}\n(C) {AND, OR}\n(D) {NAND}",
+            "correct_answer": 2,
+            "model_answer": "(A) contains the expression {A, NOT} \nwhich is not a complete set. \nThe expression {A, NOT} is not complete because it fails to represent all TRUE statements, as it only covers one operand, A, with a single operator, NOT. Therefore, it does not represent all TRUE statements that involve both operators.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Consider the collection of all undirected graphs with 10 nodes and 6 edges. Let M and m, respectively, be the maximum and minimum number of connected components in any graph in the collection. If a graph has no selfloops and there is at most one edge between any pair of nodes, which of the following is true?\n\n(A) M = 10, m = 10\n(B) M = 10, m = 1\n(C) M = 7, m = 4\n(D) M = 6, m = 4",
+            "correct_answer": 2,
+            "model_answer": "M and m refer to the maximum and minimum of number of connected components in all graphs with 10 nodes and 6 edges respectively.\n\nTo solve this problem, follow these steps:\n\n1. Identify the minimum number of connected components (m) in the given graph and the maximum number of connected components (M) that can be present in any graph.\n\n2. Ensure that the self-loops exist, i.e., each node in the graph has both in-degree and out-degree of at least 2.\n\n3. Consider the requirement of there being at most one edge between nodes in each \"connected\" pair of nodes.\n\n4. If there are exactly m connected components in a graph, then M = m.\n\n5. Exercise the flow of reasoning based on your understanding.\n\nOutput: (C)",
+            "correct": true
+        },
+        {
+            "id": 6,
+            "question": "Resolution theorem proving for showing that a formula of propositional logic is not satisfiable has which of the following properties?\nI. It is a sound proof system in the sense that there does not exist a proof of the unsatisfiability of a satisfiable formula of propositional logic.\nII. It is a complete proof system in the sense that there is a proof of unsatisfiability for every unsa tisfiable formula of propositional logic.\nIII. It is a succinct proof system in the sense that whenever an unsatisfiable formula F of propositional logic has a resolution proof, F also has a proof whose length is polynomial in the length of F.\n\n(A) I only\n(B) III only\n(C) I and II only\n(D) I and III only",
+            "correct_answer": 2,
+            "model_answer": "",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "Which of the following statements describe(s) properties of a purely segmented memory system?\nI. It divides memory into units of equal size.\nII. It permits implementation of virtual memory.\nIII. It suffers from internal fragmentation.\n\n(A) I only\n(B) II only\n(C) III only\n(D) I and III",
+            "correct_answer": 1,
+            "model_answer": "Refer to Chapter 3.7 for further explanation and examples",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Which of the following statements about floating-point arithmetic is NOT true?\n\n(A) It is inherently nonassociative because some numbers have no exact representation.\n(B) It is inherently nonassociative because there have to be upper and lower bounds on the size of numbers.\n(C) Associativity can be achieved with appropriate roundoff conventions.\n(D) Some rational numbers have no exact representation.",
+            "correct_answer": 2,
+            "model_answer": "Please choose one of A, B, C or D. \n\nA) It is inherently nonassociative because some numbers have no exact representation. (Reasoning: Since floating-point numbers have a limited precision, some numbers cannot be represented exactly. This means that they cannot be compared and manipulated like integer numbers can. In contrast, integer arithmetic is associative because the order of operations is well-defined and each operation is clearly communicated by spaces or brackets.)",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Suppose sharing of tiles in a multilevel directory structure is achieved with directory entries that are links pointing to a node containing information about a shared file. Information in this node includes (1) the owner of the file, (2) a count of the number of links to the tile, and (3) the disk block numbers of the file. What is a primary drawback to this approach to sharing?\n\n(A) If the owner modifies the file, another user who does not share will see the changes.\n(B) If the owner renames the file, other users will not be able to access it.\n(C) If the owner is allowed to delete a file, dangling links may result.\n(D) If any user who shares the file appends to it, others who share it will not be able to access the new disk blocks.",
+            "correct_answer": 2,
+            "model_answer": "A primary drawback to still sharing files in a multilevel directory structure is a backup problem. If one user mishandles sharing, deletion or renaming of a file could lose documentation or cause it to break. Hence, one key reason is to protect users from unintentionally or intentionally causing data loss.",
+            "correct": false
+        }
+    ]
+}

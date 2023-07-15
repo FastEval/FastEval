@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Let x = 1. What is x << 3 in Python 3?\n\n(A) 1\n(B) 3\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "The operand x << 3 in Python 3 has the following computed value:\n\nx << 3 \n\nIs equivalent to\n\nx = x * 2 \n\nNow, as x has the initial value 1, we can apply the above equation to get the following result:\n\nx = x * 2 \n\nOr, simply\n\nx = 2\n\nThus, the final computed value for x << 3 in Python 3 is 2.",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "In Python 3, which of the following function convert a string to an int in python?\n\n(A) int(x [,base])\n(B) long(x [,base] )\n(C) float(x)\n(D) str(x)",
+            "correct_answer": 0,
+            "model_answer": "The correct answer is **C**. The other functions, **A**, **B**, **D**, and **long** are all used to convert a string to an integer, but **str** is a different type of conversion and returns a string rather than an integer.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "A user enters a Web address in a browser, and a request for a file is sent to a Web server. Which of the following best describes how the file is sent to the user?\n\n(A) The file is broken into packets for transmission. The packets must be reassembled upon receipt.\n(B) The file is broken into packets for transmission. The user's browser must request each packet in order until all packets are received.\n(C) The server attempts to connect directly to the user's computer. If the connection is successful, the entire file is sent. If the connection is unsuccessful, an error message is sent to the user.\n(D) The server repeatedly attempts to connect directly to the user's computer until a connection is made. Once the connection is made, the entire file is sent.",
+            "correct_answer": 0,
+            "model_answer": "The best description of how the file is sent to the user is Option D, \"The server repeatedly attempts to connect directly to the user's computer until a connection is made.\"\n\nWhen a user enters a Web address in a browser, a request for a file is sent to the server. When the server receives the request, it attempts to connect directly to the user's computer using a protocol such as TCP/IP. If the connection is successful, the server sends the requested file to the user. If the connection is unsuccessful, the server sends an error message to the user.\n\nOption D describes the behavior of the server in this case. The server repeatedly attempts to connect to the user's computer until a connection is established. Once a connection is established, the server sends the requested file to the user.\n\nTherefore, Option D best describes how the file is sent to the user in this scenario.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Digital images are often represented by the red, green, and blue values (an RGB triplet) of each individual pixel in the image. A photographer is manipulating a digital image and overwriting the original image. Which of the following describes a lossless transformation of the digital image?\n\n(A) Compressing the image in a way that may lose information but will suffer only a small loss of image quality.\n(B) Creating the gray scale of an image by averaging the amounts of red, green, and blue in each pixel and assigning this new value to the corresponding pixel in the new image. The new value of each pixel represents a shade of gray, ranging from white to black.\n(C) Creating the negative of an image by creating a new RGB triplet for each pixel in which each value is calculated by subtracting the original value from 255. The negative of an image is reversed from the original; light areas appear dark, and colors are reversed.\n(D) Modifying part of the image by taking the pixels in one part of the picture and copying them to the pixels in another part of the picture.",
+            "correct_answer": 2,
+            "model_answer": "This is not a multiple choice question. Therefore none of the answers given can be correct.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "A programmer is writing a program that is intended to be able to process large amounts of data. Which of the following considerations is LEAST likely to affect the ability of the program to process larger data sets?\n\n(A) How long the program takes to run\n(B) How many programming statements the program contains\n(C) How much memory the program requires as it runs\n(D) How much storage space the program requires as it runs",
+            "correct_answer": 1,
+            "model_answer": "B",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Suppose the characters 0,1, . . . ,8,9,A,B,C,D, E,F are used to represent a hexadecimal (base-16) number. Here A = 10, B = 11, . . . ,F = 15. What is the largest base-10 integer that can be represented with a two-digit hexadecimal number, such as 14 or 3A?\n\n(A) 32\n(B) 225\n(C) 255\n(D) 256",
+            "correct_answer": 2,
+            "model_answer": "The largest base-10 integer that can be represented with a two-digit hexadecimal number, such as 14 or 3A, is 255.\n\nTo represent a base-16 number in base-10, we move the rightmost two digits to the left and use digits progressively from left to right. Here, 14 is represented as 10*2 + 4, and 3A is represented as 10*2 + 3*2 + A.\n\nThe rule for multiplying two hexadecimal numbers is the same as the rule for multiplying two decimal numbers: multiples of 16 are added, while multiples of 100 are multiplied by 10.\n\nTherefore, 10*2 + 4 is equal to 20 and 10*2 + 3*2 + A is equal to 50. Because 50 is larger than 20, the largest base-10 integer that can be represented with a two-digit hexadecimal number, such as 14 or 3A, is 255.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "A large data set contains information about all students majoring in computer science in colleges across the United States. The data set contains the following information about each student.\n   \u00b0 The student's gender\n   \u00b0 The state in which the student attends college\n   \u00b0 The student's grade point average on a 4.0 scale\n\n Which of the following questions could be answered by analyzing only information in the data set?\n\n(A) Do students majoring in computer science tend to have higher grade point averages than students majoring in other subjects?\n(B) How many states have a higher percentage of female computer science majors than male computer science majors attending college in that state?\n(C) What percent of students attending college in a certain state are majoring in computer science?\n(D) Which college has the highest number of students majoring in computer science?",
+            "correct_answer": 1,
+            "model_answer": "Based on the data provided, I would answer the following question:\n\nWhat is the average grade point average of students majoring in computer science at a specific school?\n\nTo answer this question, we need to calculate the mean of the grades for all computer science majors at that school. The mean is calculated by dividing the sum of all grades by the number of students who took the course.\n\nWe can find the mean of the grades for computer science majors at a specific school by calculating the sum of the grades for all computer science majors divided by the number of computer science majors at that school.\n\nHere is the SQL code to calculate the mean of the grades for all computer science majors at a specific school:\n\n```\nSELECT school, AVG(grade) AS average_grade\nFROM students\nJOIN courses ON students.id = courses.student_id\nWHERE courses.area = 'computer science'\nGROUP BY school;\n```\n\nThis code uses the `AVG` function to calculate the mean of the grades for all computer science majors at a school. The `WHERE` clause filters the results to only include rows where the student is majoring in computer science and the course is in the `computer science` area.\n\nThe `GROUP BY` clause groups the results by school, so that each school's average grade is calculated separately.\n\nThe resulting SQL result will contain two rows: one for each school. The first column contains the school name and the second column contains the average grade for all computer science majors at that school.\n\nThe final line of code contains the answer as a single letter (i.e., `A`) with parenthesis, without anything else. This is the correct answer because it correctly calculates the average grade point average for all computer science majors at a specific school.",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "The code segment below uses the procedure IsFound (list, item), which returns true if item appears in list and returns false otherwise. The list resultList is initially empty.\n  FOR EACH item IN inputList1{\n IF (isFound (inputList2, item) )\n APPEND (resultList, item)\n }\n Which of the following best describes the contents of resultList after the code segment is executed?\n\n(A) All elements in inputListl followed by all elements in inputList2\n(B) Only elements that appear in both inputListl and inputList2\n(C) Only elements that appear in either inputListl or inputList2 but not in both lists\n(D) Only elements that appear in inputListl but not in inputList2",
+            "correct_answer": 1,
+            "model_answer": "Element (item) appears in list1: resultList = [item]\nElement (item) does not appear in list2: resultList = []\n\nElement (item) appears in list2: resultList = [item, item]\nElement (item) appears in list1: resultList = [item, item]\nElement (item) does not appear in list2: resultList = []",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "A program is expressed in a programming language. Which of the following is true of the program?\n\n(A) The program can also be expressed as binary code, but will be more easily understood by humans when expressed in a higher-level programming language.\n(B) The program can also be expressed as binary code, which will reduce the likelihood of errors.\n(C) The program cannot be expressed as binary code, because binary code can only be used to represent data.\n(D) Some parts of the program can be expressed as binary code, but operations must be expressed using a higher-level programming language.",
+            "correct_answer": 0,
+            "model_answer": "(A) cannot be true because we are currently in the realm of physical reality where our only tool is 0s and 1s, therefore everything we see is determined by this binary system, therefore (A) is false",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": "In Python 3, what is the output of print tuple[0] if tuple = ( 'abcd', 786 , 2.23, 'john', 70.2 )?\n\n(A) ( 'abcd', 786 , 2.23, 'john', 70.2 )\n(B) abcd\n(C) Error\n(D) None of the above.",
+            "correct_answer": 1,
+            "model_answer": "The output of print tuple[0] if tuple = ( 'abcd', 786 , 2.23, 'john', 70.2 ) in Python 3 is:\n\nabcd\n\nThis is because tuple is a tuple with four elements, and the index method can be used to access the first element (which is the string 'abcd') by specifying tuple[0].\n\nIs this the answer you were looking for?",
+            "correct": false
+        }
+    ]
+}

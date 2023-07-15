@@ -1,0 +1,215 @@
+{
+    "score": 0.16666666666666666,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhich is the oldest penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(E)",
+            "model_answer": ": Thank you for the question. Here's the step-by-step explanation of my reasoning:\n1. Look for the column headers in each table and see that there is only one header, so there are only five penguins in the first table.\n2. Look for each of the penguin names and corresponding columns (height and weight) in the first table. Only Vincent has a weight greater than 10 kg, so he is the oldest penguin.\nSince there is only one penguin left after counting the giraffes, the answer is (E) James. The ( is reserved for the final answer, which is (E) James.",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  What is the name of the last penguin sorted by alphabetic order?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(C)",
+            "model_answer": ": \n\nTo solve this problem, we first need to create a list of dictionaries, where each dictionary represents a penguin and contains their name, age, and height in centimeters. We can then sort this list alphabetically by name using the `sorted()` function. For example, the sorted list would be:\n\n['Gwen', 'Louis', 'Vincent', 'Bernard', 'Peter']\n\nSince there is only one penguin named Bernard, the name of the last penguin sorted alphabetically is Bernard. Therefore, the answer is (B).",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  How many penguins are more than 5 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(C)",
+            "model_answer": ": Thank you for the question. To determine how many penguins are more than 5 years old, we need to look at the age of each penguin. Gwen is the only penguin who is more than 5 years old, as she is 8 years old. Therefore, the answer is (A) 1.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many animals are more than 5 years old?\nOptions:\n(A) 5\n(B) 6\n(C) 7\n(D) 8\n(E) 9",
+            "correct_answer": "(A)",
+            "model_answer": ": \nThank you for your question. To determine how many animals are more than 5 years old, we need to examine the age values in each group and count the number of animals whose age is greater than 5 years. \nFor the penguins, we see that both Louis and Gwen are more than 5 years old. \nFor the giraffes, we see that Gladys is more than 5 years old, since her age is 10 and 10 is greater than 5. \nTherefore, the correct answer is (D) 8. Alternatively, we could count the number of animals who've lived more than 4 years, which is 6 (Jody, Gladys, Marian, Donna). Either way, 2 animals are younger than 5 years old (Louis and Vincent for the penguins, and Marian and Donna for the giraffes).",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  Which penguin is older than Gwen?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(C)",
+            "model_answer": ": \nThank you for the question! Here's my step-by-step reasoning:\n1. The table shows the weight of Gwen is 15 kg.\n2. From this, we can infer that Bernard is older than Gwen, since Gwen is older than Bernard.\n3. From the weight of the other penguins, we know that the weight of Vincent is less than Bernard, and the weight of Louis is less than Vincent.\n4. Therefore, Bernard and Vincent are the only penguins with weights greater than 15 kg, and the only penguins older than Gwen. \n5. Therefore, the answer is (B) Bernard. \nSo the final answer is (B) Bernard.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the cumulated age of the giraffes?\nOptions:\n(A) 26\n(B) 29\n(C) 41\n(D) 55\n(E) 67",
+            "correct_answer": "(A)",
+            "model_answer": ": Let's start by looking at the giraffes. We can see from the table that the age of Jody is 5 years old, and the weight of Marian is 310 kg. Finally, the height of Gladys is 420 cm and the age of Donna is 9 years old. \nNow, to cumulatively calculate the ages of all the giraffes, we can sum up the ages of each giraffe listed in the table. Starting with the first giraffe in the table, we have: \nJody (5 years old) + Gladys (10 years old) + Marian (2 years old) + Donna (9 years old) = 20 + 10 + 2 + 9 = 29 years old\nTherefore, the cumulated age of all the giraffes is 29 years old. The answer is D).",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the penguin that is 70 cm tall?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(D)",
+            "model_answer": ": \nSince the height of James is 90 cm, we can use the formula height = weight / 2.67 (since humans have a mass of approximately 70kg and a height of 5.5 meters) to determine his height in meters. This calculates to 2.62 meters. \nBut we are looking for his height in centimeters, so we need to multiply by 100. \nTherefore, James is 2.62 meters tall in centimeters, or (2.62 * 100) = 262 cm. \nThe only option that satisfies this condition is (D) Gwen.",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last giraffe sorted by alphabetic order?\nOptions:\n(A) Jody\n(B) Gladys\n(C) Marian\n(D) Donna\n(E) Louise",
+            "correct_answer": "(C)",
+            "model_answer": ": \n\nTo find the name of the last giraffe sorted alphabetically, we first need to group the giraffes by their first letters, so that we can properly sort them. The groups are:\n(J) Jody, Gladys\n(G) Giraffes\n(M) Marian\n(D) Donna\nFrom these groups, we see that only Jody is in the first group (J), so she is the last giraffe sorted alphabetically.\nAnswer: (D) Donna",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nHow many penguins are there in the table?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(E)",
+            "model_answer": ":There are 4 penguins in the table. \nExplanation: \nFirst, we can see that each penguin has a name, age, and height (in centimeters). The weight is given in kilograms. \nSecond, we see that there are 5 numbers in the table. This excludes the header, which has 2 numbers (name and age), and the last row, which has 3 numbers (name, age, and weight). \nTherefore, there are 5 - 1 = 4 penguins in the table, which corresponds to options (B), (C), (D), (E), and (A). The answer is (B).",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  Which penguin has the first name of a famous jazzman?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(A)",
+            "model_answer": ": \nStep 1: Review the table and identify the penguins with the following traits: name, age, height, and weight. \nStep 2: Identify the trait that distinguishes the jazzman from the other penguins. In this case, the jazzman has a famous name, so we can deduce that the first name of the jazzman is not Bernard, Vincent, Gwen, or James. \nStep 3: Eliminate the options that do not match this trait. Therefore, the answer is (A) Louis.",
+            "correct": true
+        },
+        {
+            "id": 10,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are more than 8 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": ": \nThank you for the question. Here is my step-by-step reasoning:\nFirst, I will identify all penguins who are more than 8 years old. To do this, I will need to look at the age of each penguin in the table and identify which ones are greater than 8. \n(ii) The ages of Louis and Vincent are more than 8, but they are the only penguins of this type. \n(iii) Therefore, the answer is (E), 2. \n(E) 2",
+            "correct": false
+        },
+        {
+            "id": 11,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many giraffes are more than 5 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(B)",
+            "model_answer": ": \nWe need to check for each giraffe its age, weight, and height. For example, we find that Jody is 5 years old, has a height of 430 cm, and a weight of 620 kg. We need to compare this with the other giraffes to find how many are more than 5 years old. The only giraffe that is more than 5 years old is Gladys, since her age is 10, which is greater than 5. Therefore, the answer is (D) 4.",
+            "correct": false
+        },
+        {
+            "id": 12,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWe then delete the penguin named Bernard from the table.\nHow many penguins are less than 8 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": ": Here's how to solve the problem step-by-step:\n1. Look at the second line of the table, which reads \"age, height (cm), weight (kg)\" and identify the information that you need to calculate the ages of penguins less than 8 years old.\n2. Figure out what age you need to compare to 8. Since all penguins in the table are older than 8 years old, you need to compare to the age that is 8 years older than the penguin in question: Gwen's age of 15 kg.\n3. Now, compare each penguin's age to 8 and count how many are less than 8. Bernard's age is 80 cm, which is greater than 8, so he doesn't qualify. Louis' age is 7, which is less than 8, so he does qualify. Gwen's age of 15 kg is 8 years older than 7, so she also qualifies. Vincent's age is 9, which is less than 8, so he does qualify. James' age is 12, which is greater than 8, so he doesn't qualify.\n4. Therefore, there are 2 penguins less than 8 years old. The answer is (B).",
+            "correct": false
+        },
+        {
+            "id": 13,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many giraffes are there in the tables?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(D)",
+            "model_answer": ": (B) 2 \nExplanation: There are two giraffes in the tables, one in each table.",
+            "correct": false
+        },
+        {
+            "id": 14,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  How many animals are listed in the table?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(D)",
+            "model_answer": "Here is my step-by-step reasoning:\n1. I read the first line, which is the header.\n2. I ignore the first word, since it is not meaningful for my task.\n3. I count the number of lines after the header, which is 3.\n4. I ignore the first word on each subsequent line, since it is not meaningful for my task.\n5. I count the number of second words on each subsequent line, which are \"age\", \"weight\", and \"height\".\n6. I count the number of each type of word, which are 1, 2, and 1, respectively.\n7. The numerical value of each count is 1+2+1=4.\n8. Therefore, the correct answer is (E) 5.\n\nAnswer: (E) 5 (five penguins are listed in the table)",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWe then delete the penguin named Bernard from the table.\nHow many penguins are more than 5 years old and weight more than 12 kg?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": ":\nIn order to answer this question, we need to analyze the table and see which penguins fit the given criteria. \nFirst, we can see that Gwen is the only penguin who is over 5 years old and weighs over 12 kg. \nTherefore, the answer is (D) 4.",
+            "correct": false
+        },
+        {
+            "id": 16,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many giraffes are more than 5 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(B)",
+            "model_answer": ": \nTo find how many giraffes are more than 5 years old, we first need to identify which giraffes are more than 5 years old. From the table, we know that Gladys is more than 5 years old since her age is 10. Therefore, there is only one giraffe that is more than 5 years old. \nOutput: ( A ) 1",
+            "correct": false
+        },
+        {
+            "id": 17,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are there in the table?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(C)",
+            "model_answer": ": \nTo answer this question, we need to look at the table and see how many penguins are there after deleting Bernard. \n(Step 1) We notice that Bernard was on the third line, which means that he was the third penguin listed in the table. \n(Step 2) We also notice that there were two lines separating the first and second penguins, and three lines separating the first and third penguins. This means that the total number of penguins was 3 + 2 = 5 penguins.\n(Step 3) Therefore, the answer is (E) 5.",
+            "correct": false
+        },
+        {
+            "id": 18,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWhat is the average height of the penguins?\nOptions:\n(A) 60\n(B) 65\n(C) 70\n(D) 75\n(E) 80",
+            "correct_answer": "(C)",
+            "model_answer": ": First, we will calculate the average weight of the penguins by adding up all the weight values and dividing by the number of penguins: 11 + 15 + 12 = 38. Then, we will calculate the average height of the penguins by adding up all the height values and dividing by the number of penguins: 80 + 70 + 90 = 250. Finally, we will find the average height by dividing the total height by the number of penguins: 250/3 = 83.33. Therefore, the average height of the penguins is 83.33 (rounded to the nearest whole number).",
+            "correct": false
+        },
+        {
+            "id": 19,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nWhich is the younest penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(A)",
+            "model_answer": ":\nSure, I'd be happy to help you with that! Here's a step-by-step explanation of the reasoning:\nFirst, we can use the information in the table to calculate the total weight of all the penguins, which is 14.3 kg. Then, we can subtract the weight of Bernard, which is 11 kg, to get 3.3 kg.\nNow, we need to find the youngest penguin. Since we deleted Bernard, the only remaining penguin is Vincent, who is 9 years old. However, his height is only 60 cm, which is less than all the other penguins, so none of the other options are correct. Therefore, the answer is (B) Bernard, the younest penguin.\nI hope that helps! Let me know if you have any other questions.",
+            "correct": false
+        },
+        {
+            "id": 20,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are less than 8 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": ": \nThank you for the question. Here is my step-by-step reasoning:\nFirst, I will delete the line where the penguin's name is \"Bernard\" from the table. \nThe new table would look like this: \nname, age, height (cm), weight (kg) Louis, 7, 50, 11 Vincent, 9, 60, 11 Gwen, 8, 70, 15 \nTo determine the number of penguins that are less than 8 years old, I would first count how many rows are less than 8 (which is 6, since there are only 6 penguins in the original table). \nTherefore, the answer is: (process the answer) = 6. \nTherefore, the answer is (6).",
+            "correct": false
+        },
+        {
+            "id": 21,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWhat is the cumulated weight of the penguins?\nOptions:\n(A) 37\n(B) 49\n(C) 50\n(D) 62\n(E) 63",
+            "correct_answer": "(D)",
+            "model_answer": ": \n1. First, we can calculate the weight of James by multiplying his height by his weight: 90 x 12 = 1080 kg.\n2. Next, we can add James's weight to the cumulated weight of all the other penguins, including Louis, Bernard, Vincent, and Gwen, who were listed in the table: 17 + 11 + 13 + 15 + 15 = 63 kg.\n3. Therefore, the cumulated weight of all the penguins in the table is 63 kg. (D)",
+            "correct": true
+        },
+        {
+            "id": 22,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  How many penguins are more than 8 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": ": This question can be solved using basic arithmetic and comparison operations. To find the answer, we first need to count how many penguins are more than 8 years old. \n(1) We start by looking at the age column and count how many penguins have an age greater than 8. Only one penguin, Louis, has an age greater than 8, so the answer is (A): 1.\n(2) Next, we look at the weight column and count how many penguins have a weight greater than 15 kg. Only one penguin, Gwen, has a weight greater than 15 kg, so the answer is (E):",
+            "correct": false
+        },
+        {
+            "id": 23,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nHow many penguins are more than 5 years old and weight more than 12 kg?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": ": Steps:\n\n1. Identify the criteria for choosing the penguins: more than 5 years old and weight more than 12 kg.\n2. From the given table, eliminate any penguins that do not qualify.\n3. There is only one penguin that qualifies: Louis, with age of 7 and height of 50 cm.\n4. Therefore, the answer is (A) 1, which means the answer is Louis.",
+            "correct": true
+        },
+        {
+            "id": 24,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  What is the age of Bernard?\nOptions:\n(A) 7\n(B) 5\n(C) 9\n(D) 8\n(E) 12",
+            "correct_answer": "(B)",
+            "model_answer": ": Well, the first line is a header and the subsequent lines are each a penguin's details. So, if we want to find out the age of Bernard, we need to look at the line where his details are. That's line 2, where age = 5, weight = 13 kg, and height = 80 cm. Therefore, Bernard's age is 5.",
+            "correct": false
+        },
+        {
+            "id": 25,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are less than 10 years old?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(C)",
+            "model_answer": ":\nTo solve this problem, we can look at the age column of the table and find out which penguins are less than 10 years old. In this case, there are 2 penguins less than 10 years old: Louis and Vincent, since their ages are 7 and 9, respectively, and 9 is less than 10. \nTherefore, the answer is (B) 2.",
+            "correct": false
+        },
+        {
+            "id": 26,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(E)",
+            "model_answer": ": Thank you for the question! In order to answer this question, we must first look at the penguin table and see which penguin has the height closest to 12 cm. Using the information given in the table, we know that the height of James is 90 cm, which is more than 12 cm. Therefore, the penguin with the height closest to 12 cm is not in the table. \nWe can similarly look at the giraffes table and see which giraffe has the height closest to 12 cm. Using the information given in the table, we know that the height of Jody is 430 cm, which is more than 12 cm. Therefore, the giraffe with the height closest to 12 cm is not in the table. \nTherefore, the penguin with the height closest to 12 cm is not in the table, and the last penguin must be one of Louis, Bernard, Vincent, Gwen, or James. From the given information, we know that Vincent and James are the only ones who must be left. However, we do not have enough information to determine which is the last penguin. \nI hope this helps!",
+            "correct": false
+        },
+        {
+            "id": 27,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We then delete the penguin named Bernard from the table.\nHow many penguins are more than 5 years old and weight more than 12 kg?\nOptions:\n(A) 1\n(B) 2\n(C) 3\n(D) 4\n(E) 5",
+            "correct_answer": "(A)",
+            "model_answer": ":\nThank you for the question! Here's my reasoning: \nWe want to find penguins that are more than 5 years old and weigh more than 12 kg. \nFirst we look for the age of the penguin named \"Bernard\", which is listed as \"5\" in the first column. Since 5 is less than 6 (the age of the oldest penguin listed), penguin Bernard is not one of the penguins we are looking for. \nHowever, there are still four penguins that meet the remaining criteria: Vincent, Gwen, Louis, and Louis (since Louis is still in the table and fits the remaining criteria). \nWe want to find the Penguins that meet the criteria and are more than 5 years old and weight more than 12 kg, so options B and C are correct. \nTherefore the answer is (B) and (C). (Bernard and Louis are both 5 years old, and both weigh more than 12 kg, but Bernard is the only penguin that is 7 years old and weighs less than 15 kg.)\nThe answer in code is (B) and (C). (Louis and Louis are both 7 years old, and both weigh more than 12 kg, but Bernard is the only penguin that is 5 years old and weighs less than 12 kg.)",
+            "correct": false
+        },
+        {
+            "id": 28,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nWhat is the name of the 60 cm tall penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+            "correct_answer": "(C)",
+            "model_answer": ":Sure, let's go through the steps. First, we'll convert the weight of James into kilograms. That'll be 12 kg. Next, we'll use the information we know about Vincent and Bernard to narrow down the possibilities for their height. Since their weights are 11 kg and 13 kg, respectively, and the weight of James is 12 kg, Vincent must be taller than Bernard. Also, the height of James is 90 cm, so Vincent must be taller than 90 cm to be 60 cm tall. That means Vincent's height must be between 90 cm and 60 cm. That narrows the possibilities to 80 cm and 70 cm. We can eliminate 80 cm because Vincent's weight is known to be 11 kg, and 80 cm x 11 kg/1000 = 864000 cm\u00b2, which is greater than the surface area of a 60 cm tall penguin (50 cm\u00b2). Therefore, Vincent must be 70 cm tall, which means the only possible answer is (D) Gwen. (D) Gwen is the penguin that is 60 cm tall. Therefore, the answer is (D) Gwen. (D)",
+            "correct": false
+        },
+        {
+            "id": 29,
+            "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last giraffe?\nOptions:\n(A) Jody\n(B) Gladys\n(C) Marian\n(D) Donna\n(E) Louise",
+            "correct_answer": "(D)",
+            "model_answer": ": Great, I look forward to helping you. Based on the information provided in the tables, the name of the last giraffe is (D) Donna. \nWhen adding the giraffe to the table, it is clear that the last giraffe listed has the highest weight. Therefore, the answer is (D) Donna. \nWould you like me to explain my reasoning step-by-step, or just give you the answer?",
+            "correct": false
+        }
+    ]
+}
