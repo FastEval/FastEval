@@ -5,6 +5,7 @@ import torch
 import transformers
 import tqdm
 
+import evaluation.args
 import evaluation.models.fastchat
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm_backend
@@ -81,6 +82,10 @@ def is_tgi_installed():
     return os.path.exists('text-generation-inference')
 
 def get_huggingface_backend(model_path: str):
+    forced_backend = evaluation.args.cmd_arguments.force_backend
+    if forced_backend is not None:
+        return forced_backend
+
     if is_vllm_supported(model_path):
         return 'vllm'
     if is_tgi_supported(model_path):

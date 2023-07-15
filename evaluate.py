@@ -4,6 +4,7 @@ import os
 import json
 import argparse
 
+import evaluation.args
 from evaluation import benchmarks
 from evaluation.utils import changed_exit_handlers
 from evaluation.models.models import unload_model
@@ -35,7 +36,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
     parser.add_argument('-m', '--models', nargs='+')
+    parser.add_argument('--force-backend', choices=['hf_transformers', 'tgi', 'vllm'], required=False)
     args = parser.parse_args()
+
+    evaluation.args.cmd_arguments = args
 
     if 'all' in args.benchmarks:
         args.benchmarks = all_benchmarks
