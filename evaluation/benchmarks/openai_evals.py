@@ -40,7 +40,7 @@ class CompletionResult(evals.api.CompletionResult):
         self.reply = reply
 
     def get_completions(self) -> list[str]:
-        return [self.reply.strip()]
+        return [self.reply]
 
 class CompletionFn(evals.api.CompletionFn):
     """
