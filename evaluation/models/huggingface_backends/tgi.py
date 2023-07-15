@@ -7,6 +7,7 @@ import subprocess
 
 from text_generation import Client
 
+import evaluation.args
 import evaluation.models.models
 
 lock = threading.Lock()
@@ -59,6 +60,7 @@ def start_server(*, model_path, tokenizer_path, dtype):
         '--dtype', dtype_arg,
         '--max-concurrent-requests', '1024',
         '--num-shard', str(torch.cuda.device_count()),
+        '--max-batch-total-tokens', str(evaluation.args.cmd_arguments.tgi_max_batch_total_tokens),
     ], env=new_environment, stdout=subprocess.PIPE, text=True)
 
     for line in process.stdout:
