@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Find the degree for the given field extension Q(sqrt(2), sqrt(3), sqrt(18)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "(C) 2",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Let p = (1, 2, 5, 4)(2, 3) in S_5 . Find the index of <p> in S_5.\n\n(A) 8\n(B) 2\n(C) 24\n(D) 120",
+            "correct_answer": 2,
+            "model_answer": "The problem discusses a permutation group p in S_5, specifically a permutation (1,2,5,4)(2,3). The task is to determine the index of this permutation in S_5.\n\nLet's start by finding the order of the permutation. We can do this by solving for (p^k)(1).\n\n(p^k)(1) = (1,2,5,4)^k(1) = 1 via the identity permutation (note (1,2,5,4)(1) = (1,2,5,4))\n\nTherefore, p has order 1 via the identity permutation. This means that there is only one unique permutation that maps to via p.\n\nSince there's only one unique permutation that maps to itself via p, we can answer part (A).\n\n(A) 8",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^5 + 3x^3 + x^2 + 2x in Z_5\n\n(A) 0\n(B) 1\n(C) 0,1\n(D) 0,4",
+            "correct_answer": 3,
+            "model_answer": "We first seek to solve the equation:\n\nx^5 + 3x^3 + x^2 + 2x = 0\n\nin Z_5.\n\nTo do this, we recall that field addition, subtraction, and multiplication are the same as in Z_10, but modulo 5. Multiplication and multiplication by remaining in the field leads to a field where all the non-zero elements have a multiplication inverse in Z_5, so we can solve this equation solvability by way of the rational root theorem.\n\nThat theorem states that all possible rational roots in the given domain of the remaining field are of the form:\n\n(0, \u00b14, \u00b15, \u00b17, \u00b125) modulo 25\n\nIn Z_5 remaining in the field, the guaranteed field is that found by computing in Z_10, remaining in Z_10, then computing that result modulo 5.\n\nFor remaining in Z_10 guaranteed field values, that takes 5 as a square root, remaining in Z_10 guaranteed field values that take 5 in the denominator of the fraction, whose numerators divide by 5 in Z_10, are:\n\n1/ remaining in Z_10 guaranteed field values that take 5 in the denominator of the remaining in Z_10 guaranteed field values that take 5 in the denominator of the remaining in Z_10 guaranteed field values that take 5 in the denominator of the remaining in Z_10 guaranteed field values that take 5 in the denominator of the 1 remaining in Z_10 guaranteed field values that take 5 in the denominator of the  remaining in Z_10 guaranteed field values that take 5 in the denominator of the  remaining in remaining in Z_10 guaranteed field values that take 5 in the denominator of the remaining in Z_10 guaranteed field values that take 5 in the denominator of the remaining in Z_10 guaranteed field values that take 5 in the denominator of the remaining in Z_10 guaranteed field values that take 5 in the denominator of the remaining in Z_10 guaranteed field values that take 5 in the denominator of the 1 remaining in Z_10 guaranteed field values that take 5 in the denominator of the",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Statement 1 | A factor group of a non-Abelian group is non-Abelian. Statement 2 | If K is a normal subgroup of H and H is a normal subgroup of G, then K is a normal subgroup of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "(C) True, False",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Find the product of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x) = 2x^2 - 4x + 2 in Z_8[x].\n\n(A) 2x^2 + 5\n(B) 6x^2 + 4x + 6\n(C) 0\n(D) x^2 + 1",
+            "correct_answer": 1,
+            "model_answer": "Here are the steps to find the product of the given polynomials in the given polynomial ring:\n\nStep 1: Write the polynomial g(x) as a monic polynomial by multiplying it by x^(deg(g)) to get g'(x) = x*g(x).\n        g'(x) = x*(2x^2 - 4x + 2) = 2x^3 - 4x^2 + 2x --------- (1)\n    \nStep 2: Evaluate f'(x) - x^(deg(f)) * f(x) in the polynomial ring.\n        f(x) = 4x - 5, deg(f) = 1\n        f'(x) = 4 - x ---------- (2)\n        x^1 = 1\n        f'(x) - x^1 * f(x) = (4 - x) - (4) = -x ---------- (3)\n\nStep 3: Using the Euclidean algorithm, find the GCD (greatest common divisor) of f'(x) and g'(x).\n        gcd(f'(x), g'(x)) = gcd(2x^3 - 4x^2 + 2, -x ----------- (4)\n           = gcd(2x^3 + x, -2)\n           = gcd(x(2x^2 + 1), -2)\n           = gcd(x, 2)\n        gcd(f'(x), g'(x)) = 2---------(5)\n       \nStep 4: Evaluate f(x) mod g'(x) in the polynomial ring.\n        f(x) = 4x - 5\n        f(x) mod g'(x) = (4x - 5) mod (2x^3 - 4x^2 + 2)\n        f(x) mod g'(x) = 2x^3 - 4x^2 + 2\n        -5 = 2x^3 - 4x^2 + 2 (mod 2) --------- (6)\n    \nStep 5: Evaluate f'(x) - x^(deg(f)) * f(x) in the polynomial ring.\n        f'(x) = -x\n        f'(x) - x^(1) * f(x) = (-x) - (4) = -5 --------- (7)\n       \nStep 6: Evaluate f(x) mod g'(x) in the polynomial ring.\n        f(x) = 4x - 5\n        f(x) mod g'(x) = (4x - 5) mod (2x^3 - 4x^2 + 2)\n        f(x) mod g'(x) = -2x^3 + 5x^2 - 5x --------- (8)\n    \nStep 7: Evaluate f'(x) mod g'(x) in the polynomial ring.\n        f'(x) = -x\n        f'(x) mod g'(x) = (-x) mod (2x^3 - 4x^2 + 2)\n        f'(x) mod g'(x) = -5x^2 - 4x + 5 --------- (9)\n       \nStep 8: Multiply all the terms in every equation evaluated so far.\n        (9) = -2x^3 + 5x^2 - 5x (mod (2))\n        (8) = -2x^3 + 5x^2 - 5x (mod (2))\n        (5) = x (mod (2))\n        (4) = -x --------- (10)\n        (3) = 0 --------- (11)\n        (2) = 0 --------- (12)\n\nStep 9: Determine the product of the two given polynomials.\n        The product of f(x) and g(x) is f(x)g(x) (mod (2))\n        (10) = -x * -5x^2 - 5x --------- (15)\n        (11) = 0 --------- (16)\n        (12) = 0 --------- (17)\n        The product of f(x) and g(x) is -x --------- (18)",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Statement 1 | If a group has an element of order 15 it must have at least 8 elements of order 15. Statement 2 | If a group has more than 8 elements of order 15, it must have at least 16 elements of order 15.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "\u200b",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Statement 1 | Every homomorphic image of a group G is isomorphic to a factor group of G. Statement 2 | The homomorphic images of a group G are the same (up to isomorphism) as the factor groups of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "(A) True, True",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "Statement 1 | A ring homomorphism is one to one if and only if the kernel is {0}. Statement 2 | Q is an ideal in R.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "(A) True, True\n\nExplanation:\n\nStatement 1 determines that the ring homomorphism will be one to one if and only if the kernel contains only the zero element. Therefore, the necessary condition for the ring homomorphism to be one to one is the kernel = {0}.\n\nStatement 2 states that Q is an ideal in R. However, it does not directly imply anything about the ring homomorphism being one to one.\n\nTherefore, option (A) is the correct choice, where both propositions are true.",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Find the degree for the given field extension Q(sqrt(2) + sqrt(3)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "We are looking for the degree of the extension [E: Q] where E = Q(\u221a2 + \u221a3).\n\nStep 1:\nWe need to use the Tower law [tex] [E:Q]\\!\\mid\\! [E:K] [K:Q] [/tex] for some intermediate field K. We can take K = Q(\u221a2). Then we see that E = K(\u221a3). This means that we have [E:K] = 2 since we add a single new solution to the equation x^2 - 2 = 0. Therefore, we see that [E:Q] = [E:K][K:Q] = 2.\n\nStep 2:\nSince [K:Q] = 4, it follows that [E:Q] = 2 * 4 = 8. Therefore, the answer is (C) 2.\n\nAnswer: (C) 2",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^3 + 2x + 2 in Z_7\n\n(A) 1\n(B) 2\n(C) 2,3\n(D) 6",
+            "correct_answer": 2,
+            "model_answer": "The steps to find all zeros of x^3 + 2x + 2 in Z_7 are as follows:\n\n1. Transform the original polynomial into a normal form (monic and with coefficients in the given field).\n2. Use the formula for the discriminant, and if it is non-zero, use the formula for the roots in a quadratic (x = (-b \u00b1 \u221a(b^2 - 4ac))) ).\n3. Check if any of the roots satisfy the requirement ( chevalley's theorem ).\n\nTo complete the question, here are the steps for finding all zeros in Z_7:\n\n1. Normal form: If we don't have the monic form already, we can express it as x^3 - 4 (this polynomial is easier to work with ).\n2. Discriminant: \u0394 = \u0394_discriminant = 8, so it's non-zero.\n3. Roots: The normal form has \u0394 = b^2 - 4ac = 8, so we need to solve for the values of x that satisfy the equation -4 \u00b1 \u221a(8) = 0. In Z_7, we know that the \u221a(-4) \u2260 \u221a8.\n4. Check if any of the roots satisfy the requirement: In chevalley's theorem, we are looking for a root that satisfies f(x) = h(x)^k, h(x) = g(x)^4 (this polynomial h(x) is easier to work with). For g(x) = x^3 - 4, h(x) = x^(8) - 4 (this polynomial h(x) is easier to work with).\n5. The polynomial h(x) = x^(8) - 4 has k = 8, so it's easy to solve. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. g(x) = (x^8 - 4)^(-1/8) = 1 (mod 7). In chevalley's theorem, h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1.\n4. If we find any solution that satisfies f(x) = h(x)^k, then g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1.\n4. If we find any solution that satisfies f(x) = h(x)^k, then g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If we find any solution that satisfies f(x) = h(x)^k, then g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1.\n5. The answer is (A) 1, since we find that 1 satisfy f(x) = h(x)^k. In chevalley's theorem, h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If we find any solution that satisfies f(x) = h(x)^k, then g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If we find any solution that satisfies f(x) = h(x)^k, then g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If we find any solution that satisfies f(x) = h(x)^k, then g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. In chevalley's theorem, h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1.\n4. If we find any solution that satisfies f(x) = h(x)^k, then g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If we find any solution that satisfies f(x) = h(x)^k, then g(x) = h(x)^(-1/8) satisfy f(x) = h(x)^k, then h(g(x)) = 1. If g(x) = h(x)^(-1/8",
+            "correct": false
+        }
+    ]
+}
