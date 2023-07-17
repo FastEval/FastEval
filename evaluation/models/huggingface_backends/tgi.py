@@ -53,7 +53,7 @@ def start_server(*, model_path, tokenizer_path, dtype):
     if dtype == torch.float16:
         dtype_arg = 'float16'
     elif dtype == torch.bfloat16:
-        dtype_arg = 'b-float16'
+        dtype_arg = 'bfloat16'
     else:
         raise Exception('This dtype is not supported by text-generation-inference')
 
