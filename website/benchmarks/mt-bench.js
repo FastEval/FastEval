@@ -37,11 +37,23 @@ function computeRelativeScores(scores, categories) {
 export async function createModelCategoryV({ baseUrl, model, category }) {
     const containerE = document.createElement('div')
 
-    const [questions, answers, judgeReplies] = await Promise.all([
+    containerE.appendChild(createBackToMainPageE('← Back to MT-Bench table', { 'benchmark': 'mt-bench' }))
+
+    const [questions, answers, judgeReplies, scores] = await Promise.all([
         fetch(baseUrl + '/../data/mt-bench/questions.json').then(r => r.json()),
         fetch(baseUrl + '/mt-bench/' + model.replace('/', '--') + '/answers.json').then(r => r.json()),
         fetch(baseUrl + '/mt-bench/' + model.replace('/', '--') + '/judge-replies.json').then(r => r.json()),
+        fetch(baseUrl + '/mt-bench/' + model.replace('/', '--') + '/scores.json').then(r => r.json()),
     ])
+
+    const infoE = document.createElement('div')
+    infoE.classList.add('mt-bench__information')
+    containerE.appendChild(infoE)
+    infoE.append(
+        createTextE('Model: ' + model),
+        createTextE('Category: ' + category),
+        createTextE('Category score: ' + scores.categories[category] + '/10')
+    )
 
     const questionsWithCategory = Object.entries(questions)
         .filter(([questionId, question]) => question.category == category)
