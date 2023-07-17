@@ -14,17 +14,19 @@ class OpenAIBase:
             return { 'role': 'assistant', 'content': item }
         raise
 
-    def _reply(self, *, conversation, api_base, api_key, max_new_tokens=None, temperature=None):
+    def _reply(self, *, conversation, api_base, api_key, max_new_tokens=None, temperature=None, model_name=None):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
         if temperature is None:
             temperature = 1.0
+        if model_name is None:
+            model_name = self.model_name
 
         return openai.ChatCompletion.create(
             api_base=api_base,
             api_key=api_key,
 
-            model=self.model_name,
+            model=model_name,
             messages=[self._conversation_item_to_openai_format(item_type, item) for item_type, item in conversation],
             max_tokens=max_new_tokens,
 
