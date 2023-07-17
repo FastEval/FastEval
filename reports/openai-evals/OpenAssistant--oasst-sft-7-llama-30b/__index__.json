@@ -1,0 +1,3481 @@
+{
+    "algebra-word-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "algebra-word-problems.s1.simple-v0",
+            "base_eval": "algebra-word-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "algebra_word_problems/samples.jsonl"
+                    },
+                    "key": "algebra-word-problems.s1.simple-v0",
+                    "group": "algebra-word-problems"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 50000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172306527XAA6QSW",
+            "created_at": "2023-07-17 23:06:52.548407"
+        },
+        "final_report": {
+            "accuracy": 0.16666666666666666
+        }
+    },
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 50000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717230653U3DQL6IO",
+            "created_at": "2023-07-17 23:06:53.193228"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "anagrams.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "anagrams.test.v1",
+            "base_eval": "anagrams",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "anagrams/fewshot.jsonl",
+                        "num_few_shot": 5,
+                        "samples_jsonl": "anagrams/samples.jsonl"
+                    },
+                    "key": "anagrams.test.v1",
+                    "group": "anagrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231427LWNZUTM2",
+            "created_at": "2023-07-17 23:14:27.282272"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "aba_mrpc_true_false.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "aba_mrpc_true_false.dev.v0",
+            "base_eval": "aba_mrpc_true_false",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "aba_mrpc_true_false/samples.jsonl"
+                    },
+                    "key": "aba_mrpc_true_false.dev.v0",
+                    "group": "aba-mrpc-true-false"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231427U5HALNIB",
+            "created_at": "2023-07-17 23:14:27.153614"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "bigrams.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "bigrams.dev.v0",
+            "base_eval": "bigrams",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bigrams/samples.jsonl"
+                    },
+                    "key": "bigrams.dev.v0",
+                    "group": "bigrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071723152563STH3T7",
+            "created_at": "2023-07-17 23:15:25.518873"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "born-first.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "born-first.dev.v0",
+            "base_eval": "born-first",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "born_first/born_first.jsonl"
+                    },
+                    "key": "born-first.dev.v0",
+                    "group": "born-first"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231528JDIDPKG5",
+            "created_at": "2023-07-17 23:15:28.399510"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "belarusian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "belarusian-lexicon.dev.v0",
+            "base_eval": "belarusian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "belarusian_lexicon/samples.jsonl"
+                    },
+                    "key": "belarusian-lexicon.dev.v0",
+                    "group": "belarusian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231427R4ULQ5A6",
+            "created_at": "2023-07-17 23:14:27.354583"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "bulgarian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "bulgarian-lexicon.dev.v0",
+            "base_eval": "bulgarian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bulgarian-lexicon/samples.jsonl"
+                    },
+                    "key": "bulgarian-lexicon.dev.v0",
+                    "group": "bulgarian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231536DM5MOC7D",
+            "created_at": "2023-07-17 23:15:36.310103"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "chess-piece-count.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "chess-piece-count.s1.simple-v0",
+            "base_eval": "chess-piece-count",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess_piece_count/fuzzy_match.jsonl"
+                    },
+                    "key": "chess-piece-count.s1.simple-v0",
+                    "group": "chess-piece-count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231537RFAN3W3N",
+            "created_at": "2023-07-17 23:15:37.246450"
+        },
+        "final_report": {
+            "accuracy": 0.05,
+            "f1_score": 0.0
+        }
+    },
+    "bitwise.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "bitwise.dev.v0",
+            "base_eval": "bitwise",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bitwise/samples.jsonl"
+                    },
+                    "key": "bitwise.dev.v0",
+                    "group": "bitwise"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231527D4EQCL4N",
+            "created_at": "2023-07-17 23:15:27.142376"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "compare-countries-area.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "compare-countries-area.dev.v0",
+            "base_eval": "compare-countries-area",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "compare-countries-area/samples.jsonl"
+                    },
+                    "key": "compare-countries-area.dev.v0",
+                    "group": "compare-countries-area"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231543FAQZVHFO",
+            "created_at": "2023-07-17 23:15:43.055570"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "brazilian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "brazilian-lexicon.dev.v0",
+            "base_eval": "brazilian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "brazilian-lexicon/samples.jsonl"
+                    },
+                    "key": "brazilian-lexicon.dev.v0",
+                    "group": "brazilian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231531GKAHV4XG",
+            "created_at": "2023-07-17 23:15:31.007804"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "convert-hex-hsl-lightness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "convert-hex-hsl-lightness.dev.v0",
+            "base_eval": "convert-hex-hsl-lightness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "convert-hex-hsl-lightness/samples.jsonl"
+                    },
+                    "key": "convert-hex-hsl-lightness.dev.v0",
+                    "group": "convert-hex-hsl-lightness"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172315457X6YJPEI",
+            "created_at": "2023-07-17 23:15:45.070390"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "coqa-match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "coqa/match.jsonl"
+                    },
+                    "key": "coqa-match.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231546IEBBIREC",
+            "created_at": "2023-07-17 23:15:46.740301"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "chess.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "chess.match.dev.v0",
+            "base_eval": "chess",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess/match.jsonl"
+                    },
+                    "key": "chess.match.dev.v0",
+                    "group": "chess"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231540EX7EKNNY",
+            "created_at": "2023-07-17 23:15:40.505220"
+        },
+        "final_report": {
+            "accuracy": 0.25,
+            "f1_score": 0.0
+        }
+    },
+    "coqa-closedqa-correct.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-correct.dev.v0",
+            "base_eval": "coqa-closedqa-correct",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "correctness: Is the answer correct?"
+                        }
+                    },
+                    "key": "coqa-closedqa-correct.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231549RNGWRUUU",
+            "created_at": "2023-07-17 23:15:49.163905"
+        },
+        "final_report": {
+            "counts/Y": 7,
+            "counts/N": 2,
+            "score": 0.7777777777777778
+        }
+    },
+    "coqa-closedqa-relevance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-relevance.dev.v0",
+            "base_eval": "coqa-closedqa-relevance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "relevance: Is the submission referring to a real quote from the text?"
+                        }
+                    },
+                    "key": "coqa-closedqa-relevance.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231553MAMRXPO7",
+            "created_at": "2023-07-17 23:15:53.407230"
+        },
+        "final_report": {
+            "counts/Y": 5,
+            "counts/N": 4,
+            "score": 0.5555555555555556
+        }
+    },
+    "balance-chemical-equation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "balance-chemical-equation.dev.v0",
+            "base_eval": "balance-chemical-equation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "balance_chemical_equation/samples.jsonl"
+                    },
+                    "key": "balance-chemical-equation.dev.v0",
+                    "group": "balance-chemical-equation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172314273B4ZP5XU",
+            "created_at": "2023-07-17 23:14:27.219121"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "connect4.s1.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "connect4.s1.v1",
+            "base_eval": "connect4",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "connect4/samples.jsonl"
+                    },
+                    "key": "connect4.s1.v1",
+                    "group": "connect-4"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071723154335HEWYKM",
+            "created_at": "2023-07-17 23:15:43.988531"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "crepe.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "crepe.dev.v2",
+            "base_eval": "crepe",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "crepe/samples.jsonl"
+                    },
+                    "key": "crepe.dev.v2",
+                    "group": "crepe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231601CDPJLKMC",
+            "created_at": "2023-07-17 23:16:01.382607"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "coqa-closedqa-conciseness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
+                    },
+                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231559FGA2WUVI",
+            "created_at": "2023-07-17 23:15:59.201751"
+        },
+        "final_report": {
+            "counts/Y": 6,
+            "counts/N": 3,
+            "score": 0.6666666666666666
+        }
+    },
+    "dice-rotation-sequence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "dice-rotation-sequence.dev.v0",
+            "base_eval": "dice-rotation-sequence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dice-rotation-sequence/samples.jsonl"
+                    },
+                    "key": "dice-rotation-sequence.dev.v0",
+                    "group": "dice-rotation-sequence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231613NVRYELER",
+            "created_at": "2023-07-17 23:16:13.098299"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "dutch-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "dutch-lexicon.dev.v0",
+            "base_eval": "dutch-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dutch-lexicon/samples.jsonl"
+                    },
+                    "key": "dutch-lexicon.dev.v0",
+                    "group": "dutch-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231616IRPPDDRT",
+            "created_at": "2023-07-17 23:16:16.049663"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "emoji-riddle.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "emoji-riddle.s1.simple-v0",
+            "base_eval": "emoji-riddle",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "emoji_riddle/fuzzy_match.jsonl"
+                    },
+                    "key": "emoji-riddle.s1.simple-v0",
+                    "group": "emoji-riddle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231616K47BMQYJ",
+            "created_at": "2023-07-17 23:16:16.640363"
+        },
+        "final_report": {
+            "accuracy": 0.1,
+            "f1_score": 0.09333333333333334
+        }
+    },
+    "diagrammatic_logic.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "diagrammatic_logic.dev.v2",
+            "base_eval": "diagrammatic_logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "diagrammatic_logic/samples.jsonl"
+                    },
+                    "key": "diagrammatic_logic.dev.v2",
+                    "group": "diagrammatic_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231610BJR22PLQ",
+            "created_at": "2023-07-17 23:16:10.347520"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "cube-pack.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "cube-pack.dev.v0",
+            "base_eval": "cube-pack",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "cube-pack/samples.jsonl"
+                    },
+                    "key": "cube-pack.dev.v0",
+                    "group": "cube-pack"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231607J3I2PLJB",
+            "created_at": "2023-07-17 23:16:07.942272"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "determinant.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "determinant.test.v1",
+            "base_eval": "determinant",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "determinant/samples.jsonl"
+                    },
+                    "key": "determinant.test.v1",
+                    "group": "determinant"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231609GYQW22HK",
+            "created_at": "2023-07-17 23:16:09.628558"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "first-letters.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "first-letters.dev.v0",
+            "base_eval": "first-letters",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "first-letters/samples.jsonl"
+                    },
+                    "key": "first-letters.dev.v0",
+                    "group": "first-letters"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172316245RA2YLYT",
+            "created_at": "2023-07-17 23:16:24.485990"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "fcc_amateur_extra.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "fcc_amateur_extra.dev.v0",
+            "base_eval": "fcc_amateur_extra",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "fcc_amateur_extra/samples.jsonl"
+                    },
+                    "key": "fcc_amateur_extra.dev.v0",
+                    "group": "fcc_amateur_extra"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172316222LBDIA3L",
+            "created_at": "2023-07-17 23:16:22.505324"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "escher-sentences.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "escher-sentences.dev.v0",
+            "base_eval": "escher-sentences",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "escher_sentences/samples.jsonl"
+                    },
+                    "key": "escher-sentences.dev.v0",
+                    "group": "escher-sentences"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231618HTCPOOB6",
+            "created_at": "2023-07-17 23:16:18.301841"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "formal-logic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "formal-logic.dev.v0",
+            "base_eval": "formal-logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "formal_logic/formal_logic_expressions.jsonl"
+                    },
+                    "key": "formal-logic.dev.v0",
+                    "group": "formal_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172316307BJQXUIR",
+            "created_at": "2023-07-17 23:16:30.628603"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "forth-stack-sim-basic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "forth-stack-sim-basic.dev.v0",
+            "base_eval": "forth-stack-sim-basic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/basic_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-basic.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071723163232T2PD7H",
+            "created_at": "2023-07-17 23:16:32.676278"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "emotional-intelligence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "emotional-intelligence.dev.v0",
+            "base_eval": "emotional-intelligence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "emotional-intelligence/samples.jsonl"
+                    },
+                    "key": "emotional-intelligence.dev.v0",
+                    "group": "emotional-intelligence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172316182ISWW32H",
+            "created_at": "2023-07-17 23:16:18.167605"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "heart-disease.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "heart-disease.v0",
+            "base_eval": "heart-disease",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "heart-disease/samples.jsonl"
+                    },
+                    "key": "heart-disease.v0",
+                    "group": "heart-disease"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231638O6ZYQSDG",
+            "created_at": "2023-07-17 23:16:38.956095"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "greek-vocabulary.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "greek-vocabulary.dev.v0",
+            "base_eval": "greek-vocabulary",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "greek_vocabulary/samples.jsonl"
+                    },
+                    "key": "greek-vocabulary.dev.v0",
+                    "group": "greek-vocabulary"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172316375XKAMKAE",
+            "created_at": "2023-07-17 23:16:37.142583"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "forth-stack-sim.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "forth-stack-sim.dev.v0",
+            "base_eval": "forth-stack-sim",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
+                    },
+                    "key": "forth-stack-sim.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231632OWVAU3I7",
+            "created_at": "2023-07-17 23:16:32.447302"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "imperial_date_to_string.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "imperial_date_to_string.dev.v0",
+            "base_eval": "imperial_date_to_string",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "imperial_date_to_string/samples.jsonl"
+                    },
+                    "key": "imperial_date_to_string.dev.v0",
+                    "group": "imperial_date_to_string"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231649IDD6NSRH",
+            "created_at": "2023-07-17 23:16:49.284488"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "infiniteloop-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "infiniteloop-match.s1.simple-v0",
+            "base_eval": "infiniteloop-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "infiniteloop-match/infiniteloop-match.jsonl"
+                    },
+                    "key": "infiniteloop-match.s1.simple-v0",
+                    "group": "infiniteloop-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231650PBYFQ3OI",
+            "created_at": "2023-07-17 23:16:50.890687"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "hebrew-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "hebrew-rhyme.v0",
+            "base_eval": "hebrew-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "hebrew_rhyme/samples.jsonl"
+                    },
+                    "key": "hebrew-rhyme.v0",
+                    "group": "hebrew-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231640L32U5QMF",
+            "created_at": "2023-07-17 23:16:40.154510"
+        },
+        "final_report": {
+            "accuracy": 0.25,
+            "f1_score": 0.275
+        }
+    },
+    "invoices.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "invoices.dev.v0",
+            "base_eval": "invoices",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "invoices/match.jsonl"
+                    },
+                    "key": "invoices.dev.v0",
+                    "group": "invoices"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231651I2PFR7HE",
+            "created_at": "2023-07-17 23:16:51.993993"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "hindi_upsc.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "hindi_upsc.dev.v0",
+            "base_eval": "hindi_upsc",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "hindi_upsc/samples.jsonl"
+                    },
+                    "key": "hindi_upsc.dev.v0",
+                    "group": "hindi_upsc"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231646UGMIOQCP",
+            "created_at": "2023-07-17 23:16:46.103818"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "japanese_driving_license.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "japanese_driving_license.s1.simple-v0",
+            "base_eval": "japanese_driving_license",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese_driving_license/samples.jsonl"
+                    },
+                    "key": "japanese_driving_license.s1.simple-v0",
+                    "group": "japanese_driving_license"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231657INDKJVCE",
+            "created_at": "2023-07-17 23:16:57.797608"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "knot-theory-unknotting-problem.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "knot-theory-unknotting-problem.dev.v0",
+            "base_eval": "knot-theory-unknotting-problem",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-problem.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231708THRSWMB2",
+            "created_at": "2023-07-17 23:17:08.939892"
+        },
+        "final_report": {
+            "accuracy": 0.7222222222222222
+        }
+    },
+    "japanese-national-medical-exam01.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "japanese-national-medical-exam01.dev.v0",
+            "base_eval": "japanese-national-medical-exam01",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese-national-medical-exam01/japanese-national-medical-exam01.jsonl"
+                    },
+                    "key": "japanese-national-medical-exam01.dev.v0",
+                    "group": "japanese-national-medical-exam01"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231652ZELKNB6V",
+            "created_at": "2023-07-17 23:16:52.167159"
+        },
+        "final_report": {
+            "accuracy": 0.06666666666666667
+        }
+    },
+    "forth-stack-sim-detailed.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "forth-stack-sim-detailed.dev.v0",
+            "base_eval": "forth-stack-sim-detailed",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/detailed_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-detailed.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231633T5KS3IRQ",
+            "created_at": "2023-07-17 23:16:33.961463"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "last-word-nth.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "last-word-nth.s1.simple-v0",
+            "base_eval": "last-word-nth",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "last_word_nth/samples.jsonl"
+                    },
+                    "key": "last-word-nth.s1.simple-v0",
+                    "group": "last-word-nth"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231719XTBDDKJK",
+            "created_at": "2023-07-17 23:17:19.126173"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "lat_long_identify.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "lat_long_identify.dev.v0",
+            "base_eval": "lat_long_identify",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "lat_long_identify/samples.jsonl"
+                    },
+                    "key": "lat_long_identify.dev.v0",
+                    "group": "lat_long_identify"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231720NDPZ7RLW",
+            "created_at": "2023-07-17 23:17:20.665343"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "knot-theory-unknotting-number.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "knot-theory-unknotting-number.dev.v0",
+            "base_eval": "knot-theory-unknotting-number",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-numbers.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-number.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231709ZHBKAXLL",
+            "created_at": "2023-07-17 23:17:09.607777"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231714CKJ6XHYX",
+            "created_at": "2023-07-17 23:17:14.102154"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "job_listing_title_for_a_caregiver_in_japan.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+            "base_eval": "job_listing_title_for_a_caregiver_in_japan",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "job_listing_title_for_a_caregiver_in_japan/samples.jsonl"
+                    },
+                    "key": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+                    "group": "job_listing_title_for_a_caregiver_in_japan"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231702ZY6JQOIX",
+            "created_at": "2023-07-17 23:17:02.916678"
+        },
+        "final_report": {
+            "accuracy": 0.26666666666666666
+        }
+    },
+    "logic-statements.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "logic-statements.dev.v0",
+            "base_eval": "logic-statements",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "logic-statements/logic-statements.jsonl"
+                    },
+                    "key": "logic-statements.dev.v0",
+                    "group": "logic-statements"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231722G5U4MD65",
+            "created_at": "2023-07-17 23:17:22.064089"
+        },
+        "final_report": {
+            "accuracy": 0.4,
+            "f1_score": 0.4
+        }
+    },
+    "map-electronic-component-part-to-fact.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "map-electronic-component-part-to-fact.dev.v0",
+            "base_eval": "map-electronic-component-part-to-fact",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "map-electronic-component-part-to-fact/samples.jsonl"
+                    },
+                    "key": "map-electronic-component-part-to-fact.dev.v0",
+                    "group": "map-electronic-component-part-to-fact"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231737VUNLNVFE",
+            "created_at": "2023-07-17 23:17:37.063342"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "medmcqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "medmcqa.dev.v0",
+            "base_eval": "medmcqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "medmcqa/samples.jsonl"
+                    },
+                    "key": "medmcqa.dev.v0",
+                    "group": "medmcqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231739KAZYV4HC",
+            "created_at": "2023-07-17 23:17:39.408340"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "moral_exceptQA.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "moral_exceptQA.test.v1",
+            "base_eval": "moral_exceptQA",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "moral_exceptQA/samples.jsonl"
+                    },
+                    "key": "moral_exceptQA.test.v1",
+                    "group": "moral_exceptQA"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231741EQN33KMP",
+            "created_at": "2023-07-17 23:17:41.288742"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "logiqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "logiqa.dev.v0",
+            "base_eval": "logiqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "logiqa/logiqa.jsonl"
+                    },
+                    "key": "logiqa.dev.v0",
+                    "group": "logiqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231726UDOPUF4V",
+            "created_at": "2023-07-17 23:17:26.353599"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "naughty_strings_fuzzy.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "naughty_strings_fuzzy.test.v1",
+            "base_eval": "naughty_strings_fuzzy",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/samples.jsonl"
+                    },
+                    "key": "naughty_strings_fuzzy.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231750AIRDU5WM",
+            "created_at": "2023-07-17 23:17:50.599040"
+        },
+        "final_report": {
+            "accuracy": 0.25,
+            "f1_score": 0.25
+        }
+    },
+    "multi-step-equations.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "multi-step-equations.dev.v0",
+            "base_eval": "multi-step-equations",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "multi-step-equations/samples.jsonl"
+                    },
+                    "key": "multi-step-equations.dev.v0",
+                    "group": "multi-step-equations"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172317497DVUOEQH",
+            "created_at": "2023-07-17 23:17:49.722744"
+        },
+        "final_report": {
+            "accuracy": 0.06666666666666667
+        }
+    },
+    "naughty_strings_graded.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "naughty_strings_graded.test.v1",
+            "base_eval": "naughty_strings_graded",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/security.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "security"
+                    },
+                    "key": "naughty_strings_graded.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231751B3JRT5BV",
+            "created_at": "2023-07-17 23:17:51.663575"
+        },
+        "final_report": {
+            "counts/No": 8,
+            "counts/Yes": 7,
+            "counts/Unsure": 5,
+            "score": 0.475
+        }
+    },
+    "number-reading.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "number-reading.dev.v0",
+            "base_eval": "number-reading",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_reading/number_reading.jsonl"
+                    },
+                    "key": "number-reading.dev.v0",
+                    "group": "number-reading"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172317576NEELTCF",
+            "created_at": "2023-07-17 23:17:57.538740"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "partially_solved_crossword_clues.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "partially_solved_crossword_clues.dev.v0",
+            "base_eval": "partially_solved_crossword_clues",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "partially_solved_crossword_clues/samples.jsonl"
+                    },
+                    "key": "partially_solved_crossword_clues.dev.v0",
+                    "group": "partially_solved_crossword_clues"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231800T3BKO5LQ",
+            "created_at": "2023-07-17 23:18:00.181798"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "number-pattern.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "number-pattern.dev.v0",
+            "base_eval": "number-pattern",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_pattern/samples.jsonl"
+                    },
+                    "key": "number-pattern.dev.v0",
+                    "group": "number-pattern"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231751FHWOLT26",
+            "created_at": "2023-07-17 23:17:51.871504"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "ph-calculation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "ph-calculation.dev.v0",
+            "base_eval": "ph-calculation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "ph_calculation/samples.jsonl"
+                    },
+                    "key": "ph-calculation.dev.v0",
+                    "group": "ph_calculation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231805DO2RQ57W",
+            "created_at": "2023-07-17 23:18:05.571674"
+        },
+        "final_report": {
+            "accuracy": 0.1,
+            "f1_score": 0.0
+        }
+    },
+    "regex.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "regex.match.dev.v0",
+            "base_eval": "regex",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "regex-match/samples.jsonl"
+                    },
+                    "key": "regex.match.dev.v0",
+                    "group": "regex-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231811XCTBQDLB",
+            "created_at": "2023-07-17 23:18:11.020335"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "rucola.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "rucola.test.v0",
+            "base_eval": "rucola",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "rucola/samples.jsonl",
+                        "few_shot_jsonl": "rucola/few_shot.jsonl",
+                        "num_few_shot": 4
+                    },
+                    "key": "rucola.test.v0",
+                    "group": "rucola"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231814MKPULE7H",
+            "created_at": "2023-07-17 23:18:14.813570"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "russe.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "russe.test.v0",
+            "base_eval": "russe",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russe/samples.jsonl",
+                        "few_shot_jsonl": "russe/few_shot.jsonl",
+                        "num_few_shot": 2
+                    },
+                    "key": "russe.test.v0",
+                    "group": "russe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231816FBDW46WI",
+            "created_at": "2023-07-17 23:18:16.204999"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231808REQFLL67",
+            "created_at": "2023-07-17 23:18:08.513208"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "mendelian_inheritance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "mendelian_inheritance.dev.v0",
+            "base_eval": "mendelian_inheritance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "mendelian_inheritance/samples.jsonl"
+                    },
+                    "key": "mendelian_inheritance.dev.v0",
+                    "group": "mendelian_inheritance"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231740V4HUTN2N",
+            "created_at": "2023-07-17 23:17:40.235698"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "russian_medical.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "russian_medical.dev.v0",
+            "base_eval": "russian_medical",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian_medical/samples.jsonl"
+                    },
+                    "key": "russian_medical.dev.v0",
+                    "group": "russian_medical"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231820K2BZWXTB",
+            "created_at": "2023-07-17 23:18:20.181658"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "sarcasm.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "sarcasm.test.v1",
+            "base_eval": "sarcasm",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sarcasm/samples.jsonl",
+                        "few_shot_jsonl": "sarcasm/few_shot.jsonl",
+                        "num_few_shot": 5
+                    },
+                    "key": "sarcasm.test.v1",
+                    "group": "sarcasm"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231825V575XYB2",
+            "created_at": "2023-07-17 23:18:25.309007"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "simple-knowledge-mongolian.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "simple-knowledge-mongolian.dev.v0",
+            "base_eval": "simple-knowledge-mongolian",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "simple-knowledge-mongolian/samples.v0.jsonl"
+                    },
+                    "key": "simple-knowledge-mongolian.dev.v0",
+                    "group": "simple-knowledge-mongolian"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231826BQOHQPI7",
+            "created_at": "2023-07-17 23:18:26.313764"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "russian-nlp-tasks.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "russian-nlp-tasks.dev.v0",
+            "base_eval": "russian-nlp-tasks",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian-nlp-tasks/samples.jsonl"
+                    },
+                    "key": "russian-nlp-tasks.dev.v0",
+                    "group": "russian-nlp-tasks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231817C6NBZBOV",
+            "created_at": "2023-07-17 23:18:17.525765"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "pattern_identification.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "pattern_identification.dev.v0",
+            "base_eval": "pattern_identification",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "pattern_identification/samples.v0.jsonl"
+                    },
+                    "key": "pattern_identification.dev.v0",
+                    "group": "pattern_identification"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231805XMGVVIQE",
+            "created_at": "2023-07-17 23:18:05.380212"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231830PAO24EU3",
+            "created_at": "2023-07-17 23:18:30.501548"
+        },
+        "final_report": {
+            "accuracy": 0.08333333333333333
+        }
+    },
+    "sort-numbers.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "sort-numbers.s1.simple-v0",
+            "base_eval": "sort-numbers",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sort_numeric/samples.jsonl"
+                    },
+                    "key": "sort-numbers.s1.simple-v0",
+                    "group": "sort-numeric"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231828BODNVR6X",
+            "created_at": "2023-07-17 23:18:28.894432"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "russian-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "russian-rhyme.v0",
+            "base_eval": "russian-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "russian-rhyme/samples.jsonl"
+                    },
+                    "key": "russian-rhyme.v0",
+                    "group": "russian-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231818C3FU7V3J",
+            "created_at": "2023-07-17 23:18:18.815314"
+        },
+        "final_report": {
+            "accuracy": 0.11764705882352941,
+            "f1_score": 0.14705882352941177
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231833ZEWUD432",
+            "created_at": "2023-07-17 23:18:33.769207"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "stock-option-terms-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231832OQJUBJZ6",
+            "created_at": "2023-07-17 23:18:32.408264"
+        },
+        "final_report": {
+            "accuracy": 0.375
+        }
+    },
+    "swedish-spelling.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "swedish-spelling.dev.v0",
+            "base_eval": "swedish-spelling",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "swedish-spelling/samples.jsonl"
+                    },
+                    "key": "swedish-spelling.dev.v0",
+                    "group": "swedish-spelling"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172318404TWYLESA",
+            "created_at": "2023-07-17 23:18:40.035602"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "stock-options-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "stock-options-bear-call-spread.dev.v0",
+            "base_eval": "stock-options-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_options_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-options-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231830VSIVX5XM",
+            "created_at": "2023-07-17 23:18:30.423934"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "tempo_to_measure_count.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "tempo_to_measure_count.dev.v0",
+            "base_eval": "tempo_to_measure_count",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "tempo_to_measure_count/samples.jsonl"
+                    },
+                    "key": "tempo_to_measure_count.dev.v0",
+                    "group": "tempo_to_measure_count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172318452QPMBVMG",
+            "created_at": "2023-07-17 23:18:45.977361"
+        },
+        "final_report": {
+            "accuracy": 0.1,
+            "f1_score": 0.0
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_match/samples.jsonl"
+                    },
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231850K5DXHYVF",
+            "created_at": "2023-07-17 23:18:50.723612"
+        },
+        "final_report": {
+            "accuracy": 0.6666666666666666
+        }
+    },
+    "test-fuzzy-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "test-fuzzy-match.s1.simple-v0",
+            "base_eval": "test-fuzzy-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-fuzzy-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231852CMYSF4PE",
+            "created_at": "2023-07-17 23:18:52.762090"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333,
+            "f1_score": 0.3429487179487179
+        }
+    },
+    "test-includes.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307172318536E54AI6N",
+            "created_at": "2023-07-17 23:18:53.697442"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "test-includes-ignore-case.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "test-includes-ignore-case.s1.simple-v0",
+            "base_eval": "test-includes-ignore-case",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl",
+                        "ignore_case": true
+                    },
+                    "key": "test-includes-ignore-case.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231855MTODOAO7",
+            "created_at": "2023-07-17 23:18:55.274375"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231856KIQJ67DY",
+            "created_at": "2023-07-17 23:18:56.890118"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231835Q5YPAJFU",
+            "created_at": "2023-07-17 23:18:35.791075"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "taxes.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "taxes.dev.v0",
+            "base_eval": "taxes",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "taxes/samples.jsonl"
+                    },
+                    "key": "taxes.dev.v0",
+                    "group": "taxes"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231840VMRQM56H",
+            "created_at": "2023-07-17 23:18:40.586033"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231837CNEX3DAQ",
+            "created_at": "2023-07-17 23:18:37.061785"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231902FRXPED26",
+            "created_at": "2023-07-17 23:19:02.284818"
+        },
+        "final_report": {
+            "counts/Yes": 8,
+            "counts/No": 2,
+            "score": 0.8
+        }
+    },
+    "three-pt-mapping.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "three-pt-mapping.dev.v0",
+            "base_eval": "three-pt-mapping",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "three-pt-mapping/three_pt_mapping.jsonl"
+                    },
+                    "key": "three-pt-mapping.dev.v0",
+                    "group": "three-pt-mapping"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231937GC2RDH72",
+            "created_at": "2023-07-17 23:19:37.150060"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "mg-humor-people_jp.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
+                    },
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231900LOTPJKOA",
+            "created_at": "2023-07-17 23:19:00.025860"
+        },
+        "final_report": {
+            "counts/3": 5,
+            "counts/2": 4,
+            "counts/1": 10,
+            "counts/4": 1,
+            "score": 1.85
+        }
+    },
+    "us-tort-law.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "us-tort-law.dev.v0",
+            "base_eval": "us-tort-law",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "us_tort_law/few_shot.jsonl",
+                        "num_few_shot": 4,
+                        "samples_jsonl": "us_tort_law/samples.jsonl"
+                    },
+                    "key": "us-tort-law.dev.v0",
+                    "group": "us-tort-law"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231949KVKPYR6J",
+            "created_at": "2023-07-17 23:19:49.066454"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231858QL5F3N24",
+            "created_at": "2023-07-17 23:18:58.590505"
+        },
+        "final_report": {
+            "counts/Yes": 6,
+            "counts/No": 3,
+            "score": 0.6666666666666666
+        }
+    },
+    "rap-people-vs-fruits.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231858FYT4XOGX",
+            "created_at": "2023-07-17 23:18:58.741292"
+        },
+        "final_report": {
+            "counts/No": 6,
+            "counts/Yes": 2,
+            "counts/__invalid__": 1,
+            "score": 0.2222222222222222
+        }
+    },
+    "which-is-heavier.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "which-is-heavier.dev.v0",
+            "base_eval": "which-is-heavier",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "which_is_heavier/which_is_heavier.jsonl"
+                    },
+                    "key": "which-is-heavier.dev.v0",
+                    "group": "which-is-heavier"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717232009GVNDO4YS",
+            "created_at": "2023-07-17 23:20:09.130478"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "utility_price_parsing.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "utility_price_parsing.dev.v0",
+            "base_eval": "utility_price_parsing",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "utility_price_parsing/samples.jsonl"
+                    },
+                    "key": "utility_price_parsing.dev.v0",
+                    "group": "utility_price_parsing"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717232006DJ4MN7PK",
+            "created_at": "2023-07-17 23:20:06.024843"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "ukraine-eit.val.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+            ],
+            "eval_name": "ukraine-eit.val.v0",
+            "base_eval": "ukraine-eit",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "open-assistant:OpenAssistant/oasst-sft-7-llama-30b"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "ukraine_eit/samples.jsonl"
+                    },
+                    "key": "ukraine-eit.val.v0",
+                    "group": "ukraine-eit"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/oasst-sft-7-llama-30b --force-backend tgi --tgi-max-batch-total-tokens 40000",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717231946K4JRZLTG",
+            "created_at": "2023-07-17 23:19:46.905950"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    }
+}
