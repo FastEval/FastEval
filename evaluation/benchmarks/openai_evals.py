@@ -244,6 +244,7 @@ def run_all_evals(model_type: str, model_name: str):
         num_threads=(model_num_threads // num_threads_per_eval) * 4,
         items=unique_evals,
         process_function=evaluate,
+        desc=model_name + ' :: OpenAI Evals :: Evaluating',
     )
 
 def create_reports_index_file(model_name: str):
