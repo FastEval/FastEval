@@ -7,7 +7,7 @@ import evals
 import evals.registry
 import evals.cli.oaieval
 
-from evaluation.utils import replace_model_name_slashes
+from evaluation.utils import replace_model_name_slashes, process_with_thread_pool
 from evaluation.models.models import create_model
 from evaluation.constants import OPENAI_EVALS_JUDGE_MAX_NEW_TOKENS, OPENAI_EVALS_JUDGE
 
@@ -209,13 +209,28 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
 
     ignored_evals = non_working_evals + evals_where_all_models_get_zero_score + other_excluded_evals
 
+    evals = [eval for eval in evals if eval.key not in ignored_evals
+        and not os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json'))]
+
+    if len(evals) == 0:
+        return
+
+    unique_evals = []
+    unique_evals_keys = []
     for eval in evals:
-        if os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json')):
+        if eval.key in unique_evals_keys:
             continue
-        if eval.key in ignored_evals:
-            continue
-        print('Now evaluating', eval.key)
+        unique_evals.append(eval)
+        unique_evals_keys.append(eval.key)
+
+    def evaluate(eval):
         run_single_eval(registry, model_type, model_name, eval)
+
+    process_with_thread_pool(
+        num_threads=20,
+        items=unique_evals,
+        process_function=evaluate,
+    )
 
 def create_reports_index_file(model_name: str):
     """
@@ -244,10 +259,29 @@ def create_reports_index_file(model_name: str):
         json.dump(reports_metadata, reports_index_file, indent=4)
 
 def evaluate_model(model_type: str, model_name: str):
-    os.environ['EVALS_THREAD_TIMEOUT'] = '999999'
-
     model = create_model(model_type, model_name)
-    os.environ['EVALS_THREADS'] = str(min(model.num_threads, 20))
+    os.environ['EVALS_THREADS'] = '1' # str(min(model.num_threads, 20))
+
+    # For some weird reason that I don't understand, having nested threading doesn't work well together
+    # with vLLM + multiple GPUs. E.g. when evaluating guanaco-65b, it gives me an error on OpenAI evals
+    # (and only OpenAI evals) which is fixed when I set this EVALS_SEQUENTIAL=1.
+    # The problem is not simply fixed by setting just EVALS_THREADS=1. I don't know why.
+    # It would be nice if we could disable this and use nested threading, but I haven't figured out yet
+    # why it doesn't work with vLLM + multiple GPUs. It works absolutely fine if there is just a single GPU.
+    # The error I get is the following (after evaluating a few datapoints; not immediately):
+    # ````
+    # gcs_rpc_client.h:537: Failed to connect to GCS within 60 seconds.
+    # GCS may have been killed. It's either GCS is terminated by `ray stop` or is killed unexpectedly.
+    # If it is killed unexpectedly, see the log file gcs_server.out.
+    # https://docs.ray.io/en/master/ray-observability/ray-logging.html#logging-directory-structure.
+    # The program will terminate.
+    # ```
+    # Also I can't just do threading using EVALS_THREADS only (without threading across multiple evals)
+    # because then it works fine until it finished the first eval, but then I get
+    # https://github.com/vllm-project/vllm/issues/117
+    os.environ['EVALS_SEQUENTIAL'] = '1'
+
+    os.environ['EVALS_SHOW_EVAL_PROGRESS'] = ''
 
     registry = Registry()
     run_multiple_evals(registry, model_type, model_name, [eval for eval in registry.get_evals(['*'])])
