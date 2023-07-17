@@ -6,6 +6,7 @@ import * as OpenAIEvals from '../benchmarks/openai-evals.js'
 import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
 import * as HumanEvalPlus from '../benchmarks/human-eval-plus.js'
 import * as CoT from '../benchmarks/cot.js'
+import * as MTBench from '../benchmarks/mt-bench.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { getModelNumParams } from '../utils.js'
 
@@ -19,6 +20,8 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
             return await HumanEvalPlus.createV(baseUrl, parameters)
         case 'cot':
             return await CoT.createV(baseUrl, parameters)
+        case 'mt-bench':
+            return await MTBench.createV(baseUrl)
         default:
             throw new Error()
     }
@@ -270,7 +273,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createTextE('Total'))
     theadE.insertCell()
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
-    theadE.insertCell().appendChild(createTextE('MT-Bench'))
+    theadE.insertCell().appendChild(createLinkE('MT-Bench', { benchmark: 'mt-bench' }))
     theadE.insertCell().appendChild(createTextE('HumanEval+'))
     theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
     theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
