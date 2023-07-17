@@ -3,6 +3,7 @@ import json
 import re
 import ast
 import statistics
+import threading
 
 from evaluation.utils import replace_model_name_slashes, process_with_thread_pool
 from evaluation.models.models import create_model, compute_model_replies
@@ -182,7 +183,10 @@ def compute_model_score(model_name):
     with open(scores_filepath, 'w') as f:
         json.dump(scores, f, indent=4)
 
-def evaluate_model(model_type, model_name):
-    generate_assistant_replies(model_type, model_name)
+def judge(model_name):
     compute_judge_replies(model_name)
     compute_model_score(model_name)
+
+def evaluate_model(model_type, model_name):
+    generate_assistant_replies(model_type, model_name)
+    threading.Thread(target=judge, args=(model_name, )).start()
