@@ -1,0 +1,75 @@
+{
+    "score": 0.6,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Let x = 1. What is x << 3 in Python 3?\n\n(A) 1\n(B) 3\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "(A) 1\n\nIn Python 3, the left shift operator (<<) performs zero-padding on the left side of the number. That means that the digital representation of the number 1 is shifted to the left by 3 positions, filling the empty spaces on the left with 0s in the process.\n\nSince the original digital representation of x was 1, which is a power of 2, there is no digital representation left other than 0 after the shift. Therefore, the result of x << 3 is:\n\n(D) 16",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "In Python 3, which of the following function convert a string to an int in python?\n\n(A) int(x [,base])\n(B) long(x [,base] )\n(C) float(x)\n(D) str(x)",
+            "correct_answer": 0,
+            "model_answer": "(A) int(x [,base])",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": "A user enters a Web address in a browser, and a request for a file is sent to a Web server. Which of the following best describes how the file is sent to the user?\n\n(A) The file is broken into packets for transmission. The packets must be reassembled upon receipt.\n(B) The file is broken into packets for transmission. The user's browser must request each packet in order until all packets are received.\n(C) The server attempts to connect directly to the user's computer. If the connection is successful, the entire file is sent. If the connection is unsuccessful, an error message is sent to the user.\n(D) The server repeatedly attempts to connect directly to the user's computer until a connection is made. Once the connection is made, the entire file is sent.",
+            "correct_answer": 0,
+            "model_answer": "Correct answer is:\nA) The file is broken into packets for transmission. The packets must be reassembled upon receipt.\n\nMy reasoning is:\n\n1. When a user requests a file from a web server, the server needs to send the file to the user's device.\n2. In order to send large files over the internet, the file needs to be broken down into smaller chunks or packets.\n3. These packets are then transmitted over the internet, and the receiving device reassembles them to form the original file.\n4. This process, commonly known as packet switching, is used by the internet to send data efficiently and quickly.\n5. Therefore, option A is the correct answer.",
+            "correct": true
+        },
+        {
+            "id": 3,
+            "question": "Digital images are often represented by the red, green, and blue values (an RGB triplet) of each individual pixel in the image. A photographer is manipulating a digital image and overwriting the original image. Which of the following describes a lossless transformation of the digital image?\n\n(A) Compressing the image in a way that may lose information but will suffer only a small loss of image quality.\n(B) Creating the gray scale of an image by averaging the amounts of red, green, and blue in each pixel and assigning this new value to the corresponding pixel in the new image. The new value of each pixel represents a shade of gray, ranging from white to black.\n(C) Creating the negative of an image by creating a new RGB triplet for each pixel in which each value is calculated by subtracting the original value from 255. The negative of an image is reversed from the original; light areas appear dark, and colors are reversed.\n(D) Modifying part of the image by taking the pixels in one part of the picture and copying them to the pixels in another part of the picture.",
+            "correct_answer": 2,
+            "model_answer": "A lossless transformation of a digital image is one that doesn't result in any loss of information.\n\n* (A) Compressing the image in a way that may lose information but will suffer only a small loss of image quality is not a lossless transformation because information might be lost during compression.\n* (B) Creating the grayscale of an image by averaging the amounts of red, green, and blue in each pixel and assigning this new value to the corresponding pixel in the new image is not lossless because only one value (grayscale) is stored, while the original image had three values (RGB).\n* (C) Creating the negative of an image by creating a new RGB triplet for each pixel in which each value is calculated by subtracting the original value from 255, is not lossless because it modifies the values of the image.\n* (D) Modifying part of the image by taking the pixels in one part of the picture and copying them to the pixels in another part of the picture is not lossless because something is being modified.\n\nTherefore only (D) Modifying part of the image by taking the pixels in one part of the picture and copying them to the pixels in another part of the picture.\n\n(D)",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "A programmer is writing a program that is intended to be able to process large amounts of data. Which of the following considerations is LEAST likely to affect the ability of the program to process larger data sets?\n\n(A) How long the program takes to run\n(B) How many programming statements the program contains\n(C) How much memory the program requires as it runs\n(D) How much storage space the program requires as it runs",
+            "correct_answer": 1,
+            "model_answer": "Step 1: The ability of a program to process large amounts of data is affected by several factors. These include how much memory the program requires as it runs, how long the program takes to run, how many programming statements the program contains, and how much storage space the program requires as it runs.\n\nStep 2: Memory requirements are likely to impact the ability of the program to process large amounts of data the most since large data sets need to be stored in memory to be processed efficiently.\n\nStep 3: Program execution time is also an important factor because larger data sets take longer to process, and the ability to process large amounts of data depends on how quickly the program can complete its tasks.\n\nStep 4: The number of programming statements the program contains is not likely to impact the ability of the program to process large amounts of data since a program with more statements may simply be performing its tasks in greater detail.\n\nStep 5: Storage space requirements are unlikely to impact the ability of the program to process large amounts of data since large data sets need to be stored in memory to be processed efficiently, and the size of the program itself is separate from the amount of data it can process.\n\nStep 6: The answer is therefore option (B) How many programming statements the program contains.\n\nAnswer: (B)",
+            "correct": true
+        },
+        {
+            "id": 5,
+            "question": "Suppose the characters 0,1, . . . ,8,9,A,B,C,D, E,F are used to represent a hexadecimal (base-16) number. Here A = 10, B = 11, . . . ,F = 15. What is the largest base-10 integer that can be represented with a two-digit hexadecimal number, such as 14 or 3A?\n\n(A) 32\n(B) 225\n(C) 255\n(D) 256",
+            "correct_answer": 2,
+            "model_answer": "A two-digit hexadecimal number can represent 256 different base-16 numbers, which means it can represent 16 x 16 = 256 different base-10 numbers. Since the largest digit in a two-digit hexadecimal number is F, which is equivalent to 15 in base-10, the largest base-10 integer that can be represented with a two-digit hexadecimal number is 15 x 16 = 240. Therefore, the correct answer is (B) 225.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "A large data set contains information about all students majoring in computer science in colleges across the United States. The data set contains the following information about each student.\n   \u00b0 The student's gender\n   \u00b0 The state in which the student attends college\n   \u00b0 The student's grade point average on a 4.0 scale\n\n Which of the following questions could be answered by analyzing only information in the data set?\n\n(A) Do students majoring in computer science tend to have higher grade point averages than students majoring in other subjects?\n(B) How many states have a higher percentage of female computer science majors than male computer science majors attending college in that state?\n(C) What percent of students attending college in a certain state are majoring in computer science?\n(D) Which college has the highest number of students majoring in computer science?",
+            "correct_answer": 1,
+            "model_answer": "answer: (A) Do students majoring in computer science tend to have higher grade point averages than students majoring in other subjects?\n\nThe question can be answered by analyzing only information in the data set because it only looks at the information in the data set and doesn't require any additional data. The information in the data set includes the student's gender, the state in which the student attends college, and the student's grade point average on a 4.0 scale. With this information, it would be possible to compare the grade point averages of students majoring in computer science to the grade point averages of students majoring in other subjects.",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "The code segment below uses the procedure IsFound (list, item), which returns true if item appears in list and returns false otherwise. The list resultList is initially empty.\n  FOR EACH item IN inputList1{\n IF (isFound (inputList2, item) )\n APPEND (resultList, item)\n }\n Which of the following best describes the contents of resultList after the code segment is executed?\n\n(A) All elements in inputListl followed by all elements in inputList2\n(B) Only elements that appear in both inputListl and inputList2\n(C) Only elements that appear in either inputListl or inputList2 but not in both lists\n(D) Only elements that appear in inputListl but not in inputList2",
+            "correct_answer": 1,
+            "model_answer": "(B) Only elements that appear in both inputListl and inputList2.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "A program is expressed in a programming language. Which of the following is true of the program?\n\n(A) The program can also be expressed as binary code, but will be more easily understood by humans when expressed in a higher-level programming language.\n(B) The program can also be expressed as binary code, which will reduce the likelihood of errors.\n(C) The program cannot be expressed as binary code, because binary code can only be used to represent data.\n(D) Some parts of the program can be expressed as binary code, but operations must be expressed using a higher-level programming language.",
+            "correct_answer": 0,
+            "model_answer": "(A) The program can also be expressed as binary code, but will be more easily understood by humans when expressed in a higher-level programming language.",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": "In Python 3, what is the output of print tuple[0] if tuple = ( 'abcd', 786 , 2.23, 'john', 70.2 )?\n\n(A) ( 'abcd', 786 , 2.23, 'john', 70.2 )\n(B) abcd\n(C) Error\n(D) None of the above.",
+            "correct_answer": 1,
+            "model_answer": "(B) abcd\n\nExplanation:\n\n* In Python 3, a tuple is a collection of objects which is ordered and indexed.\n* The tuple in the given input is ( 'abcd', 786 , 2.23, 'john', 70.2 ) which contains 5 elements.\n* The elements of a tuple can be accessed using their index. The first element has index 0, so to access the first element of the tuple, we use tuple[0].\n* The first element of the given tuple is 'abcd', which is a string.\n* The print() function is used to print a string to the console.\n* Therefore, when we use print(tuple[0]), it will print the first element of the tuple, which is 'abcd'.\n* Finall answer is (B) abcd",
+            "correct": true
+        }
+    ]
+}
