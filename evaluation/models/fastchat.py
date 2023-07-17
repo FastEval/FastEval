@@ -6,7 +6,7 @@ import json
 
 import openai
 
-from .open_ai import OpenAI
+from .open_ai_base import OpenAIBase
 
 import evaluation.models.models
 from evaluation.models.utils import put_system_message_in_prompter_message
@@ -142,7 +142,7 @@ def ensure_model_is_loaded(model_name, use_vllm):
 
     lock.release()
 
-class Fastchat(OpenAI):
+class Fastchat(OpenAIBase):
     num_threads = NUM_THREADS_LOCAL_MODEL
 
     def __init__(self, model_name, *, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
