@@ -26,9 +26,16 @@ def unload_model(use_lock=True):
     if use_lock:
         lock.release()
 
+def should_filter_process_output(line):
+    if 'GenerateParameters' in line and 'text_generation_router' in line and 'Success' in line:
+        return True
+
+    return False
+
 def print_process_output(stdout):
     for line in stdout:
-        print('[TGI]', line, end='')
+        if not should_filter_process_output(line):
+            print('[TGI]', line, end='')
 
 def start_server(*, model_path, tokenizer_path, dtype):
     global server_is_ready
@@ -64,7 +71,8 @@ def start_server(*, model_path, tokenizer_path, dtype):
     ], env=new_environment, stdout=subprocess.PIPE, text=True)
 
     for line in process.stdout:
-        print('[TGI]', line, end='')
+        if not should_filter_process_output(line):
+            print('[TGI]', line, end='')
         if 'text_generation_router' in line and 'Connected' in line:
             break
 
