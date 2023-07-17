@@ -142,6 +142,9 @@ def compute_judge_replies(model_name):
         json.dump(judge_replies, f, indent=4)
 
 def compute_model_score(model_name):
+    with open('data/mt-bench/questions.json') as f:
+        questions = json.load(f)
+
     scores_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), 'scores.json')
     if os.path.exists(scores_filepath):
         return
@@ -152,10 +155,12 @@ def compute_model_score(model_name):
 
     first_turn_ratings = []
     second_turn_ratings = []
+    categories_ratings = {}
     for item in judge_replies:
         question_id = item['question_id']
         turn_number = item['turn_number']
         judge_reply = item['judge_reply']
+        category = questions[question_id]['category']
 
         match = re.search('\[\[(\d+\.?\d*)\]\]', judge_reply)
         if not match:
@@ -170,12 +175,21 @@ def compute_model_score(model_name):
         else:
             second_turn_ratings.append(rating)
 
+        if category not in categories_ratings:
+            categories_ratings[category] = []
+        categories_ratings[category].append(rating)
+
     average_first_turn_rating = statistics.mean(first_turn_ratings)
     average_second_turn_rating = statistics.mean(second_turn_ratings)
+
+    average_categories_ratings = {}
+    for category, cateory_ratings in categories_ratings.items():
+        average_categories_ratings[category] = statistics.mean(cateory_ratings)
 
     scores = {
         'first_turn': average_first_turn_rating,
         'second_turn': average_second_turn_rating,
+        'categories': average_categories_ratings,
         'average': (average_first_turn_rating + average_second_turn_rating) / 2,
     }
 
