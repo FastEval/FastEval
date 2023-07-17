@@ -3,7 +3,6 @@ import time
 import threading
 
 import openai
-import tenacity
 
 from evaluation.constants import NUM_THREADS_OPENAI_GPT3_5, NUM_THREADS_OPENAI_GPT4, DEFAULT_MAX_NEW_TOKENS
 from .open_ai_base import OpenAIBase
@@ -25,7 +24,6 @@ class OpenAI(OpenAIBase):
         else:
             raise Exception('Unknown OpenAI model.')
 
-    @tenacity.retry(wait=tenacity.wait_random_exponential(min=1, max=180), stop=tenacity.stop_after_attempt(30), after=print_retry)
     def reply(self, conversation, temperature=None):
         while True:
             while True:
@@ -56,3 +54,10 @@ class OpenAI(OpenAIBase):
 
                 if now - last_rate_limit_error > 10:
                     print('Encountered OpenAI rate limit for ' + self.model_name + '. Trying again in a few seconds...')
+            except openai.error.ServiceUnavailableError:
+                print('OpenAI server is overloaded or not ready yet. Trying again...')
+                time.sleep(1)
+            except openai.error.APIError:
+                print('Encountered OpenAI APIError. Trying again...')
+            except openai.error.Timeout:
+                print('OpenAI request timeout. Trying again...')
