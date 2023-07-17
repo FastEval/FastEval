@@ -3,6 +3,7 @@
 import os
 import json
 import argparse
+import threading
 
 import evaluation.args
 from evaluation import benchmarks
@@ -54,10 +55,10 @@ def main():
             models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.models, args.benchmarks)
 
     evaluation_functions = [
+        ('mt-bench', benchmarks.mt_bench.evaluate_model),
         ('human-eval-plus', benchmarks.human_eval_plus.evaluate_model),
         ('cot', benchmarks.cot.evaluate_model),
         ('openai-evals', benchmarks.openai_evals.evaluate_model),
-        ('mt-bench', benchmarks.mt_bench.evaluate_model),
     ]
 
     with changed_exit_handlers():
@@ -70,6 +71,18 @@ def main():
     for item in models_and_benchmarks:
         if 'lm-evaluation-harness' in item['benchmarks']:
             benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'])
+
+    for thread in threading.enumerate():
+        if thread.daemon:
+            continue
+
+        try:
+            thread.join()
+        except RuntimeError as error:
+            if 'cannot join current thread' in error: # main thread
+                pass
+            else:
+                raise
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         json.dump(models_and_benchmarks, f, indent=4)
