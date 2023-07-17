@@ -55,6 +55,7 @@ def generate_assistant_replies(model_type, model_name):
         num_threads=model.num_threads,
         items=[(model, question) for question_id, question in questions_items],
         process_function=generate_single_conversation_assistant_replies,
+        desc=model_name + ' :: MT-Bench :: Computing model replies',
     )
 
     all_replies = { question_id: model_replies[i] for i, (question_id, question) in enumerate(questions_items) }
@@ -127,7 +128,7 @@ def compute_judge_replies(model_name):
     judge_replies = compute_model_replies(judge_model, [{
         'conversation': item['conversation'],
         'temperature': 0,
-    } for item in judge_conversations])
+    } for item in judge_conversations], desc=model_name + ' :: MT-Bench :: Judging with GPT-4')
 
     judge_replies = [{
         'question_id': judge_conversations[i]['question_id'],

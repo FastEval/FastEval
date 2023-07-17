@@ -95,7 +95,7 @@ def get_huggingface_backend(model_path: str):
             return 'hf_transformers'
     return 'hf_transformers'
 
-def compute_model_replies(model, conversations):
+def compute_model_replies(model, conversations, *, desc=None):
     if len(conversations) == 0:
         return []
 
@@ -113,6 +113,7 @@ def compute_model_replies(model, conversations):
         num_threads=model.num_threads,
         items=conversations,
         process_function=reply,
+        desc=desc,
     )
 
 def switch_gpu_model_type(new_model_type):

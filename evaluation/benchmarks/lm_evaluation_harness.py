@@ -23,7 +23,7 @@ def evaluate_model(model_type, model_name):
         'use_accelerate': True,
     }).items()])
 
-    print('lm-evaluation-harness: Evaluating', model_name)
+    print(model_name + ' :: LM-Eval :: Evaluating')
 
     results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', tasks=tasks, model_args=model_args)
 

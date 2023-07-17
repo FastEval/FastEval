@@ -34,7 +34,7 @@ def changed_exit_handlers():
     signal.signal(signal.SIGTERM, previous_sigterm)
     signal.signal(signal.SIGINT, previous_sigint)
 
-def process_with_thread_pool(*, num_threads, items, process_function):
+def process_with_thread_pool(*, num_threads, items, process_function, desc=None):
     def process_with_index(item_with_index):
         index, item = item_with_index
         result = process_function(item)
@@ -42,6 +42,6 @@ def process_with_thread_pool(*, num_threads, items, process_function):
 
     with multiprocessing.pool.ThreadPool(min(num_threads, len(items))) as pool:
         iterator = pool.imap_unordered(process_with_index, enumerate(items))
-        results_with_indices = list(tqdm.tqdm(iterator, total=len(items)))
+        results_with_indices = list(tqdm.tqdm(iterator, total=len(items), desc=desc))
 
     return [result_with_index[1] for result_with_index in sorted(results_with_indices, key=lambda item: item[0])]
