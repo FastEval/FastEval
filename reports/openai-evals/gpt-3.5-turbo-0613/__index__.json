@@ -1,0 +1,3481 @@
+{
+    "aba_mrpc_true_false.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "aba_mrpc_true_false.dev.v0",
+            "base_eval": "aba_mrpc_true_false",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "aba_mrpc_true_false/samples.jsonl"
+                    },
+                    "key": "aba_mrpc_true_false.dev.v0",
+                    "group": "aba-mrpc-true-false"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172133GS5T65QV",
+            "created_at": "2023-07-17 17:21:33.396917"
+        },
+        "final_report": {
+            "accuracy": 0.85
+        }
+    },
+    "anagrams.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "anagrams.test.v1",
+            "base_eval": "anagrams",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "anagrams/fewshot.jsonl",
+                        "num_few_shot": 5,
+                        "samples_jsonl": "anagrams/samples.jsonl"
+                    },
+                    "key": "anagrams.test.v1",
+                    "group": "anagrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172133XWPK22RE",
+            "created_at": "2023-07-17 17:21:33.394681"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172150D5S3NRVD",
+            "created_at": "2023-07-17 17:21:50.641668"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "belarusian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "belarusian-lexicon.dev.v0",
+            "base_eval": "belarusian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "belarusian_lexicon/samples.jsonl"
+                    },
+                    "key": "belarusian-lexicon.dev.v0",
+                    "group": "belarusian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172151TWHUEJEW",
+            "created_at": "2023-07-17 17:21:51.470993"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "algebra-word-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "algebra-word-problems.s1.simple-v0",
+            "base_eval": "algebra-word-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "algebra_word_problems/samples.jsonl"
+                    },
+                    "key": "algebra-word-problems.s1.simple-v0",
+                    "group": "algebra-word-problems"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172133T5NF5GYD",
+            "created_at": "2023-07-17 17:21:33.390813"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "bigrams.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "bigrams.dev.v0",
+            "base_eval": "bigrams",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bigrams/samples.jsonl"
+                    },
+                    "key": "bigrams.dev.v0",
+                    "group": "bigrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172155XJNFGU36",
+            "created_at": "2023-07-17 17:21:55.313004"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "bitwise.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "bitwise.dev.v0",
+            "base_eval": "bitwise",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bitwise/samples.jsonl"
+                    },
+                    "key": "bitwise.dev.v0",
+                    "group": "bitwise"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171722154XNJS3SD",
+            "created_at": "2023-07-17 17:22:15.810373"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "born-first.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "born-first.dev.v0",
+            "base_eval": "born-first",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "born_first/born_first.jsonl"
+                    },
+                    "key": "born-first.dev.v0",
+                    "group": "born-first"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172219VMMYWTMH",
+            "created_at": "2023-07-17 17:22:19.909802"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "bulgarian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "bulgarian-lexicon.dev.v0",
+            "base_eval": "bulgarian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bulgarian-lexicon/samples.jsonl"
+                    },
+                    "key": "bulgarian-lexicon.dev.v0",
+                    "group": "bulgarian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172238FDV3L2HB",
+            "created_at": "2023-07-17 17:22:38.270366"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "chess-piece-count.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "chess-piece-count.s1.simple-v0",
+            "base_eval": "chess-piece-count",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess_piece_count/fuzzy_match.jsonl"
+                    },
+                    "key": "chess-piece-count.s1.simple-v0",
+                    "group": "chess-piece-count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171723115XQ4F2NQ",
+            "created_at": "2023-07-17 17:23:11.303864"
+        },
+        "final_report": {
+            "accuracy": 0.2,
+            "f1_score": 0.07019230769230769
+        }
+    },
+    "chess.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "chess.match.dev.v0",
+            "base_eval": "chess",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess/match.jsonl"
+                    },
+                    "key": "chess.match.dev.v0",
+                    "group": "chess"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172334537YRNAK",
+            "created_at": "2023-07-17 17:23:34.822484"
+        },
+        "final_report": {
+            "accuracy": 0.3,
+            "f1_score": 0.08333333333333333
+        }
+    },
+    "connect4.s1.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "connect4.s1.v1",
+            "base_eval": "connect4",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "connect4/samples.jsonl"
+                    },
+                    "key": "connect4.s1.v1",
+                    "group": "connect-4"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172402MNR2FEGJ",
+            "created_at": "2023-07-17 17:24:02.266246"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "convert-hex-hsl-lightness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "convert-hex-hsl-lightness.dev.v0",
+            "base_eval": "convert-hex-hsl-lightness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "convert-hex-hsl-lightness/samples.jsonl"
+                    },
+                    "key": "convert-hex-hsl-lightness.dev.v0",
+                    "group": "convert-hex-hsl-lightness"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172416FLZEIJBI",
+            "created_at": "2023-07-17 17:24:16.056537"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "compare-countries-area.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "compare-countries-area.dev.v0",
+            "base_eval": "compare-countries-area",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "compare-countries-area/samples.jsonl"
+                    },
+                    "key": "compare-countries-area.dev.v0",
+                    "group": "compare-countries-area"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172334IZP3ELAV",
+            "created_at": "2023-07-17 17:23:34.892589"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "coqa-match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "coqa/match.jsonl"
+                    },
+                    "key": "coqa-match.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172430N4GIBXYU",
+            "created_at": "2023-07-17 17:24:30.879582"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "coqa-closedqa-correct.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-correct.dev.v0",
+            "base_eval": "coqa-closedqa-correct",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "correctness: Is the answer correct?"
+                        }
+                    },
+                    "key": "coqa-closedqa-correct.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071717243257U2NR7J",
+            "created_at": "2023-07-17 17:24:32.879278"
+        },
+        "final_report": {
+            "counts/N": 2,
+            "counts/Y": 7,
+            "score": 0.7777777777777778
+        }
+    },
+    "coqa-closedqa-conciseness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
+                    },
+                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172511MVRJ7V4C",
+            "created_at": "2023-07-17 17:25:11.052402"
+        },
+        "final_report": {
+            "counts/Y": 9,
+            "score": 1.0
+        }
+    },
+    "coqa-closedqa-relevance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-relevance.dev.v0",
+            "base_eval": "coqa-closedqa-relevance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "relevance: Is the submission referring to a real quote from the text?"
+                        }
+                    },
+                    "key": "coqa-closedqa-relevance.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171724344P4XVHAY",
+            "created_at": "2023-07-17 17:24:34.619760"
+        },
+        "final_report": {
+            "counts/Y": 8,
+            "counts/N": 1,
+            "score": 0.8888888888888888
+        }
+    },
+    "crepe.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "crepe.dev.v2",
+            "base_eval": "crepe",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "crepe/samples.jsonl"
+                    },
+                    "key": "crepe.dev.v2",
+                    "group": "crepe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172520CEU7P4UK",
+            "created_at": "2023-07-17 17:25:20.645631"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "cube-pack.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "cube-pack.dev.v0",
+            "base_eval": "cube-pack",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "cube-pack/samples.jsonl"
+                    },
+                    "key": "cube-pack.dev.v0",
+                    "group": "cube-pack"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172524T2WDKRJ6",
+            "created_at": "2023-07-17 17:25:24.380959"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "determinant.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "determinant.test.v1",
+            "base_eval": "determinant",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "determinant/samples.jsonl"
+                    },
+                    "key": "determinant.test.v1",
+                    "group": "determinant"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071717252946POI6JV",
+            "created_at": "2023-07-17 17:25:29.049115"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "diagrammatic_logic.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "diagrammatic_logic.dev.v2",
+            "base_eval": "diagrammatic_logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "diagrammatic_logic/samples.jsonl"
+                    },
+                    "key": "diagrammatic_logic.dev.v2",
+                    "group": "diagrammatic_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171725387YUBGMYY",
+            "created_at": "2023-07-17 17:25:38.161788"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "dutch-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "dutch-lexicon.dev.v0",
+            "base_eval": "dutch-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dutch-lexicon/samples.jsonl"
+                    },
+                    "key": "dutch-lexicon.dev.v0",
+                    "group": "dutch-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172635KPVBAMQI",
+            "created_at": "2023-07-17 17:26:35.319627"
+        },
+        "final_report": {
+            "accuracy": 0.75
+        }
+    },
+    "dice-rotation-sequence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "dice-rotation-sequence.dev.v0",
+            "base_eval": "dice-rotation-sequence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dice-rotation-sequence/samples.jsonl"
+                    },
+                    "key": "dice-rotation-sequence.dev.v0",
+                    "group": "dice-rotation-sequence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172604MXTN3F5X",
+            "created_at": "2023-07-17 17:26:04.782192"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "emoji-riddle.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "emoji-riddle.s1.simple-v0",
+            "base_eval": "emoji-riddle",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "emoji_riddle/fuzzy_match.jsonl"
+                    },
+                    "key": "emoji-riddle.s1.simple-v0",
+                    "group": "emoji-riddle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172648YFYY3H3E",
+            "created_at": "2023-07-17 17:26:48.924789"
+        },
+        "final_report": {
+            "accuracy": 0.4,
+            "f1_score": 0.445
+        }
+    },
+    "balance-chemical-equation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "balance-chemical-equation.dev.v0",
+            "base_eval": "balance-chemical-equation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "balance_chemical_equation/samples.jsonl"
+                    },
+                    "key": "balance-chemical-equation.dev.v0",
+                    "group": "balance-chemical-equation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172133AY4YM55H",
+            "created_at": "2023-07-17 17:21:33.393051"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "escher-sentences.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "escher-sentences.dev.v0",
+            "base_eval": "escher-sentences",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "escher_sentences/samples.jsonl"
+                    },
+                    "key": "escher-sentences.dev.v0",
+                    "group": "escher-sentences"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172702YIW6VR5N",
+            "created_at": "2023-07-17 17:27:02.368580"
+        },
+        "final_report": {
+            "accuracy": 0.95
+        }
+    },
+    "emotional-intelligence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "emotional-intelligence.dev.v0",
+            "base_eval": "emotional-intelligence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "emotional-intelligence/samples.jsonl"
+                    },
+                    "key": "emotional-intelligence.dev.v0",
+                    "group": "emotional-intelligence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172702AOLFUY52",
+            "created_at": "2023-07-17 17:27:02.254779"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "fcc_amateur_extra.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "fcc_amateur_extra.dev.v0",
+            "base_eval": "fcc_amateur_extra",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "fcc_amateur_extra/samples.jsonl"
+                    },
+                    "key": "fcc_amateur_extra.dev.v0",
+                    "group": "fcc_amateur_extra"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171727022QF6JHDM",
+            "created_at": "2023-07-17 17:27:02.998886"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "formal-logic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "formal-logic.dev.v0",
+            "base_eval": "formal-logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "formal_logic/formal_logic_expressions.jsonl"
+                    },
+                    "key": "formal-logic.dev.v0",
+                    "group": "formal_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172742BLGGELRF",
+            "created_at": "2023-07-17 17:27:42.357705"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "brazilian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "brazilian-lexicon.dev.v0",
+            "base_eval": "brazilian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "brazilian-lexicon/samples.jsonl"
+                    },
+                    "key": "brazilian-lexicon.dev.v0",
+                    "group": "brazilian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171722243XNSUHSF",
+            "created_at": "2023-07-17 17:22:24.494837"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "first-letters.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "first-letters.dev.v0",
+            "base_eval": "first-letters",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "first-letters/samples.jsonl"
+                    },
+                    "key": "first-letters.dev.v0",
+                    "group": "first-letters"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172742M52FSB4K",
+            "created_at": "2023-07-17 17:27:42.227203"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "forth-stack-sim.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "forth-stack-sim.dev.v0",
+            "base_eval": "forth-stack-sim",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
+                    },
+                    "key": "forth-stack-sim.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171727525CDJ5DPL",
+            "created_at": "2023-07-17 17:27:52.908035"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "forth-stack-sim-basic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "forth-stack-sim-basic.dev.v0",
+            "base_eval": "forth-stack-sim-basic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/basic_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-basic.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172821GR6XF2QG",
+            "created_at": "2023-07-17 17:28:21.357075"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "forth-stack-sim-detailed.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "forth-stack-sim-detailed.dev.v0",
+            "base_eval": "forth-stack-sim-detailed",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/detailed_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-detailed.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171728212MW3CJUU",
+            "created_at": "2023-07-17 17:28:21.385773"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "heart-disease.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "heart-disease.v0",
+            "base_eval": "heart-disease",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "heart-disease/samples.jsonl"
+                    },
+                    "key": "heart-disease.v0",
+                    "group": "heart-disease"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172842YLF4SXMP",
+            "created_at": "2023-07-17 17:28:42.971991"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "greek-vocabulary.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "greek-vocabulary.dev.v0",
+            "base_eval": "greek-vocabulary",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "greek_vocabulary/samples.jsonl"
+                    },
+                    "key": "greek-vocabulary.dev.v0",
+                    "group": "greek-vocabulary"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172842NLZGFO2O",
+            "created_at": "2023-07-17 17:28:42.059368"
+        },
+        "final_report": {
+            "accuracy": 0.95
+        }
+    },
+    "hebrew-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "hebrew-rhyme.v0",
+            "base_eval": "hebrew-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "hebrew_rhyme/samples.jsonl"
+                    },
+                    "key": "hebrew-rhyme.v0",
+                    "group": "hebrew-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172934B7UN3WHO",
+            "created_at": "2023-07-17 17:29:34.925124"
+        },
+        "final_report": {
+            "accuracy": 0.6,
+            "f1_score": 0.625
+        }
+    },
+    "infiniteloop-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "infiniteloop-match.s1.simple-v0",
+            "base_eval": "infiniteloop-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "infiniteloop-match/infiniteloop-match.jsonl"
+                    },
+                    "key": "infiniteloop-match.s1.simple-v0",
+                    "group": "infiniteloop-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172956TY3DDZ5W",
+            "created_at": "2023-07-17 17:29:56.817761"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "imperial_date_to_string.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "imperial_date_to_string.dev.v0",
+            "base_eval": "imperial_date_to_string",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "imperial_date_to_string/samples.jsonl"
+                    },
+                    "key": "imperial_date_to_string.dev.v0",
+                    "group": "imperial_date_to_string"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172956QLJDWJ2P",
+            "created_at": "2023-07-17 17:29:56.748889"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "invoices.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "invoices.dev.v0",
+            "base_eval": "invoices",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "invoices/match.jsonl"
+                    },
+                    "key": "invoices.dev.v0",
+                    "group": "invoices"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173000VCXF7XCE",
+            "created_at": "2023-07-17 17:30:00.464281"
+        },
+        "final_report": {
+            "accuracy": 0.75
+        }
+    },
+    "hindi_upsc.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "hindi_upsc.dev.v0",
+            "base_eval": "hindi_upsc",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "hindi_upsc/samples.jsonl"
+                    },
+                    "key": "hindi_upsc.dev.v0",
+                    "group": "hindi_upsc"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717172945UJQZV6AJ",
+            "created_at": "2023-07-17 17:29:45.436915"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "japanese_driving_license.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "japanese_driving_license.s1.simple-v0",
+            "base_eval": "japanese_driving_license",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese_driving_license/samples.jsonl"
+                    },
+                    "key": "japanese_driving_license.s1.simple-v0",
+                    "group": "japanese_driving_license"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173050MPP46P2P",
+            "created_at": "2023-07-17 17:30:50.522493"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "japanese-national-medical-exam01.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "japanese-national-medical-exam01.dev.v0",
+            "base_eval": "japanese-national-medical-exam01",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese-national-medical-exam01/japanese-national-medical-exam01.jsonl"
+                    },
+                    "key": "japanese-national-medical-exam01.dev.v0",
+                    "group": "japanese-national-medical-exam01"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173050G2FE6L7Z",
+            "created_at": "2023-07-17 17:30:50.216204"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "knot-theory-unknotting-problem.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "knot-theory-unknotting-problem.dev.v0",
+            "base_eval": "knot-theory-unknotting-problem",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-problem.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173101IZCQB7LU",
+            "created_at": "2023-07-17 17:31:01.032105"
+        },
+        "final_report": {
+            "accuracy": 0.5555555555555556
+        }
+    },
+    "job_listing_title_for_a_caregiver_in_japan.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+            "base_eval": "job_listing_title_for_a_caregiver_in_japan",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "job_listing_title_for_a_caregiver_in_japan/samples.jsonl"
+                    },
+                    "key": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+                    "group": "job_listing_title_for_a_caregiver_in_japan"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173100BB4AD3KT",
+            "created_at": "2023-07-17 17:31:00.722157"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "knot-theory-unknotting-number.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "knot-theory-unknotting-number.dev.v0",
+            "base_eval": "knot-theory-unknotting-number",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-numbers.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-number.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173142EC4P34TU",
+            "created_at": "2023-07-17 17:31:42.809363"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "lat_long_identify.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "lat_long_identify.dev.v0",
+            "base_eval": "lat_long_identify",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "lat_long_identify/samples.jsonl"
+                    },
+                    "key": "lat_long_identify.dev.v0",
+                    "group": "lat_long_identify"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173154AE4MT2IA",
+            "created_at": "2023-07-17 17:31:54.025676"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173142KMYG7F7M",
+            "created_at": "2023-07-17 17:31:42.859418"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "logic-statements.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "logic-statements.dev.v0",
+            "base_eval": "logic-statements",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "logic-statements/logic-statements.jsonl"
+                    },
+                    "key": "logic-statements.dev.v0",
+                    "group": "logic-statements"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173306WOU3VCOG",
+            "created_at": "2023-07-17 17:33:06.183353"
+        },
+        "final_report": {
+            "accuracy": 0.05,
+            "f1_score": 0.05
+        }
+    },
+    "logiqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "logiqa.dev.v0",
+            "base_eval": "logiqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "logiqa/logiqa.jsonl"
+                    },
+                    "key": "logiqa.dev.v0",
+                    "group": "logiqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173309DLTDN5PD",
+            "created_at": "2023-07-17 17:33:09.800047"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "map-electronic-component-part-to-fact.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "map-electronic-component-part-to-fact.dev.v0",
+            "base_eval": "map-electronic-component-part-to-fact",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "map-electronic-component-part-to-fact/samples.jsonl"
+                    },
+                    "key": "map-electronic-component-part-to-fact.dev.v0",
+                    "group": "map-electronic-component-part-to-fact"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173310R3IMHVQS",
+            "created_at": "2023-07-17 17:33:10.759911"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "medmcqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "medmcqa.dev.v0",
+            "base_eval": "medmcqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "medmcqa/samples.jsonl"
+                    },
+                    "key": "medmcqa.dev.v0",
+                    "group": "medmcqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171733464WUYQ6UY",
+            "created_at": "2023-07-17 17:33:46.529483"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "mendelian_inheritance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "mendelian_inheritance.dev.v0",
+            "base_eval": "mendelian_inheritance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "mendelian_inheritance/samples.jsonl"
+                    },
+                    "key": "mendelian_inheritance.dev.v0",
+                    "group": "mendelian_inheritance"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173347GLDTKUIR",
+            "created_at": "2023-07-17 17:33:47.361570"
+        },
+        "final_report": {
+            "accuracy": 0.4375
+        }
+    },
+    "moral_exceptQA.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "moral_exceptQA.test.v1",
+            "base_eval": "moral_exceptQA",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "moral_exceptQA/samples.jsonl"
+                    },
+                    "key": "moral_exceptQA.test.v1",
+                    "group": "moral_exceptQA"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171733474TIDAV3K",
+            "created_at": "2023-07-17 17:33:47.414841"
+        },
+        "final_report": {
+            "accuracy": 0.95
+        }
+    },
+    "multi-step-equations.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "multi-step-equations.dev.v0",
+            "base_eval": "multi-step-equations",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "multi-step-equations/samples.jsonl"
+                    },
+                    "key": "multi-step-equations.dev.v0",
+                    "group": "multi-step-equations"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173425TT7ZETU5",
+            "created_at": "2023-07-17 17:34:25.989813"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "naughty_strings_graded.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "naughty_strings_graded.test.v1",
+            "base_eval": "naughty_strings_graded",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/security.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "security"
+                    },
+                    "key": "naughty_strings_graded.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173441DF55EOKJ",
+            "created_at": "2023-07-17 17:34:41.867269"
+        },
+        "final_report": {
+            "counts/No": 8,
+            "counts/Unsure": 4,
+            "counts/Yes": 8,
+            "score": 0.5
+        }
+    },
+    "number-pattern.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "number-pattern.dev.v0",
+            "base_eval": "number-pattern",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_pattern/samples.jsonl"
+                    },
+                    "key": "number-pattern.dev.v0",
+                    "group": "number-pattern"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171734527PWKBOYT",
+            "created_at": "2023-07-17 17:34:52.073141"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "naughty_strings_fuzzy.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "naughty_strings_fuzzy.test.v1",
+            "base_eval": "naughty_strings_fuzzy",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/samples.jsonl"
+                    },
+                    "key": "naughty_strings_fuzzy.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173426EMDWCOP7",
+            "created_at": "2023-07-17 17:34:26.850034"
+        },
+        "final_report": {
+            "accuracy": 0.7,
+            "f1_score": 0.7
+        }
+    },
+    "number-reading.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "number-reading.dev.v0",
+            "base_eval": "number-reading",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_reading/number_reading.jsonl"
+                    },
+                    "key": "number-reading.dev.v0",
+                    "group": "number-reading"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173455Q7RCQIXS",
+            "created_at": "2023-07-17 17:34:55.437735"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "pattern_identification.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "pattern_identification.dev.v0",
+            "base_eval": "pattern_identification",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "pattern_identification/samples.v0.jsonl"
+                    },
+                    "key": "pattern_identification.dev.v0",
+                    "group": "pattern_identification"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173518U5F7TPHX",
+            "created_at": "2023-07-17 17:35:18.280695"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "partially_solved_crossword_clues.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "partially_solved_crossword_clues.dev.v0",
+            "base_eval": "partially_solved_crossword_clues",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "partially_solved_crossword_clues/samples.jsonl"
+                    },
+                    "key": "partially_solved_crossword_clues.dev.v0",
+                    "group": "partially_solved_crossword_clues"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173511R27EKR5G",
+            "created_at": "2023-07-17 17:35:11.934822"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "ph-calculation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "ph-calculation.dev.v0",
+            "base_eval": "ph-calculation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "ph_calculation/samples.jsonl"
+                    },
+                    "key": "ph-calculation.dev.v0",
+                    "group": "ph_calculation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173553S4C2N2FB",
+            "created_at": "2023-07-17 17:35:53.376939"
+        },
+        "final_report": {
+            "accuracy": 0.2,
+            "f1_score": 0.2
+        }
+    },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173606G3EXBYED",
+            "created_at": "2023-07-17 17:36:06.495657"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "regex.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "regex.match.dev.v0",
+            "base_eval": "regex",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "regex-match/samples.jsonl"
+                    },
+                    "key": "regex.match.dev.v0",
+                    "group": "regex-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173606I2ZCEKJT",
+            "created_at": "2023-07-17 17:36:06.551715"
+        },
+        "final_report": {
+            "accuracy": 0.65
+        }
+    },
+    "rucola.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "rucola.test.v0",
+            "base_eval": "rucola",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "rucola/samples.jsonl",
+                        "few_shot_jsonl": "rucola/few_shot.jsonl",
+                        "num_few_shot": 4
+                    },
+                    "key": "rucola.test.v0",
+                    "group": "rucola"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173607FNTFUGDX",
+            "created_at": "2023-07-17 17:36:07.166313"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "last-word-nth.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "last-word-nth.s1.simple-v0",
+            "base_eval": "last-word-nth",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "last_word_nth/samples.jsonl"
+                    },
+                    "key": "last-word-nth.s1.simple-v0",
+                    "group": "last-word-nth"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171731422FYSSQAK",
+            "created_at": "2023-07-17 17:31:42.929066"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "russe.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "russe.test.v0",
+            "base_eval": "russe",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russe/samples.jsonl",
+                        "few_shot_jsonl": "russe/few_shot.jsonl",
+                        "num_few_shot": 2
+                    },
+                    "key": "russe.test.v0",
+                    "group": "russe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071717364632E23YZG",
+            "created_at": "2023-07-17 17:36:46.709310"
+        },
+        "final_report": {
+            "accuracy": 0.65
+        }
+    },
+    "russian-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "russian-rhyme.v0",
+            "base_eval": "russian-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "russian-rhyme/samples.jsonl"
+                    },
+                    "key": "russian-rhyme.v0",
+                    "group": "russian-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173657ZO5C5LOJ",
+            "created_at": "2023-07-17 17:36:57.188086"
+        },
+        "final_report": {
+            "accuracy": 0.5294117647058824,
+            "f1_score": 0.5294117647058824
+        }
+    },
+    "russian_medical.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "russian_medical.dev.v0",
+            "base_eval": "russian_medical",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian_medical/samples.jsonl"
+                    },
+                    "key": "russian_medical.dev.v0",
+                    "group": "russian_medical"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173715P2PO6KLH",
+            "created_at": "2023-07-17 17:37:15.061015"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "russian-nlp-tasks.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "russian-nlp-tasks.dev.v0",
+            "base_eval": "russian-nlp-tasks",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian-nlp-tasks/samples.jsonl"
+                    },
+                    "key": "russian-nlp-tasks.dev.v0",
+                    "group": "russian-nlp-tasks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173656WESEHKB5",
+            "created_at": "2023-07-17 17:36:56.336233"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "sarcasm.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "sarcasm.test.v1",
+            "base_eval": "sarcasm",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sarcasm/samples.jsonl",
+                        "few_shot_jsonl": "sarcasm/few_shot.jsonl",
+                        "num_few_shot": 5
+                    },
+                    "key": "sarcasm.test.v1",
+                    "group": "sarcasm"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171737364PNE3652",
+            "created_at": "2023-07-17 17:37:36.556760"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173757T64UGXCP",
+            "created_at": "2023-07-17 17:37:57.484736"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "stock-options-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "stock-options-bear-call-spread.dev.v0",
+            "base_eval": "stock-options-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_options_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-options-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173747YRCOCMKJ",
+            "created_at": "2023-07-17 17:37:47.242076"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173852J3LYMCIB",
+            "created_at": "2023-07-17 17:38:52.696155"
+        },
+        "final_report": {
+            "accuracy": 0.125
+        }
+    },
+    "simple-knowledge-mongolian.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "simple-knowledge-mongolian.dev.v0",
+            "base_eval": "simple-knowledge-mongolian",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "simple-knowledge-mongolian/samples.v0.jsonl"
+                    },
+                    "key": "simple-knowledge-mongolian.dev.v0",
+                    "group": "simple-knowledge-mongolian"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171737465NYIYIZN",
+            "created_at": "2023-07-17 17:37:46.995946"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "sort-numbers.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "sort-numbers.s1.simple-v0",
+            "base_eval": "sort-numbers",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sort_numeric/samples.jsonl"
+                    },
+                    "key": "sort-numbers.s1.simple-v0",
+                    "group": "sort-numeric"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173747BCBJO6QG",
+            "created_at": "2023-07-17 17:37:47.104445"
+        },
+        "final_report": {
+            "accuracy": 1.0
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173853L4KHMNZS",
+            "created_at": "2023-07-17 17:38:53.207992"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173904AJLZXS7G",
+            "created_at": "2023-07-17 17:39:04.991166"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "taxes.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "taxes.dev.v0",
+            "base_eval": "taxes",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "taxes/samples.jsonl"
+                    },
+                    "key": "taxes.dev.v0",
+                    "group": "taxes"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173908NPF2MVGJ",
+            "created_at": "2023-07-17 17:39:08.730652"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "swedish-spelling.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "swedish-spelling.dev.v0",
+            "base_eval": "swedish-spelling",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "swedish-spelling/samples.jsonl"
+                    },
+                    "key": "swedish-spelling.dev.v0",
+                    "group": "swedish-spelling"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717173908UQ6XDCSA",
+            "created_at": "2023-07-17 17:39:08.543874"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171738575SFSRUA7",
+            "created_at": "2023-07-17 17:38:57.757272"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "test-fuzzy-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "test-fuzzy-match.s1.simple-v0",
+            "base_eval": "test-fuzzy-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-fuzzy-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171740113CHZDYPL",
+            "created_at": "2023-07-17 17:40:11.574677"
+        },
+        "final_report": {
+            "accuracy": 1.0,
+            "f1_score": 0.787878787878788
+        }
+    },
+    "test-includes.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174011EK7JIOTB",
+            "created_at": "2023-07-17 17:40:11.688619"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_match/samples.jsonl"
+                    },
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174011XZOLE4BZ",
+            "created_at": "2023-07-17 17:40:11.540446"
+        },
+        "final_report": {
+            "accuracy": 1.0
+        }
+    },
+    "test-includes-ignore-case.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "test-includes-ignore-case.s1.simple-v0",
+            "base_eval": "test-includes-ignore-case",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl",
+                        "ignore_case": true
+                    },
+                    "key": "test-includes-ignore-case.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171740276JVTPAO4",
+            "created_at": "2023-07-17 17:40:27.985428"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174028EPVSIYMS",
+            "created_at": "2023-07-17 17:40:28.097371"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174037IBL3ZGKV",
+            "created_at": "2023-07-17 17:40:37.763514"
+        },
+        "final_report": {
+            "counts/No": 6,
+            "counts/Yes": 2,
+            "counts/__invalid__": 1,
+            "score": 0.2222222222222222
+        }
+    },
+    "tempo_to_measure_count.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "tempo_to_measure_count.dev.v0",
+            "base_eval": "tempo_to_measure_count",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "tempo_to_measure_count/samples.jsonl"
+                    },
+                    "key": "tempo_to_measure_count.dev.v0",
+                    "group": "tempo_to_measure_count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171740113FS7XLBB",
+            "created_at": "2023-07-17 17:40:11.507923"
+        },
+        "final_report": {
+            "accuracy": 0.05,
+            "f1_score": 0.0
+        }
+    },
+    "rap-people-vs-fruits.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174043IX2OOEDJ",
+            "created_at": "2023-07-17 17:40:43.845377"
+        },
+        "final_report": {
+            "counts/Yes": 4,
+            "counts/No": 5,
+            "score": 0.4444444444444444
+        }
+    },
+    "three-pt-mapping.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "three-pt-mapping.dev.v0",
+            "base_eval": "three-pt-mapping",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "three-pt-mapping/three_pt_mapping.jsonl"
+                    },
+                    "key": "three-pt-mapping.dev.v0",
+                    "group": "three-pt-mapping"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171741387GAJBHLJ",
+            "created_at": "2023-07-17 17:41:38.376639"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "ukraine-eit.val.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "ukraine-eit.val.v0",
+            "base_eval": "ukraine-eit",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "ukraine_eit/samples.jsonl"
+                    },
+                    "key": "ukraine-eit.val.v0",
+                    "group": "ukraine-eit"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174146KIZ3Z6TL",
+            "created_at": "2023-07-17 17:41:46.476586"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307171741365AYUXBRO",
+            "created_at": "2023-07-17 17:41:36.516851"
+        },
+        "final_report": {
+            "counts/No": 5,
+            "counts/Yes": 5,
+            "score": 0.5
+        }
+    },
+    "us-tort-law.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "us-tort-law.dev.v0",
+            "base_eval": "us-tort-law",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "us_tort_law/few_shot.jsonl",
+                        "num_few_shot": 4,
+                        "samples_jsonl": "us_tort_law/samples.jsonl"
+                    },
+                    "key": "us-tort-law.dev.v0",
+                    "group": "us-tort-law"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174215O2CIDGGK",
+            "created_at": "2023-07-17 17:42:15.783313"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "utility_price_parsing.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "utility_price_parsing.dev.v0",
+            "base_eval": "utility_price_parsing",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "utility_price_parsing/samples.jsonl"
+                    },
+                    "key": "utility_price_parsing.dev.v0",
+                    "group": "utility_price_parsing"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23071717424934CCDBFL",
+            "created_at": "2023-07-17 17:42:49.861897"
+        },
+        "final_report": {
+            "accuracy": 0.06666666666666667
+        }
+    },
+    "which-is-heavier.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613"
+            ],
+            "eval_name": "which-is-heavier.dev.v0",
+            "base_eval": "which-is-heavier",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "which_is_heavier/which_is_heavier.jsonl"
+                    },
+                    "key": "which-is-heavier.dev.v0",
+                    "group": "which-is-heavier"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174306GDA7IG7K",
+            "created_at": "2023-07-17 17:43:06.811050"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "mg-humor-people_jp.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "openai:gpt-3.5-turbo-0613",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "openai:gpt-3.5-turbo-0613",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
+                    },
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m openai:gpt-3.5-turbo-0613",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230717174115H2EYBRAX",
+            "created_at": "2023-07-17 17:41:15.075369"
+        },
+        "final_report": {
+            "counts/4": 9,
+            "counts/3": 8,
+            "counts/2": 1,
+            "counts/1": 1,
+            "counts/__invalid__": 1,
+            "score": 3.2
+        }
+    }
+}
