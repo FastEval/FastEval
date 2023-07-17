@@ -11,6 +11,128 @@ from evaluation.utils import replace_model_name_slashes, process_with_thread_poo
 from evaluation.models.models import create_model
 from evaluation.constants import OPENAI_EVALS_JUDGE_MAX_NEW_TOKENS, OPENAI_EVALS_JUDGE
 
+ignored_evals = [
+    # Compares multiple models
+    'best.dev.v0',
+
+    # KeyError: 'sample'
+    'positive-binary-operations.test.v1',
+
+    # TypeError: ModelBasedClassify.__init__() missing 1 required positional argument: 'modelgraded_spec'
+    'spider-sql.dev.v0',
+
+    # RuntimeError: Failed to open: stock_options/stock_options_iron_butteryfly_spread.jsonl
+    'stock-options-iron-butteryfly-spread.dev.v0',
+
+    # RuntimeError: Failed to open: stock_options/stock_option_terms_inverse_iron_butteryfly_spread.jsonl
+    'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0',
+
+    # Buggy in openai/evals itself due to removed format_type feature that is still used by this eval
+    'joke-fruits-v2.dev.v0',
+
+    # All models get a score of 0
+    'actors-sequence.dev.match-v1',
+    'complex-replace-characters.dev.v0',
+    'finance.dev.v0',
+    'knot-theory-code-conversion.dev.v0',
+    'naughty_strings.test.v1',
+    'reverse-string.s1.simple-v0',
+    'decrypt-caesar-cipher.dev.v0',
+    'rot13.s1.simple-v0',
+    'stock-options-bull-call-spread.dev.v0',
+    'stock-options-inverse-iron-butterfly-spread.dev.v0',
+    'stock-options-inverse-iron-condor-spread.dev.v0',
+    'stock-options-iron-condor-spread.dev.v0',
+    'unified-patch.dev.v0',
+
+    # Requires sacrebleu>=2.3.1 which conflicts with lm-evaluation-harness dependencies
+    'manga-translation-bubble.dev.v0',
+    'manga-translation-page.dev.v0',
+    'manga-translation-panel.dev.v0',
+
+    # Doesn't give a score
+    'categorize-with-distractors.dev.v0',
+    'coqa-fact-expl.dev.v0',
+    'coqa-fact.dev.v0',
+    'logic-fact.dev.v0',
+    'logic-liar-paradox.dev.v0',
+    'loss-logic-fact.dev.v0',
+    'naughty_strings_graded_meta.test.v1',
+    'rap-animals-vs-fruits.dev.v0',
+
+    # Calculates scores incorrectly
+    'joke-animals-vs-fruits.dev.v0',
+    'joke-fruits-ans-meta.dev.v0',
+    'joke-fruits-expl-meta.dev.v0',
+    'joke-fruits-likert.dev.v0',
+    'joke-fruits-meta.dev.v0',
+    'joke-fruits.dev.v0',
+
+    # Required too large context size
+    'illinois-law.v0',
+    'qa.dev.v0',
+    'svg_understanding.v0',
+
+    # MMLU is already separated as part of CoT
+    'mmlu-abstract-algebra.val.ab-v1',
+    'mmlu-anatomy.val.ab-v1',
+    'mmlu-astronomy.val.ab-v1',
+    'mmlu-business-ethics.val.ab-v1',
+    'mmlu-clinical-knowledge.val.ab-v1',
+    'mmlu-college-biology.val.ab-v1',
+    'mmlu-college-chemistry.val.ab-v1',
+    'mmlu-college-computer-science.val.ab-v1',
+    'mmlu-college-mathematics.val.ab-v1',
+    'mmlu-college-medicine.val.ab-v1',
+    'mmlu-college-physics.val.ab-v1',
+    'mmlu-computer-security.val.ab-v1',
+    'mmlu-conceptual-physics.val.ab-v1',
+    'mmlu-econometrics.val.ab-v1',
+    'mmlu-electrical-engineering.val.ab-v1',
+    'mmlu-elementary-mathematics.val.ab-v1',
+    'mmlu-formal-logic.val.ab-v1',
+    'mmlu-global-facts.val.ab-v1',
+    'mmlu-high-school-biology.val.ab-v1',
+    'mmlu-high-school-chemistry.val.ab-v1',
+    'mmlu-high-school-computer-science.val.ab-v1',
+    'mmlu-high-school-european-history.val.ab-v1',
+    'mmlu-high-school-geography.val.ab-v1',
+    'mmlu-high-school-government-and-politics.val.ab-v1',
+    'mmlu-high-school-macroeconomics.val.ab-v1',
+    'mmlu-high-school-mathematics.val.ab-v1',
+    'mmlu-high-school-microeconomics.val.ab-v1',
+    'mmlu-high-school-physics.val.ab-v1',
+    'mmlu-high-school-psychology.val.ab-v1',
+    'mmlu-high-school-statistics.val.ab-v1',
+    'mmlu-high-school-us-history.val.ab-v1',
+    'mmlu-high-school-world-history.val.ab-v1',
+    'mmlu-human-aging.val.ab-v1',
+    'mmlu-human-sexuality.val.ab-v1',
+    'mmlu-international-law.val.ab-v1',
+    'mmlu-jurisprudence.val.ab-v1',
+    'mmlu-logical-fallacies.val.ab-v1',
+    'mmlu-machine-learning.val.ab-v1',
+    'mmlu-management.val.ab-v1',
+    'mmlu-marketing.val.ab-v1',
+    'mmlu-medical-genetics.val.ab-v1',
+    'mmlu-miscellaneous.val.ab-v1',
+    'mmlu-moral-disputes.val.ab-v1',
+    'mmlu-moral-scenarios.val.ab-v1',
+    'mmlu-nutrition.val.ab-v1',
+    'mmlu-philosophy.val.ab-v1',
+    'mmlu-prehistory.val.ab-v1',
+    'mmlu-professional-accounting.val.ab-v1',
+    'mmlu-professional-law.val.ab-v1',
+    'mmlu-professional-medicine.val.ab-v1',
+    'mmlu-professional-psychology.val.ab-v1',
+    'mmlu-public-relations.val.ab-v1',
+    'mmlu-security-studies.val.ab-v1',
+    'mmlu-sociology.val.ab-v1',
+    'mmlu-us-foreign-policy.val.ab-v1',
+    'mmlu-virology.val.ab-v1',
+    'mmlu-world-religions.val.ab-v1',
+]
+
 def convert_conversation(prompt: typing.Union[str, list[dict[str, str]]]):
     if isinstance(prompt, str):
         return [('user', prompt)]
@@ -92,124 +214,16 @@ def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
     os.makedirs(os.path.dirname(outfile), exist_ok=True)
     os.link(tmpfile, outfile)
 
-def run_multiple_evals(registry: Registry, model_type: str, model_name: str, evals):
-    non_working_evals = [
-        'best.dev.v0', # Compares multiple models
-        'positive-binary-operations.test.v1', # KeyError: 'sample'
-        'spider-sql.dev.v0', # TypeError: ModelBasedClassify.__init__() missing 1 required positional argument: 'modelgraded_spec'
-        'svg_understanding.v0', # CUDA out of memory
-        'stock-options-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_options_iron_butteryfly_spread.jsonl
-        'stock-option-terms-inverse-iron-butteryfly-spread.dev.v0', # RuntimeError: Failed to open: stock_options/stock_option_terms_inverse_iron_butteryfly_spread.jsonl
-        'joke-fruits-v2.dev.v0', # Buggy in openai/evals itself due to removed format_type feature that is still used by this eval
-    ]
+def run_all_evals(model_type: str, model_name: str):
+    os.environ['EVALS_SHOW_EVAL_PROGRESS'] = ''
 
-    evals_where_all_models_get_zero_score = [
-        'actors-sequence.dev.match-v1',
-        'complex-replace-characters.dev.v0',
-        'finance.dev.v0',
-        'knot-theory-code-conversion.dev.v0',
-        'naughty_strings.test.v1',
-        'reverse-string.s1.simple-v0',
-        'decrypt-caesar-cipher.dev.v0',
-        'rot13.s1.simple-v0',
-        'stock-options-bull-call-spread.dev.v0',
-        'stock-options-inverse-iron-butterfly-spread.dev.v0',
-        'stock-options-inverse-iron-condor-spread.dev.v0',
-        'stock-options-iron-condor-spread.dev.v0',
-        'unified-patch.dev.v0',
-    ]
+    model_num_threads = create_model(model_type, model_name).num_threads
+    num_threads_per_eval = min(model_num_threads, 20)
+    os.environ['EVALS_THREADS'] = str(num_threads_per_eval)
 
-    other_excluded_evals = [
-        # Requires sacrebleu>=2.3.1 which conflicts with lm-evaluation-harness dependencies
-        'manga-translation-bubble.dev.v0',
-        'manga-translation-page.dev.v0',
-        'manga-translation-panel.dev.v0',
+    registry = Registry()
 
-        # Doesn't give a score
-        'categorize-with-distractors.dev.v0',
-        'coqa-fact-expl.dev.v0',
-        'coqa-fact.dev.v0',
-        'logic-fact.dev.v0',
-        'logic-liar-paradox.dev.v0',
-        'loss-logic-fact.dev.v0',
-        'naughty_strings_graded_meta.test.v1',
-        'rap-animals-vs-fruits.dev.v0',
-
-        # calculate scores incorrectly
-        'joke-animals-vs-fruits.dev.v0',
-        'joke-fruits-ans-meta.dev.v0',
-        'joke-fruits-expl-meta.dev.v0',
-        'joke-fruits-likert.dev.v0',
-        'joke-fruits-meta.dev.v0',
-        'joke-fruits.dev.v0',
-
-        # required context size too large
-        'illinois-law.v0',
-        'qa.dev.v0',
-
-        # MMLU is already separated as part of CoT
-        'mmlu-abstract-algebra.val.ab-v1',
-        'mmlu-anatomy.val.ab-v1',
-        'mmlu-astronomy.val.ab-v1',
-        'mmlu-business-ethics.val.ab-v1',
-        'mmlu-clinical-knowledge.val.ab-v1',
-        'mmlu-college-biology.val.ab-v1',
-        'mmlu-college-chemistry.val.ab-v1',
-        'mmlu-college-computer-science.val.ab-v1',
-        'mmlu-college-mathematics.val.ab-v1',
-        'mmlu-college-medicine.val.ab-v1',
-        'mmlu-college-physics.val.ab-v1',
-        'mmlu-computer-security.val.ab-v1',
-        'mmlu-conceptual-physics.val.ab-v1',
-        'mmlu-econometrics.val.ab-v1',
-        'mmlu-electrical-engineering.val.ab-v1',
-        'mmlu-elementary-mathematics.val.ab-v1',
-        'mmlu-formal-logic.val.ab-v1',
-        'mmlu-global-facts.val.ab-v1',
-        'mmlu-high-school-biology.val.ab-v1',
-        'mmlu-high-school-chemistry.val.ab-v1',
-        'mmlu-high-school-computer-science.val.ab-v1',
-        'mmlu-high-school-european-history.val.ab-v1',
-        'mmlu-high-school-geography.val.ab-v1',
-        'mmlu-high-school-government-and-politics.val.ab-v1',
-        'mmlu-high-school-macroeconomics.val.ab-v1',
-        'mmlu-high-school-mathematics.val.ab-v1',
-        'mmlu-high-school-microeconomics.val.ab-v1',
-        'mmlu-high-school-physics.val.ab-v1',
-        'mmlu-high-school-psychology.val.ab-v1',
-        'mmlu-high-school-statistics.val.ab-v1',
-        'mmlu-high-school-us-history.val.ab-v1',
-        'mmlu-high-school-world-history.val.ab-v1',
-        'mmlu-human-aging.val.ab-v1',
-        'mmlu-human-sexuality.val.ab-v1',
-        'mmlu-international-law.val.ab-v1',
-        'mmlu-jurisprudence.val.ab-v1',
-        'mmlu-logical-fallacies.val.ab-v1',
-        'mmlu-machine-learning.val.ab-v1',
-        'mmlu-management.val.ab-v1',
-        'mmlu-marketing.val.ab-v1',
-        'mmlu-medical-genetics.val.ab-v1',
-        'mmlu-miscellaneous.val.ab-v1',
-        'mmlu-moral-disputes.val.ab-v1',
-        'mmlu-moral-scenarios.val.ab-v1',
-        'mmlu-nutrition.val.ab-v1',
-        'mmlu-philosophy.val.ab-v1',
-        'mmlu-prehistory.val.ab-v1',
-        'mmlu-professional-accounting.val.ab-v1',
-        'mmlu-professional-law.val.ab-v1',
-        'mmlu-professional-medicine.val.ab-v1',
-        'mmlu-professional-psychology.val.ab-v1',
-        'mmlu-public-relations.val.ab-v1',
-        'mmlu-security-studies.val.ab-v1',
-        'mmlu-sociology.val.ab-v1',
-        'mmlu-us-foreign-policy.val.ab-v1',
-        'mmlu-virology.val.ab-v1',
-        'mmlu-world-religions.val.ab-v1',
-    ]
-
-    ignored_evals = non_working_evals + evals_where_all_models_get_zero_score + other_excluded_evals
-
-    evals = [eval for eval in evals if eval.key not in ignored_evals
+    evals = [eval for eval in registry.get_evals(['*']) if eval.key not in ignored_evals
         and not os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json'))]
 
     if len(evals) == 0:
@@ -226,11 +240,8 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
     def evaluate(eval):
         run_single_eval(registry, model_type, model_name, eval)
 
-    #for eval in unique_evals:
-    #    evaluate(eval)
-
     process_with_thread_pool(
-        num_threads=20,
+        num_threads=(model_num_threads // num_threads_per_eval) * 4,
         items=unique_evals,
         process_function=evaluate,
     )
@@ -262,29 +273,5 @@ def create_reports_index_file(model_name: str):
         json.dump(reports_metadata, reports_index_file, indent=4)
 
 def evaluate_model(model_type: str, model_name: str):
-    model = create_model(model_type, model_name)
-    os.environ['EVALS_THREADS'] = '20' # str(min(model.num_threads, 20))
-
-    # For some weird reason that I don't understand, having nested threading doesn't work well together
-    # with vLLM + multiple GPUs. E.g. when evaluating guanaco-65b, it gives me an error on OpenAI evals
-    # (and only OpenAI evals) which is fixed when I set this EVALS_SEQUENTIAL=1.
-    # The problem is not simply fixed by setting just EVALS_THREADS=1. I don't know why.
-    # It would be nice if we could disable this and use nested threading, but I haven't figured out yet
-    # why it doesn't work with vLLM + multiple GPUs. It works absolutely fine if there is just a single GPU.
-    # The error I get is the following (after evaluating a few datapoints; not immediately):
-    # ````
-    # gcs_rpc_client.h:537: Failed to connect to GCS within 60 seconds.
-    # GCS may have been killed. It's either GCS is terminated by `ray stop` or is killed unexpectedly.
-    # If it is killed unexpectedly, see the log file gcs_server.out.
-    # https://docs.ray.io/en/master/ray-observability/ray-logging.html#logging-directory-structure.
-    # The program will terminate.
-    # ```
-    # Also I can't just do threading using EVALS_THREADS only (without threading across multiple evals)
-    # because then it works fine until it finished the first eval, but then I get the same error.
-    # os.environ['EVALS_SEQUENTIAL'] = '1'
-
-    os.environ['EVALS_SHOW_EVAL_PROGRESS'] = ''
-
-    registry = Registry()
-    run_multiple_evals(registry, model_type, model_name, [eval for eval in registry.get_evals(['*'])])
+    run_all_evals(model_type, model_name)
     create_reports_index_file(model_name)
