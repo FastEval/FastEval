@@ -11,46 +11,29 @@ import evaluation.models.models
 
 lock = threading.Lock()
 model = None
-vllm_event_loop = None
-vllm_event_loop_ready = None
 
 def unload_model(use_lock=True):
     global model
-    global vllm_event_loop
-    global vllm_event_loop_ready
 
     if use_lock:
         lock.acquire()
 
-    if model is not None:
-        model = None
-        gc.collect()
+    if model is None:
+        if use_lock:
+            lock.release()
+        return
 
-    if vllm_event_loop is not None:
-        vllm_event_loop.stop()
-        vllm_event_loop = None
-
-    vllm_event_loop_ready = None
+    model['event_loop'].stop()
+    model = None
+    gc.collect()
 
     if use_lock:
         lock.release()
 
-def execute_vllm_requests():
-    global vllm_event_loop
-    global vllm_event_loop_ready
+def load_model(*, model_path, tokenizer_path, dtype):
+    global model
 
-    assert vllm_event_loop is None
-    vllm_event_loop = asyncio.new_event_loop()
-
-    condition = vllm_event_loop_ready
-    vllm_event_loop_ready = None
-    with condition:
-        condition.notify_all()
-
-    vllm_event_loop.run_forever()
-
-def create_model(*, model_path, tokenizer_path, dtype):
-    global vllm_event_loop_ready
+    event_loop = asyncio.new_event_loop()
 
     engine = vllm.AsyncLLMEngine.from_engine_args(vllm.AsyncEngineArgs(
         model=model_path,
@@ -61,20 +44,41 @@ def create_model(*, model_path, tokenizer_path, dtype):
         trust_remote_code=True,
     ))
 
-    vllm_event_loop_ready = threading.Condition()
+    condition = model
 
-    executor_thread = threading.Thread(target=execute_vllm_requests)
-    executor_thread.start()
+    model = {
+        'tokenizer_path': tokenizer_path,
+        'model_path': model_path,
+        'dtype': dtype,
+        'engine': engine,
+        'event_loop': event_loop,
+    }
 
-    return { 'engine': engine, 'executor_thread': executor_thread }
+    with condition:
+        condition.notify_all()
 
-async def vllm_respond_to_prompt(*, prompt, prompt_model, temperature, max_new_tokens):
+    event_loop.run_forever()
+
+def load_model_in_separate_thread(*, model_path, tokenizer_path, dtype):
+    global model
+
+    model = threading.Condition()
+
+    model_thread = threading.Thread(target=load_model, kwargs={
+        'model_path': model_path,
+        'tokenizer_path': tokenizer_path,
+        'dtype': dtype,
+    })
+
+    model_thread.start()
+
+async def respond_to_prompt(*, prompt, prompt_model, temperature, max_new_tokens):
     assert prompt_model is model
 
     if temperature is None:
         temperature = 1.0
 
-    response_generator = prompt_model['model']['engine'].generate(prompt, vllm.SamplingParams(
+    response_generator = prompt_model['engine'].generate(prompt, vllm.SamplingParams(
         # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
 
         best_of=None,
@@ -110,21 +114,21 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             or model['model_path'] != model_path
             or model['dtype'] != dtype):
         unload_model(False)
-        model = {
-            'tokenizer_path': tokenizer_path,
-            'model_path': model_path,
-            'dtype': dtype,
-            'model': create_model(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
-        }
+        load_model_in_separate_thread(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype)
 
-    condition = vllm_event_loop_ready
-    if condition is not None:
+    model_or_model_condition = model
+    if hasattr(model_or_model_condition, 'wait'):
+        condition = model_or_model_condition
         with condition:
-            condition.wait(1)
+            condition.wait()
 
-    assert vllm_event_loop is not None
+    current_model = model
 
-    future = asyncio.run_coroutine_threadsafe(vllm_respond_to_prompt(prompt=prompt, prompt_model=model,
-        temperature=temperature, max_new_tokens=max_new_tokens), vllm_event_loop)
+    assert not hasattr(current_model, 'wait')
+
+    future = asyncio.run_coroutine_threadsafe(respond_to_prompt(prompt=prompt, prompt_model=current_model,
+        temperature=temperature, max_new_tokens=max_new_tokens), current_model['event_loop'])
+
     lock.release()
+
     return future.result()
