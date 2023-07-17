@@ -1,0 +1,75 @@
+{
+    "score": 0.8,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Let x = 1. What is x << 3 in Python 3?\n\n(A) 1\n(B) 3\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "In Python, the << operator is the bitwise left shift operator. It takes the binary representation of a number and shifts all the digits to the left by the specified amount of positions. \n\nIf x = 1 in binary, it is represented as \"0001\". Shifting this left by 3 positions would result in \"1000\", which is binary for 8. \n\nTherefore, x << 3 in Python 3 would output 8. \n\n(C)",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "In Python 3, which of the following function convert a string to an int in python?\n\n(A) int(x [,base])\n(B) long(x [,base] )\n(C) float(x)\n(D) str(x)",
+            "correct_answer": 0,
+            "model_answer": "We are looking for a function that converts a string to an int in Python 3. \n\n(A) int() function takes in an optional second argument, base, which specifies the base of the number in x. It returns an integer object. This is the correct function that converts a string to an integer with base 10 by default.\n\n(B) long() function is not available in Python 3.\n\n(C) float() function converts a string to a floating-point number, not an integer.\n\n(D) str() function converts an object to a string.\n\nTherefore, the correct function is (A) int(x [,base]).",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": "A user enters a Web address in a browser, and a request for a file is sent to a Web server. Which of the following best describes how the file is sent to the user?\n\n(A) The file is broken into packets for transmission. The packets must be reassembled upon receipt.\n(B) The file is broken into packets for transmission. The user's browser must request each packet in order until all packets are received.\n(C) The server attempts to connect directly to the user's computer. If the connection is successful, the entire file is sent. If the connection is unsuccessful, an error message is sent to the user.\n(D) The server repeatedly attempts to connect directly to the user's computer until a connection is made. Once the connection is made, the entire file is sent.",
+            "correct_answer": 0,
+            "model_answer": "(A) The file is broken into packets for transmission. The packets must be reassembled upon receipt.",
+            "correct": true
+        },
+        {
+            "id": 3,
+            "question": "Digital images are often represented by the red, green, and blue values (an RGB triplet) of each individual pixel in the image. A photographer is manipulating a digital image and overwriting the original image. Which of the following describes a lossless transformation of the digital image?\n\n(A) Compressing the image in a way that may lose information but will suffer only a small loss of image quality.\n(B) Creating the gray scale of an image by averaging the amounts of red, green, and blue in each pixel and assigning this new value to the corresponding pixel in the new image. The new value of each pixel represents a shade of gray, ranging from white to black.\n(C) Creating the negative of an image by creating a new RGB triplet for each pixel in which each value is calculated by subtracting the original value from 255. The negative of an image is reversed from the original; light areas appear dark, and colors are reversed.\n(D) Modifying part of the image by taking the pixels in one part of the picture and copying them to the pixels in another part of the picture.",
+            "correct_answer": 2,
+            "model_answer": "To answer this question, we need to understand what a lossless transformation means. A lossless transformation is one where the original information is preserved and no data is lost. Therefore, option (A), compressing the image, is not a lossless transformation because it may lose information.\n\nOption (B), creating a grayscale image by averaging the RGB values, is a lossless transformation because all the original information is preserved. This is because the new grayscale value is calculated using the original RGB values, so no data is lost.\n\nOption (C), creating the negative of an image, is also a lossless transformation because all the original information is preserved. This is because we simply subtract the RGB values from 255 to obtain the new values, so all the original information is still present.\n\nOption (D), modifying parts of the image by copying pixels, is not necessarily a lossless transformation. It depends on how the copying is done and whether any data is lost in the process. Therefore, it is not a valid answer.\n\nSo, the answer is either (B) or (C). Both options are lossless transformations of the digital image. However, (C) involves a more significant change to the image, as the colors are completely reversed. Therefore, the better answer is (B). \n\nAnswer: B",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "A programmer is writing a program that is intended to be able to process large amounts of data. Which of the following considerations is LEAST likely to affect the ability of the program to process larger data sets?\n\n(A) How long the program takes to run\n(B) How many programming statements the program contains\n(C) How much memory the program requires as it runs\n(D) How much storage space the program requires as it runs",
+            "correct_answer": 1,
+            "model_answer": "When processing large amounts of data, the primary concern is usually the program's ability to handle and store the large amount of data. Option (B) regarding the number of programming statements does not affect the program's ability to process larger data sets. Therefore, (B) is the least likely consideration to affect the ability of the program to process larger data sets. \n\nAnswer: (B)",
+            "correct": true
+        },
+        {
+            "id": 5,
+            "question": "Suppose the characters 0,1, . . . ,8,9,A,B,C,D, E,F are used to represent a hexadecimal (base-16) number. Here A = 10, B = 11, . . . ,F = 15. What is the largest base-10 integer that can be represented with a two-digit hexadecimal number, such as 14 or 3A?\n\n(A) 32\n(B) 225\n(C) 255\n(D) 256",
+            "correct_answer": 2,
+            "model_answer": "Each digit in a two-digit hexadecimal number can range from 0 to F (or 15). Therefore, the largest two-digit hexadecimal number is FF, which represents 15*16 + 15 = 255 in base-10. Therefore, the answer is (C) 255.",
+            "correct": true
+        },
+        {
+            "id": 6,
+            "question": "A large data set contains information about all students majoring in computer science in colleges across the United States. The data set contains the following information about each student.\n   \u00b0 The student's gender\n   \u00b0 The state in which the student attends college\n   \u00b0 The student's grade point average on a 4.0 scale\n\n Which of the following questions could be answered by analyzing only information in the data set?\n\n(A) Do students majoring in computer science tend to have higher grade point averages than students majoring in other subjects?\n(B) How many states have a higher percentage of female computer science majors than male computer science majors attending college in that state?\n(C) What percent of students attending college in a certain state are majoring in computer science?\n(D) Which college has the highest number of students majoring in computer science?",
+            "correct_answer": 1,
+            "model_answer": "Question (C) could be answered by analyzing only information in the data set. \n\nReasoning: \n- The data set contains information about each student's state of attendance and major. \n- This can be used to calculate the percentage of students in each state who are majoring in computer science. \n- No external information is needed to answer this question. \n\nAnswer: (C)",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "The code segment below uses the procedure IsFound (list, item), which returns true if item appears in list and returns false otherwise. The list resultList is initially empty.\n  FOR EACH item IN inputList1{\n IF (isFound (inputList2, item) )\n APPEND (resultList, item)\n }\n Which of the following best describes the contents of resultList after the code segment is executed?\n\n(A) All elements in inputListl followed by all elements in inputList2\n(B) Only elements that appear in both inputListl and inputList2\n(C) Only elements that appear in either inputListl or inputList2 but not in both lists\n(D) Only elements that appear in inputListl but not in inputList2",
+            "correct_answer": 1,
+            "model_answer": "For each item in inputList1, the code checks if the item appears in inputList2 using the IsFound procedure. If it does, then the item is appended to resultList. Therefore, resultList will contain only elements that appear in both inputList1 and inputList2. \n\nAnswer: (B)",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "A program is expressed in a programming language. Which of the following is true of the program?\n\n(A) The program can also be expressed as binary code, but will be more easily understood by humans when expressed in a higher-level programming language.\n(B) The program can also be expressed as binary code, which will reduce the likelihood of errors.\n(C) The program cannot be expressed as binary code, because binary code can only be used to represent data.\n(D) Some parts of the program can be expressed as binary code, but operations must be expressed using a higher-level programming language.",
+            "correct_answer": 0,
+            "model_answer": "Step 1: The program is expressed in a programming language.\nStep 2: A programming language is a language that is used to create software and programs that can run on a computer.\nStep 3: Programs are typically written in a high-level programming language that is more easily understood by humans.\nStep 4: However, computers can only execute machine code or binary code, which is represented in 1s and 0s.\nStep 5: This means that a program written in a programming language must be translated into machine code or binary code before it can be executed by a computer.\nStep 6: Therefore, option (A) is correct. The program can also be expressed as binary code, but will be more easily understood by humans when expressed in a higher-level programming language.\n\nAnswer: A",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": "In Python 3, what is the output of print tuple[0] if tuple = ( 'abcd', 786 , 2.23, 'john', 70.2 )?\n\n(A) ( 'abcd', 786 , 2.23, 'john', 70.2 )\n(B) abcd\n(C) Error\n(D) None of the above.",
+            "correct_answer": 1,
+            "model_answer": "The code initializes a tuple with five elements of different data types. The index of the first element in a tuple is 0. Therefore, print tuple[0] will print the first element of the tuple, which is 'abcd'. The answer is (B) abcd.",
+            "correct": true
+        }
+    ]
+}
