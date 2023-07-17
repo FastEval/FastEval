@@ -21,7 +21,7 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
         case 'cot':
             return await CoT.createV(baseUrl, parameters)
         case 'mt-bench':
-            return await MTBench.createV(baseUrl)
+            return await MTBench.createV(baseUrl, parameters)
         default:
             throw new Error()
     }
