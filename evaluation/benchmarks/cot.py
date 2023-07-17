@@ -236,7 +236,7 @@ def evaluate_model(model_type, model_name):
     evaluators = combine_evaluators([evaluation_function(tasks_path) for task_name, evaluation_function in evaluation_functions])
 
     model_requests = next(evaluators)
-    model_responses = compute_model_replies(model, model_requests)
+    model_responses = compute_model_replies(model, model_requests, desc=model_name + ' :: CoT :: Computing model replies')
     scores_list = evaluators.send(model_responses)
     scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions) }
 

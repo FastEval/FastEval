@@ -59,7 +59,7 @@ def evaluate_model(model_type, model_name):
     raw_replies = compute_model_replies(model, [{
         'conversation': create_conversation(prompt),
         'temperature': HUMAN_EVAL_PLUS_TEMPERATURE,
-    } for prompt in prompts])
+    } for prompt in prompts], desc=model_name + ' :: HumanEval+ :: Computing model replies')
     processed_replies = [{ 'task_id': task_id, 'completion': postprocess_model_reply(raw_replies[i]) }
         for i, task_id in enumerate(task_ids)]
 
