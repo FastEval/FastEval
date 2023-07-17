@@ -79,7 +79,7 @@ def main():
         try:
             thread.join()
         except RuntimeError as error:
-            if 'cannot join current thread' in error: # main thread
+            if 'cannot join current thread' in error.args[0]: # main thread
                 pass
             else:
                 raise
