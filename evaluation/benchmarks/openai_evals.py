@@ -226,6 +226,9 @@ def run_multiple_evals(registry: Registry, model_type: str, model_name: str, eva
     def evaluate(eval):
         run_single_eval(registry, model_type, model_name, eval)
 
+    #for eval in unique_evals:
+    #    evaluate(eval)
+
     process_with_thread_pool(
         num_threads=20,
         items=unique_evals,
@@ -260,7 +263,7 @@ def create_reports_index_file(model_name: str):
 
 def evaluate_model(model_type: str, model_name: str):
     model = create_model(model_type, model_name)
-    os.environ['EVALS_THREADS'] = '1' # str(min(model.num_threads, 20))
+    os.environ['EVALS_THREADS'] = '20' # str(min(model.num_threads, 20))
 
     # For some weird reason that I don't understand, having nested threading doesn't work well together
     # with vLLM + multiple GPUs. E.g. when evaluating guanaco-65b, it gives me an error on OpenAI evals
@@ -277,9 +280,8 @@ def evaluate_model(model_type: str, model_name: str):
     # The program will terminate.
     # ```
     # Also I can't just do threading using EVALS_THREADS only (without threading across multiple evals)
-    # because then it works fine until it finished the first eval, but then I get
-    # https://github.com/vllm-project/vllm/issues/117
-    os.environ['EVALS_SEQUENTIAL'] = '1'
+    # because then it works fine until it finished the first eval, but then I get the same error.
+    # os.environ['EVALS_SEQUENTIAL'] = '1'
 
     os.environ['EVALS_SHOW_EVAL_PROGRESS'] = ''
 
