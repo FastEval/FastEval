@@ -1,8 +1,10 @@
 import { fetchModels, fetchFiles, allowCharacterLineBreaks, round, createModelsMap } from '../utils.js'
 import { createTextE } from '../components/text.js'
+import { createLinkE } from '../components/link.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
+import { createConversationItemE } from '../components/conversation-item.js'
 
 function computeRelativeScores(scores, categories) {
     const modelNames = Object.keys(scores)
@@ -32,7 +34,59 @@ function computeRelativeScores(scores, categories) {
     return relativeScores
 }
 
-export async function createV(baseUrl) {
+export async function createModelCategoryV({ baseUrl, model, category }) {
+    const containerE = document.createElement('div')
+
+    const [questions, answers, judgeReplies] = await Promise.all([
+        fetch(baseUrl + '/../data/mt-bench/questions.json').then(r => r.json()),
+        fetch(baseUrl + '/mt-bench/' + model.replace('/', '--') + '/answers.json').then(r => r.json()),
+        fetch(baseUrl + '/mt-bench/' + model.replace('/', '--') + '/judge-replies.json').then(r => r.json()),
+    ])
+
+    const questionsWithCategory = Object.entries(questions)
+        .filter(([questionId, question]) => question.category == category)
+
+    const samplesE = document.createElement('div')
+    samplesE.classList.add('samples')
+    containerE.appendChild(samplesE)
+
+    for (const [questionId, question] of questionsWithCategory) {
+        const answer = answers[questionId]
+        const judgeReply = judgeReplies.filter(item => item.question_id === questionId)
+        const judgeReply1 = judgeReply.filter(item => item.turn_number === 0)[0]
+        const judgeReply2 = judgeReply.filter(item => item.turn_number === 1)[0]
+
+        const sampleE = document.createElement('div')
+        sampleE.classList.add('sample')
+        samplesE.appendChild(sampleE)
+        sampleE.append(
+            createLinkE('ID: ' + questionId, { question: questionId }),
+            createTextE('The model was given the following question'),
+            createConversationItemE('user', question.turns[0]),
+            createTextE('The model gave the following answer:'),
+            createConversationItemE('assistant', answer[0]),
+            createTextE('GPT-4 gave the following judgement:'),
+            createConversationItemE('assistant', judgeReply1.judge_reply),
+            createTextE('The model was given the followup question'),
+            createConversationItemE('user', question.turns[1]),
+            createTextE('The model gave the following answer:'),
+            createConversationItemE('assistant', answer[1]),
+            createTextE('GPT-4 gave the following judgement:'),
+            createConversationItemE('assistant', judgeReply2.judge_reply),
+        )
+    }
+
+    return containerE
+}
+
+export async function createV(baseUrl, parameters) {
+    if (parameters.has('model') && parameters.has('category'))
+        return await createModelCategoryV({
+            baseUrl,
+            model: parameters.get('model'),
+            category: parameters.get('category')
+        })
+
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE())
@@ -52,8 +106,12 @@ export async function createV(baseUrl) {
     tableHeadE.insertCell().appendChild(createTextE('Model'))
     tableHeadE.insertCell().appendChild(createTextE('Total'))
     tableHeadE.insertCell()
-    tableHeadE.insertCell().appendChild(createTextE('1st turn'))
-    tableHeadE.insertCell().appendChild(createTextE('2nd turn'))
+    const firstTurnE = createTextE('1st turn')
+    firstTurnE.classList.add('vertical')
+    tableHeadE.insertCell().appendChild(firstTurnE)
+    const secondTurnE = createTextE('2nd turn')
+    secondTurnE.classList.add('vertical')
+    tableHeadE.insertCell().appendChild(secondTurnE)
     tableHeadE.insertCell()
 
     for (const category of categories) {
@@ -71,7 +129,11 @@ export async function createV(baseUrl) {
         createTableScoreCell(rowE, createTextE(round(modelScores.second_turn)), relativeScores[modelName].second_turn)
         rowE.insertCell()
         for (const category of categories)
-            createTableScoreCell(rowE, createTextE(round(modelScores.categories[category])), relativeScores[modelName].categories[category])
+            createTableScoreCell(
+                rowE,
+                createLinkE(round(modelScores.categories[category]), { model: modelName, category }),
+                relativeScores[modelName].categories[category]
+            )
     }
 
     return containerE
