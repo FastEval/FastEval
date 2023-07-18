@@ -1,7 +1,7 @@
 # ILM-Eval
 
 This project allows you to automatically evaluate instruction following language models on a number of benchmarks.
-It also contains the evaluation results for a number of existing models as well as the [leaderboard to view those results](https://tju01.github.io/ilm-eval/).
+It also contains [a leaderboard](https://tju01.github.io/ilm-eval) for comparison between different models.
 
 ## Features
 
