@@ -52,14 +52,17 @@ The `-b` flag specifies the benchmark that you want to evaluate your model on. T
 
 The `-m` flag specifies the model type and the name of the model. The model type is either the prompt template or API client that will be used. Supported values are [`openai`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_ai.py), [`alpaca-without-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_without_prefix.py), [`alpaca-with-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_with_prefix.py), [`chatml`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/chatml.py), [`guanaco`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/guanaco.py), [`open-assistant`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_assistant.py), [`falcon-instruct`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/falcon_instruct.py), [`starchat`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/starchat.py) or [`fastchat`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/fastchat.py).
 
-For example, `./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/pythia-12b-sft-v8-2.5k-steps` evaluates [`OpenAssistant/pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) on the OpenAI evals benchmark. This will generate evaluation data in the `reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder assuming this data doesn't already exist.
+For example, the following will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) on [OpenAI evals](https://github.com/openai/evals):
+```bash
+./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/pythia-12b-sft-v8-2.5k-steps`
+```
 
 ### Viewing the results
 
-Use `python3 -m http.server` in the root of this repository.
+Use `python3 -m http.server` in the root folder of this repository.
 This will start a simple webserver for static files.
-The webserver usually runs on port `8000`, so you can go to http://127.0.0.1:8000/ and view the results.
+This server usually runs on port `8000` in which case you can view the results at [127.0.0.1:8000](http://127.0.0.1:8000).
 
 ## Contact
 
-If you encounter some problems with this code or if you have any questions or suggestions, you can either create a github issue or ping me on discord. My username is [tju01](https://discord.com/users/1090923181910532167) and you can find me on many of the open-source LLM discord servers.
+If you encounter some problems with this code or if you have any questions or suggestions, you can either [create a github issue](https://github.com/tju01/ilm-eval/issues/new) or [ping me on discord](https://discord.com/users/1090923181910532167). You can find me as [`tju01`](https://discord.com/users/1090923181910532167) on many LLM-related servers.
