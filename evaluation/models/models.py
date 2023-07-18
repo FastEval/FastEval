@@ -19,6 +19,7 @@ from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
 from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
 from evaluation.models.chatml import ChatML
 from evaluation.models.starchat import Starchat
+from evaluation.models.llama2_chat import Llama2Chat
 
 config_dict_cache = {}
 
@@ -34,6 +35,7 @@ def create_model(model_type: str, model_name: str, **kwargs):
         'alpaca-with-prefix': AlpacaWithPrefix,
         'chatml': ChatML,
         'starchat': Starchat,
+        'llama2-chat': Llama2Chat,
     }
 
     if model_type not in model_classes:

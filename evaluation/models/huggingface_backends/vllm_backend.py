@@ -78,7 +78,14 @@ async def respond_to_prompt(*, prompt, prompt_model, temperature, max_new_tokens
     if temperature is None:
         temperature = 1.0
 
-    response_generator = prompt_model['engine'].generate(prompt, vllm.SamplingParams(
+    if isinstance(prompt, tuple):
+        if prompt[0] != 'tokens':
+            raise Exception('Unknown prompt type')
+        args = { 'prompt_token_ids': prompt[1], 'prompt': None }
+    else:
+        args = { 'prompt': prompt }
+
+    response_generator = prompt_model['engine'].generate(**args, sampling_params=vllm.SamplingParams(
         # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
 
         best_of=None,

@@ -95,6 +95,9 @@ class Huggingface:
             'temperature': temperature,
         }
 
+        if isinstance(common_kwargs['prompt'], tuple) and self.backend != 'vllm':
+            raise Exception('Only the vLLM currently supports using tokens instead of text')
+
         if self.backend == 'vllm':
             response = evaluation.models.huggingface_backends.vllm_backend.run_inference(**common_kwargs)
         elif self.backend == 'tgi':
@@ -105,10 +108,17 @@ class Huggingface:
             raise
 
         # Some models continue to simulate the user and further assistant conversation
-        response = response.split(self.user)[0]
+        if self.user is not None:
+            response = response.split(self.user)[0]
+
+        special_tokens = []
+        if self.end is not None:
+            special_tokens.append(self.end)
+        if self._get_eos_token() is not None:
+            special_tokens.append(self._get_eos_token())
 
         final_substrings_to_remove = []
-        for special_token in [self.end, self._get_eos_token()]:
+        for special_token in special_tokens:
             final_substrings_to_remove += [special_token, special_token.replace('\n', ''),
                 special_token.replace('\n', '').strip(), special_token.strip()]
         final_substrings_to_remove.append('\n')
