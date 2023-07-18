@@ -27,7 +27,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-This already installs [vLLM](https://github.com/vllm-project/vllm) for fast inference. However, since vLLM lacks support for some models, ILM-Eval can also use [text-generation-inference](https://github.com/huggingface/text-generation-inference). For some models that are not supported by vLLM (Falcon, StarCoder) it is therefore strongly recommended to install text-generation-inference for 20x faster inference for these models:
+This already installs [vLLM](https://github.com/vllm-project/vllm) for fast inference. However, since vLLM lacks support for some models, ILM-Eval can also use [text-generation-inference](https://github.com/huggingface/text-generation-inference). For some models that are not supported by vLLM (Falcon, StarCoder) it is therefore strongly recommended to install text-generation-inference for ~20x faster inference for these models:
 
 ```bash
 # Install various system packages. The following code assumes an ubuntu system.
