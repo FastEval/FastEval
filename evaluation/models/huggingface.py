@@ -7,6 +7,8 @@ import evaluation.models.huggingface_backends.tgi
 from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
+eos_tokens = {}
+
 def get_max_batch_size(model_path, max_new_tokens):
     # TODO: Check amount of GPU ram, check model size, dtype & estimate how much RAM model takes.
     # Then estimate how much ram is needed for the tokens and estimate the batch size we can fit.
@@ -32,7 +34,9 @@ class Huggingface:
 
         self.tokenizer_path = model_path if tokenizer_path is None else tokenizer_path
 
-        self.eos_token = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path).eos_token
+        if not self.tokenizer_path in eos_tokens:
+            eos_tokens[self.tokenizer_path] = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path).eos_token
+        self.eos_token = eos_tokens[self.tokenizer_path]
 
         self.prefix = prefix
         self.user = user
