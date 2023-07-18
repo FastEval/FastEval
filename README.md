@@ -10,15 +10,6 @@ It also contains the evaluation reports for different models as well as the code
 - **Detailed information about model performance.** By saving not just the final scores but also all of the intermediate results, ILM-Eval enables you to get both [a general overview of model performance](https://tju01.github.io/ilm-eval/) but also go deeper and look at the [performance on different categories](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench) down to inspecting the [individual model outputs on questions](https://tju01.github.io/ilm-eval/#?benchmark=cot&task=bbh/date_understanding&model=mosaicml/mpt-30b-chat).
 - **Use of model-specific prompt templates**: Different instruction following models are prompted in different ways, but many other benchmarks & leaderboards ignore this and prompt all of them the same way. ILM-Eval uses the right prompt template depending on the model that is being evaluated. Support is added for various prompt templates and the integration with [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
 
-## Supported benchmarks
-
-Right now, the following benchmarks are supported:
-- [OpenAI evals](https://github.com/openai/evals): Contains various tasks to measure different capabilities of instruction-following language models. Uses both basic tasks that are just compared to the solution directly and model-graded tasks where another language model is used for evaluation.
-- [MT-Bench](https://arxiv.org/abs/2306.05685): Uses GPT-4 to score the model outputs on a set of 80 questions for two conversation turns each, i.e. 160 GPT-4 judgments in total.
-- [HumanEval+](https://github.com/evalplus/evalplus): Evaluates python coding performance. The model is given the start of a function as input with a docstring comment on what the function is supposed to do. The model then completes the code which is then evaluated for correctness by running it against a few tests.
-- CoT: Evaluates chain-of-thought reasoning capabilities of the model. It prompts the model to respond to a set of questions step-by-step. Currently combines [GSM8K](https://github.com/openai/grade-school-math), [BBH](https://github.com/suzgunmirac/BIG-Bench-Hard) and [MMLU](https://arxiv.org/abs/2009.03300).
-- [LM-Eval](https://github.com/EleutherAI/lm-evaluation-harness): Different from all the other benchmarks, this more classical benchmark does not take the model-specific prompt format into account. However, despite this fact, LM-Eval is popular for evaluating instruction following language models. It is therefore part of the evaluation here together with other benchmarks that take the model-specific prompt format into account.
-
 ## Evaluating models on benchmarks
 
 ### Installation
