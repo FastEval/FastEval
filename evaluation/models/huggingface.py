@@ -65,6 +65,8 @@ class Huggingface:
         self.eos_token = eos_tokens[self.tokenizer_path]
         eos_tokens_lock.release()
 
+        return self.eos_token
+
     def _conversation_to_prompt(self, conversation):
         if self.system is None:
             conversation = put_system_message_in_prompter_message(conversation)
