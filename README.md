@@ -3,12 +3,11 @@
 This repository contains code to automatically evaluate instruction following language models on benchmarks.
 It also contains the evaluation reports for different models as well as the code for the [leaderboard to view those reports](https://tju01.github.io/ilm-eval/).
 
-## Features
-
-- Evaluate your model on multiple benchmarks with a single command. Supported benchmarks are [OpenAI evals](https://github.com/openai/evals), [MT-Bench](https://arxiv.org/abs/2306.05685), [HumanEval+](https://github.com/evalplus/evalplus), CoT (Chain of Thought; GSM8K, BBH, MMLU), [LM-Eval](https://github.com/EleutherAI/lm-evaluation-harness).
-- High performance: Uses [vLLM](https://github.com/vllm-project/vllm) for inference by default and can also optionally use [text-generation-inference](https://github.com/huggingface/text-generation-inference) before falling back to the 20x slower huggingface transformers in case a model is supported by neither vLLM and TGI.
+**Features**:
+- Evaluate your model on multiple benchmarks with a single command. Supported benchmarks are [OpenAI Evals](https://github.com/openai/evals) for general performance, [MT-Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) for python coding performance, Chain of Thought (includes GSM8K, BBH, MMLU) for reasoning capabilities and [LM-Eval](https://github.com/EleutherAI/lm-evaluation-harness) for another method of evaluating general capabilities.
+- High performance: Uses [vLLM](https://github.com/vllm-project/vllm) for inference by default and can also optionally use [text-generation-inference](https://github.com/huggingface/text-generation-inference). Both of them are 20x faster than using huggingface transformers.
 - Use of the model-specific prompt format: Many other benchmarks & leaderboards do not actually prompt the model correctly and just prompt all models the same way. ILM-Eval uses the right prompt template depending on the model that is being evaluated. Support is added for various prompt templates and the integration with [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
-- Stores not only the resulting benchmark scores, but also all of the model outputs which can be helpful for better understanding where a model fails. They can be viewed on the [leaderboard website](https://tju01.github.io/ilm-eval/).
+- Saves not just the final benchmark scores, but also all of the intermediate results. Enables you to get both [a general overview of model performance](https://tju01.github.io/ilm-eval/) but also go deeper like looking at the [performance on different categories](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench) down to inspecting the [individual model outputs on questions](https://tju01.github.io/ilm-eval/#?benchmark=cot&task=bbh/date_understanding&model=mosaicml/mpt-30b-chat).
 
 ## Supported benchmarks
 
