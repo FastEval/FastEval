@@ -39,10 +39,7 @@ apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make python
 
 ### OpenAI API
 
-Some benchmarks use `gpt-3.5-turbo` as a model to judge the output of another model. This is the case for `OpenAI evals` as well as for `Vicuna Rank`.
-For these benchmarks (and also for evaluating `gpt-3.5-turbo` itself), you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable.
-Make sure to set this environment variable, other methods of configuring the API key won't work.
-The cost of evaluating `gpt-3.5-turbo` or using it for benchmarks on another model is something like $5.
+Both [OpenAI Evals](https://github.com/openai/evals) and [MT-Bench](https://arxiv.org/abs/2306.05685) make use of OpenAI models as a judge for evaluating model outputs. For these benchmarks, you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable. Not that methods other than setting this environment variable won't work. The cost of evaluating a new model on OpenAI Evals + MT-Bench together is approximately $5.
 
 ### Prompt format
 
