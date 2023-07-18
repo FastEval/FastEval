@@ -37,7 +37,7 @@ apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make python
 ./install-text-generation-inference
 ```
 
-Finally, both [OpenAI Evals](https://github.com/openai/evals) and [MT-Bench](https://arxiv.org/abs/2306.05685) make use of OpenAI models as a judge for evaluating model outputs. For these benchmarks, you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable. Not that methods other than setting this environment variable won't work. The cost of evaluating a new model on OpenAI Evals + MT-Bench together is approximately $5.
+Finally, both [OpenAI Evals](https://github.com/openai/evals) and [MT-Bench](https://arxiv.org/abs/2306.05685) make use of OpenAI models as a judge for evaluating model outputs. For these benchmarks, you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable. Note that methods other than setting this environment variable won't work. The cost of evaluating a new model on OpenAI Evals + MT-Bench together is approximately $5.
 
 ## Evaluation
 
