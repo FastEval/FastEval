@@ -1,3 +1,5 @@
+Note: This README is out of date. It will be updated shortly.
+
 # Instruction following language model evaluation
 
 This repository contains code to automatically evaluate instruction following language models on benchmarks.
