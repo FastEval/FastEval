@@ -95,8 +95,8 @@ class Huggingface:
             'temperature': temperature,
         }
 
-        if isinstance(common_kwargs['prompt'], tuple) and self.backend != 'vllm':
-            raise Exception('Only the vLLM currently supports using tokens instead of text')
+        if isinstance(common_kwargs['prompt'], tuple) and self.backend not in ['vllm', 'tgi']:
+            raise Exception('Only the vLLM & TGI backends currently support using tokens instead of text.')
 
         if self.backend == 'vllm':
             response = evaluation.models.huggingface_backends.vllm_backend.run_inference(**common_kwargs)
