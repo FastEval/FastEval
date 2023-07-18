@@ -1,3 +1,5 @@
+import threading
+
 import transformers
 
 import evaluation.models.models
@@ -8,6 +10,7 @@ from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
 eos_tokens = {}
+eos_tokens_lock = threading.Lock()
 
 def get_max_batch_size(model_path, max_new_tokens):
     # TODO: Check amount of GPU ram, check model size, dtype & estimate how much RAM model takes.
@@ -34,9 +37,11 @@ class Huggingface:
 
         self.tokenizer_path = model_path if tokenizer_path is None else tokenizer_path
 
+        eos_tokens_lock.acquire()
         if not self.tokenizer_path in eos_tokens:
             eos_tokens[self.tokenizer_path] = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path).eos_token
         self.eos_token = eos_tokens[self.tokenizer_path]
+        eos_tokens_lock.release()
 
         self.prefix = prefix
         self.user = user
