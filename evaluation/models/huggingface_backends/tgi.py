@@ -5,6 +5,7 @@ import torch
 import threading
 import subprocess
 
+import transformers
 from text_generation import Client
 
 import evaluation.args
@@ -106,10 +107,12 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             'tokenizer_path': tokenizer_path,
             'model_path': model_path,
             'dtype': dtype,
+            'tokenizer': transformers.AutoTokenizer.from_pretrained(tokenizer_path),
             'server': start_server(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype),
         }
 
-    client = Client('http://127.0.0.1:' + str(server_information['server']['port']), timeout=1_000_000)
+    current_server_information = server_information
+    client = Client('http://127.0.0.1:' + str(current_server_information['server']['port']), timeout=1_000_000)
 
     lock.release()
 
@@ -119,6 +122,11 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
         kwargs = { 'temperature': temperature, 'do_sample': True }
     else:
         kwargs = { 'do_sample': False }
+
+    if isinstance(prompt, tuple):
+        if prompt[0] != 'tokens':
+            raise Exception('Unknown prompt type')
+        prompt = current_server_information['tokenizer'].decode(prompt[1])
 
     return client.generate(prompt,
         max_new_tokens=max_new_tokens,
