@@ -10,9 +10,7 @@ It also contains the evaluation reports for different models as well as the code
 - **Detailed information about model performance.** By saving not just the final scores but also all of the intermediate results, ILM-Eval enables you to get both [a general overview of model performance](https://tju01.github.io/ilm-eval/) but also go deeper and look at the [performance on different categories](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench) down to inspecting the [individual model outputs on questions](https://tju01.github.io/ilm-eval/#?benchmark=cot&task=bbh/date_understanding&model=mosaicml/mpt-30b-chat).
 - **Use of model-specific prompt templates**: Different instruction following models are prompted in different ways, but many other benchmarks & leaderboards ignore this and prompt all of them the same way. ILM-Eval uses the right prompt template depending on the model that is being evaluated. Support is added for various prompt templates and the integration with [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
 
-## Evaluating models on benchmarks
-
-### Installation
+## Installation
 
 ```bash
 # Install `python3.10`, `python3.10-venv` and `git-lfs`.
@@ -29,12 +27,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-<details>
-<summary>Install text-generation-inference for ~20x faster performance for some models like Falcon and StarCoder</summary>
-
-By default, ilm-eval tries to use [vLLM](https://github.com/vllm-project/vllm) to do fast inference. When supported, this is a lot (~20x) faster than using huggingface transformers. However, vLLM does not support all models. An alternative to vLLM with similar performance is [text-generation-inference](https://github.com/huggingface/text-generation-inference). While it also doesn't support all models either, it can serve as a useful addition to vLLM and together they support many models.
-
-While vLLM is part of the `requirements.txt` and therefore already installed if you followed the above installation instructions, installing text-generation-inference requires additional steps. If all the models you need are supported in vLLM, then you don't need to follow these instructions. If some model (e.g. Falcon, StarCoder) is not supported in vLLM, then it's probably worth setting up text-generation-inference:
+This already installs [vLLM](https://github.com/vllm-project/vllm) for fast inference. However, since vLLM lacks support for some models, ILM-Eval can also use [text-generation-inference](https://github.com/huggingface/text-generation-inference). For some models that are not supported by vLLM (Falcon, StarCoder) it is therefore strongly recommended to install text-generation-inference for 20x faster inference for these models:
 
 ```bash
 # Install various system packages. The following code assumes an ubuntu system.
@@ -43,7 +36,6 @@ apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make python
 # Install text-generation-inference to the `ilm-eval/text-generation-inference` folder.
 ./install-text-generation-inference
 ```
-</details>
 
 ### OpenAI API
 
