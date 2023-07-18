@@ -37,13 +37,7 @@ apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make python
 ./install-text-generation-inference
 ```
 
-### OpenAI API
-
-Both [OpenAI Evals](https://github.com/openai/evals) and [MT-Bench](https://arxiv.org/abs/2306.05685) make use of OpenAI models as a judge for evaluating model outputs. For these benchmarks, you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable. Not that methods other than setting this environment variable won't work. The cost of evaluating a new model on OpenAI Evals + MT-Bench together is approximately $5.
-
-### Prompt format
-
-Since this repository is about instruction following models and different instruction models require different prompt formatting, a corresponding implementation of the prompt format or an API client is needed to evaluate a model. Currently, support is added for the following model types: [OpenAI](https://platform.openai.com/docs/models), [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) (also used by many other models like [`NousResearch/Nous-Hermes-13b`](https://huggingface.co/NousResearch/Nous-Hermes-13b)), [ChatML](https://github.com/openai/openai-python/blob/main/chatml.md), [Guanaco](https://huggingface.co/timdettmers/guanaco-65b-merged), [Open-Assistant](https://open-assistant.io), [Falcon Instruct](https://huggingface.co/tiiuae) and [Starchat](https://huggingface.co/HuggingFaceH4/starchat-beta). In addition, models that are supported in [Fastchat](https://github.com/lm-sys/FastChat) can also be used.
+Finally, both [OpenAI Evals](https://github.com/openai/evals) and [MT-Bench](https://arxiv.org/abs/2306.05685) make use of OpenAI models as a judge for evaluating model outputs. For these benchmarks, you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable. Not that methods other than setting this environment variable won't work. The cost of evaluating a new model on OpenAI Evals + MT-Bench together is approximately $5.
 
 ## Evaluation
 
@@ -54,18 +48,13 @@ To evaluate a new model, call the `evaluate.py` script in the following way:
 ./evaluate.py [-b <benchmark_name_1>...] -m model_type_1:model_name_1...
 ````
 
-The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specific individual benchmarks using `openai-evals`, `mt-bench`, `human-eval-plus`, `cot` or `lm-evaluation-harness`.
+The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specific individual benchmarks, i.e. [`openai-evals`](https://tju01.github.io/ilm-eval/#?benchmark=openai-evals), [`mt-bench`](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench), [`human-eval-plus`](https://tju01.github.io/ilm-eval/), [`cot`](https://tju01.github.io/ilm-eval/#?benchmark=cot) or [`lm-evaluation-harness`](https://tju01.github.io/ilm-eval/#?benchmark=lm-evaluation-harness).
 
-The `-m` flag specifies the model type and the path to the model. The model type specifies the prompt template or API client that will be used. It can be one of [`openai`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_ai.py), [`alpaca-without-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_without_prefix.py), [`alpaca-with-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_with_prefix.py), [`chatml`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/chatml.py), [`guanaco`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/guanaco.py), [`open-assistant`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_assistant.py) or [`falcon-instruct`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/falcon_instruct.py), [`starchat`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/starchat.py) or [`fastchat`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/fastchat.py). The model path is the path to a huggingface model.
+The `-m` flag specifies the model type and the name of the model. The model type is either the prompt template or API client that will be used. Supported values are [`openai`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_ai.py), [`alpaca-without-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_without_prefix.py), [`alpaca-with-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_with_prefix.py), [`chatml`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/chatml.py), [`guanaco`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/guanaco.py), [`open-assistant`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_assistant.py), [`falcon-instruct`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/falcon_instruct.py), [`starchat`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/starchat.py) or [`fastchat`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/fastchat.py).
 
-For example, use the following command to evaluate the [`pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) model from Open-Assistant on the OpenAI evals benchmark:
-```
-./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/pythia-12b-sft-v8-2.5k-steps
-```
-This will generate an evaluation report in the `reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder.
-If the report already exists, then the evaluation is skipped.
+For example, `./evaluate.py -b openai-evals -m open-assistant:OpenAssistant/pythia-12b-sft-v8-2.5k-steps` evaluates [`OpenAssistant/pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) on the OpenAI evals benchmark. This will generate evaluation data in the `reports/openai-evals/OpenAssistant--pythia-12b-sft-v8-7k-steps` folder assuming this data doesn't already exist.
 
-## Viewing the reports
+### Viewing the results
 
 Use `python3 -m http.server` in the root of this repository.
 This will start a simple webserver for static files.
