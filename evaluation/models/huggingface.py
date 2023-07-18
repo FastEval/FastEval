@@ -37,12 +37,6 @@ class Huggingface:
 
         self.tokenizer_path = model_path if tokenizer_path is None else tokenizer_path
 
-        eos_tokens_lock.acquire()
-        if not self.tokenizer_path in eos_tokens:
-            eos_tokens[self.tokenizer_path] = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path).eos_token
-        self.eos_token = eos_tokens[self.tokenizer_path]
-        eos_tokens_lock.release()
-
         self.prefix = prefix
         self.user = user
         self.assistant = assistant
@@ -61,6 +55,15 @@ class Huggingface:
             self.num_threads = get_max_batch_size(model_path, max_new_tokens)
         else:
             raise
+
+    def _get_eos_token(self):
+        if hasattr(self, 'eos_token'):
+            return self.eos_token
+
+        eos_tokens_lock.acquire()
+        eos_tokens[self.tokenizer_path] = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path).eos_token
+        self.eos_token = eos_tokens[self.tokenizer_path]
+        eos_tokens_lock.release()
 
     def _conversation_to_prompt(self, conversation):
         if self.system is None:
@@ -103,7 +106,7 @@ class Huggingface:
         response = response.split(self.user)[0]
 
         final_substrings_to_remove = []
-        for special_token in [self.end, self.eos_token]:
+        for special_token in [self.end, self._get_eos_token()]:
             final_substrings_to_remove += [special_token, special_token.replace('\n', ''),
                 special_token.replace('\n', '').strip(), special_token.strip()]
         final_substrings_to_remove.append('\n')
