@@ -29,12 +29,12 @@ export async function createMultiTaskE(baseUrl, models, benchmark) {
         tableHeadE.insertCell().appendChild(taskE)
     }
 
-    const sortedRelativeScores = relativeScores.sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
+    const sortedRelativeScores = relativeScores.map((v, i) => [i, v]).sort(([i1, [model1Name, model1Scores]], [i2, [model2Name, model2Scores]]) =>
         model2Scores[benchmark].total - model1Scores[benchmark].total)
 
     const modelsMap = createModelsMap(models)
 
-    for (const [index, [modelName, modelRelativeScores]] of sortedRelativeScores.entries()) {
+    for (const [index, [modelName, modelRelativeScores]] of sortedRelativeScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName], false))
         rowE.insertCell().appendChild(createTextE(round(modelRelativeScores[benchmark].total)))
