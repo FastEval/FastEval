@@ -168,6 +168,23 @@ ignored_evals = [
     'lambada.oaitest.v1',
 ]
 
+additionally_ignored_evals = None
+def get_additionally_ignored_evals():
+    # Filter for evals that have descriptions.
+    # Going to use that as an indicator for higher-quality evals
+    # and to remove evals that might just be used for testing OpenAI evals itself
+    # and stuff like that.
+
+    global additionally_ignored_evals
+    if additionally_ignored_evals is not None:
+        return additionally_ignored_evals
+
+    with open('data/openai-evals/evals-descriptions.json') as f:
+        evals_descriptions = json.load(f)
+        additionally_ignored_evals = [k for k, v in evals_descriptions.items() if v is None]
+
+    return additionally_ignored_evals
+
 def convert_conversation(prompt: typing.Union[str, list[dict[str, str]]]):
     if isinstance(prompt, str):
         return [('user', prompt)]
@@ -257,15 +274,13 @@ def run_all_evals(model_type: str, model_name: str):
 
     registry = Registry()
 
-    evals = [eval for eval in registry.get_evals(['*']) if eval.key not in ignored_evals
+    additionally_ignored_evals = get_additionally_ignored_evals()
+
+    evals = [eval for eval in registry.get_evals(['*']) if eval.key not in ignored_evals and eval.key not in additionally_ignored_evals
         and not os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json'))]
 
     if len(evals) == 0:
         return
-
-    model_num_threads = create_model(model_type, model_name).num_threads
-    num_threads_per_eval = min(model_num_threads, 20)
-    os.environ['EVALS_THREADS'] = str(num_threads_per_eval)
 
     unique_evals = []
     unique_evals_keys = []
@@ -274,6 +289,12 @@ def run_all_evals(model_type: str, model_name: str):
             continue
         unique_evals.append(eval)
         unique_evals_keys.append(eval.key)
+
+    assert_no_duplicate_evals(evals)
+
+    model_num_threads = create_model(model_type, model_name).num_threads
+    num_threads_per_eval = min(model_num_threads, 20)
+    os.environ['EVALS_THREADS'] = str(num_threads_per_eval)
 
     def evaluate(eval):
         run_single_eval(registry, model_type, model_name, eval)

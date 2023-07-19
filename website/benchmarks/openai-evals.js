@@ -220,8 +220,6 @@ function createSelectedModelReportV(report, selectedSampleId) {
     const finalReport = reportInformation.filter(item => 'final_report' in item)[0].final_report
     const data = reportInformation.filter(item => 'run_id' in item)
 
-    console.log(spec, finalReport, data)
-
     const reportDataBySampleId = new Map()
     for (const event of data) {
         const item = reportDataBySampleId.get(event.sample_id) ?? {}
@@ -302,8 +300,11 @@ export async function createEvalsIndexV(baseUrl) {
     )
     containerE.appendChild(explanationE)
 
-    const models = (await (await fetch(baseUrl + '/__index__.json')).json())
-        .filter(model => model.benchmarks.includes('openai-evals'))
+    const [models, evalsDescriptions] = await Promise.all([
+        fetch(baseUrl + '/__index__.json').then(r => r.json()).then(r => r.filter(model => model.benchmarks.includes('openai-evals'))),
+        fetch('data/openai-evals/short-evals-descriptions.json').then(r => r.json()),
+    ])
+
     const modelsMap = createModelsMap(models)
     const modelNames = models.map(model => model.model_name)
 
@@ -336,7 +337,7 @@ export async function createEvalsIndexV(baseUrl) {
 
     for (const [reportFilename, { spec }] of Object.entries(reportsIndex[modelNamesByScore[0]]).sort()) {
         const reportE = tableBodyE.insertRow()
-        reportE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(spec.base_eval)))
+        reportE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(spec.eval_name + ' ' + evalsDescriptions[spec.eval_name])))
 
         const reportScores = scores.scoresByFilename[reportFilename]
         const relativeReportScores = scores.relativeScoresByFilename[reportFilename]
