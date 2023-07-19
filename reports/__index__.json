@@ -38,11 +38,17 @@
         "short_name": "LLaMA-2 7B Chat"
     },
     {
+        "model_type": "debug",
+        "model_name": "debug",
+        "benchmarks": [
+            "openai-evals"
+        ]
+    },
+    {
         "model_type": "fastchat",
         "model_name": "lmsys/vicuna-33b-v1.3",
         "benchmarks": [
             "human-eval-plus",
-            "openai-evals",
             "cot",
             "mt-bench",
             "lm-evaluation-harness"
@@ -56,7 +62,6 @@
         "benchmarks": [
             "human-eval-plus",
             "cot",
-            "openai-evals",
             "mt-bench",
             "lm-evaluation-harness"
         ],
@@ -69,7 +74,6 @@
         "benchmarks": [
             "human-eval-plus",
             "cot",
-            "openai-evals",
             "mt-bench",
             "lm-evaluation-harness"
         ],
@@ -90,7 +94,6 @@
         "model_name": "mosaicml/mpt-30b-chat",
         "benchmarks": [
             "human-eval-plus",
-            "openai-evals",
             "cot",
             "mt-bench",
             "lm-evaluation-harness"
@@ -103,7 +106,6 @@
         "model_name": "gpt-3.5-turbo-0613",
         "benchmarks": [
             "human-eval-plus",
-            "openai-evals",
             "mt-bench",
             "cot"
         ],
@@ -115,7 +117,6 @@
         "benchmarks": [
             "human-eval-plus",
             "cot",
-            "openai-evals",
             "mt-bench",
             "lm-evaluation-harness"
         ],
@@ -137,7 +138,6 @@
         "benchmarks": [
             "human-eval-plus",
             "cot",
-            "openai-evals",
             "mt-bench",
             "lm-evaluation-harness"
         ],
@@ -150,7 +150,6 @@
         "benchmarks": [
             "human-eval-plus",
             "cot",
-            "openai-evals",
             "mt-bench",
             "lm-evaluation-harness"
         ],
@@ -163,7 +162,6 @@
         "benchmarks": [
             "human-eval-plus",
             "cot",
-            "openai-evals",
             "mt-bench",
             "lm-evaluation-harness"
         ],
@@ -176,7 +174,6 @@
         "benchmarks": [
             "human-eval-plus",
             "cot",
-            "openai-evals",
             "mt-bench",
             "lm-evaluation-harness"
         ],
@@ -190,7 +187,6 @@
             "cot",
             "human-eval-plus",
             "mt-bench",
-            "openai-evals",
             "lm-evaluation-harness"
         ],
         "url": "https://huggingface.co/OpenAssistant/oasst-sft-7-llama-30b-xor",
@@ -204,7 +200,6 @@
             "cot",
             "human-eval-plus",
             "mt-bench",
-            "openai-evals",
             "lm-evaluation-harness"
         ],
         "short_name": "Open-Assistant Llama-33B SFT-7e3",
@@ -214,7 +209,6 @@
         "model_type": "open-assistant",
         "model_name": "OpenAssistant/llama-30b-sft-v8-2.5k-steps",
         "benchmarks": [
-            "openai-evals",
             "mt-bench",
             "human-eval-plus",
             "cot",
@@ -230,7 +224,6 @@
             "cot",
             "human-eval-plus",
             "mt-bench",
-            "openai-evals",
             "lm-evaluation-harness"
         ],
         "short_name": "Open-Assistant Llama-33B RLHF-3",
@@ -252,7 +245,6 @@
             "human-eval-plus",
             "cot",
             "mt-bench",
-            "openai-evals",
             "lm-evaluation-harness"
         ],
         "url": "https://huggingface.co/tiiuae/falcon-40b-instruct",
@@ -265,7 +257,6 @@
             "human-eval-plus",
             "cot",
             "mt-bench",
-            "openai-evals",
             "lm-evaluation-harness"
         ],
         "url": "https://huggingface.co/OpenAssistant/falcon-40b-sft-top1-560",
@@ -278,7 +269,6 @@
             "human-eval-plus",
             "cot",
             "mt-bench",
-            "openai-evals",
             "lm-evaluation-harness"
         ],
         "url": "https://huggingface.co/OpenAssistant/falcon-40b-sft-mix-1226",
@@ -289,7 +279,6 @@
         "model_name": "timdettmers/guanaco-65b-merged",
         "benchmarks": [
             "human-eval-plus",
-            "openai-evals",
             "mt-bench",
             "cot",
             "lm-evaluation-harness"
@@ -303,7 +292,6 @@
         "benchmarks": [
             "human-eval-plus",
             "cot",
-            "openai-evals",
             "mt-bench"
         ],
         "short_name": "GPT-3.5-Turbo-0301"
