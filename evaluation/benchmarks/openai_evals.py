@@ -217,10 +217,6 @@ def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
 def run_all_evals(model_type: str, model_name: str):
     os.environ['EVALS_SHOW_EVAL_PROGRESS'] = ''
 
-    model_num_threads = create_model(model_type, model_name).num_threads
-    num_threads_per_eval = min(model_num_threads, 20)
-    os.environ['EVALS_THREADS'] = str(num_threads_per_eval)
-
     registry = Registry()
 
     evals = [eval for eval in registry.get_evals(['*']) if eval.key not in ignored_evals
@@ -228,6 +224,10 @@ def run_all_evals(model_type: str, model_name: str):
 
     if len(evals) == 0:
         return
+
+    model_num_threads = create_model(model_type, model_name).num_threads
+    num_threads_per_eval = min(model_num_threads, 20)
+    os.environ['EVALS_THREADS'] = str(num_threads_per_eval)
 
     unique_evals = []
     unique_evals_keys = []
