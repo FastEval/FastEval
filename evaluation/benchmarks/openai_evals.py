@@ -18,9 +18,6 @@ ignored_evals = [
     # KeyError: 'sample'
     'positive-binary-operations.test.v1',
 
-    # TypeError: ModelBasedClassify.__init__() missing 1 required positional argument: 'modelgraded_spec'
-    'spider-sql.dev.v0',
-
     # RuntimeError: Failed to open: stock_options/stock_options_iron_butteryfly_spread.jsonl
     'stock-options-iron-butteryfly-spread.dev.v0',
 
@@ -29,6 +26,12 @@ ignored_evals = [
 
     # Buggy in openai/evals itself due to removed format_type feature that is still used by this eval
     'joke-fruits-v2.dev.v0',
+
+    # Just for testing OpenAI Evals itself
+    'test-match.s1.simple-v0',
+
+    # Measures something we don't care about
+    'diversity.dev.v0',
 
     # All models get a score of 0
     'actors-sequence.dev.match-v1',
@@ -49,16 +52,29 @@ ignored_evals = [
     'manga-translation-bubble.dev.v0',
     'manga-translation-page.dev.v0',
     'manga-translation-panel.dev.v0',
+    'chinese_hard_translations.dev.v0',
 
-    # Doesn't give a score
-    'categorize-with-distractors.dev.v0',
-    'coqa-fact-expl.dev.v0',
-    'coqa-fact.dev.v0',
-    'logic-fact.dev.v0',
-    'logic-liar-paradox.dev.v0',
-    'loss-logic-fact.dev.v0',
-    'naughty_strings_graded_meta.test.v1',
-    'rap-animals-vs-fruits.dev.v0',
+    # Uses ModelBasedClassify with answers from A-D.
+    # Doesn't directly give a score.
+    # Maybe I could eventually calculate one, but for now exclude it.
+    'Unfamiliar-Chinese-Character.dev.v0',
+    'allergen-information.dev.v0',
+    'chinese_idioms.dev.v0',
+    'consensus_summary.dev.v0',
+    'euler_problems.dev.v0',
+    'event-categories.dev.v0',
+    'logic-container.dev.v0',
+    'logic-riddles.dev.v0',
+    'population_span_extraction.dev.v0',
+    'reasoning_with_contradictory_statements.dev.v0',
+    'security_guide.dev.v0',
+
+    # Meta evals (as far as I understand, they are for evaluating the quality of an eval itself)
+    'coq-editing-meta.dev.v0',
+    'arithmetic-expression-meta.dev.v0',
+    'iambic-pentameter.dev.v0',
+    'linear-regression-meta.dev.v0',
+    'non-compound-names-meta.dev.v0',
 
     # Calculates scores incorrectly
     'joke-animals-vs-fruits.dev.v0',
@@ -73,7 +89,7 @@ ignored_evals = [
     'qa.dev.v0',
     'svg_understanding.v0',
 
-    # MMLU is already separated as part of CoT
+    # MMLU is already separately evaluated as part of CoT
     'mmlu-abstract-algebra.val.ab-v1',
     'mmlu-anatomy.val.ab-v1',
     'mmlu-astronomy.val.ab-v1',
@@ -204,11 +220,14 @@ def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
     tmpfile = os.path.join('.tmp', 'openai-evals', str(uuid.uuid4()) + '.json')
     os.makedirs(os.path.dirname(tmpfile), exist_ok=True)
 
-    evals.cli.oaieval.run(evals.cli.oaieval.get_parser().parse_args([
-        models,
-        eval.key,
-        '--record_path', tmpfile,
-    ]), registry)
+    try:
+        evals.cli.oaieval.run(evals.cli.oaieval.get_parser().parse_args([
+            models,
+            eval.key,
+            '--record_path', tmpfile,
+        ]), registry)
+    except RuntimeError as exception:
+        raise Exception('OpenAI Evals: Error evaluating ' + eval.key + ': ' + str(exception))
 
     outfile = os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json')
     os.makedirs(os.path.dirname(outfile), exist_ok=True)
@@ -274,5 +293,8 @@ def create_reports_index_file(model_name: str):
         json.dump(reports_metadata, reports_index_file, indent=4)
 
 def evaluate_model(model_type: str, model_name: str):
+    if model_type != 'debug':
+        return
+
     run_all_evals(model_type, model_name)
     create_reports_index_file(model_name)

@@ -12,7 +12,7 @@ function getScores(spec, finalReport) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
             if (finalReport.score && finalReport.metascore)
                 return round(finalReport.score) + ' | ' + round(finalReport.metascore)
-            else if (finalReport.score)
+            else if (finalReport.score !== undefined)
                 return round(finalReport.score)
             return null
         case 'evals.elsuite.basic.match:Match':
@@ -25,7 +25,10 @@ function getScores(spec, finalReport) {
             return round(finalReport.accuracy)
         case 'evals.elsuite.translate:Translate':
             return round(finalReport.sacrebleu_score)
+        case 'evals.elsuite.lambada:Lambada':
+            return round(finalReport.accuracy)
         default:
+            console.log(spec.run_config.eval_spec.cls)
             throw new Error()
     }
 }
@@ -78,7 +81,7 @@ function showDataFromModelBasedClassify(finalReport, samples) {
 
             return [
                 ...ret,
-                createTextE('The reviewer model (gpt-3.5-turbo-0301) was then asked to evaluate this answer' + (usesMultipleInputs ? 's' : '') + ':'),
+                createTextE('The reviewer model (gpt-3.5-turbo-0613) was then asked to evaluate this answer' + (usesMultipleInputs ? 's' : '') + ':'),
             ]
         })(),
 
