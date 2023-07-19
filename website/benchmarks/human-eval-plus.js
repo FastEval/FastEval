@@ -10,16 +10,22 @@ export async function createV(baseUrl, parameters) {
     containerE.appendChild(createBackToMainPageE())
 
     const explanationE = document.createElement('div')
-    explanationE.classList.add('human-eval-plus__explanation')
-    const informationLinkE = document.createElement('a')
-    informationLinkE.textContent = 'here'
-    informationLinkE.href = 'https://github.com/evalplus/evalplus'
-    explanationE.append(
-        createTextE('See '),
-        informationLinkE,
-        createTextE(' for more information on this benchmark.')
-    )
     containerE.appendChild(explanationE)
+    explanationE.classList.add('human-eval-plus__explanation')
+    const evalPlusLinkE = document.createElement('a')
+    evalPlusLinkE.textContent = 'HumanEval+'
+    evalPlusLinkE.href = 'https://github.com/evalplus/evalplus'
+    const humanEvalLinkE = document.createElement('a')
+    humanEvalLinkE.textContent = 'HumanEval'
+    humanEvalLinkE.href = 'https://github.com/openai/human-eval'
+    explanationE.append(
+        evalPlusLinkE,
+        createTextE(' is a benchmark for evaluating the Python coding performance of language models. It is based on '),
+        humanEvalLinkE,
+        createTextE(' from OpenAI and improves it with more tests. '
+            + 'The benchmark provides the LLM with the beginning of a function including the docstring and asks it to complete the code. '
+            + 'The resulting model output is then evaluated by running it against a number of tests.')
+    )
 
     const samplesE = document.createElement('div')
     containerE.appendChild(samplesE)
