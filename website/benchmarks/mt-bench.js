@@ -103,6 +103,23 @@ export async function createV(baseUrl, parameters) {
 
     containerE.appendChild(createBackToMainPageE())
 
+    const mtBenchLinkE = document.createElement('a')
+    mtBenchLinkE.textContent = 'MT-Bench'
+    mtBenchLinkE.href = 'https://arxiv.org/abs/2306.05685'
+
+    const lmSysLeaderboardLinkE = document.createElement('a')
+    lmSysLeaderboardLinkE.textContent = 'LMSys Leaderboard'
+    lmSysLeaderboardLinkE.href = 'https://chat.lmsys.org/?leaderboard'
+
+    const explanationE = createTextE(mtBenchLinkE, ' measures conversational capabilities. '
+        + 'It evaluates a LLM on a set of 80 conversations with two turns each. '
+        + 'The 160 model outputs are then rated by GPT-4. '
+        + 'The evaluation method should be the same as for the ', lmSysLeaderboardLinkE, ' so the results should be comparable. '
+        + 'Note however that due to the low number of samples, the variance in the results is quite high. '
+        + 'The LMSys leaderboard numbers may therefore differ somewhat for common models. ')
+    explanationE.classList.add('mt-bench-explanation')
+    containerE.appendChild(explanationE)
+
     const models = await fetchModels(baseUrl)
     const modelsMap = createModelsMap(models)
     const scores = Object.fromEntries(await fetchFiles(baseUrl, models, 'mt-bench', '/scores.json'))
