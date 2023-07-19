@@ -10,7 +10,7 @@ import { createModelLinkE } from '../components/model-link.js'
 function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
-            if (finalReport.score && finalReport.metascore)
+            if (finalReport.score !== undefined && finalReport.metascore !== undefined)
                 return round(finalReport.score) + ' | ' + round(finalReport.metascore)
             else if (finalReport.score !== undefined)
                 return round(finalReport.score)
@@ -28,7 +28,6 @@ function getScores(spec, finalReport) {
         case 'evals.elsuite.lambada:Lambada':
             return round(finalReport.accuracy)
         default:
-            console.log(spec.run_config.eval_spec.cls)
             throw new Error()
     }
 }

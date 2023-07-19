@@ -29,6 +29,9 @@ ignored_evals = [
 
     # Just for testing OpenAI Evals itself
     'test-match.s1.simple-v0',
+    'test-includes-ignore-case.s1.simple-v0.json',
+    'test-includes.s1.simple-v0.json',
+    'test-fuzzy-match.s1.simple-v0.json',
 
     # Measures something we don't care about
     'diversity.dev.v0',
@@ -68,6 +71,17 @@ ignored_evals = [
     'population_span_extraction.dev.v0',
     'reasoning_with_contradictory_statements.dev.v0',
     'security_guide.dev.v0',
+    'categorize-with-distractors.dev.v0',
+    'coqa-fact-expl.dev.v0',
+    'coqa-fact.dev.v0',
+    'logic-fact.dev.v0',
+    'logic-liar-paradox.dev.v0',
+    'loss-logic-fact.dev.v0',
+    'soc_codes.dev.v0',
+    'superficial-patterns.dev.v0',
+    'ukraine_electronic_petitions.val.v0',
+    'unwanted-rhyming.dev.v0',
+    'naughty_strings_graded_meta.test.v1',
 
     # Meta evals (as far as I understand, they are for evaluating the quality of an eval itself)
     'coq-editing-meta.dev.v0',
@@ -75,6 +89,7 @@ ignored_evals = [
     'iambic-pentameter.dev.v0',
     'linear-regression-meta.dev.v0',
     'non-compound-names-meta.dev.v0',
+    'translation-meta.dev.v0',
 
     # Calculates scores incorrectly
     'joke-animals-vs-fruits.dev.v0',
@@ -147,6 +162,10 @@ ignored_evals = [
     'mmlu-us-foreign-policy.val.ab-v1',
     'mmlu-virology.val.ab-v1',
     'mmlu-world-religions.val.ab-v1',
+
+    # I'm too lazy to implement more complexity for this single eval that needs its own eval class.
+    # If I want to evaluate on this, I'm going to do it separately outside OpenAI evals.
+    'lambada.oaitest.v1',
 ]
 
 def convert_conversation(prompt: typing.Union[str, list[dict[str, str]]]):
