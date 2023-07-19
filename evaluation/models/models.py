@@ -9,6 +9,7 @@ import evaluation.models.fastchat
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
+from evaluation.models.debug import Debug
 from evaluation.models.open_ai import OpenAI
 from evaluation.models.fastchat import Fastchat
 from evaluation.models.open_assistant import OpenAssistant
@@ -23,6 +24,7 @@ config_dict_cache = {}
 
 def create_model(model_type: str, model_name: str, **kwargs):
     model_classes = {
+        'debug': Debug,
         'openai': OpenAI,
         'fastchat': Fastchat,
         'open-assistant': OpenAssistant,
