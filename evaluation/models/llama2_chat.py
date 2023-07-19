@@ -22,8 +22,14 @@ class Llama2Chat(Huggingface):
         if conversation[0][0] != 'system':
             conversation.insert(0, ('system', default_system))
 
+        if len(conversation) >= 2:
+            assert conversation[1][0] == 'user'
+            first_user_message = conversation[1][1]
+        else:
+            first_user_message = ''
+
         conversation = [
-            (conversation[1][0], system_start + conversation[0][1] + system_end + conversation[1][1]),
+            ('user', system_start + conversation[0][1] + system_end + first_user_message),
         ] + conversation[2:]
 
         prompt_items = []
