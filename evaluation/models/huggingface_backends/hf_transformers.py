@@ -45,14 +45,22 @@ def process_current_batch():
     for batch_item in current_batch:
         assert batch_item['model'] is model
 
-    temperatures = [batch_item['temperature'] if batch_item['temperature'] is not None else 1.0 for batch_item in current_batch]
-    temperatures_to_batch_items = { temperature: [] for temperature in set(temperatures) }
     for i, batch_item in enumerate(current_batch):
         temperature = batch_item['temperature']
-        temperatures_to_batch_items[temperature].append(batch_item)
+        if temperature is None:
+            temperature = 1.0
 
-    for temperature, batch_items_with_specific_temperature in temperatures_to_batch_items.items():
-        prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_temperature]
+        max_new_token = batch_item['max_new_tokens']
+        assert max_new_token is not None
+
+        sampling_parameters = (temperature, max_new_token)
+
+        if sampling_parameters not in sampling_parameters_to_batch_items:
+            sampling_parameters_to_batch_items[sampling_parameters] = []
+        sampling_parameters_to_batch_items[sampling_parameters].append(batch_item)
+
+    for (temperature, max_new_token), batch_items_with_specific_sampling_parameters in sampling_parameters_to_batch_items.items():
+        prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_sampling_parameters]
         responses = model['pipeline'](
             prompts,
 
@@ -60,7 +68,7 @@ def process_current_batch():
             # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
 
             # Parameters that control the length of the output
-            max_new_tokens=model['max_new_tokens'],
+            max_new_tokens=max_new_token,
             min_new_tokens=1,
 
             # Parameters that control the generation strategy used
@@ -84,9 +92,9 @@ def process_current_batch():
             batch_size=model['max_batch_size'],
         )
 
-        responses = [responses[i][0]['generated_text'][len(prompts[i]):] for i in range(len(batch_items_with_specific_temperature))]
-        for i in range(len(batch_items_with_specific_temperature)):
-            batch_items_with_specific_temperature[i]['response'] = responses[i]
+        responses = [responses[i][0]['generated_text'][len(prompts[i]):] for i in range(len(batch_items_with_specific_sampling_parameters))]
+        for i in range(len(batch_items_with_specific_sampling_parameters)):
+            batch_items_with_specific_sampling_parameters[i]['response'] = responses[i]
 
     for item in current_batch:
         item['obtained_response'] = False
@@ -126,8 +134,7 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
     if (model is None
             or model['tokenizer_path'] != tokenizer_path
             or model['model_path'] != model_path
-            or model['dtype'] != dtype
-            or model['max_new_tokens'] != max_new_tokens):
+            or model['dtype'] != dtype):
         unload_model(False)
         tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
         tokenizer.padding_side = 'left'
@@ -135,7 +142,6 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             'tokenizer_path': tokenizer_path,
             'model_path': model_path,
             'dtype': dtype,
-            'max_new_tokens': max_new_tokens,
             'max_batch_size': max_batch_size,
             'pipeline': transformers.pipeline(
                 'text-generation',
