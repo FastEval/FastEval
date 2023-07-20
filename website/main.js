@@ -1,8 +1,14 @@
 import { createBenchmarksV } from './benchmarks/main.js'
-import { parseHash } from './utils.js'
+import { computeUpdatedHash, parseHash } from './utils.js'
 
 function toSorted(compareFn) {
     return [...this].sort(compareFn)
+}
+
+async function updateUrlIfBranchDoesntExistAnymore(branch) {
+    const response = await fetch('https://raw.githubusercontent.com/tju01/ilm-eval/' + branch + '/reports/__index__.json')
+    if (!response.ok)
+        location.hash = '#' + computeUpdatedHash({ branch: null })
 }
 
 async function main() {
@@ -17,6 +23,9 @@ async function main() {
     const hash = parseHash()
     if (hash.has('branch'))
         branch = hash.get('branch')
+
+    if (branch !== 'main')
+        updateUrlIfBranchDoesntExistAnymore(branch)
 
     const url = location.hostname === 'tju01.github.io' || branch !== 'main'
         ? 'https://raw.githubusercontent.com/tju01/ilm-eval/' + branch + '/reports'

@@ -1,7 +1,12 @@
 export function computeUpdatedHash(newItems) {
     const items = parseHash()
-    for (const [k, v] of Object.entries(newItems))
-        items.set(k, v)
+    for (const [k, v] of Object.entries(newItems)) {
+        if (v === null && items.has(k))
+            items.delete(k)
+        else
+            items.set(k, v)
+    }
+
     return '?' + [...items.entries()].map(([k, v]) => k + '=' + v).join('&')
 }
 
