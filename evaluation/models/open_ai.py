@@ -24,7 +24,7 @@ class OpenAI(OpenAIBase):
         else:
             raise Exception('Unknown OpenAI model.')
 
-    def reply(self, conversation, temperature=None):
+    def reply(self, conversation, temperature=None, max_new_tokens=None):
         while True:
             while True:
                 last_rate_limit_error = last_rate_limit_errors.get(self.model_name, 0)
@@ -41,6 +41,7 @@ class OpenAI(OpenAIBase):
                     api_base='https://api.openai.com/v1',
                     api_key=os.environ['OPENAI_API_KEY'],
                     temperature=temperature,
+                    max_new_tokens=max_new_tokens,
                 )
             except openai.error.RateLimitError:
                 check_last_rate_limit_lock.acquire()

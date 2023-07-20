@@ -12,12 +12,8 @@ from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 eos_tokens = {}
 eos_tokens_lock = threading.Lock()
 
-def get_max_batch_size(model_path, max_new_tokens):
-    # TODO: Check amount of GPU ram, check model size, dtype & estimate how much RAM model takes.
-    # Then estimate how much ram is needed for the tokens and estimate the batch size we can fit.
-
-    # Currently disabled. Performance benefit is questionable...
-    return 1
+# Can be increased (should work), but batching doesn't seem to increase performance
+HF_TRANSFORMERS_BACKEND_BATCH_SIZE = 1
 
 class Huggingface:
     def __init__(
@@ -52,7 +48,7 @@ class Huggingface:
         if self.backend == 'vllm' or self.backend == 'tgi':
             self.num_threads = NUM_THREADS_LOCAL_MODEL
         elif self.backend == 'hf_transformers':
-            self.num_threads = get_max_batch_size(model_path, max_new_tokens)
+            self.num_threads = HF_TRANSFORMERS_BACKEND_BATCH_SIZE
         else:
             raise
 
@@ -85,13 +81,16 @@ class Huggingface:
         prompt += self.assistant
         return prompt.strip()
 
-    def reply(self, conversation, temperature=None):
+    def reply(self, conversation, temperature=None, max_new_tokens=None):
+        if max_new_tokens is None:
+            max_new_tokens = self.max_new_tokens
+
         common_kwargs = {
             'prompt': self._conversation_to_prompt(conversation),
             'tokenizer_path': self.tokenizer_path,
             'model_path': self.model_path,
             'dtype': self.dtype,
-            'max_new_tokens': self.max_new_tokens,
+            'max_new_tokens': max_new_tokens,
             'temperature': temperature,
         }
 
