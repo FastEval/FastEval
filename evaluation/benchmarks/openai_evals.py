@@ -227,9 +227,22 @@ class CompletionFn(evals.api.CompletionFn):
     def __call__(
         self,
         prompt: typing.Union[str, list[dict[str, str]]],
-        **kwargs,
+        temperature=None,
+        max_tokens=None,
     ) -> CompletionResult:
-        return CompletionResult(self.model.reply(convert_conversation(prompt)))
+        if temperature is not None:
+            assert isinstance(temperature, (int, float)) and not isinstance(temperature, bool)
+            assert temperature >= 0.0 and temperature <= 1.0
+
+        if max_tokens is not None:
+            assert isinstance(max_new_tokens, int) and not isinstance(max_new_tokens, bool)
+            assert max_new_tokens >= 1 and max_new_tokens <= 2048
+
+        return CompletionResult(self.model.reply(
+            conversation=convert_conversation(prompt),
+            temperature=temperature,
+            max_new_tokens=max_tokens,
+        ))
 
 class Registry(evals.registry.Registry):
     def __init__(self):
