@@ -123,11 +123,6 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
     else:
         kwargs = { 'do_sample': False }
 
-    if isinstance(prompt, tuple):
-        if prompt[0] != 'tokens':
-            raise Exception('Unknown prompt type')
-        prompt = current_server_information['tokenizer'].decode(prompt[1])
-
     return client.generate(prompt,
         max_new_tokens=max_new_tokens,
         repetition_penalty=1.0,
