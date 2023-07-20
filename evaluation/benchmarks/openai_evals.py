@@ -237,10 +237,6 @@ class Registry(evals.registry.Registry):
 
     def make_completion_fn(self, model_type_and_name: str) -> CompletionFn:
         model_type, model_name = model_type_and_name.split(':')
-        # TODO: The reviewer has a larger number of tokens than normally.
-        # However, we currently don't check whether it's the reviewer model but whether it's the same model as the reviewer.
-        # Meaning that if we now evaluate the same model as OPENAI_EVALS_JUDGE, then we will also increase the number of tokens
-        # for that model which is unfair. Fix that.
         if model_type == OPENAI_EVALS_JUDGE[0] and model_name == OPENAI_EVALS_JUDGE[1]:
             return CompletionFn(create_model(model_type, model_name, max_new_tokens=OPENAI_EVALS_JUDGE_MAX_NEW_TOKENS))
         return CompletionFn(create_model(model_type, model_name))
@@ -335,6 +331,9 @@ def create_reports_index_file(model_name: str):
 def evaluate_model(model_type: str, model_name: str):
     if model_type != 'debug':
         return
+
+    if model_type == OPENAI_EVALS_JUDGE[0] and model_name == OPENAI_EVALS_JUDGE[1]:
+        raise Exception("OpenAI Evals: The judge model can't be evaluated")
 
     run_all_evals(model_type, model_name)
     create_reports_index_file(model_name)
