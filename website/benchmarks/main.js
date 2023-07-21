@@ -178,7 +178,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     ] = await Promise.all([
         fetchFiles(baseUrl, models, 'openai-evals', '/__index__.json'),
         fetchFiles(baseUrl, models, 'lm-evaluation-harness'),
-        fetchFiles(baseUrl, models, 'human-eval-plus'),
+        fetchFiles(baseUrl, models, 'human-eval-plus', '/scores.json'),
         fetchFiles(baseUrl, models, 'cot', '/scores.json'),
         fetchFiles(baseUrl, models, 'mt-bench', '/scores.json'),
     ])
@@ -203,7 +203,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         else if (benchmarkName === 'openai-evals')
             return relativeOpenAiEvalsScores[model]
         else if (benchmarkName === 'human-eval-plus')
-            return humanEvalPlusResultsMap[model].score
+            return humanEvalPlusResultsMap[model].scores.plus
         else if (benchmarkName === 'cot')
             return cotResultsMap[model].total
         else if (benchmarkName === 'mt-bench')
@@ -274,7 +274,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell()
     theadE.insertCell().appendChild(createLinkE('OpenAI Evals', { benchmark: 'openai-evals' }))
     theadE.insertCell().appendChild(createLinkE('MT-Bench', { benchmark: 'mt-bench' }))
-    theadE.insertCell().appendChild(createTextE('HumanEval+'))
+    theadE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
     theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
     theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
@@ -309,14 +309,7 @@ export async function createBenchmarksIndexV(baseUrl) {
             }
 
             const relativeScore = getRelativeScore(model, benchmarks, benchmarkName)
-
-            let text = round(score)
-            if (benchmarkName === 'human-eval-plus') {
-                createTableScoreCell(rowE, createLinkE(text, { benchmark: 'human-eval-plus', model }), relativeScore)
-                continue
-            }
-
-            createTableScoreCell(rowE, createTextE(text), relativeScore)
+            createTableScoreCell(rowE, createTextE(round(score)), relativeScore)
         }
     }
 

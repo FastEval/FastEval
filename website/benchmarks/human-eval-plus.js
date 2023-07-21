@@ -2,9 +2,14 @@ import { createConversationItemE } from '../components/conversation-item.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
-import { computeUpdatedHash } from '../utils.js'
+import { computeUpdatedHash, fetchModels, fetchFiles, createModelsMap, round } from '../utils.js'
+import { createModelLinkE } from '../components/model-link.js'
+import { createTableScoreCell } from '../components/table-score-cell.js'
 
 export async function createV(baseUrl, parameters) {
+    if (parameters.has('model'))
+        return await createModelV(baseUrl, parameters)
+
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE())
@@ -27,19 +32,70 @@ export async function createV(baseUrl, parameters) {
             + 'The resulting model output is then evaluated by running it against a number of tests.')
     )
 
+    const models = await fetchModels(baseUrl)
+    const modelsMap = createModelsMap(models)
+    const scores = await fetchFiles(baseUrl, models, 'human-eval-plus', '/scores.json')
+    const sortedScores = scores.toSorted(([modelName1, modelScores1], [modelName2, modelScores2]) => modelScores2.scores.plus - modelScores1.scores.plus)
+    const scoresMap = Object.fromEntries(scores)
+
+    const tableE = document.createElement('table')
+    containerE.appendChild(tableE)
+
+    const tableHeadE = tableE.createTHead().insertRow()
+    const tableBodyE = tableE.createTBody()
+    tableHeadE.insertCell().appendChild(createTextE('Model'))
+    tableHeadE.insertCell().appendChild(createTextE('HumanEval+'))
+    tableHeadE.insertCell().appendChild(createTextE('HumanEval'))
+
+    const relativeScores = {}
+    for (const { model_name: modelName } of models)
+        relativeScores[modelName] = {}
+    for (const column of ['base', 'plus']) {
+        const columnScores = sortedScores.map(e => e[1].scores[column])
+        const min = Math.min(...columnScores)
+        const max = Math.max(...columnScores)
+        for (const [modelName, _] of sortedScores)
+            relativeScores[modelName][column] = (scoresMap[modelName].scores[column] - min) / (max - min)
+    }
+
+    for (const [modelName, modelScores] of sortedScores) {
+        const rowE = tableBodyE.insertRow()
+        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
+        createTableScoreCell(rowE, createLinkE(round(modelScores.scores.plus), { model: modelName}), relativeScores[modelName].plus)
+        createTableScoreCell(rowE, createTextE(round(modelScores.scores.base)), relativeScores[modelName].base)
+    }
+
+    return containerE
+}
+
+export async function createModelV(baseUrl, parameters) {
+    const containerE = document.createElement('div')
+
+    containerE.appendChild(createBackToMainPageE('← Back to HumanEval+ table', { 'benchmark': 'human-eval-plus' }))
+
     const samplesE = document.createElement('div')
     containerE.appendChild(samplesE)
     samplesE.classList.add('samples')
 
-    const data = await (await fetch(baseUrl + '/human-eval-plus/' + parameters.get('model').replace('/', '--') + '.json')).json()
-    const dataById = {}
-    for (const item of data.replies) {
-        if (!(item.task_id in dataById))
-            dataById[item.task_id] = []
-        dataById[item.task_id].push(item)
+    const [answers, scores] = await Promise.all([
+        fetch(baseUrl + '/human-eval-plus/' + parameters.get('model').replace('/', '--') + '/answers.json').then(r => r.json()),
+        fetch(baseUrl + '/human-eval-plus/' + parameters.get('model').replace('/', '--') + '/scores.json').then(r => r.json()),
+    ])
+
+    const merged = { answers: {}, scores: scores.scores }
+    for (let i = 0; i < answers.length; i++) {
+        const answer = answers[i]
+        const taskId = answer.task_id
+        const prompt = answer.prompt
+        const completionRaw = answer.completion_raw
+        const completionProcessed = answer.completion_processed
+        const success = scores.answers[i].success
+        if (!(taskId in merged.answers))
+            merged.answers[taskId] = { prompt, completions: [] }
+        merged.answers[taskId].completions.push({ completionRaw, completionProcessed, success })
     }
 
-    for (const [itemId, items] of Object.entries(dataById)) {
+    for (const [itemId, { prompt, completions: items }] of Object.entries(merged.answers)) {
         if (parameters.has('sample') && parameters.get('sample') !== itemId)
             continue
 
@@ -72,16 +128,27 @@ export async function createV(baseUrl, parameters) {
 
             increaseCompletionNumberE.addEventListener('click', () => { replace(completionNumber + 1) })
 
+            let successText
+            const success = items[completionNumber].success
+            if (success.plus && success.base)
+                successText = 'This code passed all of the tests.'
+            else if (!success.plus && success.base)
+                successText = 'This code passed all of the tests in HumanEval, but failed some tests in HumanEval+.'
+            else if (success.plus && !success.base)
+                successText = 'This code passed all of the tests in HumanEval+, but failed some tests in HumanEval.'
+            else if (!success.plus && !success.base)
+                successText = 'This code failed some of the tests.'
+
             itemE.replaceChildren(
                 createLinkE('ID: ' + itemId, { sample: itemId }),
                 switchCompletionE,
                 createTextE('The model was supposed to complete the following code:'),
-                createConversationItemE('user', items[completionNumber].prompt),
+                createConversationItemE('user', prompt),
                 createTextE('The model gave the following code as output:'),
-                createConversationItemE('assistant', items[completionNumber].completion_raw.trim()),
+                createConversationItemE('assistant', items[completionNumber].completionRaw.trim()),
                 createTextE('The following code was extracted:'),
-                createConversationItemE('assistant', items[completionNumber].completion_processed.trim()),
-                createTextE('This code ' + (items[completionNumber].success ? 'passed all' : 'failed some') + ' of the tests.'),
+                createConversationItemE('assistant', items[completionNumber].completionProcessed.trim()),
+                createTextE(successText),
             )
         }
 
