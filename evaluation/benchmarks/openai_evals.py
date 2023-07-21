@@ -11,6 +11,8 @@ from evaluation.utils import replace_model_name_slashes, process_with_thread_poo
 from evaluation.models.models import create_model
 from evaluation.constants import OPENAI_EVALS_JUDGE_MAX_NEW_TOKENS, OPENAI_EVALS_JUDGE
 
+NUM_SAMPLES = 1000
+
 ignored_evals = [
     # Compares multiple models
     'best.dev.v0',
@@ -168,22 +170,53 @@ ignored_evals = [
     'lambada.oaitest.v1',
 ]
 
-additionally_ignored_evals = None
-def get_additionally_ignored_evals():
-    # Filter for evals that have descriptions.
-    # Going to use that as an indicator for higher-quality evals
-    # and to remove evals that might just be used for testing OpenAI evals itself
-    # and stuff like that.
+evals_information = None
 
-    global additionally_ignored_evals
-    if additionally_ignored_evals is not None:
-        return additionally_ignored_evals
+def get_evals_information():
+    global evals_information
 
-    with open('data/openai-evals/evals-descriptions.json') as f:
-        evals_descriptions = json.load(f)
-        additionally_ignored_evals = [k for k, v in evals_descriptions.items() if v is None]
+    if evals_information is not None:
+        return evals_information
 
-    return additionally_ignored_evals
+    with open('data/openai-evals/evals.json') as f:
+        raw_evals_information = json.load(f)
+
+    def process_tree_node(node):
+        node_evals_information = []
+
+        for k, v in node.items():
+            if v is None:
+                continue
+            elif isinstance(v, str):
+                if k in ignored_evals:
+                    continue
+                node_evals_information.append({
+                    'name': k,
+                    'description': v,
+                    'weight': 1,
+                })
+            elif isinstance(v, dict):
+                child_node_information = process_tree_node(v)
+                for item in child_node_information:
+                    node_evals_information.append({
+                        'name': item['name'],
+                        'description': item['description'],
+                        'weight': item['weight'] / len(child_node_information)
+                    })
+            else:
+                raise
+
+        return node_evals_information
+
+    evals_information_with_weight = process_tree_node(raw_evals_information)
+
+    for item in evals_information_with_weight:
+        item['num_samples'] = max(1, round(item['weight'] * NUM_SAMPLES))
+        del item['weight']
+
+    evals_information = evals_information_with_weight
+
+    return evals_information
 
 def convert_conversation(prompt: typing.Union[str, list[dict[str, str]]]):
     if isinstance(prompt, str):
@@ -257,7 +290,7 @@ class Registry(evals.registry.Registry):
     # Prevent errors about OpenAI API key missing even if we don't use OpenAI models
     api_model_ids = []
 
-def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
+def run_single_eval(*, registry: Registry, model_type: str, model_name: str, eval, num_samples: int):
     models = model_type + ':' + model_name
     if eval.cls == 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
         models += ',' + OPENAI_EVALS_JUDGE[0] + ':' + OPENAI_EVALS_JUDGE[1]
@@ -266,6 +299,7 @@ def run_single_eval(registry: Registry, model_type: str, model_name: str, eval):
     os.makedirs(os.path.dirname(tmpfile), exist_ok=True)
 
     try:
+        # TODO: Use num_samples
         evals.cli.oaieval.run(evals.cli.oaieval.get_parser().parse_args([
             models,
             eval.key,
@@ -283,9 +317,12 @@ def run_all_evals(model_type: str, model_name: str):
 
     registry = Registry()
 
-    additionally_ignored_evals = get_additionally_ignored_evals()
+    evals_information = get_evals_information()
+    evals_to_evaluate = [eval['name'] for eval in evals_information]
 
-    evals = [eval for eval in registry.get_evals(['*']) if eval.key not in ignored_evals and eval.key not in additionally_ignored_evals
+    evals_num_samples = { item['name']: item['num_samples'] for item in evals_information }
+
+    evals = [eval for eval in registry.get_evals(['*']) if eval.key in evals_to_evaluate
         and not os.path.exists(os.path.join('reports', 'openai-evals', replace_model_name_slashes(model_name), eval.key + '.json'))]
 
     if len(evals) == 0:
@@ -299,14 +336,12 @@ def run_all_evals(model_type: str, model_name: str):
         unique_evals.append(eval)
         unique_evals_keys.append(eval.key)
 
-    assert_no_duplicate_evals(evals)
-
     model_num_threads = create_model(model_type, model_name).num_threads
     num_threads_per_eval = min(model_num_threads, 20)
     os.environ['EVALS_THREADS'] = str(num_threads_per_eval)
 
     def evaluate(eval):
-        run_single_eval(registry, model_type, model_name, eval)
+        run_single_eval(registry=registry, model_type=model_type, model_name=model_name, eval=eval, num_samples=evals_num_samples[eval.key])
 
     process_with_thread_pool(
         num_threads=(model_num_threads // num_threads_per_eval) * 4,
