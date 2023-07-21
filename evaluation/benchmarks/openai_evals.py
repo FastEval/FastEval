@@ -267,10 +267,10 @@ class CompletionFn(evals.api.CompletionFn):
         presence_penalty=None,
         n=None,
     ) -> CompletionResult:
-        assert top_p == 1
-        assert frequency_penalty == 0
-        assert presence_penalty == 0
-        assert n == 1
+        assert top_p is None or top_p == 1
+        assert frequency_penalty is None or frequency_penalty == 0
+        assert presence_penalty is None or presence_penalty == 0
+        assert n is None or n == 1
 
         if temperature is not None:
             assert isinstance(temperature, (int, float)) and not isinstance(temperature, bool)
