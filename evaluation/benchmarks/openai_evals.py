@@ -387,9 +387,6 @@ def create_reports_index_file(model_name: str):
         json.dump(reports_metadata, reports_index_file, indent=4)
 
 def evaluate_model(model_type: str, model_name: str):
-    if model_type != 'debug':
-        return
-
     if model_type == OPENAI_EVALS_JUDGE[0] and model_name == OPENAI_EVALS_JUDGE[1]:
         raise Exception("OpenAI Evals: The judge model can't be evaluated")
 
