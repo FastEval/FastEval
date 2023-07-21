@@ -262,7 +262,16 @@ class CompletionFn(evals.api.CompletionFn):
         prompt: typing.Union[str, list[dict[str, str]]],
         temperature=None,
         max_tokens=None,
+        top_p=None,
+        frequency_penalty=None,
+        presence_penalty=None,
+        n=None,
     ) -> CompletionResult:
+        assert top_p == 1
+        assert frequency_penalty == 0
+        assert presence_penalty == 0
+        assert n == 1
+
         if temperature is not None:
             assert isinstance(temperature, (int, float)) and not isinstance(temperature, bool)
             assert temperature >= 0.0 and temperature <= 1.0
