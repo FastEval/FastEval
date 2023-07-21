@@ -168,6 +168,26 @@ ignored_evals = [
     # I'm too lazy to implement more complexity for this single eval that needs its own eval class.
     # If I want to evaluate on this, I'm going to do it separately outside OpenAI evals.
     'lambada.oaitest.v1',
+
+    'prompt-injection.dev.v0',
+    'proofreader.dev.v0',
+    'match_product-matching_fewshot.dev.v1',
+    'pointer-value-retrieval-easy-many-examples.dev.v0',
+    'pointer-value-retrieval-medium-few-examples.dev.v0',
+    'pointer-value-retrieval-medium-many-examples.dev.v0',
+    'pointer-value-retrieval-hard-few-examples.dev.v0',
+    'pointer-value-retrieval-easy-few-examples.dev.v0',
+    'pointer-value-retrieval-hard-many-examples.dev.v0',
+    'music-theory-tetrads-identification.dev.v0',
+    'music-theory-triads-identification.dev.v0',
+    'music-theory-chord-notes.dev.v0',
+    'list_comparison_missing_name.dev.v0',
+    'linear-regression.dev.v0',
+    'latin-grammar.dev.v0',
+    'logic-grid.dev.v0',
+    'co-sql.dev.v0',
+    'abstract-causal-reasoning-text.dev.v0',
+    'abstract-causal-reasoning-symbolic.dev.v0',
 ]
 
 evals_information = None
