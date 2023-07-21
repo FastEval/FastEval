@@ -157,5 +157,6 @@ def compute_scores(*, model_name, output_folder):
 
 def evaluate_model(model_type, model_name):
     output_folder = os.path.join('reports/human-eval-plus', replace_model_name_slashes(model_name))
+    os.makedirs(output_folder, exist_ok=True)
     compute_model_answers(model_type=model_type, model_name=model_name, output_folder=output_folder)
     compute_scores(model_name=model_name, output_folder=output_folder)
