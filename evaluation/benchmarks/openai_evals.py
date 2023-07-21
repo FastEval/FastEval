@@ -268,8 +268,8 @@ class CompletionFn(evals.api.CompletionFn):
             assert temperature >= 0.0 and temperature <= 1.0
 
         if max_tokens is not None:
-            assert isinstance(max_new_tokens, int) and not isinstance(max_new_tokens, bool)
-            assert max_new_tokens >= 1 and max_new_tokens <= 2048
+            assert isinstance(max_tokens, int) and not isinstance(max_tokens, bool)
+            assert max_tokens >= 1 and max_tokens <= 2048
 
         return CompletionResult(self.model.reply(
             conversation=convert_conversation(prompt),
