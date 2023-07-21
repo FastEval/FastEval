@@ -299,12 +299,11 @@ def run_single_eval(*, registry: Registry, model_type: str, model_name: str, eva
     os.makedirs(os.path.dirname(tmpfile), exist_ok=True)
 
     try:
-        # TODO: Use num_samples
         evals.cli.oaieval.run(evals.cli.oaieval.get_parser().parse_args([
             models,
             eval.key,
             '--record_path', tmpfile,
-        ]), registry)
+        ]), registry, max_num_samples=num_samples)
     except RuntimeError as exception:
         raise Exception('OpenAI Evals: Error evaluating ' + eval.key + ': ' + str(exception))
 
