@@ -211,7 +211,7 @@ def get_evals_information():
     evals_information_with_weight = process_tree_node(raw_evals_information)
 
     for item in evals_information_with_weight:
-        item['num_samples'] = max(1, round(item['weight'] * NUM_SAMPLES))
+        item['num_samples'] = max(2, round(item['weight'] * NUM_SAMPLES))
         del item['weight']
 
     evals_information = evals_information_with_weight
