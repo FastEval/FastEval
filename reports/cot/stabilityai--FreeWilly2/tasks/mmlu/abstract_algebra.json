@@ -1,0 +1,75 @@
+{
+    "score": 0.3,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Find the degree for the given field extension Q(sqrt(2), sqrt(3), sqrt(18)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Analyze the given field extension Q(\u221a2, \u221a3, \u221a18) over Q.\nStep 2: Recall that the degree of an extension represents the number of linearly independent basis vectors that span the extension space.\nStep 3: Identify the irrationalities in the extension: \u221a2, \u221a3, and \u221a18.\nStep 4: Consider the primes in the square roots: 2, 3, and 2*3^2 (18).\nStep 5: Observe that sqrt(18) = sqrt(2) * sqrt(3^2), so \u221a18 is dependent on both \u221a2 and \u221a3.\nStep 6: Since \u221a2 and \u221a3 are linearly independent, the degree of the field extension Q(\u221a2, \u221a3, \u221a18) over Q is just the sum of dimensions of these linearly independent irrationalities.\nStep 7: The dimensions of \u221a2 and \u221a3 are both 1, as they are each linearly independent, so the sum of their dimensions is 1 + 1 = 2.\nStep 8: Recognizing that there are now just 2 linearly independent basis vectors, the degree for the given field extension Q(\u221a2, \u221a3, \u221a18) over Q is 2.\n\n(C) 2",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Let p = (1, 2, 5, 4)(2, 3) in S_5 . Find the index of <p> in S_5.\n\n(A) 8\n(B) 2\n(C) 24\n(D) 120",
+            "correct_answer": 2,
+            "model_answer": "To find the index of <p> in S_5, follow these steps:\n\n1. Write down the cycle representation of the permutation p: (2, 3), (1, 2), and (5, 4).\n2. We are provided with the permutation (1, 2, 5, 4) followed by (2, 3) so let consider them as two separate cycles.\n3. Write the permutation as a product of its two cycles, (2, 3) and (1, 2, 5, 4).\n4. The product of these two cycles can be written as (2, 3, 4, 5).\n5. Now, arrange the letters in the same order as the elements, starting with the first letter and moving to the last. In this case, the correct order is 5, 4, 2, 1, 3.\n6. Find the index of this permutation in S_5.\n7. For a set with 5 letters, there are 5! permutations in the set.\n8. Compare the step-by-step arrangement with other arrangements (letters) in the set.\n\nIn this case, the correct index for <p>, which is (5, 4, 2, 1, 3), is (A) 8.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^5 + 3x^3 + x^2 + 2x in Z_5\n\n(A) 0\n(B) 1\n(C) 0,1\n(D) 0,4",
+            "correct_answer": 3,
+            "model_answer": "In order to find the zeros of the polynomial x^5 + 3x^3 + x^2 + 2x in the field Z_5, we have to first check if the coefficients of the polynomial are in the field and then evaluate the polynomial at each element of the field one by one.\n\n1. Check if the coefficients of the polynomial belong to Z_5:\n   x^5 -> 0 (in Z_5, since 5 is not a unit)\n   x^3 -> 0 (in Z_5, since 3 is not a unit)\n   x^2 -> 1 (in Z_5, since 2 is a unit)\n   2x -> 2 (in Z_5, since 2 is not a unit)\n\n2. Evaluate the polynomial at each element of the field Z_5:\n   (0 mod 5) -> 0\n   (1 mod 5) -> 1\n   (2 mod 5) -> 1\n   (3 mod 5) -> 4\n   (4 mod 5) -> 0\n\nThe values of x for which the polynomial evaluates to 0 are:\n   x = 2 mod 5 -> (C) 0,1",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "Statement 1 | A factor group of a non-Abelian group is non-Abelian. Statement 2 | If K is a normal subgroup of H and H is a normal subgroup of G, then K is a normal subgroup of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Let's analyze the given statements step-by-step:\n\nStatement 1: A factor group of a non-Abelian group is non-Abelian.\n\nConsider a non-Abelian group, G, with a non-commutative factorization g1 and g2. If G' is a factor group, then we can express G' as g1o_1 * o_1^-1, g2o_2 * o_2^-1. Since G is non-Abelian, g1 * g2 is not equal to g2 * g1.\nSimilarly, in G', (g1o_1) * (g2o_2) = g1*g2o_1*o_2, which is not equal to (g2o_2) * (g1o_1) = g2*g1o_2*o_1. This shows that G' is non-Abelian.\n\nSo, Statement 1 is True.\n\nStatement 2: If K is a normal subgroup of H and H is a normal subgroup of G, then K is a normal subgroup of G.\n\nConsider K as a normal subgroup of H, meaning for all elements h in H, hKh^-1 = K. And also consider H as a normal subgroup of G, meaning for all elements g in G, gHg^-1 = H. Now, consider an element g in G and its effect on K:\ngKg^-1 = g(hKh^-1)g^-1 = gHg^-1 (since K is normal in H) = H (since H is normal in G) = K.\n\nSo, K is a normal subgroup of G.\n\nStatement 2 is True.\n\nComparing both statements, we find that both are True.\n\nSo, the answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "Find the product of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x) = 2x^2 - 4x + 2 in Z_8[x].\n\n(A) 2x^2 + 5\n(B) 6x^2 + 4x + 6\n(C) 0\n(D) x^2 + 1",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Write down the given polynomials.\nf(x) = 4x - 5\ng(x) = 2x^2 - 4x + 2\n\nStep 2: Multiply the coefficients of like terms.\n(4x - 5)(2x^2 - 4x + 2) = 4x^3 - 4x^2 - 20x^2 + 10x - 5 + 10 = 4x^3 - 20x^2 - 5x + 10\n\nStep 3: Collect like terms.\n4x^3 - 20x^2 - 5x + 10 = 4x^3 - 25x^2 + 10\n\nStep 4: Reduce the polynomial modulo 8.\n4x^3 mod 8 = 4 mod 8 = 4\n25x^2 mod 8 = 25 mod 8 = 1\n10 mod 8 = 2\n\nFinal polynomial in Z_8 is f(x)g(x) = 4x^3 + 1x^2 + 2(mod 8)\n\nBy comparing this polynomial with the given choices, the answer is:\n(B) 6x^2 + 4x + 6",
+            "correct": true
+        },
+        {
+            "id": 5,
+            "question": "Statement 1 | If a group has an element of order 15 it must have at least 8 elements of order 15. Statement 2 | If a group has more than 8 elements of order 15, it must have at least 16 elements of order 15.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "t-r-u-e",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Statement 1 | Every homomorphic image of a group G is isomorphic to a factor group of G. Statement 2 | The homomorphic images of a group G are the same (up to isomorphism) as the factor groups of G.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "To answer this question, we need to evaluate both Statement 1 and Statement 2.\n\nStatement 1: Let's suppose that every homomorphic image of a group G is isomorphic to a factor group of G. If G is a group and H is a homomorphic image of G, then H is isomorphic to some factor group of G. In essence, it says that from any group there can be precisely isomorphic images (by homomorphisms) of factor groups constructed from the group.\n\nStatement 2: Here, we are comparing homomorphic images and factor groups of a group G (with respect to up to isomorphism). If we take two homomorphic images of G as H1 and H2, both maps to G are homomorphisms and thus isomorphic to some factor groups of G. If we look at factor groups of G, let's say G1 and G2, they can also be isomorphic to each other. Therefore, the homomorphic images of a group G are essentially the same (up to isomorphism) as the factor groups of G.\n\nNow, evaluating the statements based on their truth value:\n- Statement 1 is True\n- Statement 2 is True\n\nSo, the correct answer is (A) True, True",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "Statement 1 | A ring homomorphism is one to one if and only if the kernel is {0}. Statement 2 | Q is an ideal in R.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "The question asks for a specific case when a ring homomorphism is one-to-one (injective) and its kernel is {0}, and also whether Q is an ideal in R. \n\nFirst, let's address statement 1, which asserts that a ring homomorphism is one-to-one if and only if the kernel is {0}. The kernel of a ring homomorphism is the set of elements in the domain that map to zero in the co-domain. It's well known that the image of any element in a ring homomorphism is uniquely determined by the positive powers of that element. If the kernel is {0}, this implies that all other elements have unique images. Therefore, the ring homomorphism is one-to-one (injective). This statement represents a valid proof that the statement A is true.\n\nNow let's look at statement 2. A subset Q is an ideal in a commutative ring R if it is a subgroup of the additive group of R, and furthermore:\n1. Any element in Q times an element in R is also in Q (left-multiplication property)\n2. Any element in R times an element in Q is also in Q (right-multiplication property)\n\nAs Q is given as an ideal in R, we can infer that both left- and right-multiplication properties hold. Therefore, statement B is also true and Q is an ideal in R.\n\nBased on our analysis, the given statements are both true. The final line, containing the answer as a single letter with parenthesis without anything else, is: \n\n(A) True, True",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Find the degree for the given field extension Q(sqrt(2) + sqrt(3)) over Q.\n\n(A) 0\n(B) 4\n(C) 2\n(D) 6",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Understand the field extension given.\nThe given field extension is Q(\u221a2 + \u221a3), which means we extend the rational numbers Q by adjoining the element \u221a2 + \u221a3.\n\nStep 2: Write down a minimal polynomial for the field extension.\nThe minimal polynomial for adjoining an element is often the polynomial with the element as a root, with coefficients in the base field. In our case, the minimal polynomial is x^2 - (\u221a2 + \u221a3)^2.\n\nStep 3: Expand the square and simplify.\n(\u221a2 + \u221a3)^2 = 2 + 2\u221a6 + 3 = 5 + 2\u221a6.\nSo, x^2 - (5 + 2\u221a6) = 0 and the minimal polynomial is (x - (\u221a2 + \u221a3))(x + (\u221a2 + \u221a3)) = x^2 - 5x - 2\u221a6x + 6.\n\nStep 4: Count the number of distinct roots in Q for the minimal polynomial.\nThe minimal polynomial has degree 2 and has two distinct roots since 6 is not a square in Q, and the coefficients of the polynomial are rational numbers. So the field extension has degree 2 over the rational numbers.\n\nAnswer: (C) 2",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "Find all zeros in the indicated finite field of the given polynomial with coefficients in that field. x^3 + 2x + 2 in Z_7\n\n(A) 1\n(B) 2\n(C) 2,3\n(D) 6",
+            "correct_answer": 2,
+            "model_answer": "To find the zeros of the given polynomial, we first need to understand the finite field of the polynomial which is Z_7. \n\nThe polynomial given is:\nx^3 + 2x + 2\n\nWe will substitute values of x from 0 to 6 and check if the result for each case is divisible by the modulo 7 or not.\n\n(A) When x=1\n1^3 + 21 + 2\n= 1 + 2 + 2\n= 5\nSince 5 (mod 7) is not equal to 0, the case x=1 is not a root.\n\n(B) When x=2\n2^3 + 22 + 2\n= 8 + 4 + 2\n= 14\nSince 14 (mod 7) is congruent to 0, x=2 is a root.\n\n(C) When x=3\n3^3 + 23 + 2\n= 27 + 6 + 2\n= 35\nSince 35 (mod 7) is congruent to 0, x=3 is a root.\n\n(D) When x=4\n4^3 + 24 + 2\n= 64 + 8 + 2\n= 74\nSince 74 (mod 7) is not equal to 0, the case x=4 is not a root.\n\n(E) When x=5\n5^3 + 25 + 2\n= 125 + 10 + 2\n= 137\nSince 137 (mod 7) is congruent to 0, x=5 is a root.\n\n(F) When x=6\n6^3 + 26 + 2\n= 216 + 12 + 2\n= 230\nSince 230 (mod 7) is not equal to 0, the case x=6 is not a root.\n\nTo summarize, the roots of the polynomial in Z_7 are:\n(B) x=2, (C) x=3, (E) x=5.\n\nSo the answer is (C) 2,3.",
+            "correct": true
+        }
+    ]
+}
