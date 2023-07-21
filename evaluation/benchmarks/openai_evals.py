@@ -273,9 +273,9 @@ class CompletionFn(evals.api.CompletionFn):
 
         if max_tokens is not None:
             assert isinstance(max_tokens, int) and not isinstance(max_tokens, bool)
-            if max_tokens < 1 or max_tokens > 2048:
+            if max_tokens < 1 or max_tokens > 3072:
                 print('MAX_TOKENS', max_tokens)
-            assert max_tokens >= 1 and max_tokens <= 2048
+            assert max_tokens >= 1 and max_tokens <= 3072
 
         assert top_p is None or top_p == 1
         assert frequency_penalty is None or frequency_penalty == 0
