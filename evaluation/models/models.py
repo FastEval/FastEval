@@ -20,6 +20,7 @@ from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
 from evaluation.models.chatml import ChatML
 from evaluation.models.starchat import Starchat
 from evaluation.models.llama2_chat import Llama2Chat
+from evaluation.models.free_willy2 import FreeWilly2
 
 config_dict_cache = {}
 
@@ -36,6 +37,7 @@ def create_model(model_type: str, model_name: str, **kwargs):
         'chatml': ChatML,
         'starchat': Starchat,
         'llama2-chat': Llama2Chat,
+        'free-willy2': FreeWilly2,
     }
 
     if model_type not in model_classes:
@@ -53,7 +55,10 @@ def get_config_dict(model_name):
     return config_dict
 
 def get_dtype(model_name: str):
-    return get_config_dict(model_name).torch_dtype
+    dtype = get_config_dict(model_name).torch_dtype
+    if dtype == torch.float32:
+        dtype = torch.bfloat16
+    return dtype
 
 def is_vllm_supported(model_name: str):
     if 'starchat' in model_name:
