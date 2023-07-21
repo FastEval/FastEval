@@ -1,59 +1,79 @@
 {
     "math": {
         "aime_evaluation.dev.v0": "AIME math competition",
-        "algebra-word-problems.s1.simple-v0": "Basic algebra word problems",
         "math-derivatives.dev.v0": "Test the model's ability to calculate math functions derivatives.",
         "math_equations.dev.v0": "Test model's ability to explain and solve math equations described in words.",
         "math_for_5th-grader.dev.v0": "Evaluates the model's ability to solve 5th grade level math problems with slightly complicated sentences.",
         "math_logic_operations.dev.v0-1": "Evaluates the model's ability to perform mathematical operations given a redefinition of standard operation rules.",
-        "math_polish.dev.v0": "Test the model's ability to solve simple math problems written in Polish language using words and respond in the same way.",
         "probability": {
             "probabilities-word-problems.test.v1": "Test the model's ability to calculate probabilities given word problems.",
-            "probability-questions.dev.v0": "A collection of probability questions that ChatGPT fails.  Let's see if GPT-4 can do better.",
+            "probability-questions.dev.v0": "Probability questions"
         },
-        "simple_math.dev.v0": "Eval that checks ability to do simple math questions.",
+        "simple": {
+            "simple_math.dev.v0": "Eval that checks ability to do simple math questions.",
+            "algebra-word-problems.s1.simple-v0": "Basic algebra word problems"
+        },
         "linear-equations.dev.v0": null,
         "linear-regression.dev.v0": "Tests the model's ability to run linear regressions on small datasets",
-        "linear-regression-meta.dev.v0": "Tests the model's ability evaluate submissions against the correct answer",
+        "linear-regression-meta.dev.v0": "Meta-Eval",
         "arithmetic-expression.dev.v0": "Generate arithmetic expressions",
         "arithmetical_puzzles.dev.v0": "Solve arithmetical puzzles in natural language",
         "determinant.test.v1": null,
         "multi-step-equations.dev.v0": null,
         "count_intersections_polynomial.dev.v0": "Count intersections between x-axis and a polynomial",
         "matrix_mult_rows.dev.v0": "Test the model's mathematical ability to infer what is needed to multiply two matrices.",
+        "chinese-remainder-theorem.dev.v0": "Solve systems of congruences"
     },
     "computer-science": {
-        "bitwise.dev.v0": "Simulate a simple bitwise operating machine",
-        "forth-stack-sim.dev.v0": "Simulate a simple forth stack machine",
-        "forth-stack-sim-basic.dev.v0": "Simulate a simple forth stack machine",
-        "forth-stack-sim-detailed.dev.v0": "Simulate a simple forth stack machine",
-        "pointer-value-retrieval-easy-few-examples.dev.v0": "Easy pointer-value retrieval task from few examples, pointer is seperated from values.",
-        "pointer-value-retrieval-easy-many-examples.dev.v0": "Easy pointer-value retrieval task from many examples, pointer is separated from values.",
-        "pointer-value-retrieval-medium-few-examples.dev.v0": "Medium difficulty pointer-value retrieval task from few examples, pointer targets multiple values.",
-        "pointer-value-retrieval-medium-many-examples.dev.v0": "Medium difficulty pointer-value retrieval task from many examples, pointer targets multiple values.",
-        "pointer-value-retrieval-hard-few-examples.dev.v0": "Hard pointer-value retrieval task from few examples, pointer hidden among values.",
-        "pointer-value-retrieval-hard-many-examples.dev.v0": "Hard pointer-value retrieval task from many examples, pointer hidden among values.",
-        "css-selectors-verbal.dev.v0": "Translate natural language to CSS selectors",
-        "css-selectors-explain.dev.v0": "Translate CSS selectors to natural language",
-        "python_list_comprehension.dev.v0": "Test model's ability to understand a basic usage of python's list comprehension syntax.",
+        "simulate": {
+            "bitwise.dev.v0": "Simulate a simple bitwise operating machine",
+            "forth-stack-machine": {
+                "forth-stack-sim.dev.v0": "Simulate a simple forth stack machine",
+                "forth-stack-sim-basic.dev.v0": "Simulate a simple forth stack machine",
+                "forth-stack-sim-detailed.dev.v0": "Simulate a simple forth stack machine"
+            }
+        },
+        "pointer-value-retrieval": {
+            "pointer-value-retrieval-easy-few-examples.dev.v0": "Easy pointer-value retrieval task from few examples, pointer is seperated from values.",
+            "pointer-value-retrieval-easy-many-examples.dev.v0": "Easy pointer-value retrieval task from many examples, pointer is separated from values.",
+            "pointer-value-retrieval-medium-few-examples.dev.v0": "Medium difficulty pointer-value retrieval task from few examples, pointer targets multiple values.",
+            "pointer-value-retrieval-medium-many-examples.dev.v0": "Medium difficulty pointer-value retrieval task from many examples, pointer targets multiple values.",
+            "pointer-value-retrieval-hard-few-examples.dev.v0": "Hard pointer-value retrieval task from few examples, pointer hidden among values.",
+            "pointer-value-retrieval-hard-many-examples.dev.v0": "Hard pointer-value retrieval task from many examples, pointer hidden among values."
+        },
+        "programming-languages": {
+            "css": {
+                "css-selectors-verbal.dev.v0": "Translate natural language to CSS selectors",
+                "css-selectors-explain.dev.v0": "Translate CSS selectors to natural language"
+            },
+            "python": {
+                "python_list_comprehension.dev.v0": "Test model's ability to understand a basic usage of python's list comprehension syntax."
+            },
+            "sql": {
+                "spider-sql.dev.v0": "Spider SQL dataset",
+                "co-sql.dev.v0": "Text-to-SQL",
+                "singlestore-vectorsearch.dev.v0": "Accurately generate the SQL query with the correct syntax for performing vector search in SingleStore DB."
+            },
+            "csharp-linq.dev.v0": "C# code understanding"
+        },
         "computer-science-problems.s1.simple-v0": "Computer science multiple choice",
         "automata-and-complexity.dev.v0": "Computer science true/false questions",
         "infiniteloop-match.s1.simple-v0": "Halting problem",
-        "spider-sql.dev.v0": "Spider SQL dataset",
         "context-free-grammar.dev.v0": "Context-free-grammar understanding",
-        "coq-editing.dev.v0": "Coq code understanding",
-        "coq-proof-step-match.dev.v0": "Coq code understanding",
-        "coq-editing-meta.dev.v0": null,
-        "co-sql.dev.v0": "Text-to-SQL",
+        "coq": {
+            "coq-editing.dev.v0": "Coq code understanding",
+            "coq-proof-step-match.dev.v0": "Coq code understanding",
+            "coq-editing-meta.dev.v0": null
+        },
+        "windows": {
+            "cybersecurity-filepaths.dev.v0": "Identify malicious Windows filepath",
+            "event-categories.dev.v0": "Categorize Windows Event Logs"
+        },
         "code_combination.dev.v0": "Combine code snippets",
         "code_progress.dev.v0": "Code understanding",
-        "csharp-linq.dev.v0": "C# code understanding",
-        "cybersecurity-filepaths.dev.v0": "Identify malicious Windows filepath",
-        "event-categories.dev.v0": "Categorize Windows Event Logs",
         "reverse-polish-notation.dev.v0": "Test the model's ability to parse expression and create reverse polish notation.",
         "reverse-shell.dev.v0": "Test the model's ability to classify whether the code is reverse shell attack.",
-        "singlestore-vectorsearch.dev.v0": "Accurately generate the SQL query with the correct syntax for performing vector search in SingleStore DB.",
-        "syntax-check.dev.v1": "Test the model's ability to determine programming language from a snippet.",
+        "syntax-check.dev.v1": "Test the model's ability to determine programming language from a snippet."
     },
     "logic": {
         "born-first.dev.v0": "Determine who was born first",
@@ -78,7 +98,7 @@
         "integer-sequence-predictions-notable.dev.v0": null,
         "integer-sequence-predictions-obscure.dev.v0": null,
         "integer-sequence-predictions-misc.dev.v0": null,
-        "logiqa.dev.v0": null,
+        "logiqa.dev.v0": null
     },
     "language": {
         "belarusian": {
@@ -91,64 +111,75 @@
             "belarusian-russian-translation.dev.v0": "Translate Belarusian into Russian and back",
             "belarusian-syllable-count.dev.v0": "Count syllables in Belarusian words.",
             "belarusian-synonyms.dev.v0": "Classify if the Belarusian words are synonyms or not",
-            "belarusian-word-analogy-inflection.dev.v0": "Solve Belarusian word analogy problems",
+            "belarusian-word-analogy-inflection.dev.v0": "Solve Belarusian word analogy problems"
         },
         "bulgarian": {
-            "bulgarian-lexicon.dev.v0": "Distinguish between existing and hallucinated Bulgarian words",
+            "bulgarian-lexicon.dev.v0": "Distinguish between existing and hallucinated Bulgarian words"
         },
         "brazilian": {
-            "brazilian-lexicon.dev.v0": "Distinguish between existing Brazilian words",
+            "brazilian-lexicon.dev.v0": "Distinguish between existing Brazilian words"
         },
         "english": {
             "categorize-with-distractors.dev.v0": "Classify nouns",
-            "test_english_pronunciations.dev.v0": "We evaluated the ability of GPT to distinguish between words that have the same pronunciation in standard British English.",
+            "test_english_pronunciations.dev.v0": "Distinguish between words that have the same pronunciation English"
         },
-        "ukraine": {
-            "ukraine-gec-fluency-style.dev.v0": "Fluency eval. Test the model's ability to detect and correct style errors.",
-            "ukraine-gec-fluency-calque.dev.v0": "Fluency eval. Test the model's ability to detect and correct word-for-word translation from other languages errors.",
-            "ukraine-gec-fluency-poorflow.dev.v0": "Fluency eval. Test the model's ability to detect and correct unnatural sentence flow errors.",
-            "ukraine-gec-fluency-repetition.dev.v0": "Fluency eval. Test the model's ability to detect and correct repetition of words errors.",
-            "ukraine-gec-fluency-other.dev.v0": "Fluency eval. Test the model's ability to detect and correct other fluency errors errors.",
-            "ukraine-gec-grammar-aspect.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of verb aspect errors.",
-            "ukraine-gec-grammar-case.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of case of any notional part of speech errors.",
-            "ukraine-gec-grammar-comparison.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect formation of comparison degrees of adjectives and adverbs errors.",
-            "ukraine-gec-grammar-conjunction.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of conjunctions errors.",
-            "ukraine-gec-grammar-gender.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of gender of any notional part of speech errors.",
-            "ukraine-gec-grammar-number.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of number of any notional part of speech errors.",
-            "ukraine-gec-grammar-partvoice.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of participle voice errors.",
-            "ukraine-gec-grammar-prep.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect preposition usage errors.",
-            "ukraine-gec-grammar-tense.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of verb tense errors.",
-            "ukraine-gec-grammar-ungrammaticalstructure.dev.v0": "Grammar eval. Test the model's ability to detect and correct digression from syntactic norms errors.",
-            "ukraine-gec-grammar-verbaform.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of an analytical verb form errors.",
-            "ukraine-gec-grammar-verbvoice.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of verb voice errors.",
-            "ukraine-gec-grammar-other.dev.v0": "Grammar eval. Test the model's ability to detect and correct other grammatical errors errors.",
+        "ukrainian": {
+            "grammar": {
+                "ukraine-gec-grammar-aspect.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of verb aspect errors.",
+                "ukraine-gec-grammar-case.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of case of any notional part of speech errors.",
+                "ukraine-gec-grammar-comparison.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect formation of comparison degrees of adjectives and adverbs errors.",
+                "ukraine-gec-grammar-conjunction.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of conjunctions errors.",
+                "ukraine-gec-grammar-gender.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of gender of any notional part of speech errors.",
+                "ukraine-gec-grammar-number.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of number of any notional part of speech errors.",
+                "ukraine-gec-grammar-partvoice.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of participle voice errors.",
+                "ukraine-gec-grammar-prep.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect preposition usage errors.",
+                "ukraine-gec-grammar-tense.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of verb tense errors.",
+                "ukraine-gec-grammar-ungrammaticalstructure.dev.v0": "Grammar eval. Test the model's ability to detect and correct digression from syntactic norms errors.",
+                "ukraine-gec-grammar-verbaform.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of an analytical verb form errors.",
+                "ukraine-gec-grammar-verbvoice.dev.v0": "Grammar eval. Test the model's ability to detect and correct incorrect usage of verb voice errors.",
+                "ukraine-gec-grammar-other.dev.v0": "Grammar eval. Test the model's ability to detect and correct other grammatical errors errors."
+            },
+            "fluency": {
+                "ukraine-gec-fluency-style.dev.v0": "Fluency eval. Test the model's ability to detect and correct style errors.",
+                "ukraine-gec-fluency-calque.dev.v0": "Fluency eval. Test the model's ability to detect and correct word-for-word translation from other languages errors.",
+                "ukraine-gec-fluency-poorflow.dev.v0": "Fluency eval. Test the model's ability to detect and correct unnatural sentence flow errors.",
+                "ukraine-gec-fluency-repetition.dev.v0": "Fluency eval. Test the model's ability to detect and correct repetition of words errors.",
+                "ukraine-gec-fluency-other.dev.v0": "Fluency eval. Test the model's ability to detect and correct other fluency errors errors."
+            },
             "ukraine_electronic_petitions.val.v0": null
         },
         "chinese": {
+            "numbers": {
+                "convert": {
+                    "convert_chinese_lower_case_num_to_num.dev.v0": "Converting chinese numbers",
+                    "convert_num_to_chinese_lower_case_num.dev.v0": "Converting chinese numbers",
+                    "convert_chinese_upper_case_num_to_num.dev.v0": "Converting chinese numbers",
+                    "convert_num_to_chinese_upper_case_num.dev.v0": "Converting chinese numbers"
+                },
+                "number-reading.dev.v0": "Translate chinese to arabic numerals",
+            },
+            "literature": {
+                "chinese_ancient_masterpieces_dynasty.dev.v0": "Identify the dynasty of Chinese ancient masterpieces",
+                "chinese_ancient_poetry.dev.v0": "Chinese poem knowledge",
+                "chinese_chu_ci.dev.v0": "Chinese poem knowledge",
+                "chinese_famous_novel.dev.v0": "Chinese novel knowledge",
+                "chinese_modern_poem_identification.test.v1": null,
+                "chinese_poem.dev.v0": null,
+                "chinese_tang_poetries.dev.match-v1": "Chinese poem knowledge",
+            },
+            "dates": {
+                "iso-to-lunar-calendar.dev.v0": "Test the model's ability to convert dates from ISO 8601 format into the Chinese lunar calendar.\n\nAll dates are in the future as of 2023-05-04.",
+                "lunar-calendar-to-iso.dev.v0": "Test the model's ability to convert dates from the Chinese lunar calendar into ISO 8601 format, with a target Gregorian-calendar year given as a hint (the lunar calendar operates on a 60-year cycle, so this eliminates any ambiguity).\n\nAll dates are in the future as of 2023-05-04.",
+            },
             "chinese-lantern-riddles.dev.v0": "Solve Chinese lantern riddles",
-            "chinese-remainder-theorem.dev.v0": "Solve systems of congruences",
-            "chinese_ancient_masterpieces_dynasty.dev.v0": "Identify the dynasty of Chinese ancient masterpieces",
-            "chinese_ancient_poetry.dev.v0": "Chinese poem knowledge",
-            "chinese_chu_ci.dev.v0": "Chinese poem knowledge",
-            "chinese_famous_novel.dev.v0": "Chinese novel knowledge",
             "chinese_hard_translations.dev.v0": "Chinese language understanding",
             "chinese_homonym.dev.v0": "Chinese language understanding",
             "chinese-homophonic.dev.v0": null,
             "chinese_idioms.dev.v0": "Recognize Chinese idioms",
-            "chinese_modern_poem_identification.test.v1": null,
-            "chinese_poem.dev.v0": null,
             "chinese_shi_jing.test.v1": null,
             "chinese_song_ci.dev.v0": null,
-            "chinese_tang_poetries.dev.match-v1": "Chinese poem knowledge",
             "chinese_zodiac.dev.v0": null,
-            "convert_chinese_lower_case_num_to_num.dev.v0": "Converting chinese numbers",
-            "convert_num_to_chinese_lower_case_num.dev.v0": "Converting chinese numbers",
-            "convert_chinese_upper_case_num_to_num.dev.v0": "Converting chinese numbers",
-            "convert_num_to_chinese_upper_case_num.dev.v0": "Converting chinese numbers",
             "Chinese_character_riddles.dev.v0": "Chinese characters, language and culture",
-            "number-reading.dev.v0": "Translate chinese to arabic numerals",
-            "iso-to-lunar-calendar.dev.v0": "Test the model's ability to convert dates from ISO 8601 format into the Chinese lunar calendar.\n\nAll dates are in the future as of 2023-05-04.",
-            "lunar-calendar-to-iso.dev.v0": "Test the model's ability to convert dates from the Chinese lunar calendar into ISO 8601 format, with a target Gregorian-calendar year given as a hint (the lunar calendar operates on a 60-year cycle, so this eliminates any ambiguity).\n\nAll dates are in the future as of 2023-05-04.",
             "mapping_to_matricies.dev.v0": null,
             "Unfamiliar-Chinese-Character.dev.v0": null,
             "canto_wu_pronunciation.dev.v0": "Understand Cantonenese and Wu Chinese pronounciation (zero-shot)",
@@ -170,14 +201,15 @@
             "japanese_driving_license.s1.simple-v0": "Japanese Driving licence exam",
             "job_listing_title_for_a_caregiver_in_japan.test.v1": "Job listing title for a caregiver in Japan",
             "japanese-remote-island-to-prefecture.dev.v0": "Answer prefecture of given Japanese remote island",
-            "test_japanese_english_numerals.dev.v0": "We evaluated the ability of GPT to distinguish between Japanese numerical representations and English translations.",
-            "test_japanese_radical.dev.v0": "In Japan, the radical changes depending on the type of kanji. Test your reading of various radicals.",
-            "test-japanese-units.dev.v0": "In Japan, when counting things, the unit changes depending on the type. Test your use of complex units.",
+            "test_japanese_english_numerals.dev.v0": "Distinguish between Japanese numerical representations and English translations",
+            "test_japanese_radical.dev.v0": "In Japan, the radical changes depending on the type of kanji. Test reading of various radicals.",
+            "test-japanese-units.dev.v0": "In Japan, when counting things, the unit changes depending on the type. Test use of complex units.",
             "kanji-idioms.test.v0": "Ability to recognize kanji idioms.",
-            "manga-translation-page.dev.v0": null,
-            "manga-translation-panel.dev.v0": null,
-            "manga-translation-bubble.dev.v0": null,
-
+            "manga-translation": {
+                "manga-translation-page.dev.v0": null,
+                "manga-translation-panel.dev.v0": null,
+                "manga-translation-bubble.dev.v0": null
+            }
         },
         "korean": {
             "korean-consonant-vowel-combination.dev.v0": "Combine Korean consonants and vowels to form Hangul character",
@@ -191,7 +223,7 @@
             "korean_spelling.dev.v0": null,
             "korean_yaminjeongeum.dev.v0": "Yamin-Jeongeum is a leetspeak for Korean. Test your ability to translate it to proper Korean.",
             "confusing_korean.dev.v0": "Korean language understanding",
-            "pure_korean.dev.v0": "Evaluates GPT can identify pure Korean words.",
+            "pure_korean.dev.v0": "Evaluates GPT can identify pure Korean words."
         },
         "norwegian": {
             "norwegian-lexicon.dev.v0": "Test the model's ability to distinguish old Norwegian words.",
@@ -210,6 +242,7 @@
             "polish-proverbs.dev.v0": "Test the model's ability to complete proverbs in Polish language",
             "polish-syllable-count.val.v0": null,
             "polish_rhymes_generation.v0": "Generating polish rhymes.",
+            "math_polish.dev.v0": "Test the model's ability to solve simple math problems written in Polish language using words and respond in the same way."
         },
         "hebrew": {
             "hebrew-homophones.dev.v0": "Number of Hebrew homophone errors in a sentence",
