@@ -78,12 +78,18 @@ export async function createTaskV(baseUrl, models, modelsMap, task, parameters) 
     containerE.appendChild(samplesE)
     samplesE.classList.add('samples')
 
+    const sampleId = parameters.get('sample')
+
     for (const item of data.model_outputs) {
+        if (sampleId !== undefined && parseInt(sampleId) !== item.id)
+            continue
+
         const itemE = document.createElement('div')
         itemE.classList.add('sample')
         samplesE.appendChild(itemE)
 
         itemE.append(
+            createLinkE('ID: ' + item.id, { sample: item.id }),
             createTextE('The following question was asked:'),
             createConversationItemE('user', item.question),
             createTextE('The following answer was expected:'),
