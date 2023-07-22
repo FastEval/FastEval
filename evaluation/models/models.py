@@ -55,10 +55,7 @@ def get_config_dict(model_name):
     return config_dict
 
 def get_dtype(model_name: str):
-    dtype = get_config_dict(model_name).torch_dtype
-    if dtype == torch.float32:
-        dtype = torch.bfloat16
-    return dtype
+    return get_config_dict(model_name).torch_dtype
 
 def is_vllm_supported(model_name: str):
     if 'starchat' in model_name:
