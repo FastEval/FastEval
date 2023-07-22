@@ -424,6 +424,11 @@ export async function fetchAndComputeScoresTree({ modelsNames, baseUrl }) {
     return computeScoreTree(tree, scoresByFilename)
 }
 
+export async function getTotalScores({ models, baseUrl }) {
+    models = models.filter(model => model.benchmarks.includes('openai-evals'))
+    return (await fetchAndComputeScoresTree({ modelsNames: models.map(model => model.model_name), baseUrl })).all.scores
+}
+
 export async function createV(baseUrl, parameters) {
     if (parameters.has('node') && parameters.has('model'))
         return createSingleEvalV(baseUrl, parameters.get('node'), parameters.get('model'), parameters.get('sample'))

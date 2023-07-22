@@ -176,14 +176,12 @@ export async function createBenchmarksIndexV(baseUrl) {
         cotResults,
         mtBenchResults,
     ] = await Promise.all([
-        fetchFiles(baseUrl, models, 'openai-evals', '/__index__.json'),
+        OpenAIEvals.getTotalScores({ models, baseUrl }),
         fetchFiles(baseUrl, models, 'lm-evaluation-harness'),
         fetchFiles(baseUrl, models, 'human-eval-plus', '/scores.json'),
         fetchFiles(baseUrl, models, 'cot', '/scores.json'),
         fetchFiles(baseUrl, models, 'mt-bench', '/scores.json'),
     ])
-
-    const relativeOpenAiEvalsScores = OpenAIEvals.computeRelativeOpenAiEvalsScores(Object.fromEntries(openaiEvalsResults)).averageRelativeScoresByModelName
 
     const averageLmEvaluationHarnessScores =  Object.fromEntries(lmEvaluationHarnessResults.map(([modelName, results]) =>
         [modelName, LMEvaluationHarness.computeAverageScore(results.results)]))
@@ -201,7 +199,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         if (benchmarkName === 'lm-evaluation-harness')
             return averageLmEvaluationHarnessScores[model]
         else if (benchmarkName === 'openai-evals')
-            return relativeOpenAiEvalsScores[model]
+            return openaiEvalsResults[model]
         else if (benchmarkName === 'human-eval-plus')
             return humanEvalPlusResultsMap[model].scores.plus
         else if (benchmarkName === 'cot')
