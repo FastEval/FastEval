@@ -300,9 +300,9 @@ export async function createEvalsIndexV(baseUrl) {
     )
     containerE.appendChild(explanationE)
 
-    const [models, evalsDescriptions] = await Promise.all([
+    const [models, evalsInformation] = await Promise.all([
         fetch(baseUrl + '/__index__.json').then(r => r.json()).then(r => r.filter(model => model.benchmarks.includes('openai-evals'))),
-        fetch('data/openai-evals/short-evals-descriptions.json').then(r => r.json()),
+        fetch('data/openai-evals/evals.json').then(r => r.json()),
     ])
 
     const modelsMap = createModelsMap(models)
@@ -337,7 +337,7 @@ export async function createEvalsIndexV(baseUrl) {
 
     for (const [reportFilename, { spec }] of Object.entries(reportsIndex[modelNamesByScore[0]]).sort()) {
         const reportE = tableBodyE.insertRow()
-        reportE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(spec.eval_name + ' ' + evalsDescriptions[spec.eval_name])))
+        reportE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(spec.eval_name)))
 
         const reportScores = scores.scoresByFilename[reportFilename]
         const relativeReportScores = scores.relativeScoresByFilename[reportFilename]
