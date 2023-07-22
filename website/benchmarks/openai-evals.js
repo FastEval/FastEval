@@ -281,7 +281,10 @@ async function createSingleEvalV(baseUrl, evalName, modelName, sampleId) {
     return containerE
 }
 
-export async function createEvalsTableV(baseUrl) {
+export async function createEvalsTableV(baseUrl, node) {
+    if (node === undefined)
+        node = ''
+
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE())
@@ -310,7 +313,9 @@ export async function createEvalsTableV(baseUrl) {
     const tableBodyE = reportsIndexE.createTBody()
     tableHeadE.insertCell().appendChild(createTextE('Task'))
 
-    const scoreTree = await fetchAndComputeScoresTree({ modelsNames, baseUrl })
+    let scoreTree = (await fetchAndComputeScoresTree({ modelsNames, baseUrl })).all
+    for (const pathPart of node.split('/').filter(e => e !== ''))
+        scoreTree = scoreTree.children[pathPart]
 
     const modelNamesByScore = Object.entries(scoreTree.scores)
         .sort(([model1Name, score1], [model2Name, score2]) => score2 - score1)
@@ -331,7 +336,7 @@ export async function createEvalsTableV(baseUrl) {
 
     for (const [childNodeName, childNodeInformation] of Object.entries(scoreTree.children)) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(childNodeName)))
+        rowE.insertCell().appendChild(createLinkE(allowCharacterLineBreaks(childNodeName), { node: node + '/' + childNodeName }))
         for (const modelName of modelNamesByScore)
             createTableScoreCell(rowE, createLinkE(round(childNodeInformation.scores[modelName]), { node: 'hello', model: modelName }),
                 childNodeInformation.scores[modelName])
@@ -399,11 +404,11 @@ export async function fetchAndComputeScoresTree({ modelsNames, baseUrl }) {
     const scoresByFilename = Object.fromEntries(Object.entries(reportsByFilename).map(([reportFilename, reportByModelName]) => [reportFilename,
         Object.fromEntries(Object.entries(reportByModelName).map(([modelName, { spec, final_report }]) => [modelName, getScores(spec, final_report)]))]))
 
-    return computeScoreTree(tree, scoresByFilename).all
+    return computeScoreTree(tree, scoresByFilename)
 }
 
 export async function createV(baseUrl, parameters) {
     if (parameters.has('report') && parameters.has('model'))
         return createSingleEvalV(baseUrl, parameters.get('report'), parameters.get('model'), parameters.get('sample'))
-    return await createEvalsTableV(baseUrl)
+    return await createEvalsTableV(baseUrl, parameters.get('node'))
 }
