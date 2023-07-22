@@ -347,11 +347,15 @@ export async function createEvalsTableV(baseUrl, node) {
         createTableScoreCell(tr, createTextE(round(scoreTree.scores[modelName])))
 
     for (const [childNodeName, childNodeInformation] of Object.entries(scoreTree.children)) {
-        const rowE = tableBodyE.insertRow()
         const childNodeType = childNodeName.includes('.') ? 'eval' : 'group'
-        const taskE = childNodeType === 'eval' ? createTextE(allowCharacterLineBreaks(childNodeName))
-            : createLinkE(allowCharacterLineBreaks(childNodeName), { node: node + '/' + childNodeName })
-        rowE.insertCell().appendChild(taskE)
+
+        const rowE = tableBodyE.insertRow()
+
+        if (childNodeType === 'eval')
+            rowE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(childNodeInformation.description)))
+        else
+            rowE.insertCell().appendChild(createLinkE(allowCharacterLineBreaks(childNodeName), { node: node + '/' + childNodeName }))
+
         for (const modelName of modelNamesByScore) {
             const scoreE = childNodeType === 'group' ? createTextE(round(childNodeInformation.scores[modelName]))
                 : createLinkE(round(childNodeInformation.scores[modelName]), { node: node + '/' + childNodeName, model: modelName })
