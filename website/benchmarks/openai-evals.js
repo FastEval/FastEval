@@ -314,11 +314,7 @@ export async function createEvalsIndexV(baseUrl) {
     const tableBodyE = reportsIndexE.createTBody()
     tableHeadE.insertCell().appendChild(createTextE('Task'))
 
-    const reportsIndex = Object.fromEntries(await Promise.all(modelNames.map(async modelName =>
-        [modelName, await ((await fetch(baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/__index__.json')).json())])))
-    const scores = computeRelativeOpenAiEvalsScores(reportsIndex)
-
-    const scoreTree = computeOpenAIEvalsScoreTree(evalsInformation, scores).all
+    const scoreTree = await computeRelativeOpenAiEvalsScores({ modelNames, baseUrl, evalsInformation })
 
     const modelNamesByScore = Object.entries(scoreTree.scores)
         .sort(([model1Name, score1], [model2Name, score2]) => score2 - score1)
@@ -367,13 +363,13 @@ function normalize(scores) {
     return result
 }
 
-export function computeOpenAIEvalsScoreTree(evalsInformation, relativeOpenAIEvalsScores) {
+export function computeOpenAIEvalsScoreTree({ evalsInformation, scoresByFilename }) {
     function processNode(node) {
         const output = {}
 
         for (const [k, v] of Object.entries(node)) {
             if (typeof v === 'string' || v === null) {
-                const scores = relativeOpenAIEvalsScores.scoresByFilename[k + '.json']
+                const scores = scoresByFilename[k + '.json']
                 if (scores !== undefined)
                     output[k] = { description: v, scores: normalize(scores) }
             } else if (typeof v === 'object') {
@@ -401,8 +397,10 @@ export function computeOpenAIEvalsScoreTree(evalsInformation, relativeOpenAIEval
     return processNode(evalsInformation)
 }
 
-export function computeRelativeOpenAiEvalsScores(openAiEvalsResults) {
-    const modelNames = Object.keys(openAiEvalsResults)
+export async function computeRelativeOpenAiEvalsScores({ modelNames, baseUrl, evalsInformation }) {
+    const openAiEvalsResults = Object.fromEntries(await Promise.all(modelNames.map(async modelName =>
+        [modelName, await ((await fetch(baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/__index__.json')).json())])))
+
     const firstModelName = modelNames[0]
     const firstModelResults = openAiEvalsResults[firstModelName]
     const reportsFilenames = Object.keys(firstModelResults)
@@ -410,24 +408,6 @@ export function computeRelativeOpenAiEvalsScores(openAiEvalsResults) {
         modelNames.map(modelName => [modelName, openAiEvalsResults[modelName][reportFilename]]))]))
     const scoresByFilename = Object.fromEntries(Object.entries(reportsByFilename).map(([reportFilename, reportByModelName]) => [reportFilename,
         Object.fromEntries(Object.entries(reportByModelName).map(([modelName, { spec, final_report }]) => [modelName, getScores(spec, final_report)]))]))
-    const maxScoresByFilename = Object.fromEntries(Object.entries(scoresByFilename).map(([reportFilename, scoresByModelName]) =>
-        [reportFilename, Math.max(...Object.values(scoresByModelName))]))
-    const minScoresByFilename = Object.fromEntries(Object.entries(scoresByFilename).map(([reportFilename, scoresByModelName]) =>
-        [reportFilename, Math.min(...Object.values(scoresByModelName))]))
-    const relativeScoresByFilename = Object.fromEntries(Object.entries(scoresByFilename).map(([reportFilename, scoresByModelName]) =>
-        [reportFilename, Object.fromEntries(Object.entries(scoresByModelName).map(([modelName, score]) =>
-            [modelName, (score - minScoresByFilename[reportFilename]) / (maxScoresByFilename[reportFilename] - minScoresByFilename[reportFilename])]))]))
-    const includedReportsFilenames = reportsFilenames.filter(reportFilename => {
-        for (const relativeModelScore of Object.values(relativeScoresByFilename[reportFilename]))
-            if (isNaN(relativeModelScore))
-                return false
-        return true
-    })
-    const relativeScoresByFilenameFiltered = Object.fromEntries(Object.entries(relativeScoresByFilename)
-        .filter(([reportFilename, _]) => includedReportsFilenames.includes(reportFilename)))
-    const relativeScoresByModelName = modelNames.map(modelName =>
-        [modelName, Object.values(relativeScoresByFilenameFiltered).map(relativeScores => relativeScores[modelName])])
-    const averageRelativeScoresByModelName = Object.fromEntries(relativeScoresByModelName
-        .map(([modelName, relativeScores]) => [modelName, relativeScores.reduce((a, b) => a + b, 0) / relativeScores.length]))
-    return { averageRelativeScoresByModelName, scoresByFilename, relativeScoresByFilename: relativeScoresByFilenameFiltered }
+
+    return computeOpenAIEvalsScoreTree({ scoresByFilename, evalsInformation }).all
 }
