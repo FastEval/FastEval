@@ -32,7 +32,7 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     return existing_models_and_benchmarks
 
 def main():
-    all_benchmarks = ['openai-evals', 'mt-bench', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
+    all_benchmarks = ['mt-bench', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
@@ -58,7 +58,6 @@ def main():
         ('mt-bench', benchmarks.mt_bench.evaluate_model),
         ('human-eval-plus', benchmarks.human_eval_plus.evaluate_model),
         ('cot', benchmarks.cot.evaluate_model),
-        ('openai-evals', benchmarks.openai_evals.evaluate_model),
     ]
 
     with changed_exit_handlers():
