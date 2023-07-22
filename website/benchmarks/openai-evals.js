@@ -248,7 +248,7 @@ function createSelectedModelReportV(report, selectedSampleId) {
     return containerE
 }
 
-async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
+async function createSingleEvalV(baseUrl, evalName, modelName, sampleId) {
     const models = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('openai-evals'))
     const modelsMap = createModelsMap(models)
@@ -281,7 +281,7 @@ async function createEvalReportsV(baseUrl, evalName, modelName, sampleId) {
     return containerE
 }
 
-export async function createEvalsIndexV(baseUrl) {
+export async function createEvalsTableV(baseUrl) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE())
@@ -289,24 +289,20 @@ export async function createEvalsIndexV(baseUrl) {
     const explanationE = document.createElement('div')
     explanationE.classList.add('openai-evals__explanation')
     const informationLinkE = document.createElement('a')
-    informationLinkE.textContent = 'OpenAI evals'
+    informationLinkE.textContent = 'OpenAI Evals'
     informationLinkE.href = 'https://github.com/openai/evals'
     explanationE.append(
         createTextE('This benchmark uses '),
         informationLinkE,
         createTextE(' and evaluates every model on a subset of all the tasks. It then computes a total score for every model. '
-            + 'This score depends on the other models, so it will slightly change as more models are added. '
-            + 'You can click on the numbers in the table below to see the model outputs on the benchmarks.')
+            + 'This score depends on the other models, so it will slightly change as more models are added. ')
     )
     containerE.appendChild(explanationE)
 
-    const [models, evalsInformation] = await Promise.all([
-        fetch(baseUrl + '/__index__.json').then(r => r.json()).then(r => r.filter(model => model.benchmarks.includes('openai-evals'))),
-        fetch('data/openai-evals/evals.json').then(r => r.json()),
-    ])
-
+    const models = await fetch(baseUrl + '/__index__.json')
+        .then(r => r.json()).then(r => r.filter(model => model.benchmarks.includes('openai-evals')))
     const modelsMap = createModelsMap(models)
-    const modelNames = models.map(model => model.model_name)
+    const modelsNames = models.map(model => model.model_name)
 
     const reportsIndexE = document.createElement('table')
     containerE.appendChild(reportsIndexE)
@@ -314,7 +310,7 @@ export async function createEvalsIndexV(baseUrl) {
     const tableBodyE = reportsIndexE.createTBody()
     tableHeadE.insertCell().appendChild(createTextE('Task'))
 
-    const scoreTree = await computeRelativeOpenAiEvalsScores({ modelNames, baseUrl, evalsInformation })
+    const scoreTree = await fetchAndComputeScoresTree({ modelsNames, baseUrl })
 
     const modelNamesByScore = Object.entries(scoreTree.scores)
         .sort(([model1Name, score1], [model2Name, score2]) => score2 - score1)
@@ -345,12 +341,6 @@ export async function createEvalsIndexV(baseUrl) {
     return containerE
 }
 
-export async function createV(baseUrl, parameters) {
-    if (parameters.has('report') && parameters.has('model'))
-        return createEvalReportsV(baseUrl, parameters.get('report'), parameters.get('model'), parameters.get('sample'))
-    return await createEvalsIndexV(baseUrl)
-}
-
 function normalize(scores) {
     const values = Object.values(scores)
     const min = Math.min(...values)
@@ -363,51 +353,57 @@ function normalize(scores) {
     return result
 }
 
-export function computeOpenAIEvalsScoreTree({ evalsInformation, scoresByFilename }) {
-    function processNode(node) {
-        const output = {}
+function computeScoreTree(node, scoresByFilename) {
+    const output = {}
 
-        for (const [k, v] of Object.entries(node)) {
-            if (typeof v === 'string' || v === null) {
-                const scores = scoresByFilename[k + '.json']
-                if (scores !== undefined)
-                    output[k] = { description: v, scores: normalize(scores) }
-            } else if (typeof v === 'object') {
-                const childNodeOutput = processNode(v)
-                if (Object.keys(childNodeOutput).length === 0)
-                    continue
-                const scores = {}
-                const numChildren = Object.keys(childNodeOutput).length
-                for (const [childK, childV] of Object.entries(childNodeOutput)) {
-                    for (const [modelName, modelScore] of Object.entries(childV.scores)) {
-                        if (!(modelName in scores))
-                            scores[modelName] = 0
-                        scores[modelName] += modelScore / numChildren
-                    }
+    for (const [k, v] of Object.entries(node)) {
+        if (typeof v === 'string' || v === null) {
+            const scores = scoresByFilename[k + '.json']
+            if (scores !== undefined)
+                output[k] = { description: v, scores: normalize(scores) }
+        } else if (typeof v === 'object') {
+            const childNodeOutput = computeScoreTree(v, scoresByFilename)
+            if (Object.keys(childNodeOutput).length === 0)
+                continue
+            const scores = {}
+            const numChildren = Object.keys(childNodeOutput).length
+            for (const [childK, childV] of Object.entries(childNodeOutput)) {
+                for (const [modelName, modelScore] of Object.entries(childV.scores)) {
+                    if (!(modelName in scores))
+                        scores[modelName] = 0
+                    scores[modelName] += modelScore / numChildren
                 }
-                output[k] = { children: childNodeOutput, scores: normalize(scores) }
-            } else {
-                throw new Error()
             }
+            output[k] = { children: childNodeOutput, scores: normalize(scores) }
+        } else {
+            throw new Error()
         }
-
-        return output
     }
 
-    return processNode(evalsInformation)
+    return output
 }
 
-export async function computeRelativeOpenAiEvalsScores({ modelNames, baseUrl, evalsInformation }) {
-    const openAiEvalsResults = Object.fromEntries(await Promise.all(modelNames.map(async modelName =>
-        [modelName, await ((await fetch(baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/__index__.json')).json())])))
+export async function fetchAndComputeScoresTree({ modelsNames, baseUrl }) {
+    const [tree, results] = await Promise.all([
+        fetch('data/openai-evals/evals.json').then(r => r.json()),
+        Promise.all(modelsNames.map(async modelName =>
+            [modelName, await ((await fetch(baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/__index__.json')).json())]))
+    ])
 
-    const firstModelName = modelNames[0]
-    const firstModelResults = openAiEvalsResults[firstModelName]
+    const resultsMap = Object.fromEntries(results)
+    const firstModelName = modelsNames[0]
+    const firstModelResults = resultsMap[firstModelName]
     const reportsFilenames = Object.keys(firstModelResults)
     const reportsByFilename = Object.fromEntries(reportsFilenames.map(reportFilename => [reportFilename, Object.fromEntries(
-        modelNames.map(modelName => [modelName, openAiEvalsResults[modelName][reportFilename]]))]))
+        modelsNames.map(modelName => [modelName, resultsMap[modelName][reportFilename]]))]))
     const scoresByFilename = Object.fromEntries(Object.entries(reportsByFilename).map(([reportFilename, reportByModelName]) => [reportFilename,
         Object.fromEntries(Object.entries(reportByModelName).map(([modelName, { spec, final_report }]) => [modelName, getScores(spec, final_report)]))]))
 
-    return computeOpenAIEvalsScoreTree({ scoresByFilename, evalsInformation }).all
+    return computeScoreTree(tree, scoresByFilename).all
+}
+
+export async function createV(baseUrl, parameters) {
+    if (parameters.has('report') && parameters.has('model'))
+        return createSingleEvalV(baseUrl, parameters.get('report'), parameters.get('model'), parameters.get('sample'))
+    return await createEvalsTableV(baseUrl)
 }
