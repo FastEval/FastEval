@@ -203,7 +203,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         return null
     }
 
-    const allBenchmarks = ['mt-bench', 'human-eval-plus', 'cot', 'lm-evaluation-harness']
+    const allBenchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
 
     const benchmarkMinimums = new Map()
     const benchmarkMaximums = new Map()
@@ -262,8 +262,8 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createTextE('Total'))
     theadE.insertCell()
     theadE.insertCell().appendChild(createLinkE('MT-Bench', { benchmark: 'mt-bench' }))
-    theadE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
     theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
+    theadE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
     theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
 
