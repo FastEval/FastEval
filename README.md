@@ -40,7 +40,7 @@ apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make python
 
 ### OpenAI API Key
 
-[MT-Bench](https://arxiv.org/abs/2306.05685) uses GPT-4 as a judge for evaluating model outputs. For this benchmarks, you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable. Note that methods other than setting this environment variable won't work. The cost of evaluating a new model on MT-Bench is approximately $5.
+[MT-Bench](https://arxiv.org/abs/2306.05685) uses GPT-4 as a judge for evaluating model outputs. For this benchmark, you need to configure an OpenAI API key by setting the `OPENAI_API_KEY` environment variable. Note that methods other than setting this environment variable won't work. The cost of evaluating a new model on MT-Bench is approximately $5.
 
 ## Evaluation
 
