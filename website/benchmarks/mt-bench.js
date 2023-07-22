@@ -115,8 +115,7 @@ export async function createV(baseUrl, parameters) {
         + 'It evaluates a LLM on a set of 80 conversations with two turns each. '
         + 'The 160 model outputs are then rated by GPT-4. '
         + 'The evaluation method should be the same as for the ', lmSysLeaderboardLinkE, ' so the results should be comparable. '
-        + 'Note however that due to the low number of samples, the variance in the results is quite high. '
-        + 'The LMSys leaderboard numbers may therefore differ somewhat for common models. ')
+        + 'Note however that due to differences in the model prompt templates and the low number of samples the numbers may be slightly different. ')
     explanationE.classList.add('mt-bench-explanation')
     containerE.appendChild(explanationE)
 
