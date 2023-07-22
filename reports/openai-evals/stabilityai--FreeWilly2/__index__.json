@@ -1,0 +1,3481 @@
+{
+    "match_banking77.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "match_banking77.test.v1",
+            "base_eval": "match_banking77",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "banking77/samples.jsonl"
+                    },
+                    "key": "match_banking77.test.v1",
+                    "group": "banking77"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741N7RG6QGP",
+            "created_at": "2023-07-21 23:57:41.526884"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "dutch-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "dutch-lexicon.dev.v0",
+            "base_eval": "dutch-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dutch-lexicon/samples.jsonl"
+                    },
+                    "key": "dutch-lexicon.dev.v0",
+                    "group": "dutch-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307212357414YSH75AM",
+            "created_at": "2023-07-21 23:57:41.605795"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "algebra-word-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "algebra-word-problems.s1.simple-v0",
+            "base_eval": "algebra-word-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "algebra_word_problems/samples.jsonl"
+                    },
+                    "key": "algebra-word-problems.s1.simple-v0",
+                    "group": "algebra-word-problems"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741VXJYBTVY",
+            "created_at": "2023-07-21 23:57:41.529378"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "first-letters.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "first-letters.dev.v0",
+            "base_eval": "first-letters",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "first-letters/samples.jsonl"
+                    },
+                    "key": "first-letters.dev.v0",
+                    "group": "first-letters"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741YDDL7MQ3",
+            "created_at": "2023-07-21 23:57:41.612007"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "chess.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "chess.match.dev.v0",
+            "base_eval": "chess",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess/match.jsonl"
+                    },
+                    "key": "chess.match.dev.v0",
+                    "group": "chess"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741BYI5R6RF",
+            "created_at": "2023-07-21 23:57:41.548033"
+        },
+        "final_report": {
+            "accuracy": 0.45,
+            "f1_score": 0.08333333333333333
+        }
+    },
+    "aba_mrpc_true_false.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "aba_mrpc_true_false.dev.v0",
+            "base_eval": "aba_mrpc_true_false",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "aba_mrpc_true_false/samples.jsonl"
+                    },
+                    "key": "aba_mrpc_true_false.dev.v0",
+                    "group": "aba-mrpc-true-false"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741KKL7VMAN",
+            "created_at": "2023-07-21 23:57:41.519987"
+        },
+        "final_report": {
+            "accuracy": 0.65
+        }
+    },
+    "cube-pack.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "cube-pack.dev.v0",
+            "base_eval": "cube-pack",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "cube-pack/samples.jsonl"
+                    },
+                    "key": "cube-pack.dev.v0",
+                    "group": "cube-pack"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741GLYLYRMO",
+            "created_at": "2023-07-21 23:57:41.584328"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "escher-sentences.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "escher-sentences.dev.v0",
+            "base_eval": "escher-sentences",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "escher_sentences/samples.jsonl"
+                    },
+                    "key": "escher-sentences.dev.v0",
+                    "group": "escher-sentences"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741NB5LH6UI",
+            "created_at": "2023-07-21 23:57:41.598684"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "greek-vocabulary.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "greek-vocabulary.dev.v0",
+            "base_eval": "greek-vocabulary",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "greek_vocabulary/samples.jsonl"
+                    },
+                    "key": "greek-vocabulary.dev.v0",
+                    "group": "greek-vocabulary"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741YYYDYYPF",
+            "created_at": "2023-07-21 23:57:41.619083"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "invoices.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "invoices.dev.v0",
+            "base_eval": "invoices",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "invoices/match.jsonl"
+                    },
+                    "key": "invoices.dev.v0",
+                    "group": "invoices"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741VHD4KU4A",
+            "created_at": "2023-07-21 23:57:41.857769"
+        },
+        "final_report": {
+            "accuracy": 0.35
+        }
+    },
+    "belarusian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "belarusian-lexicon.dev.v0",
+            "base_eval": "belarusian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "belarusian_lexicon/samples.jsonl"
+                    },
+                    "key": "belarusian-lexicon.dev.v0",
+                    "group": "belarusian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741G432ZBIO",
+            "created_at": "2023-07-21 23:57:41.544565"
+        },
+        "final_report": {
+            "accuracy": 0.55
+        }
+    },
+    "emoji-riddle.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "emoji-riddle.s1.simple-v0",
+            "base_eval": "emoji-riddle",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "emoji_riddle/fuzzy_match.jsonl"
+                    },
+                    "key": "emoji-riddle.s1.simple-v0",
+                    "group": "emoji-riddle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741Q5DUWQXK",
+            "created_at": "2023-07-21 23:57:41.591569"
+        },
+        "final_report": {
+            "accuracy": 0.15,
+            "f1_score": 0.175
+        }
+    },
+    "crepe.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "crepe.dev.v2",
+            "base_eval": "crepe",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "crepe/samples.jsonl"
+                    },
+                    "key": "crepe.dev.v2",
+                    "group": "crepe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741WJLJ4ZSR",
+            "created_at": "2023-07-21 23:57:41.569999"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "connect4.s1.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "connect4.s1.v1",
+            "base_eval": "connect4",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "connect4/samples.jsonl"
+                    },
+                    "key": "connect4.s1.v1",
+                    "group": "connect-4"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741JTREMFXL",
+            "created_at": "2023-07-21 23:57:41.562536"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "imperial_date_to_string.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "imperial_date_to_string.dev.v0",
+            "base_eval": "imperial_date_to_string",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "imperial_date_to_string/samples.jsonl"
+                    },
+                    "key": "imperial_date_to_string.dev.v0",
+                    "group": "imperial_date_to_string"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741RDNMBKRE",
+            "created_at": "2023-07-21 23:57:41.725250"
+        },
+        "final_report": {
+            "accuracy": 0.6
+        }
+    },
+    "forth-stack-sim.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "forth-stack-sim.dev.v0",
+            "base_eval": "forth-stack-sim",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/samples.jsonl"
+                    },
+                    "key": "forth-stack-sim.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741KXAFTEXI",
+            "created_at": "2023-07-21 23:57:41.616828"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "naughty_strings_graded.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "naughty_strings_graded.test.v1",
+            "base_eval": "naughty_strings_graded",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/security.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "security"
+                    },
+                    "key": "naughty_strings_graded.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000401ABMS7MHJ",
+            "created_at": "2023-07-22 00:04:01.924422"
+        },
+        "final_report": {
+            "counts/No": 8,
+            "counts/Unsure": 3,
+            "counts/Yes": 9,
+            "score": 0.525
+        }
+    },
+    "japanese-national-medical-exam01.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "japanese-national-medical-exam01.dev.v0",
+            "base_eval": "japanese-national-medical-exam01",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese-national-medical-exam01/japanese-national-medical-exam01.jsonl"
+                    },
+                    "key": "japanese-national-medical-exam01.dev.v0",
+                    "group": "japanese-national-medical-exam01"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741K7IRLWLS",
+            "created_at": "2023-07-21 23:57:41.779083"
+        },
+        "final_report": {
+            "accuracy": 0.13333333333333333
+        }
+    },
+    "bigrams.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "bigrams.dev.v0",
+            "base_eval": "bigrams",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bigrams/samples.jsonl"
+                    },
+                    "key": "bigrams.dev.v0",
+                    "group": "bigrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741G5CT7DCK",
+            "created_at": "2023-07-21 23:57:41.533623"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "forth-stack-sim-detailed.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "forth-stack-sim-detailed.dev.v0",
+            "base_eval": "forth-stack-sim-detailed",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/detailed_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-detailed.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741JD5JKCTN",
+            "created_at": "2023-07-21 23:57:41.732443"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "forth-stack-sim-basic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "forth-stack-sim-basic.dev.v0",
+            "base_eval": "forth-stack-sim-basic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "forth_stack_sim/basic_samples.jsonl"
+                    },
+                    "key": "forth-stack-sim-basic.dev.v0",
+                    "group": "forth-stack-sim"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741CR4EBSWJ",
+            "created_at": "2023-07-21 23:57:41.646649"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "compare-countries-area.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "compare-countries-area.dev.v0",
+            "base_eval": "compare-countries-area",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "compare-countries-area/samples.jsonl"
+                    },
+                    "key": "compare-countries-area.dev.v0",
+                    "group": "compare-countries-area"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741KCLUEAA6",
+            "created_at": "2023-07-21 23:57:41.551676"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "heart-disease.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "heart-disease.v0",
+            "base_eval": "heart-disease",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "heart-disease/samples.jsonl"
+                    },
+                    "key": "heart-disease.v0",
+                    "group": "heart-disease"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741JR5D7NQB",
+            "created_at": "2023-07-21 23:57:41.642858"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "bitwise.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "bitwise.dev.v0",
+            "base_eval": "bitwise",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bitwise/samples.jsonl"
+                    },
+                    "key": "bitwise.dev.v0",
+                    "group": "bitwise"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741HRC4MAZF",
+            "created_at": "2023-07-21 23:57:41.540537"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "knot-theory-unknotting-problem.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "knot-theory-unknotting-problem.dev.v0",
+            "base_eval": "knot-theory-unknotting-problem",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-problems.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-problem.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741DI5J3WTS",
+            "created_at": "2023-07-21 23:57:41.920518"
+        },
+        "final_report": {
+            "accuracy": 0.2222222222222222
+        }
+    },
+    "bulgarian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "bulgarian-lexicon.dev.v0",
+            "base_eval": "bulgarian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "bulgarian-lexicon/samples.jsonl"
+                    },
+                    "key": "bulgarian-lexicon.dev.v0",
+                    "group": "bulgarian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741D4QLBFN3",
+            "created_at": "2023-07-21 23:57:41.556570"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "fcc_amateur_extra.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "fcc_amateur_extra.dev.v0",
+            "base_eval": "fcc_amateur_extra",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "fcc_amateur_extra/samples.jsonl"
+                    },
+                    "key": "fcc_amateur_extra.dev.v0",
+                    "group": "fcc_amateur_extra"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741T6B6T7J6",
+            "created_at": "2023-07-21 23:57:41.600348"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "hebrew-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "hebrew-rhyme.v0",
+            "base_eval": "hebrew-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "hebrew_rhyme/samples.jsonl"
+                    },
+                    "key": "hebrew-rhyme.v0",
+                    "group": "hebrew-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741AVPNRUJE",
+            "created_at": "2023-07-21 23:57:41.814174"
+        },
+        "final_report": {
+            "accuracy": 0.15,
+            "f1_score": 0.21000000000000002
+        }
+    },
+    "born-first.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "born-first.dev.v0",
+            "base_eval": "born-first",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "born_first/born_first.jsonl"
+                    },
+                    "key": "born-first.dev.v0",
+                    "group": "born-first"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741ORW2P2HA",
+            "created_at": "2023-07-21 23:57:41.538075"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "infiniteloop-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "infiniteloop-match.s1.simple-v0",
+            "base_eval": "infiniteloop-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "infiniteloop-match/infiniteloop-match.jsonl"
+                    },
+                    "key": "infiniteloop-match.s1.simple-v0",
+                    "group": "infiniteloop-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741LHNTI2FA",
+            "created_at": "2023-07-21 23:57:41.846544"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "diagrammatic_logic.dev.v2.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "diagrammatic_logic.dev.v2",
+            "base_eval": "diagrammatic_logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "diagrammatic_logic/samples.jsonl"
+                    },
+                    "key": "diagrammatic_logic.dev.v2",
+                    "group": "diagrammatic_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741FFDLWLQQ",
+            "created_at": "2023-07-21 23:57:41.575680"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "brazilian-lexicon.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "brazilian-lexicon.dev.v0",
+            "base_eval": "brazilian-lexicon",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "brazilian-lexicon/samples.jsonl"
+                    },
+                    "key": "brazilian-lexicon.dev.v0",
+                    "group": "brazilian-lexicon"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741RVFNHW4U",
+            "created_at": "2023-07-21 23:57:41.537478"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "emotional-intelligence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "emotional-intelligence.dev.v0",
+            "base_eval": "emotional-intelligence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "emotional-intelligence/samples.jsonl"
+                    },
+                    "key": "emotional-intelligence.dev.v0",
+                    "group": "emotional-intelligence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307212357416ZAEPM5Q",
+            "created_at": "2023-07-21 23:57:41.578838"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "job_listing_title_for_a_caregiver_in_japan.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+            "base_eval": "job_listing_title_for_a_caregiver_in_japan",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "job_listing_title_for_a_caregiver_in_japan/samples.jsonl"
+                    },
+                    "key": "job_listing_title_for_a_caregiver_in_japan.test.v1",
+                    "group": "job_listing_title_for_a_caregiver_in_japan"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741UQMDSYIQ",
+            "created_at": "2023-07-21 23:57:41.944080"
+        },
+        "final_report": {
+            "accuracy": 0.4666666666666667
+        }
+    },
+    "convert-hex-hsl-lightness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "convert-hex-hsl-lightness.dev.v0",
+            "base_eval": "convert-hex-hsl-lightness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "convert-hex-hsl-lightness/samples.jsonl"
+                    },
+                    "key": "convert-hex-hsl-lightness.dev.v0",
+                    "group": "convert-hex-hsl-lightness"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741VHJMVVYC",
+            "created_at": "2023-07-21 23:57:41.558840"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "knot-theory-unknotting-number.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "knot-theory-unknotting-number.dev.v0",
+            "base_eval": "knot-theory-unknotting-number",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "knot-theory/knot-theory-unknotting-numbers.jsonl"
+                    },
+                    "key": "knot-theory-unknotting-number.dev.v0",
+                    "group": "knot-theory"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741XI5NRBNQ",
+            "created_at": "2023-07-21 23:57:41.901537"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "formal-logic.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "formal-logic.dev.v0",
+            "base_eval": "formal-logic",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "formal_logic/formal_logic_expressions.jsonl"
+                    },
+                    "key": "formal-logic.dev.v0",
+                    "group": "formal_logic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741IZR6TDDB",
+            "created_at": "2023-07-21 23:57:41.625989"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "japanese_driving_license.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "japanese_driving_license.s1.simple-v0",
+            "base_eval": "japanese_driving_license",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "japanese_driving_license/samples.jsonl"
+                    },
+                    "key": "japanese_driving_license.s1.simple-v0",
+                    "group": "japanese_driving_license"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741RHPO3EAY",
+            "created_at": "2023-07-21 23:57:41.768697"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "last-word-nth.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "last-word-nth.s1.simple-v0",
+            "base_eval": "last-word-nth",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "last_word_nth/samples.jsonl"
+                    },
+                    "key": "last-word-nth.s1.simple-v0",
+                    "group": "last-word-nth"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000255YLDCWOIK",
+            "created_at": "2023-07-22 00:02:55.060149"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "lat_long_identify.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "lat_long_identify.dev.v0",
+            "base_eval": "lat_long_identify",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "lat_long_identify/samples.jsonl"
+                    },
+                    "key": "lat_long_identify.dev.v0",
+                    "group": "lat_long_identify"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000255D7VFN3XE",
+            "created_at": "2023-07-22 00:02:55.063265"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "logiqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "logiqa.dev.v0",
+            "base_eval": "logiqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "logiqa/logiqa.jsonl"
+                    },
+                    "key": "logiqa.dev.v0",
+                    "group": "logiqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000304HXJZSIBU",
+            "created_at": "2023-07-22 00:03:04.148914"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "moral_exceptQA.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "moral_exceptQA.test.v1",
+            "base_eval": "moral_exceptQA",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "moral_exceptQA/samples.jsonl"
+                    },
+                    "key": "moral_exceptQA.test.v1",
+                    "group": "moral_exceptQA"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000320AUDL2ZQH",
+            "created_at": "2023-07-22 00:03:20.736798"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "naughty_strings_fuzzy.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "naughty_strings_fuzzy.test.v1",
+            "base_eval": "naughty_strings_fuzzy",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "naughty_strings/samples.jsonl"
+                    },
+                    "key": "naughty_strings_fuzzy.test.v1",
+                    "group": "naughty_strings"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000354LX4WATV2",
+            "created_at": "2023-07-22 00:03:54.174187"
+        },
+        "final_report": {
+            "accuracy": 0.5,
+            "f1_score": 0.5
+        }
+    },
+    "dice-rotation-sequence.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "dice-rotation-sequence.dev.v0",
+            "base_eval": "dice-rotation-sequence",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "dice-rotation-sequence/samples.jsonl"
+                    },
+                    "key": "dice-rotation-sequence.dev.v0",
+                    "group": "dice-rotation-sequence"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307212357414JTC4I3E",
+            "created_at": "2023-07-21 23:57:41.602087"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "medmcqa.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "medmcqa.dev.v0",
+            "base_eval": "medmcqa",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "medmcqa/samples.jsonl"
+                    },
+                    "key": "medmcqa.dev.v0",
+                    "group": "medmcqa"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000315XQTRHS6E",
+            "created_at": "2023-07-22 00:03:15.020834"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "number-reading.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "number-reading.dev.v0",
+            "base_eval": "number-reading",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_reading/number_reading.jsonl"
+                    },
+                    "key": "number-reading.dev.v0",
+                    "group": "number-reading"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000406CD5EAJY2",
+            "created_at": "2023-07-22 00:04:06.607059"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "number-pattern.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "number-pattern.dev.v0",
+            "base_eval": "number-pattern",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "number_pattern/samples.jsonl"
+                    },
+                    "key": "number-pattern.dev.v0",
+                    "group": "number-pattern"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000401J3ZLXUOS",
+            "created_at": "2023-07-22 00:04:01.925936"
+        },
+        "final_report": {
+            "accuracy": 0.2
+        }
+    },
+    "pattern_identification.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "pattern_identification.dev.v0",
+            "base_eval": "pattern_identification",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "pattern_identification/samples.v0.jsonl"
+                    },
+                    "key": "pattern_identification.dev.v0",
+                    "group": "pattern_identification"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000413U2ZPEV64",
+            "created_at": "2023-07-22 00:04:13.336120"
+        },
+        "final_report": {
+            "accuracy": 0.45
+        }
+    },
+    "partially_solved_crossword_clues.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "partially_solved_crossword_clues.dev.v0",
+            "base_eval": "partially_solved_crossword_clues",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "partially_solved_crossword_clues/samples.jsonl"
+                    },
+                    "key": "partially_solved_crossword_clues.dev.v0",
+                    "group": "partially_solved_crossword_clues"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000413MQ2KUQBD",
+            "created_at": "2023-07-22 00:04:13.330983"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "hellaswag.val.ab-v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "hellaswag.val.ab-v1",
+            "base_eval": "hellaswag",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.multiple_choice:MultipleChoice",
+                    "args": {
+                        "dataset": "hf://hellaswag?split=validation",
+                        "instructions": "Choose the most plausible continuation for the story."
+                    },
+                    "key": "hellaswag.val.ab-v1",
+                    "group": "language"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235742BE27NOJU",
+            "created_at": "2023-07-21 23:57:42.051326"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "determinant.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "determinant.test.v1",
+            "base_eval": "determinant",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "determinant/samples.jsonl"
+                    },
+                    "key": "determinant.test.v1",
+                    "group": "determinant"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741D7WZXKTB",
+            "created_at": "2023-07-21 23:57:41.574305"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "regex.match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "regex.match.dev.v0",
+            "base_eval": "regex",
+            "split": "match",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "regex-match/samples.jsonl"
+                    },
+                    "key": "regex.match.dev.v0",
+                    "group": "regex-match"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000417XNE4JQ3M",
+            "created_at": "2023-07-22 00:04:17.103756"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "multi-step-equations.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "multi-step-equations.dev.v0",
+            "base_eval": "multi-step-equations",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "multi-step-equations/samples.jsonl"
+                    },
+                    "key": "multi-step-equations.dev.v0",
+                    "group": "multi-step-equations"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000340Y4N436NC",
+            "created_at": "2023-07-22 00:03:40.580277"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "ph-calculation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "ph-calculation.dev.v0",
+            "base_eval": "ph-calculation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "ph_calculation/samples.jsonl"
+                    },
+                    "key": "ph-calculation.dev.v0",
+                    "group": "ph_calculation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000413TQTAY5GK",
+            "created_at": "2023-07-22 00:04:13.353975"
+        },
+        "final_report": {
+            "accuracy": 0.1,
+            "f1_score": 0.0
+        }
+    },
+    "russian_medical.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "russian_medical.dev.v0",
+            "base_eval": "russian_medical",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian_medical/samples.jsonl"
+                    },
+                    "key": "russian_medical.dev.v0",
+                    "group": "russian_medical"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000425PAECTNFI",
+            "created_at": "2023-07-22 00:04:25.123521"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "russian-nlp-tasks.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "russian-nlp-tasks.dev.v0",
+            "base_eval": "russian-nlp-tasks",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russian-nlp-tasks/samples.jsonl"
+                    },
+                    "key": "russian-nlp-tasks.dev.v0",
+                    "group": "russian-nlp-tasks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000419F2RC2RF4",
+            "created_at": "2023-07-22 00:04:19.315416"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "map-electronic-component-part-to-fact.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "map-electronic-component-part-to-fact.dev.v0",
+            "base_eval": "map-electronic-component-part-to-fact",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "map-electronic-component-part-to-fact/samples.jsonl"
+                    },
+                    "key": "map-electronic-component-part-to-fact.dev.v0",
+                    "group": "map-electronic-component-part-to-fact"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000310PIFD2GSM",
+            "created_at": "2023-07-22 00:03:10.709669"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "stock-option-terms-bear-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000445QDZXDLAC",
+            "created_at": "2023-07-22 00:04:45.382176"
+        },
+        "final_report": {
+            "accuracy": 0.08333333333333333
+        }
+    },
+    "russian-rhyme.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "russian-rhyme.v0",
+            "base_eval": "russian-rhyme",
+            "split": "v0",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "russian-rhyme/samples.jsonl"
+                    },
+                    "key": "russian-rhyme.v0",
+                    "group": "russian-rhyme"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000425BZ4W4536",
+            "created_at": "2023-07-22 00:04:25.125527"
+        },
+        "final_report": {
+            "accuracy": 0.23529411764705882,
+            "f1_score": 0.35294117647058826
+        }
+    },
+    "stock-options-bear-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "stock-options-bear-call-spread.dev.v0",
+            "base_eval": "stock-options-bear-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_options_bear_call_spread.jsonl"
+                    },
+                    "key": "stock-options-bear-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000440C3SO6R4B",
+            "created_at": "2023-07-22 00:04:40.954950"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-bull-call-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "stock-option-terms-bull-call-spread.dev.v0",
+            "base_eval": "stock-option-terms-bull-call-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_bull_call_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-bull-call-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000447QDYTPZ6C",
+            "created_at": "2023-07-22 00:04:47.772115"
+        },
+        "final_report": {
+            "accuracy": 0.125
+        }
+    },
+    "stock-option-terms-iron-butterfly-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "stock-option-terms-iron-butterfly-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-butterfly-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_butterfly_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-butterfly-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000447U5PZJLRZ",
+            "created_at": "2023-07-22 00:04:47.776774"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "simple-knowledge-mongolian.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "simple-knowledge-mongolian.dev.v0",
+            "base_eval": "simple-knowledge-mongolian",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "simple-knowledge-mongolian/samples.v0.jsonl"
+                    },
+                    "key": "simple-knowledge-mongolian.dev.v0",
+                    "group": "simple-knowledge-mongolian"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000436LLJ45454",
+            "created_at": "2023-07-22 00:04:36.242568"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "stock-option-terms-inverse-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-inverse-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_inverse_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-inverse-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307220004476S2YAS3D",
+            "created_at": "2023-07-22 00:04:47.794829"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "tempo_to_measure_count.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "tempo_to_measure_count.dev.v0",
+            "base_eval": "tempo_to_measure_count",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "tempo_to_measure_count/samples.jsonl"
+                    },
+                    "key": "tempo_to_measure_count.dev.v0",
+                    "group": "tempo_to_measure_count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000452Z7M5JVOL",
+            "created_at": "2023-07-22 00:04:52.194512"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "f1_score": 0.0
+        }
+    },
+    "swedish-spelling.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "swedish-spelling.dev.v0",
+            "base_eval": "swedish-spelling",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "swedish-spelling/samples.jsonl"
+                    },
+                    "key": "swedish-spelling.dev.v0",
+                    "group": "swedish-spelling"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000452U3RXOWP6",
+            "created_at": "2023-07-22 00:04:52.190357"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "taxes.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "taxes.dev.v0",
+            "base_eval": "taxes",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "taxes/samples.jsonl"
+                    },
+                    "key": "taxes.dev.v0",
+                    "group": "taxes"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000452QZWCKLWX",
+            "created_at": "2023-07-22 00:04:52.188770"
+        },
+        "final_report": {
+            "accuracy": 0.05
+        }
+    },
+    "test-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "test-match.s1.simple-v0",
+            "base_eval": "test-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_match/samples.jsonl"
+                    },
+                    "key": "test-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000452AYVJWH6O",
+            "created_at": "2023-07-22 00:04:52.210013"
+        },
+        "final_report": {
+            "accuracy": 1.0
+        }
+    },
+    "sort-numbers.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "sort-numbers.s1.simple-v0",
+            "base_eval": "sort-numbers",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sort_numeric/samples.jsonl"
+                    },
+                    "key": "sort-numbers.s1.simple-v0",
+                    "group": "sort-numeric"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000440NK5W44OP",
+            "created_at": "2023-07-22 00:04:40.927785"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "three-pt-mapping.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "three-pt-mapping.dev.v0",
+            "base_eval": "three-pt-mapping",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "three-pt-mapping/three_pt_mapping.jsonl"
+                    },
+                    "key": "three-pt-mapping.dev.v0",
+                    "group": "three-pt-mapping"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307220005262CEGFFC4",
+            "created_at": "2023-07-22 00:05:26.559722"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "test-includes-ignore-case.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "test-includes-ignore-case.s1.simple-v0",
+            "base_eval": "test-includes-ignore-case",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl",
+                        "ignore_case": true
+                    },
+                    "key": "test-includes-ignore-case.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307220004575KF2UNCT",
+            "created_at": "2023-07-22 00:04:57.058403"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "hand_ranks.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "hand_ranks.test.v1",
+            "base_eval": "hand_ranks",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "poker_hand_ranks/full_samples.jsonl"
+                    },
+                    "key": "hand_ranks.test.v1",
+                    "group": "poker_hand_ranks"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000413PRHT5BGX",
+            "created_at": "2023-07-22 00:04:13.413655"
+        },
+        "final_report": {
+            "accuracy": 0.3
+        }
+    },
+    "stock-option-terms-iron-condor-spread.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "stock-option-terms-iron-condor-spread.dev.v0",
+            "base_eval": "stock-option-terms-iron-condor-spread",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "stock_options/stock_option_terms_iron_condor_spread.jsonl"
+                    },
+                    "key": "stock-option-terms-iron-condor-spread.dev.v0",
+                    "group": "stock-options"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307220004475GI673VQ",
+            "created_at": "2023-07-22 00:04:47.783032"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "test-includes.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "test-includes.s1.simple-v0",
+            "base_eval": "test-includes",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.includes:Includes",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-includes.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000456RJ6TCV3T",
+            "created_at": "2023-07-22 00:04:56.366408"
+        },
+        "final_report": {
+            "accuracy": 0.3333333333333333
+        }
+    },
+    "computer-science-problems.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "computer-science-problems.s1.simple-v0",
+            "base_eval": "computer-science-problems",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "test_comp_sci/questions.jsonl"
+                    },
+                    "key": "computer-science-problems.s1.simple-v0",
+                    "group": "test-comp-sci"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307220005015Y4ZUI3H",
+            "created_at": "2023-07-22 00:05:01.138176"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "test-fuzzy-match.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "test-fuzzy-match.s1.simple-v0",
+            "base_eval": "test-fuzzy-match",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "test_fuzzy_match/samples.jsonl"
+                    },
+                    "key": "test-fuzzy-match.s1.simple-v0",
+                    "group": "test-basic"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "2307220004527XZN6HEU",
+            "created_at": "2023-07-22 00:04:52.521667"
+        },
+        "final_report": {
+            "accuracy": 1.0,
+            "f1_score": 0.5555555555555555
+        }
+    },
+    "anagrams.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "anagrams.test.v1",
+            "base_eval": "anagrams",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "anagrams/fewshot.jsonl",
+                        "num_few_shot": 5,
+                        "samples_jsonl": "anagrams/samples.jsonl"
+                    },
+                    "key": "anagrams.test.v1",
+                    "group": "anagrams"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741AKDA6HFX",
+            "created_at": "2023-07-21 23:57:41.521772"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "hindi_upsc.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "hindi_upsc.dev.v0",
+            "base_eval": "hindi_upsc",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "hindi_upsc/samples.jsonl"
+                    },
+                    "key": "hindi_upsc.dev.v0",
+                    "group": "hindi_upsc"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741TMBW4BKT",
+            "created_at": "2023-07-21 23:57:41.851098"
+        },
+        "final_report": {
+            "accuracy": 0.0
+        }
+    },
+    "utility_price_parsing.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "utility_price_parsing.dev.v0",
+            "base_eval": "utility_price_parsing",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "utility_price_parsing/samples.jsonl"
+                    },
+                    "key": "utility_price_parsing.dev.v0",
+                    "group": "utility_price_parsing"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000533XM5B22PT",
+            "created_at": "2023-07-22 00:05:33.549045"
+        },
+        "final_report": {
+            "accuracy": 0.13333333333333333
+        }
+    },
+    "ukraine-eit.val.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "ukraine-eit.val.v0",
+            "base_eval": "ukraine-eit",
+            "split": "val",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "ukraine_eit/samples.jsonl"
+                    },
+                    "key": "ukraine-eit.val.v0",
+                    "group": "ukraine-eit"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000532B5ZJWU6I",
+            "created_at": "2023-07-22 00:05:32.175554"
+        },
+        "final_report": {
+            "accuracy": 0.15
+        }
+    },
+    "russe.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "russe.test.v0",
+            "base_eval": "russe",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "russe/samples.jsonl",
+                        "few_shot_jsonl": "russe/few_shot.jsonl",
+                        "num_few_shot": 2
+                    },
+                    "key": "russe.test.v0",
+                    "group": "russe"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000419K6PAN3OD",
+            "created_at": "2023-07-22 00:04:19.313658"
+        },
+        "final_report": {
+            "accuracy": 0.7
+        }
+    },
+    "sarcasm.test.v1.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "sarcasm.test.v1",
+            "base_eval": "sarcasm",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "sarcasm/samples.jsonl",
+                        "few_shot_jsonl": "sarcasm/few_shot.jsonl",
+                        "num_few_shot": 5
+                    },
+                    "key": "sarcasm.test.v1",
+                    "group": "sarcasm"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000429MVYVMPBW",
+            "created_at": "2023-07-22 00:04:29.192118"
+        },
+        "final_report": {
+            "accuracy": 0.5
+        }
+    },
+    "which-is-heavier.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "which-is-heavier.dev.v0",
+            "base_eval": "which-is-heavier",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "which_is_heavier/which_is_heavier.jsonl"
+                    },
+                    "key": "which-is-heavier.dev.v0",
+                    "group": "which-is-heavier"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "23072200053872IL4XKB",
+            "created_at": "2023-07-22 00:05:38.036188"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "coqa-closedqa-relevance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-relevance.dev.v0",
+            "base_eval": "coqa-closedqa-relevance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "relevance: Is the submission referring to a real quote from the text?"
+                        }
+                    },
+                    "key": "coqa-closedqa-relevance.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741UHHRWT36",
+            "created_at": "2023-07-21 23:57:41.585989"
+        },
+        "final_report": {
+            "counts/N": 2,
+            "counts/Y": 7,
+            "score": 0.7777777777777778
+        }
+    },
+    "logic-statements.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "logic-statements.dev.v0",
+            "base_eval": "logic-statements",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "logic-statements/logic-statements.jsonl"
+                    },
+                    "key": "logic-statements.dev.v0",
+                    "group": "logic-statements"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000304LNKWLH7Z",
+            "created_at": "2023-07-22 00:03:04.146493"
+        },
+        "final_report": {
+            "accuracy": 0.0,
+            "f1_score": 0.0
+        }
+    },
+    "coqa-closedqa-conciseness.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-conciseness.dev.v0",
+            "base_eval": "coqa-closedqa-conciseness",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "conciseness: Is the answer concise and to the point?"
+                        }
+                    },
+                    "key": "coqa-closedqa-conciseness.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741A6EIHHHU",
+            "created_at": "2023-07-21 23:57:41.580530"
+        },
+        "final_report": {
+            "counts/Y": 7,
+            "counts/N": 2,
+            "score": 0.7777777777777778
+        }
+    },
+    "chess-piece-count.s1.simple-v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "chess-piece-count.s1.simple-v0",
+            "base_eval": "chess-piece-count",
+            "split": "s1",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.fuzzy_match:FuzzyMatch",
+                    "args": {
+                        "samples_jsonl": "chess_piece_count/fuzzy_match.jsonl"
+                    },
+                    "key": "chess-piece-count.s1.simple-v0",
+                    "group": "chess-piece-count"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741XPCJZSL6",
+            "created_at": "2023-07-21 23:57:41.539661"
+        },
+        "final_report": {
+            "accuracy": 0.1,
+            "f1_score": 0.05
+        }
+    },
+    "coqa-match.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "coqa-match.dev.v0",
+            "base_eval": "coqa-match",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "coqa/match.jsonl"
+                    },
+                    "key": "coqa-match.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741FLI672J7",
+            "created_at": "2023-07-21 23:57:41.555126"
+        },
+        "final_report": {
+            "accuracy": 1.0
+        }
+    },
+    "coqa-closedqa-correct.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "coqa-closedqa-correct.dev.v0",
+            "base_eval": "coqa-closedqa-correct",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "coqa/samples.jsonl",
+                        "modelgraded_spec": "closedqa",
+                        "modelgraded_spec_args": {
+                            "criteria": "correctness: Is the answer correct?"
+                        }
+                    },
+                    "key": "coqa-closedqa-correct.dev.v0",
+                    "group": "coqa-ex"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741GA3EQRSK",
+            "created_at": "2023-07-21 23:57:41.568534"
+        },
+        "final_report": {
+            "counts/Y": 8,
+            "counts/N": 1,
+            "score": 0.8888888888888888
+        }
+    },
+    "us-tort-law.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "us-tort-law.dev.v0",
+            "base_eval": "us-tort-law",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "few_shot_jsonl": "us_tort_law/few_shot.jsonl",
+                        "num_few_shot": 4,
+                        "samples_jsonl": "us_tort_law/samples.jsonl"
+                    },
+                    "key": "us-tort-law.dev.v0",
+                    "group": "us-tort-law"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000533H3YNR7TK",
+            "created_at": "2023-07-22 00:05:33.547192"
+        },
+        "final_report": {
+            "accuracy": 0.25
+        }
+    },
+    "rucola.test.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "rucola.test.v0",
+            "base_eval": "rucola",
+            "split": "test",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "rucola/samples.jsonl",
+                        "few_shot_jsonl": "rucola/few_shot.jsonl",
+                        "num_few_shot": 4
+                    },
+                    "key": "rucola.test.v0",
+                    "group": "rucola"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000419SN6K34VU",
+            "created_at": "2023-07-22 00:04:19.308386"
+        },
+        "final_report": {
+            "accuracy": 0.4
+        }
+    },
+    "diversity.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "diversity.dev.v0",
+            "base_eval": "diversity",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/joke_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "diversity",
+                        "multicomp_n": 4,
+                        "sample_kwargs": {
+                            "temperature": 0.4
+                        }
+                    },
+                    "key": "diversity.dev.v0",
+                    "group": "test-modelgraded"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000526BD3X2TGX",
+            "created_at": "2023-07-22 00:05:26.562554"
+        },
+        "final_report": {
+            "counts/Yes": 8,
+            "counts/No": 2,
+            "score": 0.8
+        }
+    },
+    "balance-chemical-equation.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "balance-chemical-equation.dev.v0",
+            "base_eval": "balance-chemical-equation",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "balance_chemical_equation/samples.jsonl"
+                    },
+                    "key": "balance-chemical-equation.dev.v0",
+                    "group": "balance-chemical-equation"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230721235741SS323F6C",
+            "created_at": "2023-07-21 23:57:41.525499"
+        },
+        "final_report": {
+            "accuracy": 0.1
+        }
+    },
+    "mendelian_inheritance.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2"
+            ],
+            "eval_name": "mendelian_inheritance.dev.v0",
+            "base_eval": "mendelian_inheritance",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.basic.match:Match",
+                    "args": {
+                        "samples_jsonl": "mendelian_inheritance/samples.jsonl"
+                    },
+                    "key": "mendelian_inheritance.dev.v0",
+                    "group": "mendelian_inheritance"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000320KRIPONQL",
+            "created_at": "2023-07-22 00:03:20.733553"
+        },
+        "final_report": {
+            "accuracy": 0.1875
+        }
+    },
+    "rap-people-vs-fruits.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-fruits.dev.v0",
+            "base_eval": "rap-people-vs-fruits",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_fruits.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-fruits.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000517OLRI7F66",
+            "created_at": "2023-07-22 00:05:17.169511"
+        },
+        "final_report": {
+            "counts/No": 6,
+            "counts/Yes": 3,
+            "score": 0.3333333333333333
+        }
+    },
+    "rap-people-vs-people.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "rap-people-vs-people.dev.v0",
+            "base_eval": "rap-people-vs-people",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_multiio/battles/rap_people_vs_people.jsonl",
+                        "eval_type": "cot_classify",
+                        "modelgraded_spec": "battle"
+                    },
+                    "key": "rap-people-vs-people.dev.v0",
+                    "group": "test-modelgraded-battle"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000512UYWQML4R",
+            "created_at": "2023-07-22 00:05:12.923330"
+        },
+        "final_report": {
+            "counts/Yes": 5,
+            "counts/No": 4,
+            "score": 0.5555555555555556
+        }
+    },
+    "mg-humor-people_jp.dev.v0.json": {
+        "spec": {
+            "completion_fns": [
+                "free-willy2:stabilityai/FreeWilly2",
+                "openai:gpt-3.5-turbo-16k-0613"
+            ],
+            "eval_name": "mg-humor-people_jp.dev.v0",
+            "base_eval": "mg-humor-people_jp",
+            "split": "dev",
+            "run_config": {
+                "completion_fns": [
+                    "free-willy2:stabilityai/FreeWilly2",
+                    "openai:gpt-3.5-turbo-16k-0613"
+                ],
+                "eval_spec": {
+                    "cls": "evals.elsuite.modelgraded.classify:ModelBasedClassify",
+                    "args": {
+                        "samples_jsonl": "test_modelgraded/humor_people_jp.jsonl",
+                        "eval_type": "cot_classify_jp",
+                        "modelgraded_spec": "humor_jp"
+                    },
+                    "key": "mg-humor-people_jp.dev.v0",
+                    "group": "test-modelgraded-generated"
+                },
+                "seed": 20220722,
+                "max_samples": null,
+                "command": "./evaluate.py -b openai-evals -m free-willy2:stabilityai/FreeWilly2",
+                "initial_settings": {
+                    "visible": true
+                }
+            },
+            "created_by": "",
+            "run_id": "230722000524UZUZJZSB",
+            "created_at": "2023-07-22 00:05:24.183795"
+        },
+        "final_report": {
+            "counts/2": 4,
+            "counts/4": 5,
+            "counts/1": 2,
+            "counts/3": 8,
+            "counts/__invalid__": 1,
+            "score": 2.75
+        }
+    }
+}
