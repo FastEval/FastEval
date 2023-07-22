@@ -11,22 +11,22 @@ function getScores(spec, finalReport) {
     switch (spec.run_config.eval_spec.cls) {
         case 'evals.elsuite.modelgraded.classify:ModelBasedClassify':
             if (finalReport.score !== undefined && finalReport.metascore !== undefined)
-                return round(finalReport.score) + ' | ' + round(finalReport.metascore)
+                throw new Error()
             else if (finalReport.score !== undefined)
-                return round(finalReport.score)
-            return null
+                return finalReport.score
+            throw new Error()
         case 'evals.elsuite.basic.match:Match':
-            return round(finalReport.accuracy)
+            return finalReport.accuracy
         case 'evals.elsuite.basic.fuzzy_match:FuzzyMatch':
-            return round(finalReport.f1_score)
+            return finalReport.f1_score
         case 'evals.elsuite.basic.includes:Includes':
-            return round(finalReport.accuracy)
+            return finalReport.accuracy
         case 'evals.elsuite.multiple_choice:MultipleChoice':
-            return round(finalReport.accuracy)
+            return finalReport.accuracy
         case 'evals.elsuite.translate:Translate':
-            return round(finalReport.sacrebleu_score)
+            return finalReport.sacrebleu_score
         case 'evals.elsuite.lambada:Lambada':
-            return round(finalReport.accuracy)
+            return finalReport.accuracy
         default:
             throw new Error()
     }
@@ -318,7 +318,9 @@ export async function createEvalsIndexV(baseUrl) {
         [modelName, await ((await fetch(baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/__index__.json')).json())])))
     const scores = computeRelativeOpenAiEvalsScores(reportsIndex)
 
-    const modelNamesByScore = Object.entries(scores.averageRelativeScoresByModelName)
+    const scoreTree = computeOpenAIEvalsScoreTree(evalsInformation, scores).all
+
+    const modelNamesByScore = Object.entries(scoreTree.scores)
         .sort(([model1Name, score1], [model2Name, score2]) => score2 - score1)
         .map(([modelName, score]) => modelName)
 
@@ -333,23 +335,15 @@ export async function createEvalsIndexV(baseUrl) {
     tableBodyE.appendChild(tr)
     tr.insertCell().appendChild(createTextE('Total'))
     for (const modelName of modelNamesByScore)
-        createTableScoreCell(tr, createTextE(round(scores.averageRelativeScoresByModelName[modelName])))
+        createTableScoreCell(tr, createTextE(round(scoreTree.scores[modelName])))
 
-    for (const [reportFilename, { spec }] of Object.entries(reportsIndex[modelNamesByScore[0]]).sort()) {
-        const reportE = tableBodyE.insertRow()
-        reportE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(spec.eval_name)))
+    for (const [childNodeName, childNodeInformation] of Object.entries(scoreTree.children)) {
+        const rowE = tableBodyE.insertRow()
+        rowE.insertCell().appendChild(createTextE(allowCharacterLineBreaks(childNodeName)))
+        for (const modelName of modelNamesByScore)
+            createTableScoreCell(rowE, createLinkE(round(childNodeInformation.scores[modelName]), { node: 'hello', model: modelName }),
+                childNodeInformation.scores[modelName])
 
-        const reportScores = scores.scoresByFilename[reportFilename]
-        const relativeReportScores = scores.relativeScoresByFilename[reportFilename]
-        for (const modelName of modelNamesByScore) {
-            let score = reportScores[modelName]
-            if (typeof score == 'number')
-                score = round(score)
-            if (score == null)
-                score = '-'
-            createTableScoreCell(reportE, createLinkE(score, { report: spec.eval_name, model: modelName }),
-                relativeReportScores ? relativeReportScores[modelName] : null)
-        }
     }
 
     return containerE
@@ -359,6 +353,52 @@ export async function createV(baseUrl, parameters) {
     if (parameters.has('report') && parameters.has('model'))
         return createEvalReportsV(baseUrl, parameters.get('report'), parameters.get('model'), parameters.get('sample'))
     return await createEvalsIndexV(baseUrl)
+}
+
+function normalize(scores) {
+    const values = Object.values(scores)
+    const min = Math.min(...values)
+    const max = Math.max(...values)
+    const delta = (max - min) || 1
+
+    const result = {}
+    for (const [k, v] of Object.entries(scores))
+        result[k] = (v - min) / delta
+    return result
+}
+
+export function computeOpenAIEvalsScoreTree(evalsInformation, relativeOpenAIEvalsScores) {
+    function processNode(node) {
+        const output = {}
+
+        for (const [k, v] of Object.entries(node)) {
+            if (typeof v === 'string' || v === null) {
+                const scores = relativeOpenAIEvalsScores.scoresByFilename[k + '.json']
+                if (scores !== undefined)
+                    output[k] = { description: v, scores: normalize(scores) }
+            } else if (typeof v === 'object') {
+                const childNodeOutput = processNode(v)
+                if (Object.keys(childNodeOutput).length === 0)
+                    continue
+                const scores = {}
+                const numChildren = Object.keys(childNodeOutput).length
+                for (const [childK, childV] of Object.entries(childNodeOutput)) {
+                    for (const [modelName, modelScore] of Object.entries(childV.scores)) {
+                        if (!(modelName in scores))
+                            scores[modelName] = 0
+                        scores[modelName] += modelScore / numChildren
+                    }
+                }
+                output[k] = { children: childNodeOutput, scores: normalize(scores) }
+            } else {
+                throw new Error()
+            }
+        }
+
+        return output
+    }
+
+    return processNode(evalsInformation)
 }
 
 export function computeRelativeOpenAiEvalsScores(openAiEvalsResults) {
