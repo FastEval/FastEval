@@ -248,14 +248,18 @@ function createSelectedModelReportV(report, selectedSampleId) {
     return containerE
 }
 
-async function createSingleEvalV(baseUrl, evalName, modelName, sampleId) {
+async function createSingleEvalV(baseUrl, node, modelName, sampleId) {
+    const nodeParts = node.split('/')
+    const evalName = nodeParts[nodeParts.length - 1]
+
     const models = (await (await fetch(baseUrl + '/__index__.json')).json())
         .filter(model => model.benchmarks.includes('openai-evals'))
     const modelsMap = createModelsMap(models)
 
     const containerE = document.createElement('div')
 
-    containerE.appendChild(createBackToMainPageE('← Back to table', { 'benchmark': 'openai-evals' }))
+    const previousNode = nodeParts.slice(0, -1).join('/')
+    containerE.appendChild(createBackToMainPageE('← Back to ' + previousNode, { benchmark: 'openai-evals', node: previousNode }))
 
     const reportUrl = baseUrl + '/openai-evals/' + modelName.replace('/', '--') + '/' + evalName + '.json'
     const report = await (await fetch(reportUrl)).text()
@@ -287,7 +291,15 @@ export async function createEvalsTableV(baseUrl, node) {
 
     const containerE = document.createElement('div')
 
-    containerE.appendChild(createBackToMainPageE())
+    if (node === '')
+        containerE.appendChild(createBackToMainPageE())
+    else {
+        const previousNode = node.split('/').slice(0, -1).join('/')
+        if (previousNode === '')
+            containerE.appendChild(createBackToMainPageE('← Back to main OpenAI Evals table', { benchmark: 'openai-evals' }))
+        else
+            containerE.appendChild(createBackToMainPageE('← Back to ' + previousNode, { benchmark: 'openai-evals', node: previousNode }))
+    }
 
     const explanationE = document.createElement('div')
     explanationE.classList.add('openai-evals__explanation')
@@ -336,10 +348,15 @@ export async function createEvalsTableV(baseUrl, node) {
 
     for (const [childNodeName, childNodeInformation] of Object.entries(scoreTree.children)) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createLinkE(allowCharacterLineBreaks(childNodeName), { node: node + '/' + childNodeName }))
-        for (const modelName of modelNamesByScore)
-            createTableScoreCell(rowE, createLinkE(round(childNodeInformation.scores[modelName]), { node: 'hello', model: modelName }),
-                childNodeInformation.scores[modelName])
+        const childNodeType = childNodeName.includes('.') ? 'eval' : 'group'
+        const taskE = childNodeType === 'eval' ? createTextE(allowCharacterLineBreaks(childNodeName))
+            : createLinkE(allowCharacterLineBreaks(childNodeName), { node: node + '/' + childNodeName })
+        rowE.insertCell().appendChild(taskE)
+        for (const modelName of modelNamesByScore) {
+            const scoreE = childNodeType === 'group' ? createTextE(round(childNodeInformation.scores[modelName]))
+                : createLinkE(round(childNodeInformation.scores[modelName]), { node: node + '/' + childNodeName, model: modelName })
+            createTableScoreCell(rowE, scoreE, childNodeInformation.scores[modelName])
+        }
 
     }
 
@@ -408,7 +425,7 @@ export async function fetchAndComputeScoresTree({ modelsNames, baseUrl }) {
 }
 
 export async function createV(baseUrl, parameters) {
-    if (parameters.has('report') && parameters.has('model'))
-        return createSingleEvalV(baseUrl, parameters.get('report'), parameters.get('model'), parameters.get('sample'))
+    if (parameters.has('node') && parameters.has('model'))
+        return createSingleEvalV(baseUrl, parameters.get('node'), parameters.get('model'), parameters.get('sample'))
     return await createEvalsTableV(baseUrl, parameters.get('node'))
 }
