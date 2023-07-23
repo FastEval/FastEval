@@ -251,6 +251,17 @@ export async function createBenchmarksIndexV(baseUrl) {
         return model2Rank - model1Rank
     })
 
+    const allNumParameters = []
+    for (const modelInformation of modelsSortedByRank) {
+        const numParameters = getModelNumParams(modelInformation)
+        if (numParameters === '')
+            continue
+        allNumParameters.push(parseInt(numParameters.replace('B', '')))
+    }
+
+    const minNumParametersLog = Math.log2(Math.min(...allNumParameters))
+    const maxNumParametersLog = Math.log2(Math.max(...allNumParameters))
+
     const tableE = document.createElement('table')
     tableE.classList.add('main__table')
     containerE.appendChild(tableE)
@@ -277,7 +288,15 @@ export async function createBenchmarksIndexV(baseUrl) {
         else
             createTableScoreCell(rowE, createTextE(position + 1))
 
-        createTableScoreCell(rowE, createTextE(getModelNumParams(modelInformation)))
+        const numParameters = getModelNumParams(modelInformation)
+        if (numParameters === '') {
+            createTableScoreCell(rowE, createTextE(numParameters))
+        } else {
+
+            const color = 1 - ((Math.log2(parseInt(numParameters.replace('B', ''))) - minNumParametersLog)
+                / (maxNumParametersLog - minNumParametersLog))
+            createTableScoreCell(rowE, createTextE(numParameters), color)
+        }
 
         rowE.insertCell().appendChild(createModelLinkE(modelInformation))
 
