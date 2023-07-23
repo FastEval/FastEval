@@ -21,6 +21,7 @@ from evaluation.models.chatml import ChatML
 from evaluation.models.starchat import Starchat
 from evaluation.models.llama2_chat import Llama2Chat
 from evaluation.models.free_willy2 import FreeWilly2
+from evaluation.models.dolphin import Dolphin
 
 config_dict_cache = {}
 
@@ -38,6 +39,7 @@ def create_model(model_type: str, model_name: str, **kwargs):
         'starchat': Starchat,
         'llama2-chat': Llama2Chat,
         'free-willy2': FreeWilly2,
+        'dolphin': Dolphin,
     }
 
     if model_type not in model_classes:
