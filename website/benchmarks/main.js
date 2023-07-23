@@ -254,7 +254,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     const allNumParameters = []
     for (const modelInformation of modelsSortedByRank) {
         const numParameters = getModelNumParams(modelInformation)
-        if (numParameters === '')
+        if (numParameters === '' || numParameters === 'proprietary')
             continue
         allNumParameters.push(parseInt(numParameters.replace('B', '')))
     }
@@ -291,8 +291,9 @@ export async function createBenchmarksIndexV(baseUrl) {
         const numParameters = getModelNumParams(modelInformation)
         if (numParameters === '') {
             createTableScoreCell(rowE, createTextE(numParameters))
+        } else if (numParameters === 'proprietary') {
+            createTableScoreCell(rowE, createTextE(''), -1)
         } else {
-
             const color = 1 - ((Math.log2(parseInt(numParameters.replace('B', ''))) - minNumParametersLog)
                 / (maxNumParametersLog - minNumParametersLog))
             createTableScoreCell(rowE, createTextE(numParameters), color)
