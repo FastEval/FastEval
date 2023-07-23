@@ -241,7 +241,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         let relativeAverageScore = 0
         for (const benchmarkName of allBenchmarks)
             relativeAverageScore += getRelativeScore(model, benchmarks, benchmarkName) / allBenchmarks.length
-        return relativeAverageScore
+        return relativeAverageScore * 10
     }
 
     const modelRanks = computeModelRanks(models, getRelativeScore, getTotalScore)
