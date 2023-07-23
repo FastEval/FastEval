@@ -262,6 +262,17 @@ export async function createBenchmarksIndexV(baseUrl) {
     const minNumParametersLog = Math.log2(Math.min(...allNumParameters))
     const maxNumParametersLog = Math.log2(Math.max(...allNumParameters))
 
+    let allTotalScores = []
+    for (const modelInformation of modelsSortedByRank) {
+        const { model_name: model, benchmarks } = modelInformation
+        const totalScore = getTotalScore(model, benchmarks)
+        if (totalScore !== null)
+            allTotalScores.push(totalScore)
+    }
+
+    const minTotalScore = Math.min(...allTotalScores)
+    const maxTotalScore = Math.max(...allTotalScores)
+
     const tableE = document.createElement('table')
     tableE.classList.add('main__table')
     containerE.appendChild(tableE)
@@ -316,7 +327,7 @@ export async function createBenchmarksIndexV(baseUrl) {
         if (totalScore === null)
             createTableScoreCell(rowE, createTextE(''))
         else
-            createTableScoreCell(rowE, createTextE(round(totalScore)))
+            createTableScoreCell(rowE, createTextE(round(totalScore)), (totalScore - minTotalScore) / (maxTotalScore - minTotalScore))
 
         rowE.insertCell()
 
