@@ -113,3 +113,31 @@ tr:nth-child(odd) {
     border-bottom: 2px solid black;
     background-color: white;
 }
+
+.how-to-read-leaderboard__details {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.how-to-read-leaderboard__summary {
+    font-weight: bold;
+}
+
+.how-to-read-leaderboard__color-green::before {
+    color: transparent;
+    background-color: rgb(128, 255, 128);
+    content: "___";
+    position: absolute;
+}
+
+.how-to-read-leaderboard__color-red::before {
+    color: transparent;
+    background-color: rgb(255, 128, 128);
+    content: "___";
+    position: absolute;
+}
+
+.how-to-read-leaderboard__space {
+    margin-top: 0.5em;
+}

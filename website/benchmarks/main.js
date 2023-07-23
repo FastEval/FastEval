@@ -149,8 +149,62 @@ function computeModelRanks(models, getScore, getTotalScore) {
     return Object.fromEntries(orderings[0])
 }
 
+function createHowToReadThisLeaderboardV() {
+    const containerE = document.createElement('details')
+
+    const summaryE = document.createElement('summary')
+    summaryE.classList.add('how-to-read-leaderboard__summary')
+    summaryE.textContent = 'How to read this leaderboard?'
+    containerE.appendChild(summaryE)
+
+    const detailsE = document.createElement('ul')
+    detailsE.classList.add('how-to-read-leaderboard__details')
+    containerE.appendChild(detailsE)
+
+    const greenEqualBetterE = document.createElement('li')
+    greenEqualBetterE.classList.add('how-to-read-leaderboard__color-green')
+    greenEqualBetterE.textContent = '___ = Higher score = Better.'
+    detailsE.appendChild(greenEqualBetterE)
+
+    const redEqualWorseE = document.createElement('li')
+    redEqualWorseE.classList.add('how-to-read-leaderboard__color-red')
+    redEqualWorseE.textContent = '___ = Lower score = Worse.'
+    detailsE.appendChild(redEqualWorseE)
+
+    const sizeE = document.createElement('li')
+    sizeE.classList.add('how-to-read-leaderboard__space')
+    sizeE.textContent = 'Size: Size of the model in billions of parameters. Larger = Requires more resources = Worse. But usually gives better scores.'
+    detailsE.appendChild(sizeE)
+
+    const mtBenchE = document.createElement('li')
+    mtBenchE.classList.add('how-to-read-leaderboard__space')
+    mtBenchE.textContent = 'MT-Bench: Measures conversational capabilities.'
+    detailsE.appendChild(mtBenchE)
+
+    const cotE = document.createElement('li')
+    cotE.textContent = 'CoT (Chain-Of-Thought): Measures multi-step reasoning capabilities.'
+    detailsE.appendChild(cotE)
+
+    const humanEvalE = document.createElement('li')
+    humanEvalE.textContent = "HumanEval+: Measures Python coding performance. Humans were only involved in the creation of the evaluation dataset, the name is misleading."
+    detailsE.appendChild(humanEvalE)
+
+    const lmEvalE = document.createElement('li')
+    lmEvalE.textContent = "LM-Eval: Measures general capabilities, but doesn't use the model-specific prompt templates."
+    detailsE.appendChild(lmEvalE)
+
+    const clickOnColumnsE = document.createElement('li')
+    clickOnColumnsE.classList.add('how-to-read-leaderboard__space')
+    clickOnColumnsE.textContent = 'Click on the columns to see the benchmark-specific leaderboards with more details.'
+    detailsE.appendChild(clickOnColumnsE)
+
+    return containerE
+}
+
 export async function createBenchmarksIndexV(baseUrl) {
     const containerE = document.createElement('div')
+
+    containerE.appendChild(createHowToReadThisLeaderboardV())
 
     const explanationE = document.createElement('div')
     explanationE.classList.add('main__explanation')
