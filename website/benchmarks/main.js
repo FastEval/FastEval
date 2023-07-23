@@ -278,15 +278,26 @@ export async function createBenchmarksIndexV(baseUrl) {
     theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
 
+    let didInsertSeparatorToBaseModels = false
     for (const [position, modelInformation] of modelsSortedByRank.entries()) {
         const { model_name: model, benchmarks } = modelInformation
 
-        const rowE = tbodyE.insertRow()
+        let rowE = tbodyE.insertRow()
 
-        if (benchmarks.length === 1 && benchmarks[0] === 'lm-evaluation-harness')
+        if (benchmarks.length === 1 && benchmarks[0] === 'lm-evaluation-harness') {
+            if (!didInsertSeparatorToBaseModels) {
+                const separatorRowE = rowE.insertCell()
+                separatorRowE.setAttribute('colspan', (5 + allBenchmarks.length).toString())
+                separatorRowE.classList.add('separator-row')
+                separatorRowE.textContent = 'Base models. Not evaluated on instruction-model specific benchmarks.'
+                rowE = tbodyE.insertRow()
+                didInsertSeparatorToBaseModels = true
+            }
+
             createTableScoreCell(rowE, createTextE('(' + (position + 1) + ')'))
-        else
+        } else {
             createTableScoreCell(rowE, createTextE(position + 1))
+        }
 
         const numParameters = getModelNumParams(modelInformation)
         if (numParameters === '') {
