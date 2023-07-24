@@ -14,8 +14,10 @@ last_rate_limit_errors = {}
 check_last_rate_limit_lock = threading.Lock()
 
 class OpenAI(OpenAIBase):
-    def __init__(self, model_name, *, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
+    def __init__(self, model_name, default_system_message=None, *, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
         super().__init__(model_name, max_new_tokens=max_new_tokens)
+
+        self.default_system_message = default_system_message
 
         if self.model_name.startswith('gpt-3.5-turbo'):
             self.num_threads = NUM_THREADS_OPENAI_GPT3_5
@@ -25,6 +27,9 @@ class OpenAI(OpenAIBase):
             raise Exception('Unknown OpenAI model.')
 
     def reply(self, conversation, temperature=None, max_new_tokens=None):
+        if self.default_system_message is not None and conversation[0][0] != 'system':
+            conversation.insert(0, ('system', self.default_system_message))
+
         while True:
             while True:
                 last_rate_limit_error = last_rate_limit_errors.get(self.model_name, 0)

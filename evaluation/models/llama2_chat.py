@@ -3,16 +3,18 @@ import transformers
 from .huggingface import Huggingface
 
 class Llama2Chat(Huggingface):
-    def __init__(self, model_path, **kwargs):
-        super().__init__(model_path, user=None, assistant=None, end=None)
+    def __init__(self, model_path, default_system_message=None, **kwargs):
+        if default_system_message is None:
+            default_system_message = ('You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\n\n'
+                + "If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.")
+
+        super().__init__(model_path, user=None, assistant=None, end=None, default_system=default_system_message)
+
         self.tokenizer_with_eos = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path, add_bos_token=True, add_eos_token=True)
         self.tokenizer_without_eos = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path, add_bos_token=True, add_eos_token=False)
 
     # https://github.com/facebookresearch/llama/blob/main/llama/generation.py
     def _conversation_to_prompt(self, conversation):
-        default_system = ('You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\n\n'
-            + "If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.")
-
         instruction_start = '[INST]'
         instruction_end = '[/INST]'
 
@@ -20,7 +22,7 @@ class Llama2Chat(Huggingface):
         system_end = '\n<</SYS>>\n\n'
 
         if conversation[0][0] != 'system':
-            conversation.insert(0, ('system', default_system))
+            conversation.insert(0, ('system', self.default_system))
 
         if len(conversation) >= 2:
             assert conversation[1][0] == 'user'

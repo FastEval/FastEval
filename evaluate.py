@@ -51,6 +51,7 @@ def main():
     parser.add_argument('-t', '--model-type')
     parser.add_argument('-m', '--model-name')
     parser.add_argument('--model-tokenizer')
+    parser.add_argument('--model-default-system-message')
     parser.add_argument('--force-backend', choices=['hf_transformers', 'tgi', 'vllm'], required=False)
     parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=None)
     args = parser.parse_args()
@@ -62,6 +63,7 @@ def main():
 
     model_args = {
         'tokenizer': args.model_tokenizer,
+        'default_system_message': args.model_default_system_message,
     }
 
     if os.path.exists('reports/__index__.json'):
