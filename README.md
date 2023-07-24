@@ -48,7 +48,7 @@ apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make python
 
 To evaluate a new model, call the `evaluate.py` script in the following way:
 ```
-./evaluate.py [-b <benchmark_name_1>...] -m model_type_1:model_name_1...
+./evaluate.py [-b <benchmark_name_1>...] -m model_type:model_name
 ````
 
 The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench), [`human-eval-plus`](https://tju01.github.io/ilm-eval/#?benchmark=human-eval-plus), [`cot`](https://tju01.github.io/ilm-eval/#?benchmark=cot) or [`lm-evaluation-harness`](https://tju01.github.io/ilm-eval/#?benchmark=lm-evaluation-harness).
