@@ -37,12 +37,12 @@ def generate_single_conversation_assistant_replies(model_and_question):
 
     return [first_turn_reply, second_turn_reply]
 
-def generate_assistant_replies(model_type, model_name):
+def generate_assistant_replies(model_type, model_name, model_args):
     answers_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), 'answers.json')
     if os.path.exists(answers_filepath):
         return
 
-    model = create_model(model_type, model_name)
+    model = create_model(model_type, model_name, model_args)
 
     with open('data/mt-bench/questions.json') as f:
         questions = json.load(f)
@@ -201,6 +201,6 @@ def judge(model_name):
     compute_judge_replies(model_name)
     compute_model_score(model_name)
 
-def evaluate_model(model_type, model_name):
-    generate_assistant_replies(model_type, model_name)
+def evaluate_model(model_type, model_name, model_args):
+    generate_assistant_replies(model_type, model_name, model_args)
     threading.Thread(target=judge, args=(model_name, )).start()

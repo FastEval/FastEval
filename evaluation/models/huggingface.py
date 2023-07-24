@@ -20,7 +20,7 @@ class Huggingface:
         self,
         model_path: str,
         *,
-        tokenizer_path=None,
+        tokenizer=None,
         prefix='',
         user: str,
         assistant: str,
@@ -31,7 +31,7 @@ class Huggingface:
     ):
         self.model_path = model_path
 
-        self.tokenizer_path = model_path if tokenizer_path is None else tokenizer_path
+        self.tokenizer_path = model_path if tokenizer is None else tokenizer
 
         self.prefix = prefix
         self.user = user

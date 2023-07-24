@@ -4,43 +4,53 @@ import os
 import json
 import argparse
 import threading
+import uuid
 
 import evaluation.args
 from evaluation import benchmarks
 from evaluation.utils import changed_exit_handlers
 from evaluation.models.models import unload_model
 
-def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_model, new_benchmarks):
-    if new_model is None:
+def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_model_type, new_model_name, new_benchmarks, model_args):
+    if new_model_name is None:
         return existing_models_and_benchmarks
 
-    model_type, model_name = new_model.split(':')
+    model_args = { k: v for k, v in model_args.items() if v is not None }
 
     inserted_into_existing_entry = False
     for item in existing_models_and_benchmarks:
-        if item['model_type'] != model_type:
+        if item['model_name'] != new_model_name:
             continue
-        if item['model_name'] != model_name:
-            continue
+        if item['model_type'] != new_model_type:
+            raise # TODO: Only for now. Later we allow this.
+        if item['model_args'] != model_args:
+            raise # TODO: Only for now. Later we allow this.
         for benchmark in new_benchmarks:
-            item['benchmarks'].insert(0, benchmark)
+            if benchmark not in item['benchmarks']:
+                item['benchmarks'].insert(0, benchmark)
         inserted_into_existing_entry = True
 
     if inserted_into_existing_entry:
         return existing_models_and_benchmarks
 
     existing_models_and_benchmarks.insert(0, {
-        'model_type': model_type,
-        'model_name': model_name,
+        'id': str(uuid.uuid4()),
+        'model_type': new_model_type,
+        'model_name': new_model_name,
         'benchmarks': new_benchmarks,
+        'model_args': model_args,
     })
+
+    return existing_models_and_benchmarks
 
 def main():
     all_benchmarks = ['mt-bench', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
-    parser.add_argument('-m', '--model')
+    parser.add_argument('-t', '--model-type')
+    parser.add_argument('-m', '--model-name')
+    parser.add_argument('--model-tokenizer')
     parser.add_argument('--force-backend', choices=['hf_transformers', 'tgi', 'vllm'], required=False)
     parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=None)
     args = parser.parse_args()
@@ -50,9 +60,13 @@ def main():
     if 'all' in args.benchmarks:
         args.benchmarks = all_benchmarks
 
+    model_args = {
+        'tokenizer': args.model_tokenizer,
+    }
+
     if os.path.exists('reports/__index__.json'):
         with open('reports/__index__.json') as f:
-            models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.model, args.benchmarks)
+            models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.model_type, args.model_name, args.benchmarks, model_args)
 
     evaluation_functions = [
         ('mt-bench', benchmarks.mt_bench.evaluate_model),
@@ -64,12 +78,12 @@ def main():
         for item in models_and_benchmarks:
             for benchmark_name, evaluation_function in evaluation_functions:
                 if benchmark_name in item['benchmarks']:
-                    evaluation_function(item['model_type'], item['model_name'])
+                    evaluation_function(item['model_type'], item['model_name'], item['model_args'])
             unload_model()
 
     for item in models_and_benchmarks:
         if 'lm-evaluation-harness' in item['benchmarks']:
-            benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'])
+            benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'], item['model_args'])
 
     for thread in threading.enumerate():
         if thread.daemon:

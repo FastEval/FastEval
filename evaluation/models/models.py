@@ -25,7 +25,7 @@ from evaluation.models.dolphin import Dolphin
 
 config_dict_cache = {}
 
-def create_model(model_type: str, model_name: str, **kwargs):
+def create_model(model_type: str, model_name: str, model_args: dict[str, str], **kwargs):
     model_classes = {
         'debug': Debug,
         'openai': OpenAI,
@@ -47,7 +47,7 @@ def create_model(model_type: str, model_name: str, **kwargs):
 
     model_class = model_classes[model_type]
 
-    return model_class(model_name, **kwargs)
+    return model_class(model_name, **model_args, **kwargs)
 
 def get_config_dict(model_name):
     if model_name in config_dict_cache:
