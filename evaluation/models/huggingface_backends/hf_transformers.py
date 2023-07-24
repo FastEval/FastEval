@@ -45,6 +45,8 @@ def process_current_batch():
     for batch_item in current_batch:
         assert batch_item['model'] is model
 
+    sampling_parameters_to_batch_items = {}
+
     for i, batch_item in enumerate(current_batch):
         temperature = batch_item['temperature']
         if temperature is None:
@@ -154,6 +156,6 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
         }
 
     condition = threading.Condition()
-    current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model, 'temperature': temperature })
+    current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model, 'temperature': temperature, 'max_new_tokens': max_new_tokens })
     lock.release()
     return wait_for_response(condition)
