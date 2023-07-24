@@ -1,0 +1,75 @@
+{
+    "score": 0.4,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "The Barkhausen criterion for an oscillator\n\n(A) Loop gain should be unity\n(B) Loop gain should be less than unity\n(C) The phase of a feedback signal with respect to input should be 0\u00b0 or 360\u00b0\n(D) Both A and C",
+            "correct_answer": 3,
+            "model_answer": "The Barkhausen stability criterion is a mathematical condition to determine when a linear electronic system with a feedback loop will oscillate. According to this criterion, an electronic oscillator will sustain steady oscillations only at frequencies for which:\n\n1. The gain in the loop is unity.\nThis means the magnitude of the product of the gains (amplifications) of all elements in the loop must equal 1. This is crucial because if the loop gain was less than unity, the signal would diminish with each pass around the feedback loop until it disappeared completely, and if it was greater than unity, the signal would increase indefinitely, resulting in instability or saturation. \n\n2. The phase shift around the loop is an integer multiple of 360\u00b0.\nThis means the total phase shift introduced by all elements in the loop must be such that the signal returns to its starting point in phase with its original state, ensuring that constructive interference is maintained with each pass around the loop.\n\nThis means both criteria A and C are correct, so the answer is D. \n\nSo, the answer is (D).",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Potentiometer method of DC voltage measurement is more accurate than direct measurement using a voltmeter because\n\n(A) It loads the circuit moderately.\n(B) It loads the circuit to maximum extent.\n(C) It uses centre zero galvanometer instead of voltmeter.\n(D) It does not load the circuit at all.",
+            "correct_answer": 3,
+            "model_answer": "A Potentiometer is a three-terminal resistor with a sliding contact that forms an adjustable voltage divider. In measurement systems, it can be used to calibrate the voltage.\n\nStep 1: Understanding the working principle of Potentiometer\nA potentiometer works on the principle of comparison. It compares the potential difference (voltage) of the circuit with that of an unknown source. When a perfect balance is achieved between the two voltages, the galvanometer will show zero deflection. This point is known as the null point.\n\nStep 2: Dissecting the options\nOption A and B talking about loading the circuit moderately and to the maximum extent respectively. But the key factor in the accuracy of a Potentiometer is not about how much it loads the circuit.\n\nOption C claims it uses a centre zero galvanometer instead of a voltmeter. While true that a galvanometer is used, this does not inherently make it more accurate than a voltmeter.\n\nOption D states that it does not load the circuit at all. The way a Potentiometer measures voltage is by balancing out an unknown voltage with a known one until there is no \"flow\" (i.e. zero current), and then determining the unknown voltage based on the known one. This means that it doesn't draw any current from the circuit while measuring, or in other words, it doesn't load the circuit at all.\n\nStep 3: Finalizing the conclusion\nGiven the above understanding about the potentiometer and the provided options, it is safe to say that the reason why a potentiometer is more accurate for DC voltage measurement is that it does not load the circuit at all. Hence option D is correct.\n\n(D)",
+            "correct": true
+        },
+        {
+            "id": 2,
+            "question": "Which of these sets of logic gates are designated as universal gates?\n\n(A) NOR, NAND.\n(B) XOR, NOR, NAND.\n(C) OR, NOT, AND.\n(D) NOR, NAND, XNOR.",
+            "correct_answer": 0,
+            "model_answer": "A logic gate is called a universal gate if any function can be constructed completely by using it.\n\n(A) NOR, NAND: Both of these gates are universal. The reason is that any Boolean function can be constructed using either of these gates only.\n\n(B) XOR, NOR, NAND: As discussed earlier, NOR and NAND are both universal. XOR is not universal, but that doesn't matter since it's combined with two universal gates.\n\n(C) OR, NOT, AND: These gates can also be combined to form any Boolean function, making them together universal as well.\n\n(D) NOR, NAND, XNOR: The presence of NOR and NAND makes this set universal, irrespective of XNOR which is not a universal gate on its own.\n\nSo, all four options given contain sets of universal gates. Any set that has a NOR, a NAND, an OR with a NOT or an AND with a NOT can be used to create any other gate.\n\nTherefore, the answer is (E) All of the above.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "A single phase one pulse controlled circuit has a resistance R and counter emf E load 400 sin(314 t) as the source voltage. For a load counter emf of 200 V, the range of firing angle control is\n\n(A) 30\u00b0 to 150\u00b0.\n(B) 30\u00b0 to 180\u00b0.\n(C) 60\u00b0 to 120\u00b0.\n(D) 60\u00b0 to 180\u00b0.",
+            "correct_answer": 0,
+            "model_answer": "The firing angle is the point in time during the AC waveform when a SCR, TRIAC, or any other type of semiconductor device begins to conduct in a controlled rectifier. This value is ranged between 0\u00b0 to 180\u00b0 in the positive half cycle. \n\nThe counter emf (electromotive force) of 200 V, indicates the voltage drop across the circuit because of the reactive elements in the circuit (such as inductors and capacitors) and it is exactly equal to half of the amplitude of the source voltage, which is 400 V.\n\nIn single phase one pulse converter, each pulse of output current carries the reactive power to compensate the counter emf. As the output current for each pulse leads the applied voltage by 90\u00b0 for highly inductive load, when the counter emf is at highest or 200 V, the firing angle should be at least 90\u00b0.\n\nSo, the range of firing angle control is considered from this 90\u00b0 point to the maximum possible point in the positive half cycle which is 180\u00b0.\n\nTherefore, the correct answer is\n\n(D) 60\u00b0 to 180\u00b0.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "A box which tells the effect of inputs on control sub system is known as\n\n(A) Data Box.\n(B) Logical box.\n(C) Decision box.\n(D) State box.",
+            "correct_answer": 2,
+            "model_answer": "The box which tells the effect of inputs on the control subsystem is state box or state diagram. \n\nThis graphical representation is used in the design of a control subsystem and it represents the reaction of the subsystem to different input combinations. A subsystem can be in one of the several possible states based on its previous state and current inputs. The transition from one state to another based on the given inputs is represented by the state box or state diagram.\n\nTherefore, the answer is (D) State box.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Two infinite parallel metal plates are charged with equal surface charge density of the same polarity. The electric field in the gap between the plates is\n\n(A) same as that produced by one plate.\n(B) double the field produced by one plate.\n(C) dependent on coordinates of field points.\n(D) zero.",
+            "correct_answer": 3,
+            "model_answer": "Let's explore this step by step. \n\nStep 1: Understanding the concept. \nThe electric field produced by a charged plate is equal and opposite on both sides of the plate. If two plates have charges of the same polarity, the fields between the plates add up while the field outside the plates cancel out each other.\n\nStep 2: Relate this to our answer options. \nThe electric field between the plates would therefore be double the field produced by just one plate, because the fields from the two plates both point in the same direction in the gap between the plates.\n\nStep 3: Eliminate wrong options. \nWe can rule out (A): \"same as that produced by one plate\", since the fields from both plates accumulate in-between.\nWe can rule out (C): \"dependent on coordinates of field points\" because the field between two infinite parallel plates is uniform -- that is, it does not depend on position. \nWe can rule out (D): \"zero\" because the field is not zero in-between the plates.\n\nTherefore, the correct option is (B) \"double the field produced by one plate.\"\n\nThe final answer is (B).",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "The resistance in the circuit of the moving coil of a dynamometer wattmeter should be\n\n(A) Low.\n(B) Very low.\n(C) High.\n(D) Almost zero.",
+            "correct_answer": 2,
+            "model_answer": "A dynamometer wattmeter is an instrument used for electrical measurement primarily to measure true power or the power factor. \n\nThere are two coils in the wattmeter: the current coil and the potential coil. The power passing through the circuit is measured by the potential difference and the current in these two coils. \n\nThe potential coil or the moving coil of a wattmeter is usually of high resistance, because it is connected in parallel to the circuit, and you do not want it to significantly change the circuit it is measuring. If this coil had very low resistance, it would draw too much current and corrupt the measurement, possibly even damaging the coil.\n\nThe current coil is typically a low-resistance coil, as it is connected in series to the circuit, and you'd want the majority of the current to go through the circuit itself. \n\nSo, considering the question is about the resistance in the moving coil i.e. the potential coil, it should be high to minimize current consumption and maintain circuit integrity.\n\nThe answer is:\n(C) High.",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "The following are the necessary requirements of an oscillator\n\n(A) Amplitude stability\n(B) Frequency stability\n(C) Power stability\n(D) Both A and B",
+            "correct_answer": 3,
+            "model_answer": "An oscillator is an electronic device or system that is used to generate a periodic signal such as a sine wave or a square wave. It's primarily used in various electronic systems like radio and television transmitters, clock generators in computers, and sound-generating circuits in digital music keyboards.\n\nFor the successful operation of an oscillator, it's important to have:\n\n1. Frequency stability: The output frequency of the oscillator should be stable and precise. Oscillators are often used in devices that require a constant and precise frequency, like in a digital clock, where the frequency of the oscillator determines the time.\n\n2. Amplitude stability: The amplitude of an oscillator is the maximum height of its signal's wave. Amplitude stability is important because it ensures that the signal generated by the oscillator remains at a consistent level, which is necessary for the proper functioning and performance of an oscillator.\n\nThe oscillator is not specifically required to have power stability for it to operate successfully. Power fluctuations, to an extent, can occur without disrupting the oscillator's operation as long as the frequency and amplitude stability are maintained. Therefore, power stability, although good to have, is not a necessary requirement.\n\nBased on this explanation, we can then conclude that the necessary requirements for an oscillator are frequency stability and amplitude stability.\n\nSo, the answer is:\n\n(D) Both A and B",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "The normal voltage used in directional heating is\n\n(A) 1.5 KV.\n(B) 15 KV.\n(C) 33 KV.\n(D) 66 KV.",
+            "correct_answer": 0,
+            "model_answer": "Directional heating or induction heating uses a high-frequency alternating current to heat conductive materials. The voltage used for this process can vary based on various factors like the type of material being heated, the desired temperature, the size of the sample, and more.\n\nHowever, in most industrial applications, the typical voltage used for directional heating is 33 KV.\n\nStarting from this premise, we now compare this with the available answers.\n\nStep 1: Eliminate the options that are too low to be practically used in industrial directional heating. This eliminates options (A) and (B).\n\nStep 2: Since we know from practical applications that 33 KV is a common voltage, option (C) seems likely. \n\nStep 3: Even though it's possible that a higher voltage might be efficient for large-scale or high-temperature applications, it's not as commonly used as 33 KV. So we can eliminate option (D) as well.\n\nSo, by process of elimination and based on general industry usage, we can conclude that the normal voltage used in directional heating is 33 KV.\n\n(C)",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "LC oscillators are used for produce a waveform with frequency ranging from\n\n(A) 1MHz to 500 MHz\n(B) 100 KHz to 500 MHz\n(C) 1 KHz to 1 MHz\n(D) 1MHz to 100 GHz",
+            "correct_answer": 0,
+            "model_answer": "An LC oscillator, also known as a tank circuit, is a resonance circuit that consists of an inductor, represented by the symbol \"L,\" and a capacitor, represented by the symbol \"C.\" The frequency of oscillation of an LC oscillator is determined by the resonant frequency, which is a function of the values of the inductor and the capacitor.\n\nIn electronic systems, tank circuits are used to create specific frequencies that can be easily tuned and controlled. These frequencies are usually within the range of radio and television frequencies.\n\nOption A and D's upper limit of 500 MHz and 100 GHz respectively, are upper frequencies that are way beyond the range typically achieved by LC oscillators.\n\nOption C's upper limit of 1 MHz seems a bit low for what is typically achieved by LC oscillators.\n\nOption B, which gives a range of 100 KHz to 500 MHz, seems to be the most reasonable and typical range for an LC oscillator. This range encompasses the frequencies typically used in radio and television broadcasting and aligns with practical limitations of typical values for inductors and capacitors used in LC oscillators.\n\nHence, the most likely answer is (B) 100 KHz to 500 MHz.",
+            "correct": false
+        }
+    ]
+}
