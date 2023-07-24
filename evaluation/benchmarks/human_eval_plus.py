@@ -49,12 +49,12 @@ def create_conversation(prompt):
             + prompt),
     ]
 
-def compute_model_answers(*, model_type, model_name, output_folder):
+def compute_model_answers(*, model_type, model_name, model_args, output_folder):
     output_file = os.path.join(output_folder, 'answers.json')
     if os.path.exists(output_file):
         return
 
-    model = create_model(model_type, model_name)
+    model = create_model(model_type, model_name, model_args)
 
     dataset = get_human_eval_plus()
     task_ids = list(dataset.keys()) * N
@@ -155,8 +155,8 @@ def compute_scores(*, model_name, output_folder):
     with open(output_file, 'w') as f:
         json.dump(output, f, indent=4)
 
-def evaluate_model(model_type, model_name):
+def evaluate_model(model_type, model_name, model_args):
     output_folder = os.path.join('reports/human-eval-plus', replace_model_name_slashes(model_name))
     os.makedirs(output_folder, exist_ok=True)
-    compute_model_answers(model_type=model_type, model_name=model_name, output_folder=output_folder)
+    compute_model_answers(model_type=model_type, model_name=model_name, model_args=model_args, output_folder=output_folder)
     compute_scores(model_name=model_name, output_folder=output_folder)

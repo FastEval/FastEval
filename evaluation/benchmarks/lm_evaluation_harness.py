@@ -6,7 +6,7 @@ import lm_eval.evaluator
 from ..utils import replace_model_name_slashes
 from evaluation.models.models import get_dtype, create_model
 
-def evaluate_model(model_type, model_name):
+def evaluate_model(model_type, model_name, model_args):
     if model_type == 'openai':
         return
 
@@ -14,11 +14,11 @@ def evaluate_model(model_type, model_name):
     if os.path.exists(output_path):
         return
 
-    tokenizer_path = create_model(model_type, model_name).tokenizer_path
+    tokenizer_path = create_model(model_type, model_name, model_args).tokenizer_path
 
     tasks = ['openbookqa', 'arc_easy', 'winogrande', 'hellaswag', 'arc_challenge', 'piqa', 'boolq']
 
-    model_args = ','.join([k + '=' + str(v) for k, v in ({
+    lm_eval_model_args = ','.join([k + '=' + str(v) for k, v in ({
         'pretrained': model_name,
         'dtype': str(get_dtype(model_name)).replace('torch.', ''),
         'trust_remote_code': True,
@@ -28,7 +28,7 @@ def evaluate_model(model_type, model_name):
 
     print(model_name + ' :: LM-Eval :: Evaluating')
 
-    results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', tasks=tasks, model_args=model_args)
+    results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', tasks=tasks, model_args=lm_eval_model_args)
 
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)

@@ -217,13 +217,13 @@ def evaluate_model_on_mmlu(output_path):
         }
     }
 
-def evaluate_model(model_type, model_name):
+def evaluate_model(model_type, model_name, model_args):
     output_folder = os.path.join('reports', 'cot', replace_model_name_slashes(model_name))
     final_scores_file = os.path.join(output_folder, 'scores.json')
     if os.path.exists(final_scores_file):
         return
 
-    model = create_model(model_type, model_name, max_new_tokens=COT_MAX_NEW_TOKENS)
+    model = create_model(model_type, model_name, model_args, max_new_tokens=COT_MAX_NEW_TOKENS)
 
     tasks_path = os.path.join(output_folder, 'tasks')
 

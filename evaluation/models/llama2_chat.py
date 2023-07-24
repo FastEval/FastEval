@@ -4,7 +4,7 @@ from .huggingface import Huggingface
 
 class Llama2Chat(Huggingface):
     def __init__(self, model_path, **kwargs):
-        super().__init__(model_path, tokenizer_path='hf-internal-testing/llama-tokenizer', user=None, assistant=None, end=None)
+        super().__init__(model_path, user=None, assistant=None, end=None)
         self.tokenizer_with_eos = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path, add_bos_token=True, add_eos_token=True)
         self.tokenizer_without_eos = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path, add_bos_token=True, add_eos_token=False)
 
