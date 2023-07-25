@@ -12,9 +12,6 @@ from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 eos_tokens = {}
 eos_tokens_lock = threading.Lock()
 
-# Can be increased (should work), but batching doesn't seem to increase performance
-HF_TRANSFORMERS_BACKEND_BATCH_SIZE = 1
-
 class Huggingface:
     def __init__(
         self,
@@ -45,12 +42,7 @@ class Huggingface:
         self.dtype = evaluation.models.models.get_dtype(model_path)
         self.backend = evaluation.models.models.get_huggingface_backend(model_path)
 
-        if self.backend == 'vllm' or self.backend == 'tgi':
-            self.num_threads = NUM_THREADS_LOCAL_MODEL
-        elif self.backend == 'hf_transformers':
-            self.num_threads = HF_TRANSFORMERS_BACKEND_BATCH_SIZE
-        else:
-            raise
+        self.num_threads = NUM_THREADS_LOCAL_MODEL
 
     def _get_eos_token(self):
         if hasattr(self, 'eos_token'):
@@ -102,7 +94,8 @@ class Huggingface:
         elif self.backend == 'tgi':
             response = evaluation.models.huggingface_backends.tgi.run_inference(**common_kwargs)
         elif self.backend == 'hf_transformers':
-            response = evaluation.models.huggingface_backends.hf_transformers.run_inference(**common_kwargs, max_batch_size=self.num_threads)
+            # The batch size can be increased (should work), but batching doesn't seem to increase performance
+            response = evaluation.models.huggingface_backends.hf_transformers.run_inference(**common_kwargs, max_batch_size=1)
         else:
             raise
 

@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+import multiprocessing
+
+if multiprocessing.get_start_method(allow_none=True) != 'spawn':
+    multiprocessing.set_start_method('spawn')
+
 import os
 import json
 import argparse
