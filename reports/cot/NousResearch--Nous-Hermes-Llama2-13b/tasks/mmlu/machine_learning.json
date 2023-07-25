@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Statement 1| Linear regression estimator has the smallest variance among all unbiased estimators. Statement 2| The coefficients \u03b1 assigned to the classifiers assembled by AdaBoost are always non-negative.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "Let's analyze each statement separately.\n\nStatement 1:\nLinear regression estimator has the smallest variance among all unbiased estimators.\n\nThis statement is true. Linear regression is a statistical method to model the linear relationship between variables. The estimator of the linear regression is the least squares estimator, which has the smallest variance among all unbiased estimators.\n\nStatement 2:\nThe coefficients \u03b1 assigned to the classifiers assembled by AdaBoost are always non-negative.\n\nThis statement is also true. AdaBoost is a machine learning algorithm used for classification. The coefficients \u03b1 assigned to the classifiers are boosting factors, which are always non-negative. If the coefficient is negative, it would be replaced by 0, which means that the classifier will have no impact on the final prediction.\n\nSo, the correct answer is:\n(A) True, True",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "Statement 1| RoBERTa pretrains on a corpus that is approximate 10x larger than the corpus BERT pretrained on. Statement 2| ResNeXts in 2018 usually used tanh activation functions.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 2,
+            "model_answer": "To determine the correct answer, we need to analyze each statement individually and compare them to the available options.\n\nStatement 1: RoBERTa pretrains on a corpus that is approximate 10x larger than the corpus BERT pretrained on.\n\nThis statement is true. RoBERTa, which is an improved version of BERT, pretrains on a larger corpus. The exact ratio is not mentioned, but it is said to be around 10 times larger.\n\nStatement 2: ResNeXts in 2018 usually used tanh activation functions.\n\nThis statement is also true. ResNeXt, a type of deep learning architecture introduced in 2016, uses tanh activation functions. The use of tanh function in ResNeXt is one of the reasons behind its success in image classification tasks.\n\nTherefore, the correct answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "Statement 1| Support vector machines, like logistic regression models, give a probability distribution over the possible labels given an input example. Statement 2| We would expect the support vectors to remain the same in general as we move from a linear kernel to higher order polynomial kernels.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Here is my reasoning step-by-step:\n\nStatement 1: Support vector machines, like logistic regression models, give a probability distribution over the possible labels given an input example.\n\nThis statement is true. Support vector machines (SVM) and logistic regression models are both binary classification algorithms that can be used for classification and regression tasks. Both of these algorithms output a probability distribution over the possible labels given an input example. For example, in the case of SVM with a linear kernel and binary classification, the output is the probability of the positive class, which can be interpreted as a probability distribution over the two classes.\n\nStatement 2: We would expect the support vectors to remain the same in general as we move from a linear kernel to higher order polynomial kernels.\n\nThis statement is false. The support vectors do not remain the same when moving from a linear kernel to higher order polynomial kernels. The support vectors are the points in the training set that are closest to the margin of the hyperplane that separates the positive and negative classes. With a linear kernel, the support vectors lie on the margin of the linear hyperplane. However, when moving to higher order polynomial kernels, the hyperplane becomes a higher dimensional hyper-surface, and the support vectors may not necessarily lie on the margin of the hyper-surface. Therefore, the support vectors will change when moving from a linear kernel to higher order polynomial kernels.\n\nThe correct answer is (A) True, False.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "A machine learning problem involves four attributes plus a class. The attributes have 3, 2, 2, and 2 possible values each. The class has 3 possible values. How many maximum possible different examples are there?\n\n(A) 12\n(B) 24\n(C) 48\n(D) 72",
+            "correct_answer": 3,
+            "model_answer": "To find the maximum possible different examples, we can use the counting principle. For each of the 3 possible class values, there are 3^4 possible combinations of attribute values, since each attribute can have 3 possible values. Therefore, for each class value, there are:\n\n3^4 = 81\n\nSince there are 3 possible class values, the total number of maximum possible different examples is:\n\n81 * 3 = 243\n\nSo, (B) 24 is the correct answer.",
+            "correct": false
+        },
+        {
+            "id": 4,
+            "question": "As of 2020, which architecture is best for classifying high-resolution images?\n\n(A) convolutional networks\n(B) graph networks\n(C) fully connected networks\n(D) RBF networks",
+            "correct_answer": 0,
+            "model_answer": "The best architecture for classifying high-resolution images as of 2020 is (A) convolutional networks.\n\nConvolutional networks are specifically designed for image processing and are widely used in computer vision tasks such as image classification, object detection, and semantic segmentation. They are able to preserve the spatial relationship of pixels and can learn features directly from the raw input data without the need for manual feature engineering. This makes them particularly well-suited for high-resolution images, where traditional Fully Connected Networks (C) may struggle with the large number of parameters and the potential for overfitting. Graph Networks (B) and Radial Basis Function (RBF) Networks (D) are other types of neural network architectures, but they are less commonly used for image classification tasks and may not perform as well as convolutional networks for high-resolution images.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "Statement 1| The log-likelihood of the data will always increase through successive iterations of the expectation maximation algorithm. Statement 2| One disadvantage of Q-learning is that it can only be used when the learner has prior knowledge of how its actions affect its environment.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "A. True, True. \n\nHere's the reasoning behind my answer:\n\nStatement 1: The log-likelihood of the data will always increase through successive iterations of the expectation maximation algorithm.\nThis statement is True. The expectation maximization (EM) algorithm is a statistical method used in machine learning to find maximum likelihood estimates of parameters given a set of data. EM algorithm iteratively alternates between computing the expectation of the complete-data log-likelihood and updating the parameters of the model. As the number of iterations increases, the log-likelihood of the data will tend to increase towards its maximum value, which means that the algorithm converges to the optimal solution.\n\nStatement 2: One disadvantage of Q-learning is that it can only be used when the learner has prior knowledge of how its actions affect its environment.\nThis statement is also True. Q-learning is a model-free reinforcement learning algorithm that learns an action-value function that maps states to the expected cumulative reward of taking each action in that state. However, Q-learning requires prior knowledge of the reward function and the transition probabilities of the environment. Without this prior knowledge, Q-learning may not be effective in learning the optimal policy.",
+            "correct": false
+        },
+        {
+            "id": 6,
+            "question": "Let us say that we have computed the gradient of our cost function and stored it in a vector g. What is the cost of one gradient descent update given the gradient?\n\n(A) O(D)\n(B) O(N)\n(C) O(ND)\n(D) O(ND^2)",
+            "correct_answer": 0,
+            "model_answer": "The cost of one gradient descent update given the gradient depends on several factors, including the dimensionality of the input data, the number of iterations performed, and the learning rate used in the gradient descent algorithm. However, the computational complexity of a single gradient descent update is generally determined by the number of parameters being trained (referred to as \"D\" in the problem statement).\n\nFor a single gradient descent update, the computational cost is typically O(D), as we need to perform scalar-vector multiplication with the gradient vector g for each parameter in our model. As we iterate through multiple iterations of the gradient descent algorithm, the overall computational cost increases linearly with the number of iterations (N). Thus, the answer to the problem is:\n\n(A) O(D)",
+            "correct": false
+        },
+        {
+            "id": 7,
+            "question": "Statement 1| For a continuous random variable x and its probability distribution function p(x), it holds that 0 \u2264 p(x) \u2264 1 for all x. Statement 2| Decision tree is learned by minimizing information gain.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Examine statement 1.\nStatement 1 states that for a continuous random variable x and its probability distribution function p(x), it holds that 0 \u2264 p(x) \u2264 1 for all x. \n\nThis statement is true because the probability of an event occurring must be between 0 and 1. If p(x) > 1, then it would mean that the event is certain to happen, which is not possible. And if p(x) < 0, then it would mean that the event is impossible to happen, which is also not possible. Thus, the statement is true.\n\nStep 2: Examine statement 2.\nStatement 2 states that a decision tree is learned by minimizing information gain. \n\nThis statement is also true. Information gain is a measure of how much reduction in entropy is achieved by making a particular split in the decision tree. In other words, it measures how well the decision tree is able to separate the examples based on the chosen feature. The goal of decision tree learning is to create a tree that can accurately classify new examples. By minimizing information gain, the decision tree is able to select the best split that most effectively separates the examples, leading to a more accurate tree. Thus, the statement is true.\n\n(A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "To determine the number of independent parameters needed for this Bayesian network, we need to analyze the structure of the network and identify the potential parameters.\n\nThe network has three variables: H, U, and P. H has two possible values: high or low. U has three possible values: up, flat, or down. P has two possible values: present or absent.\n\nNow let's analyze the connections between the variables. There is a direct link from H to U, which means that the value of H has no effect on the value of U. Therefore, U is independent of H, and we don't need to consider H when calculating the number of independent parameters for U.\n\nNext, let's look at the link from U to P. Since U has three possible values, there are three possible values for P as well (present, absent, or undefined). Therefore, P is a function of U and has no independent parameters.\n\nFinally, let's consider the link from P to W. Since P has two possible values, there are two possible values for W as well (present or absent). Therefore, W is a function of P and has no independent parameters.\n\nIn summary, there are no independent parameters needed for this Bayesian network. The correct answer is:\n\n(A) 2",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "As the number of training examples goes to infinity, your model trained on that data will have:\n\n(A) Lower variance\n(B) Higher variance\n(C) Same variance\n(D) None of the above",
+            "correct_answer": 0,
+            "model_answer": "As the number of training examples goes to infinity, your model trained on that data will have:\n\n(A) Lower variance\n\nThe reasoning behind this is as follows:\n\nWhen the number of training examples goes to infinity, the model will have seen a very large number of different examples and varieties of input data. This will result in the model being able to better generalize to new, unseen data, because it has a better understanding of the underlying patterns and relationships in the data. As a result, the model will tend to provide more consistent and reliable predictions, leading to a lower variance in its outputs.\n\nSo, the answer is:\n\n(A) Lower variance.",
+            "correct": true
+        }
+    ]
+}

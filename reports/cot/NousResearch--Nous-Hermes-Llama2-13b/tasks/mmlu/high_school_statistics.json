@@ -1,0 +1,75 @@
+{
+    "score": 0.4,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "The weight of an aspirin tablet is 300 milligrams according to the bottle label. An FDA investigator weighs a simple random sample of seven tablets, obtains weights of 299, 300, 305, 302, 299, 301, and 303, and runs a hypothesis test of the manufacturer's claim. Which of the following gives the P-value of this test?\n\n(A) P(t > 1.54) with df = 6\n(B) 2P(t > 1.54) with df = 6\n(C) P(t > 1.54) with df = 7\n(D) 2P(t > 1.54) with df = 7",
+            "correct_answer": 1,
+            "model_answer": "To solve this problem, we need to use the t-distribution. We are given a sample mean (\u00b5) of 300 and a sample standard deviation (s) of 2.36 (s = sqrt(variance) = sqrt(sum(x - \u00b5)^2 / n)). We are also given the claim (\u00b5 = 300) and the sample size (n = 7). \n\nWe will perform a one-sample t-test to see if the sample mean is significantly different from the claim. The null hypothesis (H0) is that the sample mean is equal to the claim (\u00b5 = 300), and the alternative hypothesis (Ha) is that the sample mean is not equal to the claim (\u00b5 \u2260 300). \n\nFirst, we need to calculate the t-statistic:\n\nt = (x\u0304 - \u00b5) / (s / sqrt(n)) = (300 - 300) / (2.36 / sqrt(7)) = 0\n\nt = 0\n\nSince the t-statistic is 0, we will use a P-value based on a t-distribution with df = n - 1 = 7 - 1 = 6. \n\nNow, we need to find the P-value associated with t = 0. Using a t-distribution table or calculator, we find that the P-value for t = 0 is approximately 0.511. \n\nTherefore, the P-value of this test is approximately 0.511.",
+            "correct": false
+        },
+        {
+            "id": 1,
+            "question": "The waiting times for a new roller coaster ride are normally distributed with a mean of 35 minutes and a standard deviation of 10 minutes. If there are 150,000 riders the first summer, which of the following is the shortest time interval associated with 100,000 riders?\n\n(A) 0 to 31.7 minutes\n(B) 31.7 to 39.3 minutes\n(C) 25.3 to 44.7 minutes\n(D) 25.3 to 35 minutes",
+            "correct_answer": 2,
+            "model_answer": "To find the shortest time interval associated with 100,000 riders, we need to use the information given about the normal distribution and the waiting times. \n\nFirst, let's find the standard error (SE) of the mean. The formula for the standard error is:\n\nSE = \u03c3 / \u221an\n\nwhere \u03c3 is the standard deviation and n is the sample size.\n\nSE = 10 / \u221a150,000 = 10 / 1228.45 = 0.00812\n\nNow, we need to find the z-score for 100,000 riders. Since 100,000 is half of the total number of riders, we can assume that the distribution will be relatively symmetric. Therefore, we can use the mean (\u03bc) and the standard error (SE) to find the z-score.\n\nz = (X - \u03bc) / SE\n\nwhere X is the sample mean (100,000 riders) and \u03bc is the population mean (35 minutes).\n\nz = (100,000 - 35) / 0.00812 = 999,650 / 0.00812 = 123784.94\n\nNow, we need to convert the z-score to a percentile. We can use a z-table or a calculator to find the area to the left of the z-score.\n\nArea to the left = P(Z < 123784.94) \u2248 0.0002\n\nSince we want the shortest time interval, we need to find the reciprocal of the area to the left.\n\nreverse = 1 / Area to the left = 1 / 0.0002 = 500,000\n\nNow, we have the time interval (in minutes) associated with 100,000 riders. To convert it back to a time interval, we can add the population mean (35 minutes) to the reciprocal of the area to the left.\n\nShortest time interval = 35 + 500,000 = 35 + 500 = 535 minutes\n\nTherefore, the shortest time interval associated with 100,000 riders is 535 minutes, which is outside of the given options. The correct answer is:\n\n(E) 535 minutes",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "All of the following statements are true for all discrete random variables except for which one?\n\n(A) The possible outcomes must all be numerical.\n(B) The possible outcomes must be mutually exclusive.\n(C) The mean (expected value) always equals the sum of the products obtained by multiplying each value by its corresponding probability.\n(D) Approximately 95% of the outcomes will be within two standard deviations of the mean.",
+            "correct_answer": 3,
+            "model_answer": "The statement that is not true for all discrete random variables is option (D). \n\nFor discrete random variables, the mean (expected value) is given by the sum of the product of each value and its corresponding probability. The formula for the mean is:\n\nE(x) = \u03a3 x * P(x)\n\nwhere x is the random variable and P(x) is the probability of that outcome.\n\nThis means that the mean (expected value) will always equal the sum of the products obtained by multiplying each value by its corresponding probability, which is the definition of the mean for a discrete random variable. \n\nHowever, option (D) states that 'approximately 95% of the outcomes will be within two standard deviations of the mean.' This statement is true for normal distributions (also known as Gaussian distributions) of continuous random variables, but not for discrete random variables. For discrete random variables, the concept of standard deviation is not applicable, as the values are not inherently quantitative.\n\nTherefore, option (D) is the incorrect statement.",
+            "correct": true
+        },
+        {
+            "id": 3,
+            "question": "Which of the following is a true statement about hypothesis testing?\n\n(A) If there is sufficient evidence to reject a null hypothesis at the 10% level, then there is sufficient evidence to reject it at the 5% level.\n(B) Whether to use a one- or a two-sided test is typically decided after the data are gathered.\n(C) If a hypothesis test is conducted at the 1% level, there is a 1% chance of rejecting the null hypothesis.\n(D) The power of a test concerns its ability to detect an alternative hypothesis.",
+            "correct_answer": 3,
+            "model_answer": "(D) The power of a test concerns its ability to detect an alternative hypothesis.",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": "An outlier is an observation that\n\n(A) is seen more frequently than the other observations in the data set\n(B) is seen less frequently than the other observations in the data set\n(C) is always smaller than the other observations in the data set\n(D) is significantly different from the other observations in the data set",
+            "correct_answer": 3,
+            "model_answer": "The correct answer is (D) outlier is significantly different from the other observations in the data set. \n\nAn outlier is an observation that differs greatly from the other observations in a data set. It is not necessarily smaller or larger than the other observations, but it is notably different. An outlier can be identified using various methods, such as calculating standard deviations, determining the interquartile range, or using visual representations like box plots. \n\nTherefore, the correct answer is:\nD) outlier is significantly different from the other observations in the data set.",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "The principal of a school is interested in estimating the average income per family of her students. She selects a random sample of students and collects information about their family income. A 95 percent confidence interval computed from this data for the mean income per family is ($35,095, $45,005). Which of the following provides the best interpretation of this confidence interval?\n\n(A) 95 percent of the students in her school are from families whose income is between $35,095 and $45,005.\n(B) There is a 95% probability that the families of all the students in this school have an income of between $35,095 and $45,005.\n(C) If we were to take another sample of the same size and compute a 95 percent confidence interval, we would have a 95% chance of getting the interval ($35,095, $45,005).\n(D) There is a 95% probability that the mean income per family in the school is between $35,095 and $45,005.",
+            "correct_answer": 3,
+            "model_answer": "The best interpretation of this confidence interval is option (D). A 95 percent confidence interval is designed to provide an estimate of the population parameter (in this case, the mean income per family) along with a range of values that is likely to contain the true population mean with a specified level of confidence. In this case, the confidence interval ($35,095, $45,005) suggests that there is a 95% probability that the mean income per family in the school is between these two values. Therefore, option (D) is the correct interpretation. The other options provide incorrect interpretations of the confidence interval.",
+            "correct": true
+        },
+        {
+            "id": 6,
+            "question": "Researchers are conducting an experiment using a significance level of 0.05. The null hypothesis is, in fact, false. If they modify their experiment to use twice as many experimental units for each treatment, which of the following would be true?\n\n(A) The probability of a Type I error and the probability of a Type II error would both decrease.\n(B) The probability of a Type I error and the power would both increase.\n(C) The probability of a Type II error and the power would both increase.\n(D) The probability of a Type I error would stay the same and the power would increase.",
+            "correct_answer": 3,
+            "model_answer": "To understand the effect of modifying the experiment to use twice as many experimental units for each treatment, we need to consider the concepts of Type I and Type II errors, as well as the power of the test. \n\nType I and Type II errors are related to false positives and false negatives, respectively. A Type I error occurs when the null hypothesis is rejected when it is true, and a Type II error occurs when the null hypothesis is not rejected when it is false. The probability of each type of error depends on the significance level (0.05 in this case) and the test statistic.\n\nPower, on the other hand, refers to the probability of detecting an effect of a given size if it exists. A higher power means a greater chance of detecting an effect if it is present. In general, increasing the sample size increases the power of the test.\n\nNow, let's analyze the options:\n\n(A) The probability of a Type I error and the probability of a Type II error would both decrease.\n(B) The probability of a Type I error and the power would both increase.\n(C) The probability of a Type II error and the power would both increase.\n(D) The probability of a Type I error would stay the same and the power would increase.\n\nOption (D) is correct. By increasing the number of experimental units for each treatment, the power of the test will increase, which means that the probability of detecting an effect if it exists will be higher. However, the probability of a Type I error does not change with the change in sample size, so it will remain the same. Therefore, the answer is (D) The probability of a Type I error would stay the same and the power would increase.",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "The mean height of adult men is 70 inches, with a standard deviation of four inches. The mean height of adult women is 66 inches, with a standard deviation of three inches. Between a man with a height of 74 inches and a woman with a height of 70 inches, who is more unusually tall within his or her respective sex?\n\n(A) It cannot be determined, because the mean heights for the two groups are different.\n(B) It cannot be determined, because the standard deviations of the heights for the two groups are different.\n(C) The man, because he is 74 inches tall and the woman is only 70 inches tall.\n(D) The woman, because her height is 1.33 standard deviations above the mean height of all women, whereas the man\u2019s height is only one standard deviation above the mean height of all men.",
+            "correct_answer": 3,
+            "model_answer": "The correct answer is (D) The woman, because her height is 1.33 standard deviations above the mean height of all women, whereas the man\u2019s height is only one standard deviation above the mean height of all men.\n\nTo determine who is more unusually tall within their respective sex, we need to calculate how many standard deviations above their respective mean heights they are.\n\nThe man is 74 inches tall, which is one standard deviation above the mean height of all men (70 inches). So, he is in the 68th percentile of male height distribution.\n\nThe woman is 70 inches tall, which is 1.33 standard deviations above the mean height of all women (66 inches). So, she is in the 89.4% percentile of female height distribution.\n\nTherefore, the woman is more unusually tall within her respective sex.",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Which of the following is not true about t-distributions?\n\n(A) There are different t-distributions for different values of df (degrees of freedom).\n(B) t-distributions are bell-shaped and symmetric.\n(C) t-distributions always have mean 0 and standard deviation 1.\n(D) t-distributions are more spread out than the normal distribution.",
+            "correct_answer": 2,
+            "model_answer": "The statement that is not true about t-distributions is option (C). \nt-distributions do not always have mean 0 and standard deviation 1. The mean and standard deviation of a t-distribution depend on the values of the degrees of freedom (df) and the values of the deviations from the mean being measured. Specifically, the mean of a t-distribution is equal to the value of the population mean (\u03bc) divided by the square root of the value of the degrees of freedom (df), and the standard deviation is determined by the values of df and the coefficients that define the specific t-distribution.",
+            "correct": false
+        },
+        {
+            "id": 9,
+            "question": "To study the effect of alcohol on reaction time, subjects were randomly selected and given three beers to consume. Their reaction time to a simple stimulus was measured before and after drinking the alcohol. Which of the following is a correct statement?\n\n(A) This study was an observational study.\n(B) Lack of blocking makes this a poorly designed study.\n(C) The placebo effect is irrelevant in this type of study.\n(D) This study was an experiment in which the subjects were used as their own controls.",
+            "correct_answer": 3,
+            "model_answer": "This study was an experiment in which the subjects were used as their own controls.",
+            "correct": false
+        }
+    ]
+}
