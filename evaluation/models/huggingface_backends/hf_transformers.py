@@ -1,53 +1,31 @@
 import threading
+import multiprocessing
 import time
 import gc
+import os
 
+import torch
 import transformers
 
 import evaluation.models.models
 
-lock = threading.Lock()
-model = None
-current_batch = []
+global_lock = threading.Lock()
+current_worker_process_manager = None
 
-def unload_model(use_lock=True):
-    global model
-    global current_batch
+def unload_model():
+    global global_lock
+    global current_worker_process_manager
 
-    if use_lock:
-        lock.acquire()
+    global_lock.acquire()
+    if current_worker_process_manager is not None:
+        current_worker_process_manager.unload_model()
+    current_worker_process_manager = None
+    global_lock.release()
 
-    if model is not None:
-        model = None
-        gc.collect()
-
-    current_batch = []
-
-    if use_lock:
-        lock.release()
-
-def process_current_batch():
-    global current_batch
-
-    time.sleep(0.05)
-
-    lock.acquire()
-
-    if len(current_batch) == 0:
-        lock.release()
-        return
-
-    # We just store a reference to the model here to make sure that the prompt is evaluated with the correct model
-    # It could theoretically happen (in the rest of the code), that while we are waiting for some responses to be computed,
-    # the underlying model should be changed. This is not something that should currently happen since we evaluate one
-    # model at a time and wait for all the responses before switching the model.
-    # But just to prevent future possible bugs, we make really sure that we have the correct model here.
-    for batch_item in current_batch:
-        assert batch_item['model'] is model
-
+def compute_model_response(*, batch, tokenizer, model):
     sampling_parameters_to_batch_items = {}
 
-    for i, batch_item in enumerate(current_batch):
+    for i, batch_item in enumerate(batch):
         temperature = batch_item['temperature']
         if temperature is None:
             temperature = 1.0
@@ -63,8 +41,9 @@ def process_current_batch():
 
     for (temperature, max_new_token), batch_items_with_specific_sampling_parameters in sampling_parameters_to_batch_items.items():
         prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_sampling_parameters]
-        responses = model['pipeline'](
-            prompts,
+        input_ids = tokenizer(prompts, return_tensors='pt').to('cuda')
+        output_tokens = model.generate(
+            **input_ids,
 
             # See the following link for more details & a list of the parameters
             # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
@@ -90,72 +69,123 @@ def process_current_batch():
             length_penalty=1.0,
             no_repeat_ngram_size=0,
             renormalize_logits=False,
-
-            batch_size=model['max_batch_size'],
         )
 
-        responses = [responses[i][0]['generated_text'][len(prompts[i]):] for i in range(len(batch_items_with_specific_sampling_parameters))]
         for i in range(len(batch_items_with_specific_sampling_parameters)):
-            batch_items_with_specific_sampling_parameters[i]['response'] = responses[i]
+            response = output_tokens[i]
+            response = response[len(input_ids[i]):]
+            response = tokenizer.decode(response, skip_special_tokens=True)
+            result_pipe = batch_items_with_specific_sampling_parameters[i]['result_pipe']
+            result_pipe.send(response)
+            result_pipe.close()
 
-    for item in current_batch:
-        item['obtained_response'] = False
-        with item['condition']:
-            item['condition'].notify_all()
+def run_worker_process(tokenizer_path, model_path, dtype, queue):
+    tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
+    tokenizer.padding_side = 'left'
 
-    while not all(item['obtained_response'] for item in current_batch):
-        time.sleep(0.01)
+    model = transformers.AutoModelForCausalLM.from_pretrained(
+        model_path,
+        torch_dtype=dtype,
+        trust_remote_code=True,
+        device_map='auto',
+    )
 
-    current_batch = []
+    while True:
+        item = queue.get()
+        if item == 'unload-model':
+            break
+        compute_model_response(batch=item, tokenizer=tokenizer, model=model)
 
-    lock.release()
+    tokenizer = None
+    model = None
+    gc.collect()
 
-def wait_for_response(condition):
-    thread = threading.Thread(target=process_current_batch)
-    thread.start()
+    queue.task_done()
 
-    with condition:
-        condition.wait()
+start_new_worker_lock = threading.Lock()
+def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices):
+    start_new_worker_lock.acquire()
+    os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(device_id) for device_id in devices])
+    multiprocessing.Process(target=run_worker_process, args=(tokenizer_path, model_path, dtype, queue)).start()
+    del os.environ['CUDA_VISIBLE_DEVICES']
+    start_new_worker_lock.release()
 
-    for item in current_batch:
-        if item['condition'] != condition:
-            continue
-        response = item['response']
-        item['obtained_response'] = True
-        return response
+class WorkerProcessManager:
+    def __init__(self, *, tokenizer_path, model_path, dtype, maximum_batch_size, num_devices_per_model):
+        self.tokenizer_path = tokenizer_path
+        self.model_path = model_path
+        self.dtype = dtype
+        self.maximum_batch_size = maximum_batch_size
 
-    raise
+        self.next_batch = []
+        self.timestamp_when_last_batch_item_was_added = None
+        self.queue = multiprocessing.Queue()
+        self.lock = threading.Lock()
+
+        self.num_threads = torch.cuda.device_count() // num_devices_per_model
+        for i in range(self.num_threads):
+            devices = list(range(i * num_devices_per_model, (i + 1) * num_devices_per_model))
+            start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype, queue=self.queue, devices=devices)
+
+        self.models_are_loaded = True
+
+    def unload_model(self):
+        self.lock.acquire()
+
+        assert self.models_are_loaded
+
+        for i in range(self.num_threads):
+            self.queue.put('unload-model')
+
+        self.models_are_loaded = False
+
+        self.lock.release()
+
+    def add_item_to_next_batch(self, item):
+        self.lock.acquire()
+        self.next_batch.append(item)
+        self.lock.release()
+
+        time.sleep(0.05)
+
+        self.lock.acquire()
+        self.queue.put(self.next_batch[:self.maximum_batch_size])
+        self.next_batch = self.next_batch[self.maximum_batch_size:]
+        self.lock.release()
 
 def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size):
-    global model
+    global global_lock
+    global current_worker_process_manager
 
-    lock.acquire()
+    global_lock.acquire()
 
     evaluation.models.models.switch_gpu_model_type('hf_transformers')
 
-    if (model is None
-            or model['tokenizer_path'] != tokenizer_path
-            or model['model_path'] != model_path
-            or model['dtype'] != dtype):
-        unload_model(False)
-        tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
-        tokenizer.padding_side = 'left'
-        model = {
-            'tokenizer_path': tokenizer_path,
-            'model_path': model_path,
-            'dtype': dtype,
-            'max_batch_size': max_batch_size,
-            'pipeline': transformers.pipeline(
-                'text-generation',
-                model=model_path,
-                tokenizer=tokenizer,
-                torch_dtype=dtype,
-                trust_remote_code=True,
-                device_map='auto'
-            ),
-        }
+    if (current_worker_process_manager is None
+            or current_worker_process_manager.tokenizer_path != tokenizer_path
+            or current_worker_process_manager.model_path != model_path
+            or current_worker_process_manager.dtype != dtype
+            or current_worker_process_manager.maximum_batch_size != max_batch_size):
+        if current_worker_process_manager is not None:
+            current_worker_process_manager.unload_model()
+        current_worker_process_manager = WorkerProcessManager(
+            tokenizer_path=tokenizer_path,
+            model_path=model_path,
+            dtype=dtype,
+            maximum_batch_size=max_batch_size,
+            num_devices_per_model=1,
+        )
 
-    condition = threading.Condition()
-    current_batch.append({ 'prompt': prompt, 'condition': condition, 'model': model, 'temperature': temperature, 'max_new_tokens': max_new_tokens })
-    lock.release()
-    return wait_for_response(condition)
+    result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
+    current_worker_process_manager.add_item_to_next_batch({
+        'prompt': prompt,
+        'temperature': temperature,
+        'max_new_tokens': max_new_tokens,
+        'result_pipe': result_pipe_child_conn,
+    })
+
+    global_lock.release()
+
+    model_response = result_pipe_parent_conn.recv()
+    print(model_response)
+    return model_response
