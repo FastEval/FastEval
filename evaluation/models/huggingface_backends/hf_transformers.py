@@ -176,16 +176,17 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             num_devices_per_model=1,
         )
 
+    manager = current_worker_process_manager
+
+    global_lock.release()
+
     result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
-    current_worker_process_manager.add_item_to_next_batch({
+
+    manager.add_item_to_next_batch({
         'prompt': prompt,
         'temperature': temperature,
         'max_new_tokens': max_new_tokens,
         'result_pipe': result_pipe_child_conn,
     })
 
-    global_lock.release()
-
-    model_response = result_pipe_parent_conn.recv()
-    print(model_response)
-    return model_response
+    return result_pipe_parent_conn.recv()
