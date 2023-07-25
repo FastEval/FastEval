@@ -124,7 +124,7 @@ def compute_judge_replies(model_name):
         'conversation': create_judge_conversation(questions, answers, judge_prompt_templates, turn_number, question_id),
     } for turn_number in [0, 1] for question_id in questions.keys()]
 
-    judge_model = create_model(*MT_BENCH_JUDGE, max_new_tokens=MT_BENCH_JUDGE_MAX_NEW_TOKENS)
+    judge_model = create_model(*MT_BENCH_JUDGE, {}, max_new_tokens=MT_BENCH_JUDGE_MAX_NEW_TOKENS)
 
     judge_replies = compute_model_replies(judge_model, [{
         'conversation': item['conversation'],
