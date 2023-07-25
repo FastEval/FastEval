@@ -13,9 +13,9 @@ It also contains [a leaderboard](https://tju01.github.io/ilm-eval) for compariso
 ## Installation
 
 ```bash
-# Install `python3.10` and `python3.10-venv`.
+# Install `python3.10`, `python3.10-venv` and `python3.10-dev`.
 # The following command assumes an ubuntu >= 22.04 system.
-apt install python3.10 python3.10-venv
+apt install python3.10 python3.10-venv python3.10-dev
 
 # Clone this repository, make it the current working directory
 git clone --depth 1 https://github.com/tju01/ilm-eval.git
@@ -32,7 +32,7 @@ This already installs [vLLM](https://github.com/vllm-project/vllm) for fast infe
 ```bash
 # Install various system packages.
 # The following command assumes an ubuntu >= 22.04 system.
-apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make python3.10-dev
+apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make
 
 # Install text-generation-inference to the `ilm-eval/text-generation-inference` folder.
 ./install-text-generation-inference
