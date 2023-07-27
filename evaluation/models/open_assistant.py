@@ -2,7 +2,7 @@ from .huggingface import Huggingface
 
 class OpenAssistant(Huggingface):
     def __init__(self, model_path, default_system_message=None, **kwargs):
-        if 'llama' in model_path:
+        if 'llama' in model_path.lower():
             eos_token = '</s>'
         elif 'pythia' in model_path or 'falcon' in model_path or 'starcoder' in model_path:
             eos_token = '<|endoftext|>'
