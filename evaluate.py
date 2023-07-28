@@ -105,7 +105,7 @@ def main():
                 raise
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
-        json.dump(models_and_benchmarks, f, indent=4)
+        f.write(json.dumps(models_and_benchmarks, indent=4) + '\n')
 
 if __name__ == '__main__':
     main()
