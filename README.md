@@ -44,11 +44,11 @@ apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make
 
 ## Evaluation
 
-⚠️ Running `evaluate.py` currently executes untrusted code, both from models with remote code as well as LLM generated code when using [HumanEval+](https://github.com/evalplus/evalplus). There is currently no integrated sandbox, so make sure to only execute the code in an environment where this is not a problem.
+⚠️ Running `ilm-eval` currently executes untrusted code, both from models with remote code as well as LLM generated code when using [HumanEval+](https://github.com/evalplus/evalplus). There is currently no integrated sandbox, so make sure to only execute the code in an environment where this is not a problem.
 
-To evaluate a new model, call the `evaluate.py` script in the following way:
+To evaluate a new model, call `ilm-eval` in the following way:
 ```
-./evaluate.py [-b <benchmark_name_1>...] -t model_type -m model_name
+./ilm-eval [-b <benchmark_name_1>...] -t model_type -m model_name
 ````
 
 The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench), [`human-eval-plus`](https://tju01.github.io/ilm-eval/#?benchmark=human-eval-plus), [`cot`](https://tju01.github.io/ilm-eval/#?benchmark=cot) or [`lm-evaluation-harness`](https://tju01.github.io/ilm-eval/#?benchmark=lm-evaluation-harness).
@@ -59,7 +59,7 @@ The `-m` flag specifies the name of the model which can be a path to a model on 
 
 For example, this command will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) on [MT-Bench](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench):
 ```bash
-./evaluate.py -b mt-bench -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps`
+./ilm-eval -b mt-bench -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps`
 ```
 
 ### Viewing the results
