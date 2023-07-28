@@ -217,8 +217,8 @@ def evaluate_model_on_mmlu(output_path):
         }
     }
 
-def evaluate_model(model_type, model_name, model_args):
-    output_folder = os.path.join('reports', 'cot', replace_model_name_slashes(model_name))
+def evaluate_model(model_type, model_name, model_args, evaluation_id):
+    output_folder = os.path.join('reports', 'cot', replace_model_name_slashes(model_name), evaluation_id)
     final_scores_file = os.path.join(output_folder, 'scores.json')
     if os.path.exists(final_scores_file):
         return

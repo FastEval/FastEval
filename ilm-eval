@@ -92,12 +92,12 @@ def main():
         for item in models_and_benchmarks:
             for benchmark_name, evaluation_function in evaluation_functions:
                 if benchmark_name in item['benchmarks']:
-                    evaluation_function(item['model_type'], item['model_name'], item['model_args'])
+                    evaluation_function(item['model_type'], item['model_name'], item['model_args'], item['id'])
             unload_model()
 
     for item in models_and_benchmarks:
         if 'lm-evaluation-harness' in item['benchmarks']:
-            benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'], item['model_args'])
+            benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'], item['model_args'], item['id'])
 
     for thread in threading.enumerate():
         if thread.daemon:

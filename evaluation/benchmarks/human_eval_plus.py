@@ -155,8 +155,8 @@ def compute_scores(*, model_name, output_folder):
     with open(output_file, 'w') as f:
         json.dump(output, f, indent=4)
 
-def evaluate_model(model_type, model_name, model_args):
-    output_folder = os.path.join('reports/human-eval-plus', replace_model_name_slashes(model_name))
+def evaluate_model(model_type, model_name, model_args, evaluation_id):
+    output_folder = os.path.join('reports/human-eval-plus', replace_model_name_slashes(model_name), evaluation_id)
     os.makedirs(output_folder, exist_ok=True)
     compute_model_answers(model_type=model_type, model_name=model_name, model_args=model_args, output_folder=output_folder)
     compute_scores(model_name=model_name, output_folder=output_folder)
