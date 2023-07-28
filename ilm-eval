@@ -52,12 +52,19 @@ def main():
     all_benchmarks = ['mt-bench', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all')
-    parser.add_argument('-t', '--model-type')
-    parser.add_argument('-m', '--model-name')
-    parser.add_argument('--model-tokenizer')
-    parser.add_argument('--model-default-system-message')
-    parser.add_argument('--force-backend', choices=['hf_transformers', 'tgi', 'vllm'], required=False)
+    parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all',
+        help='Benchmark(s) that the model will be evaluated on')
+    parser.add_argument('-t', '--model-type',
+        help='Type of the model that will be evaluated. Can be an API client name (openai), a prompt template (e.g. alpaca) or `fastchat` for the fastchat backend.')
+    parser.add_argument('-m', '--model-name',
+        help='Name of the model that will be evaluated. Depending on the type, it can be an OpenAI model name or a path to a huggingface model.')
+    parser.add_argument('--model-tokenizer',
+        help='By default, the tokenizer will be the same as the model, but it can also be overwritten with this argument.')
+    parser.add_argument('--model-default-system-message',
+        help='The default system message of the model. Only applicable for models that use a system message and only if no other system message has been specified.')
+    parser.add_argument('--force-backend', choices=['hf_transformers', 'tgi', 'vllm'], required=False,
+        help='Force a specific backend for model inference. By default, the backend will be selected automatically depending on model support, '
+            + 'but if you encounter bugs with this you can overwrite the backend with this argument.')
     parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=None)
     args = parser.parse_args()
 
