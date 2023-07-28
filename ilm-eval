@@ -49,7 +49,7 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     return existing_models_and_benchmarks
 
 def main():
-    all_benchmarks = ['mt-bench', 'lm-evaluation-harness', 'human-eval-plus', 'cot']
+    all_benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all',
@@ -62,7 +62,7 @@ def main():
         help='By default, the tokenizer will be the same as the model, but it can also be overwritten with this argument.')
     parser.add_argument('--model-default-system-message',
         help='The default system message of the model. Only applicable for models that use a system message and only if no other system message has been specified.')
-    parser.add_argument('--force-backend', choices=['hf_transformers', 'tgi', 'vllm'], required=False,
+    parser.add_argument('--force-backend', choices=['vllm', 'tgi', 'hf_transformers'], required=False,
         help='Force a specific backend for model inference. By default, the backend will be selected automatically depending on model support, '
             + 'but if you encounter bugs with this you can overwrite the backend with this argument.')
     parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=None)
