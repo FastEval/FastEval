@@ -5,7 +5,6 @@ import asyncio
 
 import torch
 import transformers
-import vllm
 
 import evaluation.models.models
 
@@ -31,6 +30,8 @@ def unload_model(use_lock=True):
         lock.release()
 
 def load_model(*, model_path, tokenizer_path, dtype):
+    import vllm
+
     global model
 
     event_loop = asyncio.new_event_loop()
@@ -73,6 +74,8 @@ def load_model_in_separate_thread(*, model_path, tokenizer_path, dtype):
     model_thread.start()
 
 async def respond_to_prompt(*, prompt, prompt_model, temperature, max_new_tokens):
+    import vllm
+
     assert prompt_model is model
 
     if temperature is None:
