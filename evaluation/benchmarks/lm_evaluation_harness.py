@@ -30,5 +30,6 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
 
     results = lm_eval.evaluator.simple_evaluate('hf-causal-experimental', tasks=tasks, model_args=lm_eval_model_args)
 
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
