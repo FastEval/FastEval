@@ -1,4 +1,4 @@
-import { fetchModels, fetchFiles, allowCharacterLineBreaks, round, createModelsMap } from '../utils.js'
+import { fetchEvaluations, fetchFiles, allowCharacterLineBreaks, round, createEvaluationsMap } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
@@ -6,13 +6,13 @@ import { createConversationItemE } from '../components/conversation-item.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
-export async function createMultiTaskE(baseUrl, models, benchmark) {
+export async function createMultiTaskE(baseUrl, evaluations, evaluationsMap, benchmark) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to CoT table', { 'benchmark': 'cot' }))
 
-    const absoluteScores = await fetchFiles(baseUrl, models, 'cot', '/scores.json')
-    const relativeScores = Object.entries(computeRelativeScores(Object.fromEntries(absoluteScores)))
+    const absoluteScores = await fetchFiles(baseUrl, evaluations, 'cot', '/scores.json')
+    const relativeScores = Object.entries(computeRelativeScores(absoluteScores))
     const tasks = Object.keys(relativeScores[0][1][benchmark].tasks)
 
     const tableE = document.createElement('table')
@@ -29,32 +29,31 @@ export async function createMultiTaskE(baseUrl, models, benchmark) {
         tableHeadE.insertCell().appendChild(taskE)
     }
 
-    const sortedRelativeScores = relativeScores.map((v, i) => [i, v]).sort(([i1, [model1Name, model1Scores]], [i2, [model2Name, model2Scores]]) =>
-        model2Scores[benchmark].total - model1Scores[benchmark].total)
+    const sortedRelativeScores = relativeScores.sort(([id1, evaluationScores1], [id2, evaluationScores2]) =>
+        evaluationScores2[benchmark].total - evaluationScores1[benchmark].total)
 
-    const modelsMap = createModelsMap(models)
-
-    for (const [index, [modelName, modelRelativeScores]] of sortedRelativeScores) {
+    for (const [id, evaluationRelativeScores] of sortedRelativeScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName], false))
-        rowE.insertCell().appendChild(createTextE(round(modelRelativeScores[benchmark].total)))
+        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id), false))
+        rowE.insertCell().appendChild(createTextE(round(evaluationRelativeScores[benchmark].total)))
         rowE.insertCell()
         for (const task of tasks)
             createTableScoreCell(
                 rowE,
-                createLinkE(round(absoluteScores[index][1][benchmark].tasks[task]), { task: benchmark + '/' + task, model: modelName }),
-                modelRelativeScores[benchmark].tasks[task]
+                createLinkE(round(absoluteScores.get(id)[benchmark].tasks[task]), { task: benchmark + '/' + task, id }),
+                evaluationRelativeScores[benchmark].tasks[task]
             )
     }
 
     return containerE
 }
 
-export async function createTaskV(baseUrl, models, modelsMap, task, parameters) {
+export async function createTaskV(baseUrl, evaluations, evaluationsMap, task, parameters) {
     if (['bbh', 'mmlu'].includes(task))
-        return await createMultiTaskE(baseUrl, models, task)
+        return await createMultiTaskE(baseUrl, evaluations, evaluationsMap, task)
 
-    const modelName = parameters.get('model')
+    const id = parameters.get('id')
+    const modelName = evaluationsMap.get(id).model_name
 
     const containerE = document.createElement('div')
 
@@ -63,14 +62,14 @@ export async function createTaskV(baseUrl, models, modelsMap, task, parameters) 
         previousUrl['task'] = task.split('/').slice(0, -1).join('/')
     containerE.appendChild(createBackToMainPageE('← Back to table', previousUrl))
 
-    const data = await (await fetch(baseUrl + '/cot/' + modelName.replace('/', '--') + '/tasks/' + task + '.json')).json()
+    const data = await (await fetch(baseUrl + '/cot/' + modelName.replace('/', '--') + '/' + id + '/' + '/tasks/' + task + '.json')).json()
 
     const infoE = document.createElement('div')
     infoE.classList.add('cot__information')
     containerE.appendChild(infoE)
     infoE.append(
         createTextE('Task: ' + task),
-        createTextE('Model: ', createModelLinkE(modelsMap[modelName])),
+        createTextE('Model: ', createModelLinkE(evaluationsMap.get(id))),
         createTextE('Score: ' + round(data.score)),
     )
 
@@ -108,11 +107,11 @@ export async function createTaskV(baseUrl, models, modelsMap, task, parameters) 
 export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
 
-    const models = await fetchModels(baseUrl)
-    const modelsMap = createModelsMap(models)
+    const evaluations = await fetchEvaluations(baseUrl)
+    const evaluationsMap = createEvaluationsMap(evaluations)
 
     if (parameters.has('task')) {
-        containerE.appendChild(await createTaskV(baseUrl, models, modelsMap, parameters.get('task'), parameters))
+        containerE.appendChild(await createTaskV(baseUrl, evaluations, evaluationsMap, parameters.get('task'), parameters))
         return containerE
     }
 
@@ -128,7 +127,7 @@ export async function createV(baseUrl, parameters) {
     explanationE.classList.add('cot-explanation')
     containerE.appendChild(explanationE)
 
-    const scores = computeRelativeScores(Object.fromEntries(await fetchFiles(baseUrl, models, 'cot', '/scores.json')))
+    const scores = computeRelativeScores(await fetchFiles(baseUrl, evaluations, 'cot', '/scores.json'))
 
     const tableE = document.createElement('table')
     containerE.appendChild(tableE)
@@ -153,18 +152,18 @@ export async function createV(baseUrl, parameters) {
             tableHeadE.insertCell().appendChild(createTextE(columnName))
     }
 
-    const sortedScores = Object.entries(scores).sort(([model1Name, model1Scores], [model2Name, model2Scores]) =>
-        model2Scores.total - model1Scores.total)
+    const sortedScores = Object.entries(scores).sort(([id1, evaluationScores1], [id2, evaluationScores2]) =>
+        evaluationScores2.total - evaluationScores1.total)
 
-    for (const [modelName, results] of sortedScores) {
+    for (const [id, results] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
+        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
 
         rowE.insertCell().appendChild(createTextE(round(results['total'])))
         rowE.insertCell()
 
         for (const [columnId, columnName] of columns) {
-            const cellE = columnId === 'gsm8k' ? createLinkE(round(results[columnId]), { task: columnId, model: modelName })
+            const cellE = columnId === 'gsm8k' ? createLinkE(round(results[columnId]), { task: columnId, id })
                 : ['bbh', 'mmlu'].includes(columnId) ? createTextE(round(results[columnId].total)) : undefined
             createTableScoreCell(rowE, cellE, results[columnId].total ?? results[columnId])
         }
@@ -174,43 +173,43 @@ export async function createV(baseUrl, parameters) {
 }
 
 export function computeRelativeScores(absoluteScores) {
-    const modelNames = Object.keys(absoluteScores)
+    const ids = Array.from(absoluteScores.keys())
 
     const relativeScores = {}
-    for (const modelName of modelNames)
-        relativeScores[modelName] = { bbh: { tasks: {} }, mmlu: { tasks: {} } }
+    for (const id of ids)
+        relativeScores[id] = { bbh: { tasks: {} }, mmlu: { tasks: {} } }
 
-    const gsm8k = Object.values(absoluteScores).map(e => e.gsm8k)
+    const gsm8k = Array.from(absoluteScores.values()).map(e => e.gsm8k)
     const minGsm8k = Math.min(...gsm8k)
     const maxGsm8k = Math.max(...gsm8k)
 
-    for (const modelName of modelNames)
-        relativeScores[modelName].gsm8k = (absoluteScores[modelName].gsm8k - minGsm8k) / (maxGsm8k - minGsm8k)
+    for (const id of ids)
+        relativeScores[id].gsm8k = (absoluteScores.get(id).gsm8k - minGsm8k) / (maxGsm8k - minGsm8k)
 
     for (const benchmark of ['bbh', 'mmlu']) {
-        const tasks = Object.keys(absoluteScores[modelNames[0]][benchmark].tasks)
+        const tasks = Object.keys(absoluteScores.get(ids[0])[benchmark].tasks)
 
         for (const taskName of tasks) {
-            const values = Object.values(absoluteScores).map(e => e[benchmark].tasks[taskName])
+            const values = Array.from(absoluteScores.values()).map(e => e[benchmark].tasks[taskName])
             const min = Math.min(...values)
             const max = Math.max(...values)
-            for (const modelName of modelNames)
-                relativeScores[modelName][benchmark].tasks[taskName] = (absoluteScores[modelName][benchmark].tasks[taskName] - min) / (max - min)
+            for (const id of ids)
+                relativeScores[id][benchmark].tasks[taskName] = (absoluteScores.get(id)[benchmark].tasks[taskName] - min) / (max - min)
         }
 
-        for (const modelName of modelNames)
-            relativeScores[modelName][benchmark].total = Object.values(relativeScores[modelName][benchmark].tasks).reduce((a, b) => a + b) / tasks.length
+        for (const id of ids)
+            relativeScores[id][benchmark].total = Object.values(relativeScores[id][benchmark].tasks).reduce((a, b) => a + b) / tasks.length
 
         const scores = Object.values(relativeScores).map(e => e[benchmark].total)
         const minScore = Math.min(...scores)
         const maxScore = Math.max(...scores)
 
-        for (const modelName of modelNames)
-            relativeScores[modelName][benchmark].total = (relativeScores[modelName][benchmark].total - minScore) / (maxScore - minScore)
+        for (const id of ids)
+            relativeScores[id][benchmark].total = (relativeScores[id][benchmark].total - minScore) / (maxScore - minScore)
     }
 
-    for (const modelName of modelNames)
-        relativeScores[modelName].total = (relativeScores[modelName].gsm8k + relativeScores[modelName].bbh.total + relativeScores[modelName].mmlu.total) / 3
+    for (const id of ids)
+        relativeScores[id].total = (relativeScores[id].gsm8k + relativeScores[id].bbh.total + relativeScores[id].mmlu.total) / 3
 
     return relativeScores
 }

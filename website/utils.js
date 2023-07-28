@@ -25,20 +25,28 @@ export function allowCharacterLineBreaks(text, characters = ['/', '_']) {
     return out
 }
 
-export async function fetchModels(baseUrl) {
+export async function fetchEvaluations(baseUrl) {
     return (await (await fetch(baseUrl + '/__index__.json')).json())
 }
 
-export function fetchFiles(baseUrl, models, benchmarkName, end='.json') {
-    return Promise.all(models
-        .filter(model => model.benchmarks.includes(benchmarkName))
-        .map(model => model.model_name)
-        .map(async model => [model, await fetch(baseUrl + '/' + benchmarkName + '/' + model.replace('/', '--') + end).then(r => r.json())])
-    )
+export async function fetchFiles(baseUrl, index, benchmarkName, filePath) {
+    const results = await Promise.all(index.filter(model => model.benchmarks.includes(benchmarkName)).map(async modelInformation => {
+        const id = modelInformation.id
+        const modelName = modelInformation.model_name
+        const path = baseUrl
+            + '/' + benchmarkName
+            + '/' + modelName.replace('/', '--')
+            + '/' + id
+            + '/' + filePath
+        const result = await (await fetch(path)).json()
+        return [id, result]
+    }))
+
+    return new Map(results)
 }
 
-export function createModelsMap(models) {
-    return Object.fromEntries(models.map(({ model_name, ...rest }) => [model_name, { model_name: model_name, ...rest }]))
+export function createEvaluationsMap(evaluations) {
+    return new Map(evaluations.map(evaluation => [evaluation.id, evaluation]))
 }
 
 export function getModelNumParams(modelInformation) {

@@ -1,6 +1,6 @@
 import { createTextE } from '../components/text.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
-import { createModelsMap, round } from '../utils.js'
+import { createEvaluationsMap, round } from '../utils.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
@@ -34,13 +34,13 @@ export async function createV(baseUrl) {
         createTextE('. Scroll down to the section "Performance Benchmarks".'),
     )
 
-    const models = (await (await fetch(baseUrl + '/__index__.json')).json())
-        .filter(model => model.benchmarks.includes('lm-evaluation-harness'))
-    const modelsMap = createModelsMap(models)
-    const modelNames = models.map(model => model.model_name)
+    const evaluations = (await (await fetch(baseUrl + '/__index__.json')).json())
+        .filter(evaluation => evaluation.benchmarks.includes('lm-evaluation-harness'))
+    const evaluationsMap = createEvaluationsMap(evaluations)
+    const ids = evaluations.map(evaluation => evaluation.id)
 
-    const results = await Promise.all(modelNames.map(async model =>
-        [model, await fetch(baseUrl + '/lm-evaluation-harness/' + model.replace('/', '--') + '.json').then(r => r.json())]))
+    const results = await Promise.all(ids.map(async id =>
+        [id, await fetch(baseUrl + '/lm-evaluation-harness/' + evaluationsMap.get(id).model_name.replace('/', '--') + '/' + id + '/' + 'gpt4all.json').then(r => r.json())]))
     const resultsMap = Object.fromEntries(results)
 
     const tasks = [
@@ -53,18 +53,18 @@ export async function createV(baseUrl) {
         ['openbookqa', 'OBQA'],
     ]
 
-    function getScore(modelName, taskId) {
-        const r = resultsMap[modelName].results[taskId]
+    function getScore(id, taskId) {
+        const r = resultsMap[id].results[taskId]
         return (r.acc_norm ?? r.acc) * 100
     }
 
     const taskIds = tasks.map(([taskId, taskName]) => taskId)
-    const taskIdsWithScores = taskIds.map(taskId => [taskId, modelNames.map(modelName => getScore(modelName, taskId))])
+    const taskIdsWithScores = taskIds.map(taskId => [taskId, ids.map(id => getScore(id, taskId))])
     const taskIdToMinimumScore = Object.fromEntries(taskIdsWithScores.map(([taskId, scores]) => [taskId, Math.min(...scores)]))
     const taskIdToMaximumScore = Object.fromEntries(taskIdsWithScores.map(([taskId, scores]) => [taskId, Math.max(...scores)]))
 
-    function getRelativeScore(modelName, taskId) {
-        return (getScore(modelName, taskId) - taskIdToMinimumScore[taskId]) / (taskIdToMaximumScore[taskId] - taskIdToMinimumScore[taskId])
+    function getRelativeScore(id, taskId) {
+        return (getScore(id, taskId) - taskIdToMinimumScore[taskId]) / (taskIdToMaximumScore[taskId] - taskIdToMinimumScore[taskId])
     }
 
     const reportsIndexE = document.createElement('table')
@@ -78,19 +78,19 @@ export async function createV(baseUrl) {
     for (const [taskId, taskName] of tasks)
         tableHeadE.insertCell().appendChild(createTextE(taskName))
 
-    const averageScores = Object.fromEntries(modelNames.map(modelName => [modelName, computeAverageScore(resultsMap[modelName].results)]))
-    const modelNamesSortedByAverageScore = modelNames.sort((model1Name, model2Name) => averageScores[model2Name] - averageScores[model1Name])
+    const averageScores = Object.fromEntries(ids.map(id => [id, computeAverageScore(resultsMap[id].results)]))
+    const idsSortedByAverageScore = ids.sort((id1, id2) => averageScores[id2] - averageScores[id1])
 
-    for (const modelName of modelNamesSortedByAverageScore) {
+    for (const id of idsSortedByAverageScore) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
+        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
 
-        createTableScoreCell(rowE, createTextE(round(averageScores[modelName])))
+        createTableScoreCell(rowE, createTextE(round(averageScores[id])))
 
         rowE.insertCell()
 
         for (const taskId of taskIds)
-            createTableScoreCell(rowE, createTextE(round(getScore(modelName, taskId))), getRelativeScore(modelName, taskId))
+            createTableScoreCell(rowE, createTextE(round(getScore(id, taskId))), getRelativeScore(id, taskId))
     }
 
     return containerE

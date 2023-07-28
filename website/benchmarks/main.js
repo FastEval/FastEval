@@ -1,4 +1,4 @@
-import { round, parseHash, fetchModels, fetchFiles } from '../utils.js'
+import { round, parseHash, fetchEvaluations, fetchFiles } from '../utils.js'
 import { createLinkE } from '../components/link.js'
 import { createTextE } from '../components/text.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
@@ -24,71 +24,70 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
     }
 }
 
-function computeModelRanks(models, getScore, getTotalScore) {
-    const modelNames = [...new Set(models.map(({ model_name: model }) => model))]
-    const modelsByName = Object.fromEntries(models.map(model => [model.model_name, model]))
+function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
+    const ids = evaluations.map(({ id }) => id)
+    const idToEvaluationInformation = new Map(evaluations.map(evaluation => [evaluation.id, evaluation]))
 
     const totalScores = {}
-    for (const modelName of modelNames)
-        totalScores[modelName] = getTotalScore(modelName, modelsByName[modelName].benchmarks)
+    for (const id of ids)
+        totalScores[id] = getTotalScore(id, idToEvaluationInformation.get(id).benchmarks)
 
-    const initialOrderTotalScore = modelNames.filter(modelName => totalScores[modelName] !== null)
-        .toSorted((model1Name, model2Name) => totalScores[model2Name] - totalScores[model1Name])
-    const initialOrderBaseModels = modelNames.filter(modelName =>
-        modelsByName[modelName].benchmarks.length === 1 && modelsByName[modelName].benchmarks[0] === 'lm-evaluation-harness')
-        .toSorted((model1Name, model2Name) => getScore(model2Name, ['lm-evaluation-harness'], 'lm-evaluation-harness')
-            - getScore(model1Name, ['lm-evaluation-harness'], 'lm-evaluation-harness'))
-    const initialFixedModels = initialOrderTotalScore.concat(initialOrderBaseModels)
-    const initialFixedScores = Object.fromEntries(initialFixedModels.map((modelName, index) => [modelName, initialFixedModels.length - index]))
-    const remainingModels = modelNames.filter(modelName => !initialFixedModels.includes(modelName))
+    const initialOrderTotalScore = ids.filter(id => totalScores[id] !== null)
+        .toSorted((id1, id2) => totalScores[id2] - totalScores[id1])
+    const initialOrderBaseModels = ids.filter(id =>
+        idToEvaluationInformation.get(id).benchmarks.length === 1 && idToEvaluationInformation.get(id).benchmarks[0] === 'lm-evaluation-harness')
+        .toSorted((id1, id2) => getScore(id2, 'lm-evaluation-harness') - getScore(id1, 'lm-evaluation-harness'))
+    const initialFixedEvaluations = initialOrderTotalScore.concat(initialOrderBaseModels)
+    const initialFixedScores = Object.fromEntries(initialFixedEvaluations.map((id, index) => [id, initialFixedEvaluations.length - index]))
+    const remainingEvaluations = ids.filter(id => !initialFixedEvaluations.includes(id))
     const minimumRemainingScore = initialOrderBaseModels.length
 
-    const modelPairs = []
-    for (const [i, model1Name] of modelNames.entries()) {
-        for (const [j, model2Name] of modelNames.entries()) {
+    const evaluationPairs = []
+    for (const [i, id1] of ids.entries()) {
+        for (const [j, id2] of ids.entries()) {
             if (i === j)
                 break
-            modelPairs.push([model1Name, model2Name])
+            evaluationPairs.push([id1, id2])
         }
     }
 
     const performanceDifferences = new Map()
-    for (const modelPair of modelPairs) {
-        const [model1Name, model2Name] = modelPair
+    for (const evaluationPair of evaluationPairs) {
+        const [id1, id2] = evaluationPair
 
-        const commonBenchmarks = modelsByName[model1Name].benchmarks
-            .filter(benchmark => modelsByName[model2Name].benchmarks.includes(benchmark))
+        const commonBenchmarks = idToEvaluationInformation.get(id1).benchmarks
+            .filter(benchmark => idToEvaluationInformation.get(id2).benchmarks.includes(benchmark))
 
         if (commonBenchmarks.length === 1 && commonBenchmarks[0] === 'lm-evaluation-harness') {
-            const model1NumBenchmarks = modelsByName[model1Name].benchmarks.length
-            const model2NumBenchmarks = modelsByName[model2Name].benchmarks.length
-            if (model1NumBenchmarks === 1 && model2NumBenchmarks !== 1) {
-                performanceDifferences.set(modelPair, -Infinity)
+            const evaluation1NumBenchmarks = idToEvaluationInformation.get(id1).benchmarks.length
+            const evaluation2NumBenchmarks = idToEvaluationInformation.get(id2).benchmarks.length
+            if (evaluation1NumBenchmarks === 1 && evaluation2NumBenchmarks !== 1) {
+                performanceDifferences.set(evaluationPair, -Infinity)
                 continue
-            } else if (model1NumBenchmarks !== 1 && model2NumBenchmarks === 1) {
-                performanceDifferences.set(modelPair, Infinity)
+            } else if (evaluation1NumBenchmarks !== 1 && evaluation2NumBenchmarks === 1) {
+                performanceDifferences.set(evaluationPair, Infinity)
                 continue
             }
         }
 
         let performanceDifference = 0
         for (const benchmarkName of commonBenchmarks) {
-            const model1Performance = getScore(model1Name, commonBenchmarks, benchmarkName)
-            const model2Performance = getScore(model2Name, commonBenchmarks, benchmarkName)
-            performanceDifference += (model1Performance - model2Performance) / commonBenchmarks.length
+            const evaluation1Performance = getScore(id1, benchmarkName)
+            const evaluation2Performance = getScore(id2, benchmarkName)
+            performanceDifference += (evaluation1Performance - evaluation2Performance) / commonBenchmarks.length
         }
 
         if (performanceDifference !== 0)
-            performanceDifferences.set(modelPair, performanceDifference)
+            performanceDifferences.set(evaluationPair, performanceDifference)
     }
 
     function lossf(rankings) {
-        return modelPairs.map(modelPair => {
-            const [model1Name, model2Name] = modelPair
-            if (!performanceDifferences.has(modelPair))
+        return evaluationPairs.map(evaluationPair => {
+            const [id1, id2] = evaluationPair
+            if (!performanceDifferences.has(evaluationPair))
                 return 0
-            const performanceDifference = performanceDifferences.get(modelPair)
-            const rankDifference = rankings.get(model1Name) - rankings.get(model2Name)
+            const performanceDifference = performanceDifferences.get(evaluationPair)
+            const rankDifference = rankings.get(id1) - rankings.get(id2)
             if (rankDifference > 0 && performanceDifference === -Infinity)
                 return 1e6 * rankDifference
             if (rankDifference < 0 && performanceDifference === Infinity)
@@ -99,16 +98,16 @@ function computeModelRanks(models, getScore, getTotalScore) {
 
     function renormalize(rankings) {
         return new Map([...rankings.entries()]
-            .toSorted(([model1Name, model1Rank], [model2Name, model2Rank]) => model2Rank - model1Rank)
-            .map(([modelName, previousModelRank], index) => [modelName, modelNames.length - index]))
+            .toSorted(([id1, evaluation1Rank], [id2, evaluation2Rank]) => evaluation2Rank - evaluation1Rank)
+            .map(([id, previousEvaluationRank], index) => [id, ids.length - index]))
     }
 
     const initialPopulationSize = 100
     const minPopulationSize = 20
     let population = []
     for (let i = 0; i < initialPopulationSize; i++) {
-        const rankings = renormalize(new Map(modelNames.map(modelName =>
-            [modelName, initialFixedScores[modelName] ?? (Math.random()) * initialFixedModels.length])))
+        const rankings = renormalize(new Map(ids.map(id =>
+            [id, initialFixedScores[id] ?? (Math.random()) * initialFixedEvaluations.length])))
         const loss = lossf(rankings)
         population.push([rankings, loss])
     }
@@ -120,9 +119,9 @@ function computeModelRanks(models, getScore, getTotalScore) {
 
         let newRanking = new Map(currentRanking)
 
-        for (const modelName of remainingModels) {
-            if (Math.random() < 1 / remainingModels.length)
-                newRanking.set(modelName, 1 + minimumRemainingScore + (Math.random() * (modelNames.length - minimumRemainingScore)))
+        for (const id of remainingEvaluations) {
+            if (Math.random() < 1 / remainingEvaluations.length)
+                newRanking.set(id, 1 + minimumRemainingScore + (Math.random() * (ids.length - minimumRemainingScore)))
         }
 
         newRanking = renormalize(newRanking)
@@ -140,10 +139,10 @@ function computeModelRanks(models, getScore, getTotalScore) {
     const lowestLoss = populationSortedByLoss[0][1]
     const populationItemsWithLowestLoss = populationSortedByLoss.filter(([ranking, loss]) => loss === lowestLoss)
         .map(([ranking, loss]) => [...ranking.entries()]
-            .toSorted(([model1Name, model1Rank], [model2Name, model2Rank]) => model2Rank - model1Rank))
+            .toSorted(([id1, evaluation1Rank], [id2, evaluation2Rank]) => evaluation2Rank - evaluation1Rank))
 
     let orderings = populationItemsWithLowestLoss
-    for (let i = models.length - 1; i >= 0; i--)
+    for (let i = ids.length - 1; i >= 0; i--)
         orderings = orderings.toSorted((ordering1, ordering2) => ordering1[i][0].localeCompare(ordering2[i][0]))
 
     return Object.fromEntries(orderings[0])
@@ -201,6 +200,49 @@ function createHowToReadThisLeaderboardV() {
     return containerE
 }
 
+export async function fetchAndProcessReports(baseUrl, models) {
+    const [
+        lmEvaluationHarnessResults,
+        humanEvalPlusResults,
+        cotResults,
+        mtBenchResults,
+    ] = await Promise.all([
+        fetchFiles(baseUrl, models, 'lm-evaluation-harness', 'gpt4all.json'),
+        fetchFiles(baseUrl, models, 'human-eval-plus', '/scores.json'),
+        fetchFiles(baseUrl, models, 'cot', '/scores.json'),
+        fetchFiles(baseUrl, models, 'mt-bench', '/scores.json'),
+    ])
+
+    for (const report of lmEvaluationHarnessResults.values())
+        report.absoluteScore = LMEvaluationHarness.computeAverageScore(report.results)
+
+    for (const report of humanEvalPlusResults.values())
+        report.absoluteScore = report.scores.plus
+
+    const relativeCoTResults = CoT.computeRelativeScores(cotResults)
+
+    const modelById = new Map(models.map(modelInformation => [modelInformation.id, modelInformation]))
+
+    function getScore(id, benchmarkName) {
+        const benchmarks = modelById.get(id).benchmarks
+        if (!benchmarks.includes(benchmarkName))
+            return null
+
+        if (benchmarkName === 'lm-evaluation-harness')
+            return lmEvaluationHarnessResults.get(id).absoluteScore
+        else if (benchmarkName === 'human-eval-plus')
+            return humanEvalPlusResults.get(id).absoluteScore
+        else if (benchmarkName === 'cot')
+            return relativeCoTResults[id].total
+        else if (benchmarkName === 'mt-bench')
+            return mtBenchResults.get(id).average
+
+        return null
+    }
+
+    return getScore
+}
+
 export async function createBenchmarksIndexV(baseUrl) {
     const containerE = document.createElement('div')
 
@@ -218,52 +260,16 @@ export async function createBenchmarksIndexV(baseUrl) {
     )
     containerE.appendChild(explanationE)
 
-    const models = await fetchModels(baseUrl)
-
-    const [
-        lmEvaluationHarnessResults,
-        humanEvalPlusResults,
-        cotResults,
-        mtBenchResults,
-    ] = await Promise.all([
-        fetchFiles(baseUrl, models, 'lm-evaluation-harness'),
-        fetchFiles(baseUrl, models, 'human-eval-plus', '/scores.json'),
-        fetchFiles(baseUrl, models, 'cot', '/scores.json'),
-        fetchFiles(baseUrl, models, 'mt-bench', '/scores.json'),
-    ])
-
-    const averageLmEvaluationHarnessScores =  Object.fromEntries(lmEvaluationHarnessResults.map(([modelName, results]) =>
-        [modelName, LMEvaluationHarness.computeAverageScore(results.results)]))
-
-    const cotResultsMap = CoT.computeRelativeScores(Object.fromEntries(cotResults))
-
-    const mtBenchResultsMap = Object.fromEntries(mtBenchResults)
-
-    const humanEvalPlusResultsMap = Object.fromEntries(humanEvalPlusResults)
-
-    function getScore(model, benchmarks, benchmarkName) {
-        if (!benchmarks.includes(benchmarkName))
-            return null
-
-        if (benchmarkName === 'lm-evaluation-harness')
-            return averageLmEvaluationHarnessScores[model]
-        else if (benchmarkName === 'human-eval-plus')
-            return humanEvalPlusResultsMap[model].scores.plus
-        else if (benchmarkName === 'cot')
-            return cotResultsMap[model].total
-        else if (benchmarkName === 'mt-bench')
-            return mtBenchResultsMap[model].average
-
-        return null
-    }
+    const evaluations = await fetchEvaluations(baseUrl)
+    const getScore = await fetchAndProcessReports(baseUrl, evaluations)
 
     const allBenchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
 
     const benchmarkMinimums = new Map()
     const benchmarkMaximums = new Map()
     for (const benchmarkName of allBenchmarks) {
-        for (const { model_name: model, benchmarks } of models) {
-            const score = getScore(model, benchmarks, benchmarkName)
+        for (const { id } of evaluations) {
+            const score = getScore(id, benchmarkName)
             if (score === null)
                 continue
 
@@ -278,13 +284,13 @@ export async function createBenchmarksIndexV(baseUrl) {
         }
     }
 
-    function getRelativeScore(model, benchmarks, benchmarkName) {
-        const score = getScore(model, benchmarks, benchmarkName)
+    function getRelativeScore(id, benchmarkName) {
+        const score = getScore(id, benchmarkName)
         return (score - benchmarkMinimums.get(benchmarkName))
             / (benchmarkMaximums.get(benchmarkName) - benchmarkMinimums.get(benchmarkName))
     }
 
-    function getTotalScore(model, benchmarks) {
+    function getTotalScore(id, benchmarks) {
         if (!benchmarks.includes('lm-evaluation-harness'))
             return null
         if (!benchmarks.includes('human-eval-plus'))
@@ -294,20 +300,20 @@ export async function createBenchmarksIndexV(baseUrl) {
 
         let relativeAverageScore = 0
         for (const benchmarkName of allBenchmarks)
-            relativeAverageScore += getRelativeScore(model, benchmarks, benchmarkName) / allBenchmarks.length
+            relativeAverageScore += getRelativeScore(id, benchmarkName) / allBenchmarks.length
         return relativeAverageScore * 10
     }
 
-    const modelRanks = computeModelRanks(models, getRelativeScore, getTotalScore)
-    const modelsSortedByRank = models.toSorted((model1, model2) => {
-        const model1Rank = modelRanks[model1.model_name]
-        const model2Rank = modelRanks[model2.model_name]
-        return model2Rank - model1Rank
+    const evaluationRanks = computeEvaluationRanks(evaluations, getRelativeScore, getTotalScore)
+    const evaluationsSortedByRank = evaluations.toSorted((evaluation1, evaluation2) => {
+        const evaluation1Rank = evaluationRanks[evaluation1.id]
+        const evaluation2Rank = evaluationRanks[evaluation2.id]
+        return evaluation2Rank - evaluation1Rank
     })
 
     const allNumParameters = []
-    for (const modelInformation of modelsSortedByRank) {
-        const numParameters = getModelNumParams(modelInformation)
+    for (const evaluationInformation of evaluationsSortedByRank) {
+        const numParameters = getModelNumParams(evaluationInformation)
         if (numParameters === '' || numParameters === 'proprietary')
             continue
         allNumParameters.push(parseInt(numParameters.replace('B', '')))
@@ -317,9 +323,9 @@ export async function createBenchmarksIndexV(baseUrl) {
     const maxNumParametersLog = Math.log2(Math.max(...allNumParameters))
 
     let allTotalScores = []
-    for (const modelInformation of modelsSortedByRank) {
-        const { model_name: model, benchmarks } = modelInformation
-        const totalScore = getTotalScore(model, benchmarks)
+    for (const evaluationInformation of evaluationsSortedByRank) {
+        const { id, benchmarks } = evaluationInformation
+        const totalScore = getTotalScore(id, benchmarks)
         if (totalScore !== null)
             allTotalScores.push(totalScore)
     }
@@ -344,8 +350,8 @@ export async function createBenchmarksIndexV(baseUrl) {
     const tbodyE = tableE.createTBody()
 
     let didInsertSeparatorToBaseModels = false
-    for (const [position, modelInformation] of modelsSortedByRank.entries()) {
-        const { model_name: model, benchmarks } = modelInformation
+    for (const [position, evaluationInformation] of evaluationsSortedByRank.entries()) {
+        const { id, model_name: modelName, benchmarks } = evaluationInformation
 
         let rowE = tbodyE.insertRow()
 
@@ -364,7 +370,7 @@ export async function createBenchmarksIndexV(baseUrl) {
             createTableScoreCell(rowE, createTextE(position + 1))
         }
 
-        const numParameters = getModelNumParams(modelInformation)
+        const numParameters = getModelNumParams(evaluationInformation)
         if (numParameters === '') {
             createTableScoreCell(rowE, createTextE(numParameters))
         } else if (numParameters === 'proprietary') {
@@ -375,9 +381,9 @@ export async function createBenchmarksIndexV(baseUrl) {
             createTableScoreCell(rowE, createTextE(numParameters), color)
         }
 
-        rowE.insertCell().appendChild(createModelLinkE(modelInformation))
+        rowE.insertCell().appendChild(createModelLinkE(evaluationInformation))
 
-        const totalScore = getTotalScore(model, benchmarks)
+        const totalScore = getTotalScore(id, benchmarks)
         if (totalScore === null)
             createTableScoreCell(rowE, createTextE(''))
         else
@@ -386,13 +392,13 @@ export async function createBenchmarksIndexV(baseUrl) {
         rowE.insertCell()
 
         for (const benchmarkName of allBenchmarks) {
-            const score = getScore(model, benchmarks, benchmarkName)
+            const score = getScore(id, benchmarkName)
             if (score === null) {
                 createTableScoreCell(rowE, createTextE(''))
                 continue
             }
 
-            const relativeScore = getRelativeScore(model, benchmarks, benchmarkName)
+            const relativeScore = getRelativeScore(id, benchmarkName)
             createTableScoreCell(rowE, createTextE(round(score)), relativeScore)
         }
     }

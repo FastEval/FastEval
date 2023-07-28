@@ -2,13 +2,16 @@ import { createConversationItemE } from '../components/conversation-item.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
-import { computeUpdatedHash, fetchModels, fetchFiles, createModelsMap, round } from '../utils.js'
+import { computeUpdatedHash, fetchEvaluations, fetchFiles, createEvaluationsMap, round } from '../utils.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
 export async function createV(baseUrl, parameters) {
-    if (parameters.has('model'))
-        return await createModelV(baseUrl, parameters)
+    const evaluations = await fetchEvaluations(baseUrl)
+    const evaluationsMap = createEvaluationsMap(evaluations)
+
+    if (parameters.has('id'))
+        return await createModelV(baseUrl, parameters, evaluations, evaluationsMap)
 
     const containerE = document.createElement('div')
 
@@ -32,10 +35,9 @@ export async function createV(baseUrl, parameters) {
             + 'The resulting model output is then evaluated by running it against a number of tests.')
     )
 
-    const models = await fetchModels(baseUrl)
-    const modelsMap = createModelsMap(models)
-    const scores = await fetchFiles(baseUrl, models, 'human-eval-plus', '/scores.json')
-    const sortedScores = scores.toSorted(([modelName1, modelScores1], [modelName2, modelScores2]) => modelScores2.scores.plus - modelScores1.scores.plus)
+    const scores = await fetchFiles(baseUrl, evaluations, 'human-eval-plus', '/scores.json')
+    const sortedScores = Array.from(scores.entries())
+        .toSorted(([id1, evaluationScores1], [id2, evaluationScores2]) => evaluationScores2.scores.plus - evaluationScores1.scores.plus)
     const scoresMap = Object.fromEntries(scores)
 
     const tableE = document.createElement('table')
@@ -48,27 +50,27 @@ export async function createV(baseUrl, parameters) {
     tableHeadE.insertCell().appendChild(createTextE('HumanEval'))
 
     const relativeScores = {}
-    for (const { model_name: modelName } of models)
-        relativeScores[modelName] = {}
+    for (const { id } of evaluations)
+        relativeScores[id] = {}
     for (const column of ['base', 'plus']) {
         const columnScores = sortedScores.map(e => e[1].scores[column])
         const min = Math.min(...columnScores)
         const max = Math.max(...columnScores)
-        for (const [modelName, _] of sortedScores)
-            relativeScores[modelName][column] = (scoresMap[modelName].scores[column] - min) / (max - min)
+        for (const [id, _] of sortedScores)
+            relativeScores[id][column] = (scoresMap[id].scores[column] - min) / (max - min)
     }
 
-    for (const [modelName, modelScores] of sortedScores) {
+    for (const [id, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
-        createTableScoreCell(rowE, createLinkE(round(modelScores.scores.plus), { model: modelName}), relativeScores[modelName].plus)
-        createTableScoreCell(rowE, createTextE(round(modelScores.scores.base)), relativeScores[modelName].base)
+        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
+        createTableScoreCell(rowE, createLinkE(round(modelScores.scores.plus), { id }), relativeScores[id].plus)
+        createTableScoreCell(rowE, createTextE(round(modelScores.scores.base)), relativeScores[id].base)
     }
 
     return containerE
 }
 
-export async function createModelV(baseUrl, parameters) {
+export async function createModelV(baseUrl, parameters, evaluations, evaluationsMap) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to HumanEval+ table', { 'benchmark': 'human-eval-plus' }))
@@ -77,9 +79,13 @@ export async function createModelV(baseUrl, parameters) {
     containerE.appendChild(samplesE)
     samplesE.classList.add('samples')
 
+    const id = parameters.get('id')
+    const modelName = evaluationsMap.get(id).model_name
+    const folderName = modelName.replace('/', '--')
+
     const [answers, scores] = await Promise.all([
-        fetch(baseUrl + '/human-eval-plus/' + parameters.get('model').replace('/', '--') + '/answers.json').then(r => r.json()),
-        fetch(baseUrl + '/human-eval-plus/' + parameters.get('model').replace('/', '--') + '/scores.json').then(r => r.json()),
+        fetch(baseUrl + '/human-eval-plus/' + folderName + '/' + id + '/answers.json').then(r => r.json()),
+        fetch(baseUrl + '/human-eval-plus/' + folderName + '/' + id + '/scores.json').then(r => r.json()),
     ])
 
     const merged = { answers: {}, scores: scores.scores }

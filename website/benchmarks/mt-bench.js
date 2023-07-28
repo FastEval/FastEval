@@ -1,4 +1,4 @@
-import { fetchModels, fetchFiles, allowCharacterLineBreaks, round, createModelsMap } from '../utils.js'
+import { fetchEvaluations, fetchFiles, allowCharacterLineBreaks, round, createEvaluationsMap } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createModelLinkE } from '../components/model-link.js'
@@ -7,19 +7,19 @@ import { createBackToMainPageE } from '../components/back-to-main-page.js'
 import { createConversationItemE } from '../components/conversation-item.js'
 
 function computeRelativeScores(scores, categories) {
-    const modelNames = Object.keys(scores)
+    const ids = Object.keys(scores)
 
     const relativeScores = {}
-    for (const modelName of modelNames)
-        relativeScores[modelName] = { categories: {} }
+    for (const id of ids)
+        relativeScores[id] = { categories: {} }
 
     for (const key of ['average', 'first_turn', 'second_turn']) {
         const values = Object.values(scores).map(scoreValue => scoreValue[key])
         const min = Math.min(...values)
         const max = Math.max(...values)
 
-        for (const modelName of modelNames)
-            relativeScores[modelName][key] = (scores[modelName][key] - min) / (max - min)
+        for (const id of ids)
+            relativeScores[id][key] = (scores[id][key] - min) / (max - min)
     }
 
     for (const category of categories) {
@@ -27,30 +27,33 @@ function computeRelativeScores(scores, categories) {
         const min = Math.min(...values)
         const max = Math.max(...values)
 
-        for (const modelName of modelNames)
-            relativeScores[modelName].categories[category] = (scores[modelName].categories[category] - min) / (max - min)
+        for (const id of ids)
+            relativeScores[id].categories[category] = (scores[id].categories[category] - min) / (max - min)
     }
 
     return relativeScores
 }
 
-export async function createModelCategoryV({ baseUrl, model, category }) {
+export async function createEvaluationCategoryV({ baseUrl, id, category, evaluationsMap }) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to MT-Bench table', { 'benchmark': 'mt-bench' }))
 
+    const modelName = evaluationsMap.get(id).model_name
+    const folderName = modelName.replace('/', '--')
+
     const [questions, answers, judgeReplies, scores] = await Promise.all([
         fetch(baseUrl + '/../data/mt-bench/questions.json').then(r => r.json()),
-        fetch(baseUrl + '/mt-bench/' + model.replace('/', '--') + '/answers.json').then(r => r.json()),
-        fetch(baseUrl + '/mt-bench/' + model.replace('/', '--') + '/judge-replies.json').then(r => r.json()),
-        fetch(baseUrl + '/mt-bench/' + model.replace('/', '--') + '/scores.json').then(r => r.json()),
+        fetch(baseUrl + '/mt-bench/' + folderName + '/' + id + '/answers.json').then(r => r.json()),
+        fetch(baseUrl + '/mt-bench/' + folderName + '/' + id + '/judge-replies.json').then(r => r.json()),
+        fetch(baseUrl + '/mt-bench/' + folderName + '/' + id + '/scores.json').then(r => r.json()),
     ])
 
     const infoE = document.createElement('div')
     infoE.classList.add('mt-bench__information')
     containerE.appendChild(infoE)
     infoE.append(
-        createTextE('Model: ' + model),
+        createTextE('Model: ' + modelName),
         createTextE('Category: ' + category),
         createTextE('Category score: ' + scores.categories[category] + '/10')
     )
@@ -92,11 +95,15 @@ export async function createModelCategoryV({ baseUrl, model, category }) {
 }
 
 export async function createV(baseUrl, parameters) {
-    if (parameters.has('model') && parameters.has('category'))
-        return await createModelCategoryV({
+    const evaluations = await fetchEvaluations(baseUrl)
+    const evaluationsMap = createEvaluationsMap(evaluations)
+
+    if (parameters.has('id') && parameters.has('category'))
+        return await createEvaluationCategoryV({
             baseUrl,
-            model: parameters.get('model'),
-            category: parameters.get('category')
+            id: parameters.get('id'),
+            category: parameters.get('category'),
+            evaluationsMap,
         })
 
     const containerE = document.createElement('div')
@@ -119,11 +126,9 @@ export async function createV(baseUrl, parameters) {
     explanationE.classList.add('mt-bench-explanation')
     containerE.appendChild(explanationE)
 
-    const models = await fetchModels(baseUrl)
-    const modelsMap = createModelsMap(models)
-    const scores = Object.fromEntries(await fetchFiles(baseUrl, models, 'mt-bench', '/scores.json'))
-    const sortedScores = Object.fromEntries(Object.entries(scores).toSorted(([model1Name, model1Scores], [model2Name, model2Scores]) =>
-        model2Scores.average - model1Scores.average))
+    const scores = Object.fromEntries(await fetchFiles(baseUrl, evaluations, 'mt-bench', '/scores.json'))
+    const sortedScores = Object.fromEntries(Object.entries(scores).toSorted(([id1, evaluation1Scores], [id2, evaluation2Scores]) =>
+        evaluation2Scores.average - evaluation1Scores.average))
     const categories = Object.keys(Object.values(scores)[0].categories)
     const relativeScores = computeRelativeScores(sortedScores, categories)
 
@@ -148,19 +153,19 @@ export async function createV(baseUrl, parameters) {
         tableHeadE.insertCell().appendChild(categoryE)
     }
 
-    for (const [modelName, modelScores] of Object.entries(sortedScores)) {
+    for (const [id, evaluationScores] of Object.entries(sortedScores)) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(modelsMap[modelName]))
-        createTableScoreCell(rowE, createTextE(round(modelScores.average)), relativeScores[modelName].average)
+        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
+        createTableScoreCell(rowE, createTextE(round(evaluationScores.average)), relativeScores[id].average)
         rowE.insertCell()
-        createTableScoreCell(rowE, createTextE(round(modelScores.first_turn)), relativeScores[modelName].first_turn)
-        createTableScoreCell(rowE, createTextE(round(modelScores.second_turn)), relativeScores[modelName].second_turn)
+        createTableScoreCell(rowE, createTextE(round(evaluationScores.first_turn)), relativeScores[id].first_turn)
+        createTableScoreCell(rowE, createTextE(round(evaluationScores.second_turn)), relativeScores[id].second_turn)
         rowE.insertCell()
         for (const category of categories)
             createTableScoreCell(
                 rowE,
-                createLinkE(round(modelScores.categories[category]), { model: modelName, category }),
-                relativeScores[modelName].categories[category]
+                createLinkE(round(evaluationScores.categories[category]), { id, category }),
+                relativeScores[id].categories[category]
             )
     }
 
