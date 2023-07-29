@@ -20,8 +20,6 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     if new_model_name is None:
         return existing_models_and_benchmarks
 
-    model_args = { k: v for k, v in model_args.items() if v is not None }
-
     inserted_into_existing_entry = False
     for item in existing_models_and_benchmarks:
         if item['model_name'] != new_model_name:
@@ -139,6 +137,8 @@ def main():
         'tokenizer': args.model_tokenizer,
         'default_system_message': args.model_default_system_message,
     }
+
+    model_args = { k: v for k, v in model_args.items() if v is not None }
 
     if args.run_correctness_check:
         run_correctness_check(args.model_type, args.model_name, model_args)
