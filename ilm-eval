@@ -14,7 +14,7 @@ import uuid
 import evaluation.args
 from evaluation import benchmarks
 from evaluation.utils import changed_exit_handlers
-from evaluation.models.models import unload_model
+from evaluation.models.models import unload_model, create_model
 
 def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_model_type, new_model_name, new_benchmarks, model_args):
     if new_model_name is None:
@@ -48,6 +48,45 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
 
     return existing_models_and_benchmarks
 
+def run_correctness_check(model_type, model_name, model_args):
+    assert model_type is not None and model_name is not None
+
+    def get_output():
+        model = create_model(model_type, model_name, model_args)
+        return model.reply([
+            ('user', 'Please tell me a joke.'),
+        ], temperature=0, max_new_tokens=50)
+
+    previous_force_backend = evaluation.args.cmd_arguments.force_backend
+    evaluation.args.cmd_arguments.force_backend = 'hf_transformers'
+
+    hf_transformers_model_output = get_output()
+
+    evaluation.args.cmd_arguments.force_backend = previous_force_backend
+
+    default_backend_model_output = get_output()
+
+    if hf_transformers_model_output != default_backend_model_output:
+        raise Exception('Correctness check failed.\n'
+            + '        DEFAULT BACKEND: ' + default_backend_model_output + '\n'
+            + 'HF TRANSFORMERS BACKEND: ' + hf_transformers_model_output)
+
+    unload_model()
+    join_threads()
+
+def join_threads():
+    for thread in threading.enumerate():
+        if thread.daemon:
+            continue
+
+        try:
+            thread.join()
+        except RuntimeError as error:
+            if 'cannot join current thread' in error.args[0]: # main thread
+                pass
+            else:
+                raise
+
 def main():
     all_benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
 
@@ -66,17 +105,22 @@ def main():
         help='Force a specific backend for model inference. By default, the backend will be selected automatically depending on model support, '
             + 'but if you encounter bugs with this you can overwrite the backend with this argument.')
     parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=None)
+    parser.add_argument('--run-correctness-check', action='store_true')
     args = parser.parse_args()
 
     evaluation.args.cmd_arguments = args
-
-    if 'all' in args.benchmarks:
-        args.benchmarks = all_benchmarks
 
     model_args = {
         'tokenizer': args.model_tokenizer,
         'default_system_message': args.model_default_system_message,
     }
+
+    if args.run_correctness_check:
+        run_correctness_check(args.model_type, args.model_name, model_args)
+        return
+
+    if 'all' in args.benchmarks:
+        args.benchmarks = all_benchmarks
 
     if os.path.exists('reports/__index__.json'):
         with open('reports/__index__.json') as f:
@@ -99,17 +143,7 @@ def main():
         if 'lm-evaluation-harness' in item['benchmarks']:
             benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'], item['model_args'], item['id'])
 
-    for thread in threading.enumerate():
-        if thread.daemon:
-            continue
-
-        try:
-            thread.join()
-        except RuntimeError as error:
-            if 'cannot join current thread' in error.args[0]: # main thread
-                pass
-            else:
-                raise
+    join_threads()
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         f.write(json.dumps(models_and_benchmarks, indent=4) + '\n')
