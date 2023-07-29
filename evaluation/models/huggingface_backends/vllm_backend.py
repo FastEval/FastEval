@@ -22,7 +22,8 @@ def unload_model(use_lock=True):
             lock.release()
         return
 
-    model['event_loop'].stop()
+    loop = model['event_loop']
+    loop.call_soon_threadsafe(loop.stop)
     model = None
     gc.collect()
 
