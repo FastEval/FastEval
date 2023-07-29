@@ -14,7 +14,7 @@ import uuid
 import evaluation.args
 from evaluation import benchmarks
 from evaluation.utils import changed_exit_handlers
-from evaluation.models.models import unload_model, create_model
+from evaluation.models.models import unload_model, create_model, compute_model_replies
 
 def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_model_type, new_model_name, new_benchmarks, model_args):
     if new_model_name is None:
@@ -51,25 +51,50 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
 def run_correctness_check(model_type, model_name, model_args):
     assert model_type is not None and model_name is not None
 
-    def get_output():
-        model = create_model(model_type, model_name, model_args)
-        return model.reply([
-            ('user', 'Please tell me a joke.'),
-        ], temperature=0, max_new_tokens=50)
+    # Idk. Just some prompts. Can be absolutely changed to better reflect what would be good tests
+    # to confirm that different inference backends output the same text.
+    prompts = [
+        'Please tell me a joke.',
+        "What's 46912984610 + 5610927469123 * 64127401823 / 123?",
+        '^_^ </s> <|endoftext|> [PAD] [PAD][PAD] What do you think? Please answer only in emojis. ^_^',
+    ]
+
+    conversations = [{
+        'conversation': [
+            ('user', prompt)
+        ],
+        'temperature': 0,
+    } for prompt in prompts]
+
+    def get_outputs(backend_name):
+        return compute_model_replies(
+            create_model(model_type, model_name, model_args, max_new_tokens=50),
+            conversations,
+            desc=model_name + ' :: Computing replies with ' + backend_name + ' backend'
+        )
 
     previous_force_backend = evaluation.args.cmd_arguments.force_backend
     evaluation.args.cmd_arguments.force_backend = 'hf_transformers'
 
-    hf_transformers_model_output = get_output()
+    hf_transformers_model_outputs = get_outputs('hf_transformers')
 
     evaluation.args.cmd_arguments.force_backend = previous_force_backend
 
-    default_backend_model_output = get_output()
+    default_backend_model_outputs = get_outputs('default')
 
-    if hf_transformers_model_output != default_backend_model_output:
-        raise Exception('Correctness check failed.\n'
-            + '        DEFAULT BACKEND: ' + default_backend_model_output + '\n'
-            + 'HF TRANSFORMERS BACKEND: ' + hf_transformers_model_output)
+    got_error = False
+    for i in range(len(prompts)):
+        hf_transformers_model_output = hf_transformers_model_outputs[i]
+        default_backend_model_output = default_backend_model_outputs[i]
+        if hf_transformers_model_output != default_backend_model_output:
+            print('        DEFAULT BACKEND: ' + default_backend_model_output)
+            print('HF TRANSFORMERS BACKEND: ' + hf_transformers_model_output)
+            got_error = True
+
+    if got_error:
+        print('ERROR: Correctness check failed!')
+    else:
+        print('Correctness check successful!')
 
     unload_model()
     join_threads()
