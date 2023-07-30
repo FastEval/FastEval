@@ -49,20 +49,27 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
 def run_correctness_check(model_type, model_name, model_args):
     assert model_type is not None and model_name is not None
 
-    # Idk. Just some prompts. Can be absolutely changed to better reflect what would be good tests
+    # Idk. Just some conversations. Can be absolutely changed to better reflect what would be good tests
     # to confirm that different inference backends output the same text.
-    prompts = [
-        'Please tell me a joke.',
-        "What's 46912984610 + 5610927469123 * 64127401823 / 123?",
-        '^_^ </s> <|endoftext|> [PAD] [PAD][PAD] What do you think? Please answer only in emojis. ^_^',
+    conversations = [
+        [('user', 'Please tell me a joke.')],
+        [('user', "What's 46912984610 + 5610927469123 * 64127401823 / 123?")],
+        [
+            ('user', 'Why did the chicken cross the road?'),
+            ('assistant', 'The classic joke answer to "Why did the chicken cross the road?" is simply, "To get to the other side." '
+                'The humor lies in the fact that the listener expects a more elaborate or clever answer, '
+                'but the punchline is straightforward and unexpected, resulting in a lighthearted and silly joke. '
+                'The joke has become a well-known and often-used example of anti-humor, '
+                'where the humor comes from the lack of a complex or unexpected punchline.'),
+            ('user', 'Can you write a long essay about this topic?'),
+        ],
+        [('user', '^_^ </s> <|endoftext|> [PAD] [PAD][PAD] What do you think? Please answer only in emojis. ^_^')],
     ]
 
     conversations = [{
-        'conversation': [
-            ('user', prompt)
-        ],
+        'conversation': conversation,
         'temperature': 0,
-    } for prompt in prompts]
+    } for conversation in conversations]
 
     def get_outputs(backend_name):
         return compute_model_replies(
@@ -81,7 +88,7 @@ def run_correctness_check(model_type, model_name, model_args):
     default_backend_model_outputs = get_outputs('default')
 
     got_error = False
-    for i in range(len(prompts)):
+    for i in range(len(conversations)):
         hf_transformers_model_output = hf_transformers_model_outputs[i]
         default_backend_model_output = default_backend_model_outputs[i]
         if hf_transformers_model_output != default_backend_model_output:
