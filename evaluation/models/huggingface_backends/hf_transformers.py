@@ -45,6 +45,8 @@ def compute_model_response(*, batch, tokenizer, model):
         output_tokens = model.generate(
             **input_ids,
 
+            generation_config=model.generation_config,
+
             # See the following link for more details & a list of the parameters
             # https://huggingface.co/docs/transformers/v4.30.0/en/main_classes/text_generation#transformers.GenerationConfig
 
@@ -74,7 +76,7 @@ def compute_model_response(*, batch, tokenizer, model):
         for i in range(len(batch_items_with_specific_sampling_parameters)):
             response = output_tokens[i]
             response = response[len(input_ids[i]):]
-            response = tokenizer.decode(response, skip_special_tokens=True)
+            response = tokenizer.decode(response)
             result_pipe = batch_items_with_specific_sampling_parameters[i]['result_pipe']
             result_pipe.send(response)
             result_pipe.close()
