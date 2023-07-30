@@ -87,19 +87,29 @@ def run_correctness_check(model_type, model_name, model_args):
 
     default_backend_model_outputs = get_outputs('default')
 
+    print('@@@@@@@@@@@@@@ START CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@')
+
     got_error = False
     for i in range(len(conversations)):
-        hf_transformers_model_output = hf_transformers_model_outputs[i]
-        default_backend_model_output = default_backend_model_outputs[i]
-        if hf_transformers_model_output != default_backend_model_output:
-            print('        DEFAULT BACKEND: ' + default_backend_model_output)
-            print('HF TRANSFORMERS BACKEND: ' + hf_transformers_model_output)
+        hf_transformers_model_output = hf_transformers_model_outputs[i].replace('\n', '\\n')
+        default_backend_model_output = default_backend_model_outputs[i].replace('\n', '\\n')
+
+        if hf_transformers_model_output == default_backend_model_output:
+            print('OK', default_backend_model_output)
+        else:
+            print('ERROR')
+            print('- HF TRANSFORMERS: ' + hf_transformers_model_output)
+            print('- DEFAULT BACKEND: ' + default_backend_model_output)
             got_error = True
+
+        print()
 
     if got_error:
         print('ERROR: Correctness check failed!')
     else:
         print('Correctness check successful!')
+
+    print('@@@@@@@@@@@@@@ END CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@')
 
     unload_model()
     join_threads()
