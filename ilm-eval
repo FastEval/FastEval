@@ -120,8 +120,8 @@ def run_correctness_check(model_type, model_name, model_args):
 
     got_error = False
     for i in range(len(conversations)):
-        hf_transformers_model_output = hf_transformers_model_outputs[i].replace('\n', '\\n')
-        default_backend_model_outputs_on_conversation = [output.replace('\n', '\\n') for output in default_backend_model_outputs[i]]
+        hf_transformers_model_output = hf_transformers_model_outputs[i].replace('\n', '\\n').replace('\r', '\\r')
+        default_backend_model_outputs_on_conversation = [output.replace('\n', '\\n').replace('\r', '\\r') for output in default_backend_model_outputs[i]]
 
         if hf_transformers_model_output in default_backend_model_outputs_on_conversation:
             print('OK')
