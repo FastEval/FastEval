@@ -111,9 +111,22 @@ def run_correctness_check(model_type, model_name, model_args):
     # are the same at least once we at least know that they do the same kind of operations, even if the exact numbers
     # end up slightly differently sometimes. And the 20x throughput increase that vLLM & TGI provide
     # compared to plain HF transformers is just too big to be ignored due to small differences like that.
+
     default_backend_model_outputs = [[] for _ in conversations]
+
+    ns = [1]
+    for n in range(2, 5):
+        ns += [n] * 5
+    for n in range(5, 7):
+        ns += [n] * 4
+    for n in range(7, 10):
+        ns += [n] * 3
+    for n in range(10, 18):
+        ns += [n] * 2
+    ns += [19, 20, 21, 25, 31, 32, 32, 64, 100, 128, 150, 199, 257]
+
     for i, conversation in enumerate(conversations):
-        for n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 25, 31, 32, 32, 64, 100, 128, 150, 199, 257]:
+        for n in ns:
             default_backend_model_outputs[i] += get_outputs('default', conversation, n)
             if hf_transformers_model_outputs[i] in default_backend_model_outputs[i]:
                 break
