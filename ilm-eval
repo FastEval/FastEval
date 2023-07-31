@@ -113,7 +113,7 @@ def run_correctness_check(model_type, model_name, model_args):
     # compared to plain HF transformers is just too big to be ignored due to small differences like that.
     default_backend_model_outputs = [[] for _ in conversations]
     for i, conversation in enumerate(conversations):
-        for n in [1, 2, 3, 4, 5, 10, 32, 64, 100, 128, 150, 199, 257]:
+        for n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 25, 31, 32, 32, 64, 100, 128, 150, 199, 257]:
             default_backend_model_outputs[i] += get_outputs('default', conversation, n)
             if hf_transformers_model_outputs[i] in default_backend_model_outputs[i]:
                 break
