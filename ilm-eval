@@ -65,6 +65,7 @@ def main():
             + 'but if you encounter bugs with this you can overwrite the backend with this argument.')
     parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=None)
     parser.add_argument('--run-correctness-check', action='store_true')
+    parser.add_argument('--model-force-dtype', choices=['float16', 'bfloat16', 'float32'], required=False)
     args = parser.parse_args()
 
     evaluation.args.cmd_arguments = args
@@ -72,6 +73,7 @@ def main():
     model_args = {
         'tokenizer': args.model_tokenizer,
         'default_system_message': args.model_default_system_message,
+        'dtype': args.model_force_dtype,
     }
 
     model_args = { k: v for k, v in model_args.items() if v is not None }

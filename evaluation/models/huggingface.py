@@ -1,5 +1,6 @@
 import threading
 
+import torch
 import transformers
 
 import evaluation.models.models
@@ -8,6 +9,12 @@ import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
 from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
+
+dtypes = {
+    'float16': torch.float16,
+    'bfloat16': torch.bfloat16,
+    'float32': torch.float32,
+}
 
 eos_tokens = {}
 eos_tokens_lock = threading.Lock()
@@ -25,6 +32,7 @@ class Huggingface:
         default_system='',
         end: str,
         max_new_tokens=DEFAULT_MAX_NEW_TOKENS,
+        dtype=None,
     ):
         self.model_path = model_path
 
@@ -39,7 +47,10 @@ class Huggingface:
 
         self.max_new_tokens = max_new_tokens
 
-        self.dtype = evaluation.models.models.get_dtype(model_path)
+        if dtype is None:
+            self.dtype = evaluation.models.models.get_dtype(model_path)
+        else:
+            self.dtype = dtypes[dtype]
         self.backend = evaluation.models.models.get_huggingface_backend(model_path)
 
         self.num_threads = NUM_THREADS_LOCAL_MODEL
