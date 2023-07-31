@@ -41,32 +41,27 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
 
     evaluation.args.cmd_arguments.force_backend = previous_force_backend
 
-    # So basically the thing is that both vLLM as well as TGI don't actually give deterministic outputs
-    # when processing multiple outputs in parallel even if temperature = 0 is used. I'm not sure about the reason,
-    # but there is for example this issue here:
+    # Both vLLM as well as TGI may actually not give deterministic outputs when processing multiple outputs
+    # in parallel even if temperature = 0 is used. The reason for this seems floating point accuracy.
+    # Increasing the floating point accuracy to float32 can fix this problem and give deterministic outputs,
+    # possibly equivalent to what HF transformers outputs.
     #
-    # https://github.com/huggingface/text-generation-inference/issues/459
-    # > matrix multiplications kernels in mixed precision are not deterministic
-    # > and can lead to difference in generations when the batch size increase
+    # Also processing only a single prompt at once, i.e. disabling any batching also makes the output deterministic,
+    # though the result differs from the HF transformers result quite often, possibly because the exact calculation
+    # order is slightly different.
     #
-    # So it might be something like that (especially since both vLLM and TGI do this) but idk.
+    # So increasing the floating point accuracy to float32 is one option. But it is kind of a pain to do for
+    # larger models that already require or would require multiple GPUs.
     #
-    # Anyway. The thing is, the difference is usually quite small and doesn't really make that much of a difference.
-    # But still, we can't just check whether the results are _exactly_ the same as for HF transformers,
-    # because they are often not. So in order to solve this, we do multiple inferences for the same prompt
-    # using those other backends and with different batch sizes and later check whether _any_ of the results
-    # are equal and accept if they are.
+    # So to work around this, one can also try to do inference with low floating point precision but do multiple
+    # attempts with different batch sizes since that's one aspect that can slightly influence the result.
     #
-    # We also still print all of the outputs we got, so the user can confirm the results themself.
+    # We are going to do this here. If we immediately get the correct results on the first try, then we are going
+    # to stop immediately, so the user can also just increase the floating point accuracy if they have enough GPUs.
     #
-    # Also note that while disabling the parallelism is possible and we then actually do get deterministic outputs
-    # from the other backends, those outputs are often not the same as what HF transformers gives us.
-    # We really need to do multiple inferences in parallel and then check whether any of the outputs are equal.
-    #
-    # Technically speaking, this is of course incorrect. But the differences seem small enough and if the results
-    # are the same at least once we at least know that they do the same kind of operations, even if the exact numbers
-    # end up slightly differently sometimes. And the 20x throughput increase that vLLM & TGI provide
-    # compared to plain HF transformers is just too big to be ignored due to small differences like that.
+    # Note that if this code fails, i.e. it always gives a different output than HF transformers, then that does
+    # not mean that the inference is not basically equivalent to HF transformers. It can still be the case that
+    # increasing the floating point accuracy fixes the problem and makes the output equivalent.
 
     default_backend_model_outputs = [[] for _ in conversations]
 
