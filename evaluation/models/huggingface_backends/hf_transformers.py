@@ -41,9 +41,27 @@ def compute_model_response(*, batch, tokenizer, model):
 
     for (temperature, max_new_token), batch_items_with_specific_sampling_parameters in sampling_parameters_to_batch_items.items():
         prompts = [batch_item['prompt'] for batch_item in batch_items_with_specific_sampling_parameters]
-        input_ids = tokenizer(prompts, return_tensors='pt').to('cuda')
+
+        input_ids = []
+        attention_masks = []
+        for prompt in prompts:
+            if isinstance(prompt, str):
+                tokens = tokenizer(prompt)
+                input_ids.append(tokens['input_ids'])
+                attention_masks.append(tokens['attention_mask'])
+            elif isinstance(prompt, tuple):
+                assert len(prompt) == 2 and prompt[0] == 'tokens'
+                input_ids.append(prompt[1])
+                attention_masks.append([1] * len(prompt[1]))
+            else:
+                raise
+
+        input_ids = torch.tensor(input_ids, device='cuda')
+        attention_masks = torch.tensor(attention_masks, device='cuda')
+
         output_tokens = model.generate(
-            **input_ids,
+            input_ids=input_ids,
+            attention_mask=attention_masks,
 
             generation_config=model.generation_config,
 
