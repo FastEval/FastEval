@@ -29,7 +29,7 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
 
     def get_outputs(backend_name, conversation, n):
         return compute_model_replies(
-            create_model(model_type, model_name, model_args, max_new_tokens=50),
+            create_model(model_type, model_name, model_args, max_new_tokens=1024),
             [conversation] * n,
             desc=model_name + ' :: Computing replies with ' + backend_name + ' backend',
         )
