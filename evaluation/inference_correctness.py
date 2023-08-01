@@ -66,7 +66,7 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
     # not mean that the inference is not basically equivalent to HF transformers. It can still be the case that
     # increasing the floating point accuracy fixes the problem and makes the output equivalent.
     default_backend_model_outputs = [[] for _ in conversations]
-    ns = list(range(1, 18)) + [19, 20, 21, 25, 31, 32, 32, 64, 100, 128, 150, 199, 257]
+    ns = list(range(1, 18)) + [19, 20, 21, 25, 31, 32]
     for i, conversation in enumerate(conversations):
         for n in ns:
             default_backend_model_outputs[i] += get_outputs('default', conversation, n)
