@@ -31,6 +31,7 @@ class Huggingface:
         system=None,
         default_system='',
         end: str,
+        end2=None,
         max_new_tokens=DEFAULT_MAX_NEW_TOKENS,
         dtype=None,
     ):
@@ -44,6 +45,10 @@ class Huggingface:
         self.system = system
         self.default_system = default_system
         self.end = end
+
+        if end2 is None:
+            end2 = end
+        self.end2 = end2
 
         self.max_new_tokens = max_new_tokens
 
@@ -74,7 +79,7 @@ class Huggingface:
             conversation.insert(0, ('system', self.default_system))
         for item_type, item in conversation:
             if item_type == 'assistant':
-                prompt += self.assistant + item + self.end
+                prompt += self.assistant + item + self.end2
             elif item_type == 'user':
                 prompt += self.user + item + self.end
             elif item_type == 'system':
@@ -115,8 +120,8 @@ class Huggingface:
             response = response.split(self.user)[0]
 
         special_tokens = []
-        if self.end is not None:
-            special_tokens.append(self.end)
+        if self.end2 is not None:
+            special_tokens.append(self.end2)
         if self._get_eos_token() is not None:
             special_tokens.append(self._get_eos_token())
 
