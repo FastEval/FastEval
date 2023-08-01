@@ -51,13 +51,16 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
     # order is slightly different.
     #
     # So increasing the floating point accuracy to float32 is one option. But it is kind of a pain to do for
-    # larger models that already require or would require multiple GPUs.
+    # larger models that already require or would require multiple GPUs. And sometimes even though increasing
+    # to float32 does make the results more similar (if the backends are basically equivalent), it is sometimes
+    # not enough.
     #
-    # So to work around this, one can also try to do inference with low floating point precision but do multiple
-    # attempts with different batch sizes since that's one aspect that can slightly influence the result.
+    # So to work around this, one can also try to do multiple attempts at inference with different batch sizes
+    # since that's one aspect that can slightly influence the result.
     #
     # We are going to do this here. If we immediately get the correct results on the first try, then we are going
-    # to stop immediately, so the user can also just increase the floating point accuracy if they have enough GPUs.
+    # to stop immediately, so the user can also just increase the floating point accuracy if they have enough GPUs
+    # and if that is enough.
     #
     # Note that if this code fails, i.e. it always gives a different output than HF transformers, then that does
     # not mean that the inference is not basically equivalent to HF transformers. It can still be the case that
