@@ -297,6 +297,8 @@ export async function createBenchmarksIndexV(baseUrl) {
             return null
         if (!benchmarks.includes('cot'))
             return null
+        if (!benchmarks.includes('mt-bench'))
+            return null
 
         let relativeAverageScore = 0
         for (const benchmarkName of allBenchmarks)
