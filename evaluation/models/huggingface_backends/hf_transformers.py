@@ -59,6 +59,14 @@ def compute_model_response(*, batch, tokenizer, model):
         input_ids = torch.tensor(input_ids, device='cuda')
         attention_masks = torch.tensor(attention_masks, device='cuda')
 
+        generation_kwargs = {}
+        if model.generation_config.bos_token_id != model.config.bos_token_id:
+            print('WARNING: BOS token id in generation_config.json is different than to config.json. Using config.json.')
+            generation_kwargs['bos_token_id'] = model.config.bos_token_id
+        if model.generation_config.eos_token_id != model.config.eos_token_id:
+            print('WARNING: EOS token id in generation_config.json is different than to config.json. Using config.json.')
+            generation_kwargs['eos_token_id'] = model.config.eos_token_id
+
         output_tokens = model.generate(
             input_ids=input_ids,
             attention_mask=attention_masks,
@@ -89,6 +97,8 @@ def compute_model_response(*, batch, tokenizer, model):
             length_penalty=1.0,
             no_repeat_ngram_size=0,
             renormalize_logits=False,
+
+            **generation_kwargs,
         )
 
         for i in range(len(batch_items_with_specific_sampling_parameters)):
