@@ -7,6 +7,7 @@ import os
 import torch
 import transformers
 
+import evaluation.args
 import evaluation.models.models
 
 global_lock = threading.Lock()
@@ -203,7 +204,7 @@ def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, 
             model_path=model_path,
             dtype=dtype,
             maximum_batch_size=max_batch_size,
-            num_devices_per_model=1,
+            num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model,
         )
 
     manager = current_worker_process_manager

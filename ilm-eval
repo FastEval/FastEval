@@ -66,6 +66,7 @@ def main():
     parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=None)
     parser.add_argument('--run-correctness-check', action='store_true')
     parser.add_argument('--model-force-dtype', choices=['float16', 'bfloat16', 'float32'], required=False)
+    parser.add_argument('--num-gpus-per-model', type=int, default=1)
     args = parser.parse_args()
 
     evaluation.args.cmd_arguments = args
