@@ -60,12 +60,20 @@ def compute_model_responses(*, model, batch):
         attention_masks = torch.tensor(attention_masks, device='cuda')
 
         generation_kwargs = {}
-        if model.generation_config.bos_token_id != model.config.bos_token_id:
-            print('WARNING: BOS token id in generation_config.json is different than to config.json. Using config.json.')
-            generation_kwargs['bos_token_id'] = model.config.bos_token_id
-        if model.generation_config.eos_token_id != model.config.eos_token_id:
-            print('WARNING: EOS token id in generation_config.json is different than to config.json. Using config.json.')
-            generation_kwargs['eos_token_id'] = model.config.eos_token_id
+        for token_name, token_type in [('BOS', 'bos_token_id'), ('EOS', 'eos_token_id')]:
+            if getattr(model.generation_config, token_type) is None and getattr(model.config, token_type) is None:
+                continue
+            if getattr(model.generation_config, token_type) is None and getattr(model.config, token_type) is not None:
+                generation_kwargs[token_type] = getattr(model.config, token_type)
+                continue
+            if getattr(model.generation_config, token_type) is not None and getattr(model.config, token_type) is None:
+                generation_kwargs[token_type] = getattr(model.generation_config, token_type)
+                continue
+            if getattr(model.generation_config, token_type) == getattr(model.config, token_type):
+                generation_kwargs[token_type] = getattr(model.generation_config, token_type)
+                continue
+            print('WARNING: ' + token_name + ' token id in generation_config.json is different than to config.json. Using config.json.')
+            generation_kwargs[token_type] = getattr(model.config, token_type)
 
         output_tokens = model.generate(
             input_ids=input_ids,
