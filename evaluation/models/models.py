@@ -22,6 +22,7 @@ from evaluation.models.starchat import Starchat
 from evaluation.models.llama2_chat import Llama2Chat
 from evaluation.models.free_willy2 import FreeWilly2
 from evaluation.models.dolphin import Dolphin
+from evaluation.models.openchat_llama2_v1 import OpenchatLlama2V1
 
 config_dict_cache = {}
 
@@ -40,6 +41,7 @@ def create_model(model_type: str, model_name: str, model_args: dict[str, str], *
         'llama2-chat': Llama2Chat,
         'free-willy2': FreeWilly2,
         'dolphin': Dolphin,
+        'openchat-llama2-v1': OpenchatLlama2V1,
     }
 
     if model_type not in model_classes:
