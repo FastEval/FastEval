@@ -1,0 +1,75 @@
+{
+    "score": 0.7,
+    "model_outputs": [
+        {
+            "id": 0,
+            "question": "Which of the following styles of fuzzer is more likely to explore paths covering every line of code in the following program?\n\n(A) Generational\n(B) Blackbox\n(C) Whitebox\n(D) Mutation-based",
+            "correct_answer": 2,
+            "model_answer": "To determine which fuzzer style is more likely to explore paths covering every line of code in the program, let's examine each style:\n\n(A) Generational: Generational fuzzers focus on creating new offspring by mutating the input and testing it against the program. This can often result in new paths being explored, but there may be some limitations when it comes to covering every line of code. Since the mutations might not consistently cover different parts of the code.\n\n(B) Blackbox: Blackbox fuzzers test by sending random input to the program and check the output. This approach tends to have a wide exploration of input values, thereby covering a significant portion of the program's code. However, a blackbox fuzzer might miss certain edge cases or input combinations that would be easily identifiable by a more targeted approach.\n\n(C) Whitebox: Whitebox fuzzers combine intelligence and knowledge of the program with blackbox fuzzing. They use knowledge of the program's internals to guide the random input generation, which often results in better coverage of the program's code. This style is more likely to explore paths covering every line of code in the program.\n\n(D) Mutation-based: Mutation-based fuzzers focus on finding the boundaries or inputs that cause the most interesting or unexpected behavior in the program. These fuzzers can explore a wide range of inputs but are prone to missing certain types of errors since their focus is on obtaining specific behavior, not on comprehensively testing all possible code paths.\n\nBased on the analysis, the most likely fuzzer style to explore paths covering every line of code in the program is (C) Whitebox. This is because it uses knowledge of the program internals to guide random input generation, ensuring comprehensive coverage while also benefiting from the wide range of coverage attainable with blackbox fuzzing.\n\nAnswer: (C) Whitebox",
+            "correct": true
+        },
+        {
+            "id": 1,
+            "question": "Assume that a TLS connection has been established successfully between a client and a server. Establishing the session included checking the server certificate and executing a DiffieHelmann exchange, but the client did not provide a client certificate. Further, assume that the client and server are honest, that the client and server don\u2019t leak their keys, and that the cryptography is good. Which of the following attacks does TLS protect against?\n1. An attacker replaying bytes that a client sent earlier.\n2. An attacker impersonating the server.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 0,
+            "model_answer": "(A) True, True\n\n1. An attacker replaying bytes that a client sent earlier - TLS protects against this attack by including sequence numbers in the packets and checking that the received sequence number is the next anticipated number in the sequence. If it's not, the packets are dropped, thus protecting against replay attacks.\n\n2. An attacker impersonating the server - TLS establishes a secure connection between the client and the server, authenticating the server by checking its certificate. This in itself prevents an attacker from impersonating the server without being able to correctly forge the identity of the server. Thus, TLS successfully protects against this type of attack.",
+            "correct": false
+        },
+        {
+            "id": 2,
+            "question": "MIT\u2019s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?\n\n(A) The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.\n(B) When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket\u2019s maximum lifetime.\n(C) When a client connects to a server, the server compares the ticket\u2019s expiration time to the server\u2019s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.\n(D) When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC\u2019s clock, and refuses to authenticate the user if the KDC reports that the ticket is expired.",
+            "correct_answer": 2,
+            "model_answer": "(D) When a client connects to a server, the server sends a query to the KDC to check if the ticket is still valid with respect to the KDC's clock, and refuses to authenticate the user if the KDC reports that the ticket is expired.\n\nReasoning:\n\nIn this scenario, Kerberos KDC server manages ticket lifetimes and expiration for user principals. The correct answer should involve the server checking the authentication status by interacting with the Kerberos server (KDC) and refusing to authenticate the user if the ticket is not valid.\n\nOption A is incorrect because the Kerberos server (KDC) is not refusing connections but ensuring that connections are established properly.\n\nOption B is incorrect because the time for the client to stay connected is not tied to a ticket's expiration.\n\nOption C is incorrect because this logic would not guarantee that a user cannot connect with an expired ticket. The server would need other forms of authentication methods for users in case the ticket is expired.\n\nOption D is correct because it involves the server verifying the validity of the ticket with the Kerberos KDC server's (KDC) clock before authenticating the user and refusing authentication if the ticket is expired. This process ensures that an expired Kerberos ticket cannot be used to establish authenticated connections.",
+            "correct": false
+        },
+        {
+            "id": 3,
+            "question": "In Message Condentiality, the transmitted message must make sense to only intended\n\n(A) Receiver\n(B) Sender\n(C) Modulor\n(D) Translator",
+            "correct_answer": 0,
+            "model_answer": "The transmitted message in Message Confidentiality must make sense only to the intended recipient. \n\nStep 1: Understand the concept of Message Confidentiality.\nIn confidentiality, the information transmitted must be accessible only to those who have the necessary authority to access it.\n\nStep 2: Relate the concept to the question.\nIn this question, the requirement is that the transmitted message makes sense only to the intended recipient.\n\nStep 3: Eliminate unrelated options.\nOption (B) Sender is not relevant because the sender and recipient are generally two different entities in a confidential communication.\nOption (C) Modulor can be discarded because it is a word and not a role or entity involved in message transmission.\nOption (D) Translator is not a correct choice because the role of a translator is to convert information, not to ensure the recipient's security.\n\nStep 4: Provide the correct answer.\nThe correct answer to the given question is:\n\n(A) Receiver",
+            "correct": true
+        },
+        {
+            "id": 4,
+            "question": "Which of the following is a remote Trojan?\n\n(A) Troya\n(B) DaCryptic\n(C) BankerA\n(D) Game-Troj",
+            "correct_answer": 0,
+            "model_answer": "To determine which of the following is a remote Trojan, we need to understand what a remote Trojan is and analyze the provided options.\n\nA remote Trojan is a type of malware that can be installed on a computer system without the user's knowledge and can be controlled remotely. It is different from a local Trojan, which requires physical access to the target computer.\n\nNow, let's analyze each option:\n\n(A) Troya: This is a type of trojan, specifically known as a local trojan. It requires physical access to the target computer.\n\n(B) DaCryptic: There are multiple types of DaCryptic, and one of them is known as a remote ATM Trojan. This is more likely to be a remote Trojan.\n\n(C) BankerA: This is a type of trojan, specifically known as a \"banking trojan,\" which targets online banking systems. It requires local access, not remote access.\n\n(D) Game-Troj: This is not a recognized trojan type.\n\nBased on this analysis, the correct answer is:\n\n(B) DaCryptic",
+            "correct": false
+        },
+        {
+            "id": 5,
+            "question": "______________ is a widespread app\u2019s coding mistake made by developers which could be exploited by an attacker for gaining access or malfunctioning your system.\n\n(A) Memory leakage\n(B) Buffer-overrun\n(C) Less processing power\n(D) Inefficient programming",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Identify the context of the question which is about a widespread coding mistake in apps.\n\nStep 2: Review the options provided:\nA) Memory leakage - Leaks of unused memory resources\nB) Buffer-overrun - Writing beyond the buffer's boundaries can allow attackers to exploit.\nC) Less processing power - Low processing capabilities\nD) Inefficient programming - Not optimally utilizing system resources\n\nStep 3: Evaluate which of these options is a mistake commonly made by developers which could be leveraged by an attacker for unauthorized access or system disruption.\n\nFrom the given options, buffer-overrun (option B) is the most likely applicant. This type of mistake could allow an attacker to inject code or execute unauthorized commands in a program.\n\nStep 4: Output the final answer.\n\nAnswer: (B) Buffer-overrun",
+            "correct": true
+        },
+        {
+            "id": 6,
+            "question": "Consider the paper Native Client: A Sandbox for Portable, Untrusted x86 Native Code by Yee et al. Ben Bitdiddle notes that NaCl uses Intel x86 segmentation to ensure that the sandboxed module does not read or write memory outside its own data area, and does not execute instructions outside its own code. Ben thinks that with these restrictions alone, executing the sandboxed module must be safe; that is, he thinks validation is not needed. Ben is wrong. Circle the types of x86 machine instructions that the validator always forbids in sandboxed code. Please ignore trampoline and springboard code.\n\n(A) all instructions that modify segment state\n(B) all loads or stores to addresses that are not 0 mod 32\n(C) all indirect loads or stores (via an address in a register or variable)\n(D) all indirect jumps (via an address in a register or variable)",
+            "correct_answer": 0,
+            "model_answer": "(A) all instructions that modify segment state",
+            "correct": true
+        },
+        {
+            "id": 7,
+            "question": "____________ is also a part of darknet that is employed for transferring files anonymously.\n\n(A) Freenet\n(B) ARPANET\n(C) Stuxnet\n(D) Internet",
+            "correct_answer": 0,
+            "model_answer": "(A) Freenet\n\nThe question asks about a part of darknet that is used for anonymous file transferring, so we can eliminate options (B) ARPANET, (C) Stuxnet, and (D) Internet, because they don't fit the criteria.\n\nOption (A) Freenet fits the criteria best, as it is a peer-to-peer network designed for free speech, file-sharing and communication. It is sometimes referred to as a part of the darknet due to its anonymity features when used correctly. This makes (A) the best answer. \n\nAnswer: A",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Why apps developed in languages like C, C++ is prone to Buffer-overflow?\n\n(A) No string boundary checks in predefined functions\n(B) No storage check in the external memory\n(C) No processing power check\n(D) No database check",
+            "correct_answer": 0,
+            "model_answer": "Answer: \n(A) No string boundary checks in predefined functions",
+            "correct": true
+        },
+        {
+            "id": 9,
+            "question": "Man in the middle attack can endanger the security of Diffie Hellman method if two parties are not\n\n(A) Joined\n(B) Authenticated\n(C) Submitted\n(D) Shared",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, let's first understand the concept of Man-in-the-middle attack and its effect on the Diffie-Hellman method.\n\nMan-in-the-middle (MITM) attack is an attack where an attacker secretly relays and alters the communication between two parties who believe they are directly communicating with each other. A MITM attack generally involves spoofing one party's identity or the authenticity of the connection.\n\nThe Diffie-Hellman method (also known as the Diffie-Hellman key exchange) is a cryptographic technique used in certain rapid exchange of cryptographic keys between two parties to set up a secure channel.\n\nNow, let's look at the given options:\n\n(A) Joined - What does being 'joined' have to do with the security of Diffie-Hellman? This option does not adequately address the concern.\n\n(B) Authenticated - The security of the Diffie-Hellman key exchange is broken when authenticity is not established. MITM attacks typically involve spoofing the authenticity of communicating parties.\n\n(C) Submitted - Submitted to what or by who? This option seems unclear and does not directly address the effect of MITM attacks on the Diffie-Hellman method.\n\n(D) Shared - Sharing keys is a part of the Diffie-Hellman method but does not address the threat of MITM attacks.\n\nBased on the explanations above, we can confidently say that the correct answer is:\n\n(B) Authenticated",
+            "correct": true
+        }
+    ]
+}
