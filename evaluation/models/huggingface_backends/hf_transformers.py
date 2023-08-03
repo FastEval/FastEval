@@ -1,29 +1,28 @@
-import threading
-import multiprocessing
-import time
-import gc
-import os
-
 import torch
 import transformers
 
-import evaluation.args
-import evaluation.models.models
+from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
-global_lock = threading.Lock()
-current_worker_process_manager = None
+def create_model(*, tokenizer_path, model_path, dtype):
+    tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
+    tokenizer.padding_side = 'left'
 
-def unload_model():
-    global global_lock
-    global current_worker_process_manager
+    model = transformers.AutoModelForCausalLM.from_pretrained(
+        model_path,
+        torch_dtype=dtype,
+        trust_remote_code=True,
+        device_map='auto',
+    )
 
-    global_lock.acquire()
-    if current_worker_process_manager is not None:
-        current_worker_process_manager.unload_model()
-    current_worker_process_manager = None
-    global_lock.release()
+    return {
+        'tokenizer': tokenizer,
+        'model': model,
+    }
 
-def compute_model_response(*, batch, tokenizer, model):
+def compute_model_responses(*, model, batch):
+    tokenizer = model['tokenizer']
+    model = model['model']
+
     sampling_parameters_to_batch_items = {}
 
     for i, batch_item in enumerate(batch):
@@ -110,114 +109,16 @@ def compute_model_response(*, batch, tokenizer, model):
             result_pipe.send(response)
             result_pipe.close()
 
-def run_worker_process(tokenizer_path, model_path, dtype, queue):
-    tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
-    tokenizer.padding_side = 'left'
+backend = DataParallelBackend(
+    backend_name='hf_transformers',
+    worker_functions={
+        'create_model': create_model,
+        'compute_model_responses': compute_model_responses,
+    }
+)
 
-    model = transformers.AutoModelForCausalLM.from_pretrained(
-        model_path,
-        torch_dtype=dtype,
-        trust_remote_code=True,
-        device_map='auto',
-    )
+def run_inference(**kwargs):
+    return backend.run_inference(**kwargs)
 
-    while True:
-        item = queue.get()
-        if item == 'unload-model':
-            break
-        compute_model_response(batch=item, tokenizer=tokenizer, model=model)
-
-    tokenizer = None
-    model = None
-    gc.collect()
-
-    queue.task_done()
-
-start_new_worker_lock = threading.Lock()
-def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices):
-    start_new_worker_lock.acquire()
-    os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(device_id) for device_id in devices])
-    multiprocessing.Process(target=run_worker_process, args=(tokenizer_path, model_path, dtype, queue)).start()
-    del os.environ['CUDA_VISIBLE_DEVICES']
-    start_new_worker_lock.release()
-
-class WorkerProcessManager:
-    def __init__(self, *, tokenizer_path, model_path, dtype, maximum_batch_size, num_devices_per_model):
-        self.tokenizer_path = tokenizer_path
-        self.model_path = model_path
-        self.dtype = dtype
-        self.maximum_batch_size = maximum_batch_size
-
-        self.next_batch = []
-        self.timestamp_when_last_batch_item_was_added = None
-        self.queue = multiprocessing.Queue()
-        self.lock = threading.Lock()
-
-        self.num_threads = torch.cuda.device_count() // num_devices_per_model
-        for i in range(self.num_threads):
-            devices = list(range(i * num_devices_per_model, (i + 1) * num_devices_per_model))
-            start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype, queue=self.queue, devices=devices)
-
-        self.models_are_loaded = True
-
-    def unload_model(self):
-        self.lock.acquire()
-
-        assert self.models_are_loaded
-
-        for i in range(self.num_threads):
-            self.queue.put('unload-model')
-
-        self.models_are_loaded = False
-
-        self.lock.release()
-
-    def add_item_to_next_batch(self, item):
-        self.lock.acquire()
-        self.next_batch.append(item)
-        self.lock.release()
-
-        time.sleep(0.05)
-
-        self.lock.acquire()
-        self.queue.put(self.next_batch[:self.maximum_batch_size])
-        self.next_batch = self.next_batch[self.maximum_batch_size:]
-        self.lock.release()
-
-def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size):
-    global global_lock
-    global current_worker_process_manager
-
-    global_lock.acquire()
-
-    evaluation.models.models.switch_gpu_model_type('hf_transformers')
-
-    if (current_worker_process_manager is None
-            or current_worker_process_manager.tokenizer_path != tokenizer_path
-            or current_worker_process_manager.model_path != model_path
-            or current_worker_process_manager.dtype != dtype
-            or current_worker_process_manager.maximum_batch_size != max_batch_size):
-        if current_worker_process_manager is not None:
-            current_worker_process_manager.unload_model()
-        current_worker_process_manager = WorkerProcessManager(
-            tokenizer_path=tokenizer_path,
-            model_path=model_path,
-            dtype=dtype,
-            maximum_batch_size=max_batch_size,
-            num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model,
-        )
-
-    manager = current_worker_process_manager
-
-    global_lock.release()
-
-    result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
-
-    manager.add_item_to_next_batch({
-        'prompt': prompt,
-        'temperature': temperature,
-        'max_new_tokens': max_new_tokens,
-        'result_pipe': result_pipe_child_conn,
-    })
-
-    return result_pipe_parent_conn.recv()
+def unload_model():
+    return backend.unload_model()
