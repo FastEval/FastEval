@@ -1,39 +1,16 @@
-import threading
 import uuid
-import gc
 import asyncio
+import multiprocessing
+import threading
+import queue
 
 import torch
 import transformers
 
-import evaluation.models.models
+from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
-lock = threading.Lock()
-model = None
-
-def unload_model(use_lock=True):
-    global model
-
-    if use_lock:
-        lock.acquire()
-
-    if model is None:
-        if use_lock:
-            lock.release()
-        return
-
-    loop = model['event_loop']
-    loop.call_soon_threadsafe(loop.stop)
-    model = None
-    gc.collect()
-
-    if use_lock:
-        lock.release()
-
-def load_model(*, model_path, tokenizer_path, dtype):
+def create_model_in_separate_thread(*, model_path, tokenizer_path, dtype, resulting_model_queue):
     import vllm
-
-    global model
 
     event_loop = asyncio.new_event_loop()
 
@@ -46,8 +23,6 @@ def load_model(*, model_path, tokenizer_path, dtype):
         trust_remote_code=True,
     ))
 
-    condition = model
-
     model = {
         'tokenizer_path': tokenizer_path,
         'model_path': model_path,
@@ -56,28 +31,26 @@ def load_model(*, model_path, tokenizer_path, dtype):
         'event_loop': event_loop,
     }
 
-    with condition:
-        condition.notify_all()
+    resulting_model_queue.put(model)
 
     event_loop.run_forever()
 
-def load_model_in_separate_thread(*, model_path, tokenizer_path, dtype):
-    global model
+def create_model(*, tokenizer_path, model_path, dtype):
+    resulting_model_queue = queue.Queue()
 
-    model = threading.Condition()
-
-    model_thread = threading.Thread(target=load_model, kwargs={
+    model_thread = threading.Thread(target=create_model_in_separate_thread, kwargs={
         'model_path': model_path,
         'tokenizer_path': tokenizer_path,
         'dtype': dtype,
+        'resulting_model_queue': resulting_model_queue,
     })
 
     model_thread.start()
 
-async def respond_to_prompt(*, prompt, prompt_model, temperature, max_new_tokens):
-    import vllm
+    return resulting_model_queue.get()
 
-    assert prompt_model is model
+async def respond_to_prompt(*, model, prompt, temperature, max_new_tokens):
+    import vllm
 
     if temperature is None:
         temperature = 1.0
@@ -89,7 +62,7 @@ async def respond_to_prompt(*, prompt, prompt_model, temperature, max_new_tokens
     else:
         args = { 'prompt': prompt }
 
-    response_generator = prompt_model['engine'].generate(**args, sampling_params=vllm.SamplingParams(
+    response_generator = model['engine'].generate(**args, sampling_params=vllm.SamplingParams(
         # See https://github.com/vllm-project/vllm/blob/main/vllm/sampling_params.py
 
         best_of=None,
@@ -113,33 +86,27 @@ async def respond_to_prompt(*, prompt, prompt_model, temperature, max_new_tokens
 
     return response
 
-def run_inference(*, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature):
-    global model
-
-    lock.acquire()
-
-    evaluation.models.models.switch_gpu_model_type('vllm')
-
-    if (model is None
-            or model['tokenizer_path'] != tokenizer_path
-            or model['model_path'] != model_path
-            or model['dtype'] != dtype):
-        unload_model(False)
-        load_model_in_separate_thread(model_path=model_path, tokenizer_path=tokenizer_path, dtype=dtype)
-
-    model_or_model_condition = model
-    if hasattr(model_or_model_condition, 'wait'):
-        condition = model_or_model_condition
-        with condition:
-            condition.wait()
-
-    current_model = model
-
-    assert not hasattr(current_model, 'wait')
-
-    future = asyncio.run_coroutine_threadsafe(respond_to_prompt(prompt=prompt, prompt_model=current_model,
-        temperature=temperature, max_new_tokens=max_new_tokens), current_model['event_loop'])
-
-    lock.release()
-
+def compute_model_response(*, model, item):
+    future = asyncio.run_coroutine_threadsafe(respond_to_prompt(model=model, prompt=item['prompt'],
+        temperature=item['temperature'], max_new_tokens=item['max_new_tokens']), model['event_loop'])
     return future.result()
+
+def unload_worker_model(model):
+    loop = model['event_loop']
+    loop.call_soon_threadsafe(loop.stop)
+
+backend = DataParallelBackend(
+    backend_name='vllm',
+    worker_functions={
+        'create_model': create_model,
+        'compute_model_response': compute_model_response,
+        'unload_worker_model': unload_worker_model,
+    },
+    worker_is_blocking=False,
+)
+
+def run_inference(**kwargs):
+    return backend.run_inference(**kwargs, max_batch_size=1)
+
+def unload_model():
+    return backend.unload_model()

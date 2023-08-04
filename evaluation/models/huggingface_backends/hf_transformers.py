@@ -123,7 +123,7 @@ backend = DataParallelBackend(
         'create_model': create_model,
         'compute_model_responses': compute_model_responses,
     },
-    worker_type='blocking'
+    worker_is_blocking=True,
 )
 
 def run_inference(**kwargs):
