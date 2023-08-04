@@ -9,12 +9,15 @@ import torch
 import evaluation.args
 import evaluation.models.models
 
-def run_worker_process(tokenizer_path, model_path, dtype, queue, worker_functions):
+def run_worker_process(tokenizer_path, model_path, dtype, queue, worker_functions, worker_type):
     model = worker_functions['create_model'](
         tokenizer_path=tokenizer_path,
         model_path=model_path,
         dtype=dtype,
     )
+
+    # TODO This is for the blocking worker type.
+    # Implement the non-blocking version.
 
     while True:
         item = queue.get()
@@ -25,7 +28,7 @@ def run_worker_process(tokenizer_path, model_path, dtype, queue, worker_function
 
         if 'compute_model_response' in worker_functions:
             for i in range(len(batch)):
-                response = worker_functions['compute_model_response'](batch[i])
+                response = worker_functions['compute_model_response'](model=model, item=batch[i])
                 result_pipe = batch[i]['result_pipe']
                 result_pipe.send(response)
                 result_pipe.close()
@@ -43,30 +46,36 @@ def run_worker_process(tokenizer_path, model_path, dtype, queue, worker_function
     queue.task_done()
 
 start_new_worker_lock = threading.Lock()
-def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices, worker_functions):
+def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices, worker_functions, worker_type):
     start_new_worker_lock.acquire()
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(device_id) for device_id in devices])
-    multiprocessing.Process(target=run_worker_process, args=(tokenizer_path, model_path, dtype, queue, worker_functions)).start()
+    multiprocessing.Process(target=run_worker_process, args=(tokenizer_path, model_path, dtype, queue, worker_functions, worker_type)).start()
     del os.environ['CUDA_VISIBLE_DEVICES']
     start_new_worker_lock.release()
 
 class WorkerProcessManager:
-    def __init__(self, *, tokenizer_path, model_path, dtype, maximum_batch_size, num_devices_per_model, worker_functions):
+    def __init__(self, *, tokenizer_path, model_path, dtype, maximum_batch_size, num_devices_per_model, worker_functions, worker_type):
         self.tokenizer_path = tokenizer_path
         self.model_path = model_path
         self.dtype = dtype
         self.maximum_batch_size = maximum_batch_size
+        self.worker_type = worker_type
 
         self.next_batch = []
         self.timestamp_when_last_batch_item_was_added = None
-        self.queue = multiprocessing.Queue()
         self.lock = threading.Lock()
 
         self.num_threads = torch.cuda.device_count() // num_devices_per_model
+
+        if worker_type == 'blocking':
+            self.queue = multiprocessing.Queue()
+        elif worker_type == 'non-blocking':
+            self.queues = [multiprocessing.Queue() for _ in range(self.num_threads)]
+
         for i in range(self.num_threads):
             devices = list(range(i * num_devices_per_model, (i + 1) * num_devices_per_model))
             start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
-                queue=self.queue, devices=devices, worker_functions=worker_functions)
+                queue=self.queue, devices=devices, worker_functions=worker_functions, worker_type=worker_type)
 
         self.models_are_loaded = True
 
@@ -76,7 +85,10 @@ class WorkerProcessManager:
         assert self.models_are_loaded
 
         for i in range(self.num_threads):
-            self.queue.put('unload-model')
+            if self.worker_type == 'blocking':
+                self.queue.put('unload-model')
+            elif worker_type == 'non-blocking':
+                self.queues[i].put('unload-model')
 
         self.models_are_loaded = False
 
@@ -90,14 +102,22 @@ class WorkerProcessManager:
         time.sleep(0.05)
 
         self.lock.acquire()
-        self.queue.put(self.next_batch[:self.maximum_batch_size])
+
+        if self.worker_type == 'blocking':
+            queue = self.queue
+        elif self.worker_type == 'non-blocking':
+            raise # TODO Add it to the shortest queue
+
+        queue.put(self.next_batch[:self.maximum_batch_size])
         self.next_batch = self.next_batch[self.maximum_batch_size:]
+
         self.lock.release()
 
 class DataParallelBackend:
-    def __init__(self, *, backend_name, worker_functions):
+    def __init__(self, *, backend_name, worker_functions, worker_type):
         self.backend_name = backend_name
         self.worker_functions = worker_functions
+        self.worker_type = worker_type
 
         self.lock = threading.Lock()
         self.current_worker_process_manager = None
@@ -121,6 +141,7 @@ class DataParallelBackend:
                 maximum_batch_size=max_batch_size,
                 num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model,
                 worker_functions=self.worker_functions,
+                worker_type=self.worker_type,
             )
 
         manager = self.current_worker_process_manager
