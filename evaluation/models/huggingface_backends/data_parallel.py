@@ -151,7 +151,7 @@ class DataParallelBackend:
                 model_path=model_path,
                 dtype=dtype,
                 maximum_batch_size=max_batch_size,
-                num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model,
+                num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model or torch.cuda.device_count(),
                 worker_functions=self.worker_functions,
                 worker_is_blocking=self.worker_is_blocking,
             )
