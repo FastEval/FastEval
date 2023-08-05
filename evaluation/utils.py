@@ -1,5 +1,3 @@
-import atexit
-import signal
 import multiprocessing.pool
 import threading
 from contextlib import contextmanager
@@ -19,21 +17,6 @@ def replace_model_name_slashes(model_name: str) -> str:
 
 def undo_replace_model_name_slashes(model_name: str) -> str:
     return model_name.replace('--', '/')
-
-@contextmanager
-def changed_exit_handlers():
-    previous_sigterm = signal.getsignal(signal.SIGTERM)
-    previous_sigint = signal.getsignal(signal.SIGINT)
-
-    atexit.register(evaluation.models.models.unload_model)
-    signal.signal(signal.SIGTERM, evaluation.models.models.unload_model)
-    signal.signal(signal.SIGINT, evaluation.models.models.unload_model)
-
-    yield
-
-    atexit.unregister(evaluation.models.models.unload_model)
-    signal.signal(signal.SIGTERM, previous_sigterm)
-    signal.signal(signal.SIGINT, previous_sigint)
 
 def process_with_thread_pool(*, num_threads, items, process_function, desc=None):
     def process_with_index(item_with_index):

@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 
+import signal
+
+# This is just for the child processes that we spawn
+# The main process will shortly set up its own signal handler
+# that overwrites this.
+signal.signal(signal.SIGTERM, signal.SIG_IGN)
+signal.signal(signal.SIGINT, signal.SIG_IGN)
+
 import multiprocessing
 
 if multiprocessing.get_start_method(allow_none=True) != 'spawn':
     multiprocessing.set_start_method('spawn')
 
-import os
-import json
-import argparse
-import uuid
-
-import evaluation.args
-from evaluation import benchmarks
-from evaluation.utils import changed_exit_handlers, join_threads
-from evaluation.models.models import unload_model
-from evaluation.inference_correctness import run_inference_backend_correctness_check
-
 def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_model_type, new_model_name, new_benchmarks, model_args):
+    import uuid
+
     if new_model_name is None:
         return existing_models_and_benchmarks
 
@@ -46,7 +45,32 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
 
     return existing_models_and_benchmarks
 
+def stop(*args):
+    import os
+
+    os.killpg(0, signal.SIGKILL)
+
 def main():
+    import os
+
+    os.setpgrp()
+
+    import atexit
+
+    atexit.register(stop)
+    signal.signal(signal.SIGTERM, stop)
+    signal.signal(signal.SIGINT, stop)
+
+    import argparse
+    import json
+    import os
+
+    import evaluation.args
+    from evaluation import benchmarks
+    from evaluation.utils import join_threads
+    from evaluation.models.models import unload_model
+    from evaluation.inference_correctness import run_inference_backend_correctness_check
+
     all_benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
 
     parser = argparse.ArgumentParser()
@@ -96,12 +120,11 @@ def main():
         ('cot', benchmarks.cot.evaluate_model),
     ]
 
-    with changed_exit_handlers():
-        for item in models_and_benchmarks:
-            for benchmark_name, evaluation_function in evaluation_functions:
-                if benchmark_name in item['benchmarks']:
-                    evaluation_function(item['model_type'], item['model_name'], item['model_args'], item['id'])
-            unload_model()
+    for item in models_and_benchmarks:
+        for benchmark_name, evaluation_function in evaluation_functions:
+            if benchmark_name in item['benchmarks']:
+                evaluation_function(item['model_type'], item['model_name'], item['model_args'], item['id'])
+        unload_model()
 
     for item in models_and_benchmarks:
         if 'lm-evaluation-harness' in item['benchmarks']:

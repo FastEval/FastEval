@@ -140,5 +140,5 @@ def switch_gpu_model_type(new_model_type):
             continue
         unload_model_function()
 
-def unload_model(*args, **kwargs):
+def unload_model():
     switch_gpu_model_type(None)
