@@ -55,9 +55,6 @@ def main():
 
     os.setpgrp()
 
-    import atexit
-
-    atexit.register(stop)
     signal.signal(signal.SIGTERM, stop)
     signal.signal(signal.SIGINT, stop)
 
