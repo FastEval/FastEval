@@ -252,7 +252,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     explanationE.classList.add('main__explanation')
     const informationLinkE = document.createElement('a')
     informationLinkE.textContent = 'GitHub repository'
-    informationLinkE.href = 'https://github.com/tju01/ilm-eval'
+    informationLinkE.href = 'https://github.com/FastEval/FastEval'
     explanationE.append(
         createTextE('See the '),
         informationLinkE,
