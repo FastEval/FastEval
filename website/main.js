@@ -6,7 +6,7 @@ function toSorted(compareFn) {
 }
 
 async function updateUrlIfBranchDoesntExistAnymore(branch) {
-    const response = await fetch('https://raw.githubusercontent.com/tju01/ilm-eval/' + branch + '/reports/__index__.json')
+    const response = await fetch('https://raw.githubusercontent.com/fasteval/FastEval/' + branch + '/reports/__index__.json')
     if (!response.ok)
         location.hash = '#' + computeUpdatedHash({ branch: null })
 }
@@ -27,8 +27,8 @@ async function main() {
     if (branch !== 'main')
         updateUrlIfBranchDoesntExistAnymore(branch)
 
-    const url = location.hostname === 'tju01.github.io' || branch !== 'main'
-        ? 'https://raw.githubusercontent.com/tju01/ilm-eval/' + branch + '/reports'
+    const url = location.hostname === 'fasteval.github.io' || branch !== 'main'
+        ? 'https://raw.githubusercontent.com/fasteval/FastEval/' + branch + '/reports'
         : './reports'
 
     document.body.textContent = 'Loading. May take a few seconds...'
