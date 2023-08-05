@@ -5,9 +5,9 @@ This project allows you to quickly evaluate language models on a number of bench
 ## Features
 
 - **Evaluation on various benchmarks with a single command.** Supported benchmarks are [MT‑Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) for Python coding performance, Chain of Thought (GSM8K + BBH + MMLU) for reasoning capabilities and [LM-Eval](https://github.com/EleutherAI/lm-evaluation-harness) for general capabilities.
-- **High performance.** ILM-Eval uses [vLLM](https://github.com/vllm-project/vllm) for fast inference by default and can also optionally make use of [text-generation-inference](https://github.com/huggingface/text-generation-inference). Both methods are ~20x faster than using huggingface transformers.
-- **Detailed information about model performance.** By saving not just the final scores but also all of the intermediate results, ILM-Eval enables you to get both [a general overview of model performance](https://fasteval.github.io/FastEval/) but also go deeper and look at the [performance on different categories](https://fasteval.github.io/FastEval/#?benchmark=mt-bench) down to inspecting the [individual model outputs](https://fasteval.github.io/FastEval/#?benchmark=cot&task=bbh/date_understanding&id=eb74c9e1-8836-4c3a-8f50-a25808d20eee).
-- **Use of model-specific prompt templates**: Different instruction following models are prompted in different ways, but many other benchmarks & leaderboards ignore this and prompt all of them the same way. ILM-Eval uses the right prompt template depending on the model that is being evaluated. Support is added for various prompt templates and the integration with [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
+- **High performance.** FastEval uses [vLLM](https://github.com/vllm-project/vllm) for fast inference by default and can also optionally make use of [text-generation-inference](https://github.com/huggingface/text-generation-inference). Both methods are ~20x faster than using huggingface transformers.
+- **Detailed information about model performance.** By saving not just the final scores but also all of the intermediate results, FastEval enables you to get both [a general overview of model performance](https://fasteval.github.io/FastEval/) but also go deeper and look at the [performance on different categories](https://fasteval.github.io/FastEval/#?benchmark=mt-bench) down to inspecting the [individual model outputs](https://fasteval.github.io/FastEval/#?benchmark=cot&task=bbh/date_understanding&id=eb74c9e1-8836-4c3a-8f50-a25808d20eee).
+- **Use of model-specific prompt templates**: Different instruction following models are prompted in different ways, but many other benchmarks & leaderboards ignore this and prompt all of them the same way. FastEval uses the right prompt template depending on the model that is being evaluated. Support is added for various prompt templates and the integration with [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
 
 ## Installation
 
@@ -18,7 +18,7 @@ apt install python3.10 python3.10-venv python3.10-dev
 
 # Clone this repository, make it the current working directory
 git clone --depth 1 https://github.com/FastEval/FastEval.git
-cd ilm-eval
+cd FastEval
 
 # Set up the virtual environment
 python3.10 -m venv .venv
@@ -26,14 +26,14 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-This already installs [vLLM](https://github.com/vllm-project/vllm) for fast inference which is usually enough for most models. However, if you encounter any problems with vLLM or your model is not supported, ilm-eval also supports using [text-generation-inference](https://github.com/huggingface/text-generation-inference) as an alternative. The performance is very similar to vLLM, but the installation process is more complex and therefore separate. If you would like to use text-generation-inference, you can install it as follows:
+This already installs [vLLM](https://github.com/vllm-project/vllm) for fast inference which is usually enough for most models. However, if you encounter any problems with vLLM or your model is not supported, FastEval also supports using [text-generation-inference](https://github.com/huggingface/text-generation-inference) as an alternative. The performance is very similar to vLLM, but the installation process is more complex and therefore separate. If you would like to use text-generation-inference, you can install it as follows:
 
 ```bash
 # Install various system packages.
 # The following command assumes an ubuntu >= 22.04 system.
 apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make
 
-# Install text-generation-inference to the `ilm-eval/text-generation-inference` folder.
+# Install text-generation-inference to the `FastEval/text-generation-inference` folder.
 ./install-text-generation-inference
 ```
 
@@ -43,11 +43,11 @@ apt install rust-all protobuf-compiler libssl-dev gcc pkg-config g++ make
 
 ## Evaluation
 
-⚠️ Running `ilm-eval` currently executes untrusted code, both from models with remote code as well as LLM generated code when using [HumanEval+](https://github.com/evalplus/evalplus). There is currently no integrated sandbox, so make sure to only execute the code in an environment where this is not a problem.
+⚠️ Running `fasteval` currently executes untrusted code, both from models with remote code as well as LLM generated code when using [HumanEval+](https://github.com/evalplus/evalplus). There is currently no integrated sandbox, so make sure to only execute the code in an environment where this is not a problem.
 
-To evaluate a new model, call `ilm-eval` in the following way:
+To evaluate a new model, call `fasteval` in the following way:
 ```
-./ilm-eval [-b <benchmark_name_1>...] -t model_type -m model_name
+./fasteval [-b <benchmark_name_1>...] -t model_type -m model_name
 ````
 
 The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://fasteval.github.io/FastEval/#?benchmark=mt-bench), [`human-eval-plus`](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus), [`cot`](https://fasteval.github.io/FastEval/#?benchmark=cot) or [`lm-evaluation-harness`](https://fasteval.github.io/FastEval/#?benchmark=lm-evaluation-harness).
@@ -58,7 +58,7 @@ The `-m` flag specifies the name of the model which can be a path to a model on 
 
 For example, this command will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) on [MT-Bench](https://fasteval.github.io/FastEval/#?benchmark=mt-bench):
 ```bash
-./ilm-eval -b mt-bench -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps`
+./fasteval -b mt-bench -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps`
 ```
 
 ### Viewing the results
