@@ -1,13 +1,12 @@
-# ILM-Eval
+# FastEval
 
-This project allows you to automatically evaluate instruction following language models on a number of benchmarks.
-It also contains [a leaderboard](https://tju01.github.io/ilm-eval) for comparison between different models.
+This project allows you to quickly evaluate language models on a number of benchmarks. It's currently focused on instruction-following language models, but we plan to extend this in the future. It also contains [a leaderboard](https://fasteval.github.io/FastEval/) for comparison between different models.
 
 ## Features
 
 - **Evaluation on various benchmarks with a single command.** Supported benchmarks are [MT‑Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) for Python coding performance, Chain of Thought (GSM8K + BBH + MMLU) for reasoning capabilities and [LM-Eval](https://github.com/EleutherAI/lm-evaluation-harness) for general capabilities.
 - **High performance.** ILM-Eval uses [vLLM](https://github.com/vllm-project/vllm) for fast inference by default and can also optionally make use of [text-generation-inference](https://github.com/huggingface/text-generation-inference). Both methods are ~20x faster than using huggingface transformers.
-- **Detailed information about model performance.** By saving not just the final scores but also all of the intermediate results, ILM-Eval enables you to get both [a general overview of model performance](https://tju01.github.io/ilm-eval/) but also go deeper and look at the [performance on different categories](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench) down to inspecting the [individual model outputs](https://tju01.github.io/ilm-eval/#?benchmark=cot&task=bbh/date_understanding&id=eb74c9e1-8836-4c3a-8f50-a25808d20eee).
+- **Detailed information about model performance.** By saving not just the final scores but also all of the intermediate results, ILM-Eval enables you to get both [a general overview of model performance](https://fasteval.github.io/FastEval/) but also go deeper and look at the [performance on different categories](https://fasteval.github.io/FastEval/#?benchmark=mt-bench) down to inspecting the [individual model outputs](https://fasteval.github.io/FastEval/#?benchmark=cot&task=bbh/date_understanding&id=eb74c9e1-8836-4c3a-8f50-a25808d20eee).
 - **Use of model-specific prompt templates**: Different instruction following models are prompted in different ways, but many other benchmarks & leaderboards ignore this and prompt all of them the same way. ILM-Eval uses the right prompt template depending on the model that is being evaluated. Support is added for various prompt templates and the integration with [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
 
 ## Installation
@@ -18,7 +17,7 @@ It also contains [a leaderboard](https://tju01.github.io/ilm-eval) for compariso
 apt install python3.10 python3.10-venv python3.10-dev
 
 # Clone this repository, make it the current working directory
-git clone --depth 1 https://github.com/tju01/ilm-eval.git
+git clone --depth 1 https://github.com/FastEval/FastEval.git
 cd ilm-eval
 
 # Set up the virtual environment
@@ -51,13 +50,13 @@ To evaluate a new model, call `ilm-eval` in the following way:
 ./ilm-eval [-b <benchmark_name_1>...] -t model_type -m model_name
 ````
 
-The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench), [`human-eval-plus`](https://tju01.github.io/ilm-eval/#?benchmark=human-eval-plus), [`cot`](https://tju01.github.io/ilm-eval/#?benchmark=cot) or [`lm-evaluation-harness`](https://tju01.github.io/ilm-eval/#?benchmark=lm-evaluation-harness).
+The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://fasteval.github.io/FastEval/#?benchmark=mt-bench), [`human-eval-plus`](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus), [`cot`](https://fasteval.github.io/FastEval/#?benchmark=cot) or [`lm-evaluation-harness`](https://fasteval.github.io/FastEval/#?benchmark=lm-evaluation-harness).
 
-Type `-t` flag specifies the type of the model which is either the prompt template or the API client that will be used. Supported values are [`openai`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_ai.py), [`alpaca-without-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_without_prefix.py), [`alpaca-with-prefix`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/alpaca_with_prefix.py), [`chatml`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/chatml.py), [`guanaco`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/guanaco.py), [`open-assistant`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/open_assistant.py), [`falcon-instruct`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/falcon_instruct.py), [`starchat`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/starchat.py) or [`fastchat`](https://github.com/tju01/ilm-eval/blob/main/evaluation/models/fastchat.py).
+Type `-t` flag specifies the type of the model which is either the prompt template or the API client that will be used. Supported values are [`openai`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/open_ai.py), [`alpaca-without-prefix`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/alpaca_without_prefix.py), [`alpaca-with-prefix`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/alpaca_with_prefix.py), [`chatml`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/chatml.py), [`guanaco`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/guanaco.py), [`open-assistant`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/open_assistant.py), [`falcon-instruct`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/falcon_instruct.py), [`starchat`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/starchat.py) or [`fastchat`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/fastchat.py).
 
 The `-m` flag specifies the name of the model which can be a path to a model on huggingface, a local folder or an OpenAI model name.
 
-For example, this command will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) on [MT-Bench](https://tju01.github.io/ilm-eval/#?benchmark=mt-bench):
+For example, this command will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) on [MT-Bench](https://fasteval.github.io/FastEval/#?benchmark=mt-bench):
 ```bash
 ./ilm-eval -b mt-bench -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps`
 ```
@@ -67,7 +66,3 @@ For example, this command will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-s
 Use `python3 -m http.server` in the root folder of this repository.
 This will start a simple webserver for static files.
 This server usually runs on port `8000` in which case you can view the results at [127.0.0.1:8000](http://127.0.0.1:8000).
-
-## Contact
-
-If you encounter some problems with this code or if you have any questions or suggestions, you can either [create a github issue](https://github.com/tju01/ilm-eval/issues/new) or [ping me on discord](https://discord.com/users/1090923181910532167). You can find me as [`tju01`](https://discord.com/users/1090923181910532167) on many LLM-related servers.
