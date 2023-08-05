@@ -1,8 +1,6 @@
 import os
 import json
 
-import lm_eval.evaluator
-
 from ..utils import replace_model_name_slashes
 from evaluation.models.models import get_dtype, create_model
 
@@ -13,6 +11,8 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     output_path = os.path.join('./reports/lm-evaluation-harness', replace_model_name_slashes(model_name), evaluation_id, 'gpt4all.json')
     if os.path.exists(output_path):
         return
+
+    import lm_eval.evaluator
 
     tokenizer_path = create_model(model_type, model_name, model_args).tokenizer_path
 

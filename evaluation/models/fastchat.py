@@ -4,8 +4,6 @@ import os
 import re
 import json
 
-import openai
-
 from .open_ai_base import OpenAIBase
 
 import evaluation.models.models
@@ -150,13 +148,15 @@ class Fastchat(OpenAIBase):
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
     def _reply(self, *, conversation, api_base, api_key, temperature, model_name, max_new_tokens):
+        from openai.error import APIError
+
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
 
         try:
             return super()._reply(conversation=conversation, api_base=api_base, api_key=api_key, temperature=temperature,
                 model_name=model_name, max_new_tokens=max_new_tokens)
-        except openai.error.APIError as error:
+        except APIError as error:
             error_information = re.search("This model's maximum context length is ([0-9]+) tokens\. "
                 + 'However, you requested ([0-9]+) tokens \([0-9]+ in the messages, [0-9]+ in the completion\)\. '
                 + 'Please reduce the length of the messages or completion\.', json.loads(error.http_body)['message'])

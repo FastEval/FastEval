@@ -2,8 +2,6 @@ import os
 import time
 import threading
 
-import openai
-
 from evaluation.constants import NUM_THREADS_OPENAI_GPT3_5, NUM_THREADS_OPENAI_GPT4, DEFAULT_MAX_NEW_TOKENS
 from .open_ai_base import OpenAIBase
 
@@ -27,6 +25,8 @@ class OpenAI(OpenAIBase):
             raise Exception('Unknown OpenAI model.')
 
     def reply(self, conversation, temperature=None, max_new_tokens=None):
+        import openai
+
         if self.default_system_message is not None and conversation[0][0] != 'system':
             conversation.insert(0, ('system', self.default_system_message))
 

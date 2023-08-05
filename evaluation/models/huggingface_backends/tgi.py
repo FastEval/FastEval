@@ -1,11 +1,8 @@
 import os
 import time
 import random
-import torch
 import threading
 import subprocess
-
-from text_generation import Client
 
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
@@ -21,6 +18,8 @@ def print_process_output(stdout):
             print('[TGI]', line, end='')
 
 def start_server(*, model_path, tokenizer_path, dtype):
+    import torch
+
     cwd = os.getcwd()
 
     new_environment = os.environ.copy()
@@ -66,6 +65,8 @@ def start_server(*, model_path, tokenizer_path, dtype):
     }
 
 def compute_model_response(*, model, item):
+    from text_generation import Client
+
     client = Client('http://127.0.0.1:' + str(model['port']), timeout=1_000_000)
 
     temperature = item['temperature']

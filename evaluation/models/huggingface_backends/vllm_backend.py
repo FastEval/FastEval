@@ -4,12 +4,10 @@ import multiprocessing
 import threading
 import queue
 
-import torch
-import transformers
-
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
 def create_model_in_separate_thread(*, model_path, tokenizer_path, dtype, resulting_model_queue):
+    import torch
     import vllm
 
     event_loop = asyncio.new_event_loop()

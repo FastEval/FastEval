@@ -5,8 +5,6 @@ import gc
 import os
 import random
 
-import torch
-
 import evaluation.args
 import evaluation.models.models
 
@@ -59,6 +57,8 @@ def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, device
 
 class WorkerProcessManager:
     def __init__(self, *, tokenizer_path, model_path, dtype, maximum_batch_size, num_devices_per_model, worker_functions, worker_is_blocking):
+        import torch
+
         self.tokenizer_path = tokenizer_path
         self.model_path = model_path
         self.dtype = dtype
@@ -135,6 +135,8 @@ class DataParallelBackend:
         self.current_worker_process_manager = None
 
     def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size):
+        import torch
+
         self.lock.acquire()
 
         evaluation.models.models.switch_gpu_model_type(self.backend_name)

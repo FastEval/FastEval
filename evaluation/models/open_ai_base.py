@@ -1,5 +1,3 @@
-import openai
-
 class OpenAIBase:
     def __init__(self, model_name, *, max_new_tokens):
         self.model_name = model_name
@@ -15,6 +13,8 @@ class OpenAIBase:
         raise
 
     def _reply(self, *, conversation, api_base, api_key, max_new_tokens=None, temperature=None, model_name=None):
+        import openai
+
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
         if temperature is None:

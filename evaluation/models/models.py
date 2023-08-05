@@ -1,32 +1,26 @@
 import os
 
-import torch
-import transformers
-
-import evaluation.args
 import evaluation.utils
-import evaluation.models.fastchat
-import evaluation.models.huggingface_backends.hf_transformers
-import evaluation.models.huggingface_backends.vllm_backend
-import evaluation.models.huggingface_backends.tgi
-from evaluation.models.debug import Debug
-from evaluation.models.open_ai import OpenAI
-from evaluation.models.fastchat import Fastchat
-from evaluation.models.open_assistant import OpenAssistant
-from evaluation.models.guanaco import Guanaco
-from evaluation.models.falcon_instruct import FalconInstruct
-from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
-from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
-from evaluation.models.chatml import ChatML
-from evaluation.models.starchat import Starchat
-from evaluation.models.llama2_chat import Llama2Chat
-from evaluation.models.free_willy2 import FreeWilly2
-from evaluation.models.dolphin import Dolphin
-from evaluation.models.openchat_llama2_v1 import OpenchatLlama2V1
+import evaluation.args
 
 config_dict_cache = {}
 
 def create_model(model_type: str, model_name: str, model_args: dict[str, str], **kwargs):
+    from evaluation.models.debug import Debug
+    from evaluation.models.open_ai import OpenAI
+    from evaluation.models.fastchat import Fastchat
+    from evaluation.models.open_assistant import OpenAssistant
+    from evaluation.models.guanaco import Guanaco
+    from evaluation.models.falcon_instruct import FalconInstruct
+    from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
+    from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
+    from evaluation.models.chatml import ChatML
+    from evaluation.models.starchat import Starchat
+    from evaluation.models.llama2_chat import Llama2Chat
+    from evaluation.models.free_willy2 import FreeWilly2
+    from evaluation.models.dolphin import Dolphin
+    from evaluation.models.openchat_llama2_v1 import OpenchatLlama2V1
+
     model_classes = {
         'debug': Debug,
         'openai': OpenAI,
@@ -52,6 +46,8 @@ def create_model(model_type: str, model_name: str, model_args: dict[str, str], *
     return model_class(model_name, **model_args, **kwargs)
 
 def get_config_dict(model_name):
+    import transformers
+
     if model_name in config_dict_cache:
         return config_dict_cache[model_name]
     config_dict = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
@@ -127,6 +123,11 @@ def compute_model_replies(model, conversations, *, desc=None):
     )
 
 def switch_gpu_model_type(new_model_type):
+    import evaluation.models.fastchat
+    import evaluation.models.huggingface_backends.hf_transformers
+    import evaluation.models.huggingface_backends.vllm_backend
+    import evaluation.models.huggingface_backends.tgi
+
     unload_model_functions = {
         'hf_transformers': evaluation.models.huggingface_backends.hf_transformers.unload_model,
         'vllm': evaluation.models.huggingface_backends.vllm_backend.unload_model,

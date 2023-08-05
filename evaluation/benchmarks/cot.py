@@ -2,7 +2,6 @@ import re
 import os
 import json
 
-import datasets
 import tqdm
 
 from evaluation.utils import replace_model_name_slashes
@@ -71,6 +70,8 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
     yield score
 
 def evaluate_model_on_gsm8k(output_path):
+    import datasets
+
     def is_correct(model_answer, correct_answer):
         model_answer_matches = re.findall(r'(\d+(,\d+)*(\.\d+)?)', model_answer)
         if len(model_answer_matches) == 0:
@@ -133,6 +134,8 @@ def find_multiple_choice_answer(*, model_answer, options):
     return None
 
 def evaluate_model_on_bbh(output_path):
+    import datasets
+
     def is_correct(model_answer, correct_answer):
         model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         correct_answer = correct_answer.replace('(', '').replace(')', '')
@@ -179,6 +182,8 @@ def evaluate_model_on_bbh(output_path):
     }
 
 def evaluate_model_on_mmlu(output_path):
+    import datasets
+
     tasks = ['abstract_algebra', 'anatomy', 'astronomy', 'business_ethics', 'clinical_knowledge', 'college_biology', 'college_chemistry',
         'college_computer_science', 'college_mathematics', 'college_medicine', 'college_physics', 'computer_security', 'conceptual_physics',
         'econometrics', 'electrical_engineering', 'elementary_mathematics', 'formal_logic', 'global_facts', 'high_school_biology', 'high_school_chemistry',

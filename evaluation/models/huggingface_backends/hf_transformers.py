@@ -1,9 +1,8 @@
-import torch
-import transformers
-
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
 def create_model(*, tokenizer_path, model_path, dtype):
+    import transformers
+
     tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
     tokenizer.padding_side = 'left'
 
@@ -20,6 +19,8 @@ def create_model(*, tokenizer_path, model_path, dtype):
     }
 
 def compute_model_responses(*, model, batch):
+    import torch
+
     tokenizer = model['tokenizer']
     model = model['model']
 
