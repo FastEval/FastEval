@@ -45,8 +45,6 @@ def run_worker_process(tokenizer_path, model_path, dtype, queue, worker_function
     model = None
     gc.collect()
 
-    queue.task_done()
-
 start_new_worker_lock = threading.Lock()
 def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices, worker_functions, worker_is_blocking):
     start_new_worker_lock.acquire()
