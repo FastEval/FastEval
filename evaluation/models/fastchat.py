@@ -83,7 +83,7 @@ def print_process_output(process_name, process):
     for line in process.stderr:
         print_process_output_line(process_name, line)
 
-def start_server(model_name, use_vllm):
+def start_server(*, model_name, tokenizer_path=None, use_vllm):
     global server
 
     os.environ['FASTCHAT_WORKER_API_TIMEOUT'] = '1000000000'
@@ -97,12 +97,14 @@ def start_server(model_name, use_vllm):
 
     if use_vllm:
         worker_name = 'fastchat.serve.vllm_worker'
-        if model_name in ['lmsys/vicuna-7b-v1.3', 'lmsys/vicuna-33b-v1.3']:
-            additional_worker_args = ['--tokenizer', 'hf-internal-testing/llama-tokenizer']
-        else:
+        if tokenizer_path is None:
             additional_worker_args = []
+        else:
+            additional_worker_args = ['--tokenizer', 'hf-internal-testing/llama-tokenizer']
     else:
         worker_name = 'fastchat.serve.model_worker'
+        if tokenizer_path is not None:
+            raise Exception('For fastchat models, the tokenizer can currently only be configured with the vLLM backend.')
         additional_worker_args = []
 
     model_process = subprocess.Popen(['python3', '-m', worker_name, '--host', '127.0.0.1', '--model-path', model_name, *additional_worker_args],
@@ -125,31 +127,32 @@ def start_server(model_name, use_vllm):
         'use_vllm': use_vllm,
     }
 
-def ensure_model_is_loaded(model_name, use_vllm):
+def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
     server_lock.acquire()
 
     evaluation.models.models.switch_inference_backend('fastchat')
 
     if server is None:
-        start_server(model_name, use_vllm)
+        start_server(model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path)
     elif server['model_name'] != model_name or server['use_vllm'] != use_vllm:
         unload_model()
-        start_server(model_name, use_vllm)
+        start_server(model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path)
 
     server_lock.release()
 
 class Fastchat(OpenAIBase):
     num_threads = NUM_THREADS_LOCAL_MODEL
 
-    def __init__(self, model_name, *, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
-        self.use_vllm = evaluation.models.models.is_vllm_supported(model_name)
+    def __init__(self, model_name, *, tokenizer=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
+        self.use_vllm = 'vllm' in evaluation.models.models.get_supported_inference_backends(model_name)
+        self.tokenizer_path = tokenizer
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
     def reply(self, conversation, *, temperature=None, max_new_tokens=None):
         from openai.error import APIError
 
         conversation = put_system_message_in_user_message(conversation)
-        ensure_model_is_loaded(self.model_name, use_vllm=self.use_vllm)
+        ensure_model_is_loaded(model_name=self.model_name, use_vllm=self.use_vllm, tokenizer_path=self.tokenizer_path)
 
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
