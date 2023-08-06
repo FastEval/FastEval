@@ -111,6 +111,9 @@ def main():
         with open('reports/__index__.json') as f:
             models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.model_type, args.model_name, args.benchmarks, model_args)
 
+    with open(os.path.join('reports', '__index__.json'), 'w') as f:
+        f.write(json.dumps(models_and_benchmarks, indent=4) + '\n')
+
     evaluation_functions = [
         ('mt-bench', benchmarks.mt_bench.evaluate_model),
         ('human-eval-plus', benchmarks.human_eval_plus.evaluate_model),
@@ -128,9 +131,6 @@ def main():
             benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'], item['model_args'], item['id'])
 
     join_threads()
-
-    with open(os.path.join('reports', '__index__.json'), 'w') as f:
-        f.write(json.dumps(models_and_benchmarks, indent=4) + '\n')
 
 if __name__ == '__main__':
     main()
