@@ -46,6 +46,8 @@ def should_filter_process_output(process_name, line):
     elif process_name == 'controller':
         if 'POST /get_worker_address' in line and '200 OK' in line:
             return True
+        if 'POST /list_models' in line and '200 OK' in line:
+            return True
         if 'controller | Receive heart beat.' in line:
             return True
         if 'POST /receive_heart_beat' in line and '200 OK' in line:
@@ -165,9 +167,12 @@ class Fastchat(OpenAIBase):
             return super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key, temperature=temperature,
                 model_name=model_name, max_new_tokens=max_new_tokens)
         except APIError as error:
+            error_message = json.loads(error.http_body)['message']
             error_information = re.search("This model's maximum context length is ([0-9]+) tokens\. "
                 + 'However, you requested ([0-9]+) tokens \([0-9]+ in the messages, [0-9]+ in the completion\)\. '
-                + 'Please reduce the length of the messages or completion\.', json.loads(error.http_body)['message'])
+                + 'Please reduce the length of the messages or completion\.', error_message)
+            if error_information is None:
+                raise Exception('Fastchat Error: ' + error_message)
             maximum_context_length = int(error_information.group(1))
             request_total_length = int(error_information.group(2))
             num_tokens_too_much = request_total_length - maximum_context_length
