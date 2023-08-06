@@ -1,7 +1,6 @@
 import os
 
 import evaluation.utils
-import evaluation.args
 
 config_dict_cache = {}
 
@@ -56,53 +55,6 @@ def get_config_dict(model_name):
 
 def get_dtype(model_name: str):
     return get_config_dict(model_name).torch_dtype
-
-def get_supported_inference_backends(model_name: str):
-    if 'starchat' in model_name:
-        # vLLM currently does not support starchat.
-        # See https://github.com/vllm-project/vllm/issues/380
-        return ['tgi', 'hf_transformers']
-
-    generally_supported_model_types = [
-        'llama', # LLaMA & LLaMA-2
-        'gpt_neox', # EleutherAI Pythia models
-        'gpt_bigcode', # Starcoder
-        'mpt', # MPT models from MosaicML
-
-        # All of these are some variant of falcon from TII
-        'RefinedWeb',
-        'RefinedWebModel',
-        'falcon',
-    ]
-
-    model_type = get_config_dict(model_name).model_type
-    if model_type in generally_supported_model_types:
-        return ['vllm', 'tgi', 'hf_transformers']
-
-    return []
-
-def is_tgi_installed():
-    return os.path.exists('text-generation-inference')
-
-def get_huggingface_backend(model_path: str):
-    forced_backend = evaluation.args.cmd_arguments.force_backend
-    if forced_backend is not None:
-        return forced_backend
-
-    supported_backends = get_supported_inference_backends()
-
-    if 'vllm' in supported_backends:
-        return 'vllm'
-
-    if 'tgi' in supported_backends:
-        if is_tgi_installed():
-            return 'tgi'
-        print('WARNING: The model "' + model_path + '" can be greatly accelerated by text-generation-inference, but it is not installed.')
-
-    if 'hf_transformers' in supported_backends:
-        return 'hf_transformers'
-
-    raise Exception('Model "' + model_name + '" has unknown model type "' + model_type + '"')
 
 def compute_model_replies(model, conversations, *, desc=None):
     if len(conversations) == 0:

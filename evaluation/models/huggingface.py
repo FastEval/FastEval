@@ -1,14 +1,64 @@
+import os
 import threading
 
+import evaluation.args
 import evaluation.models.models
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
+from evaluation.models.models import get_config_dict
 from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
 eos_tokens = {}
 eos_tokens_lock = threading.Lock()
+
+def get_supported_inference_backends(model_name: str):
+    if 'starchat' in model_name:
+        # vLLM currently does not support starchat.
+        # See https://github.com/vllm-project/vllm/issues/380
+        return ['tgi', 'hf_transformers']
+
+    generally_supported_model_types = [
+        'llama', # LLaMA & LLaMA-2
+        'gpt_neox', # EleutherAI Pythia models
+        'gpt_bigcode', # Starcoder
+        'mpt', # MPT models from MosaicML
+
+        # All of these are some variant of falcon from TII
+        'RefinedWeb',
+        'RefinedWebModel',
+        'falcon',
+    ]
+
+    model_type = get_config_dict(model_name).model_type
+    if model_type in generally_supported_model_types:
+        return ['vllm', 'tgi', 'hf_transformers']
+
+    return []
+
+def is_tgi_installed():
+    return os.path.exists('text-generation-inference')
+
+def get_backend(model_path: str):
+    forced_backend = evaluation.args.cmd_arguments.force_backend
+    if forced_backend is not None:
+        return forced_backend
+
+    supported_backends = get_supported_inference_backends(model_path)
+
+    if 'vllm' in supported_backends:
+        return 'vllm'
+
+    if 'tgi' in supported_backends:
+        if is_tgi_installed():
+            return 'tgi'
+        print('WARNING: The model "' + model_path + '" can be greatly accelerated by text-generation-inference, but it is not installed.')
+
+    if 'hf_transformers' in supported_backends:
+        return 'hf_transformers'
+
+    raise Exception('Model "' + model_name + '" has unknown model type "' + model_type + '"')
 
 class Huggingface:
     def __init__(
@@ -55,7 +105,7 @@ class Huggingface:
             }
 
             self.dtype = dtypes[dtype]
-        self.backend = evaluation.models.models.get_huggingface_backend(model_path)
+        self.backend = get_backend(model_path)
 
         self.num_threads = NUM_THREADS_LOCAL_MODEL
 
