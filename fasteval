@@ -140,4 +140,9 @@ def main():
     join_threads()
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as error:
+        import traceback
+        traceback.print_exc()
+        stop()
