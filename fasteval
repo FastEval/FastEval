@@ -24,9 +24,9 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
         if item['model_name'] != new_model_name:
             continue
         if item['model_type'] != new_model_type:
-            raise # TODO: Only for now. Later we allow this.
+            continue
         if item['model_args'] != model_args:
-            raise # TODO: Only for now. Later we allow this.
+            continue
         for benchmark in new_benchmarks:
             if benchmark not in item['benchmarks']:
                 item['benchmarks'].insert(0, benchmark)
