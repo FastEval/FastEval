@@ -84,10 +84,17 @@ def main():
     parser.add_argument('--force-backend', choices=['vllm', 'tgi', 'hf_transformers'], required=False,
         help='Force a specific backend for model inference. By default, the backend will be selected automatically depending on model support, '
             + 'but if you encounter bugs with this you can overwrite the backend with this argument.')
-    parser.add_argument('--tgi-max-batch-total-tokens', type=int, default=None)
-    parser.add_argument('--run-correctness-check', action='store_true')
-    parser.add_argument('--model-force-dtype', choices=['float16', 'bfloat16', 'float32'], required=False)
-    parser.add_argument('--num-gpus-per-model', type=int, default=0)
+    parser.add_argument('--model-force-dtype', choices=['float16', 'bfloat16', 'float32'], required=False,
+        help='By default, the dtype of the model will be taken from the model config.json. However, you can overwrite it with this argument.')
+    parser.add_argument('--num-gpus-per-model', type=int, default=0,
+        help='This argument controls data parallelism. By default, the model will only be instantiated a single time distributed across all GPUs. '
+            + 'This works fine if you have one GPU or if you have a big model and two GPUs, but it is not a fast approach if you e.g. have 8 GPUs. '
+            + 'In these cases, it is recommended to instantiate the model multiple times on different GPUs and do data parallel evaluation. '
+            + 'It is recommended to set --num-gpus-per-model to the number of GPUs that your model will require. '
+            + 'For example, if your model requires 2 GPUs and you have 8 GPUs, setting "--num-gpus-per-model 2" will create the model 4 times on 2 GPUs each.')
+    parser.add_argument('--run-correctness-check', action='store_true',
+        help='Runs a check to make sure that the outputs of the chosen fast inference backend (vLLM or TGI) are equal to those that HF transformers outputs. '
+            + 'This is needed because vLLM & TGI sometimes have incorrect implementations or haven\'t implemented a new feature yet but don\'t even warn about that. ')
     args = parser.parse_args()
 
     evaluation.args.cmd_arguments = args
