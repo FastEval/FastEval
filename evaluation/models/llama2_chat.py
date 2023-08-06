@@ -1,7 +1,7 @@
 from .huggingface import Huggingface
 
 class Llama2Chat(Huggingface):
-    def __init__(self, model_path, default_system_message=None, **kwargs):
+    def __init__(self, model_path, *, default_system_message=None, **kwargs):
         import transformers
 
         if default_system_message is None:
@@ -14,7 +14,7 @@ class Llama2Chat(Huggingface):
         self.tokenizer_without_eos = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path, add_bos_token=True, add_eos_token=False)
 
     # https://github.com/facebookresearch/llama/blob/main/llama/generation.py
-    def _conversation_to_prompt(self, conversation):
+    def conversation_to_prompt(self, conversation):
         instruction_start = '[INST]'
         instruction_end = '[/INST]'
 

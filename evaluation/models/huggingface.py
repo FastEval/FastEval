@@ -6,36 +6,12 @@ import evaluation.models.models
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
-from evaluation.models.models import get_config_dict
-from evaluation.models.utils import put_system_message_in_prompter_message
+from evaluation.models.models import get_supported_inference_backends
+from evaluation.models.utils import put_system_message_in_user_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
 eos_tokens = {}
 eos_tokens_lock = threading.Lock()
-
-def get_supported_inference_backends(model_name: str):
-    if 'starchat' in model_name:
-        # vLLM currently does not support starchat.
-        # See https://github.com/vllm-project/vllm/issues/380
-        return ['tgi', 'hf_transformers']
-
-    generally_supported_model_types = [
-        'llama', # LLaMA & LLaMA-2
-        'gpt_neox', # EleutherAI Pythia models
-        'gpt_bigcode', # Starcoder
-        'mpt', # MPT models from MosaicML
-
-        # All of these are some variant of falcon from TII
-        'RefinedWeb',
-        'RefinedWebModel',
-        'falcon',
-    ]
-
-    model_type = get_config_dict(model_name).model_type
-    if model_type in generally_supported_model_types:
-        return ['vllm', 'tgi', 'hf_transformers']
-
-    return []
 
 def is_tgi_installed():
     return os.path.exists('text-generation-inference')
@@ -58,7 +34,7 @@ def get_backend(model_path: str):
     if 'hf_transformers' in supported_backends:
         return 'hf_transformers'
 
-    raise Exception('Model "' + model_name + '" has unknown model type "' + model_type + '"')
+    raise Exception('No inference backend supported for model "' + model_path)
 
 class Huggingface:
     def __init__(
@@ -122,9 +98,9 @@ class Huggingface:
 
         return self.eos_token
 
-    def _conversation_to_prompt(self, conversation):
+    def conversation_to_prompt(self, conversation):
         if self.system is None:
-            conversation = put_system_message_in_prompter_message(conversation)
+            conversation = put_system_message_in_user_message(conversation)
         prompt = self.prefix
         if self.system is not None and conversation[0][0] != 'system':
             conversation.insert(0, ('system', self.default_system))
@@ -140,12 +116,12 @@ class Huggingface:
         prompt += self.assistant
         return prompt.strip()
 
-    def reply(self, conversation, temperature=None, max_new_tokens=None):
+    def reply(self, conversation, *, temperature=None, max_new_tokens=None):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
 
         common_kwargs = {
-            'prompt': self._conversation_to_prompt(conversation),
+            'prompt': self.conversation_to_prompt(conversation),
             'tokenizer_path': self.tokenizer_path,
             'model_path': self.model_path,
             'dtype': self.dtype,

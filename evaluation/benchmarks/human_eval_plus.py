@@ -6,7 +6,7 @@ import uuid
 
 from evalplus.data import get_human_eval_plus, write_jsonl
 
-from evaluation.utils import replace_model_name_slashes
+from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import HUMAN_EVAL_PLUS_TEMPERATURE
 
@@ -62,7 +62,7 @@ def compute_model_answers(*, model_type, model_name, model_args, output_folder):
     raw_replies = compute_model_replies(model, [{
         'conversation': create_conversation(prompt),
         'temperature': HUMAN_EVAL_PLUS_TEMPERATURE,
-    } for prompt in prompts], desc=model_name + ' :: HumanEval+ :: Computing model replies')
+    } for prompt in prompts], progress_bar_description=model_name + ' :: HumanEval+ :: Computing model replies')
 
     processed_replies = [{
         'task_id': task_id,
@@ -74,7 +74,7 @@ def compute_model_answers(*, model_type, model_name, model_args, output_folder):
     with open(output_file, 'w') as f:
         json.dump(processed_replies, f, indent=4)
 
-def compute_scores(*, model_name, output_folder):
+def compute_scores(*, output_folder):
     output_file = os.path.join(output_folder, 'scores.json')
     if os.path.exists(output_file):
         return
@@ -156,7 +156,7 @@ def compute_scores(*, model_name, output_folder):
         json.dump(output, f, indent=4)
 
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
-    output_folder = os.path.join('reports/human-eval-plus', replace_model_name_slashes(model_name), evaluation_id)
+    output_folder = os.path.join('reports/human-eval-plus', model_name_to_filename(model_name), evaluation_id)
     os.makedirs(output_folder, exist_ok=True)
     compute_model_answers(model_type=model_type, model_name=model_name, model_args=model_args, output_folder=output_folder)
-    compute_scores(model_name=model_name, output_folder=output_folder)
+    compute_scores(output_folder=output_folder)

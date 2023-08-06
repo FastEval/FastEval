@@ -4,8 +4,9 @@ import re
 import ast
 import statistics
 import threading
+from evaluation.benchmarks.utils import model_name_to_filename
 
-from evaluation.utils import replace_model_name_slashes, process_with_thread_pool
+from evaluation.utils import process_with_thread_pool
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import MT_BENCH_JUDGE_MAX_NEW_TOKENS, MT_BENCH_JUDGE
 
@@ -38,7 +39,7 @@ def generate_single_conversation_assistant_replies(model_and_question):
     return [first_turn_reply, second_turn_reply]
 
 def generate_assistant_replies(model_type, model_name, model_args, evaluation_id):
-    answers_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), evaluation_id, 'answers.json')
+    answers_filepath = os.path.join('reports', 'mt-bench', model_name_to_filename(model_name), evaluation_id, 'answers.json')
     if os.path.exists(answers_filepath):
         return
 
@@ -55,8 +56,8 @@ def generate_assistant_replies(model_type, model_name, model_args, evaluation_id
     model_replies = process_with_thread_pool(
         num_threads=model.num_threads,
         items=[(model, question) for question_id, question in questions_items],
-        process_function=generate_single_conversation_assistant_replies,
-        desc=model_name + ' :: MT-Bench :: Computing model replies',
+        process_fn=generate_single_conversation_assistant_replies,
+        progress_bar_description=model_name + ' :: MT-Bench :: Computing model replies',
     )
 
     all_replies = { question_id: model_replies[i] for i, (question_id, question) in enumerate(questions_items) }
@@ -107,7 +108,7 @@ def create_judge_conversation(questions, answers, judge_prompt_templates, turn_n
     ]
 
 def compute_judge_replies(model_name, evaluation_id):
-    judge_replies_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), evaluation_id, 'judge-replies.json')
+    judge_replies_filepath = os.path.join('reports', 'mt-bench', model_name_to_filename(model_name), evaluation_id, 'judge-replies.json')
     if os.path.exists(judge_replies_filepath):
         return
 
@@ -115,7 +116,7 @@ def compute_judge_replies(model_name, evaluation_id):
         questions = json.load(f)
     with open('data/mt-bench/judge_prompts.json') as f:
         judge_prompt_templates = json.load(f)
-    with open(os.path.join('reports/mt-bench', replace_model_name_slashes(model_name), evaluation_id, 'answers.json')) as f:
+    with open(os.path.join('reports/mt-bench', model_name_to_filename(model_name), evaluation_id, 'answers.json')) as f:
         answers = json.load(f)
 
     judge_conversations = [{
@@ -129,7 +130,7 @@ def compute_judge_replies(model_name, evaluation_id):
     judge_replies = compute_model_replies(judge_model, [{
         'conversation': item['conversation'],
         'temperature': 0,
-    } for item in judge_conversations], desc=model_name + ' :: MT-Bench :: Judging with GPT-4')
+    } for item in judge_conversations], progress_bar_description=model_name + ' :: MT-Bench :: Judging with GPT-4')
 
     judge_replies = [{
         'question_id': judge_conversations[i]['question_id'],
@@ -145,11 +146,11 @@ def compute_model_score(model_name, evaluation_id):
     with open('data/mt-bench/questions.json') as f:
         questions = json.load(f)
 
-    scores_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), evaluation_id, 'scores.json')
+    scores_filepath = os.path.join('reports', 'mt-bench', model_name_to_filename(model_name), evaluation_id, 'scores.json')
     if os.path.exists(scores_filepath):
         return
 
-    judge_replies_filepath = os.path.join('reports', 'mt-bench', replace_model_name_slashes(model_name), evaluation_id, 'judge-replies.json')
+    judge_replies_filepath = os.path.join('reports', 'mt-bench', model_name_to_filename(model_name), evaluation_id, 'judge-replies.json')
     with open(judge_replies_filepath) as f:
         judge_replies = json.load(f)
 

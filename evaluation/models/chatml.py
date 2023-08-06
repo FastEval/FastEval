@@ -1,7 +1,7 @@
 from .huggingface import Huggingface
 
 class ChatML(Huggingface):
-    def __init__(self, model_path, default_system_message=None, **kwargs):
+    def __init__(self, model_path, *, default_system_message=None, **kwargs):
         if default_system_message is None:
             if model_path == 'mosaicml/mpt-7b-chat':
                 # https://github.com/mosaicml/llm-foundry/blob/a936df02bb65cdac2279c84bc17465cc6cbd196a/scripts/inference/hf_chat.py#L52

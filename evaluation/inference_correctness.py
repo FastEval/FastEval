@@ -31,7 +31,7 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
         return compute_model_replies(
             create_model(model_type, model_name, model_args, max_new_tokens=1024),
             [conversation] * n,
-            desc=model_name + ' :: Computing replies with ' + backend_name + ' backend',
+            progress_bar_description=model_name + ' :: Computing replies with ' + backend_name + ' backend',
         )
 
     previous_force_backend = evaluation.args.cmd_arguments.force_backend

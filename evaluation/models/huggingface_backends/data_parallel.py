@@ -160,7 +160,7 @@ class DataParallelBackend:
 
         self.lock.acquire()
 
-        evaluation.models.models.switch_gpu_model_type(self.backend_name)
+        evaluation.models.models.switch_inference_backend(self.backend_name)
 
         if (self.current_worker_process_manager is None
                 or self.current_worker_process_manager.tokenizer_path != tokenizer_path

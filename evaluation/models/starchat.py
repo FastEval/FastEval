@@ -1,7 +1,7 @@
 from .huggingface import Huggingface
 
 class Starchat(Huggingface):
-    def __init__(self, model_path, default_system_message='', **kwargs):
+    def __init__(self, model_path, *, default_system_message='', **kwargs):
         super().__init__(
             model_path,
             user='<|user|>\n',

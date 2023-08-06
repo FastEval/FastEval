@@ -1,29 +1,53 @@
-import os
 import threading
 
 import evaluation.utils
 
-config_dict_cache = {}
-config_dict_cache_lock = threading.Lock()
+fetched_model_configs = {}
+fetched_model_configs_lock = threading.Lock()
 
-def get_config_dict(model_name):
-    config_dict_cache_lock.acquire()
+def fetch_model_config(model_name: str):
+    fetched_model_configs_lock.acquire()
 
-    if model_name in config_dict_cache:
-        config_dict_cache_lock.release()
-        return config_dict_cache[model_name]
+    if model_name in fetched_model_configs:
+        model_config = fetched_model_configs[model_name]
+        fetched_model_configs_lock.release()
+        return model_config
 
     import transformers
 
-    config_dict = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
-    config_dict_cache[model_name] = config_dict
+    model_config = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+    fetched_model_configs[model_name] = model_config
 
-    config_dict_cache_lock.release()
+    fetched_model_configs_lock.release()
 
-    return config_dict
+    return model_config
 
 def get_dtype(model_name: str):
-    return get_config_dict(model_name).torch_dtype
+    return fetch_model_config(model_name).torch_dtype
+
+def get_supported_inference_backends(model_name: str):
+    if 'starchat' in model_name:
+        # vLLM currently does not support starchat.
+        # See https://github.com/vllm-project/vllm/issues/380
+        return ['tgi', 'hf_transformers']
+
+    generally_supported_model_types = [
+        'llama', # LLaMA & LLaMA-2
+        'gpt_neox', # EleutherAI Pythia models
+        'gpt_bigcode', # Starcoder
+        'mpt', # MPT models from MosaicML
+
+        # All of these are some variant of falcon from TII
+        'RefinedWeb',
+        'RefinedWebModel',
+        'falcon',
+    ]
+
+    model_type = fetch_model_config(model_name).model_type
+    if model_type in generally_supported_model_types:
+        return ['vllm', 'tgi', 'hf_transformers']
+
+    return []
 
 def create_model(model_type: str, model_name: str, model_args: dict[str, str], **kwargs):
     from evaluation.models.debug import Debug
@@ -65,44 +89,41 @@ def create_model(model_type: str, model_name: str, model_args: dict[str, str], *
 
     return model_class(model_name, **model_args, **kwargs)
 
-def compute_model_replies(model, conversations, *, desc=None):
+def compute_model_replies(model, conversations, *, progress_bar_description=None):
     if len(conversations) == 0:
         return []
 
-    def reply(conversation):
+    def compute_reply(conversation):
         if isinstance(conversation, list):
-            reply = model.reply(conversation)
+            return model.reply(conversation)
         elif isinstance(conversation, dict):
-            reply = model.reply(conversation['conversation'], temperature=conversation['temperature'])
-        else:
-            raise
-
-        return reply
+            return model.reply(**conversation)
+        raise
 
     return evaluation.utils.process_with_thread_pool(
         num_threads=model.num_threads,
         items=conversations,
-        process_function=reply,
-        desc=desc,
+        process_fn=compute_reply,
+        progress_bar_description=progress_bar_description,
     )
 
-def switch_gpu_model_type(new_model_type):
+def switch_inference_backend(new_inference_backend):
     import evaluation.models.fastchat
     import evaluation.models.huggingface_backends.hf_transformers
     import evaluation.models.huggingface_backends.vllm_backend
     import evaluation.models.huggingface_backends.tgi
 
-    unload_model_functions = {
+    unload_backend_fns = {
         'hf_transformers': evaluation.models.huggingface_backends.hf_transformers.unload_model,
         'vllm': evaluation.models.huggingface_backends.vllm_backend.unload_model,
-        'fastchat': evaluation.models.fastchat.unload_model,
         'tgi': evaluation.models.huggingface_backends.tgi.unload_model,
+        'fastchat': evaluation.models.fastchat.unload_model,
     }
 
-    for model_type, unload_model_function in unload_model_functions.items():
-        if model_type == new_model_type:
+    for inference_backend_name, unload_backend_fn in unload_backend_fns.items():
+        if inference_backend_name == new_inference_backend:
             continue
-        unload_model_function()
+        unload_backend_fn()
 
 def unload_model():
-    switch_gpu_model_type(None)
+    switch_inference_backend(None)

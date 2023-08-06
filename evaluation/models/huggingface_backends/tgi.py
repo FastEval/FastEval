@@ -18,6 +18,8 @@ def print_process_output(stdout):
             print('[TGI]', line, end='')
 
 def start_server(*, model_path, tokenizer_path, dtype):
+    # TODO: Actually use the tokenizer_path
+
     import torch
 
     cwd = os.getcwd()

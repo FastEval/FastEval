@@ -2,9 +2,7 @@ import re
 import os
 import json
 
-import tqdm
-
-from evaluation.utils import replace_model_name_slashes
+from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS
 
@@ -223,7 +221,7 @@ def evaluate_model_on_mmlu(output_path):
     }
 
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
-    output_folder = os.path.join('reports', 'cot', replace_model_name_slashes(model_name), evaluation_id)
+    output_folder = os.path.join('reports', 'cot', model_name_to_filename(model_name), evaluation_id)
     final_scores_file = os.path.join(output_folder, 'scores.json')
     if os.path.exists(final_scores_file):
         return
@@ -241,7 +239,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     evaluators = combine_evaluators([evaluation_function(tasks_path) for task_name, evaluation_function in evaluation_functions])
 
     model_requests = next(evaluators)
-    model_responses = compute_model_replies(model, model_requests, desc=model_name + ' :: CoT :: Computing model replies')
+    model_responses = compute_model_replies(model, model_requests, progress_bar_description=model_name + ' :: CoT :: Computing model replies')
     scores_list = evaluators.send(model_responses)
     scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions) }
 
