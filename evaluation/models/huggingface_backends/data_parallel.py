@@ -8,6 +8,8 @@ import random
 import evaluation.args
 import evaluation.models.models
 
+start_new_worker_lock = threading.Lock()
+
 def run_worker_process(tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking):
     model = worker_functions['create_model'](
         tokenizer_path=tokenizer_path,
@@ -45,12 +47,26 @@ def run_worker_process(tokenizer_path, model_path, dtype, queue, worker_function
     model = None
     gc.collect()
 
-start_new_worker_lock = threading.Lock()
 def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices, worker_functions, worker_is_blocking):
+    # This lock is needed because we modify the `CUDA_VISIBLE_DEVICES` environment variable
+    # before starting the new child process. This environment variable is global for our whole process,
+    # so we need to start the child processes sequentially
     start_new_worker_lock.acquire()
+
+    if 'CUDA_VISIBLE_DEVICES' in os.environ:
+        previous_cuda_visible_devices = os.environ['CUDA_VISIBLE_DEVICES']
+    else:
+        previous_cuda_visible_devices = None
+
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(device_id) for device_id in devices])
+
     multiprocessing.Process(target=run_worker_process, args=(tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking)).start()
-    del os.environ['CUDA_VISIBLE_DEVICES']
+
+    if previous_cuda_visible_devices is None:
+        del os.environ['CUDA_VISIBLE_DEVICES']
+    else:
+        os.environ['CUDA_VISIBLE_DEVICES'] = previous_cuda_visible_devices
+
     start_new_worker_lock.release()
 
 class WorkerProcessManager:

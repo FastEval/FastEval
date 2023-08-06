@@ -1,8 +1,29 @@
 import os
+import threading
 
 import evaluation.utils
 
 config_dict_cache = {}
+config_dict_cache_lock = threading.Lock()
+
+def get_config_dict(model_name):
+    config_dict_cache_lock.acquire()
+
+    if model_name in config_dict_cache:
+        config_dict_cache_lock.release()
+        return config_dict_cache[model_name]
+
+    import transformers
+
+    config_dict = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+    config_dict_cache[model_name] = config_dict
+
+    config_dict_cache_lock.release()
+
+    return config_dict
+
+def get_dtype(model_name: str):
+    return get_config_dict(model_name).torch_dtype
 
 def create_model(model_type: str, model_name: str, model_args: dict[str, str], **kwargs):
     from evaluation.models.debug import Debug
@@ -43,18 +64,6 @@ def create_model(model_type: str, model_name: str, model_args: dict[str, str], *
     model_class = model_classes[model_type]
 
     return model_class(model_name, **model_args, **kwargs)
-
-def get_config_dict(model_name):
-    import transformers
-
-    if model_name in config_dict_cache:
-        return config_dict_cache[model_name]
-    config_dict = transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)
-    config_dict_cache[model_name] = config_dict
-    return config_dict
-
-def get_dtype(model_name: str):
-    return get_config_dict(model_name).torch_dtype
 
 def compute_model_replies(model, conversations, *, desc=None):
     if len(conversations) == 0:

@@ -9,7 +9,7 @@ def print_retry(error):
     print('Got error from OpenAI API. Retrying.', error)
 
 last_rate_limit_errors = {}
-check_last_rate_limit_lock = threading.Lock()
+last_rate_limit_errors_lock = threading.Lock()
 
 class OpenAI(OpenAIBase):
     def __init__(self, model_name, default_system_message=None, *, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
@@ -49,14 +49,14 @@ class OpenAI(OpenAIBase):
                     max_new_tokens=max_new_tokens,
                 )
             except openai.error.RateLimitError:
-                check_last_rate_limit_lock.acquire()
+                last_rate_limit_errors_lock.acquire()
 
                 last_rate_limit_error = last_rate_limit_errors.get(self.model_name, 0)
                 now = time.time()
 
                 last_rate_limit_errors[self.model_name] = now
 
-                check_last_rate_limit_lock.release()
+                last_rate_limit_errors_lock.release()
 
                 if now - last_rate_limit_error > 10:
                     print('Encountered OpenAI rate limit for ' + self.model_name + '. Trying again in a few seconds...')

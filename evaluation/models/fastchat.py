@@ -10,22 +10,20 @@ import evaluation.models.models
 from evaluation.models.utils import put_system_message_in_prompter_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
-lock = threading.Lock()
 server = None
+server_lock = threading.RLock()
 
-def unload_model(use_lock=True):
+def unload_model():
     global server
 
-    if use_lock:
-        lock.acquire()
+    server_lock.acquire()
 
     if server is not None:
         for process in server['processes']:
             process.kill()
         server = None
 
-    if use_lock:
-        lock.release()
+    server_lock.release()
 
 def should_filter_process_output(process_name, line):
     if process_name == 'model':
@@ -128,17 +126,17 @@ def start_server(model_name, use_vllm):
     }
 
 def ensure_model_is_loaded(model_name, use_vllm):
-    lock.acquire()
+    server_lock.acquire()
 
     evaluation.models.models.switch_gpu_model_type('fastchat')
 
     if server is None:
         start_server(model_name, use_vllm)
     elif server['model_name'] != model_name or server['use_vllm'] != use_vllm:
-        unload_model(False)
+        unload_model()
         start_server(model_name, use_vllm)
 
-    lock.release()
+    server_lock.release()
 
 class Fastchat(OpenAIBase):
     num_threads = NUM_THREADS_LOCAL_MODEL

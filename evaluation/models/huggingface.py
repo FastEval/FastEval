@@ -110,10 +110,10 @@ class Huggingface:
         self.num_threads = NUM_THREADS_LOCAL_MODEL
 
     def _get_eos_token(self):
-        import transformers
-
         if hasattr(self, 'eos_token'):
             return self.eos_token
+
+        import transformers
 
         eos_tokens_lock.acquire()
         eos_tokens[self.tokenizer_path] = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path).eos_token
