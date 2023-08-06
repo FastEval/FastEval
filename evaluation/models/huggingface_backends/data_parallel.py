@@ -10,7 +10,7 @@ import evaluation.models.models
 
 start_new_worker_lock = threading.Lock()
 
-def run_worker_process(tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking):
+def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking):
     model = worker_functions['create_model'](
         tokenizer_path=tokenizer_path,
         model_path=model_path,
@@ -60,7 +60,14 @@ def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, device
 
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(device_id) for device_id in devices])
 
-    multiprocessing.Process(target=run_worker_process, args=(tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking)).start()
+    multiprocessing.Process(target=run_worker_process, kwargs={
+        'tokenizer_path': tokenizer_path,
+        'model_path': model_path,
+        'dtype': dtype,
+        'queue': queue,
+        'worker_functions': worker_functions,
+        'worker_is_blocking': worker_is_blocking,
+    }).start()
 
     if previous_cuda_visible_devices is None:
         del os.environ['CUDA_VISIBLE_DEVICES']
