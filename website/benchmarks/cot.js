@@ -166,7 +166,7 @@ export async function createV(baseUrl, parameters) {
     for (const [id, evaluationAbsoluteScores] of sortedAbsoluteScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
-        rowE.insertCell().appendChild(createTextE(round(evaluationAbsoluteScores.total)))
+        createTableScoreCell(rowE, createTextE(round(evaluationAbsoluteScores.total)), relativeScores[id].total)
         rowE.insertCell()
 
         for (const [columnId, columnName] of columns) {
