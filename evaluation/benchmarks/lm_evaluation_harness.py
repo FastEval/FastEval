@@ -2,7 +2,7 @@ import os
 import json
 
 from evaluation.benchmarks.utils import model_name_to_filename
-from evaluation.models.models import get_dtype, create_model
+from evaluation.models.models import get_dtype
 
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
     if model_type == 'openai':
@@ -14,16 +14,18 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
 
     import lm_eval.evaluator
 
-    tokenizer_path = create_model(model_type, model_name, model_args).tokenizer_path
-
     tasks = ['openbookqa', 'arc_easy', 'winogrande', 'hellaswag', 'arc_challenge', 'piqa', 'boolq']
+
+    kwargs = {}
+    if 'tokenizer' in model_args:
+        kwargs['tokenizer'] = model_args['tokenizer']
 
     lm_eval_model_args = ','.join([k + '=' + str(v) for k, v in ({
         'pretrained': model_name,
         'dtype': str(get_dtype(model_name)).replace('torch.', ''),
         'trust_remote_code': True,
         'use_accelerate': True,
-        'tokenizer': tokenizer_path,
+        **kwargs,
     }).items()])
 
     print(model_name + ' :: LM-Eval :: Evaluating')
