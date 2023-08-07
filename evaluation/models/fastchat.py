@@ -102,7 +102,7 @@ def start_server(*, model_name, tokenizer_path=None, use_vllm):
         if tokenizer_path is None:
             additional_worker_args = []
         else:
-            additional_worker_args = ['--tokenizer', 'hf-internal-testing/llama-tokenizer']
+            additional_worker_args = ['--tokenizer', tokenizer_path]
     else:
         worker_name = 'fastchat.serve.model_worker'
         if tokenizer_path is not None:
