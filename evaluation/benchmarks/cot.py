@@ -1,6 +1,7 @@
 import re
 import os
 import json
+import statistics
 
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
@@ -176,7 +177,8 @@ def evaluate_model_on_bbh(output_path):
     yield {
         'tasks': {
             task: scores[i] for i, task in enumerate(tasks)
-        }
+        },
+        'average': statistics.mean(scores),
     }
 
 def evaluate_model_on_mmlu(output_path):
@@ -217,7 +219,8 @@ def evaluate_model_on_mmlu(output_path):
     yield {
         'tasks': {
             task: scores[i] for i, task in enumerate(tasks)
-        }
+        },
+        'average': statistics.mean(scores),
     }
 
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
@@ -242,6 +245,13 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     model_responses = compute_model_replies(model, model_requests, progress_bar_description=model_name + ' :: CoT :: Computing model replies')
     scores_list = evaluators.send(model_responses)
     scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions) }
+
+    # https://github.com/FastEval/FastEval/issues/61#issuecomment-1668520925
+    scores['total'] = (
+        0.2953944305750421 * scores['gsm8k']
+        + 0.33452283130198235 * scores['bbh']['average']
+        + 0.3700827381229756 * scores['mmlu']['average']
+    )
 
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
     with open(final_scores_file, 'w') as f:
