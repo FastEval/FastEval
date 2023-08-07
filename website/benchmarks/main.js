@@ -219,8 +219,6 @@ export async function fetchAndProcessReports(baseUrl, models) {
     for (const report of humanEvalPlusResults.values())
         report.absoluteScore = report.scores.plus
 
-    const relativeCoTResults = CoT.computeRelativeScores(cotResults)
-
     const modelById = new Map(models.map(modelInformation => [modelInformation.id, modelInformation]))
 
     function getScore(id, benchmarkName) {
@@ -233,7 +231,7 @@ export async function fetchAndProcessReports(baseUrl, models) {
         else if (benchmarkName === 'human-eval-plus')
             return humanEvalPlusResults.get(id).absoluteScore
         else if (benchmarkName === 'cot')
-            return relativeCoTResults[id].total
+            return cotResults.get(id).total
         else if (benchmarkName === 'mt-bench')
             return mtBenchResults.get(id).average
 
