@@ -12,8 +12,8 @@ export async function createMultiTaskE(baseUrl, evaluations, evaluationsMap, ben
     containerE.appendChild(createBackToMainPageE('← Back to CoT table', { 'benchmark': 'cot' }))
 
     const absoluteScores = await fetchFiles(baseUrl, evaluations, 'cot', '/scores.json')
-    const relativeScores = Object.entries(computeRelativeScores(absoluteScores))
-    const tasks = Object.keys(relativeScores[0][1][benchmark].tasks)
+    const relativeScores = computeRelativeScores(absoluteScores)
+    const tasks = Object.keys(Object.entries(relativeScores)[0][1][benchmark].tasks)
 
     const tableE = document.createElement('table')
     containerE.appendChild(tableE)
@@ -29,19 +29,26 @@ export async function createMultiTaskE(baseUrl, evaluations, evaluationsMap, ben
         tableHeadE.insertCell().appendChild(taskE)
     }
 
-    const sortedRelativeScores = relativeScores.sort(([id1, evaluationScores1], [id2, evaluationScores2]) =>
-        evaluationScores2[benchmark].total - evaluationScores1[benchmark].total)
+    const sortedAbsoluteScores = Array.from(absoluteScores.entries())
+        .sort(([id1, evaluationScores1], [id2, evaluationScores2]) => evaluationScores2.total - evaluationScores1.total)
 
-    for (const [id, evaluationRelativeScores] of sortedRelativeScores) {
+    for (const [id, evaluationAbsoluteScores] of sortedAbsoluteScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id), false))
-        createTableScoreCell(rowE, createTextE(round(absoluteScores.get(id)[benchmark].total)), evaluationRelativeScores[benchmark].total)
+
+        createTableScoreCell(
+            rowE,
+            createTextE(round(evaluationAbsoluteScores[benchmark].average)),
+            relativeScores[id][benchmark].average,
+        )
+
         rowE.insertCell()
+
         for (const task of tasks)
             createTableScoreCell(
                 rowE,
-                createLinkE(round(absoluteScores.get(id)[benchmark].tasks[task]), { task: benchmark + '/' + task, id }),
-                evaluationRelativeScores[benchmark].tasks[task]
+                createLinkE(round(evaluationAbsoluteScores[benchmark].tasks[task]), { task: benchmark + '/' + task, id }),
+                relativeScores[id][benchmark].tasks[task],
             )
     }
 
@@ -153,19 +160,23 @@ export async function createV(baseUrl, parameters) {
             tableHeadE.insertCell().appendChild(createTextE(columnName))
     }
 
-    const sortedRelativeScores = Object.entries(relativeScores).sort(([id1, evaluationScores1], [id2, evaluationScores2]) =>
-        evaluationScores2.total - evaluationScores1.total)
+    const sortedAbsoluteScores = Array.from(absoluteScores.entries())
+        .sort(([id1, evaluationScores1], [id2, evaluationScores2]) => evaluationScores2.total - evaluationScores1.total)
 
-    for (const [id, results] of sortedRelativeScores) {
+    for (const [id, evaluationAbsoluteScores] of sortedAbsoluteScores) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
-        rowE.insertCell().appendChild(createTextE(round(results.total)))
+        rowE.insertCell().appendChild(createTextE(round(evaluationAbsoluteScores.total)))
         rowE.insertCell()
 
         for (const [columnId, columnName] of columns) {
-            const cellE = columnId === 'gsm8k' ? createLinkE(round(results[columnId]), { task: columnId, id })
-                : ['bbh', 'mmlu'].includes(columnId) ? createTextE(round(results[columnId].total)) : undefined
-            createTableScoreCell(rowE, cellE, results[columnId].total ?? results[columnId])
+            if (columnId === 'gsm8k') {
+                const cellE = createLinkE(round(evaluationAbsoluteScores[columnId]), { task: columnId, id })
+                createTableScoreCell(rowE, cellE, relativeScores[id][columnId])
+            } else if (['bbh', 'mmlu'].includes(columnId)) {
+                const cellE = createTextE(round(evaluationAbsoluteScores[columnId].average))
+                createTableScoreCell(rowE, cellE, relativeScores[id][columnId].average)
+            }
         }
     }
 
@@ -182,21 +193,17 @@ export function computeRelativeScores(absoluteScores) {
     const gsm8k = Array.from(absoluteScores.values()).map(e => e.gsm8k)
     const minGsm8k = Math.min(...gsm8k)
     const maxGsm8k = Math.max(...gsm8k)
-
     for (const id of ids)
         relativeScores[id].gsm8k = (absoluteScores.get(id).gsm8k - minGsm8k) / (maxGsm8k - minGsm8k)
 
     for (const benchmark of ['bbh', 'mmlu']) {
         const tasks = Object.keys(absoluteScores.get(ids[0])[benchmark].tasks)
 
-        for (const id of ids)
-            absoluteScores.get(id)[benchmark].total = Object.values(absoluteScores.get(id)[benchmark].tasks).reduce((a, b) => a + b) / tasks.length
-
-        const values = Array.from(absoluteScores.values()).map(e => e[benchmark].total)
+        const values = Array.from(absoluteScores.values()).map(e => e[benchmark].average)
         const min = Math.min(...values)
         const max = Math.max(...values)
         for (const id of ids)
-            relativeScores[id][benchmark].total = (absoluteScores.get(id)[benchmark].total - min) / (max - min)
+            relativeScores[id][benchmark].average = (absoluteScores.get(id)[benchmark].average - min) / (max - min)
 
         for (const taskName of tasks) {
             const values = Array.from(absoluteScores.values()).map(e => e[benchmark].tasks[taskName])
@@ -207,13 +214,11 @@ export function computeRelativeScores(absoluteScores) {
         }
     }
 
-    // https://github.com/FastEval/FastEval/issues/61#issuecomment-1668520925
+    const total = Array.from(absoluteScores.values()).map(e => e.total)
+    const minTotal = Math.min(...total)
+    const maxTotal = Math.max(...total)
     for (const id of ids)
-        relativeScores[id].total = (
-            0.2953944305750421 * absoluteScores.get(id).gsm8k
-            + 0.33452283130198235 * absoluteScores.get(id).bbh.total
-            + 0.3700827381229756 * absoluteScores.get(id).mmlu.total
-        )
+        relativeScores[id].total = (absoluteScores.get(id).total - minTotal) / (maxTotal - minTotal)
 
     return relativeScores
 }
