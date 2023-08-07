@@ -300,10 +300,13 @@ export async function createBenchmarksIndexV(baseUrl) {
         if (!benchmarks.includes('mt-bench'))
             return null
 
-        let relativeAverageScore = 0
-        for (const benchmarkName of allBenchmarks)
-            relativeAverageScore += getRelativeScore(id, benchmarkName) / allBenchmarks.length
-        return relativeAverageScore * 10
+        // https://github.com/FastEval/FastEval/issues/61#issuecomment-1668562791
+        const totalScore =
+            2.258328740981252 * getScore(id, 'mt-bench')
+            + 15.877679229809127 * getScore(id, 'cot')
+            + 15.128786199627087 * getScore(id, 'human-eval-plus')
+            + 0.4641024716075128 * getScore(id, 'lm-evaluation-harness')
+        return totalScore
     }
 
     const evaluationRanks = computeEvaluationRanks(evaluations, getRelativeScore, getTotalScore)
