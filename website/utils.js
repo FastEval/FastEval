@@ -26,12 +26,14 @@ export function allowCharacterLineBreaks(text, characters = ['/', '_']) {
 }
 
 export async function fetchEvaluations(baseUrl) {
-    return (await (await fetch(baseUrl + '/__index__.json')).json())
+    const evaluations = (await (await fetch(baseUrl + '/__index__.json')).json())
+    const evaluationsMap = new Map(evaluations.map(evaluation => [evaluation.id, evaluation]))
+    return evaluationsMap
 }
 
-export async function fetchFiles(baseUrl, index, benchmarkName, filePath) {
-    const results = await Promise.all(index
-            .filter(model => model.benchmarks.includes(benchmarkName) || benchmarkName === 'total')
+export async function fetchFiles(baseUrl, evaluations, benchmarkName, filePath) {
+    const results = await Promise.all(Array.from(evaluations.values())
+            .filter(evaluation => evaluation.benchmarks.includes(benchmarkName) || benchmarkName === 'total')
             .map(async modelInformation => {
         const id = modelInformation.id
         const modelName = modelInformation.model_name
@@ -45,10 +47,6 @@ export async function fetchFiles(baseUrl, index, benchmarkName, filePath) {
     }))
 
     return new Map(results)
-}
-
-export function createEvaluationsMap(evaluations) {
-    return new Map(evaluations.map(evaluation => [evaluation.id, evaluation]))
 }
 
 export function getModelNumParams(modelInformation) {

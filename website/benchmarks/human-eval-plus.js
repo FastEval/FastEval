@@ -2,16 +2,15 @@ import { createConversationItemE } from '../components/conversation-item.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
-import { computeUpdatedHash, fetchEvaluations, fetchFiles, createEvaluationsMap, round } from '../utils.js'
+import { computeUpdatedHash, fetchEvaluations, fetchFiles, round } from '../utils.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
 export async function createV(baseUrl, parameters) {
     const evaluations = await fetchEvaluations(baseUrl)
-    const evaluationsMap = createEvaluationsMap(evaluations)
 
     if (parameters.has('id'))
-        return await createModelV(baseUrl, parameters, evaluations, evaluationsMap)
+        return await createModelV(baseUrl, parameters, evaluations)
 
     const containerE = document.createElement('div')
 
@@ -50,7 +49,7 @@ export async function createV(baseUrl, parameters) {
     tableHeadE.insertCell().appendChild(createTextE('HumanEval'))
 
     const relativeScores = {}
-    for (const { id } of evaluations)
+    for (const id of evaluations.keys())
         relativeScores[id] = {}
     for (const column of ['base', 'plus']) {
         const columnScores = sortedScores.map(e => e[1].scores[column])
@@ -62,7 +61,7 @@ export async function createV(baseUrl, parameters) {
 
     for (const [id, modelScores] of sortedScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
+        rowE.insertCell().appendChild(createModelLinkE(evaluations.get(id)))
         createTableScoreCell(rowE, createLinkE(round(modelScores.scores.plus), { id }), relativeScores[id].plus)
         createTableScoreCell(rowE, createTextE(round(modelScores.scores.base)), relativeScores[id].base)
     }
@@ -70,7 +69,7 @@ export async function createV(baseUrl, parameters) {
     return containerE
 }
 
-export async function createModelV(baseUrl, parameters, evaluations, evaluationsMap) {
+export async function createModelV(baseUrl, parameters, evaluations) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to HumanEval+ table', { 'benchmark': 'human-eval-plus' }))
@@ -80,7 +79,7 @@ export async function createModelV(baseUrl, parameters, evaluations, evaluations
     samplesE.classList.add('samples')
 
     const id = parameters.get('id')
-    const modelName = evaluationsMap.get(id).model_name
+    const modelName = evaluations.get(id).model_name
     const folderName = modelName.replace('/', '--')
 
     const [answers, scores] = await Promise.all([

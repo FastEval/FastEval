@@ -1,6 +1,6 @@
 import { createTextE } from '../components/text.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
-import { createEvaluationsMap, fetchEvaluations, fetchFiles, round } from '../utils.js'
+import { fetchEvaluations, fetchFiles, round } from '../utils.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
@@ -31,7 +31,6 @@ export async function createV(baseUrl) {
     )
 
     const evaluations = await fetchEvaluations(baseUrl)
-    const evaluationsMap = createEvaluationsMap(evaluations)
     const scores = await fetchFiles(baseUrl, evaluations, 'lm-evaluation-harness', 'total.json')
 
     const tasks = [
@@ -74,7 +73,7 @@ export async function createV(baseUrl) {
 
     for (const id of idsSortedByAverageScore) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
+        rowE.insertCell().appendChild(createModelLinkE(evaluations.get(id)))
 
         createTableScoreCell(rowE, createTextE(round(scores.get(id).average)))
 

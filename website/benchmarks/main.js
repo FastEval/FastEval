@@ -25,8 +25,8 @@ async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
 }
 
 function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
-    const ids = evaluations.map(({ id }) => id)
-    const idToEvaluationInformation = new Map(evaluations.map(evaluation => [evaluation.id, evaluation]))
+    const ids = Array.from(evaluations.keys())
+    const idToEvaluationInformation = evaluations
 
     const totalScores = {}
     for (const id of ids)
@@ -229,7 +229,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     const benchmarkMinimums = new Map()
     const benchmarkMaximums = new Map()
     for (const benchmarkName of allBenchmarks) {
-        for (const { id } of evaluations) {
+        for (const id of evaluations.keys()) {
             const score = getScore(id, benchmarkName)
             if (score === null)
                 continue
@@ -256,11 +256,8 @@ export async function createBenchmarksIndexV(baseUrl) {
     }
 
     const evaluationRanks = computeEvaluationRanks(evaluations, getRelativeScore, getTotalScore)
-    const evaluationsSortedByRank = evaluations.toSorted((evaluation1, evaluation2) => {
-        const evaluation1Rank = evaluationRanks[evaluation1.id]
-        const evaluation2Rank = evaluationRanks[evaluation2.id]
-        return evaluation2Rank - evaluation1Rank
-    })
+    const evaluationsSortedByRank = Array.from(evaluations.entries()).toSorted(([id1, evaluation1], [id2, evaluation2]) =>
+        evaluationRanks[id2] - evaluationRanks[id1]).map(e => e[1])
 
     const allNumParameters = []
     for (const evaluationInformation of evaluationsSortedByRank) {

@@ -1,4 +1,4 @@
-import { fetchEvaluations, fetchFiles, allowCharacterLineBreaks, round, createEvaluationsMap } from '../utils.js'
+import { fetchEvaluations, fetchFiles, allowCharacterLineBreaks, round } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
@@ -6,7 +6,7 @@ import { createConversationItemE } from '../components/conversation-item.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
-export async function createMultiTaskE(baseUrl, evaluations, evaluationsMap, benchmark) {
+export async function createMultiTaskE(baseUrl, evaluations, benchmark) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to CoT table', { 'benchmark': 'cot' }))
@@ -34,7 +34,7 @@ export async function createMultiTaskE(baseUrl, evaluations, evaluationsMap, ben
 
     for (const [id, evaluationAbsoluteScores] of sortedAbsoluteScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id), false))
+        rowE.insertCell().appendChild(createModelLinkE(evaluations.get(id), false))
 
         createTableScoreCell(
             rowE,
@@ -55,12 +55,12 @@ export async function createMultiTaskE(baseUrl, evaluations, evaluationsMap, ben
     return containerE
 }
 
-export async function createTaskV(baseUrl, evaluations, evaluationsMap, task, parameters) {
+export async function createTaskV(baseUrl, evaluations, task, parameters) {
     if (['bbh', 'mmlu'].includes(task))
-        return await createMultiTaskE(baseUrl, evaluations, evaluationsMap, task)
+        return await createMultiTaskE(baseUrl, evaluations, task)
 
     const id = parameters.get('id')
-    const modelName = evaluationsMap.get(id).model_name
+    const modelName = evaluations.get(id).model_name
 
     const containerE = document.createElement('div')
 
@@ -76,7 +76,7 @@ export async function createTaskV(baseUrl, evaluations, evaluationsMap, task, pa
     containerE.appendChild(infoE)
     infoE.append(
         createTextE('Task: ' + task),
-        createTextE('Model: ', createModelLinkE(evaluationsMap.get(id))),
+        createTextE('Model: ', createModelLinkE(evaluations.get(id))),
         createTextE('Score: ' + round(data.score)),
     )
 
@@ -115,10 +115,9 @@ export async function createV(baseUrl, parameters) {
     const containerE = document.createElement('div')
 
     const evaluations = await fetchEvaluations(baseUrl)
-    const evaluationsMap = createEvaluationsMap(evaluations)
 
     if (parameters.has('task')) {
-        containerE.appendChild(await createTaskV(baseUrl, evaluations, evaluationsMap, parameters.get('task'), parameters))
+        containerE.appendChild(await createTaskV(baseUrl, evaluations, parameters.get('task'), parameters))
         return containerE
     }
 
@@ -165,7 +164,7 @@ export async function createV(baseUrl, parameters) {
 
     for (const [id, evaluationAbsoluteScores] of sortedAbsoluteScores) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
+        rowE.insertCell().appendChild(createModelLinkE(evaluations.get(id)))
         createTableScoreCell(rowE, createTextE(round(evaluationAbsoluteScores.total)), relativeScores[id].total)
         rowE.insertCell()
 

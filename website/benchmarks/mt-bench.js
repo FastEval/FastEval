@@ -1,4 +1,4 @@
-import { fetchEvaluations, fetchFiles, allowCharacterLineBreaks, round, createEvaluationsMap } from '../utils.js'
+import { fetchEvaluations, fetchFiles, allowCharacterLineBreaks, round } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createModelLinkE } from '../components/model-link.js'
@@ -34,12 +34,12 @@ function computeRelativeScores(scores, categories) {
     return relativeScores
 }
 
-export async function createEvaluationCategoryV({ baseUrl, id, category, evaluationsMap }) {
+export async function createEvaluationCategoryV({ baseUrl, id, category, evaluations }) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to MT-Bench table', { 'benchmark': 'mt-bench' }))
 
-    const modelName = evaluationsMap.get(id).model_name
+    const modelName = evaluations.get(id).model_name
     const folderName = modelName.replace('/', '--')
 
     const [questions, answers, judgeReplies, scores] = await Promise.all([
@@ -96,14 +96,13 @@ export async function createEvaluationCategoryV({ baseUrl, id, category, evaluat
 
 export async function createV(baseUrl, parameters) {
     const evaluations = await fetchEvaluations(baseUrl)
-    const evaluationsMap = createEvaluationsMap(evaluations)
 
     if (parameters.has('id') && parameters.has('category'))
         return await createEvaluationCategoryV({
             baseUrl,
             id: parameters.get('id'),
             category: parameters.get('category'),
-            evaluationsMap,
+            evaluations,
         })
 
     const containerE = document.createElement('div')
@@ -155,7 +154,7 @@ export async function createV(baseUrl, parameters) {
 
     for (const [id, evaluationScores] of Object.entries(sortedScores)) {
         const rowE = tableBodyE.insertRow()
-        rowE.insertCell().appendChild(createModelLinkE(evaluationsMap.get(id)))
+        rowE.insertCell().appendChild(createModelLinkE(evaluations.get(id)))
         createTableScoreCell(rowE, createTextE(round(evaluationScores.average)), relativeScores[id].average)
         rowE.insertCell()
         createTableScoreCell(rowE, createTextE(round(evaluationScores.first_turn)), relativeScores[id].first_turn)
