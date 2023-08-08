@@ -18,13 +18,6 @@ export function round(num) {
     return num.toFixed(2)
 }
 
-export function allowCharacterLineBreaks(text, characters = ['/', '_']) {
-    let out = text
-    for (const char of characters)
-        out = out.replaceAll(char, char + '\u200b')
-    return out
-}
-
 export async function fetchEvaluations(baseUrl) {
     const evaluations = (await (await fetch(baseUrl + '/__index__.json')).json())
     const evaluationsMap = new Map(evaluations.map(evaluation => [evaluation.id, evaluation]))

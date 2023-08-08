@@ -1,4 +1,4 @@
-import { fetchEvaluations, fetchFiles, allowCharacterLineBreaks, round } from '../utils.js'
+import { fetchEvaluations, fetchFiles, round } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
@@ -24,7 +24,7 @@ export async function createMultiTaskE(baseUrl, evaluations, benchmark) {
     tableHeadE.insertCell()
 
     for (const task of tasks) {
-        const taskE = createTextE(allowCharacterLineBreaks(task))
+        const taskE = createTextE(task)
         taskE.classList.add('vertical')
         tableHeadE.insertCell().appendChild(taskE)
     }

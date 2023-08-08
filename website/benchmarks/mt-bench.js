@@ -1,4 +1,4 @@
-import { fetchEvaluations, fetchFiles, allowCharacterLineBreaks, round } from '../utils.js'
+import { fetchEvaluations, fetchFiles, round } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createLinkE } from '../components/link.js'
 import { createModelLinkE } from '../components/model-link.js'
@@ -147,7 +147,7 @@ export async function createE(baseUrl, parameters) {
     tableHeadE.insertCell()
 
     for (const category of categories) {
-        const categoryE = createTextE(allowCharacterLineBreaks(category))
+        const categoryE = createTextE(category)
         categoryE.classList.add('vertical')
         tableHeadE.insertCell().appendChild(categoryE)
     }
