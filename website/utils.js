@@ -30,7 +30,9 @@ export async function fetchEvaluations(baseUrl) {
 }
 
 export async function fetchFiles(baseUrl, index, benchmarkName, filePath) {
-    const results = await Promise.all(index.filter(model => model.benchmarks.includes(benchmarkName)).map(async modelInformation => {
+    const results = await Promise.all(index
+            .filter(model => model.benchmarks.includes(benchmarkName) || benchmarkName === 'total')
+            .map(async modelInformation => {
         const id = modelInformation.id
         const modelName = modelInformation.model_name
         const path = baseUrl

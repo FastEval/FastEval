@@ -200,47 +200,6 @@ function createHowToReadThisLeaderboardV() {
     return containerE
 }
 
-export async function fetchAndProcessReports(baseUrl, models) {
-    const [
-        lmEvaluationHarnessResults,
-        humanEvalPlusResults,
-        cotResults,
-        mtBenchResults,
-    ] = await Promise.all([
-        fetchFiles(baseUrl, models, 'lm-evaluation-harness', 'gpt4all.json'),
-        fetchFiles(baseUrl, models, 'human-eval-plus', '/scores.json'),
-        fetchFiles(baseUrl, models, 'cot', '/scores.json'),
-        fetchFiles(baseUrl, models, 'mt-bench', '/scores.json'),
-    ])
-
-    for (const report of lmEvaluationHarnessResults.values())
-        report.absoluteScore = LMEvaluationHarness.computeAverageScore(report.results)
-
-    for (const report of humanEvalPlusResults.values())
-        report.absoluteScore = report.scores.plus
-
-    const modelById = new Map(models.map(modelInformation => [modelInformation.id, modelInformation]))
-
-    function getScore(id, benchmarkName) {
-        const benchmarks = modelById.get(id).benchmarks
-        if (!benchmarks.includes(benchmarkName))
-            return null
-
-        if (benchmarkName === 'lm-evaluation-harness')
-            return lmEvaluationHarnessResults.get(id).absoluteScore
-        else if (benchmarkName === 'human-eval-plus')
-            return humanEvalPlusResults.get(id).absoluteScore
-        else if (benchmarkName === 'cot')
-            return cotResults.get(id).total
-        else if (benchmarkName === 'mt-bench')
-            return mtBenchResults.get(id).average
-
-        return null
-    }
-
-    return getScore
-}
-
 export async function createBenchmarksIndexV(baseUrl) {
     const containerE = document.createElement('div')
 
@@ -259,7 +218,14 @@ export async function createBenchmarksIndexV(baseUrl) {
     containerE.appendChild(explanationE)
 
     const evaluations = await fetchEvaluations(baseUrl)
-    const getScore = await fetchAndProcessReports(baseUrl, evaluations)
+    const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
+
+    function getScore(id, benchmarkName) {
+        const score = scores.get(id).benchmarks[benchmarkName]
+        if (benchmarkName === 'lm-evaluation-harness' && score !== undefined)
+            return score * 100
+        return score || null
+    }
 
     const allBenchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
 
@@ -289,22 +255,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     }
 
     function getTotalScore(id, benchmarks) {
-        if (!benchmarks.includes('lm-evaluation-harness'))
-            return null
-        if (!benchmarks.includes('human-eval-plus'))
-            return null
-        if (!benchmarks.includes('cot'))
-            return null
-        if (!benchmarks.includes('mt-bench'))
-            return null
-
-        // https://github.com/FastEval/FastEval/issues/61#issuecomment-1668562791
-        const totalScore =
-            2.258328740981252 * getScore(id, 'mt-bench')
-            + 15.877679229809127 * getScore(id, 'cot')
-            + 15.128786199627087 * getScore(id, 'human-eval-plus')
-            + 0.4641024716075128 * getScore(id, 'lm-evaluation-harness')
-        return totalScore
+        return scores.get(id).total || null
     }
 
     const evaluationRanks = computeEvaluationRanks(evaluations, getRelativeScore, getTotalScore)
