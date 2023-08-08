@@ -19,9 +19,8 @@ export function round(num) {
 }
 
 export async function fetchEvaluations(baseUrl) {
-    const evaluations = (await (await fetch(baseUrl + '/__index__.json')).json())
-    const evaluationsMap = new Map(evaluations.map(evaluation => [evaluation.id, evaluation]))
-    return evaluationsMap
+    return new Map((await (await fetch(baseUrl + '/__index__.json')).json())
+        .map(evaluation => [evaluation.id, evaluation]))
 }
 
 export async function fetchFiles(baseUrl, evaluations, benchmarkName, filePath) {

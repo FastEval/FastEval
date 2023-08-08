@@ -6,29 +6,27 @@ import { createTableScoreCell } from '../components/table-score-cell.js'
 import { createBackToMainPageE } from '../components/back-to-main-page.js'
 import { createConversationItemE } from '../components/conversation-item.js'
 
-function computeRelativeScores(scores, categories) {
-    const ids = Object.keys(scores)
+function computeRelativeScores(absoluteScores, categories) {
+    const ids = Object.keys(absoluteScores)
 
     const relativeScores = {}
     for (const id of ids)
         relativeScores[id] = { categories: {} }
 
     for (const key of ['average', 'first_turn', 'second_turn']) {
-        const values = Object.values(scores).map(scoreValue => scoreValue[key])
+        const values = Object.values(absoluteScores).map(scoreValue => scoreValue[key])
         const min = Math.min(...values)
         const max = Math.max(...values)
-
         for (const id of ids)
-            relativeScores[id][key] = (scores[id][key] - min) / (max - min)
+            relativeScores[id][key] = (absoluteScores[id][key] - min) / (max - min)
     }
 
     for (const category of categories) {
-        const values = Object.values(scores).map(scoreValue => scoreValue.categories[category])
+        const values = Object.values(absoluteScores).map(scoreValue => scoreValue.categories[category])
         const min = Math.min(...values)
         const max = Math.max(...values)
-
         for (const id of ids)
-            relativeScores[id].categories[category] = (scores[id].categories[category] - min) / (max - min)
+            relativeScores[id].categories[category] = (absoluteScores[id].categories[category] - min) / (max - min)
     }
 
     return relativeScores

@@ -12,6 +12,7 @@ async function updateUrlIfBranchDoesntExistAnymore(branch) {
 }
 
 async function main() {
+    // Firefox added support in version 115. Previous versions don't support it yet.
     if (Array.prototype.toSorted === undefined)
         Array.prototype.toSorted = toSorted
 
