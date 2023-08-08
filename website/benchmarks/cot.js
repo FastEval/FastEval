@@ -55,7 +55,7 @@ export async function createMultiTaskE(baseUrl, evaluations, benchmark) {
     return containerE
 }
 
-export async function createTaskV(baseUrl, evaluations, task, parameters) {
+export async function createTaskE(baseUrl, evaluations, task, parameters) {
     if (['bbh', 'mmlu'].includes(task))
         return await createMultiTaskE(baseUrl, evaluations, task)
 
@@ -111,13 +111,13 @@ export async function createTaskV(baseUrl, evaluations, task, parameters) {
     return containerE
 }
 
-export async function createV(baseUrl, parameters) {
+export async function createE(baseUrl, parameters) {
     const containerE = document.createElement('div')
 
     const evaluations = await fetchEvaluations(baseUrl)
 
     if (parameters.has('task')) {
-        containerE.appendChild(await createTaskV(baseUrl, evaluations, parameters.get('task'), parameters))
+        containerE.appendChild(await createTaskE(baseUrl, evaluations, parameters.get('task'), parameters))
         return containerE
     }
 

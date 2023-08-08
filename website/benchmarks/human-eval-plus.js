@@ -6,11 +6,11 @@ import { computeUpdatedHash, fetchEvaluations, fetchFiles, round } from '../util
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
-export async function createV(baseUrl, parameters) {
+export async function createE(baseUrl, parameters) {
     const evaluations = await fetchEvaluations(baseUrl)
 
     if (parameters.has('id'))
-        return await createModelV(baseUrl, parameters, evaluations)
+        return await createModelE(baseUrl, parameters, evaluations)
 
     const containerE = document.createElement('div')
 
@@ -69,7 +69,7 @@ export async function createV(baseUrl, parameters) {
     return containerE
 }
 
-export async function createModelV(baseUrl, parameters, evaluations) {
+export async function createModelE(baseUrl, parameters, evaluations) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to HumanEval+ table', { 'benchmark': 'human-eval-plus' }))

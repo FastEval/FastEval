@@ -1,4 +1,4 @@
-import { createBenchmarksV } from './benchmarks/main.js'
+import { createBenchmarksE } from './benchmarks/main.js'
 import { computeUpdatedHash, parseHash } from './utils.js'
 
 function toSorted(compareFn) {
@@ -32,8 +32,8 @@ async function main() {
         : './reports'
 
     document.body.textContent = 'Loading. May take a few seconds...'
-    const benchmarksV = await createBenchmarksV(url)
-    document.body.replaceChildren(benchmarksV)
+    const benchmarksE = await createBenchmarksE(url)
+    document.body.replaceChildren(benchmarksE)
 }
 
 main()

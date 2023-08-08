@@ -9,16 +9,16 @@ import * as MTBench from '../benchmarks/mt-bench.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { getModelNumParams } from '../utils.js'
 
-async function createSingleBenchmarkV(baseUrl, benchmarkName, parameters) {
+async function createSingleBenchmarkE(baseUrl, benchmarkName, parameters) {
     switch (benchmarkName) {
         case 'lm-evaluation-harness':
-            return await LMEvaluationHarness.createV(baseUrl)
+            return await LMEvaluationHarness.createE(baseUrl)
         case 'human-eval-plus':
-            return await HumanEvalPlus.createV(baseUrl, parameters)
+            return await HumanEvalPlus.createE(baseUrl, parameters)
         case 'cot':
-            return await CoT.createV(baseUrl, parameters)
+            return await CoT.createE(baseUrl, parameters)
         case 'mt-bench':
-            return await MTBench.createV(baseUrl, parameters)
+            return await MTBench.createE(baseUrl, parameters)
         default:
             throw new Error()
     }
@@ -148,7 +148,7 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
     return Object.fromEntries(orderings[0])
 }
 
-function createHowToReadThisLeaderboardV() {
+function createHowToReadThisLeaderboardE() {
     const containerE = document.createElement('details')
 
     const summaryE = document.createElement('summary')
@@ -200,10 +200,10 @@ function createHowToReadThisLeaderboardV() {
     return containerE
 }
 
-export async function createBenchmarksIndexV(baseUrl) {
+export async function createBenchmarksIndexE(baseUrl) {
     const containerE = document.createElement('div')
 
-    containerE.appendChild(createHowToReadThisLeaderboardV())
+    containerE.appendChild(createHowToReadThisLeaderboardE())
 
     const explanationE = document.createElement('div')
     explanationE.classList.add('main__explanation')
@@ -354,9 +354,9 @@ export async function createBenchmarksIndexV(baseUrl) {
     return containerE
 }
 
-export async function createBenchmarksV(baseUrl) {
+export async function createBenchmarksE(baseUrl) {
     const hashParameters = parseHash()
     if (hashParameters.has('benchmark'))
-        return createSingleBenchmarkV(baseUrl, hashParameters.get('benchmark'), hashParameters)
-    return await createBenchmarksIndexV(baseUrl)
+        return createSingleBenchmarkE(baseUrl, hashParameters.get('benchmark'), hashParameters)
+    return await createBenchmarksIndexE(baseUrl)
 }

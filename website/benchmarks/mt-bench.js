@@ -34,7 +34,7 @@ function computeRelativeScores(scores, categories) {
     return relativeScores
 }
 
-export async function createEvaluationCategoryV({ baseUrl, id, category, evaluations }) {
+export async function createEvaluationCategoryE({ baseUrl, id, category, evaluations }) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE('← Back to MT-Bench table', { 'benchmark': 'mt-bench' }))
@@ -94,11 +94,11 @@ export async function createEvaluationCategoryV({ baseUrl, id, category, evaluat
     return containerE
 }
 
-export async function createV(baseUrl, parameters) {
+export async function createE(baseUrl, parameters) {
     const evaluations = await fetchEvaluations(baseUrl)
 
     if (parameters.has('id') && parameters.has('category'))
-        return await createEvaluationCategoryV({
+        return await createEvaluationCategoryE({
             baseUrl,
             id: parameters.get('id'),
             category: parameters.get('category'),

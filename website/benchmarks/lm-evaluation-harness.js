@@ -4,7 +4,7 @@ import { fetchEvaluations, fetchFiles, round } from '../utils.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 
-export async function createV(baseUrl) {
+export async function createE(baseUrl) {
     const containerE = document.createElement('div')
 
     containerE.appendChild(createBackToMainPageE())
