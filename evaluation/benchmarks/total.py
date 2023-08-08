@@ -38,7 +38,7 @@ def compute_total_scores(model_name, evaluation_id):
             2.258328740981252 * scores['benchmarks']['mt-bench']
             + 15.877679229809127 * scores['benchmarks']['cot']
             + 15.128786199627087 * scores['benchmarks']['human-eval-plus']
-            + 46.41024716075128 * scores['benchmarks']['lm-evaluation-harness']
+            + 0.4641024716075128 * scores['benchmarks']['lm-evaluation-harness']
         )
 
     output_filename = os.path.join('reports', 'total', model_name_to_filename(model_name), evaluation_id, 'scores.json')

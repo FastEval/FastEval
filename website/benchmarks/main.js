@@ -221,10 +221,7 @@ export async function createBenchmarksIndexV(baseUrl) {
     const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
 
     function getScore(id, benchmarkName) {
-        const score = scores.get(id).benchmarks[benchmarkName]
-        if (benchmarkName === 'lm-evaluation-harness' && score !== undefined)
-            return score * 100
-        return score || null
+        return scores.get(id).benchmarks[benchmarkName] || null
     }
 
     const allBenchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']

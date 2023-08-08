@@ -49,7 +49,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     scores = { 'tasks': {} }
     for task_name in results['results'].keys():
         task_results = results['results'][task_name]
-        scores['tasks'][task_name] = task_results['acc_norm'] if 'acc_norm' in task_results else task_results['acc']
+        scores['tasks'][task_name] = 100 * (task_results['acc_norm'] if 'acc_norm' in task_results else task_results['acc'])
 
     scores['average'] = statistics.mean(scores['tasks'].values())
 
