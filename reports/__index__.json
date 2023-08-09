@@ -15,7 +15,7 @@
     },
     {
         "id": "f8ffcb1c-8532-46f5-b945-ae829bf27204",
-        "model_type": "free-willy2",
+        "model_type": "stable-beluga",
         "model_name": "stabilityai/StableBeluga-13B",
         "benchmarks": [
             "lm-evaluation-harness",
@@ -59,16 +59,18 @@
     },
     {
         "id": "beaa2c36-153c-4f63-9c5a-1395db65c958",
-        "model_type": "free-willy2",
-        "model_name": "stabilityai/FreeWilly2",
+        "model_type": "stable-beluga",
+        "model_name": "stabilityai/StableBeluga2",
         "benchmarks": [
             "mt-bench",
             "cot",
             "human-eval-plus"
         ],
-        "model_args": {},
-        "url": "https://huggingface.co/stabilityai/FreeWilly2",
-        "short_name": "FreeWilly2",
+        "model_args": {
+            "default_system_message": "You are Free Willy, an AI that follows instructions extremely well. Help as much as you can. Remember, be safe, and don't do anything illegal."
+        },
+        "url": "https://huggingface.co/stabilityai/StableBeluga2",
+        "short_name": "Stable Beluga 2",
         "num_params": "70B"
     },
     {
