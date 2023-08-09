@@ -26,20 +26,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-This already installs [vLLM](https://github.com/vllm-project/vllm) for fast inference which is usually enough [for most models](https://vllm.readthedocs.io/en/latest/models/supported_models.html). However, if you encounter any problems with vLLM or your model is not supported, FastEval also supports using [text-generation-inference](https://github.com/huggingface/text-generation-inference) as an alternative. The performance is very similar to vLLM, but the installation process is more complex and therefore separate. If you would like to use text-generation-inference, you can install it as follows:
-
-```bash
-# Install various system packages.
-# The following command assumes an ubuntu >= 22.04 system.
-apt install protobuf-compiler libssl-dev gcc pkg-config g++ make
-
-# Install rust.
-# The rust-all package on ubuntu >= 22.04 might also work, but sometimes a newer version is required.
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Install text-generation-inference to the `FastEval/text-generation-inference` folder.
-./install-text-generation-inference
-```
+This already installs [vLLM](https://github.com/vllm-project/vllm) for fast inference which is usually enough [for most models](https://vllm.readthedocs.io/en/latest/models/supported_models.html). However, if you encounter any problems with vLLM or your model is not supported, FastEval also supports using [text-generation-inference](https://github.com/huggingface/text-generation-inference) as an alternative. Please see [here](docs/text-generation-inference.md) if you would like to use text-generation-inference.
 
 ### OpenAI API Key
 
