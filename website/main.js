@@ -1,12 +1,15 @@
 import { createBenchmarksE } from './benchmarks/main.js'
 import { computeUpdatedHash, parseHash } from './utils.js'
 
+const leaderboardHosts = ['fasteval.github.io']
+const reportsUrlPrefix = 'https://raw.githubusercontent.com/fasteval/FastEval/'
+
 function toSorted(compareFn) {
     return [...this].sort(compareFn)
 }
 
 async function updateUrlIfBranchDoesntExistAnymore(branch) {
-    const response = await fetch('https://raw.githubusercontent.com/fasteval/FastEval/' + branch + '/reports/__index__.json')
+    const response = await fetch(reportsUrlPrefix + branch + '/reports/__index__.json')
     if (!response.ok)
         location.hash = '#' + computeUpdatedHash({ branch: null })
 }
@@ -28,8 +31,8 @@ async function main() {
     if (branch !== 'main')
         updateUrlIfBranchDoesntExistAnymore(branch)
 
-    const url = location.hostname === 'fasteval.github.io' || branch !== 'main'
-        ? 'https://raw.githubusercontent.com/fasteval/FastEval/' + branch + '/reports'
+    const url = leaderboardHosts.includes(location.hostname) || branch !== 'main'
+        ? reportsUrlPrefix + branch + '/reports'
         : './reports'
 
     document.body.textContent = 'Loading. May take a few seconds...'
