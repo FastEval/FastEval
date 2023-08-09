@@ -45,3 +45,8 @@ def compute_total_scores(model_name, evaluation_id):
     os.makedirs(os.path.dirname(output_filename), exist_ok=True)
     with open(output_filename, 'w') as f:
         json.dump(scores, f, indent=4)
+
+def get_total_scores(model_name, evaluation_id):
+    scores_filepath = os.path.join('reports', 'total', model_name_to_filename(model_name), evaluation_id, 'scores.json')
+    with open(scores_filepath) as f:
+        return json.load(f)

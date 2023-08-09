@@ -69,6 +69,8 @@ There are also options available for enabling & changing options of data paralle
 
 ## Viewing the results
 
-Use `python3 -m http.server` in the root folder of this repository.
+A summary of the scores will be printed to stdout after the evaluation finished.
+More details are available through the web UI.
+To access it, Use `python3 -m http.server` in the root folder of this repository.
 This will start a simple webserver for static files.
-This server usually runs on port `8000` in which case you can view the results at [127.0.0.1:8000](http://127.0.0.1:8000).
+This server usually runs on port `8000` in which case you can view the detailed results at [127.0.0.1:8000](http://127.0.0.1:8000).

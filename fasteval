@@ -17,9 +17,10 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     import uuid
 
     if new_model_name is None:
-        return existing_models_and_benchmarks
+        return (None, existing_models_and_benchmarks)
 
     inserted_into_existing_entry = False
+    existing_entry_id = None
     for item in existing_models_and_benchmarks:
         if item['model_name'] != new_model_name:
             continue
@@ -31,19 +32,22 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
             if benchmark not in item['benchmarks']:
                 item['benchmarks'].insert(0, benchmark)
         inserted_into_existing_entry = True
+        existing_entry_id = item['id']
 
     if inserted_into_existing_entry:
-        return existing_models_and_benchmarks
+        return (existing_entry_id, existing_models_and_benchmarks)
+
+    evaluation_id = str(uuid.uuid4())
 
     existing_models_and_benchmarks.insert(0, {
-        'id': str(uuid.uuid4()),
+        'id': evaluation_id,
         'model_type': new_model_type,
         'model_name': new_model_name,
         'benchmarks': new_benchmarks,
         'model_args': model_args,
     })
 
-    return existing_models_and_benchmarks
+    return (evaluation_id, existing_models_and_benchmarks)
 
 def stop(*args):
     import os
@@ -116,7 +120,8 @@ def main():
 
     if os.path.exists('reports/__index__.json'):
         with open('reports/__index__.json') as f:
-            models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(json.load(f), args.model_type, args.model_name, args.benchmarks, model_args)
+            evaluation_id, models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(
+                json.load(f), args.model_type, args.model_name, args.benchmarks, model_args)
 
     with open(os.path.join('reports', '__index__.json'), 'w') as f:
         new_content = ',\n    '.join([json.dumps(entry) for entry in models_and_benchmarks])
@@ -140,6 +145,10 @@ def main():
             benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'], item['model_args'], item['id'])
 
         benchmarks.total.compute_total_scores(item['model_name'], item['id'])
+
+    if evaluation_id is not None:
+        scores = benchmarks.total.get_total_scores(args.model_name, evaluation_id)
+        print(json.dumps(scores, indent=4))
 
     join_threads()
 
