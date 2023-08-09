@@ -64,6 +64,7 @@ def create_model(model_type: str, model_name: str, model_args: dict[str, str], *
     from evaluation.models.stable_beluga import StableBeluga
     from evaluation.models.dolphin import Dolphin
     from evaluation.models.openchat_llama2_v1 import OpenchatLlama2V1
+    from evaluation.models.wizard_lm import WizardLM
 
     model_classes = {
         'debug': Debug,
@@ -80,6 +81,7 @@ def create_model(model_type: str, model_name: str, model_args: dict[str, str], *
         'stable-beluga': StableBeluga,
         'dolphin': Dolphin,
         'openchat-llama2-v1': OpenchatLlama2V1,
+        'wizard-lm': WizardLM,
     }
 
     if model_type not in model_classes:
