@@ -1,13 +1,13 @@
 # FastEval
 
-This project allows you to quickly evaluate language models on a number of benchmarks. It's currently focused on instruction-following language models, but we plan to extend this in the future. It also contains [a leaderboard](https://fasteval.github.io/FastEval/) for comparison between different models.
+This project allows you to quickly evaluate language models on a number of benchmarks. There is also a [leaderboard](https://fasteval.github.io/FastEval/) for comparison between different models.
 
 ## Features
 
-- **Evaluation on various benchmarks with a single command.** Supported benchmarks are [MT‑Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) for Python coding performance, Chain of Thought (GSM8K + BBH + MMLU) for reasoning capabilities and [LM-Eval](https://github.com/EleutherAI/lm-evaluation-harness) for general capabilities (though LM-Eval doesn't use fast inference or prompt templates).
+- **Evaluation on various benchmarks with a single command.** Supported benchmarks are [MT‑Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) for Python coding performance, Chain of Thought (GSM8K + BBH + MMLU) for reasoning capabilities and [LM-Eval](https://github.com/EleutherAI/lm-evaluation-harness) for general capabilities.
 - **High performance.** FastEval uses [vLLM](https://github.com/vllm-project/vllm) for fast inference by default and can also optionally make use of [text-generation-inference](https://github.com/huggingface/text-generation-inference). Both methods are ~20x faster than using huggingface transformers.
-- **Detailed information about model performance.** By saving not just the final scores but also all of the intermediate results, FastEval enables you to get both [a general overview of model performance](https://fasteval.github.io/FastEval/) but also go deeper and look at the [performance on different categories](https://fasteval.github.io/FastEval/#?benchmark=mt-bench) down to inspecting the [individual model outputs](https://fasteval.github.io/FastEval/#?benchmark=cot&task=bbh/date_understanding&id=eb74c9e1-8836-4c3a-8f50-a25808d20eee).
-- **Use of model-specific prompt templates**: Different instruction following models are prompted in different ways, but many other benchmarks & leaderboards ignore this and prompt all of them the same way. FastEval uses the right prompt template depending on the model that is being evaluated. Support is added for various prompt templates and the integration with [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
+- **Detailed information about model performance.** FastEval saves the outputs of the language model and other intermediate results to disk. This makes it possible to get deeper insight into model performance. You can look at the [performance on different categories](https://fasteval.github.io/FastEval/#?benchmark=mt-bench) and even inspect [individual model outputs](https://fasteval.github.io/FastEval/#?benchmark=cot&task=bbh/date_understanding&id=eb74c9e1-8836-4c3a-8f50-a25808d20eee).
+- **Use of model-specific prompt templates**: FastEval uses the right prompt template depending on the evaluated model. Many prompt templates are supported and the use of [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
 
 ## Installation
 
@@ -34,14 +34,14 @@ This already installs [vLLM](https://github.com/vllm-project/vllm) for fast infe
 
 ## Evaluation
 
-⚠️ Running `fasteval` currently executes untrusted code, both from models with remote code as well as LLM generated code when using [HumanEval+](https://github.com/evalplus/evalplus). There is currently no integrated sandbox, so make sure to only execute the code in an environment where this is not a problem.
+⚠️ Running `fasteval` currently executes untrusted code from models with remote code as well as LLM generated code when using [HumanEval+](https://github.com/evalplus/evalplus). Please note that there is currently no integrated sandbox.
 
 To evaluate a new model, call `fasteval` in the following way:
 ```
 ./fasteval [-b <benchmark_name_1>...] -t model_type -m model_name
 ````
 
-The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://fasteval.github.io/FastEval/#?benchmark=mt-bench), [`human-eval-plus`](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus), [`cot`](https://fasteval.github.io/FastEval/#?benchmark=cot) or [`lm-evaluation-harness`](https://fasteval.github.io/FastEval/#?benchmark=lm-evaluation-harness).
+The `-b` flag specifies the benchmark that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://fasteval.github.io/FastEval/#?benchmark=mt-bench), [`human-eval-plus`](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus), [`cot`](https://fasteval.github.io/FastEval/#?benchmark=cot) or [`lm-evaluation-harness`](https://fasteval.github.io/FastEval/#?benchmark=lm-evaluation-harness). Note that lm-evaluation-harness doesn't use fast inference or prompt templates.
 
 The `-t` flag specifies the type of the model which is either the prompt template or the API client that will be used. Supported values are [`alpaca-with-prefix`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/alpaca_with_prefix.py), [`alpaca-without-prefix`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/alpaca_without_prefix.py), [`chatml`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/chatml.py), [`dolphin`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/dolphin.py), [`falcon-instruct`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/falcon_instruct.py), [`fastchat`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/fastchat.py), [`guanaco`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/guanaco.py), [`llama2-chat`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/llama2_chat.py), [`openai`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/open_ai.py), [`open-assistant`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/open_assistant.py), [`openchat-llama2-v1`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/openchat_llama2_v1.py), [`stable-beluga`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/stable_beluga.py) and [`starchat`](https://github.com/FastEval/FastEval/blob/main/evaluation/models/starchat.py).
 
