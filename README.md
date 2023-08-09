@@ -62,7 +62,7 @@ The `-m` flag specifies the name of the model which can be a path to a model on 
 
 For example, this command will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-steps`](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-2.5k-steps) on [HumanEval+](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus):
 ```bash
-./fasteval -b human-eval-plus -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps`
+./fasteval -b human-eval-plus -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps
 ```
 
 There are also options available for enabling & changing options of data parallel evaluation, setting model arguments and changing the inference backend. Please use `./fasteval -h` for more information.
