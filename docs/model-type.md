@@ -1,5 +1,6 @@
-FastEval uses model-specific prompt templates to prompt the model. This is different from many other tools like [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) that prompt all models the same way. Using model-specific prompt templates makes the evaluation closer to how the models will actually be used in practice.
-
+FastEval uses model-specific prompt templates to prompt the model.
+This is different from other tools that prompt all models the same way.
+Using model-specific prompt templates makes the evaluation closer to how the models will actually be used in practice.
 However, using model-specific prompt templates also means that the corresponding template must be implemented for the model that you want to evaluate.
 Luckily, many models share the same prompt template and FastEval implements various of them.
 The following is a list of supported templates & other model types in FastEval.
@@ -13,10 +14,10 @@ The model type can be specified with the `-t` flag, e.g. `-t alpaca-with-prefix`
 Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
-<user_input>
+[user_input]
 
 ### Response:
-<assistant_output>
+[assistant_output]
 ```
 
 Example models that make use of this prompt template:
@@ -26,10 +27,10 @@ Example models that make use of this prompt template:
 
 ```
 ### Instruction:
-<user_input>
+[user_input]
 
 ### Response:
-<assistant_output>
+[assistant_output]
 ```
 
 Example models that make use of this prompt template:
@@ -40,13 +41,13 @@ Example models that make use of this prompt template:
 
 ```
 <|im_start>system
-<system_message>
+[system_message]
 <|im_end|>
 <|im_start|>user
-<user_input>
+[user_input]
 <|im_end|>
 <|im_start|>assistant
-<assistant_output>
+[assistant_output]
 <|im_end|>
 ```
 
@@ -57,9 +58,9 @@ Example models that make use of this prompt template:
 ## [dolphin](https://github.com/FastEval/FastEval/blob/main/evaluation/models/dolphin.py)
 
 ```
-SYSTEM: <system_message>
-USER: <user_message>
-ASSISTANT: <assistant_message>
+SYSTEM: [system_message]
+USER: [user_input]
+ASSISTANT: [assistant_output]
 ```
 
 Example models that make use of this prompt template:
@@ -68,8 +69,8 @@ Example models that make use of this prompt template:
 ## [falcon-instruct](https://github.com/FastEval/FastEval/blob/main/evaluation/models/falcon_instruct.py)
 
 ```
-User: <user_message>
-Assistant: <assistant_message>
+User: [user_input]
+Assistant: [assistant_output]
 ```
 
 Example models that make use of this prompt template:
@@ -80,8 +81,8 @@ Example models that make use of this prompt template:
 
 ```
 A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.
-### Human: <user_message>
-### Assistant: <assistant_message>
+### Human: [user_input]
+### Assistant: [assistant_output]
 ```
 
 Example models that make use of this prompt template:
@@ -91,10 +92,10 @@ Example models that make use of this prompt template:
 
 ```
 [INST] <<SYS>>
-<system_message>
+[system_message]
 <</SYS>>
 
-<user_message> [/INST] <assistant_message>
+[user_input] [/INST] [assistant_output]
 ```
 
 Example models that make use of this prompt template:
@@ -105,7 +106,7 @@ Example models that make use of this prompt template:
 ## [open-assistant](https://github.com/FastEval/FastEval/blob/main/evaluation/models/open_assistant.py)
 
 ```
-<|prompter|><user_message><|endoftext|><|assistant|><assistant_message><|endoftext|>
+<|prompter|>[user_input]<|endoftext|><|assistant|>[assistant_output]<|endoftext|>
 ```
 
 For llama models, the `<|endoftext|>` is replaced with `</s>` instead.
@@ -120,7 +121,7 @@ Example models that make use of this prompt template:
 ## [openchat-llama2-v1](https://github.com/FastEval/FastEval/blob/main/evaluation/models/openchat_llama2_v1.py)
 
 ```
-User: <user_message><|end_of_turn|>Assistant: <assistant_message><|end_of_turn|>
+User: [user_input]<|end_of_turn|>Assistant: [assistant_output]<|end_of_turn|>
 ```
 
 Example models that make use of this prompt template:
@@ -130,13 +131,13 @@ Example models that make use of this prompt template:
 
 ```
 ### System:
-<system_message>
+[system_message]
 
 ### User:
-<user_message>
+[user_input]
 
 ### Assistant:
-<assistant_message>
+[assistant_output]
 ```
 
 Example models that make use of this prompt template:
@@ -147,11 +148,11 @@ Example models that make use of this prompt template:
 
 ```
 <|system|>
-<system_message><|end|>
+[system_message]<|end|>
 <user>
-<user_message><|end|>
+[user_input]<|end|>
 <|assistant|>
-<assistant_message><|end|>
+[assistant_output]<|end|>
 ```
 
 # Other possible values
@@ -162,9 +163,9 @@ FastEval can also use fastchat as a backend for inference.
 In this case, the conversation is directly sent to fastchat which will then actually convert it to a prompt according to its own logic and run it through the model.
 
 Note that while using this model type is easy, it will have cons:
-- Reproducability will be worse because fastchat changes some prompts from time to time.
-- No data parallel implementation is currently implemented for this backend.
-- Only vLLM can be used for fast evaluation. TGI is not supported.
+- Reproducability will be worse because fastchat changes some prompt templates from time to time.
+- No data parallel evaluation is currently implemented for this backend.
+- Only vLLM can be used for fast evaluation. Using text-generation-inference is not supported.
 
 Example models that make use of this model type:
 - [lmsys/vicuna-7b-v1.3](https://huggingface.co/lmsys/vicuna-7b-v1.3)

@@ -56,8 +56,9 @@ There are also flags available for enabling & configuring data parallel evaluati
 
 ## Viewing the results
 
-A summary of the scores will be printed to stdout after the evaluation finished.
-More details are available through the web UI.
-To access it, Use `python3 -m http.server` in the root folder of this repository.
+A very short summary of the final scores will be written to stdout after the evaluation has finished.
+
+More details are available through the web UI where you can view performance on different subtasks or inspect individual model inputs & outputs.
+To access the web UI, use `python3 -m http.server` in the root folder of this repository.
 This will start a simple webserver for static files.
-This server usually runs on port `8000` in which case you can view the detailed results at [127.0.0.1:8000](http://127.0.0.1:8000).
+The server usually runs on port `8000` in which case you can view the detailed results at [localhost:8000](http://localhost:8000).
