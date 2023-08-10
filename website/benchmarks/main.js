@@ -192,11 +192,6 @@ function createHowToReadThisLeaderboardE() {
     lmEvalE.textContent = "LM-Eval: Measures general capabilities, but doesn't use the model-specific prompt templates."
     detailsE.appendChild(lmEvalE)
 
-    const clickOnColumnsE = document.createElement('li')
-    clickOnColumnsE.classList.add('how-to-read-leaderboard__space')
-    clickOnColumnsE.textContent = 'Click on the columns to see the benchmark-specific leaderboards with more details.'
-    detailsE.appendChild(clickOnColumnsE)
-
     return containerE
 }
 
@@ -216,6 +211,11 @@ export async function createBenchmarksIndexE(baseUrl) {
         createTextE(' for more information.')
     )
     containerE.appendChild(explanationE)
+
+    const clickOnColumnsE = document.createElement('div')
+    clickOnColumnsE.classList.add('main-click-on-columns-explanation')
+    clickOnColumnsE.textContent = 'Click on the columns to see the benchmark-specific leaderboards with more details.'
+    containerE.appendChild(clickOnColumnsE)
 
     const evaluations = await fetchEvaluations(baseUrl)
     const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
