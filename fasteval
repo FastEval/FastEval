@@ -78,7 +78,7 @@ def main():
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all',
         help='Benchmark(s) that the model will be evaluated on')
     parser.add_argument('-t', '--model-type',
-        help='Type of the model that will be evaluated. Can be an API client name (openai), a prompt template (e.g. alpaca) or `fastchat` for the fastchat backend.')
+        help='Type of the model that will be evaluated. Can be an API client name (openai), a prompt template (e.g. chatml) or `fastchat` for the fastchat backend.')
     parser.add_argument('-m', '--model-name',
         help='Name of the model that will be evaluated. Depending on the type, it can be an OpenAI model name or a path to a huggingface model.')
     parser.add_argument('--model-tokenizer',
