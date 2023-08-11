@@ -12,8 +12,6 @@ class ChatML(Huggingface):
             elif model_path == 'mosaicml/mpt-30b-chat':
                 # https://github.com/mosaicml/llm-foundry/blob/1f54d26b75b60a8f84a7dc087e130833bf5fc42d/scripts/inference/hf_chat.py#L34
                 default_system_message = 'A conversation between a user and an LLM-based AI assistant. The assistant gives helpful and honest answers.'
-            else:
-                raise
 
         # https://github.com/openai/openai-python/blob/main/chatml.md
         super().__init__(
