@@ -102,7 +102,7 @@ class Huggingface:
         if self.system is None:
             conversation = put_system_message_in_user_message(conversation)
         prompt = self.prefix
-        if self.system is not None and conversation[0][0] != 'system':
+        if self.system is not None and conversation[0][0] != 'system' and self.default_system is not None:
             conversation.insert(0, ('system', self.default_system))
         for item_type, item in conversation:
             if item_type == 'assistant':
