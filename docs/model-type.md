@@ -41,14 +41,11 @@ Example models that make use of this prompt template:
 
 ```
 <|im_start>system
-[system_message]
-<|im_end|>
+[system_message]<|im_end|>
 <|im_start|>user
-[user_input]
-<|im_end|>
+[user_input]<|im_end|>
 <|im_start|>assistant
-[assistant_output]
-<|im_end|>
+[assistant_output]<|im_end|>
 ```
 
 Example models that make use of this prompt template:
