@@ -142,12 +142,6 @@ class WorkerProcessManager:
             else:
                 raise Exception('Model creation in worker failed: ' + model_creation_result[1])
 
-        for i in range(self.num_threads):
-            if self.worker_is_blocking:
-                self.queue.put('ack')
-            else:
-                self.queues[i].put('ack')
-
         self.models_are_loaded = True
 
     def unload_model(self):
