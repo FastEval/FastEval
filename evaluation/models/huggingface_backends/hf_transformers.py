@@ -115,7 +115,7 @@ def compute_model_responses(*, model, batch):
             response = response[len(input_ids[i]):]
             response = tokenizer.decode(response)
             result_pipe = batch_items_with_specific_sampling_parameters[i]['result_pipe']
-            result_pipe.send(response)
+            result_pipe.send(('response', response))
             result_pipe.close()
 
 backend = DataParallelBackend(

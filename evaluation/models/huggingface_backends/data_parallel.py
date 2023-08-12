@@ -11,11 +11,20 @@ import evaluation.models.models
 start_new_worker_lock = threading.Lock()
 
 def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking):
-    model = worker_functions['create_model'](
-        tokenizer_path=tokenizer_path,
-        model_path=model_path,
-        dtype=dtype,
-    )
+    try:
+        model = worker_functions['create_model'](
+            tokenizer_path=tokenizer_path,
+            model_path=model_path,
+            dtype=dtype,
+        )
+    except:
+        import traceback
+        queue.put(('error-when-creating-model', traceback.format_exc()))
+        return
+
+    ack_pipe_parent_conn, ack_pipe_child_conn = multiprocessing.Pipe()
+    queue.put(('model-created', ack_pipe_child_conn))
+    ack_pipe_parent_conn.recv()
 
     while True:
         item = queue.get()
@@ -27,12 +36,27 @@ def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_funct
         def process_item():
             if 'compute_model_response' in worker_functions:
                 for batch_item in batch:
-                    response = worker_functions['compute_model_response'](model=model, item=batch_item)
                     result_pipe = batch_item['result_pipe']
-                    result_pipe.send(response)
+                    try:
+                        response = worker_functions['compute_model_response'](model=model, item=batch_item)
+                        result_pipe.send(('response', response))
+                    except:
+                        import traceback
+                        result_pipe.send(('exception', traceback.format_exc()))
                     result_pipe.close()
             elif 'compute_model_responses' in worker_functions:
-                worker_functions['compute_model_responses'](model=model, batch=batch)
+                try:
+                    worker_functions['compute_model_responses'](model=model, batch=batch)
+                except:
+                    import traceback
+                    exception_stacktrace = traceback.format_exc()
+                    for batch_item in batch:
+                        result_pipe = batch_item['result_pipe']
+                        try:
+                            result_pipe.send(('exception', exception_stacktrace))
+                            result_pipe.close()
+                        except:
+                            pass
             else:
                 raise
 
@@ -106,6 +130,23 @@ class WorkerProcessManager:
             devices = list(range(i * num_devices_per_model, (i + 1) * num_devices_per_model))
             start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
                 queue=queue, devices=devices, worker_functions=worker_functions, worker_is_blocking=worker_is_blocking)
+
+        for i in range(self.num_threads):
+            if self.worker_is_blocking:
+                model_creation_result = self.queue.get()
+            else:
+                model_creation_result = self.queues[i].get()
+
+            if model_creation_result[0] == 'model-created':
+                model_creation_result[1].send('ack')
+            else:
+                raise Exception('Model creation in worker failed: ' + model_creation_result[1])
+
+        for i in range(self.num_threads):
+            if self.worker_is_blocking:
+                self.queue.put('ack')
+            else:
+                self.queues[i].put('ack')
 
         self.models_are_loaded = True
 
@@ -192,7 +233,10 @@ class DataParallelBackend:
             'result_pipe': result_pipe_child_conn,
         })
 
-        return result_pipe_parent_conn.recv()
+        result = result_pipe_parent_conn.recv()
+        if result[0] == 'response':
+            return result[1]
+        raise Exception('Error when running inference: ' + result[1])
 
     def unload_model(self):
         self.lock.acquire()
