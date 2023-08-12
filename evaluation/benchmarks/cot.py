@@ -3,6 +3,7 @@ import os
 import json
 import statistics
 
+from evaluation.utils import process_with_thread_pool
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS
@@ -28,8 +29,11 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
     output_file_path = os.path.join(output_path, name + '.json')
     if os.path.exists(output_file_path):
         _ = yield []
+        _ = yield []
         with open(output_file_path) as f:
             yield json.load(f)['score']
+
+    [data] = yield [data]
 
     num_total = 0
     requests = []
@@ -69,8 +73,6 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
     yield score
 
 def evaluate_model_on_gsm8k(output_path):
-    import datasets
-
     def is_correct(model_answer, correct_answer):
         model_answer_matches = re.findall(r'(\d+(,\d+)*(\.\d+)?)', model_answer)
         if len(model_answer_matches) == 0:
@@ -81,7 +83,7 @@ def evaluate_model_on_gsm8k(output_path):
 
     evaluator = evaluate_model_on_dataset(
         name='gsm8k',
-        data=datasets.load_dataset('gsm8k', 'main')['test'],
+        data=('gsm8k', 'main', 'test'),
         question_column='question',
         answer_column='answer',
         answer_format='as a single number',
@@ -90,16 +92,27 @@ def evaluate_model_on_gsm8k(output_path):
         limit=GSM8K_LIMIT,
     )
 
-    model_requests = next(evaluator)
-    model_responses = yield model_requests
-    score = evaluator.send(model_responses)
-    yield score
+    datasets = yield next(evaluator)
+    model_responses = yield evaluator.send(datasets)
+    yield evaluator.send(model_responses)
 
 def combine_evaluators(evaluators):
-    model_requests = []
+    dataset_requests = []
     for evaluator in evaluators:
-        evaluator_model_requests = next(evaluator)
+        evaluator_dataset_requests = next(evaluator)
+        dataset_requests.append(evaluator_dataset_requests)
+
+    dataset_requests_flat = [request for requests in dataset_requests for request in requests]
+    dataset_responses_flat = yield dataset_requests_flat
+
+    current_index = 0
+    model_requests = []
+    for i, evaluator in enumerate(evaluators):
+        end_index = current_index + len(dataset_requests[i])
+        evaluator_dataset_responses = dataset_responses_flat[current_index:end_index]
+        evaluator_model_requests = evaluator.send(evaluator_dataset_responses)
         model_requests.append(evaluator_model_requests)
+        current_index = end_index
 
     model_requests_flat = [request for requests in model_requests for request in requests]
     model_responses_flat = yield model_requests_flat
@@ -133,8 +146,6 @@ def find_multiple_choice_answer(*, model_answer, options):
     return None
 
 def evaluate_model_on_bbh(output_path):
-    import datasets
-
     def is_correct(model_answer, correct_answer):
         model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         correct_answer = correct_answer.replace('(', '').replace(')', '')
@@ -162,7 +173,7 @@ def evaluate_model_on_bbh(output_path):
 
     evaluators = combine_evaluators([evaluate_model_on_dataset(
         name='bbh/' + task,
-        data=datasets.load_dataset('lukaemon/bbh', task)['test'],
+        data=('lukaemon/bbh', task, 'test'),
         question_column='input',
         answer_column='target',
         answer_format='as a single letter with parenthesis',
@@ -171,7 +182,8 @@ def evaluate_model_on_bbh(output_path):
         limit=BBH_LIMIT_PER_TASK,
     ) for task in tasks])
 
-    model_responses = yield next(evaluators)
+    datasets = yield next(evaluators)
+    model_responses = yield evaluators.send(datasets)
     scores = evaluators.send(model_responses)
 
     yield {
@@ -182,8 +194,6 @@ def evaluate_model_on_bbh(output_path):
     }
 
 def evaluate_model_on_mmlu(output_path):
-    import datasets
-
     tasks = ['abstract_algebra', 'anatomy', 'astronomy', 'business_ethics', 'clinical_knowledge', 'college_biology', 'college_chemistry',
         'college_computer_science', 'college_mathematics', 'college_medicine', 'college_physics', 'computer_security', 'conceptual_physics',
         'econometrics', 'electrical_engineering', 'elementary_mathematics', 'formal_logic', 'global_facts', 'high_school_biology', 'high_school_chemistry',
@@ -203,7 +213,7 @@ def evaluate_model_on_mmlu(output_path):
 
     evaluators = combine_evaluators([evaluate_model_on_dataset(
         name='mmlu/' + task,
-        data=datasets.load_dataset('cais/mmlu', task)['test'],
+        data=('cais/mmlu', task, 'test'),
         question_column=['question', 'choices'],
         create_question=create_question,
         answer_column='answer',
@@ -213,7 +223,8 @@ def evaluate_model_on_mmlu(output_path):
         limit=MMLU_LIMIT_PER_TASK,
     ) for task in tasks])
 
-    model_responses = yield next(evaluators)
+    datasets = yield next(evaluators)
+    model_responses = yield evaluators.send(datasets)
     scores = evaluators.send(model_responses)
 
     yield {
@@ -222,6 +233,25 @@ def evaluate_model_on_mmlu(output_path):
         },
         'average': statistics.mean(scores),
     }
+
+def load_datasets(model_name, dataset_requests):
+    import datasets
+
+    def load_dataset(dataset_request):
+        dataset_name, subset, split = dataset_request
+        return datasets.load_dataset(dataset_name, subset)[split]
+
+    return process_with_thread_pool(
+        items=dataset_requests,
+        process_fn=load_dataset,
+        progress_bar_description=model_name + ' :: CoT :: Loading datasets',
+
+        # TODO: Using multiple threads doesn't actually help here for some reason.
+        # Ideally, we would like to use num_threads=len(dataset_requests),
+        # but it seems like it's either CPU bound and doesn't get faster due to the GIL
+        # or huggingface uses some lock internally.
+        num_threads=1,
+    )
 
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
     output_folder = os.path.join('reports', 'cot', model_name_to_filename(model_name), evaluation_id)
@@ -241,8 +271,12 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
 
     evaluators = combine_evaluators([evaluation_function(tasks_path) for task_name, evaluation_function in evaluation_functions])
 
-    model_requests = next(evaluators)
+    dataset_requests = next(evaluators)
+    datasets = load_datasets(model_name, dataset_requests)
+
+    model_requests = evaluators.send(datasets)
     model_responses = compute_model_replies(model, model_requests, progress_bar_description=model_name + ' :: CoT :: Computing model replies')
+
     scores_list = evaluators.send(model_responses)
     scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions) }
 
