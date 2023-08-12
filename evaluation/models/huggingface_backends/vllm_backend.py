@@ -30,14 +30,20 @@ def create_model_in_separate_thread(*, model_path, tokenizer_path, dtype, result
         'event_loop': event_loop,
     }
 
-    resulting_model_queue.put(model)
+    resulting_model_queue.put(('model', model))
 
     event_loop.run_forever()
+
+def try_create_model_in_separate_thread(*, resulting_model_queue, **kwargs):
+    try:
+        create_model_in_separate_thread(resulting_model_queue=resulting_model_queue, **kwargs)
+    except Exception as error:
+        resulting_model_queue.put(('error', error))
 
 def create_model(*, tokenizer_path, model_path, dtype):
     resulting_model_queue = queue.Queue()
 
-    model_thread = threading.Thread(target=create_model_in_separate_thread, kwargs={
+    model_thread = threading.Thread(target=try_create_model_in_separate_thread, kwargs={
         'model_path': model_path,
         'tokenizer_path': tokenizer_path,
         'dtype': dtype,
@@ -46,7 +52,11 @@ def create_model(*, tokenizer_path, model_path, dtype):
 
     model_thread.start()
 
-    return resulting_model_queue.get()
+    model_or_error = resulting_model_queue.get()
+    if model_or_error[0] == 'error':
+        raise model_or_error[1]
+    assert model_or_error[0] == 'model'
+    return model_or_error[1]
 
 async def respond_to_prompt(*, model, prompt, temperature, max_new_tokens):
     import vllm
