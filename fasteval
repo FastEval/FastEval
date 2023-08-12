@@ -54,6 +54,24 @@ def stop(*args):
 
     os.killpg(0, signal.SIGKILL)
 
+def print_stack_trace(*, stack_trace, model_name, benchmark_name):
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    print('EXCEPTION WHEN EVALUATING', model_name, 'ON', benchmark_name)
+    print('DESPITE THIS EXCEPTION, EVALUATION WILL BE CONTINUED ON THE REMAINING BENCHMARKS & MODELS')
+    print(stack_trace)
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+
+def print_final_stack_traces(exceptions):
+    if len(exceptions) == 0:
+        return
+
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    print('THE FOLLOWING EXCEPTIONS WERE ENCOUNTERED WHILE EVALUATING THE MODELS:')
+    for exception in exceptions:
+        print('ON BENCHMARK', exception['benchmark_name'], 'WITH MODEL', exception['model_name'])
+        print(exception['stack_trace'])
+        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+
 def main():
     import os
 
@@ -132,19 +150,28 @@ def main():
         ('mt-bench', benchmarks.mt_bench.evaluate_model),
         ('human-eval-plus', benchmarks.human_eval_plus.evaluate_model),
         ('cot', benchmarks.cot.evaluate_model),
+        ('lm-evaluation-harness', benchmarks.lm_evaluation_harness.evaluate_model),
     ]
 
+    exceptions = []
     for item in models_and_benchmarks:
         for benchmark_name, evaluation_function in evaluation_functions:
-            if benchmark_name in item['benchmarks']:
+            if benchmark_name not in item['benchmarks']:
+                continue
+            if benchmark_name == 'lm-evaluation-harness':
+                unload_model()
+            try:
                 evaluation_function(item['model_type'], item['model_name'], item['model_args'], item['id'])
-
-        unload_model()
-
-        if 'lm-evaluation-harness' in item['benchmarks']:
-            benchmarks.lm_evaluation_harness.evaluate_model(item['model_type'], item['model_name'], item['model_args'], item['id'])
-
+            except:
+                import traceback
+                exception_stack_trace = traceback.format_exc()
+                exception = { 'stack_trace': exception_stack_trace, 'model_name': item['model_name'], 'benchmark_name': benchmark_name }
+                print_stack_trace(**exception)
+                exceptions.append(exception)
+                unload_model()
         benchmarks.total.compute_total_scores(item['model_name'], item['id'])
+
+    print_final_stack_traces(exceptions)
 
     if evaluation_id is not None:
         scores = benchmarks.total.get_total_scores(args.model_name, evaluation_id)

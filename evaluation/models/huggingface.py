@@ -116,7 +116,7 @@ class Huggingface:
         prompt += self.assistant
         return prompt.strip()
 
-    def reply(self, conversation, *, temperature=None, max_new_tokens=None):
+    def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
 
@@ -127,6 +127,7 @@ class Huggingface:
             'dtype': self.dtype,
             'max_new_tokens': max_new_tokens,
             'temperature': temperature,
+            'stop_event': stop_event,
         }
 
         if isinstance(common_kwargs['prompt'], tuple) and self.backend not in ['hf_transformers', 'vllm']:

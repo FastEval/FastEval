@@ -12,7 +12,7 @@ class OpenAIBase:
         self.model_name = model_name
         self.max_new_tokens = max_new_tokens
 
-    def reply_single_try(self, *, conversation, api_base, api_key, max_new_tokens=None, temperature=None, model_name=None):
+    def reply_single_try(self, *, conversation, api_base, api_key, max_new_tokens=None, temperature=None, model_name=None, stop_event):
         import openai
 
         if max_new_tokens is None:
@@ -23,6 +23,9 @@ class OpenAIBase:
 
         if model_name is None:
             model_name = self.model_name
+
+        if stop_event.is_set():
+            raise Exception('Stop event is set')
 
         return openai.ChatCompletion.create(
             api_base=api_base,

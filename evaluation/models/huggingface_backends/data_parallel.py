@@ -190,10 +190,14 @@ class DataParallelBackend:
         self.lock = threading.Lock()
         self.current_worker_process_manager = None
 
-    def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size):
+    def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size, stop_event):
         import torch
 
         self.lock.acquire()
+
+        if stop_event.is_set():
+            self.lock.release()
+            raise Exception('Stop event is set.')
 
         evaluation.models.models.switch_inference_backend(self.backend_name)
 
@@ -204,15 +208,19 @@ class DataParallelBackend:
                 or self.current_worker_process_manager.maximum_batch_size != max_batch_size):
             if self.current_worker_process_manager is not None:
                 self.current_worker_process_manager.unload_model()
-            self.current_worker_process_manager = WorkerProcessManager(
-                tokenizer_path=tokenizer_path,
-                model_path=model_path,
-                dtype=dtype,
-                maximum_batch_size=max_batch_size,
-                num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model or torch.cuda.device_count(),
-                worker_functions=self.worker_functions,
-                worker_is_blocking=self.worker_is_blocking,
-            )
+            try:
+                self.current_worker_process_manager = WorkerProcessManager(
+                    tokenizer_path=tokenizer_path,
+                    model_path=model_path,
+                    dtype=dtype,
+                    maximum_batch_size=max_batch_size,
+                    num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model or torch.cuda.device_count(),
+                    worker_functions=self.worker_functions,
+                    worker_is_blocking=self.worker_is_blocking,
+                )
+            except Exception as error:
+                self.lock.release()
+                raise error
 
         manager = self.current_worker_process_manager
 
