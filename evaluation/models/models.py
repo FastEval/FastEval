@@ -95,25 +95,20 @@ def compute_model_replies(model, conversations, *, progress_bar_description=None
     if len(conversations) == 0:
         return []
 
-    stop_event = threading.Event()
-
-    def compute_reply(conversation):
+    def compute_reply(conversation, *, stop_event):
         if isinstance(conversation, list):
             return model.reply(conversation, stop_event=stop_event)
         elif isinstance(conversation, dict):
             return model.reply(**conversation, stop_event=stop_event)
         raise
 
-    try:
-        return evaluation.utils.process_with_thread_pool(
-            num_threads=model.num_threads,
-            items=conversations,
-            process_fn=compute_reply,
-            progress_bar_description=progress_bar_description,
-        )
-    except Exception as exception:
-        stop_event.set()
-        raise exception
+    return evaluation.utils.process_with_thread_pool(
+        num_threads=model.num_threads,
+        items=conversations,
+        process_fn=compute_reply,
+        progress_bar_description=progress_bar_description,
+        use_stop_event=True,
+    )
 
 def switch_inference_backend(new_inference_backend):
     import evaluation.models.fastchat

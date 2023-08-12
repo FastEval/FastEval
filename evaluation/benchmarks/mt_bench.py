@@ -22,11 +22,11 @@ def get_temperature(category):
         'humanities': 0.1,
     })[category]
 
-def generate_single_conversation_assistant_replies(model_and_question):
+def generate_single_conversation_assistant_replies(model_and_question, *, stop_event):
     model, question = model_and_question
 
     first_turn_conversation = [('user', question['turns'][0])]
-    first_turn_reply = model.reply(first_turn_conversation, temperature=question['temperature'])
+    first_turn_reply = model.reply(first_turn_conversation, temperature=question['temperature'], stop_event=stop_event)
 
     second_turn_conversation = [
         ('user', question['turns'][0]),
@@ -34,7 +34,7 @@ def generate_single_conversation_assistant_replies(model_and_question):
         ('user', question['turns'][1]),
     ]
 
-    second_turn_reply = model.reply(second_turn_conversation, temperature=question['temperature'])
+    second_turn_reply = model.reply(second_turn_conversation, temperature=question['temperature'], stop_event=stop_event)
 
     return [first_turn_reply, second_turn_reply]
 
@@ -58,6 +58,7 @@ def generate_assistant_replies(model_type, model_name, model_args, evaluation_id
         items=[(model, question) for question_id, question in questions_items],
         process_fn=generate_single_conversation_assistant_replies,
         progress_bar_description=model_name + ' :: MT-Bench :: Computing model replies',
+        use_stop_event=True,
     )
 
     all_replies = { question_id: model_replies[i] for i, (question_id, question) in enumerate(questions_items) }
