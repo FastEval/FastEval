@@ -2,6 +2,7 @@ import re
 import os
 import json
 import statistics
+import random
 
 from evaluation.utils import process_with_thread_pool
 from evaluation.benchmarks.utils import model_name_to_filename
@@ -9,6 +10,7 @@ from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
 
 GSM8K_LIMIT = 500
+MATH_LIMIT = 1000
 BBH_LIMIT_PER_TASK = 30
 MMLU_LIMIT_PER_TASK = 10
 
@@ -19,7 +21,7 @@ def create_conversation(answer_format, question):
             'Do not output the answer immediately. '
             'Instead first explain your reasoning step-by-step. '
             'Only afterwards output the answer. '
-            'The final line should contain the answer ' + answer_format + ' without anything else.'
+            'The final line should contain the answer ' + answer_format + 'without anything else.'
             '\n\n'
             + question),
     ]
@@ -35,18 +37,20 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
 
     [data] = yield [data]
 
-    num_total = 0
+    randomness = random.Random()
+    randomness.seed(1)
+    selected_samples = randomness.sample(range(len(data)), limit)
+
     requests = []
-    for item in data.select(range(min(limit, len(data)))):
+    for i, item in enumerate(data.select(selected_samples)):
         if isinstance(question_column, str):
             question = item[question_column]
         elif isinstance(question_column, list):
             question = create_question({ column: item[column] for column in question_column })
         correct_answer = item[answer_column]
         conversation = create_conversation(answer_format, question)
-        requests.append({ 'id': num_total, 'question': question, 'correct_answer': correct_answer,
+        requests.append({ 'id': selected_samples[i], 'question': question, 'correct_answer': correct_answer,
             'conversation': conversation })
-        num_total += 1
 
     model_requests = [{ 'conversation': request['conversation'], 'temperature': COT_TEMPERATURE } for request in requests]
     model_answers = yield model_requests
@@ -61,7 +65,7 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
         if model_answer_is_correct:
             num_correct += 1
 
-    score = num_correct / num_total
+    score = num_correct / len(selected_samples)
 
     os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
     with open(output_file_path, 'w') as f:
@@ -86,10 +90,29 @@ def evaluate_model_on_gsm8k(output_path):
         data=('gsm8k', 'main', 'test'),
         question_column='question',
         answer_column='answer',
-        answer_format='as a single number',
+        answer_format='as a single number ',
         is_correct=is_correct,
         output_path=output_path,
         limit=GSM8K_LIMIT,
+    )
+
+    datasets = yield next(evaluator)
+    model_responses = yield evaluator.send(datasets)
+    yield evaluator.send(model_responses)
+
+def evaluate_model_on_math(output_path):
+    def is_correct(model_answer, correct_answer):
+        return False # TODO
+
+    evaluator = evaluate_model_on_dataset(
+        name='math',
+        data=('competition_math', None, 'test'),
+        question_column='problem',
+        answer_column='solution',
+        answer_format='',
+        is_correct=is_correct,
+        output_path=output_path,
+        limit=MATH_LIMIT,
     )
 
     datasets = yield next(evaluator)
@@ -176,7 +199,7 @@ def evaluate_model_on_bbh(output_path):
         data=('lukaemon/bbh', task, 'test'),
         question_column='input',
         answer_column='target',
-        answer_format='as a single letter with parenthesis',
+        answer_format='as a single letter with parenthesis ',
         is_correct=is_correct,
         output_path=output_path,
         limit=BBH_LIMIT_PER_TASK,
@@ -217,7 +240,7 @@ def evaluate_model_on_mmlu(output_path):
         question_column=['question', 'choices'],
         create_question=create_question,
         answer_column='answer',
-        answer_format='as a single letter with parenthesis',
+        answer_format='as a single letter with parenthesis ',
         is_correct=is_correct,
         output_path=output_path,
         limit=MMLU_LIMIT_PER_TASK,
@@ -265,6 +288,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
 
     evaluation_functions = [
         ('gsm8k', evaluate_model_on_gsm8k),
+        ('math', evaluate_model_on_math),
         ('bbh', evaluate_model_on_bbh),
         ('mmlu', evaluate_model_on_mmlu),
     ]
@@ -281,11 +305,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions) }
 
     # https://github.com/FastEval/FastEval/issues/61#issuecomment-1668520925
-    scores['total'] = (
-        0.2953944305750421 * scores['gsm8k']
-        + 0.33452283130198235 * scores['bbh']['average']
-        + 0.3700827381229756 * scores['mmlu']['average']
-    )
+    scores['total'] = scores['gsm8k'] + 2.5 * scores['math'] + scores['bbh']['average'] + scores['mmlu']['average']
 
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
     with open(final_scores_file, 'w') as f:
