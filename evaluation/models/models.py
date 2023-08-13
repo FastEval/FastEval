@@ -1,3 +1,4 @@
+import os
 import threading
 
 import evaluation.utils
@@ -48,6 +49,25 @@ def get_supported_inference_backends(model_name: str):
         return ['vllm', 'tgi', 'hf_transformers']
 
     return []
+
+def is_tgi_installed():
+    return os.path.exists('text-generation-inference')
+
+def get_inference_backend(model_path: str):
+    supported_backends = get_supported_inference_backends(model_path)
+
+    if 'vllm' in supported_backends:
+        return 'vllm'
+
+    if 'tgi' in supported_backends:
+        if is_tgi_installed():
+            return 'tgi'
+        print('WARNING: The model "' + model_path + '" can be greatly accelerated by text-generation-inference, but it is not installed.')
+
+    if 'hf_transformers' in supported_backends:
+        return 'hf_transformers'
+
+    raise Exception('No inference backend supported for model "' + model_path)
 
 def create_model(model_type: str, model_name: str, model_args: dict[str, str], **kwargs):
     from evaluation.models.debug import Debug

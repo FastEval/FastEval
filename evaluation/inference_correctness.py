@@ -1,4 +1,5 @@
-import evaluation.args
+import copy
+
 from evaluation.models.models import unload_model, create_model, compute_model_replies
 from evaluation.utils import join_threads
 
@@ -27,19 +28,16 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
         'temperature': 0,
     } for conversation in conversations]
 
-    def get_outputs(backend_name, conversation, n):
+    def get_outputs(model_args, conversation, n):
         return compute_model_replies(
             create_model(model_type, model_name, model_args, max_new_tokens=1024),
             [conversation] * n,
-            progress_bar_description=model_name + ' :: Computing replies with ' + backend_name + ' backend',
+            progress_bar_description=model_name + ' :: Computing replies with ' + model_args['inference_backend'] + ' backend',
         )
 
-    previous_force_backend = evaluation.args.cmd_arguments.force_backend
-    evaluation.args.cmd_arguments.force_backend = 'hf_transformers'
-
-    hf_transformers_model_outputs = [get_outputs('hf_transformers', conversation, 1)[0] for conversation in conversations]
-
-    evaluation.args.cmd_arguments.force_backend = previous_force_backend
+    model_args_with_hf_transformers_backend = copy.deepcopy(model_args)
+    model_args_with_hf_transformers_backend['inference_backend'] = 'hf_transformers'
+    hf_transformers_model_outputs = [get_outputs(model_args_with_hf_transformers_backend, conversation, 1)[0] for conversation in conversations]
 
     # Both vLLM as well as TGI may actually not give deterministic outputs when processing multiple outputs
     # in parallel even if temperature = 0 is used. The reason for this seems floating point accuracy.
@@ -69,7 +67,7 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
     ns = list(range(1, 18)) + [19, 20, 21, 25, 31, 32]
     for i, conversation in enumerate(conversations):
         for n in ns:
-            default_backend_model_outputs[i] += get_outputs('default', conversation, n)
+            default_backend_model_outputs[i] += get_outputs(model_args, conversation, n)
             if hf_transformers_model_outputs[i] in default_backend_model_outputs[i]:
                 break
 

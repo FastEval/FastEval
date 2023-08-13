@@ -6,35 +6,11 @@ import evaluation.models.models
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
-from evaluation.models.models import get_supported_inference_backends
 from evaluation.models.utils import put_system_message_in_user_message
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
 eos_tokens = {}
 eos_tokens_lock = threading.Lock()
-
-def is_tgi_installed():
-    return os.path.exists('text-generation-inference')
-
-def get_backend(model_path: str):
-    forced_backend = evaluation.args.cmd_arguments.force_backend
-    if forced_backend is not None:
-        return forced_backend
-
-    supported_backends = get_supported_inference_backends(model_path)
-
-    if 'vllm' in supported_backends:
-        return 'vllm'
-
-    if 'tgi' in supported_backends:
-        if is_tgi_installed():
-            return 'tgi'
-        print('WARNING: The model "' + model_path + '" can be greatly accelerated by text-generation-inference, but it is not installed.')
-
-    if 'hf_transformers' in supported_backends:
-        return 'hf_transformers'
-
-    raise Exception('No inference backend supported for model "' + model_path)
 
 class Huggingface:
     def __init__(
@@ -51,6 +27,7 @@ class Huggingface:
         end2=None,
         max_new_tokens=DEFAULT_MAX_NEW_TOKENS,
         dtype=None,
+        inference_backend: str,
     ):
         import torch
 
@@ -81,7 +58,8 @@ class Huggingface:
             }
 
             self.dtype = dtypes[dtype]
-        self.backend = get_backend(model_path)
+
+        self.backend = inference_backend
 
         self.num_threads = NUM_THREADS_LOCAL_MODEL
 
