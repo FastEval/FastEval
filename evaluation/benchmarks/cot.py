@@ -6,7 +6,7 @@ import statistics
 from evaluation.utils import process_with_thread_pool
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
-from evaluation.constants import COT_MAX_NEW_TOKENS
+from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
 
 GSM8K_LIMIT = 500
 BBH_LIMIT_PER_TASK = 30
@@ -48,7 +48,7 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
             'conversation': conversation })
         num_total += 1
 
-    model_requests = [request['conversation'] for request in requests]
+    model_requests = [{ 'conversation': request['conversation'], 'temperature': COT_TEMPERATURE } for request in requests]
     model_answers = yield model_requests
 
     model_outputs = []
