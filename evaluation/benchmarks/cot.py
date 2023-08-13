@@ -38,7 +38,7 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
     [data] = yield [data]
 
     randomness = random.Random()
-    randomness.seed(1)
+    randomness.seed(1, version=2)
     selected_samples = randomness.sample(range(len(data)), limit)
 
     requests = []
