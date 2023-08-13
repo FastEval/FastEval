@@ -131,6 +131,7 @@ class WorkerProcessManager:
             start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
                 queue=queue, devices=devices, worker_functions=worker_functions, worker_is_blocking=worker_is_blocking)
 
+        ack_pipes = []
         for i in range(self.num_threads):
             if self.worker_is_blocking:
                 model_creation_result = self.queue.get()
@@ -138,9 +139,12 @@ class WorkerProcessManager:
                 model_creation_result = self.queues[i].get()
 
             if model_creation_result[0] == 'model-created':
-                model_creation_result[1].send('ack')
+                ack_pipes.append(model_creation_result[1])
             else:
                 raise Exception('Model creation in worker failed: ' + model_creation_result[1])
+
+        for pipe in ack_pipes:
+            pipe.send('ack')
 
         self.models_are_loaded = True
 
