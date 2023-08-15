@@ -1,0 +1,75 @@
+{
+    "score": 0.5,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "The language {ww | w in (0 + 1)*} is\n\n(A) not accepted by any Turing machine\n(B) accepted by some Turing machine, but by no pushdown automaton\n(C) accepted by some pushdown automaton, but not context-free\n(D) context-free, but not regular",
+            "correct_answer": 1,
+            "model_answer": "To show that {ww | w in (0 + 1)*} is context-free, we can construct a pushdown automaton that recognizes it. \n\nThe idea is to push the first half of the string onto the stack, and then pop symbols off the stack while matching them against the second half of the string. If the stack is empty at the end of the input, then the string is in the language.\n\nFormally, the pushdown automaton can be defined as follows:\n- The input alphabet is {0, 1}.\n- The stack alphabet is {0, 1, X}, where X is the stack symbol used to mark the top of the stack.\n- The set of states is {q0, q1, q2, q3}, where q0 is the start state and q3 is the only accepting state.\n- The transition function is defined as follows:\n  - \u03b4(q0, \u03b5, \u03b5) = (q1, X)\n  - \u03b4(q1, 0, \u03b5) = (q1, 0X)\n  - \u03b4(q1, 1, \u03b5) = (q1, 1X)\n  - \u03b4(q1, \u03b5, \u03b5) = (q2, \u03b5)\n  - \u03b4(q2, 0, 0) = (q2, \u03b5)\n  - \u03b4(q2, 1, 1) = (q2, \u03b5)\n  - \u03b4(q2, \u03b5, X) = (q3, \u03b5)\n- The initial stack symbol is X.\n\nIntuitively, the pushdown automaton works as follows:\n- In state q0, it pushes X onto the stack to mark the bottom of the stack.\n- In state q1, it reads the input and pushes each symbol onto the stack.\n- When it reaches the end of the input, it transitions to state q2 and starts popping symbols off the stack while matching them against the input symbols.\n- If it successfully matches all the symbols, it transitions to state q3 and accepts the input.\n\nTherefore, the answer is (D) context-free, but not regular.",
+            "correct": false
+        },
+        {
+            "id": 72,
+            "question": "Which of the following pairs of 8-bit, two's-complement numbers will result in overflow when the members of the pairs are added?\n\n(A) 11111111, 00000001\n(B) 00000001, 10000000\n(C) 11111111, 10000001\n(D) 10000001, 10101010",
+            "correct_answer": 3,
+            "model_answer": "To determine if overflow will occur when adding two's-complement numbers, we need to look at the sign bits of the two numbers being added and the result. If the sign bits of the two numbers being added are the same and the sign bit of the result is different, then overflow has occurred.\n\nFor option (A), both numbers have the same sign bit (1), and the result has a sign bit of 0. Therefore, overflow has occurred.\n\nFor option (B), both numbers have different sign bits, so overflow cannot occur.\n\nFor option (C), both numbers have the same sign bit (1), and the result has a sign bit of 1. Therefore, overflow cannot occur.\n\nFor option (D), both numbers have different sign bits, so overflow cannot occur.\n\nTherefore, the pair of numbers that will result in overflow when added is (A).\n\nAnswer: A",
+            "correct": false
+        },
+        {
+            "id": 97,
+            "question": "In a pipelined RISC computer where all arithmetic instructions have the same CPI (cycles per instruction), which of the following actions would improve the execution time of a typical program?\nI. Increasing the clock cycle rate\nII. Disallowing any forwarding in the pipeline\nIII. Doubling the sizes of the instruction cache and the data cache without changing the clock cycle time\n\n(A) I only\n(B) II only\n(C) III only\n(D) I and III",
+            "correct_answer": 3,
+            "model_answer": "I. Increasing the clock cycle rate: This would improve the execution time of a program as it would allow more instructions to be executed in a given amount of time. Therefore, this option would improve the execution time.\n\nII. Disallowing any forwarding in the pipeline: Forwarding is a technique used to reduce pipeline stalls by forwarding data from one stage of the pipeline to another. Disallowing forwarding would increase the number of stalls in the pipeline, which would increase the execution time. Therefore, this option would not improve the execution time.\n\nIII. Doubling the sizes of the instruction cache and the data cache without changing the clock cycle time: Increasing the cache sizes would reduce the number of cache misses, which would reduce the number of stalls in the pipeline and improve the execution time. Therefore, this option would improve the execution time.\n\nBased on the above analysis, the correct answer is (D) I and III.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Which of the following statements about floating-point arithmetic is NOT true?\n\n(A) It is inherently nonassociative because some numbers have no exact representation.\n(B) It is inherently nonassociative because there have to be upper and lower bounds on the size of numbers.\n(C) Associativity can be achieved with appropriate roundoff conventions.\n(D) Some rational numbers have no exact representation.",
+            "correct_answer": 2,
+            "model_answer": "Statement (B) is NOT true because the associativity of floating-point arithmetic is not related to the upper and lower bounds on the size of numbers. Associativity can be achieved with appropriate roundoff conventions, as stated in statement (C). Statement (A) is true because floating-point arithmetic is inherently nonassociative due to the presence of rounding errors and the fact that some numbers cannot be represented exactly. Statement (D) is also true because some rational numbers, such as 1/3, cannot be represented exactly in floating-point arithmetic. Therefore, the answer is (B).",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": "Bob writes down a number between 1 and 1,000. Mary must identify that number by asking \"yes/no\" questions of Bob. Mary knows that Bob always tells the truth. If Mary uses an optimal strategy, then she will determine the answer at the end of exactly how many questions in the worst case?\n\n(A) 1,000\n(B) 999\n(C) 500\n(D) 10",
+            "correct_answer": 3,
+            "model_answer": "Mary can ask a maximum of 10 questions if she uses a binary search strategy. She can start by asking if the number is greater than 500. If Bob says yes, then she knows the number is between 501 and 1,000. If Bob says no, then she knows the number is between 1 and 500. She can continue to split the remaining range in half with each question until she has narrowed it down to a single number. Therefore, the answer is (D) 10.",
+            "correct": true
+        },
+        {
+            "id": 15,
+            "question": "For all strings x, the function x^M is defined recursively as follows.\ne^M= e, and\nif w is a string and a is a string with length 1, then\n(aw)^M = aw^Ma.\nLet a be a string with length 1, and let x and y be arbitrary strings. Which of the following is true?\n\n(A) a^M = a\n(B) (ax)^M = (xa)^M\n(C) (xy)^M = y^Mx^M\n(D) None of the above",
+            "correct_answer": 3,
+            "model_answer": "We will use the given recursive definition of the function x^M to evaluate each option.\n\n(A) a^M = a\nUsing the definition, we have:\na^M = aa^Ma\nSince a has length 1, we can simplify to:\na^M = aaMa\nBut we don't know what a^Ma is, so we can't simplify further. Therefore, we cannot conclude that a^M = a. \n\n(B) (ax)^M = (xa)^M\nUsing the definition, we have:\n(ax)^M = ax(ax)^Ma\n(xa)^M = xa(xa)^Ma\nWe can see that both expressions have the same form, so we can try to manipulate one into the other. Let's try to transform (ax)^Ma into (xa)^Ma:\n(ax)^Ma = ax(ax)^M(aa)^M\n(ax)^Ma = ax(aa)^M(ax)^M\n(ax)^Ma = a(ax)^M(a^Mx)^M\n(ax)^Ma = a(ax)^M(xa)^M\nNow we can see that (ax)^M = (xa)^M, so option (B) is true.\n\n(C) (xy)^M = y^Mx^M\nUsing the definition, we have:\n(xy)^M = xy(xy)^Ma\ny^Mx^M = y(y^{M-1}x)^Mx^M\nWe can see that the expressions are not the same, so option (C) is false.\n\n(D) None of the above\nWe have shown that option (B) is true and option (C) is false, so the correct answer is (D).",
+            "correct": true
+        },
+        {
+            "id": 63,
+            "question": "Which of the following language features requires that stack-based storage allocation be used rather than static allocation?\n\n(A) Recursive procedures\n(B) Arbitrary goto's\n(C) Two-dimensional arrays\n(D) Integer-valued functions",
+            "correct_answer": 0,
+            "model_answer": "Recursive procedures require stack-based storage allocation because each recursive call creates a new instance of the function on the stack, and the stack must be able to grow and shrink dynamically to accommodate these instances. Static allocation, on the other hand, allocates a fixed amount of memory at compile time, which would not be sufficient for recursive calls. Therefore, the answer is (A) Recursive procedures.",
+            "correct": true
+        },
+        {
+            "id": 57,
+            "question": "Which of the following instruction-set features is NOT generally considered an obstacle to aggressive pipelining of an integer unit?\n\n(A) Condition codes set by every instruction\n(B) Variable-length encoding of instructions\n(C) Instructions requiring widely varying numbers of cycles to execute\n(D) Several different classes (sets) of registers",
+            "correct_answer": 3,
+            "model_answer": "To determine which instruction-set feature is NOT generally considered an obstacle to aggressive pipelining of an integer unit, we need to analyze each option:\n\n(A) Condition codes set by every instruction: This feature can be an obstacle to pipelining because the condition codes may not be available until the instruction completes, which can cause pipeline stalls. Therefore, this is a possible answer.\n\n(B) Variable-length encoding of instructions: This feature can also be an obstacle to pipelining because the processor may not know the length of the instruction until it has decoded the opcode, which can cause pipeline stalls. Therefore, this is not the answer.\n\n(C) Instructions requiring widely varying numbers of cycles to execute: This feature can be an obstacle to pipelining because the pipeline may need to wait for the slowest instruction to complete before proceeding, which can cause pipeline stalls. Therefore, this is a possible answer.\n\n(D) Several different classes (sets) of registers: This feature is not typically an obstacle to pipelining because the pipeline can access different sets of registers simultaneously. Therefore, this is not the answer.\n\nBased on our analysis, the answer is either (A) or (C). However, since the question is asking for the feature that is NOT generally considered an obstacle to pipelining, the answer is (D).",
+            "correct": true
+        },
+        {
+            "id": 60,
+            "question": "Let T be a depth-first search tree of a connected undirected graph G. For each vertex v of T, let pre(v) be the number of nodes visited up to and including v during a preorder traversal of T, and post(v) be the number of nodes visited up to and including v during a postorder traversal of T. The lowest common ancestor of vertices u and v in T is a vertex w of T such that w is an ancestor of both u and v, and no child of w is an ancestor of both u and v. Let (u, v) be an edge in G that is not in T, such that pre(u) < pre(v). Which of the following statements about u and v must be true?\nI. post(u) < post(v)\nII. u is an ancestor of v in T.\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\n\n(A) I only\n(B) II only\n(C) III only\n(D) II and III",
+            "correct_answer": 3,
+            "model_answer": "Since (u, v) is not in T, it means that u and v are in different subtrees of T. Since pre(u) < pre(v), it means that u is a descendant of v in T. Therefore, v is an ancestor of u in T. This eliminates option II.\n\nNow, consider the possible positions of u and v in the preorder traversal of T. Since u is a descendant of v, it means that u must be visited after v in the preorder traversal. Therefore, pre(v) < pre(u). \n\nNow, consider the possible positions of u and v in the postorder traversal of T. Since u is not in the subtree rooted at v, it means that u must be visited before v in the postorder traversal. Therefore, post(u) < post(v).\n\nFinally, consider the lowest common ancestor w of u and v in T. Since u is a descendant of v, it means that w cannot be u. Therefore, w must be a proper ancestor of u. This eliminates option III.\n\nTherefore, the only statement that must be true is I. The answer is (A).",
+            "correct": false
+        },
+        {
+            "id": 83,
+            "question": "A starvation-free job-scheduling policy guarantees that no job waits indefinitely for service. Which of the following job-scheduling policies is starvation-free?\n\n(A) Round-robin\n(B) Priority queuing\n(C) Shortest job first\n(D) Youngest job first",
+            "correct_answer": 0,
+            "model_answer": "To determine which job-scheduling policy is starvation-free, we need to consider each option and determine if it guarantees that no job waits indefinitely for service.\n\n(A) Round-robin: This policy schedules jobs in a circular order, giving each job a fixed time slice before moving on to the next job. While this policy ensures that each job eventually receives service, it does not guarantee that no job waits indefinitely. If a long job is continuously preempted by shorter jobs, it may never complete.\n\n(B) Priority queuing: This policy assigns a priority level to each job and schedules jobs with higher priority first. While this policy ensures that high-priority jobs are serviced quickly, it can lead to starvation of low-priority jobs if there are always high-priority jobs waiting.\n\n(C) Shortest job first: This policy schedules jobs in order of their expected run time, with the shortest job being serviced first. This policy guarantees that no job waits indefinitely, as even long jobs will eventually be serviced once all shorter jobs have been completed.\n\n(D) Youngest job first: This policy schedules jobs in order of their arrival time, with the most recently arrived job being serviced first. While this policy may prioritize new jobs, it does not guarantee that no job waits indefinitely. If a long job arrives early, it may wait indefinitely if there are always newer, shorter jobs arriving.\n\nTherefore, the only job-scheduling policy that is guaranteed to be starvation-free is (C) Shortest job first. \n\nAnswer: C",
+            "correct": false
+        }
+    ]
+}
