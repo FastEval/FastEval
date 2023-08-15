@@ -287,7 +287,7 @@ export async function createBenchmarksIndexE(baseUrl) {
     const theadClickHereTextE = theadClickHereE.insertCell()
     theadClickHereTextE.colSpan = 4
     theadClickHereTextE.style['text-align'] = 'center'
-    theadClickHereTextE.appendChild(createTextE('Click on the links for more details!'))
+    theadClickHereTextE.appendChild(createTextE('⤹ Click on the links for more details! ⤸'))
     const theadRowE = theadE.insertRow()
     theadRowE.insertCell().appendChild(createTextE('Rank'))
     theadRowE.insertCell().appendChild(createTextE('Size'))
