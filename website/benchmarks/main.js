@@ -212,11 +212,6 @@ export async function createBenchmarksIndexE(baseUrl) {
     )
     containerE.appendChild(explanationE)
 
-    const clickOnColumnsE = document.createElement('div')
-    clickOnColumnsE.classList.add('main-click-on-columns-explanation')
-    clickOnColumnsE.textContent = 'Click on the columns to see the benchmark-specific leaderboards with more details.'
-    containerE.appendChild(clickOnColumnsE)
-
     const evaluations = await fetchEvaluations(baseUrl)
     const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
 
@@ -285,16 +280,24 @@ export async function createBenchmarksIndexE(baseUrl) {
     tableE.classList.add('main__table')
     containerE.appendChild(tableE)
 
-    const theadE = tableE.createTHead().insertRow()
-    theadE.insertCell().appendChild(createTextE('Rank'))
-    theadE.insertCell().appendChild(createTextE('Size'))
-    theadE.insertCell().appendChild(createTextE('Model'))
-    theadE.insertCell().appendChild(createTextE('Total'))
-    theadE.insertCell()
-    theadE.insertCell().appendChild(createLinkE('MT-Bench', { benchmark: 'mt-bench' }))
-    theadE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
-    theadE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
-    theadE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
+    const theadE = tableE.createTHead()
+    const theadClickHereE = theadE.insertRow()
+    theadClickHereE.classList.add('no-td-border')
+    theadClickHereE.insertCell().colSpan = 5
+    const theadClickHereTextE = theadClickHereE.insertCell()
+    theadClickHereTextE.colSpan = 4
+    theadClickHereTextE.style['text-align'] = 'center'
+    theadClickHereTextE.appendChild(createTextE('Click on the links for more details!'))
+    const theadRowE = theadE.insertRow()
+    theadRowE.insertCell().appendChild(createTextE('Rank'))
+    theadRowE.insertCell().appendChild(createTextE('Size'))
+    theadRowE.insertCell().appendChild(createTextE('Model'))
+    theadRowE.insertCell().appendChild(createTextE('Total'))
+    theadRowE.insertCell()
+    theadRowE.insertCell().appendChild(createLinkE('MT-Bench', { benchmark: 'mt-bench' }))
+    theadRowE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
+    theadRowE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
+    theadRowE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
     const tbodyE = tableE.createTBody()
 
     let didInsertSeparatorToBaseModels = false

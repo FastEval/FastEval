@@ -22,7 +22,7 @@ thead > tr {
     border-bottom: 2px solid black;
 }
 
-table td + td {
+table tr:not(.no-td-border) td + td {
     border-left: 2px solid black;
 }
 
@@ -35,7 +35,7 @@ td.score {
     text-align: right;
 }
 
-tr:nth-child(odd) {
+tr:nth-child(even) {
     background-color: #eee;
 }
 
