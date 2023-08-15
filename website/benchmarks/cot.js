@@ -145,6 +145,7 @@ export async function createE(baseUrl, parameters) {
 
     const columns = [
         ['gsm8k', 'GSM8K'],
+        ['math', 'MATH'],
         ['bbh', 'BBH'],
         ['mmlu', 'MMLU'],
     ]
@@ -169,7 +170,7 @@ export async function createE(baseUrl, parameters) {
         rowE.insertCell()
 
         for (const [columnId, columnName] of columns) {
-            if (columnId === 'gsm8k') {
+            if (['gsm8k', 'math'].includes(columnId)) {
                 const cellE = createLinkE(round(evaluationAbsoluteScores[columnId]), { task: columnId, id })
                 createTableScoreCell(rowE, cellE, relativeScores[id][columnId])
             } else if (['bbh', 'mmlu'].includes(columnId)) {
@@ -189,11 +190,13 @@ export function computeRelativeScores(absoluteScores) {
     for (const id of ids)
         relativeScores[id] = { bbh: { tasks: {} }, mmlu: { tasks: {} } }
 
-    const gsm8k = Array.from(absoluteScores.values()).map(e => e.gsm8k)
-    const minGsm8k = Math.min(...gsm8k)
-    const maxGsm8k = Math.max(...gsm8k)
-    for (const id of ids)
-        relativeScores[id].gsm8k = (absoluteScores.get(id).gsm8k - minGsm8k) / (maxGsm8k - minGsm8k)
+    for (const benchmark of ['gsm8k', 'math']) {
+        const values = Array.from(absoluteScores.values()).map(e => e[benchmark])
+        const min = Math.min(...values)
+        const max = Math.max(...values)
+        for (const id of ids)
+            relativeScores[id][benchmark] = (absoluteScores.get(id)[benchmark] - min) / (max - min)
+    }
 
     for (const benchmark of ['bbh', 'mmlu']) {
         const tasks = Object.keys(absoluteScores.get(ids[0])[benchmark].tasks)
