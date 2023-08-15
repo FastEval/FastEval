@@ -146,7 +146,7 @@ export async function createE(baseUrl, parameters) {
     const columns = [
         ['gsm8k', 'GSM8K'],
         ['math', 'MATH'],
-        ['bbh', 'BBH'],
+        ['bbh', 'BBH-MC'],
         ['mmlu', 'MMLU'],
     ]
 
