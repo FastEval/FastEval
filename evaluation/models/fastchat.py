@@ -145,12 +145,13 @@ def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
 class Fastchat(OpenAIBase):
     num_threads = NUM_THREADS_LOCAL_MODEL
 
-    def __init__(self, model_name, *, tokenizer=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
-        self.use_vllm = 'vllm' in evaluation.models.models.get_supported_inference_backends(model_name)
+    def __init__(self, model_name, *, tokenizer=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS, inference_backend):
+        assert inference_backend in ['vllm', 'hf_transformers']
+        self.use_vllm = inference_backend == 'vllm'
         self.tokenizer_path = tokenizer
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
-    def reply(self, conversation, *, temperature=None, max_new_tokens=None):
+    def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
         from openai.error import APIError
 
         conversation = put_system_message_in_user_message(conversation)
@@ -165,7 +166,7 @@ class Fastchat(OpenAIBase):
 
         try:
             return super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key, temperature=temperature,
-                model_name=model_name, max_new_tokens=max_new_tokens)
+                model_name=model_name, max_new_tokens=max_new_tokens, stop_event=stop_event)
         except APIError as error:
             error_message = json.loads(error.http_body)['message']
             error_information = re.search("This model's maximum context length is ([0-9]+) tokens\. "
@@ -178,4 +179,4 @@ class Fastchat(OpenAIBase):
             num_tokens_too_much = request_total_length - maximum_context_length
             reduced_max_new_tokens = max_new_tokens - num_tokens_too_much
             return super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key,
-                max_new_tokens=reduced_max_new_tokens, temperature=temperature, model_name=model_name)
+                max_new_tokens=reduced_max_new_tokens, temperature=temperature, model_name=model_name, stop_event=stop_event)
