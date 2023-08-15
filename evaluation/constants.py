@@ -15,7 +15,7 @@ COT_TEMPERATURE = 0
 
 WEIGHTS = {
     # (weight, maximum possible value)
-    'mt-bench': (2.5, 10),
+    'mt-bench': (2, 10),
     'cot': (18, 1),
     'human-eval-plus': (12, 1),
     'lm-evaluation-harness': (0.3, 100),
