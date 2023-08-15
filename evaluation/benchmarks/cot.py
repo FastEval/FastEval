@@ -256,6 +256,9 @@ def evaluate_model_on_mmlu(output_path):
     }
 
 def load_datasets(model_name, dataset_requests):
+    if len(dataset_requests) == 0:
+        return []
+
     import datasets
 
     def load_dataset(dataset_request):
@@ -294,8 +297,6 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     evaluators = combine_evaluators([evaluation_function(tasks_path) for task_name, evaluation_function in evaluation_functions])
 
     dataset_requests = next(evaluators)
-    if len(dataset_requests) == 0:
-        return
     datasets = load_datasets(model_name, dataset_requests)
 
     model_requests = evaluators.send(datasets)
@@ -304,8 +305,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     scores_list = evaluators.send(model_responses)
     scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions) }
 
-    # https://github.com/FastEval/FastEval/issues/61#issuecomment-1668520925
-    scores['total'] = scores['gsm8k'] + 2.5 * scores['math'] + scores['bbh']['average'] + scores['mmlu']['average']
+    scores['total'] = 0.2 * scores['gsm8k'] + 0.4 * scores['math'] + 0.2 * scores['bbh']['average'] + 0.2 * scores['mmlu']['average']
 
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
     with open(final_scores_file, 'w') as f:
