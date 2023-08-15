@@ -30,7 +30,7 @@ export async function createMultiTaskE(baseUrl, evaluations, benchmark) {
     }
 
     const sortedAbsoluteScores = Array.from(absoluteScores.entries())
-        .sort(([id1, evaluationScores1], [id2, evaluationScores2]) => evaluationScores2.total - evaluationScores1.total)
+        .sort(([id1, evaluationScores1], [id2, evaluationScores2]) => relativeScores[id2][benchmark].average - relativeScores[id1][benchmark].average)
 
     for (const [id, evaluationAbsoluteScores] of sortedAbsoluteScores) {
         const rowE = tableBodyE.insertRow()
