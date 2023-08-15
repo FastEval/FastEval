@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
+            "correct_answer": 0,
+            "model_answer": "The answer is (C) The initial choice of weights. \r\n\r\nThis is because the initial choice of weights is the most important structural assumption in a neural network. If the initial weights are too large or too small, the model will underfit or overfit, respectively. The choice of weights can be influenced by the activation function used, the number of hidden nodes, and the learning rate. However, the initial choice of weights is the most important factor in determining the trade-off between underfitting and overfitting.",
+            "correct": false
+        },
+        {
+            "id": 72,
+            "question": "Statement 1| Industrial-scale neural networks are normally trained on CPUs, not GPUs. Statement 2| The ResNet-50 model has over 1 billion parameters.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Statement 1: False, True\r\n\r\nReasoning: The statement is incorrect. Industrial-scale neural networks are normally trained on GPUs, not CPUs. GPUs are more efficient at processing large amounts of data than CPUs.\r\n\r\nStatement 2: True, False\r\n\r\nReasoning: The statement is incorrect. The ResNet-50 model has over 1 billion parameters, but it is not trained on CPUs. It is trained on GPUs, which are more efficient at processing large amounts of data than CPUs.",
+            "correct": false
+        },
+        {
+            "id": 108,
+            "question": "Which of the following is false?\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.",
+            "correct_answer": 3,
+            "model_answer": "Reasoning:\r\n\r\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\r\n\r\nFalse. Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\r\n\r\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\r\n\r\nTrue. A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\r\n\r\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\r\n\r\nTrue. When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\r\n\r\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.\r\n\r\nFalse. A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.\r\n\r\nAnswer:\r\n\r\n(A) (B) (C) (D)",
+            "correct": true
+        },
+        {
+            "id": 102,
+            "question": "You are training a linear regression model for a simple estimation task, and notice that the model is overfitting to the data. You decide to add in $\\ell_2$ regularization to penalize the weights. As you increase the $\\ell_2$ regularization coefficient, what will happen to the bias and variance of the model?\n\n(A) Bias increase ; Variance increase\n(B) Bias increase ; Variance decrease\n(C) Bias decrease ; Variance increase\n(D) Bias decrease ; Variance decrease",
+            "correct_answer": 1,
+            "model_answer": "Reasoning:\r\n\r\nWe are training a linear regression model with $\\ell_2$ regularization. The $\\ell_2$ regularization term is proportional to the square of the weights, so as the coefficient of the regularization term increases, the model will be less likely to fit the training data and will instead overfit.\r\n\r\nIf the bias and variance of the model increase, then the model will be less likely to fit the training data and will instead overfit. This means that the model will have a higher bias and lower variance than it would have without regularization.\r\n\r\nIf the bias and variance of the model decrease, then the model will be more likely to fit the training data and will have lower bias and variance than it would have without regularization. This means that the model will have a lower bias and higher variance than it would have without regularization.\r\n\r\nAnswer:\r\n\r\n(C) Bias decrease ; Variance increase",
+            "correct": false
+        },
+        {
+            "id": 97,
+            "question": "Which one of the following is equal to P(A, B, C) given Boolean random variables A, B and C, and no independence or conditional independence assumptions between any of them?\n\n(A) P(A | B) * P(B | C) * P(C | A)\n(B) P(C | A, B) * P(A) * P(B)\n(C) P(A, B | C) * P(C)\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
+            "correct_answer": 2,
+            "model_answer": "Reasoning:\r\n\r\nWe need to find the probability of A, B, and C given no independence or conditional independence assumptions.\r\n\r\nFirst, we can use the definition of conditional probability to find the probability of A given B and C:\r\n\r\nP(A | B, C) = P(A, B, C) / P(B, C)\r\n\r\nNext, we can use the definition of conditional probability to find the probability of B given A and C:\r\n\r\nP(B | A, C) = P(A, B, C) / P(A, C)\r\n\r\nFinally, we can use the definition of conditional probability to find the probability of C given A and B:\r\n\r\nP(C | A, B) = P(A, B, C) / P(A, B)\r\n\r\nUsing these probabilities, we can substitute them into the first equation:\r\n\r\nP(A, B, C) = P(A | B, C) * P(B | C) * P(C | A)\r\n\r\nWe can then use the definition of conditional probability to find the probability of B given C:\r\n\r\nP(B | C) = P(B, C) / P(C)\r\n\r\nUsing this probability, we can substitute it into the second equation:\r\n\r\nP(A, B, C) = P(C | A, B) * P(A) * P(B)\r\n\r\nWe can then use the definition of conditional probability to find the probability of A given C:\r\n\r\nP(A | C) = P(A, C) / P(C)\r\n\r\nUsing this probability, we can substitute it into the third equation:\r\n\r\nP(A, B, C) = P(A, B | C) * P(C)\r\n\r\nWe can then use the definition of conditional probability to find the probability of B given A:\r\n\r\nP(B | A) = P(B, A) / P(A)\r\n\r\nUsing this probability, we can substitute it into the fourth equation:\r\n\r\nP(A, B, C) = P(A | B, C) * P(B | A, C) * P(C | A, B)\r\n\r\nSince we have already used all three probabilities, we can simplify the fourth equation to:\r\n\r\nP(A, B, C) = P(A | B, C) * P(B | A, C) * P(C | A, B)\r\n\r\nTherefore, the probability of A, B, and C given no independence or conditional independence assumptions is equal to:\r\n\r\nP(A, B, C) = P(A | B, C) * P(B | C) * P(C | A)\r\n\r\nAnswer: (A)",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "The Bayesian network given is:\r\n\r\nH -> U <- P <- W\r\n\r\nTo find the number of independent parameters, we need to count the number of arrows pointing to each node. In this case, there are 2 arrows pointing to H, 1 arrow pointing to U, 1 arrow pointing to P, and 1 arrow pointing to W. Therefore, the number of independent parameters needed for this Bayesian Network is 2.\r\n\r\nTherefore, the answer is (B).",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Explanation:\r\n\r\nStatement 1:\r\n\r\nAfter mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this).\r\n\r\nReasoning:\r\n\r\n- We can use a radial basis kernel function to map the data into a higher-dimensional feature space.\r\n- The 1-NN algorithm is a simple and effective way to classify data points.\r\n- The unweighted Euclidean distance is a commonly used distance metric for kernel functions.\r\n- If the data is mapped into a higher-dimensional feature space, then the distance metric used in the kernel function may not be the same as the distance metric used in the original space.\r\n- However, if the kernel function is chosen appropriately, then the classification performance may improve.\r\n\r\nTherefore, the answer is True.\r\n\r\nStatement 2:\r\n\r\nThe VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\r\n\r\nReasoning:\r\n\r\n- The VC dimension of a Perceptron is the largest possible value of the number of support vectors that can be used to separate the data.\r\n- The VC dimension of a simple linear SVM is the largest possible value of the number of support vectors that can be used to separate the data.\r\n- Therefore, the VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\r\n\r\nTherefore, the answer is False.",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "Statement 1| Layer Normalization is used in the original ResNet paper, not Batch Normalization. Statement 2| DCGANs use self-attention to stabilize training.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Explanation:\r\n\r\nStatement 1:\r\n\r\nLayer Normalization is used in the original ResNet paper, not Batch Normalization.\r\n\r\nReasoning:\r\n\r\nThe original ResNet paper used Batch Normalization instead of Layer Normalization. However, in the later papers, such as the ResNet-201 paper, the authors switched to Layer Normalization.\r\n\r\nStatement 2:\r\n\r\nDCGANs use self-attention to stabilize training.\r\n\r\nReasoning:\r\n\r\nDCGANs use self-attention to stabilize training. Self-attention is a mechanism that allows the model to focus on different parts of the input image at different times. This helps the model to learn more robust features and prevent it from overfitting.",
+            "correct": false
+        },
+        {
+            "id": 63,
+            "question": "What are support vectors?\n\n(A) The examples farthest from the decision boundary.\n(B) The only examples necessary to compute f(x) in an SVM.\n(C) The data centroid.\n(D) All the examples that have a non-zero weight \u03b1k in a SVM.",
+            "correct_answer": 1,
+            "model_answer": "Explanation:\r\n\r\nSupport vectors are the data points that are closest to the decision boundary of the SVM. They are the only examples necessary to compute f(x) in an SVM. The decision boundary is the line that separates the two classes of data points. The support vectors are the data points that are closest to the decision boundary. The data centroid is the center of the data points. The examples that have a non-zero weight \u03b1k in a SVM are the examples that are closest to the decision boundary.\r\n\r\nAnswer:C (Correct)",
+            "correct": false
+        },
+        {
+            "id": 57,
+            "question": "Statement 1| L2 regularization of linear models tends to make models more sparse than L1 regularization. Statement 2| Residual connections can be found in ResNets and Transformers.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "Statement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\r\n\r\nReasoning: L2 regularization is a penalty term that adds a penalty proportional to the square of the magnitude of the weights. This means that the larger the weights, the more the penalty will be applied. Therefore, L2 regularization tends to make models more sparse because it encourages the weights to be small.\r\n\r\nStatement 2: Residual connections can be found in ResNets and Transformers.\r\n\r\nReasoning: Residual connections are a technique used in deep neural networks to improve the learning capacity of the model. In ResNets, residual connections are added to the output of each layer to allow the model to learn more complex functions. In Transformers, residual connections are used to allow the model to learn more complex functions by adding the output of each layer to the input of the next layer.\r\n\r\nAnswer: (A) True, True",
+            "correct": false
+        }
+    ]
+}

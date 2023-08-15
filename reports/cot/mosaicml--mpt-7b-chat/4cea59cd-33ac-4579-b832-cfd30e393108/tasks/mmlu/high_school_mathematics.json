@@ -1,0 +1,75 @@
+{
+    "score": 0.2,
+    "model_outputs": [
+        {
+            "id": 68,
+            "question": "A point $(x,y)$ is randomly picked from inside the rectangle with vertices $(0,0)$, $(3,0)$, $(3,2)$, and $(0,2)$. What is the probability that $x < y$?\n\n(A) \\frac{1}{12}\n(B) \\frac{1}{6}\n(C) \\frac{2}{3}\n(D) \\frac{1}{3}",
+            "correct_answer": 3,
+            "model_answer": ": \nTo solve this problem, we need to use the formula for the probability of an event, which is:\nP(A) = P(x < y) * P(A|x<y)\nwhere A is the event that $x < y$.\nWe know that the rectangle has vertices $(0,0)$, $(3,0)$, $(3,2)$, and $(0,2)$. We also know that the point is picked randomly, so we can assume that it is equally likely to be any point within the rectangle.\nTherefore, the probability that $x < y$ is simply the probability that the point is to the left of the vertical line through the origin. This probability is given by the area of the rectangle below the line, divided by the total area of the rectangle.\nThe area of the rectangle below the line is given by the difference between the areas of the two triangles formed by the line and the edges of the rectangle. The areas of these triangles are:\n$A_1 = \\frac{1}{2} h \\cdot w$\n$A_2 = \\frac{1}{2} h \\cdot w$\nwhere $h$ is the height of the rectangle (which is the distance between the $y$-coordinates of the vertices), and $w$ is the width of the rectangle (which is the distance between the $x$-coordinates of the vertices).\nThe distance between the $y$-coordinates of the vertices is $3-0=3$, and the distance between the $x$-coordinates of the vertices is $3-0=3$. Therefore, $h=1$ and $w=3$.\nThe area of the rectangle below the line is therefore:\n$A_1 = \\frac{1}{2} \\cdot 1 \\cdot 3 = \\frac{1}{2}$\nThe total area of the rectangle is:\n$A_2 = \\frac{1}{2} \\cdot 3 \\cdot 3 = \\frac{1}{2}$\nTherefore, the probability that $x < y$ is:\n$P(x < y) = \\frac{1}{2} \\cdot \\frac{1}{2} = \\frac{1}{4}$\nSo the answer is (D) $\\frac{1}{4}$.",
+            "correct": true
+        },
+        {
+            "id": 32,
+            "question": "What is the smallest positive integer with factors of 16, 15, and 12?\n\n(A) 12\n(B) 22\n(C) 840\n(D) 240",
+            "correct_answer": 3,
+            "model_answer": ": \nTo find the smallest positive integer with factors of 16, 15, and 12, we need to find the least common multiple (LCM) of these three numbers. \nFirst, we can list the factors of each number:\n- 16: 1, 2, 4, 8, 16\n- 15: 1, 3, 5, 15\n- 12: 1, 2, 3, 4, 6, 12\nNext, we can find the prime factorization of each number:\n- 16: 2^4 * 3^1\n- 15: 3^1 * 5^1\n- 12: 2^1 * 3^2\nNow we can multiply these factors together:\n2^4 * 3^1 * 2^1 * 3^2 = 840\nTherefore, the smallest positive integer with factors of 16, 15, and 12 is 840 (option (C)).",
+            "correct": false
+        },
+        {
+            "id": 130,
+            "question": "Evaluate $\\log_3 81$.\n\n(A) 4\n(B) 0.25\n(C) -1\n(D) 27",
+            "correct_answer": 0,
+            "model_answer": ": \nTo evaluate $\\log_3 81$, we first need to determine the value of $3^3$. This is equal to $3^3 = 9$. \nNext, we can use the formula for logarithmic functions: \n$$\\log_a b = \\frac{b-1}{a-1}$$\nWe can substitute $a=3$ and $b=9$: \n$$\\log_3 9 = \\frac{9-1}{3-1} = \\frac{8}{2} = 4$$\nTherefore, the answer is (A) 4.",
+            "correct": true
+        },
+        {
+            "id": 60,
+            "question": "Bacteria in a culture increase at a rate proportional to the number present. An initial population of 200 triples in 10 hours. If this pattern of increase continues unabated, then the approximate number of bacteria after 1 full day is\n\n(A) 1160\n(B) 1440\n(C) 2408\n(D) 2793",
+            "correct_answer": 3,
+            "model_answer": ": \nTo solve this problem, we need to use the formula for population growth, which is:\nN = N0 * (1 + r)^t\nwhere N is the final population, N0 is the initial population, r is the growth rate, and t is the time.\nWe know that the initial population is 200, and the final population after 10 hours is 3 times that, or 600. So the growth rate is 3/10 = 0.3.\nWe can use this formula to find the final population after 1 day, which is:\nN = N0 * (1 + r)^1\nN = 200 * (1 + 0.3)^1\nN = 200 * 1.3\nN = 270\nSo the answer is (B) 1440.",
+            "correct": false
+        },
+        {
+            "id": 253,
+            "question": "A person walked 3 miles to the east, then turned north and walked 10 miles, then turned west and walked 6 miles, and finally turned south and walked 16 miles. Approximately how far is the person from his starting point in miles?\n\n(A) 3.4\n(B) 6.7\n(C) 9.2\n(D) 12.8",
+            "correct_answer": 1,
+            "model_answer": ":\nTo solve this problem, we need to use the Pythagorean theorem, which states that in a right triangle, the square of the length of the hypotenuse is equal to the sum of the squares of the other two sides. \nIn this problem, we have a right triangle with legs of 3 and 10, and a hypotenuse of 16. So we can write:\n16^2 = 3^2 + 10^2\n128 = 9 + 100\n128 = 109\nTherefore, the answer is (D) 12.8.",
+            "correct": false
+        },
+        {
+            "id": 230,
+            "question": "When the least common multiple of two positive integers is divided by their greatest common divisor, the result is 33. If one integer is 45, what is the smallest possible value of the other integer?\n\n(A) 165\n(B) 46\n(C) 45\n(D) 9",
+            "correct_answer": 0,
+            "model_answer": ": \nLet's start by finding the greatest common divisor of 45 and the least common multiple of 45 and the other integer. \nThe greatest common divisor of 45 and the other integer is the largest factor of both numbers. \nThe least common multiple of 45 and the other integer is the smallest positive integer that is a multiple of both numbers. \nSince the greatest common divisor of 45 and the other integer is 15, the least common multiple of 45 and the other integer is 15 times the least common multiple of the other integer and 15. \nThe least common multiple of the other integer and 15 is the least common multiple of the other integer and 15 divided by the greatest common divisor of the other integer and 15. \nThe greatest common divisor of the other integer and 15 is 5. \nTherefore, the least common multiple of the other integer and 15 is 3. \nSo, the least common multiple of 45 and the other integer is 15 times 3, which is 45. \nNow, we can use the fact that the result of dividing the least common multiple of two positive integers by their greatest common divisor is 33. \nSince the greatest common divisor of 45 and the other integer is 15, the least common multiple of 45 and the other integer is 45. \nTherefore, the smallest possible value of the other integer is 45. \nThe answer is (B) 46.",
+            "correct": false
+        },
+        {
+            "id": 241,
+            "question": "A figure skater is facing north when she begins to spin to her right. She spins 2250 degrees. Which direction (north, south, east or west) is she facing when she finishes her spin?\n\n(A) north\n(B) east\n(C) south\n(D) west",
+            "correct_answer": 1,
+            "model_answer": ": \nTo determine the direction in which the figure skater is facing when she finishes her spin, we need to use trigonometry. \nLet's call the angle at which the figure skater begins to spin \"A\", and the angle at which she finishes her spin \"B\". \nAccording to the problem, we know that A = 2250 degrees, and the figure skater is facing north when she begins to spin. \nWe also know that the figure skater is spinning to the right, so we can draw a right triangle with the figure skater as one of the vertices. \nThe hypotenuse of the triangle is the distance the figure skater travels, which we can call \"d\". \nThe side opposite angle B is the distance the figure skater travels to the right, which we can call \"r\". \nWe know that d = r cos(B), because the figure skater travels a distance equal to the length of the hypotenuse of a right triangle, and the cosine of the angle between the hypotenuse and one of the legs is equal to the length of the leg divided by the length of the hypotenuse. \nWe also know that the angle between the figure skater's initial direction (north) and the direction she is spinning (to the right) is 90 degrees. \nSo we can write: \ncos(B) = cos(90) = 1 \nAnd: \nr = d/cos(B) = d/1 = d \nTherefore: \nr = d \nAnd: \ncos(B) = 1 \nSo: \nB = 90 \nAnd: \nA = 2250 \nTherefore: \nB = 90 \nA = 2250 \nSo: \n(D) west \nThe figure skater is facing west when she finishes her spin.",
+            "correct": false
+        },
+        {
+            "id": 194,
+            "question": "When three standard dice are tossed, the numbers $a,b,c$ are obtained. Find the probability that $abc = 180$.\n\n(A) \\frac{1}{30}\n(B) \\frac{1}{72}\n(C) \\frac{1}{71}\n(D) \\frac{1}{70}",
+            "correct_answer": 1,
+            "model_answer": ": \nTo solve this problem, we need to use the formula for the probability of an event, which is:\nP(event) = number of favorable outcomes / total number of possible outcomes\nIn this case, we want to find the probability that $abc = 180$, so we need to find the number of favorable outcomes and the total number of possible outcomes.\nThe number of favorable outcomes is the number of ways we can get $abc = 180$ with three standard dice, which is:\n$3 \\choose 3 = 6$\nThe total number of possible outcomes is the product of the number of possible outcomes for each die, which is:\n$6 \\times 6 \\times 6 = 216$\nSo the probability of $abc = 180$ is:\nP(abc = 180) = 6 / 216 = 1/36\nTherefore, the answer is (D) 1/36.",
+            "correct": false
+        },
+        {
+            "id": 107,
+            "question": "What is the least possible positive integer-value of $n$ such that $\\sqrt{18\\cdot n \\cdot 34}$ is an integer?\n\n(A) 34\n(B) 2\n(C) 17\n(D) 3",
+            "correct_answer": 2,
+            "model_answer": ": \nLet's start by factoring the expression inside the square root: \n$\\sqrt{18\\cdot n \\cdot 34} = \\sqrt{18n \\cdot 34} = \\sqrt{18n} \\cdot \\sqrt{34}$\nWe know that $\\sqrt{18n}$ is an integer, so we can write:\n$18n = 2^2 \\cdot 3 \\cdot 5 \\cdot 7 \\cdot 11 \\cdot 13 \\cdot 17 \\cdot 19 \\cdot 23 \\cdot 29 \\cdot 31 \\cdot 37 \\cdot 41 \\cdot 43 \\cdot 47 \\cdot 53 \\cdot 59 \\cdot 61 \\cdot 67 \\cdot 71 \\cdot 73 \\cdot 79 \\cdot 83 \\cdot 89 \\cdot 97 \\cdot 101 \\cdot 103 \\cdot 107 \\cdot 109 \\cdot 113 \\cdot 127 \\cdot 131 \\cdot 137 \\cdot 139 \\cdot 149 \\cdot 151 \\cdot 157 \\cdot 163 \\cdot 167 \\cdot 173 \\cdot 179 \\cdot 181 \\cdot 191 \\cdot 193 \\cdot 197 \\cdot 199 \\cdot 211 \\cdot 223 \\cdot 227 \\cdot 229 \\cdot 233 \\cdot 239 \\cdot 241 \\cdot 251 \\cdot 257 \\cdot 263 \\cdot 269 \\cdot 271 \\cdot 277 \\cdot 281 \\cdot 283 \\cdot 293 \\cdot 307 \\cdot 311 \\cdot 313 \\cdot 317 \\cdot 331 \\cdot 337 \\cdot 347 \\cdot 349 \\cdot 353 \\cdot 359 \\cdot 367 \\cdot 373 \\cdot 379 \\cdot 383 \\cdot 389 \\cdot 397 \\cdot 401 \\cdot 409 \\cdot 419 \\cdot 421 \\cdot 431 \\cdot 433 \\cdot 439 \\cdot 443 \\cdot 449 \\cdot 457 \\cdot 461 \\cdot 463 \\cdot 467 \\cdot 479 \\cdot 487 \\cdot 491 \\cdot 499 \\cdot 503 \\cdot 509 \\cdot 521 \\cdot 523 \\cdot 541 \\cdot 547 \\cdot 557 \\cdot 563 \\cdot 569 \\cdot 571 \\$.\nWe can see that the only factors of $18n$ that are not factors of $34$ are $1$ and $17$. Therefore, the least possible positive integer-value of $n$ such that $\\sqrt{18\\cdot n \\cdot 34}$ is an integer is $n=17$. \n(Answer: 17)",
+            "correct": false
+        },
+        {
+            "id": 48,
+            "question": "John divided his souvenir hat pins into two piles. The two piles had an equal number of pins. He gave his brother one-half of one-third of one pile. John had 66 pins left. How many pins did John originally have?\n\n(A) 792\n(B) 66\n(C) 396\n(D) 72",
+            "correct_answer": 3,
+            "model_answer": ": \nLet's start by using algebra to solve the problem. \nLet x be the number of pins in John's original collection. \nThen, after dividing into two piles, John had 2x pins in total. \nAfter giving his brother one-half of one-third of one pile, John had (1/3)x pins left. \nSo, the total number of pins that John had after the division and the gift is 2x + (1/3)x = 2x + (2/3)x = 2x + x = 2x + 2x = 4x. \nTherefore, John had 4x pins in total. \nNow, we know that John had 66 pins left after the division and the gift. \nSo, we can set up an equation: \n4x = 66 \nSolving for x, we get: \nx = 17 \nTherefore, John originally had 17 pins. \nThe answer is (B) 66.",
+            "correct": false
+        }
+    ]
+}

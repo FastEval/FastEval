@@ -1,0 +1,75 @@
+{
+    "score": 0.3,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
+            "correct_answer": 0,
+            "model_answer": "(C) The initial choice of weights\n\nReasoning:\nThe initial choice of weights in a neural network plays a crucial role in determining the trade-off between underfitting and overfitting. When the initial weights are randomly initialized, the network is more likely to underfit the data, as it may not have enough capacity to learn the complex patterns in the training data. On the other hand, if the initial weights are too close to the optimal solution, the network may overfit the data, leading to poor generalization performance.\n\nThe number of hidden nodes (A) and the learning rate (B) can also affect the trade-off between underfitting and overfitting, but they are not as critical as the initial choice of weights. The number of hidden nodes can impact the complexity of the model, but it is not the primary factor that determines the trade-off. The learning rate can also affect the model's ability to learn from the data, but it is more related to the convergence speed and the stability of the training process.\n\nThe use of a constant-term unit input (D) is not a structural assumption that affects the trade-off between underfitting and overfitting. It is a feature of the input layer that can be used to incorporate constant terms in the input data, but it does not directly influence the model's ability to learn from the data or its generalization performance.",
+            "correct": false
+        },
+        {
+            "id": 72,
+            "question": "Statement 1| Industrial-scale neural networks are normally trained on CPUs, not GPUs. Statement 2| The ResNet-50 model has over 1 billion parameters.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "To determine the answer, we need to analyze both statements and see if they are true or false.\n\nStatement 1: Industrial-scale neural networks are normally trained on CPUs, not GPUs.\nThis statement is true because industrial-scale neural networks require high computational power and efficiency, which can be achieved by using CPUs rather than GPUs.\n\nStatement 2: The ResNet-50 model has over 1 billion parameters.\nThis statement is true because the ResNet-50 model is a deep learning model with a large number of parameters, which is around 1 billion.\n\nNow, we can analyze the given options:\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True\n\nSince both statements are true, the correct answer is:\n\n(A) True, True",
+            "correct": false
+        },
+        {
+            "id": 108,
+            "question": "Which of the following is false?\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.",
+            "correct_answer": 3,
+            "model_answer": "(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n\nExplanation:\n\n(A) is true because semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of the entire image.\n(C) is true because when a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) is true because a bounding box with an IoU equal to $3\\%$ would likely be considered a false negative.\n\nHowever, (B) is false because a bounding box with an IoU equal to $96\\%$ would likely be considered a true positive, not a true negative.",
+            "correct": false
+        },
+        {
+            "id": 102,
+            "question": "You are training a linear regression model for a simple estimation task, and notice that the model is overfitting to the data. You decide to add in $\\ell_2$ regularization to penalize the weights. As you increase the $\\ell_2$ regularization coefficient, what will happen to the bias and variance of the model?\n\n(A) Bias increase ; Variance increase\n(B) Bias increase ; Variance decrease\n(C) Bias decrease ; Variance increase\n(D) Bias decrease ; Variance decrease",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, let's first understand the concept of regularization and its effect on the bias and variance of a linear regression model.\n\nRegularization is a technique used in machine learning to prevent overfitting by penalizing the model for having too many parameters. This is done by adding a regularization term to the loss function, which encourages the model to find simpler solutions.\n\nThere are two main types of regularization: L1 (Lasso) and L2 (Ridge). L1 regularization penalizes the absolute value of the weights, while L2 regularization penalizes the squared value of the weights.\n\nNow, let's analyze the effect of increasing the L2 regularization coefficient on the bias and variance of the model.\n\nAs we increase the L2 regularization coefficient, the model will try to find simpler solutions by reducing the squared value of the weights. This will lead to a decrease in the magnitude of the weights, which in turn will reduce the variance of the model.\n\nHowever, the bias of the model will not change significantly. The bias is the average value of the model's predictions, and it is not directly affected by the regularization coefficient.\n\nSo, the correct answer is:\n\n(B) Bias increase ; Variance decrease",
+            "correct": true
+        },
+        {
+            "id": 97,
+            "question": "Which one of the following is equal to P(A, B, C) given Boolean random variables A, B and C, and no independence or conditional independence assumptions between any of them?\n\n(A) P(A | B) * P(B | C) * P(C | A)\n(B) P(C | A, B) * P(A) * P(B)\n(C) P(A, B | C) * P(C)\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
+            "correct_answer": 2,
+            "model_answer": "To find the correct answer, we need to analyze each option and see which one is equal to P(A, B, C) without any independence or conditional independence assumptions between A, B, and C.\n\n(A) P(A | B) * P(B | C) * P(C | A)\nThis option assumes conditional independence between A and C given B, which is not true in general.\n\n(B) P(C | A, B) * P(A) * P(B)\nThis option assumes conditional independence between A and B given C, which is not true in general.\n\n(C) P(A, B | C) * P(C)\nThis option assumes conditional independence between A and B given C, which is not true in general.\n\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)\nThis option assumes conditional independence between A and B given C, which is not true in general.\n\nNone of the given options are equal to P(A, B, C) without any independence or conditional independence assumptions between A, B, and C.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "To determine the number of independent parameters needed for this Bayesian Network H -> U <- P <- W, we need to analyze the structure of the network and identify the number of parameters that are independent of each other.\n\nStep 1: Identify the variables and their relationships\n- H is the parent of U\n- U is the parent of P\n- P is the parent of W\n\nStep 2: Determine the number of independent parameters\n- H has 2 possible values (H=0, H=1)\n- U has 2 possible values (U=0, U=1)\n- P has 2 possible values (P=0, P=1)\n- W has 2 possible values (W=0, W=1)\n\nStep 3: Count the independent parameters\n- H is independent of U, P, and W\n- U is independent of P and W\n- P is independent of W\n\nStep 4: Calculate the total number of independent parameters\n- H (1) + U (1) + P (1) + W (1) = 4 independent parameters\n\nAnswer: (B) 4",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, we need to analyze both statements and determine if they are true or false.\n\nStatement 1:\nAfter mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this).\n\nThis statement is true. Mapping data into a feature space can help improve the performance of a 1-NN algorithm using unweighted Euclidean distance. However, it is important to note that we cannot guarantee better performance in all cases.\n\nStatement 2:\nThe VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\nThis statement is false. The VC dimension of a Perceptron is equal to the number of features, while the VC dimension of a linear SVM is equal to the number of features minus one.\n\nBased on the analysis, the correct answer is:\n\n(B) False, False",
+            "correct": true
+        },
+        {
+            "id": 15,
+            "question": "Statement 1| Layer Normalization is used in the original ResNet paper, not Batch Normalization. Statement 2| DCGANs use self-attention to stabilize training.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, we need to analyze both statements and determine if they are true or false.\n\nStatement 1: Layer Normalization is used in the original ResNet paper, not Batch Normalization.\n\nResNet is a type of neural network architecture that was introduced in the paper \"Deep Residual Learning for Image Recognition\" by Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun in 2015. In this paper, they used Layer Normalization instead of Batch Normalization.\n\nStatement 2: DCGANs use self-attention to stabilize training.\n\nDCGANs (Deep Convolutional Generative Adversarial Networks) are a type of generative adversarial network (GAN) that was introduced by Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio in 2014. DCGANs do not use self-attention to stabilize training.\n\nBased on the analysis, the correct answer is:\n\n(C) True, False",
+            "correct": false
+        },
+        {
+            "id": 63,
+            "question": "What are support vectors?\n\n(A) The examples farthest from the decision boundary.\n(B) The only examples necessary to compute f(x) in an SVM.\n(C) The data centroid.\n(D) All the examples that have a non-zero weight \u03b1k in a SVM.",
+            "correct_answer": 1,
+            "model_answer": "Support vectors are:\n\n(A) The examples farthest from the decision boundary.\n\nIn a Support Vector Machine (SVM), the goal is to find a hyperplane that can separate the data points into two classes. The decision boundary is the hyperplane that separates the two classes. Support vectors are the examples that are closest to the decision boundary, and their classification can significantly affect the position of the decision boundary. By focusing on these examples, the SVM can optimize the hyperplane and improve the overall classification accuracy.",
+            "correct": false
+        },
+        {
+            "id": 57,
+            "question": "Statement 1| L2 regularization of linear models tends to make models more sparse than L1 regularization. Statement 2| Residual connections can be found in ResNets and Transformers.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "To answer this question, we need to analyze both statements and determine if they are true or false.\n\nStatement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nL2 regularization, also known as ridge regression, is a technique that penalizes large coefficients in a linear model. This tends to make the model more sparse, meaning it has fewer non-zero coefficients. On the other hand, L1 regularization, also known as lasso regression, penalizes both large and small coefficients, making the model less sparse.\n\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nResidual connections are a technique used in deep learning to help improve the performance of neural networks. They involve connecting the output of a layer to the input of the same layer, allowing the network to learn more complex patterns. ResNets (Residual Neural Networks) and Transformers are both types of neural networks that use residual connections.\n\nBased on the analysis of both statements, the correct answer is:\n\n(A) True, True",
+            "correct": false
+        }
+    ]
+}

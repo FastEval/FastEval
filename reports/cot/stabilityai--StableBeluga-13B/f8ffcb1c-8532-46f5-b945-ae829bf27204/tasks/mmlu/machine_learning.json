@@ -1,0 +1,75 @@
+{
+    "score": 0.2,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
+            "correct_answer": 0,
+            "model_answer": "To determine which structural assumption most affects the trade-off between underfitting and overfitting in a neural network, let's analyze each assumption step-by-step:\n\n(A) The number of hidden nodes: This affects the complexity of the model, but it doesn't directly impact the bias-variance trade-off.\n\n(B) The learning rate: This controls the rate at which the weights are updated during training, but it doesn't directly impact the bias-variance trade-off.\n\n(C) The initial choice of weights: This determines the starting point for the weights, but it doesn't directly impact the bias-variance trade-off.\n\n(D) The use of a constant-term unit input: This introduces a constant term in the output, which can help reduce the variance of the model, but it doesn't directly impact the bias-variance trade-off.\n\nBased on this analysis, the structural assumption that most affects the trade-off between underfitting and overfitting in a neural network is:\n\n(D) The use of a constant-term unit input.\n\nAnswer: (D)",
+            "correct": false
+        },
+        {
+            "id": 72,
+            "question": "Statement 1| Industrial-scale neural networks are normally trained on CPUs, not GPUs. Statement 2| The ResNet-50 model has over 1 billion parameters.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Analyze Statement 1\nIndustrial-scale neural networks are normally trained on CPUs, not GPUs.\n\nStep 2: Analyze Statement 2\nThe ResNet-50 model has over 1 billion parameters.\n\nStep 3: Determine the relationship between the two statements\nStatement 1 talks about the hardware used for training neural networks, while Statement 2 talks about the number of parameters in a specific model.\n\nStep 4: Evaluate the truth of each statement\nStatement 1 is true, as industrial-scale neural networks are indeed trained on CPUs, not GPUs.\nStatement 2 is true, as the ResNet-50 model has over 1 billion parameters.\n\nStep 5: Determine the correct answer based on the relationship and truth of each statement\nSince Statement 1 is true and Statement 2 is true, the correct answer is:\n\n(A) True, True",
+            "correct": false
+        },
+        {
+            "id": 108,
+            "question": "Which of the following is false?\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.",
+            "correct_answer": 3,
+            "model_answer": "Step 1: Understand the question\nThe question asks which of the given statements is false.\n\nStep 2: Analyze each statement\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.\n\nStep 3: Identify the false statement\nStatement (B) is false because it claims that a bounding box with an IoU of $96\\%$ would likely be considered a true positive. However, the IoU is a measure of overlap between the predicted bounding box and the ground truth bounding box, and a higher IoU indicates a better match. A true positive would have a high IoU, not a low one.\n\nStep 4: Output the answer\nThe answer is (B).",
+            "correct": false
+        },
+        {
+            "id": 102,
+            "question": "You are training a linear regression model for a simple estimation task, and notice that the model is overfitting to the data. You decide to add in $\\ell_2$ regularization to penalize the weights. As you increase the $\\ell_2$ regularization coefficient, what will happen to the bias and variance of the model?\n\n(A) Bias increase ; Variance increase\n(B) Bias increase ; Variance decrease\n(C) Bias decrease ; Variance increase\n(D) Bias decrease ; Variance decrease",
+            "correct_answer": 1,
+            "model_answer": "To understand the effect of adding $\\ell_2$ regularization to the model, let's first analyze the bias and variance of the model without regularization.\n\nWithout regularization, the model is overfitting to the data, which means it is trying to fit the training data too closely. This leads to a high bias and high variance.\n\nNow, let's consider the effect of adding $\\ell_2$ regularization to the model. The regularization term penalizes the weights, which means the model will try to find a balance between fitting the data and avoiding overfitting. This results in a trade-off between bias and variance.\n\nAs we increase the regularization coefficient, the model will try to reduce the impact of the weights on the predictions. This will lead to a decrease in the variance of the model, as it will be less likely to overfit the data. However, this decrease in variance will also lead to an increase in the bias of the model, as it will be less likely to capture the true underlying relationship between the features and the target variable.\n\nSo, the answer is:\n\n(A) Bias increase ; Variance decrease",
+            "correct": false
+        },
+        {
+            "id": 97,
+            "question": "Which one of the following is equal to P(A, B, C) given Boolean random variables A, B and C, and no independence or conditional independence assumptions between any of them?\n\n(A) P(A | B) * P(B | C) * P(C | A)\n(B) P(C | A, B) * P(A) * P(B)\n(C) P(A, B | C) * P(C)\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
+            "correct_answer": 2,
+            "model_answer": "To find the answer, we need to analyze each option step-by-step.\n\n(A) P(A | B) * P(B | C) * P(C | A)\n\nThis option assumes conditional independence between A and C given B, and between B and C given A. However, we are not given any independence or conditional independence assumptions between any of the variables.\n\n(B) P(C | A, B) * P(A) * P(B)\n\nThis option assumes conditional independence between A and C given B, and between B and C given A. However, we are not given any independence or conditional independence assumptions between any of the variables.\n\n(C) P(A, B | C) * P(C)\n\nThis option assumes conditional independence between A and C given B, and between B and C given A. However, we are not given any independence or conditional independence assumptions between any of the variables.\n\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)\n\nThis option assumes conditional independence between A and C given B, and between B and C given A. However, we are not given any independence or conditional independence assumptions between any of the variables.\n\nSince all options assume conditional independence between A and C given B, and between B and C given A, but we are not given any independence or conditional independence assumptions between any of the variables, none of the options are equal to P(A, B, C).\n\nThe answer is:\n\n(E) None of the options are equal to P(A, B, C).",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "To determine the number of independent parameters needed for this Bayesian Network H -> U <- P <- W, we will follow these steps:\n\n1. Identify the nodes in the network.\n2. Determine the number of parents for each node.\n3. Calculate the number of independent parameters needed.\n\nStep 1: Identify the nodes in the network.\n- H\n- U\n- P\n- W\n\nStep 2: Determine the number of parents for each node.\n- H: 1 parent (U)\n- U: 1 parent (H)\n- P: 1 parent (W)\n- W: 1 parent (P)\n\nStep 3: Calculate the number of independent parameters needed.\n- H: 1 independent parameter (U)\n- U: 1 independent parameter (H)\n- P: 1 independent parameter (W)\n- W: 1 independent parameter (P)\n\nTotal independent parameters needed: 1 + 1 + 1 + 1 = 4\n\nAnswer: (B) 4",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Understand the statements\nStatement 1: After mapping into feature space Q using a radial basis kernel function, 1-NN using unweighted Euclidean distance may perform better than in the original space.\nStatement 2: The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\nStep 2: Analyze the statements\nStatement 1: The statement suggests that mapping into feature space Q using a radial basis kernel function and 1-NN with unweighted Euclidean distance may improve classification performance.\nStatement 2: The statement compares the VC dimension of a Perceptron to that of a simple linear SVM and claims that the VC dimension of a Perceptron is smaller.\n\nStep 3: Determine the relationship between the statements\nStatement 1 and 2 are unrelated.\n\nStep 4: Choose the correct answer\nSince the statements are unrelated, the correct answer is:\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True\n\nAnswer: (A) True, True",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "Statement 1| Layer Normalization is used in the original ResNet paper, not Batch Normalization. Statement 2| DCGANs use self-attention to stabilize training.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Analyze Statement 1\nStatement 1 says that Layer Normalization is used in the original ResNet paper, not Batch Normalization.\n\nStep 2: Analyze Statement 2\nStatement 2 says that DCGANs use self-attention to stabilize training.\n\nStep 3: Compare the statements\nStatement 1 is about ResNet and Batch Normalization, while Statement 2 is about DCGANs and self-attention.\n\nStep 4: Determine the correct answer\nSince the statements are about different topics, we cannot determine if both statements are true or false based on the information provided.\n\nAnswer: (A) True, True\n(B) False, False\n(C) True, False\n(D) False, True\n\nAnswer: (D) False, True",
+            "correct": false
+        },
+        {
+            "id": 63,
+            "question": "What are support vectors?\n\n(A) The examples farthest from the decision boundary.\n(B) The only examples necessary to compute f(x) in an SVM.\n(C) The data centroid.\n(D) All the examples that have a non-zero weight \u03b1k in a SVM.",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Understand the question\nThe question is asking for an explanation of support vectors in the context of Support Vector Machines (SVMs).\n\nStep 2: Define Support Vector Machines\nSupport Vector Machines (SVMs) are a type of supervised machine learning algorithm used for classification and regression tasks. They are designed to find the best separation between different classes of data.\n\nStep 3: Define Support Vectors\nSupport vectors are the examples in the training data that are farthest from the decision boundary.\n\nStep 4: Compare the options\nOption A: The examples farthest from the decision boundary.\nOption B: The only examples necessary to compute f(x) in an SVM.\nOption C: The data centroid.\nOption D: All the examples that have a non-zero weight \u03b1k in a SVM.\n\nStep 5: Determine the correct answer\nOption A is the correct answer because support vectors are the examples farthest from the decision boundary.\n\nAnswer: (A)",
+            "correct": false
+        },
+        {
+            "id": 57,
+            "question": "Statement 1| L2 regularization of linear models tends to make models more sparse than L1 regularization. Statement 2| Residual connections can be found in ResNets and Transformers.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "Step 1: Understand the statements\nStatement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nStep 2: Analyze the statements\nStatement 1: L2 regularization is a type of regularization that tends to make models more sparse than L1 regularization. Sparsity refers to the number of non-zero weights in a model.\nStatement 2: Residual connections are a type of connection found in neural networks, specifically in ResNets and Transformers.\n\nStep 3: Determine if the statements are true or false\nStatement 1: True\nStatement 2: True\n\nStep 4: Determine the relationship between the statements\nStatement 1 is about L2 regularization and L1 regularization, while Statement 2 is about residual connections. There is no direct relationship between the two statements.\n\nStep 5: Choose the correct answer\nSince there is no direct relationship between the two statements, the correct answer is:\n\n(D) False, True",
+            "correct": true
+        }
+    ]
+}

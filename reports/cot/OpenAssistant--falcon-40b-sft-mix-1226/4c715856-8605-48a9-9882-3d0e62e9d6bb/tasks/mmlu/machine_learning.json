@@ -1,0 +1,75 @@
+{
+    "score": 0.3,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
+            "correct_answer": 0,
+            "model_answer": "The structural assumption that most affects the trade-off between underfitting and overfitting in a neural network is the number of hidden nodes (A).\n\nExplanation:\n\nUnderfitting occurs when a model is too simple and cannot capture the underlying patterns in the data. This can happen when there are not enough hidden nodes in the network, resulting in a low-variance model that cannot generalize to new data.\n\nOverfitting occurs when a model is too complex and fits the training data too closely, resulting in poor performance on new data. This can happen when there are too many hidden nodes in the network, resulting in a high-variance model that overfits the training data.\n\nThe learning rate (B) and the initial choice of weights (C) can also affect the trade-off between underfitting and overfitting, but to a lesser extent. The learning rate determines the speed at which the model updates its weights during training, and a too-high learning rate can lead to overfitting. The initial choice of weights can also affect the model's performance, but this can usually be addressed by using a good initialization method.\n\nThe use of a constant-term unit input (D) does not affect the trade-off between underfitting and overfitting, as it is a property of the activation function used in the network, rather than a structural assumption.\n\nAnswer: (A)",
+            "correct": true
+        },
+        {
+            "id": 72,
+            "question": "Statement 1| Industrial-scale neural networks are normally trained on CPUs, not GPUs. Statement 2| The ResNet-50 model has over 1 billion parameters.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Statement 1 is true. It is common practice to train large neural networks on CPUs due to their lower cost and better energy efficiency compared to GPUs.\n\nStatement 2 is false. The ResNet-50 model has 50 layers and 1.3 billion parameters, not over 1 billion.\n\nTherefore, the correct answer is (C) True, False.",
+            "correct": false
+        },
+        {
+            "id": 108,
+            "question": "Which of the following is false?\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.",
+            "correct_answer": 3,
+            "model_answer": "(A) is false. Semantic segmentation models can also predict the class of entire image.\n(B) is true. An IoU of $96\\%$ would likely be considered a true positive.\n(C) is true. A predicted bounding box that does not correspond to any object in the scene is considered a false positive.\n(D) is false. A bounding box with an IoU of $3\\%$ would likely be considered a false positive.",
+            "correct": true
+        },
+        {
+            "id": 102,
+            "question": "You are training a linear regression model for a simple estimation task, and notice that the model is overfitting to the data. You decide to add in $\\ell_2$ regularization to penalize the weights. As you increase the $\\ell_2$ regularization coefficient, what will happen to the bias and variance of the model?\n\n(A) Bias increase ; Variance increase\n(B) Bias increase ; Variance decrease\n(C) Bias decrease ; Variance increase\n(D) Bias decrease ; Variance decrease",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, we need to understand how $\\ell_2$ regularization works. $\\ell_2$ regularization adds a penalty term to the loss function that is proportional to the magnitude of the weights. This encourages the model to have smaller weights, which can help prevent overfitting.\n\nWhen we increase the $\\ell_2$ regularization coefficient, the penalty term becomes more important in the loss function, and the model will try to minimize it. This will have an effect on both the bias and the variance of the model.\n\nThe bias of the model is the average error of the predictions. If we increase the $\\ell_2$ regularization coefficient, the model will be encouraged to have smaller weights, which can help reduce the bias of the model. This is because smaller weights will result in smaller predictions, and the average error will be smaller.\n\nThe variance of the model is a measure of how much the predictions vary from the true values. If we increase the $\\ell_2$ regularization coefficient, the model will be encouraged to have smaller weights, which can help reduce the variance of the model. This is because smaller weights will result in less variation in the predictions, and the predictions will be closer to the true values.\n\nBased on this reasoning, the correct answer is:\n\n(D) Bias decrease ; Variance decrease",
+            "correct": false
+        },
+        {
+            "id": 97,
+            "question": "Which one of the following is equal to P(A, B, C) given Boolean random variables A, B and C, and no independence or conditional independence assumptions between any of them?\n\n(A) P(A | B) * P(B | C) * P(C | A)\n(B) P(C | A, B) * P(A) * P(B)\n(C) P(A, B | C) * P(C)\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
+            "correct_answer": 2,
+            "model_answer": "Let's first consider the definition of P(A, B, C) as the probability of events A, B, and C occurring together. We can calculate this probability using the multiplication rule of probability, which states that P(A and B and C) = P(A) * P(B) * P(C).\n\nNow, let's consider the given options:\n\n(A) P(A | B) * P(B | C) * P(C | A)\nThis expression calculates the probability of event A occurring given that event B has occurred, multiplied by the probability of event B occurring given that event C has occurred, multiplied by the probability of event C occurring given that event A has occurred. However, this expression does not satisfy the definition of P(A, B, C) because it does not take into account the joint probability of all three events occurring together.\n\n(B) P(C | A, B) * P(A) * P(B)\nThis expression calculates the probability of event C occurring given that events A and B have occurred, multiplied by the probabilities of events A and B occurring. However, this expression also does not satisfy the definition of P(A, B, C) because it does not take into account the joint probability of all three events occurring together.\n\n(C) P(A, B | C) * P(C)\nThis expression calculates the probability of events A and B occurring given that event C has occurred, multiplied by the probability of event C occurring. However, this expression also does not satisfy the definition of P(A, B, C) because it does not take into account the joint probability of all three events occurring together.\n\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)\nThis expression calculates the probability of event A occurring given that events B and C have occurred, multiplied by the probabilities of events B and C occurring given that event A has occurred, multiplied by the probability of event C occurring given that events A and B have occurred. This expression satisfies the definition of P(A, B, C) because it takes into account the joint probability of all three events occurring together.\n\nTherefore, the correct answer is (D).",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "To determine the number of independent parameters needed for a Bayesian network, we need to count the number of conditional independence relationships that can be established between the variables.\n\nIn the given Bayesian network, we have four variables: H, U, P, and W. We can establish the following conditional independence relationships:\n\n1. H -> U: This relationship implies that the value of H is independent of the value of U given the values of the other variables in the network.\n2. U <- P: This relationship implies that the value of U is independent of the value of P given the values of the other variables in the network.\n3. P <- W: This relationship implies that the value of P is independent of the value of W given the values of the other variables in the network.\n\nTherefore, we can establish three conditional independence relationships in this Bayesian network.\n\nNow, we need to count the number of independent parameters needed to represent the conditional probability distributions of each variable given the values of the other variables in the network.\n\nFor variable H, we need one independent parameter to represent its probability distribution given the values of U, P, and W.\n\nFor variable U, we need one independent parameter to represent its probability distribution given the values of H, P, and W.\n\nFor variable P, we need one independent parameter to represent its probability distribution given the values of H and W.\n\nFor variable W, we need one independent parameter to represent its probability distribution given the values of H and P.\n\nTherefore, the total number of independent parameters needed for this Bayesian network is 1 + 1 + 1 + 1 = 4.\n\nThe answer is (B) 4.",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Statement 1 is true because it is possible that the 1-NN algorithm can achieve better classification performance in the feature space Q through a radial basis kernel function than in the original space, although this is not guaranteed.\n\nStatement 2 is false because the VC dimension of a Perceptron is not necessarily smaller than the VC dimension of a simple linear SVM. The VC dimension of a Perceptron is the number of different inputs that it can distinguish, while the VC dimension of a simple linear SVM is the number of different decision boundaries that it can create. The VC dimension of a Perceptron is typically smaller than the VC dimension of a simple linear SVM, but this is not always the case.",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "Statement 1| Layer Normalization is used in the original ResNet paper, not Batch Normalization. Statement 2| DCGANs use self-attention to stabilize training.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Statement 1 is true, as the original ResNet paper uses Layer Normalization, not Batch Normalization.\n\nStatement 2 is false, as DCGANs do not use self-attention to stabilize training.\n\nTherefore, the correct answer is (B) False, False.",
+            "correct": true
+        },
+        {
+            "id": 63,
+            "question": "What are support vectors?\n\n(A) The examples farthest from the decision boundary.\n(B) The only examples necessary to compute f(x) in an SVM.\n(C) The data centroid.\n(D) All the examples that have a non-zero weight \u03b1k in a SVM.",
+            "correct_answer": 1,
+            "model_answer": "The support vectors in a Support Vector Machine (SVM) are the examples that are used to define the decision boundary. These are the examples that are closest to the decision boundary and are used to separate the different classes in the data.\n\nThe decision boundary in an SVM is defined by the hyperplane that maximizes the margin between the two classes. The margin is the distance between the decision boundary and the closest example from either class. The support vectors are the examples that are closest to the decision boundary and therefore have the smallest margin.\n\nThe support vectors are not necessarily the only examples that are used to compute the decision boundary. In fact, all the examples in the dataset are used to compute the decision boundary, but only the support vectors are used to define it.\n\nTherefore, the correct answer is (A) The examples farthest from the decision boundary.",
+            "correct": false
+        },
+        {
+            "id": 57,
+            "question": "Statement 1| L2 regularization of linear models tends to make models more sparse than L1 regularization. Statement 2| Residual connections can be found in ResNets and Transformers.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "Statement 1:\nL2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nExplanation:\nL1 regularization adds a penalty term to the loss function that is proportional to the absolute value of the weights, which encourages the model to have smaller weights. This can lead to sparse models, where only a few weights are non-zero.\n\nOn the other hand, L2 regularization adds a penalty term that is proportional to the square of the weights, which encourages the model to have smaller weights in general, not just the absolute values. This can also lead to sparse models, but not necessarily.\n\nStatement 2:\nResidual connections can be found in ResNets and Transformers.\n\nExplanation:\nResidual connections are a type of skip connection that allows the output of one layer to be directly added to the input of the next layer, without going through a fully connected layer. This can help to preserve the information from the previous layer and improve the performance of the model.\n\nResidual connections are commonly used in ResNets and Transformers, which are two popular types of neural network architectures.\n\nAnswer:\n(C) True, False",
+            "correct": false
+        }
+    ]
+}

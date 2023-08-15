@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
+            "correct_answer": 0,
+            "model_answer": "The structural assumption that most affects the trade-off between underfitting and overfitting in a neural network is (B) the learning rate.\n\nThe learning rate is a hyperparameter that determines how quickly the weights of the neural network are updated during training. A high learning rate can cause the model to converge quickly, but it may also lead to overfitting, as the model may not have enough time to adjust the weights to fit the training data accurately. On the other hand, a low learning rate can cause the model to converge slowly, which may lead to underfitting, as the model may not be able to learn the complex patterns in the data.\n\nThe number of hidden nodes (A), the initial choice of weights (C), and the use of a constant-term unit input (D) can also affect the performance of the neural network, but they are not as critical as the learning rate in determining the trade-off between underfitting and overfitting.\n\nTherefore, the answer is (B) the learning rate.",
+            "correct": false
+        },
+        {
+            "id": 72,
+            "question": "Statement 1| Industrial-scale neural networks are normally trained on CPUs, not GPUs. Statement 2| The ResNet-50 model has over 1 billion parameters.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Analyze Statement 1\nIndustrial-scale neural networks are normally trained on CPUs, not GPUs.\nThis statement is talking about the hardware used for training neural networks, specifically that CPUs are more commonly used than GPUs for industrial-scale neural networks.\n\nStep 2: Analyze Statement 2\nThe ResNet-50 model has over 1 billion parameters.\nThis statement is talking about the number of parameters in the ResNet-50 model, which is a deep learning model used in image recognition.\n\nStep 3: Determine the truth value of each statement\nStatement 1 is true because it is a well-known fact that CPUs are more commonly used than GPUs for training industrial-scale neural networks.\nStatement 2 is true because the ResNet-50 model has over 1 billion parameters, which is a large number.\n\nStep 4: Determine the answer\nThe answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 108,
+            "question": "Which of the following is false?\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.",
+            "correct_answer": 3,
+            "model_answer": "(A) is false. While it is true that semantic segmentation models predict the class of each pixel, multiclass image classifiers can also predict the class of each pixel. The difference between the two is that semantic segmentation models predict the class of each pixel in an image, while multiclass image classifiers predict the class of the entire image.\n\n(B) is true. A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered a true positive. This is because an IoU of $96\\%$ means that the predicted bounding box and the ground truth bounding box have a high degree of overlap, which is typically considered a positive result.\n\n(C) is true. When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive. This is because the model has predicted the presence of an object that is not actually present in the scene.\n\n(D) is true. A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered a false negative. This is because an IoU of $3\\%$ means that the predicted bounding box and the ground truth bounding box have very little overlap, which is typically considered a negative result.",
+            "correct": true
+        },
+        {
+            "id": 102,
+            "question": "You are training a linear regression model for a simple estimation task, and notice that the model is overfitting to the data. You decide to add in $\\ell_2$ regularization to penalize the weights. As you increase the $\\ell_2$ regularization coefficient, what will happen to the bias and variance of the model?\n\n(A) Bias increase ; Variance increase\n(B) Bias increase ; Variance decrease\n(C) Bias decrease ; Variance increase\n(D) Bias decrease ; Variance decrease",
+            "correct_answer": 1,
+            "model_answer": "When adding $\\ell_2$ regularization to a linear regression model, the penalty term added to the loss function will help to reduce overfitting by shrinking the weights towards zero. This means that the model will learn to fit the data more accurately, reducing both the bias and variance of the model.\n\nAs the regularization coefficient increases, the penalty term becomes stronger, and the weights will be shrunk more towards zero. This will result in a decrease in both the bias and variance of the model. Therefore, the correct answer is:\n\n(D) Bias decrease ; Variance decrease.",
+            "correct": false
+        },
+        {
+            "id": 97,
+            "question": "Which one of the following is equal to P(A, B, C) given Boolean random variables A, B and C, and no independence or conditional independence assumptions between any of them?\n\n(A) P(A | B) * P(B | C) * P(C | A)\n(B) P(C | A, B) * P(A) * P(B)\n(C) P(A, B | C) * P(C)\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
+            "correct_answer": 2,
+            "model_answer": "To solve this problem, we need to use the definition of conditional probability and the fact that the random variables are not independent. Let's analyze each option:\n\n(A) P(A | B) * P(B | C) * P(C | A)\n\nThis option is not correct because it assumes that A is independent of C given B, which is not true if the random variables are not independent.\n\n(B) P(C | A, B) * P(A) * P(B)\n\nThis option is not correct because it assumes that A and B are independent given C, which is not true if the random variables are not independent.\n\n(C) P(A, B | C) * P(C)\n\nThis option is not correct because it assumes that A and B are independent given C, which is not true if the random variables are not independent.\n\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)\n\nThis option is correct because it does not assume any independence between the random variables. We can calculate this probability as follows:\n\nP(A | B, C) = P(A and B and C) / P(B and C)\nP(B | A, C) = P(B and A and C) / P(A and C)\nP(C | A, B) = P(C and A and B) / P(A and B)\n\nTherefore, the correct answer is:\n\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "To determine the number of independent parameters needed for this Bayesian network, we need to analyze the structure of the network and the relationships between the variables.\n\nThe Bayesian network has four variables: H, U, P, and W. The structure of the network can be represented as follows:\n\nH -> U\nU <- P\nP <- W\n\nFrom the structure of the network, we can see that there are three conditional relationships:\n\n1. H -> U\n2. U <- P\n3. P <- W\n\nIn each of these relationships, the probability of one variable depends on the value of another variable. This means that there are three independent parameters needed to specify the joint probability distribution for this Bayesian network.\n\nTherefore, the answer is:\n\n(B) 4",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Let's analyze each statement separately.\n\nStatement 1: After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this).\n\nThis statement is talking about the performance of 1-NN using unweighted Euclidean distance in a different feature space. It is not guaranteed that it will perform better, but it may be able to achieve better classification performance.\n\nStatement 2: The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\nThis statement is comparing the VC dimension of a Perceptron to that of a simple linear SVM. The VC dimension of a Perceptron is 1, while the VC dimension of a simple linear SVM is infinite. Therefore, the VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\nBased on the analysis above, the correct answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "Statement 1| Layer Normalization is used in the original ResNet paper, not Batch Normalization. Statement 2| DCGANs use self-attention to stabilize training.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "Step 1: Let's analyze Statement 1.\nThe original ResNet paper uses Layer Normalization, not Batch Normalization. This means that the statement is true.\n\nStep 2: Let's analyze Statement 2.\nDCGANs use self-attention to stabilize training. This means that the statement is also true.\n\nTherefore, the correct answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 63,
+            "question": "What are support vectors?\n\n(A) The examples farthest from the decision boundary.\n(B) The only examples necessary to compute f(x) in an SVM.\n(C) The data centroid.\n(D) All the examples that have a non-zero weight \u03b1k in a SVM.",
+            "correct_answer": 1,
+            "model_answer": "Support vectors are (A) The examples farthest from the decision boundary.\n\nIn a support vector machine (SVM), the decision boundary is the hyperplane that separates the data into different classes. Support vectors are the examples that are closest to this decision boundary. These examples are important because they determine the position of the decision boundary and have the most influence on the classification. By finding the support vectors, we can find the optimal decision boundary that maximizes the margin between the classes.",
+            "correct": false
+        },
+        {
+            "id": 57,
+            "question": "Statement 1| L2 regularization of linear models tends to make models more sparse than L1 regularization. Statement 2| Residual connections can be found in ResNets and Transformers.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "Let's analyze each statement separately.\n\nStatement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nThis statement is generally true. L2 regularization, also known as the square loss or the Euclidean distance, is a measure of the goodness of fit of a linear model. It penalizes large errors equally for all observations, whereas L1 regularization, also known as the absolute deviation or the taxicab distance, penalizes large errors more for some observations than for others. As a result, L2 regularization tends to produce smoother and more interpretable models than L1 regularization, which can lead to overfitting.\n\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nThis statement is also true. Residual connections are a technique used in deep learning to mitigate the vanishing gradient problem. They involve adding the original input to the output of each layer before passing it to the next layer. This allows the gradient to flow more easily through the network and helps prevent overfitting. ResNets, which are a type of convolutional neural network, use residual connections in their architecture. Transformers, which are a type of attention-based neural network, also use residual connections in their self-attention mechanism.",
+            "correct": false
+        }
+    ]
+}

@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
+            "correct_answer": 0,
+            "model_answer": "The answer is (D) The use of a constant-term unit input.\n\nReasoning:\nThe trade-off between underfitting and overfitting in a neural network is mainly determined by the complexity of the model. The use of a constant-term unit input can affect this complexity. \n\nIf a constant-term unit input is used, it means that the neural network is essentially a linear model, which is a simple model with low complexity. This can lead to underfitting, as the model may not be able to capture the complexity of the data. \n\nOn the other hand, if a constant-term unit input is not used, the neural network can have higher complexity, which can help it capture the complexity of the data better. However, this can also lead to overfitting, as the model may be too complex and fit the noise in the data.\n\nTherefore, the use of a constant-term unit input is the structural assumption that most affects the trade-off between underfitting and overfitting in a neural network.",
+            "correct": false
+        },
+        {
+            "id": 72,
+            "question": "Statement 1| Industrial-scale neural networks are normally trained on CPUs, not GPUs. Statement 2| The ResNet-50 model has over 1 billion parameters.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, we need to evaluate each statement separately and then combine them to form a conclusion.\n\nStatement 1: Industrial-scale neural networks are normally trained on CPUs, not GPUs.\nThis statement is True.\n\nStatement 2: The ResNet-50 model has over 1 billion parameters.\nThis statement is also True.\n\nNow, we need to combine these two statements to form a conclusion. Since both statements are True, the final answer is:\n\n(A) True, True",
+            "correct": false
+        },
+        {
+            "id": 108,
+            "question": "Which of the following is false?\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.",
+            "correct_answer": 3,
+            "model_answer": "To determine which statement is false, we need to analyze each statement one by one.\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\nThis statement is true.\n\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\nThis statement is true.\n\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\nThis statement is true.\n\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.\nThis statement is false.\n\nTherefore, the false statement is (D).",
+            "correct": true
+        },
+        {
+            "id": 102,
+            "question": "You are training a linear regression model for a simple estimation task, and notice that the model is overfitting to the data. You decide to add in $\\ell_2$ regularization to penalize the weights. As you increase the $\\ell_2$ regularization coefficient, what will happen to the bias and variance of the model?\n\n(A) Bias increase ; Variance increase\n(B) Bias increase ; Variance decrease\n(C) Bias decrease ; Variance increase\n(D) Bias decrease ; Variance decrease",
+            "correct_answer": 1,
+            "model_answer": "When we add $\\ell_2$ regularization to a linear regression model, the regularization term is added to the loss function, which penalizes the weights. This helps to reduce overfitting by encouraging the model to learn simpler weights. \n\nAs we increase the $\\ell_2$ regularization coefficient, the weights will be penalized more heavily, which will result in a decrease in the magnitude of the weights. This means that the model will be less sensitive to the individual features, which can help to reduce overfitting.\n\nHowever, the $\\ell_2$ regularization does not directly affect the bias of the model. The bias is a constant term that is added to the linear combination of the features, and it does not change as the weights are updated.\n\nTherefore, as we increase the $\\ell_2$ regularization coefficient, the variance of the model will decrease. This is because the model will learn to rely more on the overall trend of the data, rather than the individual features. However, the effect on the bias will be minimal, and it will remain constant.\n\nSo the answer is (C) Bias decrease ; Variance increase.",
+            "correct": false
+        },
+        {
+            "id": 97,
+            "question": "Which one of the following is equal to P(A, B, C) given Boolean random variables A, B and C, and no independence or conditional independence assumptions between any of them?\n\n(A) P(A | B) * P(B | C) * P(C | A)\n(B) P(C | A, B) * P(A) * P(B)\n(C) P(A, B | C) * P(C)\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
+            "correct_answer": 2,
+            "model_answer": "To solve this problem, we need to use the definition of conditional probability. Let's break down each option and see if it satisfies the given conditions.\n\n(A) P(A | B) * P(B | C) * P(C | A)\nThis option is not equal to P(A, B, C) because it does not consider the joint probability of all three events. It only considers the conditional probabilities of A given B and C, and C given A and B.\n\n(B) P(C | A, B) * P(A) * P(B)\nThis option is not equal to P(A, B, C) because it does not consider the joint probability of all three events. It only considers the conditional probability of C given A and B, and the probabilities of A and B.\n\n(C) P(A, B | C) * P(C)\nThis option is not equal to P(A, B, C) because it does not consider the joint probability of all three events. It only considers the conditional probabilities of A and B given C, and the probability of C.\n\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)\nThis option is equal to P(A, B, C) because it considers the joint probability of all three events. It considers the conditional probabilities of A given B and C, B given A and C, and C given A and B. Therefore, the answer is (D).",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "To determine the number of independent parameters needed for this Bayesian Network, we need to identify the number of nodes and the number of edges.\n\nThere are 4 nodes in the network: H, U, P, and W.\n\nThere are 3 edges in the network: H -> U, U -> P, and P -> W.\n\nThe number of independent parameters needed for a Bayesian network is equal to the number of nodes minus the number of edges. In this case, we have:\n\n4 nodes - 3 edges = 1\n\nTherefore, there is only 1 independent parameter needed for this Bayesian Network H -> U <- P <- W. The answer is (A) 2.",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, we need to analyze each statement separately.\n\nStatement 1:\nAfter mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this).\n\nThis statement is true. When we map the data into a higher-dimensional feature space using a kernel function, it can help to separate the classes better. The 1-NN algorithm, which is a simple classifier that assigns a point to the class with the nearest neighbor, can potentially perform better in the feature space than in the original space. However, we cannot guarantee this improvement, as it depends on the specific data and the choice of kernel function.\n\nStatement 2:\nThe VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\nThis statement is false. The VC dimension is a measure of the complexity of a classifier, and it is defined as the minimum number of linearly separable classes that the classifier can classify. For a Perceptron, the VC dimension is 1, while for a simple linear SVM, the VC dimension is also 1. Therefore, the VC dimension of a Perceptron is not smaller than that of a simple linear SVM.",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "Statement 1| Layer Normalization is used in the original ResNet paper, not Batch Normalization. Statement 2| DCGANs use self-attention to stabilize training.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, we need to analyze each statement separately.\n\nStatement 1: Layer Normalization is used in the original ResNet paper, not Batch Normalization.\n- The original ResNet paper uses Layer Normalization, which is a technique used to normalize the input to each layer in a neural network.\n- Batch Normalization is a similar technique, but it is applied to the entire batch during training.\n- Since the original ResNet paper uses Layer Normalization and not Batch Normalization, the first statement is True.\n\nStatement 2: DCGANs use self-attention to stabilize training.\n- DCGANs (Deep Convolutional Generative Adversarial Networks) are a type of GAN that uses convolutional layers to generate new data.\n- Self-attention is a technique used in neural networks to allow the model to focus on different parts of the input sequence.\n- DCGANs use self-attention to stabilize training by allowing the model to focus on different parts of the input sequence and generate more diverse outputs.\n- Since DCGANs use self-attention to stabilize training, the second statement is True.\n\nTherefore, the correct answer is (A) True, True.",
+            "correct": false
+        },
+        {
+            "id": 63,
+            "question": "What are support vectors?\n\n(A) The examples farthest from the decision boundary.\n(B) The only examples necessary to compute f(x) in an SVM.\n(C) The data centroid.\n(D) All the examples that have a non-zero weight \u03b1k in a SVM.",
+            "correct_answer": 1,
+            "model_answer": "The correct answer is (A) The examples farthest from the decision boundary.\n\nExplanation:\nSupport vectors are the examples that are used to create a hyperplane or a decision boundary in a Support Vector Machine (SVM) algorithm. These examples are chosen in such a way that they are farthest from the decision boundary. The decision boundary is a line that separates the data points into two classes. The support vectors are the examples that are closest to the decision boundary and are used to create the boundary. The farther the support vectors are from the decision boundary, the better the separation between the two classes. Therefore, the examples farthest from the decision boundary are the support vectors.",
+            "correct": false
+        },
+        {
+            "id": 57,
+            "question": "Statement 1| L2 regularization of linear models tends to make models more sparse than L1 regularization. Statement 2| Residual connections can be found in ResNets and Transformers.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "To answer this question, we need to analyze each statement separately and determine if they are true or false.\n\nStatement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nL2 regularization adds a penalty term to the loss function that encourages the model to have smaller weights. This can lead to sparser models, as it discourages the inclusion of irrelevant features. On the other hand, L1 regularization adds a penalty term that encourages the model to have only non-zero weights, which can also lead to sparser models. However, L1 regularization can be more aggressive in removing features, which may not always be desirable. Therefore, statement 1 is true.\n\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nResidual connections are connections between an output layer and an intermediate layer in a neural network. They help the network to learn complex patterns by allowing the gradient to flow more easily through the network. ResNets, a type of neural network, use residual connections to improve their performance. Transformers, a type of neural network used in natural language processing, also use residual connections. Therefore, statement 2 is true.\n\nBased on our analysis, the correct answer is (A) True, True.",
+            "correct": false
+        }
+    ]
+}
