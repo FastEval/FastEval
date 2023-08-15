@@ -2,6 +2,7 @@ import os
 import json
 
 from evaluation.benchmarks.utils import model_name_to_filename
+from evaluation.constants import WEIGHTS
 
 def compute_total_scores(model_name, evaluation_id):
     benchmarks = ['cot', 'human-eval-plus', 'lm-evaluation-harness', 'mt-bench']
@@ -33,13 +34,13 @@ def compute_total_scores(model_name, evaluation_id):
         scores['benchmarks'][benchmark_name] = benchmark_score
 
     if len(scores['benchmarks'].keys()) == 4:
-        # https://github.com/FastEval/FastEval/issues/61#issuecomment-1668562791
-        scores['total'] = (
-            2.258328740981252 * scores['benchmarks']['mt-bench']
-            + 15.877679229809127 * scores['benchmarks']['cot']
-            + 15.128786199627087 * scores['benchmarks']['human-eval-plus']
-            + 0.4641024716075128 * scores['benchmarks']['lm-evaluation-harness']
-        )
+        scores['total'] = 0
+        max_value = 0
+        for benchmark_name, (weight, benchmark_max_value) in WEIGHTS.items():
+            scores['total'] += weight * scores['benchmarks'][benchmark_name]
+            max_value += weight * benchmark_max_value
+        scores['total'] /= max_value
+        scores['total'] *= 100
 
     output_filename = os.path.join('reports', 'total', model_name_to_filename(model_name), evaluation_id, 'scores.json')
     os.makedirs(os.path.dirname(output_filename), exist_ok=True)
