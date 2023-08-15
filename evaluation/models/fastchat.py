@@ -98,21 +98,21 @@ def start_server(*, model_name, tokenizer_path=None, use_vllm):
             break
 
     if use_vllm:
+        import torch
         worker_name = 'fastchat.serve.vllm_worker'
-        if tokenizer_path is None:
-            additional_worker_args = []
-        else:
-            additional_worker_args = ['--tokenizer', tokenizer_path]
+        additional_worker_args = ['--num-gpus', str(torch.cuda.device_count())]
+        if tokenizer_path is not None:
+            additional_worker_args += ['--tokenizer', tokenizer_path]
     else:
         worker_name = 'fastchat.serve.model_worker'
         if tokenizer_path is not None:
             raise Exception('For fastchat models, the tokenizer can currently only be configured with the vLLM backend.')
         additional_worker_args = []
 
-    model_process = subprocess.Popen(['python3', '-m', worker_name, '--host', '127.0.0.1', '--model-path', model_name, *additional_worker_args],
-        stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
-    api_process = subprocess.Popen(['python3', '-m', 'fastchat.serve.openai_api_server', '--host', '127.0.0.1', '--port', '8000'],
-        stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+    model_process = subprocess.Popen(['python3', '-m', worker_name, '--host', '127.0.0.1', '--model-path', model_name,
+        '--controller-address', 'http://127.0.0.1:21001', *additional_worker_args], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+    api_process = subprocess.Popen(['python3', '-m', 'fastchat.serve.openai_api_server', '--host', '127.0.0.1', '--port', '8000',
+        '--controller-address', 'http://127.0.0.1:21001'], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
 
     for process_name, process in [('model', model_process), ('api', api_process)]:
         for line in process.stderr:
@@ -160,7 +160,7 @@ class Fastchat(OpenAIBase):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
 
-        api_base = 'http://localhost:8000/v1'
+        api_base = 'http://127.0.0.1:8000/v1'
         api_key = 'EMPTY'
         model_name = self.model_name.split('/')[-1]
 
