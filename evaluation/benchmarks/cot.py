@@ -8,6 +8,7 @@ from evaluation.utils import process_with_thread_pool
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
+from evaluation.benchmarks.cot_math_equivalence import is_math_correct
 
 GSM8K_LIMIT = 500
 MATH_LIMIT = 1000
@@ -101,16 +102,13 @@ def evaluate_model_on_gsm8k(output_path):
     yield evaluator.send(model_responses)
 
 def evaluate_model_on_math(output_path):
-    def is_correct(model_answer, correct_answer):
-        return False # TODO
-
     evaluator = evaluate_model_on_dataset(
         name='math',
         data=('competition_math', None, 'test'),
         question_column='problem',
         answer_column='solution',
         answer_format='',
-        is_correct=is_correct,
+        is_correct=is_math_correct,
         output_path=output_path,
         limit=MATH_LIMIT,
     )
@@ -296,6 +294,8 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     evaluators = combine_evaluators([evaluation_function(tasks_path) for task_name, evaluation_function in evaluation_functions])
 
     dataset_requests = next(evaluators)
+    if len(dataset_requests) == 0:
+        return
     datasets = load_datasets(model_name, dataset_requests)
 
     model_requests = evaluators.send(datasets)
