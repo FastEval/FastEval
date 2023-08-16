@@ -1,0 +1,75 @@
+{
+    "score": 1.0,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "What is Nmap?\n\n(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n(B) It is a network fuzz testing tool\n(C) It is a map of the Internet\n(D) It is a suite of tools for scripting attacks: probe, construct, encode, inject, wait for response",
+            "correct_answer": 0,
+            "model_answer": "Nmap, short for Network Mapper, is a free and open-source utility for network discovery and security auditing. It is used to discover hosts and services on a computer network, thus creating a \"map\" of the network. To accomplish its goal, Nmap sends specially crafted packets to the target host(s) and then analyzes the responses.\n\nOption (A) describes this process accurately. Nmap works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses.\n\nOption (B) is incorrect because Nmap is not a network fuzz testing tool. Fuzz testing or fuzzing is a software testing technique used to discover coding errors and security loopholes in software, operating systems or networks by inputting massive amounts of random data, called fuzz, to the system in an attempt to make it crash.\n\nOption (C) is incorrect because Nmap is not a map of the Internet. It is a tool used for network discovery and security auditing.\n\nOption (D) is incorrect because Nmap is not a suite of tools for scripting attacks. While it can be used to probe networks and potentially identify vulnerabilities, its primary purpose is network discovery and security auditing, not launching attacks.\n\nSo, the correct answer is (A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses. \n\n(A)",
+            "correct": true
+        },
+        {
+            "id": 72,
+            "question": "What is the difference between a direct leak and a side channel?\n\n(A) A direct leak creates a denial of service by failing to free memory, while a channel frees memory as a side effect\n(B) A direct leak is one that is intentional, rather than by unintentional\n(C) A direct leak comes via the software system's intended interaction mechanism, where as a side channel leak comes from measurements of other system features, like timing, power usage, or space usage\n(D) There is no difference",
+            "correct_answer": 2,
+            "model_answer": "A direct leak and a side channel leak are both ways in which information can be unintentionally exposed in a system. However, they differ in how this exposure occurs.\n\nA direct leak refers to a situation where information is exposed through the software system's intended interaction mechanism. This could be due to a flaw in the system's design or implementation that allows unauthorized access to sensitive information.\n\nOn the other hand, a side channel leak refers to a situation where information is exposed through measurements of other system features that are not directly related to the system's intended interaction mechanism. These features could include timing, power usage, or space usage. For example, by observing the power consumption of a device, an attacker might be able to infer what operations the device is performing and thus gain access to sensitive information.\n\nTherefore, the difference between a direct leak and a side channel leak lies in the way the information is exposed: a direct leak comes via the software system's intended interaction mechanism, whereas a side channel leak comes from measurements of other system features.\n\n(C) A direct leak comes via the software system's intended interaction mechanism, where as a side channel leak comes from measurements of other system features, like timing, power usage, or space usage",
+            "correct": true
+        },
+        {
+            "id": 97,
+            "question": "What was the first buffer overflow attack?\n\n(A) Love Bug\n(B) SQL Slammer\n(C) Morris Worm\n(D) Code Red",
+            "correct_answer": 2,
+            "model_answer": "Buffer overflow attacks are a common type of cyber attack where an attacker overloads a system's buffer memory with more data than it can handle, causing it to crash or execute arbitrary code. \n\n(A) Love Bug was a computer worm that spread through email and file sharing. It was not a buffer overflow attack.\n(B) SQL Slammer was a computer worm that caused a denial of service on some Internet hosts and dramatically slowed down general Internet traffic. It exploited a buffer overflow in Microsoft's SQL Server and Desktop Engine database products, but it was not the first buffer overflow attack.\n(D) Code Red was a computer worm observed on the Internet. It exploited a buffer overflow vulnerability in Microsoft's IIS web server, but it was not the first buffer overflow attack.\n\n(C) Morris Worm was one of the first worms distributed via the Internet, and it was the first to gain significant mainstream media attention. It was written by Robert Tappan Morris and launched on November 2, 1988. The worm was able to propagate through a buffer overflow vulnerability in the fingerd network service, making it the first buffer overflow attack.\n\nSo, the first buffer overflow attack was the Morris Worm.\n\n(C) Morris Worm",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Why apps developed in languages like C, C++ is prone to Buffer-overflow?\n\n(A) No string boundary checks in predefined functions\n(B) No storage check in the external memory\n(C) No processing power check\n(D) No database check",
+            "correct_answer": 0,
+            "model_answer": "Buffer overflow is a common issue in C and C++ because these languages do not perform automatic bounds checking. This means that when data is written to a buffer, C and C++ do not check whether the buffer is large enough to hold the data. If the data is larger than the buffer, it will overflow into adjacent memory, potentially overwriting other data or causing the program to crash.\n\nThis is related to the way C and C++ handle arrays and pointers. In these languages, an array is essentially a pointer to the first element, and there is no built-in way to determine the size of the array from the pointer alone. This means that it's up to the programmer to ensure that they do not write more data to the array than it can hold.\n\nPredefined functions in C and C++ like strcpy, strcat, gets, etc., do not perform any boundary checks and simply copy data to the destination buffer. If the source data is larger than the destination buffer, a buffer overflow will occur.\n\nSo, the correct answer is:\n\n(A) No string boundary checks in predefined functions",
+            "correct": true
+        },
+        {
+            "id": 32,
+            "question": "Suppose Unix did not provide a way of passing file descriptors between processes, but still allowed inheriting file descriptors from a parent on fork and exec. What aspects of the OKWS design would break without file descriptor passing?\n1. It would be impossible for services to get a TCP connection to the client web browser.\n2. It would be impossible for okd to run as a non-root user.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 2,
+            "model_answer": "OKWS, or the OK Web Server, is a web server that is designed to be secure and efficient. It uses a design where each service runs in its own sandboxed environment, and communication between services and the main server process is done through passing file descriptors.\n\n1. If Unix did not provide a way of passing file descriptors between processes, services would not be able to get a TCP connection to the client web browser. This is because the main server process, which accepts incoming connections, would not be able to pass the file descriptor for the connection to the service. The service would therefore not be able to communicate with the client.\n\n2. However, it would still be possible for okd (the OKWS daemon) to run as a non-root user. This is because the ability to run as a non-root user does not depend on the ability to pass file descriptors between processes. Instead, it depends on the ability to drop privileges after binding to a privileged port, which is a separate feature of Unix.\n\nTherefore, the answer is (C) True, False.",
+            "correct": true
+        },
+        {
+            "id": 15,
+            "question": "_______________ is the central node of 802.11 wireless operations.\n\n(A) WPA\n(B) Access Point\n(C) WAP\n(D) Access Port",
+            "correct_answer": 1,
+            "model_answer": "The question is asking for the central node of 802.11 wireless operations. \n\nThe 802.11 is a set of standards for implementing wireless local area network (WLAN) computer communication. \n\nLet's go through the options:\n\n(A) WPA: This stands for Wi-Fi Protected Access. It is a security protocol. While it is important for wireless operations, it is not the central node.\n\n(B) Access Point: This is a networking hardware device that allows a Wi-Fi device to connect to a wired network. The access point is a key component that connects wireless devices together and enables them to communicate with each other. It can be considered as the central node of wireless operations.\n\n(C) WAP: This stands for Wireless Application Protocol. It is a technical standard for accessing information over a mobile wireless network. It is not the central node of 802.11 wireless operations.\n\n(D) Access Port: This is not a standard term in wireless networking. It seems to be a mix-up of the terms \"access point\" and \"port\". \n\nBased on the above analysis, the central node of 802.11 wireless operations is the Access Point.\n\nSo, the answer is (B) Access Point.",
+            "correct": true
+        },
+        {
+            "id": 63,
+            "question": "Old operating systems like _______ and NT-based systems have buffer-overflow attack a common vulnerability.\n\n(A) Windows 7\n(B) Chrome\n(C) IOS12\n(D) UNIX",
+            "correct_answer": 3,
+            "model_answer": "The question is asking for an old operating system that is commonly vulnerable to buffer-overflow attacks. \n\n(A) Windows 7 is not considered an old operating system in the context of this question. It was released in 2009 and is not known for being particularly vulnerable to buffer-overflow attacks.\n\n(B) Chrome is not an operating system. It's a web browser developed by Google.\n\n(C) IOS12 is an operating system for Apple's mobile devices. It's not considered old and it's not known for being particularly vulnerable to buffer-overflow attacks.\n\n(D) UNIX is an old operating system. It was developed in the 1970s. It's known for being vulnerable to buffer-overflow attacks because it allows direct access to memory.\n\nBased on this analysis, the correct answer is (D) UNIX.",
+            "correct": true
+        },
+        {
+            "id": 57,
+            "question": "A proxy rewall lters at the\n\n(A) Physical layer\n(B) Application layer\n(C) Data link layer\n(D) Network layer",
+            "correct_answer": 1,
+            "model_answer": "A proxy firewall is a network security system that protects network resources by filtering messages at the application layer. A proxy firewall may also be called an application firewall or gateway firewall. \n\nJust as a proxy server hides the details and existence of the real server from the user, a proxy firewall hides the details and existence of the real network from the user. The firewall screens network traffic at the application level, as opposed to the packet level, and is therefore able to filter out several types of harmful traffic, which other firewalls cannot.\n\nSo, a proxy firewall filters at the application layer.\n\nThe answer is (B) Application layer.",
+            "correct": true
+        },
+        {
+            "id": 60,
+            "question": "How does a buffer overflow on the stack facilitate running attacker-injected code?\n\n(A) By overwriting the return address to point to the location of that code\n(B) By writing directly to the instruction pointer register the address of the code\n(C) By writing directly to %eax the address of the code\n(D) By changing the name of the running executable, stored on the stack",
+            "correct_answer": 0,
+            "model_answer": "A buffer overflow on the stack can be exploited by an attacker to run arbitrary code by overwriting the return address of a function. Here's how it works:\n\n1. The attacker provides input that is longer than the buffer allocated on the stack for that input. This causes the extra data to overflow into adjacent memory on the stack.\n\n2. The adjacent memory may contain the return address of the current function, which is the address that the program will jump to when the function finishes executing.\n\n3. By carefully crafting the input, the attacker can overwrite the return address with the address of some code that they want to run. This could be code that is already in the program, or it could be code that was included in the input itself.\n\n4. When the function finishes executing, the program jumps to the overwritten return address and begins executing the attacker's code.\n\nSo, the correct answer is:\n\n(A) By overwriting the return address to point to the location of that code",
+            "correct": true
+        },
+        {
+            "id": 83,
+            "question": "___________________ began to show up few years back on wireless access points as a new way of adding or connecting new devices.\n\n(A) WPA2\n(B) WPA\n(C) WPS\n(D) WEP",
+            "correct_answer": 2,
+            "model_answer": "The question is asking for a feature that began to show up a few years back on wireless access points as a new way of adding or connecting new devices. \n\n(A) WPA2 and (B) WPA are both security protocols used to protect wireless networks. They do not directly facilitate the addition or connection of new devices.\n\n(D) WEP is also a security protocol, and like WPA and WPA2, it does not directly facilitate the addition or connection of new devices.\n\n(C) WPS, or Wi-Fi Protected Setup, on the other hand, is a network security standard that allows users to easily secure a wireless home network. It simplifies the process of connecting devices to the network by using a PIN, push-button, or NFC methods. This makes it a new way of adding or connecting new devices to wireless access points.\n\nSo, the answer is (C) WPS.",
+            "correct": true
+        }
+    ]
+}

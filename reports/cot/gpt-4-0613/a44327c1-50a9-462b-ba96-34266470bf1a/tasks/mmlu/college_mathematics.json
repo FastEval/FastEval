@@ -1,0 +1,75 @@
+{
+    "score": 0.7,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "Let F be a constant unit force that is parallel to the vector (-1, 0, 1) in xyz-space. What is the work done by F on a particle that moves along the path given by (t, t^2, t^3) between time t=0 and time t=1?\n\n(A) -1/4\n(B) -1/(4sqrt(2))\n(C) 0\n(D) sqrt(2)",
+            "correct_answer": 2,
+            "model_answer": "The work done by a force on a particle moving along a path is given by the dot product of the force vector and the displacement vector of the particle. The dot product of two vectors is the product of the magnitudes of the two vectors and the cosine of the angle between them. \n\nThe force vector F is parallel to the vector (-1, 0, 1), so we can take F = (-1, 0, 1).\n\nThe displacement vector of the particle is given by the derivative of the path vector with respect to time, from t=0 to t=1. The path vector is (t, t^2, t^3), so its derivative is (1, 2t, 3t^2).\n\nThe dot product of F and the displacement vector is then given by:\n\nF . displacement = (-1, 0, 1) . (1, 2t, 3t^2) = -1*1 + 0*2t + 1*3t^2 = -1 + 3t^2.\n\nWe then integrate this from t=0 to t=1 to find the work done:\n\nWork = \u222b from 0 to 1 (-1 + 3t^2) dt = [-t + t^3] from 0 to 1 = -1 + 1 = 0.\n\nSo the work done by the force on the particle as it moves along the path from t=0 to t=1 is 0.\n\n(C) 0",
+            "correct": true
+        },
+        {
+            "id": 72,
+            "question": "If c > 0 and f(x) = e^x - cx for all real numbers x, then the minimum value of f is\n\n(A) f(c)\n(B) f(e^c)\n(C) f(1/c)\n(D) f(log c)",
+            "correct_answer": 3,
+            "model_answer": "The function f(x) = e^x - cx is a combination of an exponential function and a linear function. To find the minimum value of this function, we need to find the derivative of the function and set it equal to zero. This will give us the x-value at which the function reaches its minimum.\n\nStep 1: Find the derivative of f(x).\nThe derivative of e^x is e^x and the derivative of cx is c. So, the derivative of f(x) is e^x - c.\n\nStep 2: Set the derivative equal to zero and solve for x.\ne^x - c = 0\ne^x = c\nx = log c\n\nSo, the minimum value of f(x) occurs at x = log c.\n\nStep 3: Substitute x = log c into the function f(x) to find the minimum value.\nf(log c) = e^(log c) - c*log c\n= c - c*log c\n\nSo, the minimum value of f(x) is f(log c).\n\n(D) f(log c)",
+            "correct": true
+        },
+        {
+            "id": 97,
+            "question": "Which of the following circles has the greatest number of points of intersection with the parabola x^2 = y + 4 ?\n\n(A) x^2 + y^2 = 1\n(B) x^2 + y^2 = 2\n(C) x^2 + y^2 = 9\n(D) x^2 + y^2 = 16",
+            "correct_answer": 2,
+            "model_answer": "The equation of the parabola is x^2 = y + 4, which can be rewritten as y = x^2 - 4. This is a parabola that opens upwards with its vertex at (0, -4).\n\nThe equations of the circles are in the form x^2 + y^2 = r^2, where r is the radius of the circle. The center of each circle is at the origin (0, 0).\n\n(A) The circle x^2 + y^2 = 1 has a radius of 1. Since the vertex of the parabola is at (0, -4), this circle does not intersect with the parabola.\n\n(B) The circle x^2 + y^2 = 2 has a radius of sqrt(2), which is approximately 1.41. This circle also does not intersect with the parabola.\n\n(C) The circle x^2 + y^2 = 9 has a radius of 3. This circle intersects the parabola at two points.\n\n(D) The circle x^2 + y^2 = 16 has a radius of 4. This circle intersects the parabola at three points: one at the vertex of the parabola and two on either side.\n\nTherefore, the circle with the greatest number of points of intersection with the parabola x^2 = y + 4 is the one with the equation x^2 + y^2 = 16.\n\n(D)",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Let V be a finite-dimensional real vector space and let P be a linear transformation of V such that P^2 = P. Which of the following must be true?\nI. P is invertible.\nII. P is diagonalizable.\nIII. P is either the identity transformation or the zero transformation.\n\n(A) None\n(B) I only\n(C) II only\n(D) III only",
+            "correct_answer": 2,
+            "model_answer": "Let's analyze each statement one by one:\n\nI. P is invertible.\nA linear transformation is invertible if and only if it is bijective, i.e., it is both injective (or one-to-one) and surjective (or onto). However, the condition P^2 = P does not necessarily imply that P is invertible. For example, consider the linear transformation P: R^2 -> R^2 defined by P(x, y) = (x, 0). Then P^2 = P, but P is not invertible because it is not surjective (there is no vector in the domain that maps to, for example, (0, 1) in the codomain). So, statement I is not necessarily true.\n\nII. P is diagonalizable.\nA linear transformation is diagonalizable if there exists a basis of V consisting of eigenvectors of P. The condition P^2 = P is equivalent to P(P - I) = 0, which means that every vector in V is an eigenvector of P with eigenvalue 0 or 1. Therefore, P is diagonalizable. So, statement II is true.\n\nIII. P is either the identity transformation or the zero transformation.\nThe condition P^2 = P does not imply that P is either the identity transformation or the zero transformation. For example, the linear transformation P: R^2 -> R^2 defined by P(x, y) = (x, 0) satisfies P^2 = P, but it is neither the identity transformation nor the zero transformation. So, statement III is not necessarily true.\n\nTherefore, the correct answer is (C) II only.",
+            "correct": true
+        },
+        {
+            "id": 32,
+            "question": "For which integers n such that 3 <= n <= 11 is there only one group of order n (up to isomorphism)?\n\n(A) For no such integer n\n(B) For 3, 5, 7, and 11 only\n(C) For 3, 5, 7, 9, and 11 only\n(D) For 4, 6, 8, and 10 only",
+            "correct_answer": 1,
+            "model_answer": "The question is asking for which integers n between 3 and 11 inclusive, there is only one group of order n (up to isomorphism). \n\nIn group theory, a branch of mathematics, the order of a group is the number of its elements. Two groups are said to be isomorphic if there is a one-to-one correspondence between their elements that preserves the group operations. \n\nThe Fundamental Theorem of Finite Abelian Groups tells us that every finite abelian group is isomorphic to a direct product of cyclic groups of prime power order, and these groups are unique up to the order of the factors. \n\nThis means that for a group of order n to be unique up to isomorphism, n must be a prime number. This is because if n is a composite number, it can be factored into prime numbers in different ways, leading to different groups of order n.\n\nSo, we need to find the prime numbers between 3 and 11 inclusive. These are 3, 5, 7, and 11.\n\nTherefore, the answer is (B) For 3, 5, 7, and 11 only.",
+            "correct": true
+        },
+        {
+            "id": 15,
+            "question": "Let K be a nonempty subset of R^n, where n > 1. Which of the following statements must be true?\nI. If K is compact, then every continuous real-valued function defined on K is bounded.\nII. If every continuous real-valued function defined on K is bounded, then K is compact.\nIII. If K is compact, then K is connected.\n\n(A) I only\n(B) II only\n(C) III only\n(D) I and II only",
+            "correct_answer": 3,
+            "model_answer": "Let's analyze each statement one by one:\n\nI. If K is compact, then every continuous real-valued function defined on K is bounded.\nThis statement is true. By the Extreme Value Theorem, if a function is continuous on a compact set, then it is bounded. This is because compactness guarantees that the function will attain both a maximum and a minimum value on the set.\n\nII. If every continuous real-valued function defined on K is bounded, then K is compact.\nThis statement is not necessarily true. Consider, for example, the open interval (0,1) in R. Every continuous real-valued function defined on this interval is bounded, but the interval itself is not compact because it does not contain all its limit points. Therefore, boundedness of all continuous real-valued functions on a set does not imply compactness of the set.\n\nIII. If K is compact, then K is connected.\nThis statement is also not necessarily true. Compactness does not imply connectedness. For example, consider two disjoint closed intervals in R. Each interval is compact, and their union is also compact. However, the union is not connected because it can be partitioned into two nonempty disjoint open sets.\n\nSo, the correct answer is (A) I only.",
+            "correct": false
+        },
+        {
+            "id": 63,
+            "question": "In a game two players take turns tossing a fair coin; the winner is the first one to toss a head. The probability that the player who makes the first toss wins the game is\n\n(A) 1/4\n(B) 1/3\n(C) 1/2\n(D) 2/3",
+            "correct_answer": 3,
+            "model_answer": "The problem can be solved by considering the possible outcomes of the game. \n\nStep 1: The first player can win the game immediately by tossing a head on the first toss. The probability of this happening is 1/2, since a fair coin has two equally likely outcomes.\n\nStep 2: If the first player does not win on the first toss, the game continues with the second player's toss. However, for the first player to win, the second player must also toss a tail. The probability of this happening is also 1/2.\n\nStep 3: If both players toss tails on their first toss, the game returns to the same situation as at the beginning, with the first player about to toss. However, this time it's as if they're starting a new game within the original game. \n\nStep 4: The probability of the first player winning this \"new game\" is the same as the probability of the first player winning the original game. Let's denote this probability as P.\n\nStep 5: Therefore, we can write an equation to represent the total probability of the first player winning the game. The first player can win either by tossing a head on the first toss (with probability 1/2), or by both players tossing tails on their first toss (with probability (1/2)*(1/2) = 1/4) and then winning the \"new game\" (with probability P). This gives us the equation:\n\nP = 1/2 + (1/4)*P\n\nStep 6: Solving this equation for P gives us P = 2/3.\n\nSo, the probability that the first player wins the game is 2/3.\n\n(D) 2/3",
+            "correct": true
+        },
+        {
+            "id": 57,
+            "question": "If V and W are 2-dimensional subspaces of R^4 ,what are the possible dimensions of the subspace V intersect W?\n\n(A) 1 only\n(B) 2 only\n(C) 0 and 1 only\n(D) 0, 1, and 2 only",
+            "correct_answer": 3,
+            "model_answer": "The intersection of two subspaces is also a subspace. The dimension of the intersection of two subspaces cannot be greater than the dimension of either of the subspaces. Since V and W are both 2-dimensional, the intersection of V and W cannot have a dimension greater than 2.\n\nHowever, the intersection could also be a smaller subspace. It could be a 1-dimensional subspace (a line), or it could be a 0-dimensional subspace (a point), depending on how V and W are oriented in R^4.\n\nTherefore, the possible dimensions of the subspace V intersect W are 0, 1, and 2.\n\n(D) 0, 1, and 2 only",
+            "correct": true
+        },
+        {
+            "id": 60,
+            "question": "How many real roots does the polynomial 2x^5 + 8x - 7 have?\n\n(A) None\n(B) One\n(C) Two\n(D) Three",
+            "correct_answer": 1,
+            "model_answer": "The number of real roots of a polynomial can be determined by the Fundamental Theorem of Algebra, which states that a polynomial of degree n has exactly n roots, counting multiplicity. However, these roots can be either real or complex.\n\nThe given polynomial is 2x^5 + 8x - 7. This is a polynomial of degree 5, so it has exactly 5 roots, counting multiplicity. However, we need to determine how many of these roots are real.\n\nA polynomial of odd degree always has at least one real root. This is because as x approaches positive or negative infinity, an odd-degree polynomial will go to positive or negative infinity, respectively. Therefore, it must cross the x-axis at least once.\n\nTo determine if there are more than one real roots, we can look at the number of sign changes in the polynomial. According to Descartes' Rule of Signs, the number of positive real roots of a polynomial is either equal to the number of sign changes between consecutive non-zero coefficients, or less than that by a multiple of 2.\n\nThe given polynomial has coefficients 2, 0, 0, 0, 8, -7. There are two sign changes (from 2 to 0 and from 8 to -7), so there are either 2 or 0 positive real roots.\n\nSince we know there is at least one real root, there must be 2 positive real roots.\n\nTherefore, the polynomial 2x^5 + 8x - 7 has two real roots.\n\nAnswer: (C) Two.",
+            "correct": false
+        },
+        {
+            "id": 83,
+            "question": "If the finite group G contains a subgroup of order seven but no element (other than the identity) is its own inverse, then the order of G could be\n\n(A) 27\n(B) 28\n(C) 35\n(D) 37",
+            "correct_answer": 2,
+            "model_answer": "The order of a group is the number of elements in the group. If a group G contains a subgroup of order seven, then the order of G must be a multiple of seven by Lagrange's theorem, which states that the order of any subgroup divides the order of the group.\n\nThe options that are multiples of seven are 28 and 35.\n\nHowever, the problem also states that no element (other than the identity) is its own inverse. This means that the order of the group cannot be even, because in an even-ordered group, there must be at least one element that is its own inverse (other than the identity). This is because the elements can be paired up into inverse pairs, and if the number of elements is even, there must be one element left over that is its own inverse.\n\nTherefore, the order of the group cannot be 28, and must be 35.\n\nSo the answer is (C) 35.",
+            "correct": true
+        }
+    ]
+}
