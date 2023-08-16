@@ -32,15 +32,10 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
     for (const id of ids)
         totalScores[id] = getTotalScore(id, idToEvaluationInformation.get(id).benchmarks)
 
-    const initialOrderTotalScore = ids.filter(id => totalScores[id] !== null)
+    const initialFixedEvaluations = ids.filter(id => totalScores[id] !== null)
         .toSorted((id1, id2) => totalScores[id2] - totalScores[id1])
-    const initialOrderBaseModels = ids.filter(id =>
-        idToEvaluationInformation.get(id).benchmarks.length === 1 && idToEvaluationInformation.get(id).benchmarks[0] === 'lm-evaluation-harness')
-        .toSorted((id1, id2) => getScore(id2, 'lm-evaluation-harness') - getScore(id1, 'lm-evaluation-harness'))
-    const initialFixedEvaluations = initialOrderTotalScore.concat(initialOrderBaseModels)
     const initialFixedScores = Object.fromEntries(initialFixedEvaluations.map((id, index) => [id, initialFixedEvaluations.length - index]))
     const remainingEvaluations = ids.filter(id => !initialFixedEvaluations.includes(id))
-    const minimumRemainingScore = initialOrderBaseModels.length
 
     const evaluationPairs = []
     for (const [i, id1] of ids.entries()) {
@@ -121,7 +116,7 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
 
         for (const id of remainingEvaluations) {
             if (Math.random() < 1 / remainingEvaluations.length)
-                newRanking.set(id, 1 + minimumRemainingScore + (Math.random() * (ids.length - minimumRemainingScore)))
+                newRanking.set(id, 1 + (Math.random() * ids.length))
         }
 
         newRanking = renormalize(newRanking)
@@ -148,69 +143,8 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
     return Object.fromEntries(orderings[0])
 }
 
-function createHowToReadThisLeaderboardE() {
-    const containerE = document.createElement('details')
-
-    const summaryE = document.createElement('summary')
-    summaryE.classList.add('how-to-read-leaderboard__summary')
-    summaryE.textContent = 'How to read this leaderboard?'
-    containerE.appendChild(summaryE)
-
-    const detailsE = document.createElement('ul')
-    detailsE.classList.add('how-to-read-leaderboard__details')
-    containerE.appendChild(detailsE)
-
-    const greenEqualBetterE = document.createElement('li')
-    greenEqualBetterE.classList.add('how-to-read-leaderboard__color-green')
-    greenEqualBetterE.textContent = '___ = Higher score = Better.'
-    detailsE.appendChild(greenEqualBetterE)
-
-    const redEqualWorseE = document.createElement('li')
-    redEqualWorseE.classList.add('how-to-read-leaderboard__color-red')
-    redEqualWorseE.textContent = '___ = Lower score = Worse.'
-    detailsE.appendChild(redEqualWorseE)
-
-    const sizeE = document.createElement('li')
-    sizeE.classList.add('how-to-read-leaderboard__space')
-    sizeE.textContent = 'Size: Size of the model in billions of parameters. Larger = Requires more resources = Worse. But usually gives better scores.'
-    detailsE.appendChild(sizeE)
-
-    const mtBenchE = document.createElement('li')
-    mtBenchE.classList.add('how-to-read-leaderboard__space')
-    mtBenchE.textContent = 'MT-Bench: Measures conversational capabilities.'
-    detailsE.appendChild(mtBenchE)
-
-    const cotE = document.createElement('li')
-    cotE.textContent = 'CoT (Chain-Of-Thought): Measures multi-step reasoning capabilities.'
-    detailsE.appendChild(cotE)
-
-    const humanEvalE = document.createElement('li')
-    humanEvalE.textContent = "HumanEval+: Measures Python coding performance. Humans were only involved in the creation of the evaluation dataset, the name is misleading."
-    detailsE.appendChild(humanEvalE)
-
-    const lmEvalE = document.createElement('li')
-    lmEvalE.textContent = "LM-Eval: Measures general capabilities, but doesn't use the model-specific prompt templates."
-    detailsE.appendChild(lmEvalE)
-
-    return containerE
-}
-
 export async function createBenchmarksIndexE(baseUrl) {
     const containerE = document.createElement('div')
-
-    containerE.appendChild(createHowToReadThisLeaderboardE())
-
-    const explanationE = document.createElement('div')
-    explanationE.classList.add('main__explanation')
-    const informationLinkE = document.createElement('a')
-    informationLinkE.textContent = 'GitHub repository'
-    informationLinkE.href = 'https://github.com/FastEval/FastEval'
-    explanationE.append(
-        createTextE('See the '),
-        informationLinkE,
-        createTextE(' for more information.')
-    )
-    containerE.appendChild(explanationE)
 
     const evaluations = await fetchEvaluations(baseUrl)
     const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
@@ -280,47 +214,46 @@ export async function createBenchmarksIndexE(baseUrl) {
     tableE.classList.add('main__table')
     containerE.appendChild(tableE)
 
+    const githubLinkE = document.createElement('a')
+    githubLinkE.href = 'https://github.com/FastEval/FastEval'
+    const githubLinkImgE = document.createElement('img')
+    githubLinkImgE.src = './website/img/github-mark.svg'
+    githubLinkImgE.classList.add('main-page-github-icon')
+    githubLinkE.prepend(githubLinkImgE)
+
     const theadE = tableE.createTHead()
     const theadClickHereE = theadE.insertRow()
     theadClickHereE.classList.add('no-td-border')
-    theadClickHereE.insertCell().colSpan = 5
+    const githubLinkCellE = theadClickHereE.insertCell()
+    githubLinkCellE.colSpan = 5
+    githubLinkCellE.append(githubLinkE)
     const theadClickHereTextE = theadClickHereE.insertCell()
     theadClickHereTextE.colSpan = 4
     theadClickHereTextE.style['text-align'] = 'center'
     theadClickHereTextE.appendChild(createTextE('⤹ Click on the links for more details! ⤸'))
-    theadClickHereTextE.classList.add('main-click-columns-help-text')
+    theadClickHereTextE.classList.add('nowrap')
     const theadRowE = theadE.insertRow()
     theadRowE.insertCell().appendChild(createTextE('Rank'))
     theadRowE.insertCell().appendChild(createTextE('Size'))
     theadRowE.insertCell().appendChild(createTextE('Model'))
     theadRowE.insertCell().appendChild(createTextE('Total'))
     theadRowE.insertCell()
-    theadRowE.insertCell().appendChild(createLinkE('MT-Bench', { benchmark: 'mt-bench' }))
+    const mtBenchHeaderE = createLinkE('MT-Bench', { benchmark: 'mt-bench' })
+    mtBenchHeaderE.classList.add('nowrap')
+    theadRowE.insertCell().appendChild(mtBenchHeaderE)
     theadRowE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
     theadRowE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
-    theadRowE.insertCell().appendChild(createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' }))
+    const lmEvalHeaderE = createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' })
+    lmEvalHeaderE.classList.add('nowrap')
+    theadRowE.insertCell().appendChild(lmEvalHeaderE)
     const tbodyE = tableE.createTBody()
 
-    let didInsertSeparatorToBaseModels = false
     for (const [position, evaluationInformation] of evaluationsSortedByRank.entries()) {
         const { id, model_name: modelName, benchmarks } = evaluationInformation
 
         let rowE = tbodyE.insertRow()
 
-        if (benchmarks.length === 1 && benchmarks[0] === 'lm-evaluation-harness') {
-            if (!didInsertSeparatorToBaseModels) {
-                const separatorRowE = rowE.insertCell()
-                separatorRowE.setAttribute('colspan', (5 + allBenchmarks.length).toString())
-                separatorRowE.classList.add('separator-row')
-                separatorRowE.textContent = 'Base models. Not evaluated on instruction-model specific benchmarks.'
-                rowE = tbodyE.insertRow()
-                didInsertSeparatorToBaseModels = true
-            }
-
-            createTableScoreCell(rowE, createTextE('(' + (position + 1) + ')'))
-        } else {
-            createTableScoreCell(rowE, createTextE(position + 1))
-        }
+        createTableScoreCell(rowE, createTextE(position + 1))
 
         const numParameters = getModelNumParams(evaluationInformation)
         if (numParameters === '') {
