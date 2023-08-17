@@ -5,8 +5,8 @@
 FastEval supports evaluating models on custom test data. To explain how it works and how to use it, let's consider an example.
 
 We will begin with the following file.
-It contains a list of conversations between an user and an assistant.
-The final conversation item is always an user prompt.
+It contains a list of conversations between a user and an assistant.
+The final conversation item is always a user prompt.
 In addition, for every conversation there is also a reference answer.
 This data corresponds to the test data that you would like to evaluate the model on.
 For every input conversation, there is an approximately expected output answer.
