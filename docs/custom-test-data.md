@@ -1,6 +1,6 @@
 # Custom Test Data
 
-**Note:** Some details about this benchmark are still subject to change. The final scores may change.
+**Note:** Some details about this benchmark are still subject to change which may impact the final scores.
 
 FastEval supports evaluating models on custom test data. To explain how it works and how to use it, let's consider an example.
 
