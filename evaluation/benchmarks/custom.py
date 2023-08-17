@@ -3,12 +3,10 @@ import json
 import re
 import ast
 import statistics
-import threading
 import textwrap
 
 from evaluation.benchmarks.utils import model_name_to_filename
 
-from evaluation.utils import process_with_thread_pool
 from evaluation.models.models import create_model, compute_model_replies
 
 JUDGE_MODEL_MAX_NEW_TOKENS = 2048
