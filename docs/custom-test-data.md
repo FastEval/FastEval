@@ -58,3 +58,5 @@ It will then produce judgments like the following:
 ```
 
 From these judgments, the ratings will be extracted automatically. In this case, the ratings would be `[10, 6]`. The final score then corresponds to the average rating, i.e. `8`. A higher score would indicate more favorable judgments corresponding to a model that answers your questions more like in your test data.
+
+Different from the other benchmarks, custom test data results are currently not shown on the leaderboard. They will only be saved to the `reports/custom-test-data` folder.
