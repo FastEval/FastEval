@@ -1,10 +1,6 @@
-FastEval supports evaluating a new model on custom test data.
-This can be used both if you are looking for a good model on your own test data as well as if you are a model developer looking to improve your model on some custom data.
-
-The way that custom evaluations work in FastEval is by using a judge model to judge how close the model output corresponds to a reference solution.
-To explain how this works, let's consider an example and see how FastEval uses it.
-We will begin with the following file that contains some conversations that end with a user question.
-In addition, every entry also contains a reference output which is the kind of output that you would like the model to respond with.
+FastEval supports evaluating models on custom test data. To explain how it works and how to use it, let's consider an example.
+We will begin with the following file that contains some conversations that end with a users question.
+In addition, every entry also contains a reference output which is the kind of output that you would like the model to respond with given the conversation.
 
 ```json
 {
@@ -28,12 +24,14 @@ In addition, every entry also contains a reference output which is the kind of o
 To evaluate a model with this test data, you can then use the following command:
 
 ```bash
-./fasteval -b custom --custom-benchmark-data-file <THE_FILE_THAT_CONTAINS_THE_PREVIOUS_DATA.json> -t MODEL_TYPE -m MODEL_NAME 
+./fasteval \
+    -b custom --custom-benchmark-data-file <THE_FILE_THAT_CONTAINS_THE_PREVIOUS_DATA.json> \
+    -t MODEL_TYPE -m MODEL_NAME 
 ```
 
 Now let's see what FastEval does internally.
-First, the model answers for every conversation will be computed.
-This will ignore the reference answer in your file for now.
+First, the evaluated model will be used to compute the replies for every conversation.
+This will ignore the reference answer in your test data file for now.
 The output could be something like the following:
 
 ```json
@@ -45,8 +43,8 @@ The output could be something like the following:
 
 Next up, a judge model will be used to evaluate how well the model outputs correspond to the reference answers that you specified.
 Right now, this judge model is `Open-Orca/OpenOrcaxOpenChat-Preview2-13B`.
-While a more powerful model would generally give better judgments, the model doesn't need to be _that_ powerful since since it has a reference solution to work with.
-The judge will be given the conversation as context, the model outputs as well as the reference outputs.
+While a more powerful model would generally give better judgments, the model doesn't need to be _that_ powerful since it has a reference solution to work with.
+The judge will be given the conversation as context, the reference output as well as the output of the evaluated model.
 It will then produce judgments like the following:
 
 ```json
@@ -56,4 +54,4 @@ It will then produce judgments like the following:
 }
 ```
 
-From these, the rating will be extracted automatically and a final average rating will be computed. The final average rating would in this case be 8.
+From these judgments, the ratings will be extracted automatically. In this case, the ratings would be `[10, 6]`. Finally, an average rating will be computed. For this example, the result would be `8` which would be the final score. A higher score would indicate more favorable judgments corresponding to a model that answers your questions more like in your test data.
