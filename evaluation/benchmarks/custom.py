@@ -11,8 +11,8 @@ from evaluation.models.models import create_model, compute_model_replies
 
 JUDGE_MODEL_MAX_NEW_TOKENS = 2048
 
-def generate_assistant_replies(*, model_type, model_name, model_args, evaluation_id, conversations_with_references):
-    answers_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, 'answers.json')
+def generate_assistant_replies(*, model_type, model_name, model_args, evaluation_id, conversations_with_references, data_hash):
+    answers_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'answers.json')
     if os.path.exists(answers_filepath):
         return
 
@@ -85,12 +85,12 @@ def create_judge_conversation(*, conversations_with_references, model_replies, c
         ('user', judge_prompt),
     ]
 
-def compute_judge_replies(*, model_name, evaluation_id, conversations_with_references, judge_model_type, judge_model_name, judge_model_args):
-    judge_replies_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, 'judge-replies.json')
+def compute_judge_replies(*, model_name, evaluation_id, conversations_with_references, judge_model_type, judge_model_name, judge_model_args, data_hash):
+    judge_replies_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'judge-replies.json')
     if os.path.exists(judge_replies_filepath):
         return
 
-    with open(os.path.join('reports/custom', model_name_to_filename(model_name), evaluation_id, 'answers.json')) as f:
+    with open(os.path.join('reports/custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'answers.json')) as f:
         answers = json.load(f)
 
     judge_conversations = [{
@@ -111,12 +111,12 @@ def compute_judge_replies(*, model_name, evaluation_id, conversations_with_refer
     with open(judge_replies_filepath, 'w') as f:
         json.dump(judge_replies, f, indent=4)
 
-def compute_model_score(*, model_name, evaluation_id):
-    scores_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, 'scores.json')
+def compute_model_score(*, model_name, evaluation_id, data_hash):
+    scores_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'scores.json')
     if os.path.exists(scores_filepath):
         return
 
-    judge_replies_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, 'judge-replies.json')
+    judge_replies_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'judge-replies.json')
     with open(judge_replies_filepath) as f:
         judge_replies = json.load(f)
 
@@ -143,7 +143,10 @@ def compute_model_score(*, model_name, evaluation_id):
     with open(scores_filepath, 'w') as f:
         json.dump(scores, f, indent=4)
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id, *, conversations_with_references=json.load(open('custom_benchmark_test_data.json'))):
+def evaluate_model_on_single_data_file(model_type, model_name, model_args, evaluation_id, *, data_hash):
+    with open(os.path.join('data', 'custom', data_hash + '.json')) as f:
+        conversations_with_references = json.load(f)
+
     judge_model_type = 'openchat-llama2-v1'
     judge_model_name = 'Open-Orca/OpenOrcaxOpenChat-Preview2-13B'
     judge_model_args = {
@@ -157,6 +160,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id, *, convers
         model_args=model_args,
         evaluation_id=evaluation_id,
         conversations_with_references=conversations_with_references,
+        data_hash=data_hash,
     )
 
     compute_judge_replies(
@@ -166,9 +170,15 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id, *, convers
         judge_model_type=judge_model_type,
         judge_model_name=judge_model_name,
         judge_model_args=judge_model_args,
+        data_hash=data_hash,
     )
 
     compute_model_score(
         model_name=model_name,
         evaluation_id=evaluation_id,
+        data_hash=data_hash,
     )
+
+def evaluate_model(model_type, model_name, model_args, evaluation_id, *, data_hashes):
+    for data_hash in data_hashes:
+        evaluate_model_on_single_data_file(model_type, model_name, model_args, evaluation_id, data_hash=data_hash)
