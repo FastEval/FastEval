@@ -28,7 +28,7 @@ For every input conversation, there is an approximately expected output answer.
 }
 ```
 
-To evaluate a model with this test data, use `./fasteval -t MODEL_TYPE -m MODEL_NAME -b custom --custom-benchmark-data-file THE_FILE_THAT_CONTAINS_THE_PREVIOUS_DATA.json`.
+To evaluate a model with this test data, use `./fasteval -t MODEL_TYPE -m MODEL_NAME -b custom-test-data --custom-benchmark-data-file THE_FILE_THAT_CONTAINS_THE_PREVIOUS_DATA.json`.
 
 Now let's see what FastEval does internally.
 First, the evaluated model will be used to compute the replies for every conversation.
