@@ -12,7 +12,7 @@ from evaluation.models.models import create_model, compute_model_replies
 JUDGE_MODEL_MAX_NEW_TOKENS = 2048
 
 def generate_assistant_replies(*, model_type, model_name, model_args, evaluation_id, conversations_with_references, data_hash):
-    answers_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'answers.json')
+    answers_filepath = os.path.join('reports', 'custom-test-data', model_name_to_filename(model_name), evaluation_id, data_hash, 'answers.json')
     if os.path.exists(answers_filepath):
         return
 
@@ -25,7 +25,7 @@ def generate_assistant_replies(*, model_type, model_name, model_args, evaluation
     model_replies = compute_model_replies(
         model,
         conversations,
-        progress_bar_description=model_name + ' :: Custom :: Computing model replies',
+        progress_bar_description=model_name + ' :: Custom Test Data :: Computing model replies',
     )
 
     all_replies = { item[0]: model_replies[i] for i, item in enumerate(conversations_with_ids) }
@@ -86,11 +86,11 @@ def create_judge_conversation(*, conversations_with_references, model_replies, c
     ]
 
 def compute_judge_replies(*, model_name, evaluation_id, conversations_with_references, judge_model_type, judge_model_name, judge_model_args, data_hash):
-    judge_replies_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'judge-replies.json')
+    judge_replies_filepath = os.path.join('reports', 'custom-test-data', model_name_to_filename(model_name), evaluation_id, data_hash, 'judge-replies.json')
     if os.path.exists(judge_replies_filepath):
         return
 
-    with open(os.path.join('reports/custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'answers.json')) as f:
+    with open(os.path.join('reports/custom-test-data', model_name_to_filename(model_name), evaluation_id, data_hash, 'answers.json')) as f:
         answers = json.load(f)
 
     judge_conversations = [{
@@ -103,7 +103,7 @@ def compute_judge_replies(*, model_name, evaluation_id, conversations_with_refer
     judge_replies = compute_model_replies(judge_model, [{
         'conversation': item['conversation'],
         'temperature': 0,
-    } for item in judge_conversations], progress_bar_description=model_name + ' :: Custom :: Judging with ' + judge_model_name)
+    } for item in judge_conversations], progress_bar_description=model_name + ' :: Custom Test Data :: Judging with ' + judge_model_name)
 
     judge_replies = { judge_conversations[i]['conversation_id']: judge_reply for i, judge_reply in enumerate(judge_replies) }
 
@@ -112,11 +112,11 @@ def compute_judge_replies(*, model_name, evaluation_id, conversations_with_refer
         json.dump(judge_replies, f, indent=4)
 
 def compute_model_score(*, model_name, evaluation_id, data_hash):
-    scores_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'scores.json')
+    scores_filepath = os.path.join('reports', 'custom-test-data', model_name_to_filename(model_name), evaluation_id, data_hash, 'scores.json')
     if os.path.exists(scores_filepath):
         return
 
-    judge_replies_filepath = os.path.join('reports', 'custom', model_name_to_filename(model_name), evaluation_id, data_hash, 'judge-replies.json')
+    judge_replies_filepath = os.path.join('reports', 'custom-test-data', model_name_to_filename(model_name), evaluation_id, data_hash, 'judge-replies.json')
     with open(judge_replies_filepath) as f:
         judge_replies = json.load(f)
 
@@ -144,7 +144,7 @@ def compute_model_score(*, model_name, evaluation_id, data_hash):
         json.dump(scores, f, indent=4)
 
 def evaluate_model_on_single_data_file(model_type, model_name, model_args, evaluation_id, *, data_hash):
-    with open(os.path.join('data', 'custom', data_hash + '.json')) as f:
+    with open(os.path.join('data', 'custom-test-data', data_hash + '.json')) as f:
         conversations_with_references = json.load(f)
 
     judge_model_type = 'openchat-llama2-v1'
