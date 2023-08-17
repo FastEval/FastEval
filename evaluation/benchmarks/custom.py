@@ -21,7 +21,7 @@ def generate_assistant_replies(*, model_type, model_name, model_args, evaluation
     model = create_model(model_type, model_name, model_args)
 
     conversations_with_ids = [(conversation_id, conversation['conversation'])
-        for conversation_id, conversation in conversations_with_references.values()]
+        for conversation_id, conversation in conversations_with_references.items()]
     conversations = [conversation for conversation_id, conversation in conversations_with_ids]
 
     model_replies = compute_model_replies(
@@ -45,12 +45,23 @@ def create_judge_conversation(*, conversations_with_references, model_replies, c
     system_message = textwrap.dedent("""\
     Please act as an impartial judge and evaluate the quality of the response provided by an AI assistant to the user question.
     Your evaluation should consider correctness and helpfulness.
-    You will be given an optional past conversation as context, a current user question, the assistant's answer as well as a reference answer.
-    You evaluation should focus on the assistant's answer to the current user question.
-    Do not evaluate the assistant's answers in the previous conversation context before.
+    """)
+
+    if len(conversation) == 1:
+        system_message += "You will be given a user question, the assistant's answer as well as a reference answer.\n"
+    elif len(conversation) > 1:
+        system_message += textwrap.dedent("""\
+        You will be given an past conversation as context, a current user question, the assistant's answer as well as a reference answer.
+        You evaluation should focus on the assistant's answer to the current user question.
+        Do not evaluate the assistant's answers in the previous conversation context before.
+        """)
+
+    system_message += textwrap.dedent("""\
     Begin your evaluation by comparing the assistant's answer with the reference answer.
     Identify and correct any mistakes. Be as objective as possible.
-    After providing your explanation, you must rate the response on a scale of 1 to 10 by strictly following this format: "[[rating]]", for example: "Rating: [[5]]".""")
+    AFTER providing your explanation, you must rate the response on a scale of 1 to 10 by strictly following this format: "[[rating]]", for example: "Rating: [[5]]".
+    DO NOT output the rating immediately. Only provide the final rating AFTER providing your reasoning step-by-step.
+    Also make sure to to use the correct output format for the final rating including the brackets: [[rating]].""")
 
     judge_prompt = ''
 
@@ -62,11 +73,14 @@ def create_judge_conversation(*, conversations_with_references, model_replies, c
         judge_prompt += '<|The End Of The Previous Conversation Context|>\n\n'
 
     assert conversation[-1][0] == 'user'
-    judge_prompt += "### Current User Question:\n" + conversation[:-1] + '\n\n'
+    judge_prompt += "### Current User Question:\n" + conversation[-1][1] + '\n\n'
 
     judge_prompt += "### Assistant's Answer:\n" + model_reply + '\n\n'
 
     judge_prompt += '### Reference Answer:\n' + reference + '\n\n'
+
+    judge_prompt += ('Please now compare the assistant\'s answer with the reference answer. '
+        + 'DO NOT output the rating immediately. Only provide the final rating AFTER providing your reasoning step-by-step.')
 
     return [
         ('system', system_message),
@@ -93,7 +107,7 @@ def compute_judge_replies(*, model_name, evaluation_id, conversations_with_refer
         'temperature': 0,
     } for item in judge_conversations], progress_bar_description=model_name + ' :: Custom :: Judging with ' + judge_model_name)
 
-    judge_replies = [judge_conversations[i]['conversation_id']: judge_reply for i, judge_reply in enumerate(judge_replies)]
+    judge_replies = { judge_conversations[i]['conversation_id']: judge_reply for i, judge_reply in enumerate(judge_replies) }
 
     os.makedirs(os.path.dirname(judge_replies_filepath), exist_ok=True)
     with open(judge_replies_filepath, 'w') as f:
@@ -109,7 +123,7 @@ def compute_model_score(*, model_name, evaluation_id):
         judge_replies = json.load(f)
 
     ratings = []
-    for conversation_id, judge_reply in judge_replies:
+    for conversation_id, judge_reply in judge_replies.items():
         match = re.search('\[\[(\d+\.?\d*)\]\]', judge_reply)
         if not match:
             match = re.search('\[(\d+\.?\d*)\]', judge_reply)
@@ -120,14 +134,25 @@ def compute_model_score(*, model_name, evaluation_id):
         rating = ast.literal_eval(match.groups()[0])
         ratings.append(rating)
 
-    average_rating = statistics.mean(ratings)
+    if len(ratings) == 0:
+        average_rating = None
+    else:
+        average_rating = statistics.mean(ratings)
+
     scores = { 'average': average_rating }
 
     os.makedirs(os.path.dirname(scores_filepath), exist_ok=True)
     with open(scores_filepath, 'w') as f:
         json.dump(scores, f, indent=4)
 
-def evaluate_model(*, model_type, model_name, model_args, evaluation_id, conversations_with_references, judge_model_type, judge_model_name, judge_model_args):
+def evaluate_model(model_type, model_name, model_args, evaluation_id, *, conversations_with_references=json.load(open('custom_benchmark_test_data.json'))):
+    judge_model_type = 'openchat-llama2-v1'
+    judge_model_name = 'Open-Orca/OpenOrcaxOpenChat-Preview2-13B'
+    judge_model_args = {
+        'dtype': 'bfloat16',
+        'inference_backend': 'vllm',
+    }
+
     generate_assistant_replies(
         model_type=model_type,
         model_name=model_name,
