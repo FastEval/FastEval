@@ -1,0 +1,75 @@
+{
+    "score": 0.1,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": " Select the best translation into predicate logic. All planets are smaller than Jupiter. (j: Jupiter; Px: x is a planet; Sxy: x is smaller than y)\n\n(A) (\u2203x)(Px \u2022 Sxj)\n(B) (\u2200x)(Px \u2022 Sxj)\n(C) (\u2200x)(Px \u2283 Sjx)\n(D) (\u2200x)(Px \u2283 Sxj)",
+            "correct_answer": 3,
+            "model_answer": "To translate the given statement into predicate logic, we need to represent the statement using quantifiers, variables, and logical connectives.\n\nThe statement is: All planets are smaller than Jupiter.\n\nWe can represent this statement using the following formula:\n\n(Px \u2022 Sxj)\n\nNow, we need to convert this formula into a predicate logic expression.\n\nThe best translation into predicate logic is:\n\n(A) (\u2203x)(Px \u2022 Sxj)",
+            "correct": false
+        },
+        {
+            "id": 72,
+            "question": " Which of the given formulas of PL is the best symbolization of the following sentence?\nA person is considered to have lived with you for all of the present year if the person was born or died in the present year and your home was this person's home for the entire time this person was alive.\n\n(A) [(B \u2228 D) \u2022 H] \u2283 L\n(B) [L \u2283 (B \u2228 D)] \u2022 H\n(C) L \u2283 [(B \u2228 D) \u2022 H]\n(D) (B \u2228 D \u2022 H) \u2283 L",
+            "correct_answer": 0,
+            "model_answer": "To find the best symbolization of the given sentence, let's break down the sentence into its components and match them with the given formulas:\n\n1. A person is considered to have lived with you for all of the present year if:\n   - The person was born or died in the present year (B)\n   - Your home was this person's home for the entire time this person was alive (H)\n\nNow, let's compare the given formulas with the components:\n\n(A) [(B \u2228 D) \u2022 H] \u2283 L\n(B) [L \u2283 (B \u2228 D)] \u2022 H\n(C) L \u2283 [(B \u2228 D) \u2022 H]\n(D) (B \u2228 D \u2022 H) \u2283 L\n\nThe best symbolization of the sentence is the one that captures the conditions mentioned:\n\n(A) [(B \u2228 D) \u2022 H] \u2283 L\n\nThis formula represents that if a person was born or died in the present year and lived in your home for the entire time they were alive, then they are considered to have lived with you for all of the present year.",
+            "correct": false
+        },
+        {
+            "id": 108,
+            "question": "Use indirect truth tables to determine whether the following argument is valid. If the argument is invalid, choose an option which presents a counterexample. (There may be other counterexamples as well.)\nH \u2261 (I \u00b7 ~J)\nK \u2261 ~H\n~(K \u2283 J) / I \u2261 J\n\n(A) Valid\n(B) Invalid. Counterexample when I, H, and K are true and J is false\n(C) Invalid. Counterexample when I and H are true and J and K are false\n(D) Invalid. Counterexample when K is true and I, H, and J are false",
+            "correct_answer": 0,
+            "model_answer": "(B) Invalid. Counterexample when I, H, and K are true and J is false",
+            "correct": false
+        },
+        {
+            "id": 102,
+            "question": "Identify the conclusion of the following argument. Remember to remove any conclusion indicators. It is wrong for society to kill a murderer. This follows for the reason that if a murderer is wrong in killing his victim, then society is also wrong in killing the murderer. And a murderer is wrong in killing his victim.\n\n(A) It is wrong for society to kill a murderer.\n(B) This follows for the reason that if a murderer is wrong in killing his victim, then society is also wrong in killing the murderer.\n(C) If a murderer is wrong in killing his victim, then society is also wrong in killing the murderer.\n(D) And a murderer is wrong in killing his victim.",
+            "correct_answer": 0,
+            "model_answer": "(A) It is wrong for society to kill a murderer.",
+            "correct": true
+        },
+        {
+            "id": 97,
+            "question": " Use indirect truth tables to determine whether the following argument is valid. If the argument is invalid, choose an option which presents a counterexample. (There may be other counterexamples as well.)\nL \u2283 [(M \u2228 ~N) \u2283 O]\n(N \u2283 O) \u2283 (~P \u2283 Q)\nR \u2283 ~Q / L \u2283 (R \u2283 P)\n\n(A) Valid\n(B) Invalid. Counterexample when L, M, O, Q, and R are true and N and P are false\n(C) Invalid. Counterexample when L, N, O, Q, and R are true and M and P are false\n(D) Invalid. Counterexample when L, N, and R are true and M, O, P, and Q are false",
+            "correct_answer": 3,
+            "model_answer": "To determine if the argument is valid, we need to check if the truth of the premises implies the truth of the conclusion.\n\nStep 1: Analyze the premises\n- L \u2283 [(M \u2228 ~N) \u2283 O]\n- (N \u2283 O) \u2283 (~P \u2283 Q)\n- R \u2283 ~Q / L \u2283 (R \u2283 P)\n\nStep 2: Check the truth table for the first premise\n- If L is true, then M or ~N must be true for O to be true.\n- If L is false, then M or ~N must be false for O to be false.\n\nStep 3: Check the truth table for the second premise\n- If N is true, then O must be true for Q to be false.\n- If N is false, then O must be false for Q to be true.\n\nStep 4: Check the truth table for the third premise\n- If R is true, then Q must be false for P to be true.\n- If R is false, then P must be false for Q to be true.\n\nStep 5: Check the truth table for the conclusion\n- If L is true, then R must be true for P to be true.\n- If L is false, then R must be false for P to be false.\n\nStep 6: Compare the truth tables of the premises and the conclusion\n- The truth tables for the premises and the conclusion are consistent.\n\nStep 7: Determine if the argument is valid\n- The argument is valid.\n\nSo, the answer is (A) Valid.",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": " Which of the following propositions is an immediate (one-step) consequence in PL of the given premises?\n~E \u2283 ~F\nG \u2283 F\nH \u2228 ~E\nH \u2283 I\n~I\n\n(A) E \u2283 F\n(B) F \u2283 G\n(C) H \u2283 ~E\n(D) ~H",
+            "correct_answer": 3,
+            "model_answer": "To find the immediate consequence in PL (Propositional Logic), we need to analyze the given premises and see which one can be derived directly from them.\n\nPremises:\n1. ~E \u2283 ~F\n2. G \u2283 F\n3. H \u2228 ~E\n4. H \u2283 I\n5. ~I\n\nNow let's analyze each proposition:\n\n(A) E \u2283 F: This proposition is not an immediate consequence of the given premises, as it is not directly derived from any of them.\n\n(B) F \u2283 G: This proposition is not an immediate consequence of the given premises, as it is not directly derived from any of them.\n\n(C) H \u2283 ~E: This proposition is an immediate consequence of the given premises. Since H \u2283 I and I \u2283 ~E, we can derive H \u2283 ~E.\n\n(D) ~H: This proposition is not an immediate consequence of the given premises, as it is not directly derived from any of them.\n\n(E) I: This proposition is not an immediate consequence of the given premises, as it is not directly derived from any of them.\n\n(F) ~I: This proposition is an immediate consequence of the given premises. Since H \u2283 I and I \u2283 ~E, we can derive ~I.\n\nSo, the answer is (F) ~I.",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": " Which of the following propositions is an immediate (one-step) consequence in PL of the given premises?\nU \u2283 W\nW \u2283 (X \u2261 ~Y)\n(X \u2261 ~Y) \u2283 Z\n~Z\n\n(A) U \u2283 Z\n(B) U \u2228 W\n(C) ~W\n(D) ~(X \u2261 ~Y)",
+            "correct_answer": 3,
+            "model_answer": "To find the immediate consequence in PL (Propositional Logic) of the given premises, we need to analyze the logical relationships between the propositions.\n\n1. U \u2283 W: If U is true, then W must be true.\n2. W \u2283 (X \u2261 ~Y): If W is true, then (X \u2261 ~Y) must be true.\n3. (X \u2261 ~Y) \u2283 Z: If (X \u2261 ~Y) is true, then Z must be true.\n4. ~Z: If Z is false, then ~Z is true.\n\nNow, let's analyze the given proposition:\n~Z\n\nSince Z is derived from (X \u2261 ~Y) and (X \u2261 ~Y) is derived from W, we can rewrite the given proposition as:\n~(X \u2261 ~Y)\n\nHowever, this is not an immediate consequence of the given premises. The closest proposition we can find is:\n\n(A) U \u2283 Z\n\nBut this is not the answer we are looking for. The answer should be a single letter with parenthesis.\n\nSo, the answer is:\n(C) ~W",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": " Select the best translation into predicate logic. Some firefighters rescue victims from danger. (Dx: x is danger; Fx: x is a firefighter; Vx: x is a victim; Rxyz: x rescues y from z)\n\n(A) (\u2203x){Fx \u2022 (\u2200y)[Dy \u2283 (\u2203z)(Vz \u2022 Rxyz)]}\n(B) (\u2203x){Fx \u2022 (\u2203y)[Vy \u2022 (\u2203z)(Dz \u2022 Rxyz)]}\n(C) (\u2203x){Fx \u2022 (\u2203y)(\u2203z)[(Vy \u2022 Dz) \u2022 Rxzy]}\n(D) (\u2200x){Fx \u2283 (\u2203y)[Vy . (\u2203z)(Dz \u2022 Rxyz)]}",
+            "correct_answer": 1,
+            "model_answer": "To translate the given sentence into predicate logic, we need to represent the variables and their relationships using logical connectives.\n\nThe given sentence is: Some firefighters rescue victims from danger.\n\nLet's break down the sentence into its components:\n1. Some firefighters (Fx)\n2. Rescue victims (Rxyz)\n3. From danger (Dx)\n4. Victims are in danger (Dy)\n\nNow, let's represent these components in predicate logic:\n\n1. (\u2203x){Fx} (There exists at least one firefighter)\n2. (\u2200y)[Dy \u2283 (\u2203z)(Vz \u2022 Rxyz)] (For every victim, there exists a danger and a firefighter rescues them)\n\nSo, the best translation into predicate logic is:\n\n(A) (\u2203x){Fx \u2022 (\u2200y)[Dy \u2283 (\u2203z)(Vz \u2022 Rxyz)]}",
+            "correct": false
+        },
+        {
+            "id": 63,
+            "question": "Select the best translation into predicate logic: Abdul and Cleopatra are Egyptian.\n\n(A) Ea \u2022 Ec\n(B) Ea \u2022 c\n(C) Ae \u2228 Ce\n(D) Ex \u2022 Ey",
+            "correct_answer": 0,
+            "model_answer": "To translate the given statement into predicate logic, we need to represent the subjects (Abdul and Cleopatra) and the predicate (are Egyptian).\n\nLet's use the following variables:\nA = Abdul\nC = Cleopatra\nE = Egyptian\n\nNow, we can write the statement as:\n(A \u2227 C) \u21d2 E\n\nHere, the conjunction (\u2227) means \"and,\" the conditional (\u21d2) means \"are,\" and the predicate (E) means \"Egyptian.\"\n\nSo, the best translation into predicate logic is:\n(A \u2227 C) \u21d2 E",
+            "correct": false
+        },
+        {
+            "id": 57,
+            "question": " Use indirect truth tables to determine whether each set of propositions is consistent. If the set is consistent, choose an option with a consistent valuation. (There may be other consistent valuations.)\n(T \u2283 U) \u2283 (W \u2283 U)\nT \u2283 ~(U \u2283 X)\n(T \u2283 ~X) \u2283 W\n\n(A) Inconsistent\n(B) Consistent. Consistent valuation when U, W, and X are true and T is false\n(C) Consistent. Consistent valuation when W and X are true and T and U are false\n(D) Consistent. Consistent valuation when T and U are true and W and X are false",
+            "correct_answer": 1,
+            "model_answer": "To determine the consistency of the set of propositions, we need to analyze the truth tables for each proposition and see if there is a consistent valuation.\n\n1. (T \u2283 U) \u2283 (W \u2283 U)\n2. T \u2283 ~(U \u2283 X)\n3. (T \u2283 ~X) \u2283 W\n\nFirst, let's analyze the truth tables for each proposition:\n\n(T \u2283 U) \u2283 (W \u2283 U)\nT \u2283 U\nW \u2283 U\n\n(T \u2283 ~X) \u2283 W\nT \u2283 ~X\nW\n\nNow, let's check if there is a consistent valuation for the given set of propositions:\n\n1. (T \u2283 U) \u2283 (W \u2283 U)\n2. T \u2283 ~(U \u2283 X)\n3. (T \u2283 ~X) \u2283 W\n\nWe can see that there are no contradictions between the propositions. So, the set of propositions is consistent.\n\nAnswer: (D) Consistent. Consistent valuation when T and U are true and W and X are false",
+            "correct": false
+        }
+    ]
+}

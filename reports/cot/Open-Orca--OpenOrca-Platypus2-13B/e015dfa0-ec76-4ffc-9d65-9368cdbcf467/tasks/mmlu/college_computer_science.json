@@ -1,0 +1,75 @@
+{
+    "score": 0.4,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "The language {ww | w in (0 + 1)*} is\n\n(A) not accepted by any Turing machine\n(B) accepted by some Turing machine, but by no pushdown automaton\n(C) accepted by some pushdown automaton, but not context-free\n(D) context-free, but not regular",
+            "correct_answer": 1,
+            "model_answer": "To determine the language of the given expression {ww | w in (0 + 1)*} step-by-step:\n\n1. First, let's break down the expression:\n   - {ww | w in (0 + 1)*} means that the expression consists of two \"w\" characters, and the second \"w\" must be preceded by a sequence of 0 or more \"w\" characters and 1 or more \"w\" characters.\n\n2. Now, let's analyze the language:\n   - The expression is made up of two \"w\" characters, which means it is a binary language.\n   - The second \"w\" must be preceded by a sequence of 0 or more \"w\" characters and 1 or more \"w\" characters. This means that the second \"w\" can be preceded by any number of \"w\" characters, including 0.\n\n3. Since the language is binary and the second \"w\" can be preceded by any number of \"w\" characters, including 0, it is not context-free.\n\n4. However, the language is still regular, as it has a finite number of possible strings (either 0 or more \"w\" characters followed by 1 or more \"w\" characters).\n\n5. Therefore, the language is (D) context-free, but not regular.\n\nThe answer is (D).",
+            "correct": false
+        },
+        {
+            "id": 72,
+            "question": "Which of the following pairs of 8-bit, two's-complement numbers will result in overflow when the members of the pairs are added?\n\n(A) 11111111, 00000001\n(B) 00000001, 10000000\n(C) 11111111, 10000001\n(D) 10000001, 10101010",
+            "correct_answer": 3,
+            "model_answer": "To find out which pair will result in overflow, we need to add the two numbers and check if the sum is greater than or equal to the maximum value of the 8-bit two's-complement representation (2^8 - 1).\n\n(A) 11111111 (00000001)\n11111111 (00000001) = 11111111 (1)\n\nThe sum is 11111111 (1), which is less than the maximum value (2^8 - 1). So, there is no overflow.\n\n(B) 00000001 (10000000)\n00000001 (10000000) = 10000001 (1)\n\nThe sum is 10000001 (1), which is less than the maximum value (2^8 - 1). So, there is no overflow.\n\n(C) 11111111 (10000001)\n11111111 (10000001) = 21111110 (1)\n\nThe sum is 21111110 (1), which is greater than the maximum value (2^8 - 1). So, there is overflow.\n\n(D) 10000001 (10101010)\n10000001 (10101010) = 20101011 (1)\n\nThe sum is 20101011 (1), which is greater than the maximum value (2^8 - 1). So, there is overflow.\n\nAnswer: (C) and (D)",
+            "correct": true
+        },
+        {
+            "id": 97,
+            "question": "In a pipelined RISC computer where all arithmetic instructions have the same CPI (cycles per instruction), which of the following actions would improve the execution time of a typical program?\nI. Increasing the clock cycle rate\nII. Disallowing any forwarding in the pipeline\nIII. Doubling the sizes of the instruction cache and the data cache without changing the clock cycle time\n\n(A) I only\n(B) II only\n(C) III only\n(D) I and III",
+            "correct_answer": 3,
+            "model_answer": "To determine which action would improve the execution time of a typical program, let's analyze each option:\n\nI. Increasing the clock cycle rate: This would increase the speed at which the CPU operates, potentially leading to faster execution times for instructions.\n\nII. Disallowing any forwarding in the pipeline: This would mean that the CPU would not be able to start executing the next instruction until the current one is completely finished. This could potentially slow down the execution time of a program, as it would require more time to complete each instruction.\n\nIII. Doubling the sizes of the instruction cache and the data cache without changing the clock cycle time: This would mean that the CPU would have more space to store instructions and data, allowing it to fetch and execute more instructions simultaneously. This would likely improve the execution time of a typical program.\n\nBased on the analysis, the answer is:\n\n(C) III only",
+            "correct": false
+        },
+        {
+            "id": 8,
+            "question": "Which of the following statements about floating-point arithmetic is NOT true?\n\n(A) It is inherently nonassociative because some numbers have no exact representation.\n(B) It is inherently nonassociative because there have to be upper and lower bounds on the size of numbers.\n(C) Associativity can be achieved with appropriate roundoff conventions.\n(D) Some rational numbers have no exact representation.",
+            "correct_answer": 2,
+            "model_answer": "(C) Associativity can be achieved with appropriate roundoff conventions.\n\nExplanation:\nThe given statements are:\n(A) It is inherently nonassociative because some numbers have no exact representation.\n(B) It is inherently nonassociative because there have to be upper and lower bounds on the size of numbers.\n(C) Associativity can be achieved with appropriate roundoff conventions.\n(D) Some rational numbers have no exact representation.\n\nAnalysis:\n(A) is true because floating-point numbers have limited precision, and some numbers cannot be represented exactly.\n(B) is true because floating-point numbers have a limited range, and there are bounds on the size of numbers.\n(C) is false because associativity cannot be achieved in floating-point arithmetic due to the inherent nonassociativity caused by the limited precision and range of floating-point numbers.\n(D) is true because some rational numbers cannot be represented exactly in a finite number of bits.\n\nAnswer: (C) Associativity can be achieved with appropriate roundoff conventions.",
+            "correct": true
+        },
+        {
+            "id": 32,
+            "question": "Bob writes down a number between 1 and 1,000. Mary must identify that number by asking \"yes/no\" questions of Bob. Mary knows that Bob always tells the truth. If Mary uses an optimal strategy, then she will determine the answer at the end of exactly how many questions in the worst case?\n\n(A) 1,000\n(B) 999\n(C) 500\n(D) 10",
+            "correct_answer": 3,
+            "model_answer": "To find the optimal strategy for Mary, let's analyze the possible cases:\n\n1. Bob writes down a number between 1 and 100.\n2. Bob writes down a number between 101 and 200.\n3. Bob writes down a number between 201 and 300.\n4. Bob writes down a number between 301 and 400.\n5. Bob writes down a number between 401 and 500.\n6. Bob writes down a number between 501 and 600.\n7. Bob writes down a number between 601 and 700.\n8. Bob writes down a number between 701 and 800.\n9. Bob writes down a number between 801 and 900.\n10. Bob writes down a number between 901 and 1,000.\n\nNow, let's find the maximum number of questions needed for each case:\n\n1. 100 questions (since there are 100 possible numbers)\n2. 100 questions\n3. 100 questions\n4. 100 questions\n5. 100 questions\n6. 100 questions\n7. 100 questions\n8. 100 questions\n9. 100 questions\n10. 100 questions\n\nNow, let's find the minimum number of questions needed for each case:\n\n1. 1 question (since there is only one possible number)\n2. 2 questions (since there are 2 possible numbers)\n3. 3 questions (since there are 3 possible numbers)\n4. 4 questions (since there are 4 possible numbers)\n5. 5 questions (since there are 5 possible numbers)\n6. 6 questions (since there are 6 possible numbers)\n7. 7 questions (since there are 7 possible numbers)\n8. 8 questions (since there are 8 possible numbers)\n9. 9 questions (since there are 9 possible numbers)\n10. 10 questions (since there are 10 possible numbers)\n\nNow, let's find the maximum and minimum number of questions for each case and find the maximum of these values:\n\nMaximum questions: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100\nMinimum questions: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n\nMaximum of maximum and minimum questions: 100\n\nSo, Mary will determine the answer at the end of exactly 100 questions in the worst case.\n\nAnswer: (A) 1,000",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "For all strings x, the function x^M is defined recursively as follows.\ne^M= e, and\nif w is a string and a is a string with length 1, then\n(aw)^M = aw^Ma.\nLet a be a string with length 1, and let x and y be arbitrary strings. Which of the following is true?\n\n(A) a^M = a\n(B) (ax)^M = (xa)^M\n(C) (xy)^M = y^Mx^M\n(D) None of the above",
+            "correct_answer": 3,
+            "model_answer": "To find the correct answer, let's analyze each statement step-by-step:\n\n(A) a^M = a\nSince a is a string with length 1, the base case of the recursion is e^M = e. So, a^M = a.\n\n(B) (ax)^M = (xa)^M\nBy the given definition, we have:\n(ax)^M = (a(x^M))^M = (xa)^M\n\n(C) (xy)^M = y^Mx^M\nBy the given definition, we have:\n(xy)^M = (x(y^M))^M = (xy)^M\n\nThe given definition does not hold for this case, as it would result in an infinite loop.\n\nSo, the correct answer is:\n(D) None of the above",
+            "correct": true
+        },
+        {
+            "id": 63,
+            "question": "Which of the following language features requires that stack-based storage allocation be used rather than static allocation?\n\n(A) Recursive procedures\n(B) Arbitrary goto's\n(C) Two-dimensional arrays\n(D) Integer-valued functions",
+            "correct_answer": 0,
+            "model_answer": "(A) Recursive procedures\n\nStep 1: Understand the language features mentioned.\n- Recursive procedures: A function that calls itself during its execution.\n- Static allocation: A memory allocation method where memory is allocated at compile time and remains constant throughout the program's execution.\n- Stack-based storage allocation: A memory allocation method where memory is allocated on the stack, which grows and shrinks as needed during the program's execution.\n\nStep 2: Analyze which language feature requires stack-based storage allocation.\n- Recursive procedures require stack-based storage allocation because they call themselves during execution, which means the function's local variables and return address need to be stored on the stack.\n\nStep 3: Compare the other language features with the given options.\n- Arbitrary goto's: While goto statements can be used in various programming languages, they do not inherently require stack-based storage allocation.\n- Two-dimensional arrays: Two-dimensional arrays can be implemented using static allocation, as they have a fixed size at compile time.\n- Integer-valued functions: Functions that return integer values do not inherently require stack-based storage allocation.\n\nStep 4: Output the answer.\n(A) Recursive procedures",
+            "correct": true
+        },
+        {
+            "id": 57,
+            "question": "Which of the following instruction-set features is NOT generally considered an obstacle to aggressive pipelining of an integer unit?\n\n(A) Condition codes set by every instruction\n(B) Variable-length encoding of instructions\n(C) Instructions requiring widely varying numbers of cycles to execute\n(D) Several different classes (sets) of registers",
+            "correct_answer": 3,
+            "model_answer": "(D) Several different classes (sets) of registers\n\nExplanation:\nThe given options are:\n(A) Condition codes set by every instruction\n(B) Variable-length encoding of instructions\n(C) Instructions requiring widely varying numbers of cycles to execute\n(D) Several different classes (sets) of registers\n\nOut of these options, (D) Several different classes (sets) of registers is NOT generally considered an obstacle to aggressive pipelining of an integer unit.\n\nThe reason is that having different classes of registers does not inherently hinder the ability to pipeline instructions. Pipelining can still be implemented by having separate stages for each class of registers, allowing instructions to be processed in parallel.",
+            "correct": false
+        },
+        {
+            "id": 60,
+            "question": "Let T be a depth-first search tree of a connected undirected graph G. For each vertex v of T, let pre(v) be the number of nodes visited up to and including v during a preorder traversal of T, and post(v) be the number of nodes visited up to and including v during a postorder traversal of T. The lowest common ancestor of vertices u and v in T is a vertex w of T such that w is an ancestor of both u and v, and no child of w is an ancestor of both u and v. Let (u, v) be an edge in G that is not in T, such that pre(u) < pre(v). Which of the following statements about u and v must be true?\nI. post(u) < post(v)\nII. u is an ancestor of v in T.\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\n\n(A) I only\n(B) II only\n(C) III only\n(D) II and III",
+            "correct_answer": 3,
+            "model_answer": "(A) I only",
+            "correct": false
+        },
+        {
+            "id": 83,
+            "question": "A starvation-free job-scheduling policy guarantees that no job waits indefinitely for service. Which of the following job-scheduling policies is starvation-free?\n\n(A) Round-robin\n(B) Priority queuing\n(C) Shortest job first\n(D) Youngest job first",
+            "correct_answer": 0,
+            "model_answer": "To determine which of the given job-scheduling policies is starvation-free, let's analyze each one:\n\n(A) Round-robin: In round-robin scheduling, each job gets a chance to be processed in a fixed order, and once a job is completed, the next job in the sequence gets processed. This policy ensures that no job waits indefinitely for service, as each job gets a chance to be processed.\n\n(B) Priority queuing: In priority queuing, jobs are sorted based on their priority levels, and the highest priority job is processed first. This policy also ensures that no job waits indefinitely for service, as high-priority jobs are given priority over lower-priority jobs.\n\n(C) Shortest job first: In shortest job first scheduling, jobs are sorted based on their execution time, and the shortest job is processed first. This policy also ensures that no job waits indefinitely for service, as short jobs are given priority over longer jobs.\n\n(D) Youngest job first: In youngest job first scheduling, jobs are sorted based on their creation time, and the youngest job is processed first. This policy also ensures that no job waits indefinitely for service, as young jobs are given priority over older jobs.\n\nSo, out of the given options, both (A) Round-robin and (C) Shortest job first are starvation-free job-scheduling policies.\n\nAnswer: (A) Round-robin and (C) Shortest job first",
+            "correct": false
+        }
+    ]
+}
