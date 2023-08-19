@@ -23,6 +23,8 @@ class InferenceRequestHandler(http.server.BaseHTTPRequestHandler):
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
     os.makedirs('.tmp', exist_ok=True)
 
+    # Clone repository, setup virtual environment
+
     subprocess.run(['git', 'clone', 'https://github.com/THUDM/AgentBench.git'], cwd='.tmp')
     subprocess.run(['python3', '-m', 'venv', 'venv'], cwd='.tmp/AgentBench')
 
@@ -32,12 +34,29 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     subprocess.run(['pip', 'install', '--upgrade', 'pip'], env=new_environment)
     subprocess.run(['pip', 'install', '-r', 'requirements.txt'], cwd='.tmp/AgentBench', env=new_environment)
 
+    # Build docker containers for tasks that require them
+
     subprocess.run(['bash', 'scripts/build_docker.sh'], cwd='.tmp/AgentBench')
+
+    # Task: Operating System
 
     subprocess.run(['pip', 'install', '-r', 'src/tasks/os_interaction/requirements.txt'], cwd='.tmp/AgentBench', env=new_environment)
 
     subprocess.run(['python', 'src/tasks/os_interaction/images.py', 'build',
         '-c', 'configs/tasks/os_interaction/dev.yaml', '-r', '.'], cwd='.tmp/AgentBench', env=new_environment)
+
+    # Task: DataBase
+
+    subprocess.run(['docker', 'pull', 'mysql'])
+
+    subprocess.run(['pip', 'install', '-r', 'src/tasks/dbbench/requirements.txt'], cwd='.tmp/AgentBench', env=new_environment)
+
+    # Task: Knowledge Graph
+
+    # This setup is way too complicated.
+    # I'm going to skip this task for now.
+
+    # Run the inference
 
     model = create_model(model_type, model_name, model_args)
 
