@@ -15,7 +15,7 @@ class InferenceRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
         request = json.loads(self.rfile.read(int(self.headers.get('Content-Length'))).decode('utf-8'))
         conversation = [(item['role'], item['content']) for item in request['messages']]
-        reply = self.model.reply(conversation)
+        reply = self.model.reply(conversation) # TODO: Temperature? max num tokens?
         self.send_response(200)
         self.end_headers()
         self.wfile.write(json.dumps(reply).encode('utf-8'))
@@ -31,6 +31,8 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
 
     subprocess.run(['pip', 'install', '--upgrade', 'pip'], env=new_environment)
     subprocess.run(['pip', 'install', '-r', 'requirements.txt'], cwd='.tmp/AgentBench', env=new_environment)
+
+    subprocess.run(['sudo', 'bash', 'scripts/build_docker.sh'], cwd='.tmp/AgentBench')
 
     model = create_model(model_type, model_name, model_args)
 
