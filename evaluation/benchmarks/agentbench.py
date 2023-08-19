@@ -2,37 +2,45 @@ import subprocess
 import os
 import http.server
 import threading
+import json
+import functools
 
 from evaluation.models.models import create_model
 
-def install():
+class InferenceRequestHandler(http.server.BaseHTTPRequestHandler):
+    def __init__(self, model, *args, **kwargs):
+        self.model = model
+        super().__init__(*args, **kwargs)
+
+    def do_POST(self):
+        request = json.loads(self.rfile.read(int(self.headers.get('Content-Length'))).decode('utf-8'))
+        conversation = [(item['role'], item['content']) for item in request['messages']]
+        reply = self.model.reply(conversation)
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(json.dumps(reply).encode('utf-8'))
+
+def evaluate_model(model_type, model_name, model_args, evaluation_id):
     os.makedirs('.tmp', exist_ok=True)
 
     subprocess.run(['git', 'clone', 'https://github.com/THUDM/AgentBench.git'], cwd='.tmp')
-    subprocess.run(['pip', 'install', '--upgrade', 'pip'], cwd='.tmp/AgentBench')
-    subprocess.run(['pip', 'install', '-r', 'requirements.txt'], cwd='.tmp/AgentBench')
+    subprocess.run(['python3', '-m', 'venv', 'venv'], cwd='.tmp/AgentBench')
 
-class InferenceRequestHandler(http.server.BaseHTTPRequestHandler):
-    def do_POST(self):
-        print(self.path)
+    new_environment = os.environ.copy()
+    new_environment['PATH'] = os.path.join(os.getcwd(), '.tmp/AgentBench/venv/bin') + ':' + os.environ['PATH']
 
-def run_inference_server(model_type, model_name, model_args):
+    subprocess.run(['pip', 'install', '--upgrade', 'pip'], env=new_environment)
+    subprocess.run(['pip', 'install', '-r', 'requirements.txt'], cwd='.tmp/AgentBench', env=new_environment)
+
     model = create_model(model_type, model_name, model_args)
 
-    server = http.server.HTTPServer(('127.0.0.1', 35812), InferenceRequestHandler)
-    server.serve_forever()
+    server = http.server.ThreadingHTTPServer(('127.0.0.1', 35812), functools.partial(InferenceRequestHandler, model))
 
-def run_inference_server_in_separate_thread(model_type, model_name, model_args):
-    threading.Thread(target=run_inference_server, args=(model_type, model_name, model_args)).start()
+    threading.Thread(target=server.serve_forever).start()
 
-def run_test_eval():
-    new_environment = os.environ.copy()
-    new_environment['PATH'] = os.path.join(os.getcwd(), '.tmp/AgentBench/.venv/bin') + ':' + os.environ['PATH']
+    agent_file = os.path.join(os.getcwd(), 'evaluation', 'benchmarks', 'agentbench_agent.yaml')
 
     subprocess.run(['python', 'eval.py', '--task', 'configs/tasks/example.yaml',
-        '--agent', 'configs/agents/do_nothing.yaml'], env=new_environment, cwd='.tmp/AgentBench')
+        '--agent', agent_file], env=new_environment, cwd='.tmp/AgentBench')
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
-    install()
-    run_inference_server_in_separate_thread(model_type, model_name, model_args)
-    run_test_eval()
+    server.shutdown()
