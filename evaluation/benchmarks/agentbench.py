@@ -37,7 +37,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     subprocess.run(['pip', 'install', '-r', 'src/tasks/os_interaction/requirements.txt'], cwd='.tmp/AgentBench', env=new_environment)
 
     subprocess.run(['python', 'src/tasks/os_interaction/images.py', 'build',
-        '-c', 'configs/tasks/os_interaction/std.yaml', '-r', '.'], cwd='.tmp/AgentBench', env=new_environment)
+        '-c', 'configs/tasks/os_interaction/dev.yaml', '-r', '.'], cwd='.tmp/AgentBench', env=new_environment)
 
     model = create_model(model_type, model_name, model_args)
 
