@@ -25,6 +25,14 @@ def run_inference_server(model_type, model_name, model_args):
 def run_inference_server_in_separate_thread(model_type, model_name, model_args):
     threading.Thread(target=run_inference_server, args=(model_type, model_name, model_args)).start()
 
+def run_test_eval():
+    new_environment = os.environ.copy()
+    new_environment['PATH'] = os.path.join(os.getcwd(), '.tmp/AgentBench/.venv/bin') + ':' + os.environ['PATH']
+
+    subprocess.run(['python', 'eval.py', '--task', 'configs/tasks/example.yaml',
+        '--agent', 'configs/agents/do_nothing.yaml'], env=new_environment, cwd='.tmp/AgentBench')
+
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
     install()
     run_inference_server_in_separate_thread(model_type, model_name, model_args)
+    run_test_eval()
