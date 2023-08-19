@@ -57,6 +57,17 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     subprocess.run(['pip', 'install', '-r', 'src/tasks/lateralthinkingpuzzle/requirements.txt'], cwd='.tmp/AgentBench', env=new_environment)
     subprocess.run(['pip', 'install', 'openpyxl'], env=new_environment) # Missing dependency
 
+    # Task: AlfWorld
+
+    subprocess.run(['pip', 'install', 'textworld'], env=new_environment) # Missing dependency
+
+    # Task: Mind2Web
+
+    subprocess.run(['pip', 'install', 'addict'], env=new_environment) # Missing dependency
+    subprocess.run(['pip', 'install', 'lxml'], env=new_environment) # Missing dependency
+    subprocess.run(['pip', 'install', 'datasets'], env=new_environment) # Missing dependency
+    subprocess.run(['pip', 'install', 'torch'], env=new_environment) # Missing dependency
+
     # Task: Knowledge Graph
 
     # This setup is way too complicated.
@@ -76,10 +87,10 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
         # 'configs/tasks/os_interaction/dev.yaml', # Runs
         #'configs/tasks/dbbench/dev.yaml', # MySQL connection error towards the end
         # 'configs/tasks/lateralthinkingpuzzle/dev.yaml', # Runs
-        'configs/tasks/lateralthinkingpuzzle_zh/dev.yaml',
+        # 'configs/tasks/lateralthinkingpuzzle_zh/dev.yaml', # Runs
         # 'configs/tasks/knowledgegraph/dev.yaml', # Excluded for now
-        #'configs/tasks/alfworld/dev.yaml',
-        #'configs/tasks/mind2web/dev.yaml',
+        # 'configs/tasks/alfworld/dev.yaml', # Doesn't work
+        'configs/tasks/mind2web/dev.yaml',
         #'configs/tasks/card_game/dev.yaml',
     ]
 
