@@ -4,18 +4,20 @@ import http.server
 import threading
 import json
 import functools
+import uuid
 
 from evaluation.models.models import create_model
 
 class InferenceRequestHandler(http.server.BaseHTTPRequestHandler):
-    def __init__(self, model, *args, **kwargs):
+    def __init__(self, model, stop_event, *args, **kwargs):
         self.model = model
+        self.stop_event = stop_event
         super().__init__(*args, **kwargs)
 
     def do_POST(self):
         request = json.loads(self.rfile.read(int(self.headers.get('Content-Length'))).decode('utf-8'))
         conversation = [(item['role'], item['content']) for item in request['messages']]
-        reply = self.model.reply(conversation) # TODO: Temperature? max num tokens?
+        reply = self.model.reply(conversation, stop_event=self.stop_event) # TODO: Temperature? max num tokens?
         self.send_response(200)
         self.end_headers()
         self.wfile.write(json.dumps(reply).encode('utf-8'))
@@ -77,25 +79,44 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
 
     model = create_model(model_type, model_name, model_args)
 
-    server = http.server.ThreadingHTTPServer(('127.0.0.1', 35812), functools.partial(InferenceRequestHandler, model))
+    stop_event = threading.Event()
+
+    server = http.server.ThreadingHTTPServer(('127.0.0.1', 35812), functools.partial(InferenceRequestHandler, model, stop_event))
 
     threading.Thread(target=server.serve_forever).start()
 
     agent_file = os.path.join(os.getcwd(), 'evaluation', 'benchmarks', 'agentbench_agent.yaml')
 
-    tasks = [
-        # 'configs/tasks/os_interaction/dev.yaml', # Runs
+    tasks = {
+        'os_interaction': 'configs/tasks/os_interaction/dev.yaml', # Runs
         #'configs/tasks/dbbench/dev.yaml', # MySQL connection error towards the end
         # 'configs/tasks/lateralthinkingpuzzle/dev.yaml', # Runs
         # 'configs/tasks/lateralthinkingpuzzle_zh/dev.yaml', # Runs
         # 'configs/tasks/knowledgegraph/dev.yaml', # Excluded for now
         # 'configs/tasks/alfworld/dev.yaml', # Doesn't work
-        'configs/tasks/mind2web/dev.yaml',
-        #'configs/tasks/card_game/dev.yaml',
-    ]
+        # 'configs/tasks/mind2web/dev.yaml', # todo
+        # 'configs/tasks/card_game/dev.yaml', # Progress bar stuck at 0
+    }
 
-    for task in tasks:
-        subprocess.run(['python', 'eval.py', '--task', task, '--agent', agent_file, '--workers', str(os.cpu_count())],
-            env=new_environment, cwd='.tmp/AgentBench')
+    scores = {}
+    for task_name, task_config_file in tasks.items():
+        output_directory = os.path.abspath(os.path.join('.tmp', 'agentbench', str(uuid.uuid4())))
+
+        subprocess.run([
+            'python', 'eval.py',
+            '--task', task_config_file,
+            '--agent', agent_file,
+            '--workers', str(os.cpu_count()),
+            '--output', output_directory,
+        ], env=new_environment, cwd='.tmp/AgentBench')
+
+        results_file = os.path.join(output_directory, 'results.json')
+        with open(results_file) as f:
+            results = json.load(f)
+
+        score = results['score']['overall']['acc']
+        scores[task_name] = score
+
+    print(scores)
 
     server.shutdown()
