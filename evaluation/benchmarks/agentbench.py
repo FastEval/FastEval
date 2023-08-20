@@ -88,14 +88,14 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     agent_file = os.path.join(os.getcwd(), 'evaluation', 'benchmarks', 'agentbench_agent.yaml')
 
     tasks = {
-        'os_interaction': 'configs/tasks/os_interaction/dev.yaml', # Runs
-        #'configs/tasks/dbbench/dev.yaml', # MySQL connection error towards the end
-        # 'configs/tasks/lateralthinkingpuzzle/dev.yaml', # Runs
-        # 'configs/tasks/lateralthinkingpuzzle_zh/dev.yaml', # Runs
-        # 'configs/tasks/knowledgegraph/dev.yaml', # Excluded for now
-        # 'configs/tasks/alfworld/dev.yaml', # Doesn't work
-        # 'configs/tasks/mind2web/dev.yaml', # todo
-        # 'configs/tasks/card_game/dev.yaml', # Progress bar stuck at 0
+        # 'os_interaction': 'configs/tasks/os_interaction/dev.yaml', # Mostly runs, but sometimes stuck in the end. Also completely different scores from paper
+        # 'dbbench': 'configs/tasks/dbbench/dev.yaml', # MySQL connection error towards the end
+        # 'lateral-thinking-puzzle': 'configs/tasks/lateralthinkingpuzzle/dev.yaml', # ZeroDivisionError
+        # 'lateral-thinking-puzzle-zh': 'configs/tasks/lateralthinkingpuzzle_zh/dev.yaml', # todo
+        # 'knowledge-graph': 'configs/tasks/knowledgegraph/dev.yaml', # Excluded for now
+        # 'alfworld': 'configs/tasks/alfworld/dev.yaml', # Doesn't work
+        # 'mind2web': 'configs/tasks/mind2web/dev.yaml', # todo
+        # 'card-game': 'configs/tasks/card_game/dev.yaml', # Progress bar stuck at 0
     }
 
     scores = {}
