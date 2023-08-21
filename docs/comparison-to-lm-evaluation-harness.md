@@ -23,8 +23,8 @@ The evaluation is therefore more realistic and closer to how the models are used
 Every method tells us whether the model is able to use its knowledge in specific ways.
 
 ### Programming capabilities
-To measure the programming abilities of a language model, it is insuffient to do some simple text matching against a ground truth solution.
-Instead, the usual method is to let the model write new or modify existing code and then execute the resulting code against a number of tests to evaluate the correctness.
+To measure the programming abilities of a language model, simple matching against a ground truth is insufficient.
+Instead, the common approach is to make the model work with code and then _execute_ the resulting code against a number of tests.
 
 FastEval currently includes [HumanEval+](https://github.com/evalplus/evalplus) for evaluating simple python coding abilities.
 However, we plan to expand it with additional benchmarks that measure the ability to edit existing code and also contain more languages and more complex problems.
