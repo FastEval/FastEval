@@ -57,7 +57,6 @@ While this is a good approach for base models, it is an unrealistic setting for 
 Most users want to use the model directly in a zero-shot setting without formulating a few-shot prompt.
 
 For this reason, FastEval focuses almost exclusively on the zero-shot setting.
-It also includes some tasks from LM-Eval, but in the zero-shot CoT setting which is more realistic for chat language models.
 
 Note that while LM-Eval can also be used with zero-shot, few-shot is almost a requirement for tasks where a specific output format is expected.
 This is because otherwise the model will often answer in an unexpected format and fail the tests due to this reason instead of actually getting the answer wrong.
