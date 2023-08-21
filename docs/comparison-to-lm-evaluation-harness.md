@@ -19,7 +19,7 @@ To solve this problem, FastEval uses various forms of evaluations in addition to
 Every type of evaluation adds additional tests on whether the model is actually able to use the knowledge it contains in certain ways.
 
 ### Programming capabilities
-Measuring the programming abilities of a language model, it is essential to let model write new or modify existing code and then execute the resulting code against a number of tests to evaluate the correctness.
+To measure the programming abilities of a language model, it is essential to let model write new or modify existing code and then execute the resulting code against a number of tests to evaluate the correctness.
 
 FastEval currently includes [HumanEval+](https://github.com/evalplus/evalplus) for evaluating simple python coding abilities.
 However, we plan to expand it with additional benchmarks that measure the ability to edit existing code and also contain more languages and more complex problems.
