@@ -38,7 +38,7 @@ This dependency on GPT-4 is quite annoying and also costs $5 per model for [MT-B
 Still, it is easier than human evaluation and better than other methods.
 
 ### Multi-step reasoning
-Most tasks in LM-Eval measure the ability of a model to immediately output the answer in a few tokens.
+Most tasks in LM-Eval measure the ability of a model to immediately output the answer within a few tokens.
 This is not a realistic setting for chat language models where the user is often willing to give the language model time to think in order to obtain a more accurate answer.
 
 To make evaluations closer to this setting used in practice, FastEval focuses more on [CoT (chain-of-thought) reasoning](https://fasteval.github.io/FastEval/#?benchmark=cot).
