@@ -26,7 +26,7 @@ Every method tells us whether the model is able to use its knowledge in specific
 To measure the programming abilities of a language model, simple matching against a ground truth is insufficient.
 Instead, the common approach is to make the model work with code and then _execute_ the resulting code against a number of tests.
 
-FastEval currently includes [HumanEval+](https://github.com/evalplus/evalplus) for evaluating simple python coding abilities.
+FastEval currently includes [HumanEval+](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus) for evaluating simple python coding abilities.
 However, we plan to expand it with additional benchmarks with a focus on code editing, multiple programming languages and more complex problems.
 
 ### Conversational abilities
@@ -34,14 +34,14 @@ Simple matching against a ground truth solution does not measure well how a lang
 However, this ability is certainly something that should not be missing from a chat language model.
 
 The current approach to measure this is to use GPT-4 to judge the model outputs.
-This dependency on GPT-4 is quite annoying and also costs $5 per model for MT-Bench.
+This dependency on GPT-4 is quite annoying and also costs $5 per model for [MT-Bench](https://fasteval.github.io/FastEval/#?benchmark=mt-bench).
 Still, it is easier than human evaluation and better than other methods.
 
 ### Multi-step reasoning
 Most tasks in LM-Eval measure the ability of a model to immediately output the answer in a few tokens.
 This is not a realistic setting for chat language models where the user is often willing to give the language model time to think in order to obtain a more accurate answer.
 
-To make evaluations closer to this setting used in practice, FastEval focuses more on CoT (chain-of-thought) reasoning.
+To make evaluations closer to this setting used in practice, FastEval focuses more on [CoT (chain-of-thought) reasoning](https://fasteval.github.io/FastEval/#?benchmark=cot).
 However, sometimes giving the answer immediately can still be useful, so we also include some tasks from LM-Eval itself for this.
 
 ### Tool use & acting as agent
