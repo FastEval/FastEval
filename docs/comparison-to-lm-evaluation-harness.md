@@ -8,7 +8,8 @@ This difference is reflected in multiple design decisions.
 FastEval uses [model-specific prompt templates](docs/model-type.md) to prompt the model since this is also how chat language models are trained.
 LM-Eval does not do this, which also makes sense since base models have not been trained with any sort of prompt template.
 
-While it is of course possible to evaluate chat language models without their prompt template, FastEval aims to provide evaluation that is realistic and as close as possible to how the models will actually be used in pratice. And chat language models will used with their prompt template, so it should also be used for evaluation.
+While it is _possible_ to evaluate chat language models without their corresponding prompt template, it is not a _realistic_ setting.
+To provide evaluation that is as close as possible to how the chat models will be used in practice, using prompt templates is a requirement.
 
 ## Various types of evaluation
 For most tasks, LM-Eval evaluates models using simple text matching like multiple choice.
