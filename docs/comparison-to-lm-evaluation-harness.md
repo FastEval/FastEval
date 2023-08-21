@@ -18,8 +18,9 @@ This approach works fine for testing whether the model generally contains certai
 However, while these tests tell us about the existence of certain knowledge, they do not tell us much about _in what ways the model is able to use this knowledge_.
 Yet this part certainly matters for instruction-following and chat language models.
 
-To solve this problem, FastEval uses various forms of evaluations.
-Every method tells us whether the model is able to _use_ the knowledge it contains in specific ways.
+FastEval uses multiple methods to make sure that these abilities are also measured.
+The evaluation is therefore more realistic and closer to how the models are used in the end.
+Every method tells us whether the model is able to use its knowledge in specific ways.
 
 ### Programming capabilities
 To measure the programming abilities of a language model, it is insuffient to do some simple text matching against a ground truth solution.
