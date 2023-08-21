@@ -39,14 +39,15 @@ This is not a realistic setting for chat language models where the user is often
 To make evaluations closer to this setting used in practice, FastEval focuses on CoT (chain-of-thought) reasoning.
 However, sometimes giving the answer immediately can still be useful, so we also additional parts of LM-Eval itself for this.
 
-### Tool use
-TODO
+### Tool use & Acting as agent
+FastEval currently does not include benchmarks for measuring the ability to use tools and act as an agent.
+However, it will contain them in the future and it shows that the focus is quite different from LM-Eval.
 
 ## Zero-shot prompting:
 LM-Eval is very often used with few-shot prompting.
-It is also almost a requirement for tasks where a specific output format is expected, since the base model will otherwise not be able to output the answer in this specific format.
+It is also almost a requirement for tasks where a specific output format is expected, since otherwise the model will often fail the tests due to the wrong answering in the incorrect format instead of getting the answer itself wrong.
 
-While using few-shot prompting is again no problem for evaluating the general knowledge of base models, it is an unrealistic setting for instruction-following and chat models since most users will want to use the chat language model directly in a zero-shot setting without formulating a few-shot prompt.
+While using few-shot prompting is again no problem for base models, it is an unrealistic setting for chat models since most users will use the model directly in a zero-shot setting without formulating a few-shot prompt.
 
 For this reason, FastEval focuses almost exclusively on the zero-shot setting.
 It also includes multiple tasks from LM-Eval, but reformulatd in the zero-shot CoT setting which is a more realistic setup for chat language models.
