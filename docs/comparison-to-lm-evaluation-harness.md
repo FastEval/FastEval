@@ -34,7 +34,7 @@ Simple matching against a ground truth solution does not measure well how a lang
 However, this ability is certainly something that should not be missing from a chat language model.
 
 The current approach to measure this is to use GPT-4 to judge the model outputs.
-This dependency on GPT-4 is quite annoying and also costs money ($5 per model for MT-Bench).
+This dependency on GPT-4 is quite annoying and also costs $5 per model for MT-Bench.
 Still, it is easier than human evaluation and better than other methods.
 
 ### Multi-step reasoning
