@@ -39,7 +39,14 @@ However, it is not the main focus.
 TODO
 
 ## Zero-shot prompting:
-LM-Eval is "A framework for few-shot evaluation of autoregressive language models". 
-By comparison, FastEval uses zero-shot evaluation almost exclusively since this is mostly also how instruction-following models will be used in practice.
-Note that LM-Eval _can_ also use zero-shot prompting and this is also why it is used as a part of FastEval.
-However, it's not the main focus and some tasks are written in a way that few-shot prompting is basically required.
+LM-Eval is very often used with few-shot prompting.
+It is also almost a requirement for tasks where a specific output format is expected, since the base model will otherwise not be able to output the answer in this specific format.
+
+While using few-shot prompting is again no problem for evaluating the general knowledge of base models, it is an unrealistic setting for instruction-following and chat models since most users will want to use the chat language model directly in a zero-shot setting without formulating a few-shot prompt.
+
+For this reason, FastEval focuses almost exclusively on the zero-shot setting.
+It also includes multiple tasks from LM-Eval, but reformulatd in the zero-shot CoT setting which is a more realistic setup for chat language models.
+
+Note that while LM-Eval can also be used in the zero-shot setting, it's use for instruction-following language models is still limited due to the other reasons above.
+In addition, some tasks also require few-shot prompting to be actually useful, since the model would otherwise output the answer in a format that is not handled well by the evaluation code.
+However, we believe that it can still be a useful part of evaluation despite these reasons, which is why we also include it to some extend.
