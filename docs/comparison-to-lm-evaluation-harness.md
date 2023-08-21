@@ -39,7 +39,7 @@ This is not a realistic setting for chat language models where the user is often
 To make evaluations closer to this setting used in practice, FastEval focuses on CoT (chain-of-thought) reasoning.
 However, sometimes giving the answer immediately can still be useful, so we also additional parts of LM-Eval itself for this.
 
-### Tool use & Acting as agent
+### Tool use & acting as agent
 FastEval currently does not include benchmarks for measuring the ability to use tools and act as an agent.
 However, it will contain them in the future and it shows that the focus is quite different from LM-Eval.
 
