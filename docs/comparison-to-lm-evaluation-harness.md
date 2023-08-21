@@ -15,7 +15,7 @@ To provide evaluation that is as close as possible to how the chat models will b
 For most tasks, LM-Eval evaluates models using a simple comparison with a ground truth, e.g. multiple choice.
 This approach works fine for testing whether the model generally contains certain types of knowledge and it is therefore a very good method for evaluating base models.
 
-However, while these tests tell us about the existence of certain knowledge, they does not tell us much about _in what ways the model is able to use this knowledge_.
+However, while these tests tell us about the existence of certain knowledge, they do not tell us much about _in what ways the model is able to use this knowledge_.
 Yet this part certainly matters for instruction-following and chat language models.
 
 To solve this problem, FastEval uses various forms of evaluations.
