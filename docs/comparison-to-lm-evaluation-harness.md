@@ -33,9 +33,9 @@ However, we plan to expand it with additional benchmarks with a focus on code ed
 Simple matching against a ground truth solution does not measure well how a language model is able to handle conversations with a user.
 However, this ability is certainly something that should not be missing from a chat language model.
 
-The best approach right now seems to be to use a more powerful language model like GPT-4 to judge the model that should be evaluated.
-This dependency on GPT-4 is of course quite annoying and also expensive ($5 per model).
-However, since it is still easier and less expensive than human evaluation, we include it as a benchmark.
+The current approach to measure this is to use GPT-4 to judge the model outputs.
+This dependency on GPT-4 is quite annoying and also costs money ($5 per model for MT-Bench).
+Still, it is still easier than human evaluation and better than other methods.
 
 ### Multi-step reasoning
 Most tasks in LM-Eval measure the ability of a model to immediately output the answer in a few tokens.
