@@ -35,7 +35,7 @@ However, this ability is certainly something that should not be missing from a c
 
 The current approach to measure this is to use GPT-4 to judge the model outputs.
 This dependency on GPT-4 is quite annoying and also costs money ($5 per model for MT-Bench).
-Still, it is still easier than human evaluation and better than other methods.
+Still, it is easier than human evaluation and better than other methods.
 
 ### Multi-step reasoning
 Most tasks in LM-Eval measure the ability of a model to immediately output the answer in a few tokens.
