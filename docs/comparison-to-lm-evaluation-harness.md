@@ -49,7 +49,7 @@ The ability to use tools as well as act as an agent are becoming more and more u
 Again, to provide a realistic evaluation setting, simple matching against a ground-truth solution is insufficient and actual execution is required.
 
 FastEval currently does not include benchmarks for measuring these capabilities.
-However, it is work in progress and it is another example of the very different focus for FastEval and LM-Eval.
+However, it is work in progress and it is another example of the very different focus compared to LM-Eval which mostly does simple matching against a ground-truth solution.
 
 ## Zero-shot prompting:
 LM-Eval is very often used with few-shot prompting.
