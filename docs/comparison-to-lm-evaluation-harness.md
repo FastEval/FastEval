@@ -11,12 +11,12 @@ LM-Eval does not do this, which also makes sense since base models have not been
 While it is _possible_ to evaluate chat language models without their corresponding prompt template, it is not a _realistic_ setting.
 To provide evaluation that is as close as possible to how the chat models will be used in practice, using prompt templates is a requirement.
 
-## Various types of evaluation
+## Various evaluation methods
 For most tasks, LM-Eval evaluates models using a simple comparison with a ground truth, e.g. multiple choice.
-This approach works fine for testing whether the model generally contains certain types of knowledge and it is therefore a very good choice for evaluating base models.
+This approach works fine for testing whether the model generally contains certain types of knowledge and it is therefore a very good method for evaluating base models.
 
 However, while these tests tell us about the existence of certain knowledge, they does not tell us much about _in what ways the model is able to use this knowledge_.
-Yet this part is what we are often interested in when considering instruction-following and chat capabilities.
+Yet this part certainly matters for instruction-following and chat language models.
 
 To solve this problem, FastEval uses various forms of evaluations.
 Every method tells us whether the model is able to _use_ the knowledge it contains in specific ways.
