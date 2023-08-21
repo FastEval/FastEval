@@ -5,21 +5,21 @@ The main difference apart from the performance is that FastEval is primarily des
 This difference is reflected in multiple design decisions.
 
 ## Prompt templates
-FastEval uses [model-specific prompt templates](docs/model-type.md) to prompt the model since this is also how chat language models are trained.
+FastEval uses [model-specific prompt templates](/docs/model-type.md) to prompt the model since this is also how chat language models are trained.
 LM-Eval does not do this, which also makes sense since base models have not been trained with any sort of prompt template.
 
 While it is _possible_ to evaluate chat language models without their corresponding prompt template, it is not a _realistic_ setting.
 To provide evaluation that is as close as possible to how the chat models will be used in practice, using prompt templates is a requirement.
 
 ## Various types of evaluation
-For most tasks, LM-Eval evaluates models using simple text matching like multiple choice.
+For most tasks, LM-Eval evaluates models using a simple comparison with a ground truth, e.g. multiple choice.
 This approach works fine for testing whether the model generally contains certain types of knowledge and it is therefore a very good choice for evaluating base models.
 
-However, while it is possible to test for various knowledge using these types of tests, it does not tell us much about _in what ways the model is able to use this knowledge_.
+However, while these tests tell us about the existence of certain knowledge, they does not tell us much about _in what ways the model is able to use this knowledge_.
 Yet this part is what we are often interested in when considering instruction-following and chat capabilities.
 
-To solve this problem, FastEval uses various forms of evaluations in addition to simple text-based matching.
-Every type of evaluation adds additional tests on whether the model is actually able to use the knowledge it contains in certain ways.
+To solve this problem, FastEval uses various forms of evaluations.
+Every method tells us whether the model is able to _use_ the knowledge it contains in specific ways.
 
 ### Programming capabilities
 To measure the programming abilities of a language model, it is insuffient to do some simple text matching against a ground truth solution.
