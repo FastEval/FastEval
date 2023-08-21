@@ -30,8 +30,8 @@ FastEval currently includes [HumanEval+](https://github.com/evalplus/evalplus) f
 However, we plan to expand it with additional benchmarks with a focus on code editing, multiple programming languages and more complex problems.
 
 ### Conversational abilities
-It is very hard to measure automatically how well a language model is generally able to handle conversations with a user.
-Yet, this is certainly something that should not be missing from a chat language model.
+Simple matching against a ground truth solution does not measure well how a language model is able to handle conversations with a user.
+However, this ability is certainly something that should not be missing from a chat language model.
 
 The best approach right now seems to be to use a more powerful language model like GPT-4 to judge the model that should be evaluated.
 This dependency on GPT-4 is of course quite annoying and also expensive ($5 per model).
