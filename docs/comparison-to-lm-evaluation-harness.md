@@ -13,7 +13,7 @@ For most tasks, LM-Eval evaluates models using simple text matching like multipl
 This approach works fine for testing whether the model generally contains certain types of knowledge and it is therefore a very good choice for evaluating base models.
 
 However, while it is possible to test for various knowledge using these types of tests, it does not tell us much about _in what ways the model is able to use this knowledge_.
-Yet this part is what we are usually interested in when considering instruction-following and chat capabilities.
+Yet this part is what we are often interested in when considering instruction-following and chat capabilities.
 
 To solve this problem, FastEval uses various forms of evaluations in addition to simple text-based matching.
 Every type of evaluation adds additional tests on whether the model is actually able to use the knowledge it contains in certain ways.
