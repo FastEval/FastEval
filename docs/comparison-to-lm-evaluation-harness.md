@@ -59,4 +59,4 @@ Most users want to use the model directly in a zero-shot setting without formula
 FastEval focuses almost exclusively on the zero-shot setting.
 Note that this is also possible with LM-Eval.
 However, it won't work well for tasks that require the model to respond in a specific format.
-FastEval deals with this problem using additional answer extraction code.
+FastEval deals with this problem by using additional answer extraction code.
