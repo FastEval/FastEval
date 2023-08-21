@@ -56,7 +56,7 @@ LM-Eval is very often used with few-shot prompting.
 While this is a good approach for base models, it is an unrealistic setting for chat models.
 Most users want to use the model directly in a zero-shot setting without formulating a few-shot prompt.
 
-For this reason, FastEval focuses almost exclusively on the zero-shot setting.
+FastEval focuses almost exclusively on the zero-shot setting.
 Note that this is also possible with LM-Eval.
 However, it won't work well for tasks that require the model to respond in a specific format.
 FastEval deals with this problem using additional answer extraction code.
