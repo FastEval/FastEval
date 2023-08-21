@@ -27,7 +27,7 @@ To measure the programming abilities of a language model, simple matching agains
 Instead, the common approach is to make the model work with code and then _execute_ the resulting code against a number of tests.
 
 FastEval currently includes [HumanEval+](https://github.com/evalplus/evalplus) for evaluating simple python coding abilities.
-However, we plan to expand it with additional benchmarks that measure the ability to edit existing code and also contain more languages and more complex problems.
+However, we plan to expand it with additional benchmarks with a focus on code editing, multiple programming languages and more complex problems.
 
 ### Conversational abilities
 It is very hard to measure automatically how well a language model is generally able to handle conversations with a user.
