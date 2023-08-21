@@ -45,7 +45,7 @@ To make evaluations closer to this setting used in practice, FastEval focuses mo
 However, sometimes giving the answer immediately can still be useful, so we also include [some tasks from LM-Eval itself](https://fasteval.github.io/FastEval/#?benchmark=lm-evaluation-harness) for this.
 
 ### Tool use & acting as agent
-FastEval currently does not include benchmarks for measuring the ability to use tools and act as an agent.
+FastEval currently does not include benchmarks for measuring the ability to act as an agent and use tools.
 However, it will contain them in the future and it shows that the focus is quite different from LM-Eval.
 
 ## Zero-shot prompting:
