@@ -1,6 +1,8 @@
 # FastEval
 
-This project allows you to quickly evaluate language models on a number of benchmarks. There is also a [leaderboard](https://fasteval.github.io/FastEval/) for comparison between different models.
+This project allows you to quickly evaluate language models on a number of benchmarks.
+It focuses on instruction-following and chat language models. See the [comparison to lm-evaluation-harness](docs/comparison-to-lm-eval.md) for more information.
+There is also a [leaderboard](https://fasteval.github.io/FastEval/) for comparison between different models.
 
 ## Features
 
