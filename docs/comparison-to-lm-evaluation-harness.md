@@ -45,7 +45,7 @@ To make evaluations closer to this setting used in practice, FastEval focuses mo
 However, sometimes giving the answer immediately can still be useful, so we also include [some tasks from LM-Eval itself](https://fasteval.github.io/FastEval/#?benchmark=lm-evaluation-harness) for this.
 
 ### Tool use & acting as agent
-The ability to use tools as well as act as an agent is becoming more and more useful as the abilities of the models increases.
+The ability to use tools as well as act as an agent is becoming more and more useful as the general capabilities of the models increases.
 Again, to provide a realistic evaluation setting, simple matching against a ground-truth solution is insufficient and actual execution is required.
 
 FastEval currently does not include benchmarks for measuring these capabilities.
