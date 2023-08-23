@@ -83,12 +83,14 @@ def install():
     subprocess.run(['pip', 'install', 'datasets'], env=new_environment) # Missing dependency
     subprocess.run(['pip', 'install', 'torch'], env=new_environment) # Missing dependency
 
+    # Task: Card game
+
+    subprocess.run(['pip', 'install', 'websockets'], env=new_environment) # Missing dependency
+
     os.close(os.open('.tmp/AgentBench/installation-is-done', os.O_CREAT))
 
     # Task: Knowledge Graph
-
-    # This setup is way too complicated.
-    # I'm going to skip this task for now.
+    # This setup is way too complicated. I'm going to skip this task.
 
     return new_environment
 
@@ -106,26 +108,26 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     agent_file = os.path.join(os.getcwd(), 'evaluation', 'benchmarks', 'agentbench_agent.yaml')
 
     tasks = {
-        'os_interaction': {
-            # Sometimes runs, but sometimes stuck in the end.
-            # Getting a HTTP timeout then.
-            # Also completely different scores from paper
+        'os_interaction': { # Runs
             'config_file': 'configs/tasks/os_interaction/dev.yaml',
             'num_workers': 26,
+            'path_to_score': ['score', 'overall', 'acc'],
         },
         'dbbench': { # MySQL connection error and lots of "not available" stuff before.
             'config_file': 'configs/tasks/dbbench/dev.yaml',
             'num_workers': 15,
         },
-        'lateral-thinking-puzzle': { # ZeroDivisionError
+        'lateral-thinking-puzzle': { # Runs (after adding retrying functionality for RateLimit etc. to the OpenAI client in AgentBench)
             'config_file': 'configs/tasks/lateralthinkingpuzzle/dev.yaml',
             'num_workers': 50,
+            'path_to_score': ['main'],
         },
-        'lateral-thinking-puzzle-zh': { # todo
+        'lateral-thinking-puzzle-zh': { # Runs
             'config_file': 'configs/tasks/lateralthinkingpuzzle_zh/dev.yaml',
             'num_workers': 50,
+            'path_to_score': ['main'],
         },
-        'knowledge-graph': { # Excluded for now
+        'knowledge-graph': { # Excluded due to complexity of setup
             'config_file': 'configs/tasks/knowledgegraph/dev.yaml',
             'num_workers': 50,
         },
@@ -133,17 +135,18 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
             'config_file': 'configs/tasks/alfworld/dev.yaml',
             'num_workers': 50,
         },
-        'mind2web': { # todo
+        'mind2web': { # TODO Requires dataset
             'config_file': 'configs/tasks/mind2web/dev.yaml',
             'num_workers': 50,
         },
-        'card-game': { # Progress bar stuck at 0
+        'card-game': { # Runs. But always zero score?
             'config_file': 'configs/tasks/card_game/dev.yaml',
             'num_workers': 16,
+            'path_to_score': ['score', 'win_rate'],
         },
     }
 
-    included_tasks = ['card-game']
+    included_tasks = ['alfworld']
 
     scores = {}
     for task_name, task_information in tasks.items():
@@ -151,7 +154,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
             continue
 
         scores[task_name] = []
-        for i in range(10):
+        for i in range(1):
             output_directory = os.path.abspath(os.path.join('.tmp', 'agentbench', str(uuid.uuid4())))
 
             subprocess.run([
@@ -166,7 +169,10 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
             with open(results_file) as f:
                 results = json.load(f)
 
-            score = results['score']['overall']['acc']
+            score = results
+            for path_item in task_information['path_to_score']:
+                score = score[path_item]
+
             scores[task_name].append(score)
 
     print(scores)
