@@ -124,7 +124,7 @@ def main():
     from evaluation.models.models import unload_model, get_inference_backend
     from evaluation.inference_correctness import run_inference_backend_correctness_check
 
-    all_benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness', 'custom-test-data']
+    all_benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness', 'custom-test-data', 'agentbench']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all',
@@ -190,6 +190,7 @@ def main():
         ('human-eval-plus', benchmarks.human_eval_plus.evaluate_model),
         ('cot', benchmarks.cot.evaluate_model),
         ('custom-test-data', benchmarks.custom_test_data.evaluate_model),
+        ('agentbench', benchmarks.agentbench.evaluate_model),
         ('lm-evaluation-harness', benchmarks.lm_evaluation_harness.evaluate_model),
     ]
 

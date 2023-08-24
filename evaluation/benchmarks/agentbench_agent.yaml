@@ -1,0 +1,10 @@
+module: src.agents.HTTPAgent
+parameters:
+    name: "FastEval-Agent"
+    url: http://127.0.0.1:35812/
+    headers:
+        Content-Type: application/json
+    prompter:
+        name: role_content_dict
+        args:
+            agent_role: assistant

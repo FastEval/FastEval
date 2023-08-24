@@ -20,6 +20,7 @@ def create_model_in_separate_thread(*, model_path, tokenizer_path, dtype, result
         disable_log_requests=True,
         trust_remote_code=True,
         max_num_seqs=NUM_THREADS_LOCAL_MODEL,
+        max_num_batched_tokens=4096,
     ))
 
     model = {
