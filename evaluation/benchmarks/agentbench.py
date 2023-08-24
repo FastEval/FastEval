@@ -140,9 +140,10 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
             'num_workers': 50,
             'docker': 'alfworld',
         },
-        'mind2web': { # TODO Requires dataset
+        'mind2web': { # Runs
             'config_file': 'configs/tasks/mind2web/dev.yaml',
             'num_workers': 50,
+            'path_to_score': ['score', 'step_sr'],
             'docker': 'mind2web',
         },
         'card-game': { # Runs. But always zero score?
@@ -153,7 +154,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
         },
     }
 
-    included_tasks = ['alfworld']
+    included_tasks = ['mind2web']
 
     scores = {}
     for task_name, task_information in tasks.items():
