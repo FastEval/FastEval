@@ -15,6 +15,8 @@ export function parseHash() {
 }
 
 export function round(num) {
+    if (num == undefined)
+        return ''
     return num.toFixed(2)
 }
 
@@ -25,7 +27,7 @@ export async function fetchEvaluations(baseUrl) {
 
 export async function fetchFiles(baseUrl, evaluations, benchmarkName, filePath) {
     const results = await Promise.all(Array.from(evaluations.values())
-            .filter(evaluation => evaluation.benchmarks.includes(benchmarkName) || benchmarkName === 'total')
+            .filter(evaluation => evaluation.benchmarks.some(e => e.startsWith(benchmarkName + '/') || e == benchmarkName) || benchmarkName === 'total')
             .map(async modelInformation => {
         const id = modelInformation.id
         const modelName = modelInformation.model_name

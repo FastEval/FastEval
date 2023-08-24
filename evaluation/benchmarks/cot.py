@@ -277,7 +277,7 @@ def load_datasets(model_name, dataset_requests):
         num_threads=1,
     )
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
+def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_level_benchmarks):
     output_folder = os.path.join('reports', 'cot', model_name_to_filename(model_name), evaluation_id)
     final_scores_file = os.path.join(output_folder, 'scores.json')
     if os.path.exists(final_scores_file):
@@ -294,7 +294,10 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
         ('mmlu', evaluate_model_on_mmlu),
     ]
 
-    evaluators = combine_evaluators([evaluation_function(tasks_path) for task_name, evaluation_function in evaluation_functions])
+    tasks = [e.split('/')[1] for e in lower_level_benchmarks]
+    evaluation_functions_to_use = [e for e in evaluation_functions if e[0] in tasks]
+
+    evaluators = combine_evaluators([evaluation_function(tasks_path) for task_name, evaluation_function in evaluation_functions_to_use])
 
     dataset_requests = next(evaluators)
     datasets = load_datasets(model_name, dataset_requests)
@@ -303,9 +306,11 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     model_responses = compute_model_replies(model, model_requests, progress_bar_description=model_name + ' :: CoT :: Computing model replies')
 
     scores_list = evaluators.send(model_responses)
-    scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions) }
 
-    scores['total'] = 0.2 * scores['gsm8k'] + 0.4 * scores['math'] + 0.2 * scores['bbh']['average'] + 0.2 * scores['mmlu']['average']
+    scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions_to_use) }
+
+    if 'gsm8k' in scores and 'math' in scores and 'bbh' in scores and 'mmlu' in scores:
+        scores['total'] = 0.2 * scores['gsm8k'] + 0.4 * scores['math'] + 0.2 * scores['bbh']['average'] + 0.2 * scores['mmlu']['average']
 
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
     with open(final_scores_file, 'w') as f:

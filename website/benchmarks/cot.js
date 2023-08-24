@@ -174,7 +174,7 @@ export async function createE(baseUrl, parameters) {
                 const cellE = createLinkE(round(evaluationAbsoluteScores[columnId]), { task: columnId, id })
                 createTableScoreCell(rowE, cellE, relativeScores[id][columnId])
             } else if (['bbh', 'mmlu'].includes(columnId)) {
-                const cellE = createTextE(round(evaluationAbsoluteScores[columnId].average))
+                const cellE = createTextE(round(evaluationAbsoluteScores[columnId]?.average))
                 createTableScoreCell(rowE, cellE, relativeScores[id][columnId].average)
             }
         }
@@ -191,28 +191,31 @@ export function computeRelativeScores(absoluteScores) {
         relativeScores[id] = { bbh: { tasks: {} }, mmlu: { tasks: {} } }
 
     for (const benchmark of ['gsm8k', 'math']) {
-        const values = Array.from(absoluteScores.values()).map(e => e[benchmark])
+        const values = Array.from(absoluteScores.values()).filter(e => e[benchmark] !== undefined).map(e => e[benchmark])
         const min = Math.min(...values)
         const max = Math.max(...values)
         for (const id of ids)
-            relativeScores[id][benchmark] = (absoluteScores.get(id)[benchmark] - min) / (max - min)
+            if (absoluteScores.get(id)[benchmark] !== undefined)
+                relativeScores[id][benchmark] = (absoluteScores.get(id)[benchmark] - min) / (max - min)
     }
 
     for (const benchmark of ['bbh', 'mmlu']) {
-        const tasks = Object.keys(absoluteScores.get(ids[0])[benchmark].tasks)
+        const tasks = Object.keys(absoluteScores.get(ids[ids.length - 1])[benchmark].tasks)
 
-        const values = Array.from(absoluteScores.values()).map(e => e[benchmark].average)
+        const values = Array.from(absoluteScores.values()).filter(e => e[benchmark] !== undefined).map(e => e[benchmark].average)
         const min = Math.min(...values)
         const max = Math.max(...values)
         for (const id of ids)
-            relativeScores[id][benchmark].average = (absoluteScores.get(id)[benchmark].average - min) / (max - min)
+            if (absoluteScores.get(id)[benchmark] !== undefined)
+                relativeScores[id][benchmark].average = (absoluteScores.get(id)[benchmark].average - min) / (max - min)
 
         for (const taskName of tasks) {
-            const values = Array.from(absoluteScores.values()).map(e => e[benchmark].tasks[taskName])
+            const values = Array.from(absoluteScores.values()).filter(e => e[benchmark] !== undefined).map(e => e[benchmark].tasks[taskName])
             const min = Math.min(...values)
             const max = Math.max(...values)
             for (const id of ids)
-                relativeScores[id][benchmark].tasks[taskName] = (absoluteScores.get(id)[benchmark].tasks[taskName] - min) / (max - min)
+                if (absoluteScores.get(id)[benchmark] !== undefined)
+                    relativeScores[id][benchmark].tasks[taskName] = (absoluteScores.get(id)[benchmark].tasks[taskName] - min) / (max - min)
         }
     }
 

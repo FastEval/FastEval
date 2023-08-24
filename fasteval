@@ -43,6 +43,14 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
 
     custom_test_data_file_hash = compute_custom_test_data_file_hash(custom_test_data_file)
 
+    benchmarks_to_replace_with_subtasks = {
+        'cot': ['cot/gsm8k', 'cot/math', 'cot/bbh', 'cot/mmlu']
+    }
+
+    for k, v in benchmarks_to_replace_with_subtasks.items():
+        if k in new_benchmarks:
+            new_benchmarks = [e for e in new_benchmarks if e != k] + v
+
     inserted_into_existing_entry = False
     existing_entry_id = None
     for item in existing_models_and_benchmarks:
@@ -124,10 +132,10 @@ def main():
     from evaluation.models.models import unload_model, get_inference_backend
     from evaluation.inference_correctness import run_inference_backend_correctness_check
 
-    all_benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness', 'custom-test-data']
-
     parser = argparse.ArgumentParser()
-    parser.add_argument('-b', '--benchmarks', choices=['all'] + all_benchmarks, nargs='*', default='all',
+    parser.add_argument('-b', '--benchmarks',
+        choices=['all', 'mt-bench', 'cot', 'cot/gsm8k', 'cot/math', 'cot/bbh', 'cot/mmlu', 'human-eval-plus', 'lm-evaluation-harness', 'custom-test-data'],
+        nargs='*', default='all',
         help='Benchmark(s) that the model will be evaluated on')
     parser.add_argument('-t', '--model-type',
         help='Type of the model that will be evaluated. Can be an API client name (openai), a prompt template (e.g. chatml) or `fastchat` for the fastchat backend.')
@@ -173,7 +181,7 @@ def main():
         return
 
     if 'all' in args.benchmarks:
-        args.benchmarks = all_benchmarks
+        args.benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
 
     if os.path.exists('reports/__index__.json'):
         with open('reports/__index__.json') as f:
@@ -195,13 +203,18 @@ def main():
 
     exceptions = []
     for item in models_and_benchmarks:
+        top_level_benchmarks = [benchmark_name.split('/')[0] for benchmark_name in item['benchmarks']]
         for benchmark_name, evaluation_function in evaluation_functions:
-            if benchmark_name not in item['benchmarks']:
+            if benchmark_name not in top_level_benchmarks:
                 continue
             if benchmark_name == 'lm-evaluation-harness':
                 unload_model()
             try:
-                kwargs = { 'data_hashes': item['benchmarks_custom_test_data'] } if benchmark_name == 'custom-test-data' else {}
+                kwargs = {}
+                if benchmark_name == 'custom-test-data':
+                    kwargs['data_hashes'] = item['benchmarks_custom_test_data']
+                if benchmark_name == 'cot':
+                    kwargs['lower_level_benchmarks'] = [e for e in item['benchmarks'] if e.startswith(benchmark_name + '/')]
                 evaluation_function(item['model_type'], item['model_name'], item['model_args'], item['id'], **kwargs)
             except:
                 import traceback

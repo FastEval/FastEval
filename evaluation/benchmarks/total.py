@@ -23,6 +23,8 @@ def compute_total_scores(model_name, evaluation_id):
             scores_file_content = json.load(f)
 
         if benchmark_name == 'cot':
+            if not 'total' in scores_file_content:
+                continue
             benchmark_score = scores_file_content['total']
         elif benchmark_name == 'human-eval-plus':
             benchmark_score = scores_file_content['scores']['plus']

@@ -24,6 +24,31 @@ async function createSingleBenchmarkE(baseUrl, benchmarkName, parameters) {
     }
 }
 
+function getTopLevelBenchmarks(benchmarks) {
+    const topLevelBenchmarks = {
+        'mt-bench': ['mt-bench'],
+        'cot': ['gsm8k', 'math', 'bbh', 'mmlu'],
+        'human-eval-plus': ['human-eval-plus'],
+        'lm-evaluation-harness': ['lm-evaluation-harness'],
+    }
+
+    const ret = []
+    for (const [topLevelBenchmarkName, lowerLevelBenchmarks] of Object.entries(topLevelBenchmarks)) {
+        let include = true
+        for (const lowerLevelBenchmark of lowerLevelBenchmarks)  {
+            if (!benchmarks.includes(lowerLevelBenchmark)) {
+                include = false
+                break
+            }
+        }
+
+        if (include)
+            ret.push(topLevelBenchmarkName)
+    }
+
+    return ret
+}
+
 function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
     const ids = Array.from(evaluations.keys())
     const idToEvaluationInformation = evaluations
@@ -50,8 +75,8 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
     for (const evaluationPair of evaluationPairs) {
         const [id1, id2] = evaluationPair
 
-        const commonBenchmarks = idToEvaluationInformation.get(id1).benchmarks
-            .filter(benchmark => idToEvaluationInformation.get(id2).benchmarks.includes(benchmark))
+        const commonBenchmarks = getTopLevelBenchmarks(idToEvaluationInformation.get(id1).benchmarks)
+            .filter(benchmark => getTopLevelBenchmarks(idToEvaluationInformation.get(id2).benchmarks).includes(benchmark))
 
         if (commonBenchmarks.length === 1 && commonBenchmarks[0] === 'lm-evaluation-harness') {
             const evaluation1NumBenchmarks = idToEvaluationInformation.get(id1).benchmarks.length
