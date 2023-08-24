@@ -106,6 +106,8 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     threading.Thread(target=server.serve_forever).start()
 
     agent_file = os.path.join(os.getcwd(), 'evaluation', 'benchmarks', 'agentbench_agent.yaml')
+    import shutil
+    shutil.copy(agent_file, '.tmp/AgentBench/fasteval_agent.yaml')
 
     tasks = {
         'os_interaction': { # Runs
@@ -121,11 +123,13 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
             'config_file': 'configs/tasks/lateralthinkingpuzzle/dev.yaml',
             'num_workers': 50,
             'path_to_score': ['main'],
+            'docker': 'ltp',
         },
         'lateral-thinking-puzzle-zh': { # Runs
             'config_file': 'configs/tasks/lateralthinkingpuzzle_zh/dev.yaml',
             'num_workers': 50,
             'path_to_score': ['main'],
+            'docker': 'ltp',
         },
         'knowledge-graph': { # Excluded due to complexity of setup
             'config_file': 'configs/tasks/knowledgegraph/dev.yaml',
@@ -134,15 +138,18 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
         'alfworld': { # Doesn't work
             'config_file': 'configs/tasks/alfworld/dev.yaml',
             'num_workers': 50,
+            'docker': 'alfworld',
         },
         'mind2web': { # TODO Requires dataset
             'config_file': 'configs/tasks/mind2web/dev.yaml',
             'num_workers': 50,
+            'docker': 'mind2web',
         },
         'card-game': { # Runs. But always zero score?
             'config_file': 'configs/tasks/card_game/dev.yaml',
             'num_workers': 16,
             'path_to_score': ['score', 'win_rate'],
+            'docker': 'card_game',
         },
     }
 
@@ -155,15 +162,35 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
 
         scores[task_name] = []
         for i in range(1):
-            output_directory = os.path.abspath(os.path.join('.tmp', 'agentbench', str(uuid.uuid4())))
+            agentbench_relative_output_directory = 'outputs/' + str(uuid.uuid4())
+            output_directory = os.path.join('.tmp/AgentBench', agentbench_relative_output_directory)
 
-            subprocess.run([
-                'python3', 'eval.py',
+            params = [
                 '--task', task_information['config_file'],
-                '--agent', agent_file,
+                '--agent', 'fasteval_agent.yaml',
                 '--workers', str(task_information['num_workers']),
-                '--output', output_directory,
-            ], env=new_environment, cwd='.tmp/AgentBench')
+                '--output', agentbench_relative_output_directory,
+            ]
+
+            if 'docker' in task_information:
+                inside_docker_cmd = ('umask 0 ; [ -f /root/.setup.sh ] && bash /root/.setup.sh ; python eval.py '
+                    + ' '.join(params))
+
+                cmd = ['docker', 'run',
+                    '-it',
+                    '--rm',
+                    '--network', 'host',
+                    '-v', os.path.abspath('.tmp/AgentBench') + ':' + '/root/workspace',
+                    '-w', '/root/workspace',
+                    'localhost/task:' + task_information['docker'],
+                    'bash', '-c', inside_docker_cmd,
+                ]
+            else:
+                cmd = ['python3', 'eval.py'] + params
+
+            print(' '.join(cmd))
+
+            subprocess.run(cmd, env=new_environment, cwd='.tmp/AgentBench')
 
             results_file = os.path.join(output_directory, 'results.json')
             with open(results_file) as f:
