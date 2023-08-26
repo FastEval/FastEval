@@ -141,23 +141,24 @@ def compute_prompt(problem):
 
     prompt = '\n'.join([
         ('You will be given a problem description for a python programming problem as well as the solution code with a part missing. '
-            'Please solve the problem by filling out the [Missing] part of the solution code.'),
+            'Please solve the problem by filling out the [[Missing]] part of the solution code.'),
         '',
         '[Problem Description]',
         *parts['problem_description'],
+        '[End of Problem Description]'
         '',
         '[Solution Code]',
         '```python',
         *parts['answer_code_start'],
-        '',
-        '# [Missing]',
-        '',
+        '[[Missing]]',
         *parts['answer_code_end'],
         '```',
+        '[End of Solution Code]'
         '',
-        ('Please now fill out the [Missing] part of the solution code. '
-            'Do not output anything except the missing line(s) of code to complete the solution. '
-            'Do not output any description, explanation or any other text that is not the missing solution code.'),
+        ('Please now fill out ONLY the [[Missing]] part of the [Solution Code]. '
+            'Do not output anything except the [[Missing]] line(s) of code to complete the [Solution Code]. '
+            'Do not output any description, explanation or any other text that is not the [[Missing]] code. '
+            'Do not output the part of the [Solution Code] that was already given as input.'),
     ])
 
     return { **parts, 'prompt': prompt }
