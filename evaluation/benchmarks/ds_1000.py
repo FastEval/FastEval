@@ -180,7 +180,7 @@ def compute_ds1000_model_replies(*, model_type, model_name, model_args, prompts,
 
     conversations = [{
         'conversation': [('user', prompt['prompt'])],
-        'temperature': 0.2,
+        'temperature': 0,
     } for prompt in prompts]
 
     model_replies_raw = compute_model_replies(model, conversations, progress_bar_description=model_name + ' :: DS-1000 :: Computing model replies')
