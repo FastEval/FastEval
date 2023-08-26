@@ -139,25 +139,25 @@ def compute_prompt(problem):
     for k, part in parts.items():
         parts[k] = '\n'.join(part).strip().split('\n')
 
-    prompt = ''.join([
-        ('The following is a description of a programming problem. '
-            'Please answer the problem question by filling out the missing piece of the code the follows the description. '
-            'Only output the missing part, not the part that belongs to the problem.'),
+    prompt = '\n'.join([
+        ('You will be given a problem description for a python programming problem as well as the solution code with a part missing. '
+            'Please solve the problem by filling out the [Missing] part of the solution code.'),
         '',
-        '### Problem description:',
-        '',
+        '[Problem Description]',
         *parts['problem_description'],
         '',
-        '### Code:',
-        '',
+        '[Solution Code]',
+        '```python',
         *parts['answer_code_start'],
         '',
-        '# Fill out this part.',
-        '# Do not output anything else.',
-        '# Do not output the previous or following code that is already part of the problem.',
-        '# Do not output a description, explanation or any other text that is not code.',
+        '# [Missing]',
         '',
         *parts['answer_code_end'],
+        '```',
+        '',
+        ('Please now fill out the [Missing] part of the solution code. '
+            'Do not output anything except the missing line(s) of code to complete the solution. '
+            'Do not output any description, explanation or any other text that is not the missing solution code.'),
     ])
 
     return { **parts, 'prompt': prompt }
@@ -167,6 +167,9 @@ def compute_prompts(data):
     for k, v in data.items():
         for i, problem in enumerate(v):
             prompts.append({ 'part': k, 'index': i, 'problem_description': problem, **compute_prompt(problem) })
+
+    with open('prompts.json', 'w') as f:
+        json.dump(prompts, f, indent=4)
     return prompts
 
 def compute_ds1000_model_replies(*, model_type, model_name, model_args, prompts, data, output_path):
@@ -177,7 +180,7 @@ def compute_ds1000_model_replies(*, model_type, model_name, model_args, prompts,
 
     conversations = [{
         'conversation': [('user', prompt['prompt'])],
-        'temperature': 0,
+        'temperature': 0.2,
     } for prompt in prompts]
 
     model_replies_raw = compute_model_replies(model, conversations, progress_bar_description=model_name + ' :: DS-1000 :: Computing model replies')
@@ -202,7 +205,15 @@ def postprocess_model_reply(model_reply):
     if '```python\n' in model_reply and model_reply.endswith('```'):
         model_reply = model_reply.split('```python')[1].split('```')[0]
 
-    return model_reply
+    lines = []
+    for line in model_reply.split('\n'):
+        if line.startswith('import'):
+            continue
+        if line.startswith('print'):
+            continue
+        lines.append(line)
+
+    return '\n'.join(lines)
 
 def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_replies_output_path):
     with open(model_replies_output_path) as f:
