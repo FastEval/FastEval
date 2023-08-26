@@ -141,25 +141,24 @@ def compute_prompt(problem):
         parts[k] = '\n'.join(part).strip().split('\n')
 
     prompt = '\n'.join([
-        ('You will be given a problem description for a python programming problem as well as the solution code with a part missing. '
-            'Please solve the problem by filling out the [Missing Code] part of the solution code.'),
+        ('You will be given a [Problem Description] for a python programming problem as well as the [Solution Code] with a part missing. '
+            'Please solve the problem by filling out the [Missing Code] part of the [Solution Code].'),
         '',
-        '[Begin of Problem Description]',
+        '[Problem Description]',
         *parts['problem_description'],
-        '[End of Problem Description]'
         '',
-        '[Begin of Solution Code]',
+        '[Solution Code]',
         '```python',
         *parts['answer_code_start'],
-        '# [Begin Missing Code]',
+        '# [Begin of Missing Code]',
         '# [Missing Code]',
         '# [End of Missing Code]',
         *parts['answer_code_end'],
         '```',
-        '[End of Solution Code]'
         '',
+        '[Instruction]',
         ('Please now fill out the [Missing Code] part of the [Solution Code]. '
-            'Include the [Begin Missing Code] and [End of Missing Code] to separate the [Missing Code] part just like in the provided code.'
+            'Include the [Begin of Missing Code] and [End of Missing Code] lines in your solution. '
             'Do not output anything except the [Missing Code] line(s) to complete the [Solution Code]. '
             'Do not output any description, explanation or any other text that is not the [Missing Code].'),
     ])
@@ -209,8 +208,8 @@ def postprocess_model_reply(model_reply):
     if '```python\n' in model_reply and model_reply.endswith('```'):
         model_reply = model_reply.split('```python')[1].split('```')[0]
 
-    if '[Begin Missing Code]' in model_reply:
-        model_reply = model_reply.split('[Begin Missing Code]')[1]
+    if '[Begin of Missing Code]' in model_reply:
+        model_reply = model_reply.split('[Begin of Missing Code]')[1]
     if '# [End of Missing Code]' in model_reply:
         model_reply = model_reply.split('# [End of Missing Code]')[0]
     if '[End of Missing Code]' in model_reply:
