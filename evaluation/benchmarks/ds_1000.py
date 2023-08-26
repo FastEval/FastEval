@@ -150,15 +150,17 @@ def compute_prompt(problem):
         '[Solution Code]',
         '```python',
         *parts['answer_code_start'],
+        '# [Begin Missing Code]',
         '[[Missing]]',
+        '# [End Missing Code]',
         *parts['answer_code_end'],
         '```',
         '[End of Solution Code]'
         '',
-        ('Please now fill out ONLY the [[Missing]] part of the [Solution Code]. '
+        ('Please now fill out the [[Missing]] part of the [Solution Code]. '
+            'Include the [Begin Missing Code] and [End Missing Code] to separate the [Missing] part just like in the provided code.'
             'Do not output anything except the [[Missing]] line(s) of code to complete the [Solution Code]. '
-            'Do not output any description, explanation or any other text that is not the [[Missing]] code. '
-            'Do not output the part of the [Solution Code] that was already given as input.'),
+            'Do not output any description, explanation or any other text that is not the [[Missing]] code. '),
     ])
 
     return { **parts, 'prompt': prompt }
@@ -205,6 +207,13 @@ def postprocess_model_reply(model_reply):
 
     if '```python\n' in model_reply and model_reply.endswith('```'):
         model_reply = model_reply.split('```python')[1].split('```')[0]
+
+    if '[Begin Missing Code]' in model_reply:
+        model_reply = model_reply.split('[Begin Missing Code]')[1]
+    if '# [End Missing Code]' in model_reply:
+        model_reply = model_reply.split('# [End Missing Code]')[0]
+    if '[End Missing Code]' in model_reply:
+        model_reply = model_reply.split('[End Missing Code]')[0]
 
     lines = []
     for line in model_reply.split('\n'):
