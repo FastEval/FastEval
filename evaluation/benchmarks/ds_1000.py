@@ -224,10 +224,6 @@ def postprocess_model_reply(model_reply):
         lines.append(line)
     model_reply = '\n'.join(lines)
 
-    #model_reply = re.sub('\n+', '\n', model_reply)
-    #model_reply = re.sub('^\n', '', model_reply)
-    #model_reply = re.sub('\n$', '', model_reply)
-
     return model_reply
 
 def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_replies_output_path):
