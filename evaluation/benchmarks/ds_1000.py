@@ -6,6 +6,7 @@ import json
 import urllib.request
 import tarfile
 import shutil
+import re
 
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
@@ -158,7 +159,7 @@ def compute_prompt(problem):
         '[End of Solution Code]'
         '',
         ('Please now fill out the [Missing Code] part of the [Solution Code]. '
-            'Include the [Begin Missing Code] and [End Missing Code] to separate the [Missing Code] part just like in the provided code.'
+            'Include the [Begin Missing Code] and [End of Missing Code] to separate the [Missing Code] part just like in the provided code.'
             'Do not output anything except the [Missing Code] line(s) to complete the [Solution Code]. '
             'Do not output any description, explanation or any other text that is not the [Missing Code].'),
     ])
@@ -210,10 +211,10 @@ def postprocess_model_reply(model_reply):
 
     if '[Begin Missing Code]' in model_reply:
         model_reply = model_reply.split('[Begin Missing Code]')[1]
-    if '# [End Missing Code]' in model_reply:
-        model_reply = model_reply.split('# [End Missing Code]')[0]
-    if '[End Missing Code]' in model_reply:
-        model_reply = model_reply.split('[End Missing Code]')[0]
+    if '# [End of Missing Code]' in model_reply:
+        model_reply = model_reply.split('# [End of Missing Code]')[0]
+    if '[End of Missing Code]' in model_reply:
+        model_reply = model_reply.split('[End of Missing Code]')[0]
 
     lines = []
     for line in model_reply.split('\n'):
@@ -222,8 +223,13 @@ def postprocess_model_reply(model_reply):
         if line.startswith('print'):
             continue
         lines.append(line)
+    model_reply = '\n'.join(lines)
 
-    return '\n'.join(lines)
+    #model_reply = re.sub('\n+', '\n', model_reply)
+    #model_reply = re.sub('^\n', '', model_reply)
+    #model_reply = re.sub('\n$', '', model_reply)
+
+    return model_reply
 
 def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_replies_output_path):
     with open(model_replies_output_path) as f:
