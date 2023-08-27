@@ -237,42 +237,20 @@ def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_
     with open(postprocessed_model_replies_output_path, 'w') as f:
         json.dump(postprocessed_model_replies, f, indent=4)
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
-    tmpdir = os.path.join(os.getcwd(), '.tmp/ds1000')
-    os.makedirs(tmpdir, exist_ok=True)
-    install_ds1000(tmpdir)
-
-    download_ds1000_data(tmpdir)
-
-    data = execute_in_environment(tmpdir, 'ds_1000_load_data.py')
-    prompts = compute_prompts(data)
-
-    output_folder = os.path.join('reports/ds1000', model_name_to_filename(model_name), evaluation_id)
-    os.makedirs(output_folder, exist_ok=True)
-    model_replies_output_path = os.path.join(output_folder, 'answers.json')
-
-    compute_ds1000_model_replies(
-        model_type=model_type,
-        model_name=model_name,
-        model_args=model_args,
-        prompts=prompts,
-        data=data,
-        output_path=model_replies_output_path,
-    )
-
-    postprocessed_model_replies_output_path = os.path.join(output_folder, 'answers-postprocessed.json')
-
-    postprocess_model_replies(
-        model_replies_output_path=model_replies_output_path,
-        postprocessed_model_replies_output_path=postprocessed_model_replies_output_path,
-    )
-
+def execute_model_replies(*, tmpdir, postprocessed_model_replies_output_path, execution_results_output_path, model_name):
     execution_results = execute_in_environment(
         tmpdir,
         'ds_1000_test_correctness.py',
         os.path.abspath(postprocessed_model_replies_output_path),
-        model_name + ' :: DS-1000 :: Checking correctness'
+        model_name + ' :: DS-1000 :: Checking correctness',
     )
+
+    with open(execution_results_output_path, 'w') as f:
+        json.dump(execution_results, f, indent=4)
+
+def compute_scores(*, execution_results_output_path, scores_output_path):
+    with open(execution_results_output_path) as f:
+        execution_results = json.load(f)
 
     average_scores = {}
     for k, v in execution_results.items():
@@ -285,5 +263,54 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
         'tasks': average_scores,
         'average': total_average_score,
     }
+
+    with open(scores_output_path, 'w') as f:
+        json.dump(scores, f, indent=4)
+
+def evaluate_model(model_type, model_name, model_args, evaluation_id):
+    tmpdir = os.path.join(os.getcwd(), '.tmp/ds1000')
+    os.makedirs(tmpdir, exist_ok=True)
+
+    install_ds1000(tmpdir)
+    download_ds1000_data(tmpdir)
+
+    data = execute_in_environment(tmpdir, 'ds_1000_load_data.py')
+    prompts = compute_prompts(data)
+
+    output_folder = os.path.join('reports/ds1000', model_name_to_filename(model_name), evaluation_id)
+    os.makedirs(output_folder, exist_ok=True)
+
+    model_replies_output_path = os.path.join(output_folder, 'answers.json')
+    compute_ds1000_model_replies(
+        model_type=model_type,
+        model_name=model_name,
+        model_args=model_args,
+        prompts=prompts,
+        data=data,
+        output_path=model_replies_output_path,
+    )
+
+    postprocessed_model_replies_output_path = os.path.join(output_folder, 'answers-postprocessed.json')
+    postprocess_model_replies(
+        model_replies_output_path=model_replies_output_path,
+        postprocessed_model_replies_output_path=postprocessed_model_replies_output_path,
+    )
+
+    execution_results_output_path = os.path.join(output_folder, 'execution-results.json')
+    execute_model_replies(
+        tmpdir=tmpdir,
+        postprocessed_model_replies_output_path=postprocessed_model_replies_output_path,
+        execution_results_output_path=execution_results_output_path,
+        model_name=model_name,
+    )
+
+    scores_output_path = os.path.join(output_folder, 'scores.json')
+    compute_scores(
+        execution_results_output_path=execution_results_output_path,
+        scores_output_path=scores_output_path,
+    )
+
+    with open(scores_output_path) as f:
+        scores = json.load(f)
 
     print(json.dumps(scores, indent=4))
