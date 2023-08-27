@@ -269,15 +269,14 @@ def compute_scores(*, execution_results_output_path, scores_output_path):
 
 def assert_reference_code_works(*, tmpdir, data):
     execution_tmpfile = os.path.join(tmpdir, 'references.json')
-
-    references = {}
-    for k, v in data.items():
-        references[k] = []
-        for problem in v:
-            references[k].append(problem['reference'])
-
-    with open(execution_tmpfile, 'w') as f:
-        json.dump(references, f)
+    if not os.path.exists(execution_tmpfile):
+        references = {}
+        for k, v in data.items():
+            references[k] = []
+            for problem in v:
+                references[k].append(problem['reference'])
+        with open(execution_tmpfile, 'w') as f:
+            json.dump(references, f)
 
     execution_results_output_path = os.path.join(tmpdir, 'references-execution-results.json')
     if not os.path.exists(execution_results_output_path):
@@ -289,17 +288,17 @@ def assert_reference_code_works(*, tmpdir, data):
         )
 
     scores_output_path = os.path.join(tmpdir, 'references-scores.json')
-    compute_scores(
-        execution_results_output_path=execution_results_output_path,
-        scores_output_path=scores_output_path,
-    )
+    if not os.path.exists(scores_output_path):
+        compute_scores(
+            execution_results_output_path=execution_results_output_path,
+            scores_output_path=scores_output_path,
+        )
 
     with open(scores_output_path) as f:
         scores = json.load(f)
 
-    print(json.dumps(scores, indent=4))
-
-    return False
+    if scores['average'] != 1:
+        raise Exception('DS-1000: Execution of reference code failed: ' + json.dumps(scores))
 
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
     tmpdir = os.path.join(os.getcwd(), '.tmp/ds1000')
