@@ -169,7 +169,7 @@ def compute_prompts(data):
     prompts = []
     for k, v in data.items():
         for i, problem in enumerate(v):
-            prompts.append({ 'part': k, 'index': i, 'problem_description': problem, **compute_prompt(problem) })
+            prompts.append({ 'part': k, 'index': i, **compute_prompt(problem['prompt']) })
 
     with open('prompts.json', 'w') as f:
         json.dump(prompts, f, indent=4)
@@ -267,6 +267,40 @@ def compute_scores(*, execution_results_output_path, scores_output_path):
     with open(scores_output_path, 'w') as f:
         json.dump(scores, f, indent=4)
 
+def assert_reference_code_works(*, tmpdir, data):
+    execution_tmpfile = os.path.join(tmpdir, 'references.json')
+
+    references = {}
+    for k, v in data.items():
+        references[k] = []
+        for problem in v:
+            references[k].append(problem['reference'])
+
+    with open(execution_tmpfile, 'w') as f:
+        json.dump(references, f)
+
+    execution_results_output_path = os.path.join(tmpdir, 'references-execution-results.json')
+    if not os.path.exists(execution_results_output_path):
+        execute_model_replies(
+            tmpdir=tmpdir,
+            postprocessed_model_replies_output_path=execution_tmpfile,
+            execution_results_output_path=execution_results_output_path,
+            model_name='References',
+        )
+
+    scores_output_path = os.path.join(tmpdir, 'references-scores.json')
+    compute_scores(
+        execution_results_output_path=execution_results_output_path,
+        scores_output_path=scores_output_path,
+    )
+
+    with open(scores_output_path) as f:
+        scores = json.load(f)
+
+    print(json.dumps(scores, indent=4))
+
+    return False
+
 def evaluate_model(model_type, model_name, model_args, evaluation_id):
     tmpdir = os.path.join(os.getcwd(), '.tmp/ds1000')
     os.makedirs(tmpdir, exist_ok=True)
@@ -289,6 +323,8 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
         data=data,
         output_path=model_replies_output_path,
     )
+
+    assert_reference_code_works(tmpdir=tmpdir, data=data)
 
     postprocessed_model_replies_output_path = os.path.join(output_folder, 'answers-postprocessed.json')
     postprocess_model_replies(

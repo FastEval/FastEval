@@ -12,5 +12,5 @@ for k, v in data.items():
         continue # does not support insertion
     output[k] = []
     for item in v:
-        output[k].append(item['prompt'])
+        output[k].append({ 'prompt': item['prompt'], 'reference': item['reference_code'] })
 print(json.dumps(output))
