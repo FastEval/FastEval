@@ -138,7 +138,19 @@ def compute_prompt(problem):
     }
 
     for k, part in parts.items():
-        parts[k] = '\n'.join(part).strip().split('\n')
+        lines = []
+        for i, line in enumerate(part):
+            if line.strip() == '':
+                continue
+            lines += part[i:]
+            break
+        reverse_lines = []
+        for i, line in enumerate(reversed(lines)):
+            if line.strip() == '':
+                continue
+            reverse_lines += list(reversed(lines))[i:]
+            break
+        parts[k] = list(reversed(reverse_lines))
 
     prompt = '\n'.join([
         ('You will be given a [Problem Description] for a python programming problem as well as the [Solution Code] with a part missing. '
@@ -169,7 +181,13 @@ def compute_prompts(data):
     prompts = []
     for k, v in data.items():
         for i, problem in enumerate(v):
-            prompts.append({ 'part': k, 'index': i, **compute_prompt(problem['prompt']) })
+            prompts.append({
+                'part': k,
+                'index': i,
+                'original_prompt': problem['prompt'].split('\n'),
+                'reference': problem['reference'].split('\n'),
+                **compute_prompt(problem['prompt']),
+            })
 
     with open('prompts.json', 'w') as f:
         json.dump(prompts, f, indent=4)
