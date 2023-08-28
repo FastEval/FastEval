@@ -196,10 +196,9 @@ def compute_prompt(problem, lib):
         '```',
         '',
         '[Instruction]',
-        ('Please now fill out the [Missing Code] part of the [Solution Code]. '
-            'Include the [Begin of Missing Code] and [End of Missing Code] lines in your solution. '
-            'Do not output anything except the [Missing Code] line(s) to complete the [Solution Code]. '
-            'Do not output any description, explanation or any other text that is not the [Missing Code].'),
+        ('Fix the [Missing Code] part to complete the [Solution Code]. '
+            'You must use the [Begin of Missing Code] and [End of Missing Code] and only put the fixed code inside these tags. '
+            'Do not output anything else.'),
     ])
 
     return { **parts, 'prompt': prompt }
