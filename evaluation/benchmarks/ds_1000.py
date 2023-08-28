@@ -81,10 +81,12 @@ def execute_in_environment(tmpdir, file, *args):
 
 def compute_prompt_matplotlib(problem):
     prompt = '\n'.join([
-        'Please complete the following code to solve the problem stated in the comment at the end.',
+        ('Please complete the following code to solve the problem stated in the comment at the end. '
+            'Separate your solution with `# SOLUTION START` and `# SOLUTION END`.'),
         '',
         '```python',
         *problem.split('\n'),
+        '# SOLUTION END',
         '```'
         '',
         'Your solution:'
@@ -242,7 +244,26 @@ def compute_ds1000_model_replies(*, model_type, model_name, model_args, prompts,
     with open(output_path, 'w') as f:
         json.dump(model_replies_by_part, f, indent=4)
 
-def postprocess_model_reply(model_reply):
+def postprocess_model_reply_matplotlib(model_reply):
+    if '# SOLUTION START' in model_reply:
+        model_reply = model_reply.split('# SOLUTION START')[1]
+    if '# SOLUTION END' in model_reply:
+        model_reply = model_reply.split('# SOLUTION END')[0]
+
+    lines = []
+    for line in model_reply.split('\n'):
+        if line.startswith('import'):
+            continue
+        if line.startswith('print'):
+            continue
+        lines.append(line)
+    model_reply = '\n'.join(lines)
+
+    model_reply = model_reply.rstrip(' ')
+
+    return model_reply
+
+def postprocess_model_reply(model_reply, lib):
     model_reply = model_reply.replace('\r\n', '\n')
 
     if '```python\n' in model_reply and '```\n' in model_reply:
@@ -250,6 +271,9 @@ def postprocess_model_reply(model_reply):
 
     if '```python\n' in model_reply and model_reply.endswith('```'):
         model_reply = model_reply.split('```python')[1].split('```')[0]
+
+    if lib == 'Matplotlib':
+        return postprocess_model_reply_matplotlib(model_reply)
 
     if '[Begin of Missing Code]' in model_reply:
         model_reply = model_reply.split('[Begin of Missing Code]')[1]
@@ -277,7 +301,7 @@ def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_
 
     postprocessed_model_replies = {}
     for k, v in model_replies.items():
-        postprocessed_model_replies[k] = [postprocess_model_reply(e) for e in v]
+        postprocessed_model_replies[k] = [postprocess_model_reply(e, k) for e in v]
 
     with open(postprocessed_model_replies_output_path, 'w') as f:
         json.dump(postprocessed_model_replies, f, indent=4)
