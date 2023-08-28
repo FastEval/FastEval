@@ -79,9 +79,22 @@ def execute_in_environment(tmpdir, file, *args):
 
     return json.loads(process_output)
 
+def compute_prompt_matplotlib(problem):
+    prompt = '\n'.join([
+        'Please complete the following code to solve the problem stated in the comment at the end.',
+        '',
+        '```python',
+        *problem.split('\n'),
+        '```'
+        '',
+        'Your solution:'
+    ])
+
+    return { 'prompt': prompt }
+
 def compute_prompt(problem, lib):
     if lib == 'Matplotlib':
-        return { 'prompt': problem }
+        return compute_prompt_matplotlib(problem)
 
     problem_description = []
     answer_description = []
