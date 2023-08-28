@@ -170,6 +170,7 @@ def compute_prompt(problem):
         *parts['problem_description'],
         '',
         '[Solution Code]',
+        *parts['answer_description'],
         '```python',
         *parts['answer_code_start'],
         *missing_code_part,
