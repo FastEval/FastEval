@@ -287,6 +287,9 @@ def postprocess_model_reply(model_reply, lib):
     return model_reply
 
 def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_replies_output_path):
+    if os.path.exists(postprocessed_model_replies_output_path):
+        return
+
     with open(model_replies_output_path) as f:
         model_replies = json.load(f)
 
@@ -298,6 +301,9 @@ def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_
         json.dump(postprocessed_model_replies, f, indent=4)
 
 def execute_model_replies(*, tmpdir, postprocessed_model_replies_output_path, execution_results_output_path, model_name):
+    if os.path.exists(execution_results_output_path):
+        return
+
     execution_results = execute_in_environment(
         tmpdir,
         'ds_1000_test_correctness.py',
@@ -309,6 +315,9 @@ def execute_model_replies(*, tmpdir, postprocessed_model_replies_output_path, ex
         json.dump(execution_results, f, indent=4)
 
 def compute_scores(*, execution_results_output_path, scores_output_path):
+    if os.path.exists(scores_output_path):
+        return
+
     with open(execution_results_output_path) as f:
         execution_results = json.load(f)
 
