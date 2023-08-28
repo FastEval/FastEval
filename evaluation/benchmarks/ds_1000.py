@@ -282,15 +282,6 @@ def postprocess_model_reply(model_reply, lib):
     if '[End of Missing Code]' in model_reply:
         model_reply = model_reply.split('[End of Missing Code]')[0]
 
-    lines = []
-    for line in model_reply.split('\n'):
-        if line.startswith('import'):
-            continue
-        if line.startswith('print'):
-            continue
-        lines.append(line)
-    model_reply = '\n'.join(lines)
-
     model_reply = model_reply.rstrip(' ')
 
     return model_reply
