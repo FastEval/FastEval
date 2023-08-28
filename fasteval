@@ -203,6 +203,8 @@ def main():
 
     exceptions = []
     for item in models_and_benchmarks:
+        if evaluation_id != item['id']:
+            continue
         top_level_benchmarks = [benchmark_name.split('/')[0] for benchmark_name in item['benchmarks']]
         for benchmark_name, evaluation_function in evaluation_functions:
             if benchmark_name not in top_level_benchmarks:
