@@ -79,7 +79,10 @@ def execute_in_environment(tmpdir, file, *args):
 
     return json.loads(process_output)
 
-def compute_prompt(problem):
+def compute_prompt(problem, lib):
+    if lib == 'Matplotlib':
+        return { 'prompt': problem }
+
     problem_description = []
     answer_description = []
     answer_code_start = []
@@ -195,7 +198,7 @@ def compute_prompts(data):
                 'index': i,
                 'original_prompt': problem['prompt'].split('\n'),
                 'reference': problem['reference'].split('\n'),
-                **compute_prompt(problem['prompt']),
+                **compute_prompt(problem['prompt'], k),
             })
 
     with open('prompts.json', 'w') as f:
