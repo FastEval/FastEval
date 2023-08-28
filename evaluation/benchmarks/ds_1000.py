@@ -152,6 +152,16 @@ def compute_prompt(problem):
             break
         parts[k] = list(reversed(reverse_lines))
 
+    missing_code_part = [
+        '# [Begin of Missing Code]',
+        '# [Missing Code]',
+        '# [End of Missing Code]',
+    ]
+
+    if parts['answer_code_start'][-1].startswith('def') or (len(parts['answer_code_end']) > 0 and parts['answer_code_end'][0].startswith('    ')):
+        for i, line in enumerate(missing_code_part):
+            missing_code_part[i] = '    ' + missing_code_part[i]
+
     prompt = '\n'.join([
         ('You will be given a [Problem Description] for a python programming problem as well as the [Solution Code] with a part missing. '
             'Please solve the problem by filling out the [Missing Code] part of the [Solution Code].'),
@@ -162,9 +172,7 @@ def compute_prompt(problem):
         '[Solution Code]',
         '```python',
         *parts['answer_code_start'],
-        '# [Begin of Missing Code]',
-        '# [Missing Code]',
-        '# [End of Missing Code]',
+        *missing_code_part,
         *parts['answer_code_end'],
         '```',
         '',
