@@ -250,6 +250,8 @@ def postprocess_model_reply(model_reply):
         lines.append(line)
     model_reply = '\n'.join(lines)
 
+    model_reply = model_reply.rstrip(' ')
+
     return model_reply
 
 def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_replies_output_path):
