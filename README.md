@@ -6,7 +6,7 @@ There is also a [leaderboard](https://fasteval.github.io/FastEval/).
 
 ## Features
 
-- **Evaluation on various benchmarks with a single command.** Supported benchmarks are [MT‑Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) for Python coding performance, Chain of Thought (GSM8K + MATH + BBH + MMLU) for reasoning capabilities, [LM-Eval](https://github.com/EleutherAI/lm-evaluation-harness) for general capabilities as well as [custom test data](docs/custom-test-data.md).
+- **Evaluation on various benchmarks with a single command.** Supported benchmarks are [MT‑Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) for Python coding performance, Chain of Thought (GSM8K + MATH + BBH + MMLU) for reasoning capabilities as well as [custom test data](docs/custom-test-data.md).
 - **High performance.** FastEval uses [vLLM](https://github.com/vllm-project/vllm) for fast inference by default and can also optionally make use of [text-generation-inference](https://github.com/huggingface/text-generation-inference). Both methods are ~20x faster than using huggingface transformers.
 - **Detailed information about model performance.** FastEval saves the outputs of the language model and other intermediate results to disk. This makes it possible to get deeper insight into model performance. You can look at the [performance on different categories](https://fasteval.github.io/FastEval/#?benchmark=mt-bench) and even inspect [individual model outputs](https://fasteval.github.io/FastEval/#?benchmark=cot&task=bbh/date_understanding&id=eb74c9e1-8836-4c3a-8f50-a25808d20eee).
 - **Use of model-specific prompt templates**: FastEval uses the right prompt template depending on the evaluated model. Many prompt templates are supported and the use of [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
@@ -43,7 +43,7 @@ To evaluate a new model, call `fasteval` in the following way:
 ./fasteval [-b <benchmark_name_1>...] -t model_type -m model_name
 ````
 
-The `-b` flag specifies the benchmarks that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://fasteval.github.io/FastEval/#?benchmark=mt-bench), [`human-eval-plus`](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus), [`cot`](https://fasteval.github.io/FastEval/#?benchmark=cot), [`lm-evaluation-harness`](https://fasteval.github.io/FastEval/#?benchmark=lm-evaluation-harness) and [`custom-test-data`](docs/custom-test-data.md). Note that lm-evaluation-harness doesn't use fast inference or prompt templates.
+The `-b` flag specifies the benchmarks that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://fasteval.github.io/FastEval/#?benchmark=mt-bench), [`human-eval-plus`](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus), [`cot`](https://fasteval.github.io/FastEval/#?benchmark=cot) and [`custom-test-data`](docs/custom-test-data.md).
 
 The `-t` flag specifies the type of the model which is either the prompt template or the API client that will be used. [Please see here](docs/model-type.md) for information on which model type to select for your model.
 
