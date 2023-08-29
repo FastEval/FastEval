@@ -42,7 +42,6 @@ Most tasks in LM-Eval measure the ability of a model to immediately output the a
 This is not a realistic setting for chat language models where the user is often willing to give the language model time to think in order to obtain a more accurate answer.
 
 To make evaluations closer to this setting used in practice, FastEval focuses more on [CoT (chain-of-thought) reasoning](https://fasteval.github.io/FastEval/#?benchmark=cot).
-However, sometimes giving the answer immediately can still be useful, so we also include [some tasks from LM-Eval itself](https://fasteval.github.io/FastEval/#?benchmark=lm-evaluation-harness) for this.
 
 ### Tool use & acting as agent
 The ability to use tools as well as act as an agent is becoming more and more useful as the general capabilities of the models increase.
