@@ -204,6 +204,7 @@ def main():
     exceptions = []
     for item in models_and_benchmarks:
         if evaluation_id != item['id']:
+            benchmarks.total.compute_total_scores(item['model_name'], item['id'])
             continue
         top_level_benchmarks = [benchmark_name.split('/')[0] for benchmark_name in item['benchmarks']]
         for benchmark_name, evaluation_function in evaluation_functions:
