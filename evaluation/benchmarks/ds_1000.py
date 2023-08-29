@@ -7,6 +7,8 @@ import urllib.request
 import tarfile
 import shutil
 import re
+import ast
+import textwrap
 
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
@@ -243,6 +245,42 @@ def compute_ds1000_model_replies(*, model_type, model_name, model_args, prompts,
     with open(output_path, 'w') as f:
         json.dump(model_replies_by_part, f, indent=4)
 
+def extract_valid_python_code(model_reply):
+    def is_valid_python_code(chunk):
+        try:
+            ast.parse(textwrap.dedent(chunk))
+            return True
+        except SyntaxError:
+            return False
+
+    model_reply.rstrip(' ')
+
+    model_reply_lines = model_reply.split('\n')
+    chunks_of_python_code = []
+    i = 0
+    while i < len(model_reply_lines):
+        max_line_num_that_ends_valid_python_code = None
+        for j in range(i + 1, len(model_reply_lines) + 1):
+            lines = model_reply_lines[i:j]
+            if is_valid_python_code('\n'.join(lines)):
+                max_line_num_that_ends_valid_python_code = j
+        if max_line_num_that_ends_valid_python_code is not None:
+            chunk = '\n'.join(model_reply_lines[i:max_line_num_that_ends_valid_python_code])
+            assert is_valid_python_code(chunk)
+            chunks_of_python_code.append(chunk)
+            i = max_line_num_that_ends_valid_python_code
+        else:
+            i += 1
+
+    if is_valid_python_code(model_reply):
+        if model_reply.replace('\n', '') != ''.join(chunks_of_python_code).replace('\n', ''):
+            print(model_reply, chunks_of_python_code)
+            raise
+
+    model_reply = '\n'.join(chunks_of_python_code)
+
+    return re.sub('\n+', '\n', model_reply)
+
 def postprocess_model_reply_matplotlib(model_reply):
     if '# SOLUTION START' in model_reply:
         model_reply = model_reply.split('# SOLUTION START')[1]
@@ -258,9 +296,7 @@ def postprocess_model_reply_matplotlib(model_reply):
         lines.append(line)
     model_reply = '\n'.join(lines)
 
-    model_reply = model_reply.rstrip(' ')
-
-    return model_reply
+    return extract_valid_python_code(model_reply)
 
 def postprocess_model_reply(model_reply, lib):
     model_reply = model_reply.replace('\r\n', '\n')
@@ -281,13 +317,11 @@ def postprocess_model_reply(model_reply, lib):
     if '[End of Missing Code]' in model_reply:
         model_reply = model_reply.split('[End of Missing Code]')[0]
 
-    model_reply = model_reply.rstrip(' ')
-
-    return model_reply
+    return extract_valid_python_code(model_reply)
 
 def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_replies_output_path):
-    if os.path.exists(postprocessed_model_replies_output_path):
-        return
+    #if os.path.exists(postprocessed_model_replies_output_path):
+    #    return
 
     with open(model_replies_output_path) as f:
         model_replies = json.load(f)
@@ -300,8 +334,8 @@ def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_
         json.dump(postprocessed_model_replies, f, indent=4)
 
 def execute_model_replies(*, tmpdir, postprocessed_model_replies_output_path, execution_results_output_path, model_name):
-    if os.path.exists(execution_results_output_path):
-        return
+    #if os.path.exists(execution_results_output_path):
+    #    return
 
     execution_results = execute_in_environment(
         tmpdir,
@@ -314,8 +348,8 @@ def execute_model_replies(*, tmpdir, postprocessed_model_replies_output_path, ex
         json.dump(execution_results, f, indent=4)
 
 def compute_scores(*, execution_results_output_path, scores_output_path):
-    if os.path.exists(scores_output_path):
-        return
+    #if os.path.exists(scores_output_path):
+    #    return
 
     with open(execution_results_output_path) as f:
         execution_results = json.load(f)

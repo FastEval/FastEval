@@ -9,7 +9,7 @@ if multiprocessing.get_start_method(allow_none=True) != 'fork':
 
 def test_individual(args):
     lib, lib_index, item, model_reply = args
-    return [lib, lib_index, item.test(model_reply)]
+    return [lib, lib_index, item.test('\n' + model_reply + '\n')]
 
 def main():
     import os
