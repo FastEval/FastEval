@@ -181,7 +181,7 @@ def main():
         return
 
     if 'all' in args.benchmarks:
-        args.benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
+        args.benchmarks = ['mt-bench', 'cot', 'human-eval-plus']
 
     if os.path.exists('reports/__index__.json'):
         with open('reports/__index__.json') as f:
