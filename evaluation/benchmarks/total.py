@@ -37,6 +37,11 @@ def compute_total_scores(model_name, evaluation_id):
 
         scores['benchmarks'][benchmark_name] = benchmark_score
 
+    if 'human-eval-plus' in scores['benchmarks'] and 'ds1000' in scores['benchmarks']:
+        max_value = WEIGHTS['human-eval-plus'][1] + WEIGHTS['ds1000'][1]
+        scores['code'] = (WEIGHTS['human-eval-plus'][0] * scores['benchmarks']['human-eval-plus']
+            + WEIGHTS['ds1000'][0] * scores['benchmarks']['ds1000']) / max_value
+
     if 'cot' in scores['benchmarks'] and 'human-eval-plus' in scores['benchmarks'] and 'mt-bench' in scores['benchmarks'] and 'ds1000' in scores['benchmarks']:
         scores['total'] = 0
         max_value = 0
