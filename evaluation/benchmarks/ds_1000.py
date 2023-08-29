@@ -265,17 +265,10 @@ def extract_valid_python_code(model_reply):
             if is_valid_python_code('\n'.join(lines)):
                 max_line_num_that_ends_valid_python_code = j
         if max_line_num_that_ends_valid_python_code is not None:
-            chunk = '\n'.join(model_reply_lines[i:max_line_num_that_ends_valid_python_code])
-            assert is_valid_python_code(chunk)
-            chunks_of_python_code.append(chunk)
+            chunks_of_python_code.append('\n'.join(model_reply_lines[i:max_line_num_that_ends_valid_python_code]))
             i = max_line_num_that_ends_valid_python_code
         else:
             i += 1
-
-    if is_valid_python_code(model_reply):
-        if model_reply.replace('\n', '') != ''.join(chunks_of_python_code).replace('\n', ''):
-            print(model_reply, chunks_of_python_code)
-            raise
 
     model_reply = '\n'.join(chunks_of_python_code)
 
@@ -320,8 +313,8 @@ def postprocess_model_reply(model_reply, lib):
     return extract_valid_python_code(model_reply)
 
 def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_replies_output_path):
-    #if os.path.exists(postprocessed_model_replies_output_path):
-    #    return
+    if os.path.exists(postprocessed_model_replies_output_path):
+        return
 
     with open(model_replies_output_path) as f:
         model_replies = json.load(f)
@@ -334,8 +327,8 @@ def postprocess_model_replies(*, model_replies_output_path, postprocessed_model_
         json.dump(postprocessed_model_replies, f, indent=4)
 
 def execute_model_replies(*, tmpdir, postprocessed_model_replies_output_path, execution_results_output_path, model_name):
-    #if os.path.exists(execution_results_output_path):
-    #    return
+    if os.path.exists(execution_results_output_path):
+        return
 
     execution_results = execute_in_environment(
         tmpdir,
@@ -348,8 +341,8 @@ def execute_model_replies(*, tmpdir, postprocessed_model_replies_output_path, ex
         json.dump(execution_results, f, indent=4)
 
 def compute_scores(*, execution_results_output_path, scores_output_path):
-    #if os.path.exists(scores_output_path):
-    #    return
+    if os.path.exists(scores_output_path):
+        return
 
     with open(execution_results_output_path) as f:
         execution_results = json.load(f)
@@ -446,8 +439,3 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
         execution_results_output_path=execution_results_output_path,
         scores_output_path=scores_output_path,
     )
-
-    with open(scores_output_path) as f:
-        scores = json.load(f)
-
-    print(json.dumps(scores, indent=4))
