@@ -12,4 +12,5 @@ export function createTableScoreCell(rowE, contentE, relativeScore) {
     }
 
     cellE.appendChild(contentE)
+    return cellE
 }

@@ -269,6 +269,7 @@ export async function createBenchmarksIndexE(baseUrl) {
     theadRowE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
     theadRowE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
     const lmEvalHeaderE = createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' })
+    lmEvalHeaderE.classList.add('grayed-out')
     lmEvalHeaderE.classList.add('nowrap')
     theadRowE.insertCell().appendChild(lmEvalHeaderE)
     const tbodyE = tableE.createTBody()
@@ -309,7 +310,9 @@ export async function createBenchmarksIndexE(baseUrl) {
             }
 
             const relativeScore = getRelativeScore(id, benchmarkName)
-            createTableScoreCell(rowE, createTextE(round(score)), relativeScore)
+            const cellE = createTableScoreCell(rowE, createTextE(round(score)), relativeScore)
+            if (benchmarkName === 'lm-evaluation-harness')
+                cellE.classList.add('grayed-out')
         }
     }
 

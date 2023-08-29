@@ -35,10 +35,11 @@ def compute_total_scores(model_name, evaluation_id):
 
         scores['benchmarks'][benchmark_name] = benchmark_score
 
-    if len(scores['benchmarks'].keys()) == 4:
+    if 'cot' in scores['benchmarks'] and 'human-eval-plus' in scores['benchmarks'] and 'mt-bench' in scores['benchmarks']:
         scores['total'] = 0
         max_value = 0
-        for benchmark_name, (weight, benchmark_max_value) in WEIGHTS.items():
+        for benchmark_name in scores['benchmarks'].keys():
+            weight, benchmark_max_value = WEIGHTS[benchmark_name]
             scores['total'] += weight * scores['benchmarks'][benchmark_name]
             max_value += weight * benchmark_max_value
         scores['total'] /= max_value
