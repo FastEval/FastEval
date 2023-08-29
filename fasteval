@@ -160,6 +160,7 @@ def main():
         help='Runs a check to make sure that the outputs of the chosen fast inference backend (vLLM or TGI) are equal to those that HF transformers outputs. '
             + 'This is needed because vLLM & TGI sometimes have incorrect implementations or haven\'t implemented a new feature yet but don\'t even warn about that. ')
     parser.add_argument('--custom-test-data-file')
+    parser.add_argument('--continue', help='Continue with evaluating previously stopped or failed evaluations', action='store_true')
     args = parser.parse_args()
 
     evaluation.args.cmd_arguments = args
@@ -203,7 +204,7 @@ def main():
 
     exceptions = []
     for item in models_and_benchmarks:
-        if evaluation_id != item['id']:
+        if evaluation_id != item['id'] and not getattr(args, 'continue'):
             benchmarks.total.compute_total_scores(item['model_name'], item['id'])
             continue
         top_level_benchmarks = [benchmark_name.split('/')[0] for benchmark_name in item['benchmarks']]
