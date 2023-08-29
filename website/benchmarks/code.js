@@ -7,7 +7,7 @@ export async function createE(baseUrl) {
     const containerE = document.createElement('div')
 
     const evaluations = await fetchEvaluations(baseUrl)
-    const scores = await fetchFiles(baseUrl, evaluations, 'ds1000', 'scores.json')
+    const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
 
     const tableE = document.createElement('table')
     containerE.appendChild(tableE)
@@ -16,49 +16,46 @@ export async function createE(baseUrl) {
     const tableBodyE = tableE.createTBody()
 
     tableHeadE.insertCell().appendChild(createTextE('Model'))
-    tableHeadE.insertCell().appendChild(createTextE('Average'))
+    tableHeadE.insertCell().appendChild(createTextE('Total'))
     tableHeadE.insertCell()
 
-    const taskIds = [
-        'Matplotlib',
-        'Numpy',
-        'Pytorch',
-        'Scipy',
-        'Tensorflow',
-        'Pandas',
-        'Sklearn',
+    const tasks = [
+        ['human-eval-plus', 'HumanEval+'],
+        ['ds1000', 'DS-1000-Chat'],
     ]
 
     const ids = Array.from(scores.keys())
-    const taskIdsWithScores = taskIds.map(taskId => [taskId, ids.map(id => scores.get(id).tasks[taskId])])
+    const taskIdsWithScores = tasks.map(([taskId, _]) => [taskId, ids.map(id => scores.get(id).benchmarks[taskId])])
     const taskIdToMinimumScore = Object.fromEntries(taskIdsWithScores.map(([taskId, scores]) => [taskId, Math.min(...scores)]))
     const taskIdToMaximumScore = Object.fromEntries(taskIdsWithScores.map(([taskId, scores]) => [taskId, Math.max(...scores)]))
 
-    const averages = ids.map(id => scores.get(id).average)
-    const minAverage = Math.min(...averages)
-    const maxAverage = Math.max(...averages)
+    const totals = ids.map(id => scores.get(id).code)
+    const minTotal = Math.min(...totals)
+    const maxTotal = Math.max(...totals)
 
     function getRelativeScore(id, taskId) {
-        return (scores.get(id).tasks[taskId] - taskIdToMinimumScore[taskId]) / (taskIdToMaximumScore[taskId] - taskIdToMinimumScore[taskId])
+        return (scores.get(id).benchmarks[taskId] - taskIdToMinimumScore[taskId]) / (taskIdToMaximumScore[taskId] - taskIdToMinimumScore[taskId])
     }
 
-    for (const taskId of taskIds)
-        tableHeadE.insertCell().appendChild(createTextE(taskId))
+    for (const [taskId, taskName] of tasks)
+        tableHeadE.insertCell().appendChild(createTextE(taskName))
 
     const evaluationsSortedByAverageScore = Array.from(scores.entries())
-        .toSorted(([id1, scores1], [id2, scores2]) => scores2.average - scores1.average)
+        .toSorted(([id1, scores1], [id2, scores2]) => scores2.code - scores1.code)
 
-    for (const [id, { tasks, average }] of evaluationsSortedByAverageScore) {
+    for (const [id, scores] of evaluationsSortedByAverageScore) {
         const rowE = tableBodyE.insertRow()
         rowE.insertCell().appendChild(createModelLinkE(evaluations.get(id)))
 
-        createTableScoreCell(rowE, createTextE(round(average)), (average - minAverage) / (maxAverage - minAverage))
+        createTableScoreCell(rowE, createTextE(round(scores.code)), (scores.code - minTotal) / (maxTotal - minTotal))
 
         rowE.insertCell()
 
-        for (const taskId of taskIds)
-            createTableScoreCell(rowE, createTextE(round(tasks[taskId])), getRelativeScore(id, taskId))
+        for (const [taskId, taskName] of tasks)
+            createTableScoreCell(rowE, createTextE(round(scores.benchmarks[taskId])), getRelativeScore(id, taskId))
     }
+
+    console.log(scores)
 
     return containerE
 }
