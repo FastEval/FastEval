@@ -6,6 +6,7 @@ import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
 import * as HumanEvalPlus from '../benchmarks/human-eval-plus.js'
 import * as CoT from '../benchmarks/cot.js'
 import * as MTBench from '../benchmarks/mt-bench.js'
+import * as DS1000 from '../benchmarks/ds1000.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { getModelNumParams } from '../utils.js'
 
@@ -19,6 +20,8 @@ async function createSingleBenchmarkE(baseUrl, benchmarkName, parameters) {
             return await CoT.createE(baseUrl, parameters)
         case 'mt-bench':
             return await MTBench.createE(baseUrl, parameters)
+        case 'ds1000':
+            return await DS1000.createE(baseUrl, parameters)
         default:
             throw new Error()
     }
