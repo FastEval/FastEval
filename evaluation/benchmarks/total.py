@@ -5,7 +5,7 @@ from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.constants import WEIGHTS
 
 def compute_total_scores(model_name, evaluation_id):
-    benchmarks = ['cot', 'human-eval-plus', 'lm-evaluation-harness', 'mt-bench']
+    benchmarks = ['cot', 'human-eval-plus', 'lm-evaluation-harness', 'mt-bench', 'ds1000']
     scores = { 'benchmarks': {} }
     for benchmark_name in benchmarks:
         benchmark_folder = os.path.join('reports', benchmark_name, model_name_to_filename(model_name), evaluation_id)
@@ -32,10 +32,12 @@ def compute_total_scores(model_name, evaluation_id):
             benchmark_score = scores_file_content['average']
         elif benchmark_name == 'mt-bench':
             benchmark_score = scores_file_content['average']
+        elif benchmark_name == 'ds1000':
+            benchmark_score = scores_file_content['average']
 
         scores['benchmarks'][benchmark_name] = benchmark_score
 
-    if 'cot' in scores['benchmarks'] and 'human-eval-plus' in scores['benchmarks'] and 'mt-bench' in scores['benchmarks']:
+    if 'cot' in scores['benchmarks'] and 'human-eval-plus' in scores['benchmarks'] and 'mt-bench' in scores['benchmarks'] and 'ds1000' in scores['benchmarks']:
         scores['total'] = 0
         max_value = 0
         for benchmark_name in scores['benchmarks'].keys():
