@@ -16,17 +16,17 @@ def install_ds1000(cwd):
     if os.path.exists(installation_done_file):
         return
 
-    python_output_directory = os.path.join(cwd, 'python3.8.16')
+    python_output_directory = os.path.join(cwd, 'python3.9.18')
 
     urllib.request.urlretrieve(
-        'https://github.com/indygreg/python-build-standalone/releases/download/20230726/cpython-3.8.16+20230726-x86_64-unknown-linux-gnu-install_only.tar.gz',
+        'https://github.com/indygreg/python-build-standalone/releases/download/20230826/cpython-3.9.18+20230826-x86_64-unknown-linux-gnu-install_only.tar.gz',
         python_output_directory + '.tar.gz'
     )
 
     tar = tarfile.open(python_output_directory + '.tar.gz')
     tar.extractall(python_output_directory)
 
-    python_path = os.path.join(python_output_directory, 'python', 'bin', 'python3.8')
+    python_path = os.path.join(python_output_directory, 'python', 'bin', 'python3.9')
 
     if not os.path.exists(os.path.join(cwd, 'venv')):
         subprocess.run([python_path, '-m', 'venv', 'venv'], cwd=cwd)
@@ -70,7 +70,7 @@ def execute_in_environment(tmpdir, file, *args):
     shutil.copyfile(os.path.join('evaluation/benchmarks', file), os.path.join(cwd, file))
 
     process_output = subprocess.run(
-        ['python3.8', os.path.join(cwd, file), *args],
+        ['python3.9', os.path.join(cwd, file), *args],
         env=new_environment,
         cwd=cwd,
         stdout=subprocess.PIPE,
