@@ -3,9 +3,20 @@ import { createTextE } from '../components/text.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
 import { createLinkE } from '../components/link.js'
+import { createBackToMainPageE } from '../components/back-to-main-page.js'
 
 export async function createE(baseUrl) {
     const containerE = document.createElement('div')
+
+    containerE.appendChild(createBackToMainPageE())
+
+    const explanationE = document.createElement('div')
+    containerE.appendChild(explanationE)
+    explanationE.classList.add('code__explanation')
+    explanationE.append(
+        createTextE('Both HumanEval+ as well as DS-1000-Chat measure the python coding abilities of a language model. '
+            + 'However, the approach in both benchmarks is slightly different. Click on the corresponding columns for more information.')
+    )
 
     const evaluations = await fetchEvaluations(baseUrl)
     const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
