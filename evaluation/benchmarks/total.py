@@ -5,8 +5,8 @@ from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.constants import WEIGHTS
 
 def compute_total_scores(model_name, evaluation_id):
-    benchmarks = ['cot', 'human-eval-plus', 'lm-evaluation-harness', 'mt-bench']
-    scores = { 'benchmarks': {} }
+    benchmarks = ['cot', 'human-eval-plus', 'lm-evaluation-harness', 'mt-bench', 'ds1000']
+    scores = {}
     for benchmark_name in benchmarks:
         benchmark_folder = os.path.join('reports', benchmark_name, model_name_to_filename(model_name), evaluation_id)
 
@@ -32,15 +32,22 @@ def compute_total_scores(model_name, evaluation_id):
             benchmark_score = scores_file_content['average']
         elif benchmark_name == 'mt-bench':
             benchmark_score = scores_file_content['average']
+        elif benchmark_name == 'ds1000':
+            benchmark_score = scores_file_content['average']
 
-        scores['benchmarks'][benchmark_name] = benchmark_score
+        scores[benchmark_name] = benchmark_score
 
-    if 'cot' in scores['benchmarks'] and 'human-eval-plus' in scores['benchmarks'] and 'mt-bench' in scores['benchmarks']:
+    if 'human-eval-plus' in scores and 'ds1000' in scores:
+        max_value = WEIGHTS['human-eval-plus'][0] * WEIGHTS['human-eval-plus'][1] + WEIGHTS['ds1000'][0] * WEIGHTS['ds1000'][1]
+        scores['code'] = (WEIGHTS['human-eval-plus'][0] * scores['human-eval-plus']
+            + WEIGHTS['ds1000'][0] * scores['ds1000']) / max_value
+
+    if 'cot' in scores and 'human-eval-plus' in scores and 'mt-bench' in scores and 'ds1000' in scores:
         scores['total'] = 0
         max_value = 0
-        for benchmark_name in scores['benchmarks'].keys():
+        for benchmark_name in ['human-eval-plus', 'cot', 'mt-bench', 'ds1000']:
             weight, benchmark_max_value = WEIGHTS[benchmark_name]
-            scores['total'] += weight * scores['benchmarks'][benchmark_name]
+            scores['total'] += weight * scores[benchmark_name]
             max_value += weight * benchmark_max_value
         scores['total'] /= max_value
         scores['total'] *= 100

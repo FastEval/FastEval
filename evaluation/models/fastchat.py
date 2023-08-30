@@ -178,5 +178,7 @@ class Fastchat(OpenAIBase):
             request_total_length = int(error_information.group(2))
             num_tokens_too_much = request_total_length - maximum_context_length
             reduced_max_new_tokens = max_new_tokens - num_tokens_too_much
+            if reduced_max_new_tokens <= 0:
+                return ''
             return super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key,
                 max_new_tokens=reduced_max_new_tokens, temperature=temperature, model_name=model_name, stop_event=stop_event)

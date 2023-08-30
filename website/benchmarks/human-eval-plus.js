@@ -14,7 +14,7 @@ export async function createE(baseUrl, parameters) {
 
     const containerE = document.createElement('div')
 
-    containerE.appendChild(createBackToMainPageE())
+    containerE.appendChild(createBackToMainPageE('← Back to code table', { benchmark: 'code' }))
 
     const explanationE = document.createElement('div')
     containerE.appendChild(explanationE)

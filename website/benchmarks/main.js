@@ -6,6 +6,8 @@ import * as LMEvaluationHarness from '../benchmarks/lm-evaluation-harness.js'
 import * as HumanEvalPlus from '../benchmarks/human-eval-plus.js'
 import * as CoT from '../benchmarks/cot.js'
 import * as MTBench from '../benchmarks/mt-bench.js'
+import * as DS1000 from '../benchmarks/ds1000.js'
+import * as Code from '../benchmarks/code.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { getModelNumParams } from '../utils.js'
 
@@ -19,6 +21,10 @@ async function createSingleBenchmarkE(baseUrl, benchmarkName, parameters) {
             return await CoT.createE(baseUrl, parameters)
         case 'mt-bench':
             return await MTBench.createE(baseUrl, parameters)
+        case 'ds1000':
+            return await DS1000.createE(baseUrl)
+        case 'code':
+            return await Code.createE(baseUrl)
         default:
             throw new Error()
     }
@@ -28,7 +34,7 @@ function getTopLevelBenchmarks(benchmarks) {
     const topLevelBenchmarks = {
         'mt-bench': ['mt-bench'],
         'cot': ['gsm8k', 'math', 'bbh', 'mmlu'],
-        'human-eval-plus': ['human-eval-plus'],
+        'code': ['code'],
         'lm-evaluation-harness': ['lm-evaluation-harness'],
     }
 
@@ -55,7 +61,7 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
 
     const totalScores = {}
     for (const id of ids)
-        totalScores[id] = getTotalScore(id, idToEvaluationInformation.get(id).benchmarks)
+        totalScores[id] = getTotalScore(id, idToEvaluationInformation.get(id))
 
     const initialFixedEvaluations = ids.filter(id => totalScores[id] !== null)
         .toSorted((id1, id2) => totalScores[id2] - totalScores[id1])
@@ -79,8 +85,8 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
             .filter(benchmark => getTopLevelBenchmarks(idToEvaluationInformation.get(id2).benchmarks).includes(benchmark))
 
         if (commonBenchmarks.length === 1 && commonBenchmarks[0] === 'lm-evaluation-harness') {
-            const evaluation1NumBenchmarks = idToEvaluationInformation.get(id1).benchmarks.length
-            const evaluation2NumBenchmarks = idToEvaluationInformation.get(id2).benchmarks.length
+            const evaluation1NumBenchmarks = getTopLevelBenchmarks(idToEvaluationInformation.get(id1).benchmarks).length
+            const evaluation2NumBenchmarks = getTopLevelBenchmarks(idToEvaluationInformation.get(id2).benchmarks).length
             if (evaluation1NumBenchmarks === 1 && evaluation2NumBenchmarks !== 1) {
                 performanceDifferences.set(evaluationPair, -Infinity)
                 continue
@@ -175,10 +181,10 @@ export async function createBenchmarksIndexE(baseUrl) {
     const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
 
     function getScore(id, benchmarkName) {
-        return scores.get(id).benchmarks[benchmarkName] || null
+        return scores.get(id)[benchmarkName] || null
     }
 
-    const allBenchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
+    const allBenchmarks = ['mt-bench', 'cot', 'code', 'lm-evaluation-harness']
 
     const benchmarkMinimums = new Map()
     const benchmarkMaximums = new Map()
@@ -261,17 +267,17 @@ export async function createBenchmarksIndexE(baseUrl) {
     theadRowE.insertCell().appendChild(createTextE('Rank'))
     theadRowE.insertCell().appendChild(createTextE('Size'))
     theadRowE.insertCell().appendChild(createTextE('Model'))
-    theadRowE.insertCell().appendChild(createTextE('Total'))
+    createTableScoreCell(theadRowE, createTextE('Total'))
     theadRowE.insertCell()
     const mtBenchHeaderE = createLinkE('MT-Bench', { benchmark: 'mt-bench' })
     mtBenchHeaderE.classList.add('nowrap')
-    theadRowE.insertCell().appendChild(mtBenchHeaderE)
-    theadRowE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
-    theadRowE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
+    createTableScoreCell(theadRowE, mtBenchHeaderE)
+    createTableScoreCell(theadRowE, createLinkE('CoT', { benchmark: 'cot' }))
+    createTableScoreCell(theadRowE, createLinkE('Python Code', { benchmark: 'code' }))
     const lmEvalHeaderE = createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' })
     lmEvalHeaderE.classList.add('grayed-out')
     lmEvalHeaderE.classList.add('nowrap')
-    theadRowE.insertCell().appendChild(lmEvalHeaderE)
+    createTableScoreCell(theadRowE, lmEvalHeaderE)
     const tbodyE = tableE.createTBody()
 
     for (const [position, evaluationInformation] of evaluationsSortedByRank.entries()) {
