@@ -273,7 +273,7 @@ export async function createBenchmarksIndexE(baseUrl) {
     mtBenchHeaderE.classList.add('nowrap')
     createTableScoreCell(theadRowE, mtBenchHeaderE)
     createTableScoreCell(theadRowE, createLinkE('CoT', { benchmark: 'cot' }))
-    createTableScoreCell(theadRowE, createLinkE('Code', { benchmark: 'code' }))
+    createTableScoreCell(theadRowE, createLinkE('Python Code', { benchmark: 'code' }))
     const lmEvalHeaderE = createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' })
     lmEvalHeaderE.classList.add('grayed-out')
     lmEvalHeaderE.classList.add('nowrap')
