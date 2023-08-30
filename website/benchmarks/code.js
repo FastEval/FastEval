@@ -2,6 +2,7 @@ import { fetchEvaluations, fetchFiles, round } from '../utils.js'
 import { createTextE } from '../components/text.js'
 import { createModelLinkE } from '../components/model-link.js'
 import { createTableScoreCell } from '../components/table-score-cell.js'
+import { createLinkE } from '../components/link.js'
 
 export async function createE(baseUrl) {
     const containerE = document.createElement('div')
@@ -38,7 +39,7 @@ export async function createE(baseUrl) {
     }
 
     for (const [taskId, taskName] of tasks)
-        tableHeadE.insertCell().appendChild(createTextE(taskName))
+        tableHeadE.insertCell().appendChild(createLinkE(taskName, { benchmark: taskId }))
 
     const evaluationsSortedByAverageScore = Array.from(scores.entries())
         .toSorted(([id1, scores1], [id2, scores2]) => scores2.code - scores1.code)
