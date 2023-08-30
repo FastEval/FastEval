@@ -184,7 +184,7 @@ export async function createBenchmarksIndexE(baseUrl) {
         return scores.get(id)[benchmarkName] || null
     }
 
-    const allBenchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
+    const allBenchmarks = ['mt-bench', 'cot', 'code', 'lm-evaluation-harness']
 
     const benchmarkMinimums = new Map()
     const benchmarkMaximums = new Map()
@@ -273,7 +273,7 @@ export async function createBenchmarksIndexE(baseUrl) {
     mtBenchHeaderE.classList.add('nowrap')
     theadRowE.insertCell().appendChild(mtBenchHeaderE)
     theadRowE.insertCell().appendChild(createLinkE('CoT', { benchmark: 'cot' }))
-    theadRowE.insertCell().appendChild(createLinkE('HumanEval+', { benchmark: 'human-eval-plus' }))
+    theadRowE.insertCell().appendChild(createLinkE('Code', { benchmark: 'code' }))
     const lmEvalHeaderE = createLinkE('LM-Eval', { benchmark: 'lm-evaluation-harness' })
     lmEvalHeaderE.classList.add('grayed-out')
     lmEvalHeaderE.classList.add('nowrap')
