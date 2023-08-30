@@ -15,7 +15,10 @@ export async function createE(baseUrl) {
     explanationE.classList.add('code__explanation')
     explanationE.append(
         createTextE('Both HumanEval+ as well as DS-1000-Chat measure the python coding abilities of a language model. '
-            + 'However, the approach in both benchmarks is slightly different. Click on the corresponding columns for more information.')
+            + 'However, the approach in both benchmarks is slightly different. '
+            + 'HumanEval+ focuses on writing complete and simple python functions. '
+            + 'DS-1000 is more about completing a missing part in code that uses datascience libraries. '
+            + 'Click on the corresponding columns for more information.')
     )
 
     const evaluations = await fetchEvaluations(baseUrl)
