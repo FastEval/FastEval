@@ -399,14 +399,17 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     tmpdir = os.path.join(os.getcwd(), '.tmp/ds1000')
     os.makedirs(tmpdir, exist_ok=True)
 
+    output_folder = os.path.join('reports/ds1000', model_name_to_filename(model_name), evaluation_id)
+    scores_output_path = os.path.join(output_folder, 'scores.json')
+    if os.path.exists(scores_output_path):
+        return
+    os.makedirs(output_folder, exist_ok=True)
+
     install_ds1000(tmpdir)
     download_ds1000_data(tmpdir)
 
     data = execute_in_environment(tmpdir, 'ds_1000_load_data.py')
     prompts = compute_prompts(data)
-
-    output_folder = os.path.join('reports/ds1000', model_name_to_filename(model_name), evaluation_id)
-    os.makedirs(output_folder, exist_ok=True)
 
     model_replies_output_path = os.path.join(output_folder, 'answers.json')
     compute_ds1000_model_replies(
@@ -434,7 +437,6 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
         model_name=model_name,
     )
 
-    scores_output_path = os.path.join(output_folder, 'scores.json')
     compute_scores(
         execution_results_output_path=execution_results_output_path,
         scores_output_path=scores_output_path,
