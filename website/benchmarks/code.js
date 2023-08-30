@@ -25,7 +25,7 @@ export async function createE(baseUrl) {
     ]
 
     const ids = Array.from(scores.keys())
-    const taskIdsWithScores = tasks.map(([taskId, _]) => [taskId, ids.map(id => scores.get(id).benchmarks[taskId])])
+    const taskIdsWithScores = tasks.map(([taskId, _]) => [taskId, ids.map(id => scores.get(id)[taskId])])
     const taskIdToMinimumScore = Object.fromEntries(taskIdsWithScores.map(([taskId, scores]) => [taskId, Math.min(...scores)]))
     const taskIdToMaximumScore = Object.fromEntries(taskIdsWithScores.map(([taskId, scores]) => [taskId, Math.max(...scores)]))
 
@@ -34,7 +34,7 @@ export async function createE(baseUrl) {
     const maxTotal = Math.max(...totals)
 
     function getRelativeScore(id, taskId) {
-        return (scores.get(id).benchmarks[taskId] - taskIdToMinimumScore[taskId]) / (taskIdToMaximumScore[taskId] - taskIdToMinimumScore[taskId])
+        return (scores.get(id)[taskId] - taskIdToMinimumScore[taskId]) / (taskIdToMaximumScore[taskId] - taskIdToMinimumScore[taskId])
     }
 
     for (const [taskId, taskName] of tasks)
@@ -52,7 +52,7 @@ export async function createE(baseUrl) {
         rowE.insertCell()
 
         for (const [taskId, taskName] of tasks)
-            createTableScoreCell(rowE, createTextE(round(scores.benchmarks[taskId])), getRelativeScore(id, taskId))
+            createTableScoreCell(rowE, createTextE(round(scores[taskId])), getRelativeScore(id, taskId))
     }
 
     console.log(scores)

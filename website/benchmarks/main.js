@@ -34,7 +34,7 @@ function getTopLevelBenchmarks(benchmarks) {
     const topLevelBenchmarks = {
         'mt-bench': ['mt-bench'],
         'cot': ['gsm8k', 'math', 'bbh', 'mmlu'],
-        'human-eval-plus': ['human-eval-plus'],
+        'code': ['code'],
         'lm-evaluation-harness': ['lm-evaluation-harness'],
     }
 
@@ -61,7 +61,7 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
 
     const totalScores = {}
     for (const id of ids)
-        totalScores[id] = getTotalScore(id, idToEvaluationInformation.get(id).benchmarks)
+        totalScores[id] = getTotalScore(id, idToEvaluationInformation.get(id))
 
     const initialFixedEvaluations = ids.filter(id => totalScores[id] !== null)
         .toSorted((id1, id2) => totalScores[id2] - totalScores[id1])
@@ -85,8 +85,8 @@ function computeEvaluationRanks(evaluations, getScore, getTotalScore) {
             .filter(benchmark => getTopLevelBenchmarks(idToEvaluationInformation.get(id2).benchmarks).includes(benchmark))
 
         if (commonBenchmarks.length === 1 && commonBenchmarks[0] === 'lm-evaluation-harness') {
-            const evaluation1NumBenchmarks = idToEvaluationInformation.get(id1).benchmarks.length
-            const evaluation2NumBenchmarks = idToEvaluationInformation.get(id2).benchmarks.length
+            const evaluation1NumBenchmarks = getTopLevelBenchmarks(idToEvaluationInformation.get(id1).benchmarks).length
+            const evaluation2NumBenchmarks = getTopLevelBenchmarks(idToEvaluationInformation.get(id2).benchmarks).length
             if (evaluation1NumBenchmarks === 1 && evaluation2NumBenchmarks !== 1) {
                 performanceDifferences.set(evaluationPair, -Infinity)
                 continue
@@ -181,7 +181,7 @@ export async function createBenchmarksIndexE(baseUrl) {
     const scores = await fetchFiles(baseUrl, evaluations, 'total', 'scores.json')
 
     function getScore(id, benchmarkName) {
-        return scores.get(id).benchmarks[benchmarkName] || null
+        return scores.get(id)[benchmarkName] || null
     }
 
     const allBenchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'lm-evaluation-harness']
