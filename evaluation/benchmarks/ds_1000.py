@@ -217,8 +217,6 @@ def compute_prompts(data):
                 **compute_prompt(problem['prompt'], k),
             })
 
-    with open('prompts.json', 'w') as f:
-        json.dump(prompts, f, indent=4)
     return prompts
 
 def compute_ds1000_model_replies(*, model_type, model_name, model_args, prompts, data, output_path):
