@@ -17,7 +17,7 @@ WEIGHTS = {
     # (weight, maximum possible value)
     'mt-bench': (2, 10),
     'cot': (18, 1),
-    'human-eval-plus': (5, 1),
+    'human-eval-plus': (3, 1),
     'lm-evaluation-harness': (0, 100),
-    'ds1000': (7, 1),
+    'ds1000': (5, 1),
 }
