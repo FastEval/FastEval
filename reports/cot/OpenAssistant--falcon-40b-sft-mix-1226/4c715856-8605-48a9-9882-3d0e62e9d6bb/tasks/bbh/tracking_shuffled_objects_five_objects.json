@@ -1,5 +1,5 @@
 {
-    "score": 0.0,
+    "score": 0.03333333333333333,
     "model_outputs": [
         {
             "id": 34,
@@ -34,7 +34,7 @@
             "question": "Alice, Bob, Claire, Dave, and Eve are holding a white elephant gift exchange. At the start of the event, they are each holding a present of a different color: Alice has a purple present, Bob has a red present, Claire has a pink ball, Dave has a brown present, and Eve has a orange ball.\nAs the event progresses, pairs of people swap gifts. First, Alice and Claire swap their gifts. Then, Dave and Alice swap their gifts. Then, Bob and Claire swap their gifts. Then, Eve and Dave swap their gifts. Finally, Claire and Alice swap their gifts. At the end of the event, Dave has the\nOptions:\n(A) purple present\n(B) red present\n(C) pink ball\n(D) brown present\n(E) orange ball",
             "correct_answer": "(E)",
             "model_answer": "Let's first list the gifts and their owners at the start of the event:\nAlice: purple present\nBob: red present\nClaire: pink ball\nDave: brown present\nEve: orange ball\n\nNow let's list the gifts and their owners after each pair of swaps:\nAfter Alice and Claire swap:\nAlice: pink ball\nClaire: purple present\nBob: red present\nDave: brown present\nEve: orange ball\n\nAfter Dave and Alice swap:\nAlice: brown present\nClaire: pink ball\nBob: red present\nDave: purple present\nEve: orange ball\n\nAfter Bob and Claire swap:\nAlice: brown present\nClaire: purple present\nBob: red present\nDave: orange ball\nEve: pink ball\n\nAfter Eve and Dave swap:\nAlice: brown present\nClaire: purple present\nBob: red present\nDave: orange ball\nEve: pink ball\n\nAfter Claire and Alice swap:\nAlice: purple present\nClaire: brown present\nBob: red present\nDave: orange ball\nEve: pink ball\n\nAt the end of the event, Dave has the purple present.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 16,
@@ -55,7 +55,7 @@
             "question": "Alice, Bob, Claire, Dave, and Eve are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Jamie, Bob is dancing with Patrick, Claire is dancing with Karl, Dave is dancing with Helga, and Eve is dancing with Izzi.\nThroughout the song, the dancers often trade partners. First, Claire and Alice switch partners. Then, Alice and Dave switch partners. Then, Alice and Bob switch partners. Then, Bob and Eve switch partners. Finally, Dave and Bob switch partners. At the end of the dance, Eve is dancing with\nOptions:\n(A) Jamie\n(B) Patrick\n(C) Karl\n(D) Helga\n(E) Izzi",
             "correct_answer": "(D)",
             "model_answer": "Let's first list the partners of each dancer at the start of the song:\nAlice - Jamie\nBob - Patrick\nClaire - Karl\nDave - Helga\nEve - Izzi\n\nNow let's list the partners of each dancer after each switch:\nAlice - Patrick (after first switch)\nBob - Jamie (after first switch)\nClaire - Izzi (after first switch)\nDave - Patrick (after second switch)\nEve - Jamie (after second switch)\n\nAt the end of the dance, Eve is dancing with Jamie.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 126,
@@ -76,7 +76,7 @@
             "question": "Alice, Bob, Claire, Dave, and Eve are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Hound of the Baskervilles, Bob gets The Fellowship of the Ring, Claire gets Ulysses, Dave gets Lolita, and Eve gets Moby Dick.\nAs the semester proceeds, they start trading around the new books. First, Bob and Alice swap books. Then, Claire and Eve swap books. Then, Claire and Dave swap books. Then, Bob and Dave swap books. Finally, Claire and Eve swap books. At the end of the semester, Claire has\nOptions:\n(A) Hound of the Baskervilles\n(B) The Fellowship of the Ring\n(C) Ulysses\n(D) Lolita\n(E) Moby Dick",
             "correct_answer": "(C)",
             "model_answer": "Let's first list the books and the people who have them at the start of the semester:\nAlice: Hound of the Baskervilles\nBob: The Fellowship of the Ring\nClaire: Ulysses\nDave: Lolita\nEve: Moby Dick\n\nNow let's list the books and the people who have them after each trade:\nAfter Bob and Alice swap:\nAlice: The Fellowship of the Ring\nBob: Hound of the Baskervilles\n\nAfter Claire and Eve swap:\nClaire: Ulysses\nEve: Moby Dick\n\nAfter Claire and Dave swap:\nClaire: Lolita\nDave: Ulysses\n\nAfter Bob and Dave swap:\nBob: Lolita\nDave: The Fellowship of the Ring\n\nAfter Claire and Eve swap:\nClaire: Moby Dick\nEve: Hound of the Baskervilles\n\nAt the end of the semester, Claire has:\nClaire: Moby Dick",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 120,
@@ -125,7 +125,7 @@
             "question": "Alice, Bob, Claire, Dave, and Eve are holding a white elephant gift exchange. At the start of the event, they are each holding a present of a different color: Alice has a green present, Bob has a black ball, Claire has a red present, Dave has a white present, and Eve has a blue present.\nAs the event progresses, pairs of people swap gifts. First, Alice and Dave swap their gifts. Then, Dave and Eve swap their gifts. Then, Bob and Eve swap their gifts. Then, Bob and Dave swap their gifts. Finally, Bob and Claire swap their gifts. At the end of the event, Bob has the\nOptions:\n(A) green present\n(B) black ball\n(C) red present\n(D) white present\n(E) blue present",
             "correct_answer": "(C)",
             "model_answer": "Let's first list the gifts and their owners at the start of the event:\nA: Alice - green\nB: Bob - black ball\nC: Claire - red\nD: Dave - white\nE: Eve - blue\n\nNow let's list the gifts and their owners after each pair of swaps:\n1. Alice and Dave swap:\nA: Dave - green\nB: Alice - black ball\nC: Claire - red\nD: Bob - white\nE: Eve - blue\n\n2. Dave and Eve swap:\nA: Eve - green\nB: Dave - black ball\nC: Claire - red\nD: Bob - white\nE: Alice - blue\n\n3. Bob and Eve swap:\nA: Eve - green\nB: Bob - black ball\nC: Claire - red\nD: Dave - white\nE: Alice - blue\n\n4. Bob and Dave swap:\nA: Dave - green\nB: Bob - black ball\nC: Claire - red\nD: Alice - white\nE: Eve - blue\n\n5. Bob and Claire swap:\nA: Dave - green\nB: Bob - black ball\nC: Alice - red\nD: Eve - white\nE: Claire - blue\n\nAt the end of the event, Bob has the black ball.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 7,
@@ -174,7 +174,7 @@
             "question": "Alice, Bob, Claire, Dave, and Eve are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Jamie, Bob is dancing with Patrick, Claire is dancing with Ophelia, Dave is dancing with Melissa, and Eve is dancing with Rodrigo.\nThroughout the song, the dancers often trade partners. First, Dave and Bob switch partners. Then, Claire and Dave switch partners. Then, Eve and Alice switch partners. Then, Claire and Eve switch partners. Finally, Alice and Eve switch partners. At the end of the dance, Alice is dancing with\nOptions:\n(A) Jamie\n(B) Patrick\n(C) Ophelia\n(D) Melissa\n(E) Rodrigo",
             "correct_answer": "(B)",
             "model_answer": "Let's first list the partners of each dancer at the start of the song:\nAlice - Jamie\nBob - Patrick\nClaire - Ophelia\nDave - Melissa\nEve - Rodrigo\n\nNow let's list the partners of each dancer after each switch:\nDave - Rodrigo\nEve - Rodrigo\nDave - Melissa\nEve - Melissa\nDave - Rodrigo\nEve - Rodrigo\n\nAt the end of the dance, Alice is dancing with Rodrigo.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 196,
@@ -211,5 +211,6 @@
             "model_answer": "Let's first list the ball swaps in chronological order:\n1. Dave and Alice swap balls\n2. Bob and Claire swap balls\n3. Bob and Alice swap balls\n4. Alice and Claire swap balls\n5. Eve and Bob swap balls\n\nNow, let's assign each player a number and the ball they are holding a letter. We'll use the following convention:\nA = orange ball\nB = green ball\nC = blue ball\nD = pink ball\nE = purple ball\n\n1. Dave and Alice swap balls, so Dave gets the orange ball (A) and Alice gets the green ball (B).\n2. Bob and Claire swap balls, so Bob gets the blue ball (C) and Claire gets the pink ball (D).\n3. Bob and Alice swap balls, so Bob gets the orange ball (A) and Alice gets the green ball (B).\n4. Alice and Claire swap balls, so Alice gets the blue ball (C) and Claire gets the pink ball (D).\n5. Eve and Bob swap balls, so Eve gets the purple ball (E) and Bob gets the orange ball (A).\n\nAt the end of the game, Bob has the orange ball (A).",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 5
 }

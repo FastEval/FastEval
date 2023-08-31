@@ -1,5 +1,5 @@
 {
-    "score": 0.26666666666666666,
+    "score": 0.3,
     "model_outputs": [
         {
             "id": 34,
@@ -146,7 +146,7 @@
             "question": "The following translations from German to English contain a particular error. That error will be one of the following types: Named Entities: An entity (names, places, locations, etc.) is changed to a different entity. Numerical Values: Numerical values (ordinals or cardinals), dates, and/or units are changed. Modifiers or Adjectives: The modifiers and adjectives pertaining to a noun are changed. Negation or Antonyms: Introduce or remove a negation or change comparatives to their antonyms. Facts: Trivial factual errors not pertaining to the above classes are introduced in the translations. Dropped Content: A significant clause in the translation is removed. Please identify that error.  Source: Anras ist eine Gemeinde mit 1227 Einwohnern im Gerichtsbezirk und Bezirk Lienz in Tirol.\nTranslation: Anras is a municipality in the district of Munich in Tyrol, Germany.\nThe translation contains an error pertaining to\nOptions:\n(A) Modifiers or Adjectives\n(B) Numerical Values\n(C) Negation or Antonyms\n(D) Named Entities\n(E) Dropped Content\n(F) Facts",
             "correct_answer": "(D)",
             "model_answer": "The error in the translation is pertaining to (D) Named Entities. The correct translation should be:\nSource: Anras ist eine Gemeinde mit 1227 Einwohnern im Gerichtsbezirk und Bezirk Lienz in Tirol.\nTranslation: Anras is a municipality in the district of Lienz in Tyrol, Austria.\nThe error is that the translation changes the country from Austria to Germany, which is a named entity change.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 99,
@@ -211,5 +211,6 @@
             "model_answer": "The error in the translation is pertaining to (D) Named Entities. The original German sentence mentions the state of Indiana, but the translation does not include this information. Instead, it only mentions the United States, which is not specific enough.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

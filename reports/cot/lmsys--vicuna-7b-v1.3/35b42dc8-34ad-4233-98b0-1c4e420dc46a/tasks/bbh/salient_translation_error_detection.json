@@ -1,5 +1,5 @@
 {
-    "score": 0.16666666666666666,
+    "score": 0.17777777777777776,
     "model_outputs": [
         {
             "id": 34,
@@ -41,7 +41,7 @@
             "question": "The following translations from German to English contain a particular error. That error will be one of the following types: Named Entities: An entity (names, places, locations, etc.) is changed to a different entity. Numerical Values: Numerical values (ordinals or cardinals), dates, and/or units are changed. Modifiers or Adjectives: The modifiers and adjectives pertaining to a noun are changed. Negation or Antonyms: Introduce or remove a negation or change comparatives to their antonyms. Facts: Trivial factual errors not pertaining to the above classes are introduced in the translations. Dropped Content: A significant clause in the translation is removed. Please identify that error.  Source: Die FZ90 ist eine ungelenkte 70-mm-Luft-Boden-Rakete zum Einsatz an Flugzeugen und Hubschraubern.\nTranslation: The FZ90 is an unguided 70 nm air-to-surface missile used on aircraft and helicopters.\nThe translation contains an error pertaining to\nOptions:\n(A) Modifiers or Adjectives\n(B) Numerical Values\n(C) Negation or Antonyms\n(D) Named Entities\n(E) Dropped Content\n(F) Facts",
             "correct_answer": "(B)",
             "model_answer": "The error in the translation is related to the numerical value. The original text states \"70-mm\", while the translation states \"70 nm\". This is a mistake as \"70 mm\" is a measurement of size, while \"70 nm\" is a unit of measurement for distance. Therefore, the error is related to Numerical Values.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 65,
@@ -55,7 +55,7 @@
             "question": "The following translations from German to English contain a particular error. That error will be one of the following types: Named Entities: An entity (names, places, locations, etc.) is changed to a different entity. Numerical Values: Numerical values (ordinals or cardinals), dates, and/or units are changed. Modifiers or Adjectives: The modifiers and adjectives pertaining to a noun are changed. Negation or Antonyms: Introduce or remove a negation or change comparatives to their antonyms. Facts: Trivial factual errors not pertaining to the above classes are introduced in the translations. Dropped Content: A significant clause in the translation is removed. Please identify that error.  Source: Bry-sur-Marne ist eine franz\u00f6sische Gemeinde im Gro\u00dfraum Paris, etwa 12 km in \u00f6stlicher Richtung vom Zentrum der Metropole entfernt.\nTranslation: Bry-sur-Marne is a commune in the greater Paris area, about 12 mm east of the city centre.\nThe translation contains an error pertaining to\nOptions:\n(A) Modifiers or Adjectives\n(B) Numerical Values\n(C) Negation or Antonyms\n(D) Named Entities\n(E) Dropped Content\n(F) Facts",
             "correct_answer": "(B)",
             "model_answer": "The error in the translation is related to the numerical value. The original text states \"12 km in \u00f6stlicher Richtung vom Zentrum der Metropole entfernt,\" which translates to \"12 km east of the city center.\" However, the translation changes the word \"km\" to \"mm,\" which is incorrect. Therefore, the error is related to Numerical Values.\n\nThe correct translation should be \"12 miles east of the city center.\"",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 126,
@@ -211,5 +211,6 @@
             "model_answer": "The error in the translation is (D) Named Entities. The German sentence contains the proper noun \"Wayne County,\" which is translated to \"Wayne County\" in the English translation. However, the English translation should use the proper noun \"Wayne County\" instead of the generic term \"county located in the U.S.\" to accurately convey the meaning of the original sentence.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

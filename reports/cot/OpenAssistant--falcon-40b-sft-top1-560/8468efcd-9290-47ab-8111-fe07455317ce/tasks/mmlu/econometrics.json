@@ -1,5 +1,5 @@
 {
-    "score": 0.2,
+    "score": 0.25,
     "model_outputs": [
         {
             "id": 17,
@@ -34,7 +34,7 @@
             "question": "Suppose that a hypothesis test is conducted using a 5% significance level. Which of the following statements are correct?\n\n(i) The significance level is equal to the size of the test\n\n(ii) The significance level is equal to the power of the test\n\n(iii) 2.5% of the total distribution will be in each tail rejection region for a 2-sided test\n\n(iv) 5% of the total distribution will be in each tail rejection region for a 2-sided test.\n\n(A) (ii) and (iv) only\n(B) (i) and (iii) only\n(C) (i), (ii), and (iii) only\n(D) (i), (ii), (iii), and (iv)",
             "correct_answer": 1,
             "model_answer": "(i) The significance level is **NOT** equal to the size of the test. The significance level is the probability of rejecting the null hypothesis when it is true. The size of the test, also known as the power of the test, is the probability of rejecting the null hypothesis when it is false.\n\n(ii) The significance level is **NOT** equal to the power of the test. The significance level is the probability of rejecting the null hypothesis when it is true. The power of the test is the probability of rejecting the null hypothesis when it is false.\n\n(iii) **FALSE**. 2.5% of the total distribution will be in each tail rejection region for a **one-sided** test. For a **two-sided** test, 5% of the total distribution will be in each tail rejection region.\n\n(iv) **TRUE**. 5% of the total distribution will be in each tail rejection region for a **two-sided** test.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -62,7 +62,7 @@
             "question": "Which of the following is a disadvantage of the fixed effects approach to estimating a panel model?\n\n(A) The model is likely to be technical to estimate\n(B) The approach may not be valid if the composite error term is correlated with one or more of the explanatory variables\n(C) The number of parameters to estimate may be large, resulting in a loss of degrees of freedom\n(D) The fixed effects approach can only capture cross-sectional heterogeneity and not temporal variation in the dependent variable.",
             "correct_answer": 2,
             "model_answer": "The fixed effects approach to estimating a panel model has several advantages, such as controlling for unobserved individual-specific effects and reducing the number of parameters to estimate. However, it also has one significant disadvantage: it may not be valid if the composite error term is correlated with one or more of the explanatory variables.\n\nThe composite error term in a panel model is a combination of the individual-specific error terms and the time-specific error term. If the individual-specific error terms are correlated with one or more of the explanatory variables, this can lead to biased estimates of the coefficients for the explanatory variables. This is because the fixed effects approach assumes that the individual-specific error terms are uncorrelated with the explanatory variables, which may not be the case in reality.\n\nTherefore, if the composite error term is correlated with one or more of the explanatory variables, the fixed effects approach may not be valid and may produce biased estimates of the coefficients for the explanatory variables. This is the main disadvantage of the fixed effects approach compared to other methods for estimating panel models, such as the random effects approach, which can account for both cross-sectional and temporal variation in the dependent variable.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 57,
@@ -71,5 +71,6 @@
             "model_answer": "Heteroscedasticity refers to the situation where the variance of the errors is not constant. In other words, the standard deviation of the errors changes across different values of the independent variables.\n\nIn linear regression, we assume that the errors are normally distributed and have a constant variance, which is known as homoscedasticity. However, if the errors are not homoscedastic, it can lead to biased estimates of the coefficients and reduced statistical power.\n\nTo check for heteroscedasticity, we can plot the residuals against the predicted values or against the independent variables. If the scatterplot shows a non-constant pattern, it suggests the presence of heteroscedasticity.\n\nOption (A) is correct. Heteroscedasticity refers to the situation where the variance of the errors is not constant.",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

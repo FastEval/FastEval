@@ -1,5 +1,5 @@
 {
-    "score": 0.0,
+    "score": 0.025,
     "model_outputs": [
         {
             "id": 17,
@@ -41,7 +41,7 @@
             "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
             "correct_answer": 2,
             "model_answer": "To determine the number of independent parameters needed for this Bayesian Network, we need to count the number of edges that have a directional arrow pointing to the child node. In this case, there are 3 nodes (H, U, P) and 3 edges (H -> U, U <- P, P <- W). Therefore, there are 3 independent parameters needed for this Bayesian Network.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 32,
@@ -71,5 +71,6 @@
             "model_answer": "Explanation:\r\n\r\nStatement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\r\n\r\nL1 regularization adds a penalty term to the loss function that is proportional to the absolute values of the model parameters. This means that it tends to force the model parameters to be smaller, which can result in a more sparse model. L2 regularization, on the other hand, adds a penalty term that is proportional to the squared values of the model parameters. This means that it tends to force the model parameters to be smaller in magnitude, but not necessarily zero. Therefore, L2 regularization tends to make models more smooth and less sparse than L1 regularization.\r\n\r\nStatement 2: Residual connections can be found in ResNets and Transformers.\r\n\r\nResidual connections are a technique used in deep neural networks to help them learn more easily. They allow the output of a layer to be added to the input of the next layer, effectively bypassing the activation function of the next layer. This technique is used in ResNets and Transformers to help them learn more effectively and avoid the vanishing gradient problem that can occur in deep networks.\r\n\r\nBased on the above explanation, the correct answer is:\r\n\r\n(C) True, False",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

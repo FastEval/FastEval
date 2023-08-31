@@ -1,5 +1,5 @@
 {
-    "score": 0.16666666666666666,
+    "score": 0.18000000000000002,
     "model_outputs": [
         {
             "id": 34,
@@ -76,7 +76,7 @@
             "question": "Alice, Bob, Claire, Dave, and Eve are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Hound of the Baskervilles, Bob gets The Fellowship of the Ring, Claire gets Ulysses, Dave gets Lolita, and Eve gets Moby Dick.\nAs the semester proceeds, they start trading around the new books. First, Bob and Alice swap books. Then, Claire and Eve swap books. Then, Claire and Dave swap books. Then, Bob and Dave swap books. Finally, Claire and Eve swap books. At the end of the semester, Claire has\nOptions:\n(A) Hound of the Baskervilles\n(B) The Fellowship of the Ring\n(C) Ulysses\n(D) Lolita\n(E) Moby Dick",
             "correct_answer": "(C)",
             "model_answer": "To determine the book Claire has at the end of the semester, we need to trace the path of each book throughout the trades. We'll use a step-by-step approach to do this.\n\n1. Initially, Alice has Hound of the Baskervilles, Bob has The Fellowship of the Ring, Claire has Ulysses, Dave has Lolita, and Eve has Moby Dick.\n2. Bob and Alice swap books, so now Alice has The Fellowship of the Ring and Bob has Hound of the Baskervilles.\n3. Claire and Eve swap books, so now Claire has Moby Dick and Eve has Ulysses.\n4. Claire and Dave swap books, so now Claire has Lolita and Dave has Moby Dick.\n5. Bob and Dave swap books, so now Claire has Lolita and Dave has The Fellowship of the Ring.\n6. Finally, Claire and Eve swap books. We don't know which book Claire gets in this trade, so we need more information.\n\nUnfortunately, we don't have enough information to determine the book Claire has at the end of the semester. The options provided don't match the final state of the books we have after the trades.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 120,
@@ -90,7 +90,7 @@
             "question": "Alice, Bob, Claire, Dave, and Eve are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets The Pearl, Bob gets Frankenstein, Claire gets Ulysses, Dave gets Hound of the Baskervilles, and Eve gets Moby Dick.\nAs the semester proceeds, they start trading around the new books. First, Bob and Dave swap books. Then, Bob and Claire swap books. Then, Dave and Claire swap books. Then, Claire and Bob swap books. Finally, Alice and Eve swap books. At the end of the semester, Dave has\nOptions:\n(A) The Pearl\n(B) Frankenstein\n(C) Ulysses\n(D) Hound of the Baskervilles\n(E) Moby Dick",
             "correct_answer": "(D)",
             "model_answer": "To determine which book Dave has at the end of the semester, we need to keep track of each person's book throughout the trading process. We can do this by creating a table with columns for each person and rows for each trade.\n\nInitially, the table will look like this:\n\n| Alice | Bob | Claire | Dave | Eve |\n| --- | --- | --- | --- | --- |\n| The Pearl | Frankenstein | Ulysses | Hound of the Baskervilles | Moby Dick |\n\nNow let's describe each trade step by step:\n\n1. Bob and Dave swap books.\n| Alice | Bob | Claire | Dave | Eve |\n| --- | --- | --- | --- | --- |\n| The Pearl | Frankenstein | Ulysses | Hound of the Baskervilles | Moby Dick |\n2. Bob and Claire swap books.\n| Alice | Bob | Claire | Dave | Eve |\n| --- | --- | --- | --- | --- |\n| The Pearl | Ulysses | Frankenstein | Hound of the Baskervilles | Moby Dick |\n3. Dave and Claire swap books.\n| Alice | Bob | Claire | Dave | Eve |\n| --- | --- | --- | --- | --- |\n| The Pearl | Ulysses | Hound of the Baskervilles | Frankenstein | Moby Dick |\n4. Claire and Bob swap books.\n| Alice | Bob | Claire | Dave | Eve |\n| --- | --- | --- | --- | --- |\n| The Pearl | Frankenstein | Hound of the Baskervilles | Ulysses | Moby Dick |\n5. Alice and Eve swap books.\n| Alice | Bob | Claire | Dave | Eve |\n| --- | --- | --- | --- | --- |\n| Moby Dick | Frankenstein | Hound of the Baskervilles | Ulysses | The Pearl |\n\nAt the end of the semester, Dave has The Pearl.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 97,
@@ -211,5 +211,6 @@
             "model_answer": "Alright, let's reason through the steps of the game and track the ball colors as they are traded.\n\n1. Initially, Alice has the orange ball, Bob has the green ball, Claire has the blue ball, Dave has the pink ball, and Eve has the purple ball.\n2. Dave and Alice swap balls. Now, Dave has the orange ball, and Alice has the green ball.\n3. Bob and Claire swap balls. Now, Bob has the blue ball, and Claire has the green ball.\n4. Bob and Alice swap balls. Now, Bob has the orange ball, and Alice has the blue ball.\n5. Alice and Claire swap balls. Now, Alice has the green ball, and Claire has the orange ball.\n6. Eve and Bob swap balls. Now, Eve has the orange ball, and Bob has the green ball.\n\nAt the end of the game, Bob has the green ball.\n\nSo, the answer is (B) green ball.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

@@ -1,5 +1,5 @@
 {
-    "score": 0.4,
+    "score": 0.525,
     "model_outputs": [
         {
             "id": 17,
@@ -20,14 +20,14 @@
             "question": "White light is normally incident on a puddle of water (index of refraction 1.33). A thin (500 nm) layer of oil (index of refraction 1.5) floats on the surface of the puddle. Of the following, the most strongly reflected wavelength is\n\n(A) 500 nm\n(B) 550 nm\n(C) 600 nm\n(D) 650 nm",
             "correct_answer": 2,
             "model_answer": "To solve this problem, we need to use Snell's Law, which states that the ratio of the sine of the angle of incidence to the sine of the angle of refraction is equal to the ratio of the indices of refraction of the two media. \n\nn1 * sin(\u03b81) = n2 * sin(\u03b82)\n\nwhere n1 and n2 are the indices of refraction of the first and second media, and \u03b81 and \u03b82 are the angles of incidence and refraction, respectively.\n\nIn this case, the white light is incident on the puddle, and the thin layer of oil floats on the surface. The index of refraction of air is approximately 1. So, we have three interfaces to consider: air-puddle, puddle-oil, and oil-air.\n\nAt the air-puddle interface, the angle of refraction is 90 degrees, so sin(\u03b81) = 1. The index of refraction of the puddle is 1.33, and the index of refraction of air is 1. So, we have:\n\n1.33 * 1 = 1 * sin(\u03b82)\n\nsin(\u03b82) = 1/1.33\n\nAt the puddle-oil interface, the angle of refraction is also 90 degrees, so sin(\u03b81) = 1. The index of refraction of the oil is 1.5, and the index of refraction of the puddle is 1.33. So, we have:\n\n1.33 * 1 = 1.5 * sin(\u03b82)\n\nsin(\u03b82) = 1/1.5\n\nAt the oil-air interface, the angle of refraction is again 90 degrees, so sin(\u03b81) = 1. The index of refraction of the oil is 1.5, and the index of refraction of air is 1. So, we have:\n\n1.5 * 1 = 1 * sin(\u03b82)\n\nsin(\u03b82) = 1/1.5\n\nNow, we can use Snell's Law to find the wavelengths of light that are most strongly reflected at each interface. The most strongly reflected wavelength will be the one that undergoes total internal reflection.\n\nAt the air-puddle interface, the critical angle (\u03b8c) is:\n\nsin(\u03b8c) = n2/n1\nsin(\u03b8c) = 1.33/1\n\u03b8c = arcsin(1) = 45 degrees\n\nThe critical angle is the angle of incidence at which the angle of refraction is 90 degrees. So, the most strongly reflected wavelength at this interface is:\n\n\u03bb_c = 2 * \u03c0 * sin(\u03b8c) / \u03bb_oil\n\u03bb_c = 2 * \u03c0 * sin(45) / 500 nm\n\u03bb_c \u2248 380 nm\n\nAt the puddle-oil interface, the critical angle is the same as at the air-puddle interface, so the most strongly reflected wavelength is also:\n\n\u03bb_c = 380 nm\n\nAt the oil-air interface, the critical angle is:\n\nsin(\u03b8c) = n2/n1\nsin(\u03b8c) = 1.5/1.33\n\u03b8c = arcsin(1.5/1.33) \u2248 64.2 degrees\n\nThe critical angle is the angle of incidence at which the angle of refraction is 90 degrees. So, the most strongly reflected wavelength at this interface is:\n\n\u03bb_c = 2 * \u03c0 * sin(\u03b8c) / \u03bb_air\n\u03bb_c = 2 * \u03c0 * sin(64.2) / 500 nm\n\u03bb_c \u2248 500 nm\n\nTherefore, the most strongly reflected wavelength at each interface is:\n\nA) 500 nm",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
             "question": "De Broglie hypothesized that the linear momentum and wavelength of a free massive particle are related by which of the following constants?\n\n(A) Planck\u2019s constant\n(B) Boltzmann\u2019s constant\n(C) The Rydberg constant\n(D) The speed of light",
             "correct_answer": 0,
             "model_answer": "The correct answer is (A) Planck\u2019s constant.\n\nReasoning:\nDe Broglie's hypothesis states that the linear momentum (p) of a free massive particle is related to its wavelength (\u03bb) by the following equation:\n\np = h/\u03bb\n\nwhere h is Planck's constant.\n\nTherefore, Planck's constant is the correct answer.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 32,
@@ -71,5 +71,6 @@
             "model_answer": "Step 1: Calculate the time it takes for the sound to travel from the car to the wall and back.\nTime = Distance / Speed\nTime = (2 * 350 m/s) / 3.5 m/s\nTime = 116.67 s\n\nStep 2: Calculate the frequency of the echo based on the time taken.\nFrequency = Speed / Time\nFrequency = 350 m/s / 116.67 s\nFrequency = 3 Hz\n\nStep 3: Compare the frequency of the echo (3 Hz) with the given options.\nThe driver hears the echo at a frequency nearest to which of the following?\n\n(A) 588 Hz\n(B) 594 Hz\n(C) 600 Hz\n(D) 612 Hz\n\nThe frequency of the echo is 3 Hz, which is closest to option (C) 600 Hz. Therefore, the answer is (C) 600 Hz.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

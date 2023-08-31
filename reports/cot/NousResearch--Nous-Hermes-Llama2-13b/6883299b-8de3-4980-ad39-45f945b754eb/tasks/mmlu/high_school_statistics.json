@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.325,
     "model_outputs": [
         {
             "id": 34,
@@ -13,7 +13,7 @@
             "question": "A teacher's union and a school district are negotiating salaries for the coming year. The teachers want more money, and the district, claiming, as always, budget constraints, wants to pay as little as possible. The district, like most, has a large number of moderately paid teachers and a few highly paid administrators. The salaries of all teachers and administrators are included in trying to figure out, on average, how much the professional staff currently earn. Which of the following would the teachers' union be most likely to quote during negotiations?\n\n(A) The mean of all the salaries.\n(B) The mode of all the salaries.\n(C) The standard deviation of all the salaries.\n(D) The median of all the salaries.",
             "correct_answer": 3,
             "model_answer": "The teachers' union would be most likely to quote the median of all the salaries during negotiations.\n\nThe median is the middle value of a dataset when it is ordered from least to greatest. In this case, since the district has a large number of moderately paid teachers and a few highly paid administrators, the dataset will be positively skewed. This means that the median will be closer to the moderately paid teachers' salaries, which is what the teachers' union wants to emphasize.\n\nThe mean, on the other hand, would be influenced by the highly paid administrators and could result in a higher average salary that the district might use to justify paying less. The mode would only give the value that appears most frequently in the dataset, which might not be relevant to the current negotiations. The standard deviation would provide information about the spread of the salaries, but it might not be as relevant to the negotiations as the median.\n\nTherefore, the teachers' union would be most likely to quote the median of all the salaries during negotiations.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 205,
@@ -71,5 +71,6 @@
             "model_answer": "To solve this problem, we can use the binomial probability formula:\n\nP(X = k) = C(n, k) * p^k * (1-p)^(n-k)\n\nwhere:\n- P(X = k) is the probability of having exactly k successes (in this case, women) in n trials (the jury of 12)\n- C(n, k) is the number of combinations of n items taken k at a time, also written as n! / (k!(n-k)!)\n- p is the probability of success (in this case, the probability of a woman being selected, which is 30% or 0.3)\n- n is the number of trials (in this case, the jury of 12)\n- k is the number of successes (in this case, the number of women on the jury)\n\nWe want to find the probability of selecting a jury of 12 with at least three women. This means we need to find the probability of selecting a jury with exactly three women, four women, five women, ..., up to 12 women. We can sum up these probabilities to find the overall probability of selecting a jury with at least three women.\n\nP(X >= 3) = P(X = 3) + P(X = 4) + ... + P(X = 12)\n\nWe can calculate each of these probabilities using the binomial probability formula and sum them up:\n\nP(X >= 3) = \u03a3 [C(12, k) * (0.3)^k * (0.7)^(12-k)] for k = 3 to 12\n\nNow, we can plug in the values and calculate the sum:\n\nP(X >= 3) \u2248 0.843\n\nSo, the probability of selecting a jury of 12 with at least three women is approximately 0.843 or 84.3%.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

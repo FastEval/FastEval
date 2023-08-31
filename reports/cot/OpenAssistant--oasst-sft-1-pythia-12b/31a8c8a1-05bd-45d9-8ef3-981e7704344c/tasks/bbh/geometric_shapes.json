@@ -1,5 +1,5 @@
 {
-    "score": 0.0,
+    "score": 0.06000000000000002,
     "model_outputs": [
         {
             "id": 34,
@@ -34,7 +34,7 @@
             "question": "This SVG path element <path d=\"M 24.45,23.22 L 30.07,20.10 L 38.16,23.15 L 41.78,30.00 L 31.71,29.18 M 31.71,29.18 L 30.55,43.39 L 23.15,39.21 L 21.00,28.90 M 21.00,28.90 L 24.45,23.22\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(F)",
             "model_answer": "The SVG path element <path d=\"M 24.45,23.22 L 30.07,20.10 L 38.16,23.15 L 41.78,30.00 L 31.71,29.18 M 31.71,29.18 L 30.55,43.39 L 23.15,39.21 L 21.00,28.90 M 21.00,28.90 L 24.45,23.22\"/> draws a triangle. The three sides of the triangle are:\n\n- M 24.45,23.22\n- L 30.07,20.10\n- L 38.16,23.15\n\nThe length of each side can be calculated using the Pythagorean theorem:\n\n- L^2 = (24.45^2 + 23.22^2) - (30.07^2 + 20.10^2)\n- a^2 + b^2 = c^2\n- c^2 = a^2 + b^2\n- L^2 = a^2 + b^2\n- L = \u221a(L^2)\n- L = 30.07 + 20.10i\n- a = 30.07 - 20.10i\n- b = 23.22\n\nTherefore, the length of each side of the triangle is:\n\n- a = 30.07 - 20.10i\n- b = 23.22\n- c = \u221a(30.07^2 + 20.10^2) - (23.22^2 + 24.45^2)\n- c = \u221a(30.07^2 + 20.10^2) - (49.05^2)\n- c = \u221a(30.07^2 + 20.10^2) - (100.0^2)\n- c = 10.0\n\nTherefore, the triangle drawn by the SVG path element <path d=\"M 24.45,23.22 L 30.07,20.10 L 38.16,23.15 L 41.78,30.00 L 31.71,29.18 M 31.71,29.18 L 30.55,43.39 L 23.15,39.21 L 21.00,28.90 M 21.00,28.90 L 24.45,23.22\"/> is an equilateral triangle with a side length of 10.0 units.",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 16,
@@ -62,7 +62,7 @@
             "question": "This SVG path element <path d=\"M 60.52,56.12 L 42.84,58.73 M 42.84,58.73 L 41.14,47.23 L 58.82,44.63 M 58.82,44.63 L 57.13,33.13 L 76.53,48.34 L 62.21,67.61 M 62.21,67.61 L 60.52,56.12\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(B)",
             "model_answer": "The SVG path element <path d=\"M 60.52,56.12 L 42.84,58.73 M 42.84,58.73 L 41.14,47.23 L 58.82,44.63 M 58.82,44.63 L 57.13,33.13 L 76.53,48.34 L 62.21,67.61 M 62.21,67.61 L 60.52,56.12\"/> draws a triangle. The reason is that the line M 60.52,56.12 L 42.84,58.73 forms a right triangle where the hypotenuse is M 42.84,58.73.",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 194,
@@ -76,7 +76,7 @@
             "question": "This SVG path element <path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(J)",
             "model_answer": "(A) circle\n\nThe d attribute in the <path> element defines the shape of the path as a circle with a center at (34.44, 60.27). The radius of the circle can be specified using the r attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" r=\"20\"></path>\n\nThe resulting shape is a circle with a radius of 20 centered at (34.44, 60.27).\n\n(B) heptagon\n\nThe d attribute in the <path> element defines the shape of the path as a heptagon with seven sides. The radius of the heptagon can be specified using the r attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" r=\"20\"></path>\n\nThe resulting shape is a heptagon with a radius of 20 centered at (34.44, 60.27).\n\n(C) hexagon\n\nThe d attribute in the <path> element defines the shape of the path as a hexagon with six sides. The radius of the hexagon can be specified using the r attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" r=\"20\"></path>\n\nThe resulting shape is a hexagon with a radius of 20 centered at (34.44, 60.27).\n\n(D) kite\n\nThe d attribute in the <path> element defines the shape of the path as a kite with four wings. The radius of the kite can be specified using the r attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" r=\"20\"></path>\n\nThe resulting shape is a kite with a radius of 20 centered at (34.44, 60.27).\n\n(E) line\n\nThe d attribute in the <path> element defines the shape of the path as a line. The length of the line can be specified using the l attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" l=\"10\"></path>\n\nThe resulting shape is a line with a length of 10 centered at (34.44, 60.27).\n\n(F) octagon\n\nThe d attribute in the <path> element defines the shape of the path as an octagon. The radius of the octagon can be specified using the r attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" r=\"20\"></path>\n\nThe resulting shape is an octagon with a radius of 20 centered at (34.44, 60.27).\n\n(G) pentagon\n\nThe d attribute in the <path> element defines the shape of the path as a pentagon. The radius of the pentagon can be specified using the r attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" r=\"20\"></path>\n\nThe resulting shape is an pentagon with a radius of 20 centered at (34.44, 60.27).\n\n(H) rectangle\n\nThe d attribute in the <path> element defines the shape of the path as a rectangle. The length and width of the rectangle can be specified using the l and w attributes.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" l=\"10\" w=\"20\"></path>\n\nThe resulting shape is a rectangle with a length of 10 and a width of 20 centered at (34.44, 60.27).\n\n(I) sector\n\nThe d attribute in the <path> element defines the shape of the path as a sector. The radius of the sector can be specified using the r attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" r=\"20\"></path>\n\nThe resulting shape is a sector with a radius of 20 centered at (34.44, 60.27).\n\n(J) triangle\n\nThe d attribute in the <path> element defines the shape of the path as a triangle. The length of the triangle can be specified using the l attribute.\n\n<path d=\"M 34.44,60.27 L 75.18,65.91 L 32.23,14.36 M 32.23,14.36 L 34.44,60.27\" l=\"10\" r=\"20\"></path>\n\nThe resulting shape is a triangle with a length of 10 and a radius of 20 centered at (34.44, 60.27).",
-            "correct": false
+            "correct": true
         },
         {
             "id": 120,
@@ -97,7 +97,7 @@
             "question": "This SVG path element <path d=\"M 88.00,67.00 L 70.00,18.00 L 38.00,60.00 L 73.00,48.00 L 60.00,62.00 L 88.00,67.00\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(G)",
             "model_answer": "The SVG path element <path d=\"M 88.00,67.00 L 70.00,18.00 L 38.00,60.00 L 73.00,48.00 L 60.00,62.00 L 88.00,67.00\"/> draws a triangle. The length of the longest side of the triangle is 88.00, and the length of the shortest side is 67.00. The angles of the triangle are also 88.00, 67.00, and 60.00, which makes the triangle a special kind of triangle known as an equilateral triangle. An equilateral triangle has sides of equal length, and it is a common building block in geometry.",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 201,
@@ -111,14 +111,14 @@
             "question": "This SVG path element <path d=\"M 31.94,78.63 L 66.91,49.50 L 68.54,41.07 L 61.03,39.02 M 61.03,39.02 L 52.78,44.98 M 52.78,44.98 L 31.94,78.63\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(G)",
             "model_answer": "The SVG path element <path d=\"M 31.94,78.63 L 66.91,49.50 L 68.54,41.07 L 61.03,39.02 M 61.03,39.02 L 52.78,44.98 M 52.78,44.98 L 31.94,78.63\"/> draws a triangle. The length of each side of the triangle is equal to the length of the corresponding side of the square that the triangle is centered around. Therefore, the triangle has a side length of sqrt(31.94^2 + 78.63^2) = 39.02.",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 24,
             "question": "This SVG path element <path d=\"M 12.89,27.63 L 16.46,21.41 M 16.46,21.41 L 23.97,19.93 M 23.97,19.93 L 28.27,16.91 L 36.05,18.39 L 35.28,28.22 M 35.28,28.22 L 27.40,36.33 L 25.21,26.77 L 12.89,27.63\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(F)",
             "model_answer": "The SVG path element <path d=\"M 12.89,27.63 L 16.46,21.41 M 16.46,21.41 L 23.97,19.93 M 23.97,19.93 L 28.27,16.91 L 36.05,18.39 L 35.28,28.22 M 35.28,28.22 L 27.40,36.33 L 25.21,26.77 L 12.89,27.63\"/> draws a triangle. The reason is that the three points M 12.89,27.63 L 16.46,21.41 M 16.46,21.41 L 23.97,19.93 form a triangle.",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 124,
@@ -139,7 +139,7 @@
             "question": "This SVG path element <path d=\"M 66.84,13.67 L 81.50,22.51 M 81.50,22.51 L 75.76,32.04 L 61.09,23.20 L 55.35,32.73 L 50.26,9.67 L 72.58,4.14 L 66.84,13.67\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(B)",
             "model_answer": "The SVG path element <path d=\"M 66.84,13.67 L 81.50,22.51 M 81.50,22.51 L 75.76,32.04 L 61.09,23.20 L 55.35,32.73 L 50.26,9.67 L 72.58,4.14 L 66.84,13.67\"/> draws a triangle. The reason is that the three points (66.84,13.67), (81.50,22.51) and (81.50,22.51) form a triangle. The third point (61.09,23.20) is not part of the triangle because it is outside of the triangle formed by the other two points.",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 213,
@@ -188,14 +188,14 @@
             "question": "This SVG path element <path d=\"M 55.57,80.69 L 57.38,65.80 M 57.38,65.80 L 48.90,57.46 M 48.90,57.46 L 45.58,47.78 M 45.58,47.78 L 53.25,36.07 L 66.29,48.90 L 78.69,61.09 L 55.57,80.69\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(B)",
             "model_answer": "The SVG path element <path d=\"M 55.57,80.69 L 57.38,65.80 M 57.38,65.80 L 48.90,57.46 M 48.90,57.46 L 45.58,47.78 M 45.58,47.78 L 53.25,36.07 L 66.29,48.90 L 78.69,61.09 L 55.57,80.69\"/> draws a triangle. The reason is that the line M 55.57,80.69 L 57.38,65.80 forms a right triangle where the hypotenuse is M 57.38,80.69.",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 178,
             "question": "This SVG path element <path d=\"M 68.57,20.35 L 60.86,9.44 M 60.86,9.44 L 69.54,45.49 M 69.54,45.49 L 71.82,26.36 M 71.82,26.36 L 83.64,19.16 M 83.64,19.16 L 68.57,20.35\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(G)",
             "model_answer": "The SVG path element <path d=\"M 68.57,20.35 L 60.86,9.44 M 60.86,9.44 L 69.54,45.49 M 69.54,45.49 L 71.82,26.36 M 71.82,26.36 L 83.64,19.16 M 83.64,19.16 L 68.57,20.35\"/> draws a triangle. The reason is that the three points (60.86, 9.44), (69.54, 45.49) and (83.64, 19.16) form a triangle.",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 114,
@@ -211,5 +211,6 @@
             "model_answer": "(A) circle\n\nThe given SVG path element <path d=\"M 11.79,16.93 L 56.17,80.16\"/> draws a circle with center at (11.79, 16.93) and radius r = 11.79.\n\nThe equation of a circle with center (x0, y0) and radius r is given by:\n\nx = x0 + r * cos(\u03b8)\ny = y0 + r * sin(\u03b8)\n\nwhere (x0, y0) is the center of the circle, r is the radius, and\u03b8 is the angle of the circle measured counterclockwise from the x-axis.\n\nIn this case, the center of the circle is (11.79, 16.93), and the radius is r = 11.79. The angle of the circle is therefore\u03b8 = arctan(56.17 / 11.79) = 42.61\u00b0.\n\nTherefore, the equation of the circle with center (11.79, 16.93) and radius r = 11.79 is:\n\nx = 11.79 + r * cos(42.61\u00b0)\ny = 16.93 + r * sin(42.61\u00b0)\n\nwhich is a circle with center at (11.79, 16.93) and radius r = 11.79.\n\n(B) heptagon\n\nThe given SVG path element <path d=\"M 11.79,16.93 L 56.17,80.16\"/> draws a heptagon with seven sides and center at (11.79, 16.93).\n\nThe equation of a heptagon with seven sides and center (x0, y0) is given by:\n\nx = x0 + (r/2) * cos(\u03b8)\ny = y0 + (r/2) * sin(\u03b8)\n\nwhere (x0, y0) is the center of the heptagon, r is the radius, and\u03b8 is the angle of the heptagon measured counterclockwise from the x-axis.\n\nIn this case, the center of the heptagon is (11.79, 16.93), and the radius is r = 11.79. The angle of the heptagon is therefore\u03b8 = arctan(56.17 / 11.79) = 42.61\u00b0.\n\nTherefore, the equation of the heptagon with seven sides and center (11.79, 16.93) is:\n\nx = 11.79 + (r/2) * cos(42.61\u00b0)\ny = 16.93 + (r/2) * sin(42.61\u00b0)\n\nwhich is a heptagon with seven sides and center at (11.79, 16.93).\n\n(C) hexagon\n\nThe given SVG path element <path d=\"M 11.79,16.93 L 56.17,80.16\"/> draws a hexagon with six sides and center at (11.79, 16.93).\n\nThe equation of a hexagon with six sides and center (x0, y0) is given by:\n\nx = x0 + (r/2) * cos(\u03b8)\ny = y0 + (r/2) * sin(\u03b8)\n\nwhere (x0, y0) is the center of the hexagon, r is the radius, and\u03b8 is the angle of the hexagon measured counterclockwise from the x-axis.\n\nIn this case, the center of the hexagon is (11.79, 16.93), and the radius is r = 11.79. The angle of the hexagon is therefore\u03b8 = arctan(56.17 / 11.79) = 42.61\u00b0.\n\nTherefore, the equation of the hexagon with six sides and center (11.79, 16.93) is:\n\nx = 11.79 + (r/2) * cos(42.61\u00b0)\ny = 16.93 + (r/2) * sin(42.61\u00b0)\n\nwhich is a hexagon with six sides and center at (11.79, 16.93).\n\n(D) kite\n\nThe given SVG path element <path d=\"M 11.79,16.93 L 56.17,80.16\"/> draws a kite with four sides and center at (11.79, 16.93).\n\nThe equation of a kite with four sides and center (x0, y0) is given by:\n\nx = x0 + (r/2) * cos(\u03b8)\ny = y0 + (r/2) * sin(\u03b8)\n\nwhere (x0, y0) is the center of the kite, r is the radius, and\u03b8 is the angle of the kite measured counterclockwise from the x-axis.\n\nIn this case, the center of the kite is (11.79, 16.93), and the radius is r = 11.79. The angle of the kite is therefore\u03b8 = arctan(56.17 / 11.79) = 42.61\u00b0.\n\nTherefore, the equation of the kite with four sides and center (11.79, 16.93) is:\n\nx = 11.79 + (r/2) * cos(42.61\u00b0)\ny = 16.93 + (r/2) * sin(42.61\u00b0)\n\nwhich is a kite with four sides and center at (11.79, 16.93).\n\n(E) line\n\nThe given SVG path element <path d=\"M 11.79,16.93 L 56.17,80.16\"/> draws a line with endpoint at (11.79, 16.93).\n\nThe equation of a line with endpoint (x0, y0) is given by:\n\nx = x0\ny = y0\n\nwhere (x0, y0) is the endpoint of the line.\n\nIn this case, the endpoint of the line is (11.79, 16.93).\n\nTherefore, the equation of the line with endpoint (11.79, 16.93) is:\n\nx = 11.79\ny = 16.93\n\nwhich is a line with endpoint at (11.79, 16.93).\n\n(F) octagon\n\nThe given SVG path element <path d=\"M 11.79,16.93 L 56.17,80.16\"/> draws an octagon with eight sides and center at (11.79, 16.93).\n\nThe equation of an octagon with eight sides and center (x0, y0) is given by:\n\nx = x0 + (r/2) * cos(\u03b8)\ny = y0 + (r/2) * sin(\u03b8)\n\nwhere (x0, y0) is the center of the octagon, r is the radius, and\u03b8 is the angle of the octagon measured counterclockwise from the x-axis.\n\nIn this case, the center of the octagon is (11.79, 16.93), and the radius is r = 11.79. The angle of the octagon is therefore\u03b8 = arctan(56.17 / 11.79) = 42.61\u00b0.\n\nTherefore, the equation of the octagon with eight sides and center (11.79, 16.93) is:\n\nx = 11.79 + (r/2) * cos(42.61\u00b0)\ny = 16.93 + (r/2) * sin(42.61\u00b0)\n\nwhich is an octagon with eight sides and center at (11.79, 16.93).\n\n(G) pentagon\n\nThe given SVG path element <path d=\"M 11.79,16.93 L 56.17,80.16\"/> draws a pentagon with five sides and center at (11.79, 16.93).\n\nThe equation of a pentagon with five sides and center (x0, y0) is given by:\n\nx = x0 + (r/2) * cos(\u03b8)\ny = y0 + (r/2) * sin(\u03b8)\n\nwhere (x0, y0) is the center of the pentagon, r is the radius, and\u03b8 is the angle of the pentagon measured counterclockwise from the x-axis.\n\nIn this case, the center of the pentagon is (11.79, 16.93), and the radius is r = 11.79. The angle of the pentagon is therefore\u03b8 = arctan(56.17 / 11.79) = 42.61\u00b0.\n\nTherefore, the equation of",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 8
 }

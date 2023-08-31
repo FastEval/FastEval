@@ -1,5 +1,5 @@
 {
-    "score": 0.0,
+    "score": 0.175,
     "model_outputs": [
         {
             "id": 17,
@@ -48,28 +48,29 @@
             "question": "What is the role of the compiler in the process of developing executable software?\n\n(A) Managing specification files created as part of the development process\n(B) Running and testing the executable created by the programmer\n(C) Tracking older versions of the software in case an error is found and the software needs to be reverted to an earlier form\n(D) Translating a program written in an abstract, high-level language into a program with the same behavior expressed in machine code",
             "correct_answer": 3,
             "model_answer": "The role of the compiler in the process of developing executable software is to translate the source code written by the programmer into a form that can be executed by the computer. This process involves several steps:\n\n1. Preprocessing: The compiler reads the source code and performs various preprocessing tasks, such as converting the source code into a form that is easier to understand and optimize.\n\n2. Compilation: The compiler then translates the preprocessed code into machine code, which is the form of code that the computer can execute.\n\n3. Optimization: The compiler performs various optimization tasks to improve the performance of the executable program. This includes removing unnecessary code, reducing the number of instructions, and improving the cache usage.\n\n4. linking: After the compiler has compiled the program, it links the compiled code with the necessary libraries and resources to make the program run.\n\n5. Execution: The compiled program is then executed by the computer, and the results are returned to the programmer.\n\nThe compiler is an important tool in the software development process because it helps to ensure that the program written by the programmer will run correctly on the computer and produce the desired results. Without the compiler, the programmer would have to write and test the program by hand, which is time-consuming and error-prone.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 57,
             "question": "Which of the following is a true statement about program documentation?\n\n(A) Program documentation should not be changed after it is first written.\n(B) Program documentation is only needed for programs in development; it is not needed after a program is completed.\n(C) Program documentation is useful when programmers collaborate but not when a programmer works individually on a project.\n(D) Program documentation is useful during initial program development and also when modifications are made to existing programs.",
             "correct_answer": 3,
             "model_answer": "(A) Program documentation should not be changed after it is first written.\n\nThis is a correct statement. Once a program is complete and ready for use, it is not necessary to update its documentation. Documentation is meant to provide information to future developers and users of the program, and changing it after the program is complete could disrupt this purpose.\n\n(B) Program documentation is only needed for programs in development; it is not needed after a program is completed.\n\nThis is a partially correct statement. While program documentation is not necessary after a program is completed, it can still be useful for providing information to future developers and users of the program. For example, documentation may contain information about the program's design, architecture, or usage patterns, which could be useful for improving the program's maintainability and functionality.\n\n(C) Program documentation is useful when programmers collaborate but not when a programmer works individually on a project.\n\nThis is a partially correct statement. While program documentation can be useful for programmers working together on a project, it is not necessary for programmers working individually on a project. Programmers working individually on a project may prefer to use a more informal style of documentation, such as a wiki or a code comments, to communicate information to others.\n\n(D) Program documentation is useful during initial program development and also when modifications are made to existing programs.\n\nThis is a correct statement. During initial program development, it is important to have a comprehensive and accurate documentation of the program's functionality and design. This documentation can be used as a reference as the program is developed and modified, and can also be used to help future developers understand the program's design and functionality. Additionally, when modifications are made to existing programs, it is important to update the documentation to reflect the changes.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 60,
             "question": "Let l = [1,2,3,4]. What is max(l) in Python3?\n\n(A) 1\n(B) 2\n(C) 3\n(D) 4",
             "correct_answer": 3,
             "model_answer": "The maximum value in the list [1, 2, 3, 4] is 4, because it is the only element in the list whose value is greater than or equal to the value of any other element in the list.\n\nTo find the maximum value in a list in Python, you can use the max() function. The max() function takes a list as an argument and returns the element in the list with the highest value. Here is an example of how to use the max() function to find the maximum value in the list [1, 2, 3, 4]:\n\n```python\nmax(l)\n# Output: 4\n```\n\nIt's important to note that the max() function can be time-consuming for large lists, so it's often more efficient to use a for loop to find the maximum value. For example:\n\n```python\nmax_value = 0\nfor element in l:\n    if element > max_value:\n        max_value = element\n```\n\nThis approach will be faster if the list is large, but it's still important to understand the difference between the max() function and a for loop when choosing which approach to use.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 83,
             "question": "In Python 3, what is ['a', 'Chemistry', 0, 1][1]?\n\n(A) a\n(B) Chemistry\n(C) 0\n(D) 1",
             "correct_answer": 1,
             "model_answer": "The list comprehension ['a', 'Chemistry', 0, 1][1] is equivalent to the following code:\n\na = ['a', 'Chemistry', 0, 1]\nprint(a[1])\n\nThe output of this code is '1'.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 3
 }

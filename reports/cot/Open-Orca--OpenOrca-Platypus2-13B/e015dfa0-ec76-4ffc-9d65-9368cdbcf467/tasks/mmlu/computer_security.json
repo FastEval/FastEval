@@ -1,12 +1,12 @@
 {
-    "score": 0.2,
+    "score": 0.425,
     "model_outputs": [
         {
             "id": 17,
             "question": "What is Nmap?\n\n(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n(B) It is a network fuzz testing tool\n(C) It is a map of the Internet\n(D) It is a suite of tools for scripting attacks: probe, construct, encode, inject, wait for response",
             "correct_answer": 0,
             "model_answer": "(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n\nNmap is a popular open-source network scanner and exploration tool. It is primarily used for discovering hosts and services on a computer network by sending packets and analyzing the responses.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 72,
@@ -62,14 +62,15 @@
             "question": "How does a buffer overflow on the stack facilitate running attacker-injected code?\n\n(A) By overwriting the return address to point to the location of that code\n(B) By writing directly to the instruction pointer register the address of the code\n(C) By writing directly to %eax the address of the code\n(D) By changing the name of the running executable, stored on the stack",
             "correct_answer": 0,
             "model_answer": "A buffer overflow on the stack facilitates running attacker-injected code by (A) Overwriting the return address to point to the location of that code.\n\nWhen a buffer overflow occurs, it causes the program to write beyond the allocated memory boundaries. This can lead to overwriting crucial data structures, such as the return address on the stack. By overwriting the return address, the attacker can redirect the program control flow to a location of their choice, which typically contains the attacker-injected code. This allows the attacker-injected code to be executed when the program attempts to return from the compromised function.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 83,
             "question": "___________________ began to show up few years back on wireless access points as a new way of adding or connecting new devices.\n\n(A) WPA2\n(B) WPA\n(C) WPS\n(D) WEP",
             "correct_answer": 2,
             "model_answer": "C, WPS began to show up few years back on wireless access points as a new way of adding or connecting new devices.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

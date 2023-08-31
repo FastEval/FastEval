@@ -1,5 +1,5 @@
 {
-    "score": 0.16666666666666666,
+    "score": 0.2,
     "model_outputs": [
         {
             "id": 34,
@@ -83,7 +83,7 @@
             "question": "The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Eve, Rob, and Mel. Rob finished below Mel. Mel finished below Eve.\nOptions:\n(A) Eve finished last\n(B) Rob finished last\n(C) Mel finished last",
             "correct_answer": "(B)",
             "model_answer": ": \nLet's start by looking at the first statement: \"Rob finished below Mel.\" This means that Rob finished before Mel, but Mel finished before Eve. \nNow let's look at the second statement: \"Mel finished below Eve.\" This means that Mel finished before Eve, but Eve did not finish last. \nPutting these two statements together, we can see that Eve must have finished first, Rob must have finished second, and Mel must have finished third. \nTherefore, the answer is (E).",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 166,
@@ -118,7 +118,7 @@
             "question": "The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Eve, Joe, and Amy. Eve finished below Amy. Eve finished above Joe.\nOptions:\n(A) Eve finished first\n(B) Joe finished first\n(C) Amy finished first",
             "correct_answer": "(C)",
             "model_answer": ": \nLet's start by looking at the first statement: \"Eve finished below Amy.\" This means that Eve finished second or third in the tournament, and Amy finished first. \nNow let's look at the second statement: \"Eve finished above Joe.\" This means that Eve finished first in the tournament, and Joe finished third. \nPutting these two statements together, we can see that Eve finished first and Joe finished third. However, we don't know the order in which Eve and Joe finished. \nLet's consider the third statement: \"Amy finished first.\" This means that Amy finished first in the tournament, and Eve finished second or third. \nPutting this together with the previous statement, we can see that Eve finished second in the tournament, and Joe finished third. \nTherefore, the answer is (E).",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 124,
@@ -132,7 +132,7 @@
             "question": "The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Eve, Rob, and Mel. Rob finished below Mel. Mel finished below Eve.\nOptions:\n(A) Eve finished first\n(B) Rob finished first\n(C) Mel finished first",
             "correct_answer": "(A)",
             "model_answer": ": \nLet's start by looking at the first statement: \"Rob finished below Mel.\" This means that Rob finished after Mel. \nNow let's look at the second statement: \"Mel finished below Eve.\" This means that Mel finished after Eve. \nPutting these two statements together, we can see that Eve finished first. \nTherefore, the answer is (E).",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 228,
@@ -211,5 +211,6 @@
             "model_answer": ": \nLet's start by looking at the given information. We know that the hummingbird is to the right of the hawk, and the cardinal is to the left of the hawk. This means that the hummingbird must be to the right of the cardinal, and the hawk must be to the left of the cardinal. \nNow, let's consider the order in which the objects are arranged. We know that the cardinal is to the left of the hawk, and the hummingbird is to the right of the hawk. This means that the cardinal must be to the left of the hummingbird, and the hawk must be to the right of the hummingbird. \nPutting all of this information together, we can see that there are only two possible orders in which the objects can be arranged: \n(A) The cardinal is the rightmost\n(B) The hawk is the rightmost\nOption (A) is logically consistent with the given information, while option (B) is not. Therefore, the answer is (A).",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 3
 }

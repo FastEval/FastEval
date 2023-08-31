@@ -10,6 +10,8 @@ from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
 from evaluation.benchmarks.cot_math_equivalence import is_math_correct
 
+RECOMPUTE_SCORES = False
+
 GSM8K_LIMIT = 500
 MATH_LIMIT = 1000
 BBH_LIMIT_PER_TASK = 30
@@ -33,8 +35,32 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
     if os.path.exists(output_file_path):
         _ = yield []
         _ = yield []
+
         with open(output_file_path) as f:
-            yield json.load(f)['score']
+            output = json.load(f)
+
+        if not RECOMPUTE_SCORES:
+            yield output['score']
+            raise Exception('Nothing more to do')
+
+        num_correct = 0
+        num_unmatched = 0
+        for model_output in output['model_outputs']:
+            model_answer_is_correct = is_correct(model_answer=model_output['model_answer'],
+                correct_answer=model_output['correct_answer'], question=model_output['question'])
+            model_output['correct'] = model_answer_is_correct
+            if model_answer_is_correct is not None:
+                num_correct += float(model_answer_is_correct)
+            if model_answer_is_correct is not True and model_answer_is_correct is not False:
+                num_unmatched += 1
+        output['score'] = num_correct / len(output['model_outputs'])
+        output['num_unmatched'] = num_unmatched
+
+        with open(output_file_path, 'w') as f:
+            json.dump(output, f, indent=4)
+
+        yield output['score']
+        raise Exception('Nothing more to do')
 
     [data] = yield [data]
 
@@ -58,13 +84,16 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
 
     model_outputs = []
     num_correct = 0
+    num_unmatched = 0
     for i, request in enumerate(requests):
         model_answer = model_answers[i]
-        model_answer_is_correct = is_correct(model_answer=model_answer.split('\n')[-1], correct_answer=request['correct_answer'])
+        model_answer_is_correct = is_correct(model_answer=model_answer, correct_answer=request['correct_answer'], question=request['question'])
         model_outputs.append({ 'id': request['id'], 'question': request['question'], 'correct_answer': request['correct_answer'],
             'model_answer': model_answer, 'correct': model_answer_is_correct })
-        if model_answer_is_correct:
-            num_correct += 1
+        if model_answer_is_correct is not None:
+            num_correct += float(model_answer_is_correct)
+        if model_answer_is_correct is not True and model_answer_is_correct is not False:
+            num_unmatched += 1
 
     score = num_correct / len(selected_samples)
 
@@ -72,19 +101,23 @@ def evaluate_model_on_dataset(*, name, data, question_column, answer_column, ans
     with open(output_file_path, 'w') as f:
         json.dump({
             'score': score,
+            'num_unmatched': num_unmatched,
             'model_outputs': model_outputs,
         }, f, indent=4)
 
     yield score
 
 def evaluate_model_on_gsm8k(output_path):
-    def is_correct(model_answer, correct_answer):
-        model_answer_matches = re.findall(r'(\d+(,\d+)*(\.\d+)?)', model_answer)
-        if len(model_answer_matches) == 0:
-            return False
-        model_answer_processed = float(model_answer_matches[-1][0].replace(',', ''))
-        correct_answer_processed = float(correct_answer.split('\n')[-1].split('####')[1].replace(',', '').strip())
-        return abs(model_answer_processed - correct_answer_processed) < 1e-8
+    def is_correct(model_answer, correct_answer, question):
+        model_answer_lines = reversed(model_answer.split('\n'))
+        for line in model_answer_lines:
+            model_answer_matches = re.findall(r'(\d+(,\d+)*(\.\d+)?)', line)
+            if len(model_answer_matches) == 0:
+                continue
+            model_answer_processed = float(model_answer_matches[-1][0].replace(',', ''))
+            correct_answer_processed = float(correct_answer.split('\n')[-1].split('####')[1].replace(',', '').strip())
+            return abs(model_answer_processed - correct_answer_processed) < 1e-8
+        return None
 
     evaluator = evaluate_model_on_dataset(
         name='gsm8k',
@@ -159,16 +192,24 @@ def find_multiple_choice_answer(*, model_answer, options):
         r'[^a-zA-Z][' + options + r'][^a-zA-Z]', # "The answer is:A."
     ]
 
-    for regex in regex_to_try:
-        model_answer_matches = re.findall(regex, model_answer)
-        if len(model_answer_matches) != 0:
-            return re.sub('[^' + options + ']', '', model_answer_matches[-1])
+    model_answer_lines = reversed(model_answer.split('\n'))
+    for line in model_answer_lines:
+        for regex in regex_to_try:
+            model_answer_matches = re.findall(regex, line)
+            if len(model_answer_matches) != 0:
+                return re.sub('[^' + options + ']', '', model_answer_matches[-1])
 
     return None
 
 def evaluate_model_on_bbh(output_path):
-    def is_correct(model_answer, correct_answer):
-        model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    def is_correct(model_answer, correct_answer, question):
+        possible_answers = []
+        for line in question.split('\n'):
+            if line[0] == '(' and line[2] == ')':
+                possible_answers.append(line[1])
+        model_answer = find_multiple_choice_answer(model_answer=model_answer, options=''.join(possible_answers))
+        if model_answer is None:
+            return 1 / len(possible_answers)
         correct_answer = correct_answer.replace('(', '').replace(')', '')
         return model_answer == correct_answer
 
@@ -228,8 +269,10 @@ def evaluate_model_on_mmlu(output_path):
     def create_question(columns):
         return columns['question'] + '\n\n' + '\n'.join(['(' + name + ') ' + columns['choices'][index] for index, name in enumerate(['A', 'B', 'C', 'D'])])
 
-    def is_correct(model_answer, correct_answer):
+    def is_correct(model_answer, correct_answer, question):
         model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCD')
+        if model_answer is None:
+            return 0.25
         return model_answer == ['A', 'B', 'C', 'D'][correct_answer]
 
     evaluators = combine_evaluators([evaluate_model_on_dataset(
@@ -278,9 +321,12 @@ def load_datasets(model_name, dataset_requests):
     )
 
 def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_level_benchmarks):
+    if RECOMPUTE_SCORES:
+        print(model_name)
+
     output_folder = os.path.join('reports', 'cot', model_name_to_filename(model_name), evaluation_id)
     final_scores_file = os.path.join(output_folder, 'scores.json')
-    if os.path.exists(final_scores_file):
+    if os.path.exists(final_scores_file) and not RECOMPUTE_SCORES:
         return
 
     model = create_model(model_type, model_name, model_args, max_new_tokens=COT_MAX_NEW_TOKENS)

@@ -1,5 +1,5 @@
 {
-    "score": 0.1,
+    "score": 0.24444444444444444,
     "model_outputs": [
         {
             "id": 34,
@@ -20,7 +20,7 @@
             "question": "Alice, Bob, and Claire are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Rodrigo, Bob is dancing with Jamie, and Claire is dancing with Sam.\nThroughout the song, the dancers often trade partners. First, Bob and Alice switch partners. Then, Bob and Claire switch partners. Finally, Alice and Claire switch partners. At the end of the dance, Alice is dancing with\nOptions:\n(A) Rodrigo\n(B) Jamie\n(C) Sam",
             "correct_answer": "(A)",
             "model_answer": "Let's analyze the situation step-by-step:\n1. At the start of the song, Alice is dancing with Rodrigo, Bob is dancing with Jamie, and Claire is dancing with Sam.\n2. Bob and Alice switch partners, so now Bob is dancing with Alice and Jamie is without a partner.\n3. Bob and Claire switch partners, so now Bob is dancing with Claire and Jamie is still without a partner.\n4. Alice and Claire switch partners, so now Alice is dancing with Claire and Rodrigo is without a partner.\n5. Finally, Rodrigo and Jamie switch partners, so now Rodrigo is dancing with Jamie and Alice is dancing with Claire.\nTherefore, at the end of the dance, Alice is dancing with Claire.\nAnswer:\n(D) Claire",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 205,
@@ -69,21 +69,21 @@
             "question": "Alice, Bob, and Claire are holding a white elephant gift exchange. At the start of the event, they are each holding a present of a different color: Alice has a yellow present, Bob has a purple present, and Claire has a green present.\nAs the event progresses, pairs of people swap gifts. First, Claire and Alice swap their gifts. Then, Bob and Claire swap their gifts. Finally, Alice and Bob swap their gifts. At the end of the event, Claire has the\nOptions:\n(A) yellow present\n(B) purple present\n(C) green present",
             "correct_answer": "(B)",
             "model_answer": "Step 1: Alice has a yellow present, Bob has a purple present, and Claire has a green present.\nStep 2: Claire and Alice swap gifts. So now, Claire has the yellow present and Alice has the green present.\nStep 3: Bob and Claire swap gifts. So now, Bob has the yellow present and Claire has the purple present.\nStep 4: Alice and Bob swap gifts. So now, Alice has the purple present and Bob has the green present.\nAt the end of the event, Claire has the yellow present, Alice has the purple present, and Bob has the green present.",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 115,
             "question": "Alice, Bob, and Claire are holding a white elephant gift exchange. At the start of the event, they are each holding a present of a different color: Alice has a black ball, Bob has a purple present, and Claire has a blue present.\nAs the event progresses, pairs of people swap gifts. First, Claire and Alice swap their gifts. Then, Bob and Claire swap their gifts. Finally, Alice and Bob swap their gifts. At the end of the event, Alice has the\nOptions:\n(A) black ball\n(B) purple present\n(C) blue present",
             "correct_answer": "(A)",
             "model_answer": "Let's analyze the swaps that happened:\n1. Claire and Alice swap gifts. So, Claire gets Alice's black ball and Alice gets Claire's blue present.\n2. Bob and Claire swap gifts. So, Bob gets Claire's blue present and Claire gets Bob's purple present.\n3. Alice and Bob swap gifts. So, Alice gets Bob's purple present and Bob gets Alice's black ball.\nNow, let's analyze the colors of the gifts each person has:\n- Alice has a purple present (from Bob)\n- Bob has a blue present (from Claire)\nSince there are no more swaps, Alice has the purple present. Therefore, the answer is:\n(D) purple present",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 120,
             "question": "Alice, Bob, and Claire are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Catch-22, Bob gets Lolita, and Claire gets Hound of the Baskervilles.\nAs the semester proceeds, they start trading around the new books. First, Bob and Alice swap books. Then, Bob and Claire swap books. Finally, Alice and Claire swap books. At the end of the semester, Alice has\nOptions:\n(A) Catch-22\n(B) Lolita\n(C) Hound of the Baskervilles",
             "correct_answer": "(A)",
             "model_answer": "Alice has Catch-22.\n\nHere's the reasoning:\n\n1. At the start of the semester, Alice gets Catch-22, Bob gets Lolita, and Claire gets Hound of the Baskervilles.\n2. Next, Bob and Alice swap books. So, Bob now has Catch-22 and Alice has Lolita.\n3. Then, Bob and Claire swap books. So, Bob now has Hound of the Baskervilles and Claire has Lolita.\n4. Finally, Alice and Claire swap books. So, Alice now has Hound of the Baskervilles and Claire has Catch-22.\n5. At the end of the semester, Alice has Hound of the Baskervilles.",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 166,
@@ -111,14 +111,14 @@
             "question": "Alice, Bob, and Claire are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Ulysses, Bob gets Frankenstein, and Claire gets Catch-22.\nAs the semester proceeds, they start trading around the new books. First, Bob and Claire swap books. Then, Claire and Alice swap books. Finally, Alice and Bob swap books. At the end of the semester, Alice has\nOptions:\n(A) Ulysses\n(B) Frankenstein\n(C) Catch-22",
             "correct_answer": "(C)",
             "model_answer": "Alice has Catch-22.\n\nHere's the reasoning:\n\n1. At the start of the semester, Alice gets Ulysses, Bob gets Frankenstein, and Claire gets Catch-22.\n2. Bob and Claire swap books, so Bob gets Catch-22 and Claire gets Frankenstein.\n3. Claire and Alice swap books, so Claire gets Ulysses and Alice gets Catch-22.\n4. Alice and Bob swap books, so Alice gets Frankenstein and Bob gets Ulysses.\n5. Finally, Alice has Catch-22.",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 24,
             "question": "Alice, Bob, and Claire are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Frankenstein, Bob gets The Great Gatsby, and Claire gets Ulysses.\nAs the semester proceeds, they start trading around the new books. First, Alice and Bob swap books. Then, Claire and Bob swap books. Finally, Bob and Alice swap books. At the end of the semester, Alice has\nOptions:\n(A) Frankenstein\n(B) The Great Gatsby\n(C) Ulysses",
             "correct_answer": "(C)",
             "model_answer": "Alice has Frankenstein.\nHere's the reasoning:\n- Alice starts with Frankenstein\n- Alice and Bob swap books, so Alice gets The Great Gatsby and Bob gets Frankenstein\n- Claire and Bob swap books, so Claire gets The Great Gatsby and Bob gets Ulysses\n- Bob and Alice swap books, so Bob gets Frankenstein and Alice gets Ulysses\n- Finally, Alice has Frankenstein.",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 124,
@@ -139,7 +139,7 @@
             "question": "Alice, Bob, and Claire are holding a white elephant gift exchange. At the start of the event, they are each holding a present of a different color: Alice has a black ball, Bob has a green present, and Claire has a brown present.\nAs the event progresses, pairs of people swap gifts. First, Alice and Bob swap their gifts. Then, Claire and Bob swap their gifts. Finally, Alice and Claire swap their gifts. At the end of the event, Claire has the\nOptions:\n(A) black ball\n(B) green present\n(C) brown present",
             "correct_answer": "(B)",
             "model_answer": "Let's analyze the swaps that happened:\n1. Alice and Bob swap gifts. So, Alice now has the green present and Bob has the black ball.\n2. Claire and Bob swap gifts. So, Claire now has the black ball and Bob has the brown present.\n3. Alice and Claire swap gifts. So, Alice now has the brown present and Claire has the green present.\nTherefore, at the end of the event, Claire has the green present.",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 213,
@@ -153,7 +153,7 @@
             "question": "Alice, Bob, and Claire are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Frankenstein, Bob gets The Pearl, and Claire gets The Odyssey.\nAs the semester proceeds, they start trading around the new books. First, Bob and Alice swap books. Then, Bob and Claire swap books. Finally, Bob and Alice swap books. At the end of the semester, Alice has\nOptions:\n(A) Frankenstein\n(B) The Pearl\n(C) The Odyssey",
             "correct_answer": "(C)",
             "model_answer": "(C) The Odyssey\n\nHere's the reasoning:\n\n1. Alice gets Frankenstein, Bob gets The Pearl, and Claire gets The Odyssey.\n2. Bob and Alice swap books, so Bob gets Frankenstein and Alice gets The Pearl.\n3. Bob and Claire swap books, so Bob gets The Odyssey and Claire gets The Pearl.\n4. Bob and Alice swap books again, so Alice gets The Odyssey.\n\nAt the end of the semester, Alice has The Odyssey.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 110,
@@ -181,7 +181,7 @@
             "question": "Alice, Bob, and Claire are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Ulysses, Bob gets Moby Dick, and Claire gets Frankenstein.\nAs the semester proceeds, they start trading around the new books. First, Bob and Alice swap books. Then, Bob and Claire swap books. Finally, Alice and Bob swap books. At the end of the semester, Alice has\nOptions:\n(A) Ulysses\n(B) Moby Dick\n(C) Frankenstein",
             "correct_answer": "(C)",
             "model_answer": "(C) Frankenstein.\n\nHere's the reasoning:\n\n1. Alice gets Ulysses, Bob gets Moby Dick, and Claire gets Frankenstein.\n2. Bob and Alice swap books, so Bob gets Ulysses and Alice gets Moby Dick.\n3. Bob and Claire swap books, so Bob gets Frankenstein and Claire gets Moby Dick.\n4. Alice and Bob swap books, so Alice gets Frankenstein and Bob gets Ulysses.\n\nAt the end of the semester, Alice has Frankenstein.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 0,
@@ -211,5 +211,6 @@
             "model_answer": "Let's analyze the swaps that happened:\n1. Claire and Alice swap gifts. So, Alice now has the brown present and Claire has the pink ball.\n2. Bob and Alice swap gifts. So, Bob now has the pink ball and Alice has the blue present.\n3. Alice and Claire swap gifts. So, Alice now has the blue present and Claire has the brown present.\nAt the end of the event, Alice has the blue present. Therefore, the answer is (B) blue present.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 7
 }

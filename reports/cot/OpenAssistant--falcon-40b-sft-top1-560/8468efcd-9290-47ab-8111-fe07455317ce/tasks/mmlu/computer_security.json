@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.375,
     "model_outputs": [
         {
             "id": 17,
@@ -13,14 +13,14 @@
             "question": "What is the difference between a direct leak and a side channel?\n\n(A) A direct leak creates a denial of service by failing to free memory, while a channel frees memory as a side effect\n(B) A direct leak is one that is intentional, rather than by unintentional\n(C) A direct leak comes via the software system's intended interaction mechanism, where as a side channel leak comes from measurements of other system features, like timing, power usage, or space usage\n(D) There is no difference",
             "correct_answer": 2,
             "model_answer": "The difference between a direct leak and a side channel is as follows:\n\nA direct leak refers to a vulnerability in a software system that causes memory to be leaked directly through the system's intended interaction mechanism. In other words, a direct leak occurs when a program fails to properly free memory that it has allocated, leading to a memory leak. This can cause the program to consume an excessive amount of memory, leading to performance issues, crashes, or even denial-of-service attacks.\n\nA side channel, on the other hand, refers to a vulnerability that allows an attacker to extract sensitive information from a system through indirect means, such as timing, power usage, or space usage. Side channels can be used to bypass security mechanisms and obtain information that should be protected, such as cryptographic keys or passwords.\n\nTherefore, the difference between a direct leak and a side channel is that a direct leak is a vulnerability that causes memory to be leaked directly through the system's intended interaction mechanism, while a side channel is a vulnerability that allows an attacker to extract sensitive information from a system through indirect means.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 97,
             "question": "What was the first buffer overflow attack?\n\n(A) Love Bug\n(B) SQL Slammer\n(C) Morris Worm\n(D) Code Red",
             "correct_answer": 2,
             "model_answer": "The first buffer overflow attack is considered to be the Morris Worm, which was released in 1988 by Robert Tappan Morris. The worm exploited several vulnerabilities in UNIX systems, including a buffer overflow vulnerability in the fingerd program. The worm would spread rapidly across the internet, causing significant disruption and damage to computer systems.\n\nThe Morris Worm was a significant event in the history of cybersecurity, as it demonstrated the potential for widespread damage that could be caused by a computer virus or worm. It also highlighted the importance of securing computer systems and networks against vulnerabilities and attacks.\n\nWhile there have been many other notable buffer overflow attacks since the Morris Worm, it remains an important milestone in the history of cybersecurity.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -55,7 +55,7 @@
             "question": "A proxy rewall lters at the\n\n(A) Physical layer\n(B) Application layer\n(C) Data link layer\n(D) Network layer",
             "correct_answer": 1,
             "model_answer": "The proxy firewall lters at the application layer.\n\nExplanation:\n\nA proxy firewall is a type of firewall that acts as an intermediary between a client and a server. It intercepts and analyzes all incoming and outgoing traffic, and makes decisions about whether to allow or block the traffic based on a set of rules.\n\nThe application layer is the highest layer in the OSI model, and it is responsible for the actual application data that is being transmitted. This includes things like HTTP requests, email messages, and FTP transfers.\n\nA proxy firewall can inspect the application data that is being transmitted, and make decisions about whether it should be allowed or blocked based on the content of the data. For example, it can block requests to certain websites, or block email messages that contain certain keywords.\n\nTherefore, a proxy firewall lters at the application layer.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 60,
@@ -71,5 +71,6 @@
             "model_answer": "WPS stands for Wi-Fi Protected Setup, which is a feature that allows users to easily connect devices to a wireless network without having to enter a password. It was introduced in 2007, which means it began to show up on wireless access points a few years before 2012. Therefore, the correct answer is (C) WPS.",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 3
 }

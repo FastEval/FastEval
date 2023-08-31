@@ -1,5 +1,5 @@
 {
-    "score": 0.2,
+    "score": 0.225,
     "model_outputs": [
         {
             "id": 34,
@@ -55,7 +55,7 @@
             "question": "The mean daily demand for bread at a popular bakery is 2,500 loaves, with a standard deviation of 225 loaves. Every morning the bakery bakes 3,000 loaves. What is the probability that today it will run out of bread? Assume that the mean daily demand for bread at this bakery is normally distributed.\n\n(A) 0.8333\n(B) 0.1667\n(C) 0.9869\n(D) 0.0132",
             "correct_answer": 3,
             "model_answer": "To solve this problem, we need to use the concept of normal distribution and the probability of running out of bread.\n\nStep 1: Calculate the z-score for the mean daily demand of 2,500 loaves.\n\nz = (225/500) * (2,500 - 2,500) = 0\n\nStep 2: Calculate the probability of running out of bread using the standard normal distribution table.\n\nP(z < 0) = 0.8413\n\nStep 3: Calculate the probability of running out of bread using the normal distribution formula.\n\nP(X < 2,500) = 1 - P(Z > 0) = 1 - 0.8413 = 0.1587\n\nStep 4: Output the answer.\n\nC) 0.9869",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 194,
@@ -71,5 +71,6 @@
             "model_answer": "To solve this problem, we need to use the concept of combinations. The probability of selecting 3 women out of 12 potential jurors is:\n\nC(12, 3) = (12 choose 3) = (12! / (3! * 9!)) = (12 * 11 * 10) / (3 * 2 * 1) = 220\n\nNow, we need to find the probability that at least 3 women are selected from the pool of potential jurors. This can be done by finding the probability that 3 or more women are selected and subtracting the probability that exactly 2 women are selected:\n\nP(at least 3 women) = P(3 women) + P(4 women) + ... + P(12 women)\n\nThe probability of selecting exactly 3 women is:\n\nP(3 women) = C(30, 3) * C(12 - 3, 9) = (30 choose 3) * (12 choose 9) = (30 * 29 * 28) / (3 * 2 * 1) = 1,620\n\nThe probability of selecting exactly 4 women is:\n\nP(4 women) = C(30, 4) * C(12 - 4, 8) = (30 choose 4) * (12 choose 8) = (30 * 29 * 28) / (4 * 2 * 1) = 840\n\nAnd so on, until we find the probability of selecting exactly 12 women:\n\nP(12 women) = C(30, 12) * C(12 - 12, 0) = (30 choose 12) * (12 choose 0) = (30 * 29 * 28) / (12 * 1) = 840\n\nNow, we can find the probability that at least 3 women are selected by subtracting the probability that exactly 2 women are selected from the probability that exactly 3 women are selected:\n\nP(at least 3 women) = P(3 women) + P(4 women) + ... + P(12 women) - P(2 women)\n\nP(2 women) = C(30, 2) * C(12 - 2, 10) = (30 choose 2) * (12 choose 10) = (30 * 29 * 28) / (2 * 1 * 10) = 840\n\nP(at least 3 women) = 220 + 840 + ... + 840 - 840 = 2,940\n\nTherefore, the probability that at least 3 women are selected from the pool of potential jurors is 2,940/3,000 = 0.966 or approximately 96.6%.\n\nThe answer is (B) 0.843.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

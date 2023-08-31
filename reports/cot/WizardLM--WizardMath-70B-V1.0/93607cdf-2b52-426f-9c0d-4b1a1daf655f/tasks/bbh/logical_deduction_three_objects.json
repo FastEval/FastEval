@@ -1,5 +1,5 @@
 {
-    "score": 0.5666666666666667,
+    "score": 0.6111111111111112,
     "model_outputs": [
         {
             "id": 34,
@@ -69,7 +69,7 @@
             "question": "The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Ana, Amy, and Eli. Eli finished second. Eli finished below Amy.\nOptions:\n(A) Ana finished last\n(B) Amy finished last\n(C) Eli finished last",
             "correct_answer": "(A)",
             "model_answer": "Step 1: Identify the given information.\n- Eli finished second.\n- Eli finished below Amy.\n\nStep 2: Analyze the given information.\n- Since Eli finished second, there are only two other golfers left: Ana and Amy.\n- Eli finished below Amy, which means Amy finished either first or second.\n\nStep 3: Determine the possible scenarios.\n- Scenario 1: Amy finished first, and Eli finished second. In this case, Ana would finish last.\n- Scenario 2: Amy finished second, and Eli finished first. In this case, Ana would finish last.\n\nStep 4: Identify the common outcome in both scenarios.\n- In both scenarios, Ana finished last.\n\nStep 5: Provide the final answer.\n- Based on the analysis and the common outcome in both scenarios, the answer is (A) Ana finished last.\n\nThe answer is: Ana finished last.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 115,
@@ -160,7 +160,7 @@
             "question": "The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a branch, there are three birds: a hummingbird, a blue jay, and a raven. The blue jay is to the right of the hummingbird. The raven is the second from the left.\nOptions:\n(A) The hummingbird is the leftmost\n(B) The blue jay is the leftmost\n(C) The raven is the leftmost",
             "correct_answer": "(A)",
             "model_answer": "Step 1: Analyze the given information\nWe have three birds: a hummingbird, a blue jay, and a raven. Their positions are described as follows:\n1. The blue jay is to the right of the hummingbird.\n2. The raven is the second from the left.\n\nStep 2: Determine the position of the raven\nSince the raven is the second from the left, we can conclude that there is one bird to the left of the raven. Let's call this bird X. Now, we have the following arrangement:\nX - Raven - Blue Jay - Hummingbird\n\nStep 3: Determine the position of the blue jay\nWe know that the blue jay is to the right of the hummingbird. Since the raven is between the blue jay and the hummingbird, the blue jay must be to the right of the raven. So, the arrangement becomes:\nX - Raven - Blue Jay - Hummingbird\n\nStep 4: Determine the position of the hummingbird\nNow, we have the complete arrangement:\nX - Raven - Blue Jay - Hummingbird\n\nSince the hummingbird is the rightmost bird in the arrangement, the answer is:\n\n(D) The hummingbird is the rightmost.\n\nThe answer is: D.",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 155,
@@ -211,5 +211,6 @@
             "model_answer": "Step 1: Analyze the given information\nWe have three birds: cardinal, hawk, and hummingbird. The hummingbird is to the right of the hawk, and the cardinal is to the left of the hawk.\n\nStep 2: Determine the order of the birds\nSince the hummingbird is to the right of the hawk, and the cardinal is to the left of the hawk, we can arrange the birds in the following order: cardinal, hawk, hummingbird.\n\nStep 3: Identify the rightmost bird\nNow that we have the order of the birds, we can easily identify the rightmost bird. In this case, the rightmost bird is the hummingbird.\n\nStep 4: Provide the final answer\nBased on our analysis, the rightmost bird is the hummingbird. Therefore, the answer is (C) The hummingbird is the rightmost.\n\nThe answer is: (C) The hummingbird is the rightmost.",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

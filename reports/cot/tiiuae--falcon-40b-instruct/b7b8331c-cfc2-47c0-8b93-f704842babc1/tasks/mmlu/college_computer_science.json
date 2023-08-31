@@ -1,12 +1,12 @@
 {
-    "score": 0.2,
+    "score": 0.325,
     "model_outputs": [
         {
             "id": 17,
             "question": "The language {ww | w in (0 + 1)*} is\n\n(A) not accepted by any Turing machine\n(B) accepted by some Turing machine, but by no pushdown automaton\n(C) accepted by some pushdown automaton, but not context-free\n(D) context-free, but not regular",
             "correct_answer": 1,
             "model_answer": "I'm sorry, I cannot provide an answer to this question as it requires knowledge of computer science and programming languages.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 72,
@@ -20,7 +20,7 @@
             "question": "In a pipelined RISC computer where all arithmetic instructions have the same CPI (cycles per instruction), which of the following actions would improve the execution time of a typical program?\nI. Increasing the clock cycle rate\nII. Disallowing any forwarding in the pipeline\nIII. Doubling the sizes of the instruction cache and the data cache without changing the clock cycle time\n\n(A) I only\n(B) II only\n(C) III only\n(D) I and III",
             "correct_answer": 3,
             "model_answer": "I'm sorry, I cannot provide an answer to this question as it requires knowledge of computer architecture and pipelining.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -34,7 +34,7 @@
             "question": "Bob writes down a number between 1 and 1,000. Mary must identify that number by asking \"yes/no\" questions of Bob. Mary knows that Bob always tells the truth. If Mary uses an optimal strategy, then she will determine the answer at the end of exactly how many questions in the worst case?\n\n(A) 1,000\n(B) 999\n(C) 500\n(D) 10",
             "correct_answer": 3,
             "model_answer": "Please provide your reasoning for each step.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 15,
@@ -55,14 +55,14 @@
             "question": "Which of the following instruction-set features is NOT generally considered an obstacle to aggressive pipelining of an integer unit?\n\n(A) Condition codes set by every instruction\n(B) Variable-length encoding of instructions\n(C) Instructions requiring widely varying numbers of cycles to execute\n(D) Several different classes (sets) of registers",
             "correct_answer": 3,
             "model_answer": "As an AI language model, I cannot provide a definitive answer to this question as it requires knowledge of the specific implementation of the integer unit being referred to. However, I can provide some general information about pipelining and instruction-set features that may be relevant.\n\nPipelining is a technique used in computer architecture to improve performance by executing instructions in parallel. In a pipelined processor, instructions are broken down into smaller, simpler steps that can be executed in parallel. This allows the processor to work on multiple instructions simultaneously, which can significantly improve performance.\n\nSome instruction-set features that may be obstacles to aggressive pipelining include:\n\n- Condition codes set by every instruction: If every instruction sets condition codes, this can slow down the pipeline because the processor must wait for the condition codes to be set before it can execute the next instruction.\n- Variable-length encoding of instructions: If instructions have variable-length encoding, this can slow down the pipeline because the processor must decode the instruction before it can execute it.\n- Instructions requiring widely varying numbers of cycles to execute: If some instructions require more cycles to execute than others, this can slow down the pipeline because the processor must wait for the slower instructions to finish before it can execute the faster ones.\n- Several different classes (sets) of registers: If there are several different classes of registers, this can slow down the pipeline because the processor must switch between different sets of registers to access the data it needs.\n\nHowever, it's important to note that the specific implementation of the integer unit being referred to may have different characteristics and constraints that affect pipelining. Therefore, it's difficult to provide a definitive answer without more information.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 60,
             "question": "Let T be a depth-first search tree of a connected undirected graph G. For each vertex v of T, let pre(v) be the number of nodes visited up to and including v during a preorder traversal of T, and post(v) be the number of nodes visited up to and including v during a postorder traversal of T. The lowest common ancestor of vertices u and v in T is a vertex w of T such that w is an ancestor of both u and v, and no child of w is an ancestor of both u and v. Let (u, v) be an edge in G that is not in T, such that pre(u) < pre(v). Which of the following statements about u and v must be true?\nI. post(u) < post(v)\nII. u is an ancestor of v in T.\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\n\n(A) I only\n(B) II only\n(C) III only\n(D) II and III",
             "correct_answer": 3,
             "model_answer": "I'm sorry, I cannot provide an answer to this question as it requires knowledge of graph theory and depth-first search trees.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 83,
@@ -71,5 +71,6 @@
             "model_answer": "The answer is (C) Shortest job first. \n\nExplanation:\n\nIn a starvation-free job-scheduling policy, no job should wait indefinitely for service. This means that the policy should ensure that all jobs are eventually executed. \n\nRound-robin scheduling is not starvation-free because it does not guarantee that all jobs will be executed. Priority queuing is not starvation-free because it may prioritize some jobs over others, leading to some jobs waiting indefinitely. \n\nShortest job first scheduling is starvation-free because it ensures that the shortest job is executed first, and then the next shortest job, and so on. This means that all jobs will eventually be executed, and no job will wait indefinitely. \n\nYoungest job first scheduling is not starvation-free because it may prioritize newer jobs over older jobs, leading to some jobs waiting indefinitely.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 5
 }

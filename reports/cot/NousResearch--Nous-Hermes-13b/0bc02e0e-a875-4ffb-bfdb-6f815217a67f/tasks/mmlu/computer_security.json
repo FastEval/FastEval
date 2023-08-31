@@ -1,19 +1,19 @@
 {
-    "score": 0.3,
+    "score": 0.6,
     "model_outputs": [
         {
             "id": 17,
             "question": "What is Nmap?\n\n(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n(B) It is a network fuzz testing tool\n(C) It is a map of the Internet\n(D) It is a suite of tools for scripting attacks: probe, construct, encode, inject, wait for response",
             "correct_answer": 0,
             "model_answer": "The answer is (A). \n\nNmap is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses. It is a powerful tool used for network exploration, security auditing, and vulnerability assessment.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 72,
             "question": "What is the difference between a direct leak and a side channel?\n\n(A) A direct leak creates a denial of service by failing to free memory, while a channel frees memory as a side effect\n(B) A direct leak is one that is intentional, rather than by unintentional\n(C) A direct leak comes via the software system's intended interaction mechanism, where as a side channel leak comes from measurements of other system features, like timing, power usage, or space usage\n(D) There is no difference",
             "correct_answer": 2,
             "model_answer": "The correct answer is (C). \n\nA direct leak comes via the software system's intended interaction mechanism, where as a side channel leak comes from measurements of other system features, like timing, power usage, or space usage. \n\nA direct leak is one that is intentional, rather than by unintentional. \n\nA direct leak creates a denial of service by failing to free memory, while a channel frees memory as a side effect. \n\nThere is no difference between a direct leak and a side channel.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 97,
@@ -62,7 +62,7 @@
             "question": "How does a buffer overflow on the stack facilitate running attacker-injected code?\n\n(A) By overwriting the return address to point to the location of that code\n(B) By writing directly to the instruction pointer register the address of the code\n(C) By writing directly to %eax the address of the code\n(D) By changing the name of the running executable, stored on the stack",
             "correct_answer": 0,
             "model_answer": "The correct answer is (A) By overwriting the return address to point to the location of that code.\n\nExplanation:\nA buffer overflow on the stack occurs when an attacker is able to write more data to the stack than it can hold. This can result in the overwrite of important data structures, such as the return address of a function. When a function is called, the instruction pointer (EIP) is set to the address of the function's entry point. When the function returns, the instruction pointer is set to the address of the next instruction to be executed. If the return address has been overwritten by the attacker, the instruction pointer will now point to the location of the attacker-injected code. This allows the attacker to execute their code in the context of the vulnerable program, which can lead to further exploitation and control of the system.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 83,
@@ -71,5 +71,6 @@
             "model_answer": "The answer is (A) WPA2.\n\nHere's the step-by-step reasoning:\n\n1. The question mentions that a new way of adding or connecting new devices began to show up on wireless access points few years back.\n2. This new way of adding or connecting new devices is called \"Easy Connect\" or \"Push Button Configuration\".\n3. WPA2 is the most recent and secure Wi-Fi encryption standard, which includes the Easy Connect feature.\n4. Therefore, WPA2 is the answer to the question.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

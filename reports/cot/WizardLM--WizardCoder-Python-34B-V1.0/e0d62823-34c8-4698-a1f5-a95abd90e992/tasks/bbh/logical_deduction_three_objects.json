@@ -1,5 +1,5 @@
 {
-    "score": 0.3333333333333333,
+    "score": 0.3444444444444444,
     "model_outputs": [
         {
             "id": 34,
@@ -118,7 +118,7 @@
             "question": "The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Eve, Joe, and Amy. Eve finished below Amy. Eve finished above Joe.\nOptions:\n(A) Eve finished first\n(B) Joe finished first\n(C) Amy finished first",
             "correct_answer": "(C)",
             "model_answer": "First, let's label the golfers with numbers to make it easier to keep track of their positions:\n\n1. Eve\n2. Joe\n3. Amy\n\nNow, we know that Eve finished below Amy, which means that Eve must be in either position 2 or 3. We also know that Eve finished above Joe, which means that Eve must be in either position 2 or 1.\n\nIf Eve is in position 2, then Joe must be in position 1 and Amy must be in position 3. This means that the order of finish is Joe, Eve, Amy.\n\nIf Eve is in position 1, then Joe must be in position 2 and Amy must be in position 3. This means that the order of finish is Joe, Amy, Eve.\n\nHowever, we are only given information about Eve and Amy's positions, not Joe's. Therefore, we cannot determine which option is correct.",
-            "correct": false
+            "correct": 0.3333333333333333
         },
         {
             "id": 124,
@@ -211,5 +211,6 @@
             "model_answer": "First, let's label the objects in the order they are given:\n\n1. The bird on the left is the cardinal.\n2. The bird in the middle is the hawk.\n3. The bird on the right is the hummingbird.\n\nNow, let's analyze the given statements:\n\n1. \"The hummingbird is to the right of the hawk.\" This means that the hummingbird is in position 3, and the hawk is in position 2.\n2. \"The cardinal is to the left of the hawk.\" This means that the cardinal is in position 1, and the hawk is in position 2.\n\nNow, we can see that the cardinal is the leftmost bird, so the correct answer is (A).",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

@@ -1,12 +1,12 @@
 {
-    "score": 0.1,
+    "score": 0.2,
     "model_outputs": [
         {
             "id": 17,
             "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
             "correct_answer": 0,
             "model_answer": "The structural assumption that most affects the trade-off between underfitting and overfitting in a neural network is (A) the number of hidden nodes. \n\nExplanation: \nThe number of hidden nodes in a neural network determines the complexity of the model. A model with too few hidden nodes may underfit the data, while a model with too many hidden nodes may overfit the data. Therefore, the number of hidden nodes is a crucial structural assumption that affects the trade-off between underfitting and overfitting. \n\nThe learning rate affects how quickly the model converges to the optimal solution, but it does not directly affect the trade-off between underfitting and overfitting. \n\nThe initial choice of weights can affect the convergence of the model, but it does not directly affect the trade-off between underfitting and overfitting. \n\nThe use of a constant-term unit input (also known as a bias unit) is a common practice in neural networks, but it does not directly affect the trade-off between underfitting and overfitting.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 72,
@@ -71,5 +71,6 @@
             "model_answer": "For Statement 1, we need to understand the effect of L1 and L2 regularization on linear models. L1 regularization adds a penalty term proportional to the absolute value of the coefficients, while L2 regularization adds a penalty term proportional to the square of the coefficients. L1 regularization tends to produce sparse models by driving some of the coefficients to zero, while L2 regularization tends to shrink the coefficients towards zero without necessarily setting any of them exactly to zero. Therefore, Statement 1 is False.\n\nFor Statement 2, we need to identify the models that use residual connections. ResNets and Transformers are two such models. Residual connections are a way to add skip connections between layers, allowing the model to learn residual functions instead of directly trying to fit the desired output. This helps to mitigate the vanishing gradient problem and allows for deeper architectures. Therefore, Statement 2 is True.\n\nThe answer is (C) False, True.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

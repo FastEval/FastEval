@@ -1,5 +1,5 @@
 {
-    "score": 0.1,
+    "score": 0.125,
     "model_outputs": [
         {
             "id": 17,
@@ -48,7 +48,7 @@
             "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
             "correct_answer": 1,
             "model_answer": "To answer this question, we need to analyze each statement separately.\n\nStatement 1:\nAfter mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this).\n\nThis statement is true. When we map the data into a higher-dimensional feature space using a kernel function, it can help to separate the classes better. The 1-NN algorithm, which is a simple classifier that assigns a point to the class with the nearest neighbor, can potentially perform better in the feature space than in the original space. However, we cannot guarantee this improvement, as it depends on the specific data and the choice of kernel function.\n\nStatement 2:\nThe VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\nThis statement is false. The VC dimension is a measure of the complexity of a classifier, and it is defined as the minimum number of linearly separable classes that the classifier can classify. For a Perceptron, the VC dimension is 1, while for a simple linear SVM, the VC dimension is also 1. Therefore, the VC dimension of a Perceptron is not smaller than that of a simple linear SVM.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 15,
@@ -71,5 +71,6 @@
             "model_answer": "To answer this question, we need to analyze each statement separately and determine if they are true or false.\n\nStatement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nL2 regularization adds a penalty term to the loss function that encourages the model to have smaller weights. This can lead to sparser models, as it discourages the inclusion of irrelevant features. On the other hand, L1 regularization adds a penalty term that encourages the model to have only non-zero weights, which can also lead to sparser models. However, L1 regularization can be more aggressive in removing features, which may not always be desirable. Therefore, statement 1 is true.\n\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nResidual connections are connections between an output layer and an intermediate layer in a neural network. They help the network to learn complex patterns by allowing the gradient to flow more easily through the network. ResNets, a type of neural network, use residual connections to improve their performance. Transformers, a type of neural network used in natural language processing, also use residual connections. Therefore, statement 2 is true.\n\nBased on our analysis, the correct answer is (A) True, True.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

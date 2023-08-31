@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.325,
     "model_outputs": [
         {
             "id": 17,
@@ -48,7 +48,7 @@
             "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
             "correct_answer": 1,
             "model_answer": "Statement 1 is true because it is possible that the 1-NN algorithm can achieve better classification performance in the feature space Q through a radial basis kernel function than in the original space, although this is not guaranteed.\n\nStatement 2 is false because the VC dimension of a Perceptron is not necessarily smaller than the VC dimension of a simple linear SVM. The VC dimension of a Perceptron is the number of different inputs that it can distinguish, while the VC dimension of a simple linear SVM is the number of different decision boundaries that it can create. The VC dimension of a Perceptron is typically smaller than the VC dimension of a simple linear SVM, but this is not always the case.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 15,
@@ -71,5 +71,6 @@
             "model_answer": "Statement 1:\nL2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nExplanation:\nL1 regularization adds a penalty term to the loss function that is proportional to the absolute value of the weights, which encourages the model to have smaller weights. This can lead to sparse models, where only a few weights are non-zero.\n\nOn the other hand, L2 regularization adds a penalty term that is proportional to the square of the weights, which encourages the model to have smaller weights in general, not just the absolute values. This can also lead to sparse models, but not necessarily.\n\nStatement 2:\nResidual connections can be found in ResNets and Transformers.\n\nExplanation:\nResidual connections are a type of skip connection that allows the output of one layer to be directly added to the input of the next layer, without going through a fully connected layer. This can help to preserve the information from the previous layer and improve the performance of the model.\n\nResidual connections are commonly used in ResNets and Transformers, which are two popular types of neural network architectures.\n\nAnswer:\n(C) True, False",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

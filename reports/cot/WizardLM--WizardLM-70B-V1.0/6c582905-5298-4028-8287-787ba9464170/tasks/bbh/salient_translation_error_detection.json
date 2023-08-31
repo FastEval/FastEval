@@ -1,5 +1,5 @@
 {
-    "score": 0.5333333333333333,
+    "score": 0.5666666666666667,
     "model_outputs": [
         {
             "id": 34,
@@ -153,7 +153,7 @@
             "question": "The following translations from German to English contain a particular error. That error will be one of the following types: Named Entities: An entity (names, places, locations, etc.) is changed to a different entity. Numerical Values: Numerical values (ordinals or cardinals), dates, and/or units are changed. Modifiers or Adjectives: The modifiers and adjectives pertaining to a noun are changed. Negation or Antonyms: Introduce or remove a negation or change comparatives to their antonyms. Facts: Trivial factual errors not pertaining to the above classes are introduced in the translations. Dropped Content: A significant clause in the translation is removed. Please identify that error.  Source: Fabian Baumg\u00e4rtel ist ein deutscher Fu\u00dfballspieler.\nTranslation: Fabian Baumg\u00e4rtel is a German footballer who plays as a goalkeeper.\nThe translation contains an error pertaining to\nOptions:\n(A) Modifiers or Adjectives\n(B) Numerical Values\n(C) Negation or Antonyms\n(D) Named Entities\n(E) Dropped Content\n(F) Facts",
             "correct_answer": "(F)",
             "model_answer": "Step 1: Check for changes in named entities.\nThe translation still refers to Fabian Baumg\u00e4rtel as a German footballer, so there is no error in named entities.\n\nStep 2: Check for changes in numerical values.\nThere are no numerical values mentioned in the sentence, so there is no error in numerical values.\n\nStep 3: Check for changes in modifiers or adjectives.\nThe original sentence does not provide any information about Fabian Baumg\u00e4rtel's position, while the translation specifies that he plays as a goalkeeper. This is an addition of information, which is not an error in modifiers or adjectives.\n\nStep 4: Check for changes in negation or antonyms.\nThere are no negations or antonyms mentioned in the sentence, so there is no error in negation or antonyms.\n\nStep 5: Check for trivial factual errors not pertaining to the above classes.\nThe translation provides additional information about Fabian Baumg\u00e4rtel's position, which is not a factual error.\n\nStep 6: Check for dropped content.\nThe original sentence does not mention Fabian Baumg\u00e4rtel's position, and the translation adds this information. This addition of information is not considered dropped content.\n\nStep 7: Conclusion\nBased on the analysis, the error in the translation pertains to the addition of information about Fabian Baumg\u00e4rtel's position as a goalkeeper. This is not an error in any of the given categories (A) Modifiers or Adjectives, (B) Numerical Values, (C) Negation or Antonyms, (D) Named Entities, (E) Dropped Content, or (F) Facts.\n\nAnswer: (G) Addition of Information",
-            "correct": false
+            "correct": true
         },
         {
             "id": 110,
@@ -211,5 +211,6 @@
             "model_answer": "Step 1: Analyze the original sentence in German.\nWayne County ist ein County im US-Bundesstaat Indiana der Vereinigten Staaten.\nThe sentence clearly states that Wayne County is located in the state of Indiana in the United States.\n\nStep 2: Analyze the translated sentence.\nWayne County is a county located in the U.S..\nThe translated sentence does not mention the specific state where Wayne County is located.\n\nStep 3: Identify the error based on the given options.\nThe error in the translation is the omission of a significant clause, which is the mention of the state Indiana where Wayne County is located. This error falls under the category of \"Dropped Content.\"\n\nAnswer: (E) Dropped Content",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

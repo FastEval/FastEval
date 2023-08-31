@@ -76,7 +76,7 @@
             "question": "What is the shortest distance between the circles defined by $x^2-24x +y^2-32y+384=0$ and $x^2+24x +y^2+32y+384=0$?",
             "correct_answer": "We complete the square for the first equation by adding $(-24/2)^2$ and $(-32/2)^2$ to both sides, which gives \\[\n(x^2-24x +144) +(y^2-32y +256)-16=0,\n\\] which is also equivalent to \\[\n(x-12)^2 +(y-16)^2 =4^2.\n\\] Similarly, the equation for the second circle is \\[\n(x+12)^2 +(y+16)^2 =4^2.\n\\] Hence, the centers of the circles are $(12,16)$ and $(-12,-16)$ respectively. Furthermore, the radii of the circles are equal to $4$.  Now the distance between the points $(12,16)$ and $(-12,-16)$ by the distance formula or similarity of $3-4-5$ triangles is $40$.  Therefore, to find the shortest distance between the two circles, we must subtract from $40$ the distances from the centers to the circles.  Thus, the shortest distance between the circles is $40-4-4 = \\boxed{32}$.",
             "model_answer": "The circles defined by the two equations are identical, so the distance between them is zero.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 3996,
@@ -650,7 +650,7 @@
             "question": "The students in Mrs. Sawyer's class were asked to do a taste test of five kinds of candy. Each student chose one kind of candy. A bar graph of their preferences is shown.  What percent of her class chose candy E? [asy]\n/* AMC8 2002 #7 Problem */\nsize(3.5inch, 1.5inch);\nfor ( int y = 0; y <= 8; y += 2 )\n{\n\ndraw((0,y)--(15,y));\n\nlabel(scale(0.7)*(string)y, (0,y), W);\n}\nlabel(scale(0.9)*\"$A$\", (1.5, 0), S);\nlabel(scale(0.9)*\"$B$\", (4.5, 0), S);\nlabel(scale(0.9)*\"$C$\", (7.5,0), S);\nlabel(scale(0.9)*\"$D$\", (10.5, 0), S);\nlabel(scale(0.9)*\"$E$\", (13.5, 0), S);\nlabel(scale(0.7)*rotate(90)*\"Number of Students\", (-0.8,4), W);\nlabel(scale(0.9)*\"Kinds of candy\", (7.5,-2.5));\n\nfill((0.5,0)--(0.5,6)--(2.5,6)--(2.5,0)--cycle, red);\nfill((3.5,0)--(3.5,8)--(5.5,8)--(5.5,0)--cycle, blue);\nfill((6.5,0)--(6.5,4)--(8.5,4)--(8.5,0)--cycle, pink);\nfill((9.5,0)--(9.5,2)--(11.5,2)--(11.5,0)--cycle, green);\nfill((12.5,0)--(12.5,5)--(14.5,5)--(14.5,0)--cycle, purple);\n[/asy]",
             "correct_answer": "There are $6+8+4+2+5 = 25$ students.  Of the 25 students 5 prefer candy $E$ and $\\frac{5}{25} = \\frac{20}{100} = \\boxed{20\\%} $.",
             "model_answer": "Please provide the answer to the question.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 4491,
@@ -1140,7 +1140,7 @@
             "question": "At 2:30 p.m. during a long drive, Bobbi asks her parents, ``Are we there yet?'' Her mother responds, ``We will be there in 7200 seconds.'' If Bobbi's mother is correct, at what time in the afternoon will they arrive at their destination?",
             "correct_answer": "Multiply 7200 seconds by $\\left(\\frac{1\\text{ min.}}{60\\text{ sec.}}\\right)\\left(\\frac{1\\text{ hr.}}{60\\text{ min.}}\\right)$ to find that they will arrive in 2 hours.  Two hours after 2:30 p.m. is $\\boxed{\\text{4:30 p.m.}}$.",
             "model_answer": "I'm sorry, I cannot provide an answer to this question as it requires knowledge of the distance to the destination and the speed of the vehicle.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 935,
@@ -1798,7 +1798,7 @@
             "question": "How many triangles are in this figure?\n\n[asy]size(50);\ndraw((0,0)--(1,0)--(0,0)--(0,1));\ndraw((1,1)--(0,1)--(1,0)--(1,1)--(0,0));[/asy]",
             "correct_answer": "There are four small triangles and four triangles composed of two smaller ones (comprising two sides and the diagonal of the square). Thus, there are $\\boxed{8}$ triangles.",
             "model_answer": "To answer the question, we need to count the number of triangles in the figure. We can do this by counting the number of lines that form triangles. There are two lines that form a triangle, so there are two triangles in the figure.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 1922,
@@ -3184,7 +3184,7 @@
             "question": "Four students agreed to pool their savings to purchase a computer. The portions contributed are represented proportionately by the areas in the diagram below. What percent of the total did $Q$ contribute?\n\n[asy]size(100);\ndraw((0,2)--(48,2),black);\ndraw((48,2)--(48,50),black);\ndraw((48,50)--(0,50),black);\ndraw((0,50)--(0,2),black);\ndraw((24,26)--(0,2),black);\ndraw((24,26)--(24,2),black);\ndraw((24,26)--(48,26),black);\ndraw((24,26)--(0,50),black);\ndraw((12,0)--(12,4),black);\ndraw((36,0)--(36,4),black);\ndraw((46,14)--(50,14),black);\ndraw((46,38)--(50,38),black);\ndraw((36,24)--(36,28),black);\nlabel(\"P\",(36,35),N);\nlabel(\"Q\",(11,22),N);\nlabel(\"R\",(16,7),N);\nlabel(\"S\",(36,11),N);\n[/asy]",
             "correct_answer": "Suppose the side length of the large square is $1$. Then the area of the large square is $1$. The triangular area $Q$ has base $1$ and height $\\frac{1}{2}$ and thus has an area of $\\frac{1}{2}\\cdot 1\\cdot \\frac{1}{2}=\\frac{1}{4}$. Thus the percentage is $\\frac{\\frac{1}{4}}{1}=\\boxed{25\\%}$.",
             "model_answer": "Please provide the answer to the question.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 61,
@@ -3408,7 +3408,7 @@
             "question": "Below is a drawing of all $26$ letters in the English alphabet. As drawn below, some of these letters could be portions of the graph of a function, and some cannot. For example, the $\\textsf{O}$ resembles an ellipse, which cannot be part of the graph of a function.\n\nAs drawn below, which of these letters could be portions of the graph of a function? (You may not rotate them.)\n\nGive your answer as a list of letters with no spaces or other punctuation between them, in alphabetic order.\n\n$$\\begin{array}{c c c c c}\n\\textsf{A} & \\textsf{B} & \\textsf{C} & \\textsf{D} & \\textsf{E}\\\\\\\\\n\\textsf{F} & \\textsf{G} & \\textsf{H} & \\textsf{I} & \\textsf{J}\\\\\\\\\n\\textsf{K} & \\textsf{L} & \\textsf{M} & \\textsf{N} & \\textsf{O}\\\\\\\\\n\\textsf{P} & \\textsf{Q} & \\textsf{R} & \\textsf{S} & \\textsf{T}\\\\\\\\\n\\textsf{U} & \\textsf{V} & \\textsf{W} & \\textsf{X} & \\textsf{Y}\\\\\\\\\n&& \\textsf{Z} &&\n\\end{array}$$",
             "correct_answer": "To be part of the graph of a function, a figure must have at most one point of intersection with any vertical line. Only two letters (as drawn in the problem) have this property: $\\textsf{V}$ and $\\textsf{W}.$ (Following the instructions, your answer should be formatted as $\\boxed{\\text{VW}}.$)",
             "model_answer": "Can you please provide more context or information about the question? It seems incomplete.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 1009,
@@ -3856,7 +3856,7 @@
             "question": "Linda, Sherry, June, and Connie walked around their neighborhoods selling girl scout cookies. Linda earned $\\$27.47$, Sherry earned $\\$35.23$, June earned $\\$37.37$, and Connie earned $\\$26.52$. After the sale, they pooled their money together and went to the bank to convert the coins into dollars. How much money, in cents, was left after they converted as many of the coins into bills as they could?",
             "correct_answer": "Instead of adding large numbers together, we can find the residue for each person for easier computation. We convert the amount they earned to cents and find the modulo $100$ for each.  \\begin{align*}\n2747 &\\equiv 47 \\pmod{100},\\\\\n3523 &\\equiv 23 \\pmod{100},\\\\\n3737 &\\equiv 37 \\pmod{100},\\\\\n2652 &\\equiv 52 \\pmod{100}\n\\end{align*}We want to find the modulo $100$ of the total number of cents. We can add the separate residues to get $$47+23+37+52 \\equiv 159 \\equiv 59 \\pmod{100}$$Therefore, they have $\\boxed{59}$ cents left after converting as much of the money into bills as possible.",
             "model_answer": "I'm sorry, I cannot provide an answer to this question as it requires knowledge of the specific coins and bills used in the sale.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 997,
@@ -4892,7 +4892,7 @@
             "question": "In triangle $ABC$, $AB = 13$, $AC = 15$, and $BC = 14$.  Let $I$ be the incenter.  The incircle of triangle $ABC$ touches sides $BC$, $AC$, and $AB$ at $D$, $E$, and $F$, respectively.  Find the area of quadrilateral $AEIF$.\n\n[asy]\nimport geometry;\n\nunitsize(2 cm);\n\npair A, B, C, D, E, F, I;\n\nA = (1,2);\nB = (0,0);\nC = (3,0);\nI = incenter(A,B,C);\nD = (I + reflect(B,C)*(I))/2;\nE = (I + reflect(C,A)*(I))/2;\nF = (I + reflect(A,B)*(I))/2;\n\ndraw(A--B--C--cycle);\ndraw(incircle(A,B,C));\ndraw(E--I--F);\n\nlabel(\"$A$\", A, N);\nlabel(\"$B$\", B, SW);\nlabel(\"$C$\", C, SE);\nlabel(\"$D$\", D, S);\nlabel(\"$E$\", E, NE);\nlabel(\"$F$\", F, NW);\nlabel(\"$I$\", I, S);\n[/asy]",
             "correct_answer": "Since $AE$ and $AF$ are tangents from the same point to the same circle, $AE = AF$.  Let $x = AE = AF$.  Similarly, let $y = BD = BF$ and $z = CD = CE$.\n\n[asy]\nimport geometry;\n\nunitsize(2 cm);\n\npair A, B, C, D, E, F, I;\n\nA = (1,2);\nB = (0,0);\nC = (3,0);\nI = incenter(A,B,C);\nD = (I + reflect(B,C)*(I))/2;\nE = (I + reflect(C,A)*(I))/2;\nF = (I + reflect(A,B)*(I))/2;\n\ndraw(A--B--C--cycle);\ndraw(incircle(A,B,C));\n\nlabel(\"$A$\", A, N);\nlabel(\"$B$\", B, SW);\nlabel(\"$C$\", C, SE);\nlabel(\"$D$\", D, S);\nlabel(\"$E$\", E, NE);\nlabel(\"$F$\", F, NW);\nlabel(\"$x$\", (A + E)/2, NE);\nlabel(\"$x$\", (A + F)/2, NW);\nlabel(\"$y$\", (B + F)/2, NW);\nlabel(\"$y$\", (B + D)/2, S);\nlabel(\"$z$\", (C + D)/2, S);\nlabel(\"$z$\", (C + E)/2, NE);\n[/asy]\n\nThen $x + y = AB = 13$, $x + z = AC = 15$, and $y + z = BC = 14$.  Adding all these equations, we get $2x + 2y + 2z = 42$, so $x + y + z = 21$.  Subtracting the equation $y + z = 14$, we get $x = 7$.\n\nBy Heron's formula, the area of triangle $ABC$ is \\[K = \\sqrt{21(21 - 14)(21 - 15)(21 - 13)} = 84,\\]so the inradius is $r = K/s = 84/21 = 4$.\n\nWe can divide quadrilateral $AEIF$ into the two right triangles $AEI$ and $AFI$.\n\n[asy]\nimport geometry;\n\nunitsize(2 cm);\n\npair A, B, C, D, E, F, I;\n\nA = (1,2);\nB = (0,0);\nC = (3,0);\nI = incenter(A,B,C);\nD = (I + reflect(B,C)*(I))/2;\nE = (I + reflect(C,A)*(I))/2;\nF = (I + reflect(A,B)*(I))/2;\n\ndraw(A--B--C--cycle);\ndraw(incircle(A,B,C));\ndraw(E--I--F);\ndraw(A--I);\n\nlabel(\"$A$\", A, N);\nlabel(\"$B$\", B, SW);\nlabel(\"$C$\", C, SE);\nlabel(\"$D$\", D, S);\nlabel(\"$E$\", E, NE);\nlabel(\"$F$\", F, NW);\nlabel(\"$I$\", I, S);\n[/asy]\n\nThe area of triangle $AEI$ is \\[\\frac{1}{2} \\cdot AE \\cdot IE = \\frac{1}{2} \\cdot x \\cdot r = \\frac{1}{2} \\cdot 7 \\cdot 4 = 14,\\]and the area of triangle $AFI$ is also 14.  Therefore, the area of quadrilateral $AEIF$ is $14 + 14 = \\boxed{28}$.",
             "model_answer": "Please provide the final answer.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 3252,
@@ -5683,7 +5683,7 @@
             "question": "The graph of $y = f(x)$ is shown below.\n\n[asy]\nunitsize(0.3 cm);\n\nreal func(real x) {\n  real y;\n  if (x >= -3 && x <= 0) {y = -2 - x;}\n  if (x >= 0 && x <= 2) {y = sqrt(4 - (x - 2)^2) - 2;}\n  if (x >= 2 && x <= 3) {y = 2*(x - 2);}\n  return(y);\n}\n\nint i, n;\n\nfor (i = -8; i <= 8; ++i) {\n  draw((i,-8)--(i,8),gray(0.7));\n  draw((-8,i)--(8,i),gray(0.7));\n}\n\ndraw((-8,0)--(8,0),Arrows(6));\ndraw((0,-8)--(0,8),Arrows(6));\n\nlabel(\"$x$\", (8,0), E);\nlabel(\"$y$\", (0,8), N);\n\ndraw(graph(func,-3,3),red);\n\nlabel(\"$y = f(x)$\", (4,-3), UnFill);\n[/asy]\n\nWhich is the graph of $y = f(2x + 1)$?\n\n[asy]\nunitsize(0.3 cm);\n\npicture[] graf;\nint i, n;\n\nreal func(real x) {\n  real y;\n  if (x >= -3 && x <= 0) {y = -2 - x;}\n  if (x >= 0 && x <= 2) {y = sqrt(4 - (x - 2)^2) - 2;}\n  if (x >= 2 && x <= 3) {y = 2*(x - 2);}\n  return(y);\n}\n\nreal funca(real x) {\n  return(func(2*x + 1));\n}\n\nfor (n = 1; n <= 5; ++n) {\n  graf[n] = new picture;\n  for (i = -8; i <= 8; ++i) {\n    draw(graf[n],(i,-8)--(i,8),gray(0.7));\n    draw(graf[n],(-8,i)--(8,i),gray(0.7));\n  }\n  draw(graf[n],(-8,0)--(8,0),Arrows(6));\n  draw(graf[n],(0,-8)--(0,8),Arrows(6));\n\n  label(graf[n],\"$x$\", (8,0), E);\n  label(graf[n],\"$y$\", (0,8), N);\n}\n\ndraw(graf[1],graph(funca,-2,1),red);\ndraw(graf[2],shift((1,0))*xscale(2)*graph(func,-3,3),red);\ndraw(graf[3],shift((1/2,0))*xscale(1/2)*graph(func,-3,3),red);\ndraw(graf[4],shift((-1,0))*xscale(1/2)*graph(func,-3,3),red);\ndraw(graf[5],shift((-1,0))*xscale(2)*graph(func,-3,3),red);\n\nlabel(graf[1], \"A\", (0,-10));\nlabel(graf[2], \"B\", (0,-10));\nlabel(graf[3], \"C\", (0,-10));\nlabel(graf[4], \"D\", (0,-10));\nlabel(graf[5], \"E\", (0,-10));\n\nadd(graf[1]);\nadd(shift((20,0))*(graf[2]));\nadd(shift((40,0))*(graf[3]));\nadd(shift((10,-20))*(graf[4]));\nadd(shift((30,-20))*(graf[5]));\n[/asy]\n\nEnter the letter of the graph of $y = f(2x + 1).$",
             "correct_answer": "Since\n\\[f(2x + 1) = f \\left( 2 \\left( x + \\frac{1}{2} \\right) \\right),\\]the graph of $y = f(2x + 1)$ is produced by taking the graph of $y = f(x)$ and compressing it horizontally by a factor of $\\frac{1}{2},$ then shifting it $\\frac{1}{2}$ units to the left.  The correct graph is $\\boxed{\\text{A}}.$\n\nIn particular, to produce the graph of $y = f(2x + 1),$ we do not compress it horizontally by a factor of $\\frac{1}{2},$ then shift it 1 unit to the left; the function produced by this transformation would be\n\\[y = f(2(x + 1)) = f(2x + 2).\\]",
             "model_answer": "The answer is \"E\".",
-            "correct": false
+            "correct": null
         },
         {
             "id": 328,
@@ -5865,7 +5865,7 @@
             "question": "Simplify\n\\[4 \\sin x \\sin (60^\\circ - x) \\sin (60^\\circ + x).\\]The answer will be a trigonometric function of some simple function of $x,$ like \"$\\cos (2x)$\" or \"$\\sin (x^3)$\".",
             "correct_answer": "By product-to-sum,\n\\begin{align*}\n4 \\sin x \\sin (60^\\circ - x) \\sin (60^\\circ + x) &= 4 \\sin x \\cdot \\frac{1}{2} (\\cos 2x - \\cos 120^\\circ) \\\\\n&= 2 \\sin x \\left( \\cos 2x + \\frac{1}{2} \\right) \\\\\n&= 2 \\sin x \\cos 2x + \\sin x.\n\\end{align*}Again by product-to-sum,\n\\begin{align*}\n2 \\sin x \\cos 2x + \\sin x &= \\sin 3x + \\sin (-x) + \\sin x \\\\\n&= \\boxed{\\sin 3x}.\n\\end{align*}",
             "model_answer": "What is the first step in simplifying the given expression?",
-            "correct": false
+            "correct": null
         },
         {
             "id": 4172,
@@ -6173,7 +6173,7 @@
             "question": "When 700 students from Genius M.S. played SCOOZ, 90$\\%$ of them scored ''proficient or above.'' What number of students at Genius M.S. did not score ''proficient or above?''",
             "correct_answer": "If $90\\%$ scored proficient or above, that means $10\\%$ did not, and $10\\%$ of 700 is $\\frac{1}{10}\\times 700 = \\boxed{70}$ students.",
             "model_answer": "I'm sorry, I cannot provide an answer to this question as it requires knowledge of the specific scoring system used in SCOOZ.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 3720,
@@ -6306,7 +6306,7 @@
             "question": "Two-thirds of the students at Baker Middle School take music. There are 834 students who take music. How many students are there at Baker Middle School?",
             "correct_answer": "If there are $S$ students at Baker Middle School, then $\\frac{2}{3}S$ students take music.  Setting $\\frac{2}{3}S$ equal to 834 and multiplying both sides by $\\frac{3}{2}$, we find that there are $\\frac{3}{2}\\times 834=\\boxed{1251}$ students at the school.",
             "model_answer": "I'm sorry, I cannot provide an answer to this question as it requires knowledge of the total number of students at Baker Middle School.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 1374,
@@ -6635,7 +6635,7 @@
             "question": "Which type of conic section is described by the equation \\[(x-y)(x+y) = -2y^2 + 1?\\]Enter \"C\" for circle, \"P\" for parabola, \"E\" for ellipse, \"H\" for hyperbola, and \"N\" for none of the above.",
             "correct_answer": "We try to rewrite the given equation in a standard form for a conic section. Expanding the left-hand side, we get \\[x^2 - y^2 = -2y^2 + 1.\\]Then adding $2y^2$ to both sides gives \\[x^2 + y^2 = 1,\\]which is the equation for a $\\boxed{\\text{(C)}}$ circle (in fact, the unit circle centered at the origin).",
             "model_answer": "The equation \\[(x-y)(x+y) = -2y^2 + 1\\] is a quadratic equation in the form \\[ax^2 + bx + c = 0\\] where \\[a = 1, b = -2, c = 1.\\] This equation can be solved using the quadratic formula: \\[x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\] \\[x = \\frac{-2 \\pm \\sqrt{4 - 4(1)(1)}}{2(1)}\\] \\[x = \\frac{-2 \\pm \\sqrt{4 - 4}}{2}\\] \\[x = \\frac{-2 \\pm \\sqrt{0}}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x = \\frac{-2 \\pm 0}{2}\\] \\[x =",
-            "correct": false
+            "correct": null
         },
         {
             "id": 3755,
@@ -6656,7 +6656,7 @@
             "question": "A singles tournament had six players. Each player played every other player only once, with no ties. If Helen won 4 games, Ines won 3 games, Janet won 2 games, Kendra won 2 games and Lara won 2 games, how many games did Monica win?",
             "correct_answer": "Each of the six players played 5 games, and each game involved two players. So there were $\\binom{6}{2} = 15$ games. Helen, Ines, Janet, Kendra and Lara won a total of $4+3+2+2+2=13$ games, so Monica won $15-13=\\boxed{2}$ games.",
             "model_answer": "I'm sorry, I cannot answer that question as there is not enough information provided.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 2452,
@@ -6782,7 +6782,7 @@
             "question": "In the diagram below, lines $k$ and $\\ell$ are parallel.  Find the measure of angle $x$ in degrees. [asy]\nsize(200);\npair A = dir(-22)*(0,0);\npair B = dir(-22)*(4,0);\npair C = dir(-22)*(4,2);\npair D = dir(-22)*(0,2);\npair F = dir(-22)*(0,1.3);\npair G = dir(-22)*(4,1.3);\n\npair X,Y;\n\nX=A;\nY=B;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nX=A;\nY=C;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nX=C;\nY=B;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nX=B;\nY=D;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nX=G;\nY=F;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nlabel(\"$\\ell$\",1.4*A-.4*B);\nlabel(\"$k$\",1.4*F-.4*G);\n\nlabel(\"$30^\\circ$\",A+(.8,-.1));\nlabel(\"$90^\\circ$\",B+(.4,.1));\nlabel(\"$x$\",C+(.32,.2));\n[/asy]",
             "correct_answer": "[asy]\nsize(200);\npair A = dir(-22)*(0,0);\npair B = dir(-22)*(4,0);\npair C = dir(-22)*(4,2);\npair D = dir(-22)*(0,2);\npair F = dir(-22)*(0,1.3);\npair G = dir(-22)*(4,1.3);\n\npair X,Y;\n\nX=A;\nY=B;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nX=A;\nY=C;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nX=C;\nY=B;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nX=B;\nY=D;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nX=G;\nY=F;\ndraw(1.3*X-.3*Y--1.3*Y-.3*X);\n\nlabel(\"$\\ell$\",1.4*A-.4*B);\nlabel(\"$k$\",1.4*F-.4*G);\n\nlabel(\"$30^\\circ$\",A+(.8,-.1));\nlabel(\"$90^\\circ$\",B+(.4,.1));\nlabel(\"$x$\",C+(.32,.2));\nlabel(\"$A$\",A,S,red);\nlabel(\"$B$\",B-(.2,0),SW,red);\nlabel(\"$C$\",C,SE,red);\n\ndraw(A--B--C--A,red+1bp);\n[/asy]\n\nThe red triangle we've drawn has angles $\\angle CAB=30^\\circ$ and since the exterior angle at $B$ is $90^{\\circ}$, \\[\\angle ABC=180^\\circ-90^\\circ=90^\\circ.\\]Angle $x$ and $\\angle{BCA}$ are vertical angles and their measures are therefore equal. So, it suffices to find the measure of $\\angle{BCA}$.\n\nThe angles in a triangle add to $180^\\circ$, so  \\[\\angle BCA=180^\\circ-30^\\circ-90^\\circ=\\boxed{60^\\circ}.\\]",
             "model_answer": "Please provide the answer to the question.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 2473,
@@ -7001,5 +7001,6 @@
             "model_answer": "Let's start by breaking down the expression $x = 1 + \\frac{x}{1 + \\frac{x}{1+ \\frac{x}{1 + \\cdots}}}$. We can rewrite it as $x = 1 + \\frac{x}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}} + \\frac{x}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}} + \\cdots$. We can continue this process indefinitely, so the expression can be written as $x = 1 + \\frac{x}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}} + \\frac{x}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}} + \\cdots + \\frac{x}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}} + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots + \\cdots",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 15
 }

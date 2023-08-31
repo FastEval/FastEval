@@ -1,12 +1,12 @@
 {
-    "score": 0.1,
+    "score": 0.26222222222222225,
     "model_outputs": [
         {
             "id": 34,
             "question": "The first day of 2019 is a Tuesday, and today is the first Monday of 2019. What is the date 24 hours later in MM/DD/YYYY?\nOptions:\n(A) 01/08/1960\n(B) 01/01/2019\n(C) 02/08/2018\n(D) 01/08/2019\n(E) 10/22/2018\n(F) 01/08/2043",
             "correct_answer": "(D)",
             "model_answer": "The date 24 hours later in MM/DD/YYYY would be Monday, 02/08/2019. The reason for this is because January 1st is a Monday, and February 8th is a Monday.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 145,
@@ -27,14 +27,14 @@
             "question": "Jane quited her job on Mar 20, 2020. 176 days have passed since then. What is the date a month ago in MM/DD/YYYY?\nOptions:\n(A) 08/12/2020\n(B) 07/29/2020\n(C) 09/06/2020\n(D) 08/20/2020\n(E) 08/12/2045\n(F) 08/12/2093",
             "correct_answer": "(A)",
             "model_answer": "The date a month ago in MM/DD/YYYY was on March 8th, 2022.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 195,
             "question": "Yesterday, Jan 21, 2011, Jane ate 2 pizzas and 5 wings. What is the date today in MM/DD/YYYY?\nOptions:\n(A) 01/12/2011\n(B) 01/08/2011\n(C) 01/22/1990\n(D) 01/22/2011\n(E) 01/22/2086\n(F) 01/23/2011",
             "correct_answer": "(D)",
             "model_answer": "january 22nd, 2011",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 16,
@@ -69,7 +69,7 @@
             "question": "Jane thought today is 3/11/2002, but today is in fact Mar 12, which is 1 day later. What is the date a month ago in MM/DD/YYYY?\nOptions:\n(A) 04/12/2001\n(B) 02/11/2002\n(C) 02/12/2002\n(D) 02/08/2002\n(E) 05/22/2002\n(F) 02/18/2002",
             "correct_answer": "(C)",
             "model_answer": "The date a month ago in MM/DD/YYYY is:\n\n02/18/2002\n\nThe reason for this is that February has only 28 days, and since we're talking about a month ago, we're counting back from February 28th. February has 29 days in a leap year, so February 28th is a Leap Day, which is not included in the normal 28-day month. February 29th is a regular day, so it doesn't count as a month ago.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 115,
@@ -83,7 +83,7 @@
             "question": "Today's meeting is rescheduled to 11 am tomorrow, 10/16/1924. What is the date tomorrow in MM/DD/YYYY?\nOptions:\n(A) 10/16/1924\n(B) 07/16/1925\n(C) 10/17/1924\n(D) 10/15/1924\n(E) 10/16/1922\n(F) 10/16/2010",
             "correct_answer": "(A)",
             "model_answer": "The date tomorrow in MM/DD/YYYY is:\n\n10/17/1924\n\nExplanation:\n\n1. Today's date is 10/16/1924.\n2. The day of the week tomorrow is a Sunday, so we add 7 to get the date for the following Sunday, which is 10/17/1924.\n3. The month of tomorrow, October 17, is 17.\n4. The year of tomorrow, 2024, is the last year of the 2023 calendar year.\n5. To convert the month and year to a single letter, we use the modulo operator to get the last two digits of the year, which is 2024.\n6. The modulo operator is used again to get the last two digits of the month, which is 17.\n7. The two digits of the day of the week are added to get the single letter for tomorrow's date.\n\nSo the final answer is \"10/17/1924\".",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 166,
@@ -97,14 +97,14 @@
             "question": "Tomorrow is 11/12/2019. What is the date today in MM/DD/YYYY?\nOptions:\n(A) 11/12/2019\n(B) 11/11/2042\n(C) 11/11/2020\n(D) 11/01/2019\n(E) 11/11/2019\n(F) 11/25/2019",
             "correct_answer": "(E)",
             "model_answer": "The date today in MM/DD/YYYY is 11/25/2019. The reason is that November 25th, 2023 is a Sunday, and because the date is always written in the format \"MM/DD/YYYY\", a Sunday will always be the last day of the month.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 201,
             "question": "Today is 9/7. Jane is watching NFL 2003. What is the date 24 hours later in MM/DD/YYYY?\nOptions:\n(A) 09/08/2003\n(B) 09/10/2003\n(C) 09/08/1917\n(D) 09/07/2003\n(E) 08/29/2003",
             "correct_answer": "(A)",
             "model_answer": "To solve this problem, we can use the following steps:\n\n1. Convert the date to a numerical value: We can convert the date \"9/7\" to a numerical value by adding the number of days in a year (365) to the day of the year (7). This gives us the number \"70\".\n\n2. Convert the numerical value to a month: We can convert the numerical value \"70\" to a month by adding the number of months in a year (12) to the day of the year (7). This gives us the number \"January\".\n\n3. Convert the month to a day of the week: We can convert the month \"January\" to a day of the week by adding the number of days in a week (7) to the day of the month (1). This gives us the number \"Sunday\".\n\n4. Convert the day of the week to a date: We can convert the day of the week \"Sunday\" to a date by adding the number of days in a month (28) to the day of the year (70). This gives us the date \"September 7\".\n\n5. Calculate the date 24 hours later: We can calculate the date 24 hours later by adding the number of hours in a day (8) to the date we just calculated. This gives us the date \"September 9\".\n\n6. Convert the date to a string: We can convert the date to a string by formatting it using the \"d\" format specifier. This will give us the string \"September 07\".\n\n7. Convert the string to a single letter: We can convert the string to a single letter by converting each character to its ASCII value and then using the \"ord\" function to get its numerical value. This will give us the letter \"A\".\n\nTherefore, the date 24 hours later in the MM/DD/YYYY format is \"September 07\".",
-            "correct": false
+            "correct": true
         },
         {
             "id": 53,
@@ -118,21 +118,21 @@
             "question": "In the UK, people usually put the day before the month when formatting the date. Therefore, today is 02/01/1987 to them. What is the date yesterday in MM/DD/YYYY?\nOptions:\n(A) 01/01/1987\n(B) 10/19/1986\n(C) 01/08/1987\n(D) 01/01/2015\n(E) 01/01/1934\n(F) 12/29/1986",
             "correct_answer": "(A)",
             "model_answer": "The date yesterday in MM/DD/YYYY would be 12/28/1986. The reason for this is because the day before the month is considered to be the first day of the month. Therefore, if you want to find the date yesterday, you need to subtract one day from the current date.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 124,
             "question": "Today is the first day of 2007. What is the date today in MM/DD/YYYY?\nOptions:\n(A) 05/01/2007\n(B) 01/01/2007\n(C) 01/01/1951\n(D) 01/01/2096\n(E) 01/22/2007\n(F) 12/18/2006",
             "correct_answer": "(B)",
             "model_answer": "The date today in MM/DD/YYYY is:\n\n01/01/2007\n\nThe reason for this is that January 1st is a common starting date for new years. The year 2007 is a common year, so it makes sense to start the new year on a common day. Additionally, since the date is in the format MM/DD/YYYY, we can easily convert it to a more useful format, such as YYYY-MM-DD.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 7,
             "question": "Tomorrow is 11/12/2019. What is the date yesterday in MM/DD/YYYY?\nOptions:\n(A) 11/10/2076\n(B) 11/10/2019\n(C) 09/10/2019\n(D) 11/06/2019\n(E) 11/11/2019\n(F) 11/17/2019",
             "correct_answer": "(B)",
             "model_answer": "The date yesterday in MM/DD/YYYY is:\n\n11/17/2019\n\nThis is because November 17th, 2023 is a Sunday, and because the date is always incremented by 1 day on Sunday, we add 1 day to the date to get yesterday's date.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 228,
@@ -153,14 +153,14 @@
             "question": "Yesterday was April 30, 2021. What is the date one week from today in MM/DD/YYYY?\nOptions:\n(A) 05/10/2021\n(B) 03/13/2021\n(C) 04/10/2021\n(D) 04/27/2021\n(E) 05/09/2021\n(F) 05/08/2021",
             "correct_answer": "(F)",
             "model_answer": "The date one week from today in MM/DD/YYYY is:\n\n(F) 05/08/2021\n\nThe reason for this is that April 30, 2021 is a Sunday, and since the first day of the week is always a Sunday, one week from today (May 8, 2021) would be a Monday.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 110,
             "question": "Today is the palindrome day of 2020, because the MMDDYYYY format of the date is the same backwards as forwards. What is the date 10 days ago in MM/DD/YYYY?\nOptions:\n(A) 01/22/2020\n(B) 01/23/2020\n(C) 03/23/2020\n(D) 01/23/2078\n(E) 01/23/2011",
             "correct_answer": "(B)",
             "model_answer": "The date 10 days ago in MM/DD/YYYY format is 03/23/2020.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 155,
@@ -188,14 +188,14 @@
             "question": "Today is Christmas Eve of 1937. What is the date tomorrow in MM/DD/YYYY?\nOptions:\n(A) 12/11/1937\n(B) 12/25/1937\n(C) 01/04/1938\n(D) 12/04/1937\n(E) 12/25/2006\n(F) 07/25/1937",
             "correct_answer": "(B)",
             "model_answer": "The date tomorrow in MM/DD/YYYY is 12/25/1937.\n\nThe reason is that Christmas is a Christian holiday that is celebrated on the 25th of December. This means that tomorrow is the day after Christmas, which is a full moon. Since a full moon occurs on average every month, it is likely that tomorrow will also be a full moon.\n\nTherefore, the date tomorrow in MM/DD/YYYY is 12/25/1937.",
-            "correct": false
+            "correct": 0.16666666666666666
         },
         {
             "id": 178,
             "question": "Today is Sep 9, 1909. What is the date tomorrow in MM/DD/YYYY?\nOptions:\n(A) 12/10/1908\n(B) 12/14/1909\n(C) 09/09/1909\n(D) 07/03/1909\n(E) 09/10/1909\n(F) 09/11/1909",
             "correct_answer": "(E)",
             "model_answer": "The date tomorrow in MM/DD/YYYY is:\n\n(E) 09/11/1909\n\nThe reason for this is that September 9, 1909 is a Saturday, and therefore there is no Sunday in the current month (September). Therefore, the next day that is a Sunday (September 10, 1909) is the date tomorrow.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 114,
@@ -211,5 +211,6 @@
             "model_answer": "The date 10 days ago in MM/DD/YYYY is:\n\n10 days ago = (10 - 1) * 24 + 1 = 97 * 24 + 1 = 2023-02-06\n\nThe answer is option E, \"05/20/2021\".",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 11
 }

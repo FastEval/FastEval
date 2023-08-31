@@ -1,12 +1,12 @@
 {
-    "score": 0.36666666666666664,
+    "score": 0.3733333333333333,
     "model_outputs": [
         {
             "id": 34,
             "question": "The following paragraphs each describe a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were five golfers: Eve, Eli, Joe, Rob, and Mya. Rob finished above Mya. Eve finished first. Joe finished above Eli. Joe finished below Mya.\nOptions:\n(A) Eve finished second-to-last\n(B) Eli finished second-to-last\n(C) Joe finished second-to-last\n(D) Rob finished second-to-last\n(E) Mya finished second-to-last",
             "correct_answer": "(C)",
             "model_answer": "To determine which golfer finished second-to-last, we need to consider the given information and identify the golfer who finished in the fourth position. \n\nWe know that Eve finished first, so she cannot be the golfer who finished second-to-last. We also know that Rob finished above Mya, which means that Rob cannot be the golfer who finished second-to-last either, as he would have finished in a position higher than Mya. This leaves us with three possible candidates: Eli, Joe, and Mya.\n\nNext, we consider the information that Joe finished above Eli. This means that Joe must have finished in a position higher than Eli. Since Joe cannot be the golfer who finished first (as we already established), he must have finished in a position lower than Mya. This leaves us with two possible candidates: Eli and Mya.\n\nFinally, we consider the information that Joe finished below Mya. This means that Mya must have finished in a position higher than Joe. Since Mya cannot be the golfer who finished first (as we already established), she must have finished in a position lower than Eve. This leaves us with only one possible candidate: Eli.\n\nTherefore, the golfer who finished second-to-last was Eli.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 145,
@@ -211,5 +211,6 @@
             "model_answer": "First, let's label the vehicles in the order they are given:\n\n1. Sedan\n2. Convertible\n3. Station wagon\n4. Bus\n5. Motorcyle\n\nNow, let's apply the given conditions:\n\n- The sedan is the second-newest. This means that it is either 2nd or 4th in the order.\n- The station wagon is newer than the convertible. This means that it is either 3rd or 5th in the order.\n- The sedan is older than the motorcyle. This means that it is either 1st or 3rd in the order.\n- The bus is the oldest. This means that it is 1st in the order.\n\nNow, let's eliminate the options based on the conditions:\n\n- (A) The sedan is the oldest: This is not possible because the bus is the oldest.\n- (B) The convertible is the oldest: This is not possible because the bus is the oldest.\n- (C) The station wagon is the oldest: This is not possible because the bus is the oldest.\n- (D) The bus is the oldest: This is true based on the given condition.\n- (E) The motorcyle is the oldest: This is not possible because the bus is the oldest.\n\nTherefore, the answer is (D) The bus is the oldest.",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

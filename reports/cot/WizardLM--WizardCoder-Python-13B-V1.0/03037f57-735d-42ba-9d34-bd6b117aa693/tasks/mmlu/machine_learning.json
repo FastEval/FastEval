@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.325,
     "model_outputs": [
         {
             "id": 17,
@@ -48,7 +48,7 @@
             "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
             "correct_answer": 1,
             "model_answer": "Statement 1: True, True\nReasoning: The radial basis kernel function can capture non-linear relationships in the data, which can lead to better classification performance. However, this is not guaranteed and depends on the specific dataset and choice of kernel function.\n\nStatement 2: True, False\nReasoning: The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM because a Perceptron can only classify linearly separable data, while a simple linear SVM can classify any data that can be represented by a hyperplane. Therefore, the VC dimension of a Perceptron is smaller than that of a simple linear SVM.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 15,
@@ -71,5 +71,6 @@
             "model_answer": "Statement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nReasoning: L2 regularization adds a penalty term to the loss function that is proportional to the square of the weights. This means that smaller weights are penalized more heavily than larger weights. This tends to make the model more sparse, meaning that only a small number of weights are non-zero.\n\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nReasoning: Residual connections are a technique used in ResNets and Transformers that allows the model to learn better representations of the data by adding the identity function to the output of each layer. This means that the output of each layer is the sum of the input to that layer and the output of the previous layer. This allows the model to learn more complex representations of the data and improve its performance.\n\nTherefore, the answer is (C) True, False.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

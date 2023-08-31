@@ -1,5 +1,5 @@
 {
-    "score": 0.7,
+    "score": 0.725,
     "model_outputs": [
         {
             "id": 17,
@@ -20,7 +20,7 @@
             "question": "In Python 3, what is ['a', 'Chemistry', 0, 1][-3]?\n\n(A) a\n(B) Chemistry\n(C) 0\n(D) 1",
             "correct_answer": 1,
             "model_answer": "To answer this question, we need to understand the syntax of the given expression. It is an example of a list index access. The square brackets `[]` are used to access elements in a list.\n\nThe list in question is:\n```python\n['a', 'Chemistry', 0, 1]\n```\nIt has four elements. We are trying to access the element at index -3. However, Python uses 0-based indexing, meaning that the first element is at index 0. Therefore, accessing the element at index -3 would be out of bounds of the list.\n\nSince we cannot access an element that does not exist, Python would raise an IndexError.\n\nTherefore, the answer is:\n\n(E) IndexError",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -71,5 +71,6 @@
             "model_answer": "To answer this question, we need to understand how Python indexing works. In Python, lists are zero-indexed, meaning that the first element in a list is at index 0.\n\nHere's the given list:\n\n* ['a', 'Chemistry', 0, 1]\n\nThe question asks for the value at index 1. Let's go through the list elements one by one:\n\n1. Index 0: 'a'\n2. Index 1: 'Chemistry'\n3. Index 2: 0\n4. Index 3: 1\n\nSo, the value at index 1 is 'Chemistry'.\n\nAnswer: (B) Chemistry",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

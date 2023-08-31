@@ -1,5 +1,5 @@
 {
-    "score": 0.2,
+    "score": 0.3,
     "model_outputs": [
         {
             "id": 17,
@@ -69,7 +69,8 @@
             "question": " Use indirect truth tables to determine whether each set of propositions is consistent. If the set is consistent, choose an option with a consistent valuation. (There may be other consistent valuations.)\n(T \u2283 U) \u2283 (W \u2283 U)\nT \u2283 ~(U \u2283 X)\n(T \u2283 ~X) \u2283 W\n\n(A) Inconsistent\n(B) Consistent. Consistent valuation when U, W, and X are true and T is false\n(C) Consistent. Consistent valuation when W and X are true and T and U are false\n(D) Consistent. Consistent valuation when T and U are true and W and X are false",
             "correct_answer": 1,
             "model_answer": "Step 1: Use indirect truth tables to determine whether each set of propositions is consistent.\r\n\r\nT \u2283 ~(U \u2283 X)\r\nT = true, U = false, X = true\r\n~(U \u2283 X) = true\r\nT \u2283 true\r\n\r\nT \u2283 U\r\nT = true, U = true\r\nT \u2283 true\r\n\r\nW \u2283 U\r\nW = false, U = true\r\nW \u2283 true\r\n\r\n(T \u2283 U) \u2283 (W \u2283 U)\r\n(T \u2283 true) \u2283 (W \u2283 true)\r\n(T \u2283 true) \u2283 false\r\nfalse \u2283 false\r\nfalse\r\n\r\nStep 2: Choose an option with a consistent valuation.\r\n\r\nOption B: Consistent. Consistent valuation when U, W, and X are true and T is false.\r\n\r\nExplanation:\r\n\r\nT = false, U = true, W = true, X = true\r\nT \u2283 U\r\nT = false, U = true\r\nT \u2283 true\r\n\r\nT = false, U = true, W = true, X = true\r\nW \u2283 U\r\nW = true, U = true\r\nW \u2283 true\r\n\r\nT = false, U = true, W = true, X = true\r\nT \u2283 ~(U \u2283 X)\r\nT = false, U = true, X = true\r\n~(U \u2283 X) = false\r\nT \u2283 false\r\n\r\nTherefore, the set of propositions is consistent and the consistent valuation is when U, W, and X are true and T is false.",
-            "correct": false
+            "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

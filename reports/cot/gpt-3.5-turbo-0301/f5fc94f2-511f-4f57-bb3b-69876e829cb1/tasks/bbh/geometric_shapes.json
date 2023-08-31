@@ -1,5 +1,5 @@
 {
-    "score": 0.36666666666666664,
+    "score": 0.37,
     "model_outputs": [
         {
             "id": 34,
@@ -167,7 +167,7 @@
             "question": "This SVG path element <path d=\"M 6.68,51.71 L 25.83,67.50 L 45.78,74.93 M 45.78,74.93 L 55.10,57.27 L 54.84,38.25 L 6.68,51.71\"/> draws a\nOptions:\n(A) circle\n(B) heptagon\n(C) hexagon\n(D) kite\n(E) line\n(F) octagon\n(G) pentagon\n(H) rectangle\n(I) sector\n(J) triangle",
             "correct_answer": "(G)",
             "model_answer": "The SVG path element contains multiple sets of coordinates, which suggests that it is drawing multiple lines. The \"M\" command indicates a move to a new coordinate, while the \"L\" command indicates a line to a new coordinate. Therefore, the path element is drawing multiple connected lines. Looking at the coordinates, it appears that the lines are forming a closed shape with 4 sides. However, the coordinates are not given in a way that allows us to easily determine the exact shape. Therefore, we cannot definitively answer this question based on the information given. The answer is (cannot be determined)",
-            "correct": false
+            "correct": 0.1
         },
         {
             "id": 245,
@@ -211,5 +211,6 @@
             "model_answer": "The given SVG path element starts with \"M\" which means it is a move command. It moves the pen to the point (11.79, 16.93) without drawing anything. Then it has an \"L\" command which means it draws a straight line to the point (56.17, 80.16). Therefore, the answer is (E) line.",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

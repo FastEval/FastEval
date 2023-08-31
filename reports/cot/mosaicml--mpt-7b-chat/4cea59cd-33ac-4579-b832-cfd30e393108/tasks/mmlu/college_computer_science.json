@@ -1,5 +1,5 @@
 {
-    "score": 0.6,
+    "score": 0.7,
     "model_outputs": [
         {
             "id": 17,
@@ -20,7 +20,7 @@
             "question": "In a pipelined RISC computer where all arithmetic instructions have the same CPI (cycles per instruction), which of the following actions would improve the execution time of a typical program?\nI. Increasing the clock cycle rate\nII. Disallowing any forwarding in the pipeline\nIII. Doubling the sizes of the instruction cache and the data cache without changing the clock cycle time\n\n(A) I only\n(B) II only\n(C) III only\n(D) I and III",
             "correct_answer": 3,
             "model_answer": ": \nThe answer is (D) I and III. \nTo improve the execution time of a typical program in a pipelined RISC computer, both increasing the clock cycle rate and doubling the sizes of the instruction cache and the data cache without changing the clock cycle time would be beneficial. \nHowever, increasing the clock cycle rate alone would not be sufficient, as it would only increase the number of instructions that can be executed per second, but not the amount of data that can be processed per clock cycle. \nDoubling the sizes of the instruction cache and the data cache without changing the clock cycle time would also not be sufficient, as it would increase the amount of data that needs to be fetched from and stored in the cache, which would still be limited by the clock cycle time. \nTherefore, the most effective solution would be to implement both actions, which would improve the overall performance of the computer by increasing the number of instructions that can be executed per second and the amount of data that can be processed per clock cycle.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 8,
@@ -71,5 +71,6 @@
             "model_answer": ": A starvation-free job-scheduling policy guarantees that no job waits indefinitely for service. This means that all jobs must be serviced eventually, without any jobs being stuck waiting for an indefinite amount of time. \nRound-robin is a scheduling policy where each job is given equal time to run on a single processor. This means that if there are multiple jobs waiting in a queue, each job will be given a fixed amount of time to run, and then the next job in the queue will be given its turn. This policy is not starvation-free because a job may be waiting in the queue for an indefinite amount of time before it is given its turn to run.\nPriority queuing is a scheduling policy where jobs are given priority based on their importance or urgency. This means that if there are multiple jobs waiting in a queue, the most important or urgent jobs will be given priority and run first. This policy is not starvation-free because a job may be waiting in the queue for an indefinite amount of time before it is given its turn to run.\nShortest job first is a scheduling policy where jobs are run in order of their size or duration. This means that the smallest or shortest job will be given priority and run first, and then the next smallest job will be given priority and run second, and so on. This policy is not starvation-free because a job may be waiting in the queue for an indefinite amount of time before it is given its turn to run.\nYoungest job first is a scheduling policy where jobs are run in order of their age or time of arrival. This means that the youngest job will be given priority and run first, and then the next youngest job will be given priority and run second, and so on. This policy is not starvation-free because a job may be waiting in the queue for an indefinite amount of time before it is given its turn to run.\nTherefore, the answer is (A) Round-robin.",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

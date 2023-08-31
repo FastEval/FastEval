@@ -172,12 +172,6 @@ def strip_string(string):
 
     return string
 
-def is_equiv(str1, str2):
-    try:
-        return strip_string(str1) == strip_string(str2)
-    except Exception:
-        return str1 == str2
-
 def extract_model_answer(model_answer):
     things_to_open_and_close = {
         '\\frac{': '}',
@@ -261,13 +255,19 @@ def extract_model_answer(model_answer):
 
     return answer
 
-def is_math_correct(model_answer, correct_answer):
-    correct_answer = remove_boxed(last_boxed_only_string(correct_answer))
-    model_answer_extracted = extract_model_answer(model_answer)
-    is_correct = is_equiv(model_answer_extracted, correct_answer)
-    #if not is_correct:
-    #    print('MODEL:   ' + model_answer)
-    #    print('EXTRACT: ' + model_answer_extracted)
-    #    print('CORRECT: ' + correct_answer)
-    #    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    return is_correct
+def is_math_correct(model_answer, correct_answer, question):
+    model_answer_lines = reversed(model_answer.split('\n'))
+    for line in model_answer_lines:
+        model_answer_extracted = extract_model_answer(line)
+        if len(model_answer_extracted.strip()) == 0:
+            continue
+
+        try:
+            model_answer_extracted = strip_string(model_answer_extracted)
+        except:
+            pass
+
+        correct_answer = strip_string(remove_boxed(last_boxed_only_string(correct_answer)))
+        return model_answer_extracted == correct_answer
+
+    return None

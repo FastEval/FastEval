@@ -1,5 +1,5 @@
 {
-    "score": 0.1,
+    "score": 0.14166666666666666,
     "model_outputs": [
         {
             "id": 34,
@@ -27,7 +27,7 @@
             "question": "Today, Andrew went to the clothing store. Between what times could they have gone?\nWe know that:\nAndrew woke up at 9am.\nDavid saw Andrew waiting at the train station from 9am to 12pm.\nEmily saw Andrew walking towards the Statue of Liberty from 12pm to 4pm.\nSarah saw Andrew walking in the garden from 4pm to 8pm.\nNancy saw Andrew fixing their computer at the electronic store from 9pm to 10pm.\nThe clothing store was closed after 10pm.\nBetween what times could Andrew have gone to the clothing store?\nOptions:\n(A) 9am to 12pm\n(B) 9pm to 10pm\n(C) 12pm to 4pm\n(D) 8pm to 9pm",
             "correct_answer": "(D)",
             "model_answer": "The answer is (D) 8pm to 9pm.\n\nHere's the step-by-step reasoning:\n1. We know that Andrew woke up at 9am.\n2. David saw Andrew waiting at the train station from 9am to 12pm.\n3. Emily saw Andrew walking towards the Statue of Liberty from 12pm to 4pm.\n4. Sarah saw Andrew walking in the garden from 4pm to 8pm.\n5. Nancy saw Andrew fixing their computer at the electronic store from 9pm to 10pm.\n6. The clothing store was closed after 10pm.\n7. We need to find the time when Andrew could have gone to the clothing store.\n8. Since Andrew was seen walking in the garden from 4pm to 8pm, it is possible that they went to the clothing store after 8pm.\n9. However, the clothing store was closed after 10pm, so Andrew could not have gone to the clothing store before 10pm.\n10. Therefore, the only possible time for Andrew to have gone to the clothing store is between 8pm and 9pm.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 195,
@@ -160,7 +160,7 @@
             "question": "Today, Andrew went to the coffee shop. Between what times could they have gone?\nWe know that:\nAndrew woke up at 8am.\nJames saw Andrew buying cookies at a bakery from 8am to 1pm.\nKimberly saw Andrew working at the office from 2pm to 3pm.\nSarah saw Andrew fixing their computer at the electronic store from 3pm to 5pm.\nThe coffee shop was closed after 5pm.\nBetween what times could Andrew have gone to the coffee shop?\nOptions:\n(A) 8am to 1pm\n(B) 2pm to 3pm\n(C) 1pm to 2pm\n(D) 3pm to 5pm",
             "correct_answer": "(C)",
             "model_answer": "Based on the given information, we know that Andrew woke up at 8am, and we have four different scenarios where they were seen at different times and places. We also know that the coffee shop was closed after 5pm. Therefore, the only time window when Andrew could have gone to the coffee shop is between 8am and 5pm. However, we cannot determine the exact time within that window since we do not have any information about when Andrew left their house or arrived at the coffee shop. Therefore, the answer is:\n\n(E) 8am to 5pm",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 155,
@@ -211,5 +211,6 @@
             "model_answer": "The coffee shop was closed after 10pm, so we know that William could not have gone to the coffee shop between 9pm and 10pm. \nWe also know that William woke up at 6am, so he could not have gone to the coffee shop between 6am and 9am because Susan saw him reading at the library during that time. \nLinda saw William waiting at the airport from 9am to 3pm, so William could not have gone to the coffee shop between 9am and 3pm. \nMark saw William playing tennis at the tennis court from 4pm to 6pm, so William could not have gone to the coffee shop between 4pm and 6pm. \nSamantha saw William working at the office from 6pm to 9pm, so William could not have gone to the coffee shop between 6pm and 9pm. \nTherefore, the only time frame that William could have gone to the coffee shop is between 9pm and 10pm. \nThe answer is (D) 9am to 3pm.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

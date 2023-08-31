@@ -1,12 +1,12 @@
 {
-    "score": 0.1,
+    "score": 0.2,
     "model_outputs": [
         {
             "id": 17,
             "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
             "correct_answer": 0,
             "model_answer": "The structural assumption that most affects the trade-off between underfitting and overfitting in a neural network is (A) the number of hidden nodes.\n\nThe reason for this is that the number of hidden nodes directly affects the capacity of the model, which is a measure of how well the model can fit the training data. A model with more hidden nodes can fit the training data better, but it also has a higher risk of overfitting, as it can fit the noise in the training data as well. On the other hand, a model with fewer hidden nodes has a lower capacity and is more likely to underfit the training data, but it also has a lower risk of overfitting.\n\nTherefore, the choice of the number of hidden nodes is a critical trade-off in neural network design, and it affects the trade-off between underfitting and overfitting more than the other options listed.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 72,
@@ -71,5 +71,6 @@
             "model_answer": "To determine the truth values of Statements 1 and 2, we need to understand the definitions and properties of L1 and L2 regularization, as well as the concepts of residual connections and the architectures mentioned in the statements.\n\nStatement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nL2 regularization adds a term to the loss function that penalizes the magnitude of the model's weights. This encourages the model to have smaller weights, which can result in sparser solutions. On the other hand, L1 regularization adds a term that only penalizes the magnitude of the absolute values of the model's weights, which can result in sparse solutions.\n\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nResidual connections are a technique used in deep learning architectures to improve the training of neural networks. They involve adding a \"residual\" layer to the network that takes the input and output of the next layer as inputs, and computes the difference between them. This allows the network to \"skip\" over the difficult parts of the computation and focus on the simpler parts, which can lead to faster training and better performance.\n\nResidual connections are commonly used in ResNets (Residual Neural Networks) and Transformers (a type of neural network used for natural language processing).\n\nNow, let's analyze the statements:\n\n(A) True, True: This option is not possible because L2 regularization and residual connections are two different concepts.\n\n(B) False, False: This option is also not possible because L2 regularization and residual connections are two different concepts.\n\n(C) True, False: This option is possible because L2 regularization can make models more sparse, but residual connections are not guaranteed to make models more sparse.\n\n(D) False, True: This option is also possible because residual connections are commonly used in ResNets and Transformers, but L2 regularization is not necessarily used in these architectures.\n\nTherefore, the answer is (C) True, False.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

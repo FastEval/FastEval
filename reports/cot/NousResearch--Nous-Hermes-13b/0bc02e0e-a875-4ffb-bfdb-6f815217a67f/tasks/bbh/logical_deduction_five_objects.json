@@ -1,5 +1,5 @@
 {
-    "score": 0.3333333333333333,
+    "score": 0.44,
     "model_outputs": [
         {
             "id": 34,
@@ -48,14 +48,14 @@
             "question": "The following paragraphs each describe a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are five books: a brown book, a yellow book, an orange book, a green book, and a gray book. The green book is to the left of the gray book. The brown book is the third from the left. The gray book is the second from the right. The yellow book is to the left of the green book.\nOptions:\n(A) The brown book is the second from the right\n(B) The yellow book is the second from the right\n(C) The orange book is the second from the right\n(D) The green book is the second from the right\n(E) The gray book is the second from the right",
             "correct_answer": "(E)",
             "model_answer": "The green book is the second from the right. \nExplanation: \nFrom the given statements, we can deduce that the brown book is the third from the left, and the yellow book is to the left of the green book. This means that the green book must be either the second or third book from the left. \nIf the green book is the third book from the left, then the brown book would be the second book from the left, which contradicts the statement that the brown book is the third from the left. Therefore, the green book must be the second book from the left. \nThe gray book is the second from the right, and the orange book is the third from the right. This means that the green book is the second book from the left, and the gray book is the second from the right. \nTherefore, the green book is the second from the right.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 30,
             "question": "The following paragraphs each describe a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a branch, there are five birds: a quail, a hummingbird, a blue jay, a hawk, and a robin. The robin is the second from the left. The quail is the leftmost. The blue jay is to the left of the hummingbird. The hawk is the third from the left.\nOptions:\n(A) The quail is the rightmost\n(B) The hummingbird is the rightmost\n(C) The blue jay is the rightmost\n(D) The hawk is the rightmost\n(E) The robin is the rightmost",
             "correct_answer": "(B)",
             "model_answer": "The answer is (B) The hummingbird is the rightmost. \nExplanation: \nThe paragraph describes a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a branch, there are five birds: a quail, a hummingbird, a blue jay, a hawk, and a robin. The robin is the second from the left. The quail is the leftmost. The blue jay is to the left of the hummingbird. The hawk is the third from the left. \nFrom the given information, we can deduce that the hummingbird is the one that is to the left of the blue jay. Since the blue jay is the second object from the left, the hummingbird must be the third object from the left. Therefore, the hummingbird is the rightmost object in the set.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 126,
@@ -139,7 +139,7 @@
             "question": "The following paragraphs each describe a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a branch, there are five birds: a robin, an owl, a quail, a hummingbird, and a crow. The crow is to the right of the robin. The quail is the leftmost. The hummingbird is to the right of the owl. The crow is the third from the left.\nOptions:\n(A) The robin is the third from the left\n(B) The owl is the third from the left\n(C) The quail is the third from the left\n(D) The hummingbird is the third from the left\n(E) The crow is the third from the left",
             "correct_answer": "(E)",
             "model_answer": "The answer is (E) The crow is the third from the left. \nExplanation: \nFrom the given statements, we can deduce that the crow is the third from the left. \n- The crow is to the right of the robin, which means it is not the leftmost or the second from the left. \n- The hummingbird is to the right of the owl, which means it is not the third from the left. \n- The quail is the leftmost, which means it cannot be the third from the left. \nTherefore, the crow must be the third from the left.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 213,
@@ -160,7 +160,7 @@
             "question": "The following paragraphs each describe a set of five objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are five books: a green book, a blue book, a white book, a purple book, and a yellow book. The blue book is to the right of the yellow book. The white book is to the left of the yellow book. The blue book is the second from the right. The purple book is the second from the left.\nOptions:\n(A) The green book is the second from the right\n(B) The blue book is the second from the right\n(C) The white book is the second from the right\n(D) The purple book is the second from the right\n(E) The yellow book is the second from the right",
             "correct_answer": "(B)",
             "model_answer": "The answer is (B) The blue book is the second from the right. \nReasoning: \nFrom the paragraph, we know that the blue book is to the right of the yellow book. The yellow book is the fifth book from the right, so the blue book must be the fourth book from the right. \nThe white book is to the left of the yellow book, so it must be the third book from the right. \nThe green book is the first book from the right, and the purple book is the third book from the left. \nTherefore, the blue book is the second book from the right.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 155,
@@ -211,5 +211,6 @@
             "model_answer": "To answer this question, we need to analyze the given statements and determine which option corresponds to the description of the oldest vehicle. \nFrom the statements, we know that the sedan is the second-newest and the bus is the oldest. Therefore, the bus must be the oldest option. \nSo the final answer is (D) The bus is the oldest.",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

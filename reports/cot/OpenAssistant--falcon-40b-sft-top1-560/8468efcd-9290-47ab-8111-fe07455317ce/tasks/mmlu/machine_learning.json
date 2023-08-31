@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.35,
     "model_outputs": [
         {
             "id": 17,
@@ -48,7 +48,7 @@
             "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
             "correct_answer": 1,
             "model_answer": "Statement 1:\nAfter mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this).\n\nStatement 2:\nThe VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\nTo answer this question, we need to understand the concepts behind statement 1 and 2, and how they relate to each other.\n\nStatement 1 is talking about the use of a kernel function to map data into a higher-dimensional feature space, and how this can improve the performance of a 1-NN classifier when using unweighted Euclidean distance as the distance metric.\n\nStatement 2 is talking about the concept of VC dimension, and how it relates to the complexity of a classifier. In particular, it is comparing the VC dimension of a Perceptron (a simple linear classifier) to that of a simple linear SVM.\n\nBased on these statements, we can see that they are not directly related, and it is not possible to determine the answer simply by comparing them.\n\nHowever, we can make some inferences based on the information provided:\n\n1. Mapping data into a higher-dimensional feature space can potentially improve the performance of a 1-NN classifier. This suggests that the use of a kernel function can be beneficial in certain situations.\n\n2. The VC dimension of a Perceptron is a measure of its complexity, and a simple linear SVM has a lower VC dimension, which suggests that it may be a more efficient classifier in some cases.\n\nBased on these inferences, we can say that the answer to the question is not necessarily true or false, and it depends on the specific situation and the requirements of the problem at hand. In some cases, mapping data into a higher-dimensional feature space and using a 1-NN classifier may lead to better performance, while in other cases a simpler classifier such as a linear SVM may be more appropriate.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 15,
@@ -62,7 +62,7 @@
             "question": "What are support vectors?\n\n(A) The examples farthest from the decision boundary.\n(B) The only examples necessary to compute f(x) in an SVM.\n(C) The data centroid.\n(D) All the examples that have a non-zero weight \u03b1k in a SVM.",
             "correct_answer": 1,
             "model_answer": "Support vectors are a subset of the training data used in a support vector machine (SVM) algorithm to classify new data points. They are the data points that are closest to the decision boundary, which is the line or plane that separates the different classes of data.\n\nIn an SVM, the goal is to find the best hyperplane that separates the different classes of data. The decision boundary is the line or plane that separates the classes. The support vectors are the data points that lie on or near the decision boundary. They are important because they help to define the shape of the decision boundary.\n\nThe support vectors are not necessarily the examples farthest from the decision boundary. They can be examples that are close to the decision boundary or examples that are far from the decision boundary, as long as they help to define the decision boundary.\n\nThe support vectors are not the only examples necessary to compute f(x) in an SVM. f(x) is the function that is used to classify new data points. It is a combination of the support vectors and the hyperplane that separates the classes.\n\nThe data centroid is the average of all the examples in the training data. It is not the same as the support vectors. The support vectors help to define the decision boundary, while the data centroid is used to compute the distance of a new data point from the decision boundary.\n\nAll the examples that have a non-zero weight \u03b1k in a SVM are not necessarily support vectors. Some examples may have a zero weight \u03b1k, which means that they do not contribute to the decision boundary.\n\nIn summary, support vectors are a subset of the training data that are closest to the decision boundary and help to define the shape of the decision boundary in an SVM.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 57,
@@ -71,5 +71,6 @@
             "model_answer": "Statement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nExplanation:\nL1 regularization encourages the coefficients of a linear model to be small in magnitude, which can lead to a sparse model where only a few coefficients are non-zero. On the other hand, L2 regularization encourages the coefficients to be small in magnitude, which can lead to a more compact model where many coefficients are small but not necessarily zero. In general, L2 regularization tends to produce models that are less sparse than L1 regularization.\n\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nExplanation:\nResidual connections are a type of shortcut connection in neural networks that bypasses some of the layers and directly connects the input to the output. They can be found in both ResNets and Transformers. In ResNets, residual connections are used to improve the training stability and reduce the risk of overfitting. In Transformers, residual connections are used to improve the model's ability to capture long-range dependencies.\n\nConclusion:\nStatement 1 is true and statement 2 is also true. Therefore, the correct answer is (C) True, False.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

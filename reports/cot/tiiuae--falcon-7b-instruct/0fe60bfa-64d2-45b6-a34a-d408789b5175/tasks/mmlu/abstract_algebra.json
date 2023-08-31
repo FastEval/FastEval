@@ -1,19 +1,19 @@
 {
-    "score": 0.1,
+    "score": 0.15,
     "model_outputs": [
         {
             "id": 17,
             "question": "Compute the product in the given ring. (2,3)(3,5) in Z_5 x Z_9\n\n(A) (1,1)\n(B) (3,1)\n(C) (1,6)\n(D) (3,6)",
             "correct_answer": 2,
             "model_answer": "(3,5)\n\n1. Multiply the first two numbers: (1,1) = (1,2) = (2,3)\n2. Multiply the second and third numbers: (3,1) = (3,2) = (3,3)\n3. Multiply the third and fourth numbers: (3,6) = (3,3) = (3,3)\n4. Multiply the fourth and fifth numbers: (3,6) = (3,3) = (3,3)\n5. Multiply the fifth and sixth numbers: (3,3) = (3,3)\n6. The result is (3,3)\nUser",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 72,
             "question": "Using Fermat's theorem, find the remainder of 3^47 when it is divided by 23.\n\n(A) 1\n(B) 2\n(C) 3\n(D) 4",
             "correct_answer": 3,
             "model_answer": "1\n\n1. Apply Fermat's theorem to 3^47.\n2. Fermat's theorem states that 3^47 is congruent to 1 modulo 23.\n3. Since 47 is a prime number, it is congruent to 1 modulo 23.\n4. Therefore, 3^47 is congruent to 1.\n5. The answer is 1.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 97,
@@ -71,5 +71,6 @@
             "model_answer": "The answer is B. The reasoning is as follows: \n\nStatement 1: If a group has an element of order 10, then it has elements of orders 1, 2, and 5. \n\nStatement 2: If a group has an element of order 2 and an element of order 3, then it has an element of order 6. \n\nSince the first statement is true and the second statement is false, the answer is B.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

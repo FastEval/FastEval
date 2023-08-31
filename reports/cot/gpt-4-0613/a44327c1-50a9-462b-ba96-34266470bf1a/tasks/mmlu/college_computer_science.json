@@ -1,5 +1,5 @@
 {
-    "score": 0.8,
+    "score": 0.825,
     "model_outputs": [
         {
             "id": 17,
@@ -62,7 +62,7 @@
             "question": "Let T be a depth-first search tree of a connected undirected graph G. For each vertex v of T, let pre(v) be the number of nodes visited up to and including v during a preorder traversal of T, and post(v) be the number of nodes visited up to and including v during a postorder traversal of T. The lowest common ancestor of vertices u and v in T is a vertex w of T such that w is an ancestor of both u and v, and no child of w is an ancestor of both u and v. Let (u, v) be an edge in G that is not in T, such that pre(u) < pre(v). Which of the following statements about u and v must be true?\nI. post(u) < post(v)\nII. u is an ancestor of v in T.\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\n\n(A) I only\n(B) II only\n(C) III only\n(D) II and III",
             "correct_answer": 3,
             "model_answer": "Let's analyze each statement one by one:\n\nI. post(u) < post(v)\nIn a depth-first search, if u is visited before v (pre(u) < pre(v)), then v will be finished before u (post(u) > post(v)). This is because depth-first search explores as far as possible along each branch before backtracking. So, this statement is false.\n\nII. u is an ancestor of v in T.\nThis statement is not necessarily true. The edge (u, v) is not in the tree T, so we cannot infer that u is an ancestor of v in T. It is possible that u and v are in different branches of the tree. So, this statement is also false.\n\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\nThis statement is also not necessarily true. The lowest common ancestor of u and v in T could be any node that is an ancestor of both u and v. It is not necessarily u. So, this statement is also false.\n\nTherefore, none of the statements I, II, and III are necessarily true.\n\nSo, the answer is:\n\n(E) None of the above.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 83,
@@ -71,5 +71,6 @@
             "model_answer": "Let's analyze each of the given job-scheduling policies:\n\n(A) Round-robin: In this policy, each job is given an equal amount of CPU time in turns. Once a job has had its turn, it is sent to the back of the queue. This ensures that no job waits indefinitely for service, making it a starvation-free policy.\n\n(B) Priority queuing: In this policy, jobs are scheduled based on their priority. If high-priority jobs keep coming, then low-priority jobs may never get serviced. Therefore, this policy is not starvation-free.\n\n(C) Shortest job first: In this policy, the job with the shortest estimated run-time is scheduled next. If short jobs keep coming, then long jobs may never get serviced. Therefore, this policy is not starvation-free.\n\n(D) Youngest job first: In this policy, the most recently arrived job is scheduled next. If jobs keep coming, then the jobs that arrived earlier may never get serviced. Therefore, this policy is not starvation-free.\n\nSo, the only starvation-free job-scheduling policy among the given options is round-robin.\n\nAnswer: (A)",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

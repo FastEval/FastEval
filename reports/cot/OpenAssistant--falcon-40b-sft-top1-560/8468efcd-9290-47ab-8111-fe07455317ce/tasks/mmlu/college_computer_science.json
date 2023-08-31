@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.325,
     "model_outputs": [
         {
             "id": 17,
@@ -69,7 +69,8 @@
             "question": "A starvation-free job-scheduling policy guarantees that no job waits indefinitely for service. Which of the following job-scheduling policies is starvation-free?\n\n(A) Round-robin\n(B) Priority queuing\n(C) Shortest job first\n(D) Youngest job first",
             "correct_answer": 0,
             "model_answer": "To determine which of the given job-scheduling policies is starvation-free, we need to analyze their properties and how they handle job requests.\n\n1. Round-robin: In round-robin scheduling, each job is given an equal time slice before the next job is scheduled. While this policy is simple and fair, it does not guarantee that no job will wait indefinitely for service. If a job takes longer than its time slice, it will be preempted and the next job in the queue will be scheduled. This can lead to starvation if a job repeatedly takes longer than its time slice.\n\n2. Priority queuing: Priority queuing assigns a priority to each job and schedules them based on their priority. Higher-priority jobs are given preference over lower-priority jobs. While this policy can prevent starvation for high-priority jobs, it may still lead to starvation for low-priority jobs if there are too many high-priority jobs in the queue.\n\n3. Shortest job first: Shortest job first (SJF) schedules the job with the shortest estimated completion time. This policy can prevent starvation, as the shortest job will always be scheduled first. However, if the estimated completion times are not accurate, this policy may not be effective.\n\n4. Youngest job first: Youngest job first (YJF) schedules the job that has been in the queue for the shortest amount of time. This policy can also prevent starvation, as the job that has been waiting the longest will always be scheduled first. However, if there are many short jobs in the queue, this policy may not be effective.\n\nBased on the analysis, only Shortest job first (SJF) is starvation-free. This policy ensures that the job with the shortest estimated completion time is always scheduled first, preventing any job from waiting indefinitely for service.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

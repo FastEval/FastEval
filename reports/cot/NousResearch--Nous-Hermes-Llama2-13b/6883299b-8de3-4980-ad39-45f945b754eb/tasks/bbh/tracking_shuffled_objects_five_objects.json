@@ -1,12 +1,12 @@
 {
-    "score": 0.16666666666666666,
+    "score": 0.18000000000000002,
     "model_outputs": [
         {
             "id": 34,
             "question": "Alice, Bob, Claire, Dave, and Eve are holding a white elephant gift exchange. At the start of the event, they are each holding a present of a different color: Alice has a blue present, Bob has a yellow present, Claire has a black ball, Dave has a purple present, and Eve has a red present.\nAs the event progresses, pairs of people swap gifts. First, Bob and Claire swap their gifts. Then, Dave and Eve swap their gifts. Then, Bob and Claire swap their gifts. Then, Claire and Alice swap their gifts. Finally, Eve and Dave swap their gifts. At the end of the event, Bob has the\nOptions:\n(A) blue present\n(B) yellow present\n(C) black ball\n(D) purple present\n(E) red present",
             "correct_answer": "(B)",
             "model_answer": "Let's analyze the swaps that happened during the event:\n1. Bob and Claire swap gifts. Since Bob has a yellow present and Claire has a black ball, they swap places. So, Bob now has a black ball and Claire has a yellow present.\n2. Dave and Eve swap gifts. Since Dave has a purple present and Eve has a red present, they swap places. So, Dave now has a red present and Eve has a purple present.\n3. Bob and Claire swap gifts again. Since Bob now has a black ball and Claire has a yellow present, they swap places. So, Bob now has a yellow present and Claire has a black ball.\n4. Claire and Alice swap gifts. Since Claire now has a yellow present and Alice has a blue present, they swap places. So, Claire now has a blue present and Alice has a yellow present.\n5. Eve and Dave swap gifts. Since Eve now has a purple present and Dave has a red present, they swap places. So, Eve now has a red present and Dave has a purple present.\nAt the end of the event, Bob has the yellow present, Claire has the blue present, Dave has the red present, and Eve has the purple present.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 145,
@@ -76,7 +76,7 @@
             "question": "Alice, Bob, Claire, Dave, and Eve are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Hound of the Baskervilles, Bob gets The Fellowship of the Ring, Claire gets Ulysses, Dave gets Lolita, and Eve gets Moby Dick.\nAs the semester proceeds, they start trading around the new books. First, Bob and Alice swap books. Then, Claire and Eve swap books. Then, Claire and Dave swap books. Then, Bob and Dave swap books. Finally, Claire and Eve swap books. At the end of the semester, Claire has\nOptions:\n(A) Hound of the Baskervilles\n(B) The Fellowship of the Ring\n(C) Ulysses\n(D) Lolita\n(E) Moby Dick",
             "correct_answer": "(C)",
             "model_answer": "To determine what book Claire has at the end of the semester, we need to track the book exchanges. \n1. Bob and Alice swap books, so Bob now has Hound of the Baskervilles and Alice has The Fellowship of the Ring.\n2. Claire and Eve swap books, so Claire now has Moby Dick and Eve has Ulysses.\n3. Claire and Dave swap books, so Claire now has Lolita and Dave has Ulysses.\n4. Bob and Dave swap books, so Bob now has Lolita and Dave has The Fellowship of the Ring.\n5. Claire and Eve swap books again, so Claire now has The Fellowship of the Ring and Eve has Moby Dick.\nAt the end of the semester, Claire has The Fellowship of the Ring.",
-            "correct": false
+            "correct": 0.2
         },
         {
             "id": 120,
@@ -211,5 +211,6 @@
             "model_answer": "Let's analyze the trades that happened in the game:\n1. Dave and Alice swap balls: Dave's pink ball goes to Alice, and Alice's orange ball goes to Dave.\n2. Bob and Claire swap balls: Bob's green ball goes to Claire, and Claire's blue ball goes to Bob.\n3. Bob and Alice swap balls: Bob's green ball goes to Alice, and Alice's orange ball goes to Bob.\n4. Alice and Claire swap balls: Alice's orange ball goes to Claire, and Claire's blue ball goes to Alice.\n5. Eve and Bob swap balls: Eve's purple ball goes to Bob, and Bob's green ball goes to Eve.\nAt the end of the game, Bob has the green ball, which was originally Claire's and then Bob's. Therefore, the correct answer is (B) green ball.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

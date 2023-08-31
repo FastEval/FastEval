@@ -1,5 +1,5 @@
 {
-    "score": 0.5,
+    "score": 0.6,
     "model_outputs": [
         {
             "id": 17,
@@ -62,7 +62,7 @@
             "question": "Let T be a depth-first search tree of a connected undirected graph G. For each vertex v of T, let pre(v) be the number of nodes visited up to and including v during a preorder traversal of T, and post(v) be the number of nodes visited up to and including v during a postorder traversal of T. The lowest common ancestor of vertices u and v in T is a vertex w of T such that w is an ancestor of both u and v, and no child of w is an ancestor of both u and v. Let (u, v) be an edge in G that is not in T, such that pre(u) < pre(v). Which of the following statements about u and v must be true?\nI. post(u) < post(v)\nII. u is an ancestor of v in T.\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\n\n(A) I only\n(B) II only\n(C) III only\n(D) II and III",
             "correct_answer": 3,
             "model_answer": "To answer this question, let's break it down step-by-step:\n\n1. We are given a depth-first search tree T of a connected undirected graph G.\n2. We define pre(v) and post(v) for each vertex v in T.\n3. We define the lowest common ancestor of vertices u and v in T.\n4. We are given an edge (u, v) in G that is not in T, such that pre(u) < pre(v).\n\nNow, let's analyze the statements:\n\nI. post(u) < post(v)\nII. u is an ancestor of v in T.\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\n\nStatement I: We know that pre(u) < pre(v), which means that u is visited before v during a preorder traversal of T. Since preorder traversal visits the vertices in the order of their depth-first search tree, this implies that u is visited before v in the tree. However, this statement does not provide any information about postorder traversal.\n\nStatement II: We know that (u, v) is an edge in G that is not in T. This means that u is not an ancestor of v in T.\n\nStatement III: We know that w is the lowest common ancestor of u and v in T. This means that w is an ancestor of both u and v, and no child of w is an ancestor of both u and v.\n\nNow, let's analyze the options:\n\n(A) I only: This option is incorrect because it only considers the preorder traversal, but we need to consider both preorder and postorder traversals.\n\n(B) II only: This option is incorrect because it only considers the fact that (u, v) is not in T, but we need to consider the relationship between u and v in T.\n\n(C) III only: This option is incorrect because it only considers the lowest common ancestor of u and v in T, but we need to consider the relationship between u and v in T.\n\n(D) II and III: This option is incorrect because it only considers the relationship between u and v in T, but we need to consider the preorder traversal.\n\nTherefore, the correct answer is:\n\n(E) None of the above\n\nThe given statements do not provide enough information to determine the relationship between u and v in T.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 83,
@@ -71,5 +71,6 @@
             "model_answer": "To determine which job-scheduling policy is starvation-free, let's analyze each policy step-by-step:\n\n1. Round-robin: In this policy, each job gets served in a fixed order, and once a job is completed, the next job in the sequence gets served. This policy ensures that no job waits indefinitely for service.\n\n2. Priority queuing: In this policy, jobs are sorted based on their priority, and the highest priority job gets served first. If a job with a higher priority is available, it will be served before a job with a lower priority. This policy may not guarantee that no job waits indefinitely for service if there are jobs with lower priorities that never get served.\n\n3. Shortest job first: In this policy, jobs are sorted based on their completion time, and the job with the shortest completion time gets served first. This policy ensures that no job waits indefinitely for service, as the shortest job will be served first.\n\n4. Youngest job first: In this policy, jobs are sorted based on their creation time, and the job with the youngest creation time gets served first. This policy may not guarantee that no job waits indefinitely for service if there are jobs with older creation times that never get served.\n\nBased on the analysis, the starvation-free job-scheduling policy is:\n\n(A) Round-robin\n\nAnswer: (A)",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

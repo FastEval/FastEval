@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.425,
     "model_outputs": [
         {
             "id": 17,
@@ -34,7 +34,7 @@
             "question": "Bob writes down a number between 1 and 1,000. Mary must identify that number by asking \"yes/no\" questions of Bob. Mary knows that Bob always tells the truth. If Mary uses an optimal strategy, then she will determine the answer at the end of exactly how many questions in the worst case?\n\n(A) 1,000\n(B) 999\n(C) 500\n(D) 10",
             "correct_answer": 3,
             "model_answer": "First, we need to understand the problem. Bob has written down a number between 1 and 1,000, and Mary needs to identify that number by asking \"yes/no\" questions. The goal is to determine the number in the least number of questions possible.\n\nStep 1: Start with the first question\nMary can start by asking a question that will divide the possible numbers in half. For example, she can ask if the number is greater than 500. This question will eliminate half of the possible numbers, leaving 500 remaining possibilities.\n\nStep 2: Continue the process\nNow, Mary can ask another question that will again divide the remaining possibilities in half. For example, she can ask if the number is greater than 250. This will eliminate another 250 possibilities, leaving 250 remaining possibilities.\n\nStep 3: Repeat the process\nMary can continue this process of asking questions that divide the remaining possibilities in half until she is left with only one possibility. For example, she can ask if the number is greater than 125, then greater than 62.5, and so on.\n\nStep 4: Count the questions\nTo find the total number of questions Mary needs to ask, we can count the number of times she divides the possibilities in half. In this case, she divides the possibilities 10 times (1000/500, 500/250, 250/125, 125/62.5, 62.5/31.25, 31.25/15.625, 15.625/7.8125, 7.8125/3.90625, 3.90625/1.953125, 1.953125/976.5625).\n\nStep 5: Provide the final answer\nSo, in the worst case, Mary needs to ask 10 questions to determine the number Bob has written down. Therefore, the answer is (D) 10.\n\nThe answer is: 10.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 15,
@@ -69,7 +69,8 @@
             "question": "A starvation-free job-scheduling policy guarantees that no job waits indefinitely for service. Which of the following job-scheduling policies is starvation-free?\n\n(A) Round-robin\n(B) Priority queuing\n(C) Shortest job first\n(D) Youngest job first",
             "correct_answer": 0,
             "model_answer": "To determine which job-scheduling policy is starvation-free, we need to analyze each policy and see if there are any scenarios where a job could wait indefinitely for service.\n\n1. Round-robin: In this policy, jobs are served in a circular order, with each job getting an equal share of the CPU time. This policy is starvation-free because every job gets a chance to be served, and no job is left waiting indefinitely.\n\n2. Priority queuing: In this policy, jobs are served based on their priority levels. Higher-priority jobs are served first, and lower-priority jobs may have to wait longer for service. However, this policy is not starvation-free because lower-priority jobs can potentially wait indefinitely if higher-priority jobs keep arriving and being served.\n\n3. Shortest job first: In this policy, jobs are served based on their estimated execution times, with the shortest jobs being served first. This policy is starvation-free because every job, regardless of its size, gets a chance to be served. No job will wait indefinitely, as the shortest jobs are always served first.\n\n4. Youngest job first: In this policy, jobs are served based on their arrival times, with the youngest jobs being served first. This policy is starvation-free because every job, regardless of its age, gets a chance to be served. No job will wait indefinitely, as the youngest jobs are always served first.\n\nBased on the analysis above, the job-scheduling policies that are starvation-free are Round-robin, Shortest job first, and Youngest job first.\n\nThe answer is: Shortest job first and Youngest job first are also starvation-free.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

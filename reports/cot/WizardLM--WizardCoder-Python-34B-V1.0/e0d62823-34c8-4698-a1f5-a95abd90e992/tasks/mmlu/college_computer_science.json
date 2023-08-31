@@ -1,12 +1,12 @@
 {
-    "score": 0.4,
+    "score": 0.55,
     "model_outputs": [
         {
             "id": 17,
             "question": "The language {ww | w in (0 + 1)*} is\n\n(A) not accepted by any Turing machine\n(B) accepted by some Turing machine, but by no pushdown automaton\n(C) accepted by some pushdown automaton, but not context-free\n(D) context-free, but not regular",
             "correct_answer": 1,
             "model_answer": "The language {ww | w in (0 + 1)*} is accepted by some Turing machine, but by no pushdown automaton.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 72,
@@ -48,7 +48,7 @@
             "question": "Which of the following language features requires that stack-based storage allocation be used rather than static allocation?\n\n(A) Recursive procedures\n(B) Arbitrary goto's\n(C) Two-dimensional arrays\n(D) Integer-valued functions",
             "correct_answer": 0,
             "model_answer": "The correct answer is (A) Recursive procedures. \r\n\r\nExplanation:\r\n\r\nRecursive procedures require that stack-based storage allocation be used because each recursive call creates a new stack frame on the call stack, which is a region of memory used for storing local variables and return addresses. In contrast, static allocation involves allocating memory for variables at compile time and does not require the use of the call stack. Therefore, if a language feature requires the use of the call stack, it cannot be implemented using static allocation.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 57,
@@ -69,7 +69,8 @@
             "question": "A starvation-free job-scheduling policy guarantees that no job waits indefinitely for service. Which of the following job-scheduling policies is starvation-free?\n\n(A) Round-robin\n(B) Priority queuing\n(C) Shortest job first\n(D) Youngest job first",
             "correct_answer": 0,
             "model_answer": "To determine whether a job-scheduling policy is starvation-free or not, we need to consider the following two conditions:\r\n\r\n1. No job should wait indefinitely for service.\r\n2. All jobs should eventually be scheduled for execution.\r\n\r\nNow, let's evaluate each of the given job-scheduling policies to check if they are starvation-free or not:\r\n\r\n1. Round-robin: In round-robin scheduling, each job is assigned a fixed time quantum (time slice) and is scheduled in a circular fashion. This means that each job gets a chance to run for a fixed amount of time before being preempted and allowing the next job to run. This ensures that no job waits indefinitely for service, as each job is guaranteed a time slice to run. However, it is possible that a lower-priority job may keep getting preempted by higher-priority jobs, leading to starvation. Therefore, round-robin scheduling is not starvation-free.\r\n\r\n2. Priority queuing: In priority queuing, jobs are assigned priorities based on their importance or urgency. The scheduler always selects the highest-priority job for execution. This ensures that no job waits indefinitely for service, as the highest-priority job will always be scheduled first. However, it is possible that a lower-priority job may never get scheduled if there are always higher-priority jobs in the queue. Therefore, priority queuing is not starvation-free.\r\n\r\n3. Shortest job first: In shortest job first scheduling, the scheduler selects the shortest job from the queue for execution. This ensures that no job waits indefinitely for service, as the shortest job will always be scheduled first. However, it is possible that a longer job may keep getting preempted by shorter jobs, leading to starvation. Therefore, shortest job first scheduling is not starvation-free.\r\n\r\n4. Youngest job first: In youngest job first scheduling, the scheduler selects the youngest job (i.e., the job that was submitted first) from the queue for execution. This ensures that no job waits indefinitely for service, as the youngest job will always be scheduled first. However, it is possible that an older job may keep getting preempted by younger jobs, leading to starvation. Therefore, youngest job first scheduling is not starvation-free.\r\n\r\nBased on the above analysis, we can conclude that none of the given job-scheduling policies are starvation-free.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

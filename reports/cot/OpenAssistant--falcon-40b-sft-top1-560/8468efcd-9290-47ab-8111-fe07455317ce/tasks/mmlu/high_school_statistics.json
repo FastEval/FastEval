@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.325,
     "model_outputs": [
         {
             "id": 34,
@@ -13,7 +13,7 @@
             "question": "A teacher's union and a school district are negotiating salaries for the coming year. The teachers want more money, and the district, claiming, as always, budget constraints, wants to pay as little as possible. The district, like most, has a large number of moderately paid teachers and a few highly paid administrators. The salaries of all teachers and administrators are included in trying to figure out, on average, how much the professional staff currently earn. Which of the following would the teachers' union be most likely to quote during negotiations?\n\n(A) The mean of all the salaries.\n(B) The mode of all the salaries.\n(C) The standard deviation of all the salaries.\n(D) The median of all the salaries.",
             "correct_answer": 3,
             "model_answer": "The teachers' union would most likely quote the median of all the salaries during negotiations.\n\nThe median is a measure of central tendency that represents the middle value in a set of data, where half of the values are above and half are below it. It is a more robust measure of central tendency than the mean, which can be skewed by outliers.\n\nIn this case, the salaries of the highly paid administrators are likely to be much higher than those of the majority of teachers, leading to a high mean but a low median. Quoting the median would highlight the fact that the majority of teachers are earning relatively low salaries, and could be used to argue for a fairer distribution of salaries.\n\nTherefore, the teachers' union would be most likely to quote the median of all the salaries during negotiations to support their demand for higher pay.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 205,
@@ -71,5 +71,6 @@
             "model_answer": "To answer this question, we need to use the binomial distribution.\n\nThe probability of selecting a specific number of women out of 12 jurors is given by the binomial distribution:\n\nP(X = k) = nCk * p^k * (1 - p)^(n - k)\n\nwhere n is the number of jurors (12), p is the probability of selecting a woman (0.3), and k is the number of women selected (at least 3).\n\nWe can calculate the probability of selecting 0, 1, 2, 3, or 4 women:\n\n- P(X = 0) = (12C0) * (0.3)^0 * (1 - 0.3)^12 = 0.168\n- P(X = 1) = (12C1) * (0.3)^1 * (1 - 0.3)^11 = 0.504\n- P(X = 2) = (12C2) * (0.3)^2 * (1 - 0.3)^10 = 0.168\n- P(X = 3) = (12C3) * (0.3)^3 * (1 - 0.3)^9 = 0.168\n- P(X = 4) = (12C4) * (0.3)^4 * (1 - 0.3)^8 = 0.084\n\nAdding these probabilities together gives us the total probability of selecting at least 3 women:\n\nP(X >= 3) = P(X = 0) + P(X = 1) + P(X = 2) + P(X = 3) + P(X = 4) = 0.168 + 0.504 + 0.168 + 0.168 + 0.084 = 1.000\n\nTherefore, the probability of selecting a jury of 12 that meets the requirements of the trial is 1, or 100%.\n\nThe answer is (A).",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

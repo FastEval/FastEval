@@ -1,5 +1,5 @@
 {
-    "score": 0.161,
+    "score": 0.164,
     "model_outputs": [
         {
             "id": 1100,
@@ -1406,7 +1406,7 @@
             "question": "Bob can travel $m$ miles in $h$ hours on his bicycle. At this rate, how many hours would it take him to travel $h$ miles? Express your answer in terms of $m$ and $h$.",
             "correct_answer": "Since Bob travels $m$ miles in $h$ hours, he travels $m/h$ miles in 1 hour.  Therefore, in order to travel $h$ miles, he must travel for $h/(m/h) = \\boxed{\\frac{h^2}{m}}$ hours.",
             "model_answer": "To solve this problem, we can use the formula:\n\ndistance = speed \u00d7 time\n\nWe know that Bob can travel m miles in h hours, so we can write the equation as:\n\nm = speed \u00d7 h\n\nWe want to find out how many hours it would take him to travel h miles, so we need to rearrange the equation to solve for time:\n\nh = m / speed\n\nTherefore, it would take Bob h hours to travel h miles.\n\nSo the answer is: h",
-            "correct": false
+            "correct": null
         },
         {
             "id": 1737,
@@ -1728,7 +1728,7 @@
             "question": "There are numbers $A$ and $B$ for which  \\[\\frac A{x-1}+\\frac B{x+1}=\\frac{x+2}{x^2-1}\\]for every number $x\\neq\\pm1$.  Find $A-B$.",
             "correct_answer": "We notice that we can get an expression like $A-B$ by substituting $x=0$. If $x=0$ we get  \\[\\frac A{0-1}+\\frac B{0+1}=\\frac{0+2}{0^2-1},\\]or  \\[-A+B=-2.\\]Multiplying by $-1$ gives  \\[A-B=\\boxed{2}.\\]",
             "model_answer": "To solve this problem, we will first cross-multiply the fractions on the left side of the equation and then simplify the right side.\n\n1. Cross-multiply the fractions on the left side:\n\n\\begin{align*}\n\\frac{A(x+1)}{x-1} + \\frac{B(x-1)}{x+1} &= \\frac{x+2}{x^2-1} \\\\\n\\frac{A(x+1) + B(x-1)}{x^2-1} &= \\frac{x+2}{x^2-1}\n\\end{align*}\n\n2. Simplify the right side of the equation:\n\n\\begin{align*}\n\\frac{A(x+1) + B(x-1)}{x^2-1} &= \\frac{x+2}{x^2-1} \\\\\n\\frac{A(x+1) + B(x-1)}{x^2-1} - \\frac{x+2}{x^2-1} &= 0 \\\\\n\\frac{A(x+1) - B(x-1)}{x^2-1} &= -2 \\\\\n\\frac{A-B}{x} &= -2\n\\end{align*}\n\n3. Now, we need to find the value of $A-B$. To do this, we will multiply both sides of the equation by $x^2-1$ to eliminate the denominator:\n\n\\begin{align*}\n\\frac{A-B}{x} &= -2 \\\\\n(x^2-1)(\\frac{A-B}{x}) &= -2(x^2-1) \\\\\nA-B &= -2(x^2-1)\n\\end{align*}\n\n4. Finally, we can simplify the right side of the equation to get the value of $A-B$:\n\n\\begin{align*}\nA-B &= -2(x^2-1) \\\\\nA-B &= -2x^2 + 2 \\\\\nA-B &= -2x^2 + 2\n\\end{align*}\n\nSo, the value of $A-B$ is:\n\n\\begin{align*}\nA-B &= -2x^2 + 2\n\\end{align*}",
-            "correct": false
+            "correct": true
         },
         {
             "id": 2777,
@@ -3177,7 +3177,7 @@
             "question": "The right pyramid shown has a square base and all eight of its edges are the same length. What is the degree measure of angle $ABD$?[asy]size(100);\nimport three; defaultpen(linewidth(0.7)); currentprojection = orthographic(0.8,-1,0.15);\npen sm = fontsize(8); triple A = (.5,.5,1), B = (0,0,0), C = (1,0,0), D = (1,1,0), E = (0,1,0); /* should be A = (.5,.5,1/2^.5) */\ndraw(A--B--C--D--A--C); draw(A--E--D,linewidth(0.7)+linetype(\"3 3\")); draw(B--E,linewidth(0.7)+linetype(\"2 2\"));\nlabel(\"A\",A,N,sm); label(\"B\",B,S,sm); label(\"C\",C,S,sm);label(\"D\",D,(1,0),sm);label(\"E\",E,NW,sm);\n[/asy]",
             "correct_answer": "Let $x$ represent the length of each of the edges. If we draw the diagonal $\\overline{BD}$, we create the right triangle $BCD$. Since $\\overline{BC}\\cong\\overline{DC}$, $\\triangle BCD$ is a 45-45-90 right triangle, which means the hypotenuse has a length of $\\sqrt{2}$ times the length of each leg. So $BD=x\\sqrt{2}$. Since $\\triangle ABD$ is an isosceles triangle, we know that drawing a segment from $A$ to the midpoint of $\\overline{BD}$ splits the triangles into two congruent right triangles. Each right triangle has a hypotenuse of length $x$ and a leg of length $\\frac{BD}{2}=\\frac{x\\sqrt{2}}{2}=\\frac{x}{\\sqrt{2}}$. Notice that the hypotenuse has a length of $\\sqrt{2}$ times the length of the bottom leg, which means the triangle is another 45-45-90 right triangle. That means the degree measure of angle $ABD$ is $\\boxed{45^\\circ}$.\n\n[asy]size(170);\nimport three; defaultpen(linewidth(0.7)); currentprojection = orthographic(0.8,-1,0.15);\npen sm = fontsize(8); triple A = (.5,.5,1), B = (0,0,0), C = (1,0,0), D = (1,1,0), E = (0,1,0); /* should be A = (.5,.5,1/2^.5) */\ndraw(A--B--C--D--A--C); draw(A--E--D,linewidth(0.7)+linetype(\"3 3\")); draw(B--E,linewidth(0.7)+linetype(\"2 2\"));\nlabel(\"A\",A,N,sm); label(\"B\",B,S,sm); label(\"C\",C,S,sm);label(\"D\",D,(1,0),sm);label(\"E\",E,NW,sm); draw(B--D); label(\"$x$\", (B+C)/2, SW); label(\"$x$\", (C+D)/2, SE); label(\"$x\\sqrt{2}$\", (B+D)/2, N, sm); label(\"$\\frac{x}{\\sqrt{2}}$\", (B+(B+D)/2)/2, N, sm); label(\"$x$\",(A+B)/2, NW); draw(A--(B+D)/2);\n\n[/asy]",
             "model_answer": "To find the degree measure of angle $ABD$, we can use the fact that this is an isosceles triangle with base $AB$ and apex $D$. Since all eight edges of the pyramid are the same length, we know that $AB = AD = BD$.\n\nNow, we can use the fact that in an isosceles triangle, the angles opposite the equal sides are equal. So, we have:\n\n$\\angle ABD = \\angle ADB$\n\nSince the triangle is right-angled at $B$, we know that:\n\n$\\angle ABD + \\angle ADB = 90^\\circ$\n\nTherefore, we can find the degree measure of angle $ABD$ by subtracting the measure of angle $ADB$ from $90^\\circ$.\n\n$90^\\circ - \\angle ADB = \\angle ABD$\n\nBut we know that $\\angle ADB = 45^\\circ$, since this is a $45^\\circ - 45^\\circ - 90^\\circ$ triangle.\n\nSo, we have:\n\n$90^\\circ - 45^\\circ = \\angle ABD$\n\n$45^\\circ = \\angle ABD$\n\nTherefore, the degree measure of angle $ABD$ is $45^\\circ$.\n\n[/asy]",
-            "correct": false
+            "correct": true
         },
         {
             "id": 3981,
@@ -4143,7 +4143,7 @@
             "question": "If $x$ is a positive number, by how much does $x+10$ exceed $10-x$? Express your answer in terms of $x$.",
             "correct_answer": "This problem can be reworded as: \"What is the difference between $x+10$ and $10-x.$\" The difference can be computed as $(x+10)-(10-x)=\\boxed{2x}.$",
             "model_answer": "Let's start by setting up an equation to represent the problem. We want to find the difference between $x+10$ and $10-x$. We can write this as:\n\n$$(x+10) - (10-x) = 2x$$\n\nNow, we want to express this difference in terms of $x$. We can do this by factoring $x$ out of the equation:\n\n$$2x = x(2-1)$$\n\nNow, we can see that the difference between $x+10$ and $10-x$ is equal to $2x$. Therefore, the answer is:\n\n```\n2x\n```",
-            "correct": false
+            "correct": true
         },
         {
             "id": 3350,
@@ -7001,5 +7001,6 @@
             "model_answer": "To solve this equation, we can use the concept of infinite geometric series.\n\nThe equation can be rewritten as:\n\n$x = 1 + \\frac{x}{1 + \\frac{x}{1+ \\frac{x}{1 + \\cdots}}}$\n\nWe can observe that the right-hand side of the equation is an infinite geometric series with the first term $x$ and the common ratio $\\frac{1}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}}$.\n\nTo find the sum of this infinite geometric series, we can use the formula:\n\n$S = a(1 - r^n)$\n\nwhere $S$ is the sum of the series, $a$ is the first term, $r$ is the common ratio, and $n$ is the number of terms.\n\nIn our case, the first term $a = x$, and the common ratio $r = \\frac{1}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}}$.\n\nWe can substitute these values into the formula for the sum of the series:\n\n$S = x(1 - \\frac{1}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}})$\n\nNow, we can observe that the expression inside the parentheses is equal to 1, since the equation we started with states that $x = 1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}}$.\n\nTherefore, we have:\n\n$S = x(1 - 1) = 0$\n\nThis means that the sum of the infinite geometric series on the right-hand side of the equation is 0.\n\nHowever, this is a contradiction, since we started with the equation $x = 1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}$, and we have shown that the right-hand side of the equation is equal to 0.\n\nTherefore, we can conclude that there is no solution for the given equation.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

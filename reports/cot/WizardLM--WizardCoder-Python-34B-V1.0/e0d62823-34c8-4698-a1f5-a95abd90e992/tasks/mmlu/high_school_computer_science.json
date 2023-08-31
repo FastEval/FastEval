@@ -1,5 +1,5 @@
 {
-    "score": 0.5,
+    "score": 0.75,
     "model_outputs": [
         {
             "id": 17,
@@ -27,7 +27,7 @@
             "question": "A program is expressed in a programming language. Which of the following is true of the program?\n\n(A) The program can also be expressed as binary code, but will be more easily understood by humans when expressed in a higher-level programming language.\n(B) The program can also be expressed as binary code, which will reduce the likelihood of errors.\n(C) The program cannot be expressed as binary code, because binary code can only be used to represent data.\n(D) Some parts of the program can be expressed as binary code, but operations must be expressed using a higher-level programming language.",
             "correct_answer": 0,
             "model_answer": "The correct answer is (A). \r\n\r\nExplanation: \r\n\r\nA program is a set of instructions that tells a computer what to do. These instructions are written in a programming language, which is a human-readable language that can be easily understood by programmers. However, computers do not understand programming languages directly. Instead, they understand binary code, which is a language of 0s and 1s that represents data and instructions. \r\n\r\nTo run a program, the programming language must be compiled or interpreted into binary code. This process involves translating the programming language into a form that the computer can understand. \r\n\r\nThe advantage of using a higher-level programming language is that it is more concise and easier to read than binary code. This makes it easier for programmers to write and maintain code. Additionally, higher-level programming languages can provide abstractions that make programming easier, such as object-oriented programming or functional programming. \r\n\r\nOn the other hand, binary code is more efficient and can be executed more quickly by the computer. However, it is more difficult for humans to read and understand. Therefore, it is generally more efficient to write code in a higher-level programming language and then compile or interpret it into binary code for execution.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 32,
@@ -41,14 +41,14 @@
             "question": "In Python 3, which of the following function checks in a string that all characters are in uppercase?\n\n(A) isupper()\n(B) join(seq)\n(C) len(string)\n(D) ljust(width[, fillchar])",
             "correct_answer": 0,
             "model_answer": "The correct function to check if all characters in a string are in uppercase is (A) isupper(). \r\n\r\nHere's how to use it:\r\n\r\n```python\r\nstring = \"HELLO WORLD\"\r\nif string.isupper():\r\n    print(\"All characters in the string are uppercase\")\r\nelse:\r\n    print(\"The string contains lowercase characters\")\r\n```\r\n\r\nOutput:\r\n\r\n```\r\nAll characters in the string are uppercase\r\n```\r\n\r\nExplanation:\r\n\r\nThe `isupper()` function checks whether all characters in a string are uppercase. It returns `True` if all characters are uppercase, and `False` otherwise. In the example above, the string \"HELLO WORLD\" contains only uppercase characters, so the function returns `True`.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 63,
             "question": "What is the role of the compiler in the process of developing executable software?\n\n(A) Managing specification files created as part of the development process\n(B) Running and testing the executable created by the programmer\n(C) Tracking older versions of the software in case an error is found and the software needs to be reverted to an earlier form\n(D) Translating a program written in an abstract, high-level language into a program with the same behavior expressed in machine code",
             "correct_answer": 3,
             "model_answer": "The role of the compiler in the process of developing executable software is to translate a program written in an abstract, high-level language into a program with the same behavior expressed in machine code. This involves several steps, including parsing, optimization, and code generation. The output of the compiler is an executable file that can be run on the target platform. The compiler also provides error messages and warnings to help the programmer identify and fix any issues in their code. During the development process, the compiler can be used to compile and run the code, as well as track older versions of the software in case an error is found and the software needs to be reverted to an earlier form. However, the compiler is not responsible for managing specification files created as part of the development process or running and testing the executable created by the programmer.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 57,
@@ -69,7 +69,8 @@
             "question": "In Python 3, what is ['a', 'Chemistry', 0, 1][1]?\n\n(A) a\n(B) Chemistry\n(C) 0\n(D) 1",
             "correct_answer": 1,
             "model_answer": "In Python 3, ['a', 'Chemistry', 0, 1][1] refers to the second element in the list ['a', 'Chemistry', 0, 1]. The indexing starts from 0, so the first element is at index 0, the second element is at index 1, and so on. Therefore, ['a', 'Chemistry', 0, 1][1] is 'Chemistry'.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

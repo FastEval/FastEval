@@ -1,12 +1,12 @@
 {
-    "score": 0.3,
+    "score": 0.525,
     "model_outputs": [
         {
             "id": 17,
             "question": "What is Nmap?\n\n(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n(B) It is a network fuzz testing tool\n(C) It is a map of the Internet\n(D) It is a suite of tools for scripting attacks: probe, construct, encode, inject, wait for response",
             "correct_answer": 0,
             "model_answer": "What is Nmap?\n\n(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n\nExplanation:\n\nNmap is a free and open-source utility for network discovery and security auditing. It is commonly used for security auditing, vulnerability scanning, and penetration testing. Nmap is capable of scanning both TCP and UDP ports on IPv4 and IPv6 networks. It can detect and report the presence of various services running on a network, including HTTP, FTP, SMTP, DNS, and more. Nmap is commonly used for network discovery, vulnerability scanning, and penetration testing.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 72,
@@ -20,7 +20,7 @@
             "question": "What was the first buffer overflow attack?\n\n(A) Love Bug\n(B) SQL Slammer\n(C) Morris Worm\n(D) Code Red",
             "correct_answer": 2,
             "model_answer": "The first buffer overflow attack was the Morris Worm, which was released in 1988. The attack exploited a buffer overflow vulnerability in the Unix operating system. The Morris Worm spread through the network by infecting other computers with a virus that exploited the vulnerability. The attack was named after its creator, Robert Morris.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -48,7 +48,7 @@
             "question": "Old operating systems like _______ and NT-based systems have buffer-overflow attack a common vulnerability.\n\n(A) Windows 7\n(B) Chrome\n(C) IOS12\n(D) UNIX",
             "correct_answer": 3,
             "model_answer": "The correct answer is (D) UNIX. \r\n\r\nExplanation: \r\n\r\nBuffer overflow attacks are a type of security vulnerability that can occur when a program or application reads or writes data into a buffer (a fixed-size block of memory) without properly checking the size of the data being processed. This can lead to the overwriting of memory that the program does not own, which can cause the program to crash or execute malicious code. \r\n\r\nIn the case of Windows 7 and NT-based systems, buffer overflow attacks are not as common as they were in older operating systems like Windows 95 and Windows 98. This is because newer versions of Windows have built-in security features that help prevent buffer overflow attacks, such as Data Execution Prevention (DEP) and Address Space Layout Randomization (ASLR). \r\n\r\nHowever, UNIX-based systems, such as Linux and macOS, are still vulnerable to buffer overflow attacks. This is because UNIX-based systems do not have the same built-in security features that Windows has, and developers must be more careful when writing code to prevent buffer overflow attacks.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 57,
@@ -71,5 +71,6 @@
             "model_answer": "The answer is (A) WPA2. \r\n\r\nExplanation: \r\n\r\nWPA2 is an acronym for Wi-Fi Protected Access version 2. It is a security protocol that provides wireless network security for home and small office networks. It is the successor to WPA, which was introduced in 2003. WPA2 is the latest version of the WPA protocol and is widely used in home and small office networks. It is the most secure wireless security protocol available today. \r\n\r\nWPA2 is a more secure version of WPA, which was introduced in 2003. WPA2 uses a more secure encryption algorithm, AES, which is faster and more secure than the previous encryption algorithm, TKIP. WPA2 also uses a more secure key management protocol, which includes a new feature called Robust Security Network (RSN). \r\n\r\nWPA2 is the only option that meets the latest security standards set by the Wi-Fi Alliance. It is the recommended security protocol for home and small office networks.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

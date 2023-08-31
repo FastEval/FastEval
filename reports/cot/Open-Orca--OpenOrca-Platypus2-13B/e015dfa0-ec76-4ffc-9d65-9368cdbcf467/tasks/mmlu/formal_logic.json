@@ -1,5 +1,5 @@
 {
-    "score": 0.1,
+    "score": 0.3,
     "model_outputs": [
         {
             "id": 17,
@@ -13,7 +13,7 @@
             "question": " Which of the given formulas of PL is the best symbolization of the following sentence?\nA person is considered to have lived with you for all of the present year if the person was born or died in the present year and your home was this person's home for the entire time this person was alive.\n\n(A) [(B \u2228 D) \u2022 H] \u2283 L\n(B) [L \u2283 (B \u2228 D)] \u2022 H\n(C) L \u2283 [(B \u2228 D) \u2022 H]\n(D) (B \u2228 D \u2022 H) \u2283 L",
             "correct_answer": 0,
             "model_answer": "To find the best symbolization of the given sentence, let's break down the sentence into its components and match them with the given formulas:\n\n1. A person is considered to have lived with you for all of the present year if:\n   - The person was born or died in the present year (B)\n   - Your home was this person's home for the entire time this person was alive (H)\n\nNow, let's compare the given formulas with the components:\n\n(A) [(B \u2228 D) \u2022 H] \u2283 L\n(B) [L \u2283 (B \u2228 D)] \u2022 H\n(C) L \u2283 [(B \u2228 D) \u2022 H]\n(D) (B \u2228 D \u2022 H) \u2283 L\n\nThe best symbolization of the sentence is the one that captures the conditions mentioned:\n\n(A) [(B \u2228 D) \u2022 H] \u2283 L\n\nThis formula represents that if a person was born or died in the present year and lived in your home for the entire time they were alive, then they are considered to have lived with you for all of the present year.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 108,
@@ -41,7 +41,7 @@
             "question": " Which of the following propositions is an immediate (one-step) consequence in PL of the given premises?\n~E \u2283 ~F\nG \u2283 F\nH \u2228 ~E\nH \u2283 I\n~I\n\n(A) E \u2283 F\n(B) F \u2283 G\n(C) H \u2283 ~E\n(D) ~H",
             "correct_answer": 3,
             "model_answer": "To find the immediate consequence in PL (Propositional Logic), we need to analyze the given premises and see which one can be derived directly from them.\n\nPremises:\n1. ~E \u2283 ~F\n2. G \u2283 F\n3. H \u2228 ~E\n4. H \u2283 I\n5. ~I\n\nNow let's analyze each proposition:\n\n(A) E \u2283 F: This proposition is not an immediate consequence of the given premises, as it is not directly derived from any of them.\n\n(B) F \u2283 G: This proposition is not an immediate consequence of the given premises, as it is not directly derived from any of them.\n\n(C) H \u2283 ~E: This proposition is an immediate consequence of the given premises. Since H \u2283 I and I \u2283 ~E, we can derive H \u2283 ~E.\n\n(D) ~H: This proposition is not an immediate consequence of the given premises, as it is not directly derived from any of them.\n\n(E) I: This proposition is not an immediate consequence of the given premises, as it is not directly derived from any of them.\n\n(F) ~I: This proposition is an immediate consequence of the given premises. Since H \u2283 I and I \u2283 ~E, we can derive ~I.\n\nSo, the answer is (F) ~I.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 32,
@@ -71,5 +71,6 @@
             "model_answer": "To determine the consistency of the set of propositions, we need to analyze the truth tables for each proposition and see if there is a consistent valuation.\n\n1. (T \u2283 U) \u2283 (W \u2283 U)\n2. T \u2283 ~(U \u2283 X)\n3. (T \u2283 ~X) \u2283 W\n\nFirst, let's analyze the truth tables for each proposition:\n\n(T \u2283 U) \u2283 (W \u2283 U)\nT \u2283 U\nW \u2283 U\n\n(T \u2283 ~X) \u2283 W\nT \u2283 ~X\nW\n\nNow, let's check if there is a consistent valuation for the given set of propositions:\n\n1. (T \u2283 U) \u2283 (W \u2283 U)\n2. T \u2283 ~(U \u2283 X)\n3. (T \u2283 ~X) \u2283 W\n\nWe can see that there are no contradictions between the propositions. So, the set of propositions is consistent.\n\nAnswer: (D) Consistent. Consistent valuation when T and U are true and W and X are false",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

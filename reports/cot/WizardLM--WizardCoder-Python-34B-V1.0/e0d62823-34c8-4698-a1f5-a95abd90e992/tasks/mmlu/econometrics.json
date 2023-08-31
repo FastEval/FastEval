@@ -1,5 +1,5 @@
 {
-    "score": 0.2,
+    "score": 0.275,
     "model_outputs": [
         {
             "id": 17,
@@ -27,7 +27,7 @@
             "question": "Which one of the following would be the most appropriate as a 95% (two-sided) confidence interval for the intercept term of the model given in question 21?\n\n(A) (-4.79,2.19)\n(B) (-4.16,4.16)\n(C) (-1.98,1.98)\n(D) (-5.46,2.86)",
             "correct_answer": 3,
             "model_answer": "To find the most appropriate 95% (two-sided) confidence interval for the intercept term of the model given in question 21, we need to first find the standard error of the intercept term. The standard error is given by:\n\nSE = sqrt(MSE * (1/n + X'X)^-1)\n\nwhere MSE is the mean squared error, n is the number of observations, and X'X is the sum of the squares of the design matrix.\n\nFor the given model, we have:\n\nMSE = 0.04\nn = 100\nX'X = 1\n\nPlugging these values into the formula for the standard error, we get:\n\nSE = sqrt(0.04 * (1/100 + 1)^-1) = 0.0866\n\nNow, we can use the standard error to find the confidence interval. The formula for a two-sided 95% confidence interval is:\n\nCI = (Intercept - 1.96 * SE, Intercept + 1.96 * SE)\n\nwhere 1.96 is the z-score for a two-sided 95% confidence interval.\n\nPlugging in the values, we get:\n\nCI = (-0.0866 * 1.96, 0.0866 * 1.96) = (-0.167, 0.167)\n\nNone of the given options match this confidence interval. Therefore, the most appropriate 95% (two-sided) confidence interval for the intercept term of the model given in question 21 is:\n\n(-0.167, 0.167)",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 97,
@@ -55,7 +55,7 @@
             "question": "Which of the following statements are true concerning a comparison between ARCH(q) and GARCH(1,1) models?\n\ni) The ARCH(q) model is likely to be the more parsimonious\n\n\nii) The ARCH(q) model is the more likely to violate non-negativity constraints\n\n\niii) The ARCH(q) model can allow for an infinite number of previous lags of squared\n\nreturns to affect the current conditional variance\n\n\niv) The GARCH(1,1) model will usually be sufficient to capture all of the dependence\n\nin the conditional variance\n\n(A) (ii) and (iv) only\n(B) (i) and (iii) only\n(C) (i), (ii), and (iii) only\n(D) (i), (ii), (iii), and (iv)",
             "correct_answer": 0,
             "model_answer": "i) The ARCH(q) model is likely to be the more parsimonious\n\nFalse. The GARCH(1,1) model has only two parameters to estimate, compared to the q+1 parameters of the ARCH(q) model. Therefore, the GARCH(1,1) model is more parsimonious.\n\nii) The ARCH(q) model is the more likely to violate non-negativity constraints\n\nTrue. The GARCH(1,1) model has a non-negativity constraint on the variance parameter, which means that the variance cannot be negative. However, the ARCH(q) model does not have this constraint, which means that the conditional variance can be negative.\n\niii) The ARCH(q) model can allow for an infinite number of previous lags of squared\n\nreturns to affect the current conditional variance\n\nTrue. The ARCH(q) model can include an infinite number of lags of squared returns, whereas the GARCH(1,1) model is limited to a single lag.\n\niv) The GARCH(1,1) model will usually be sufficient to capture all of the dependence\n\nin the conditional variance\n\nFalse. The GARCH(1,1) model assumes a specific form of the conditional variance, which may not be appropriate for all situations. The ARCH(q) model can be more flexible in this regard.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 63,
@@ -69,7 +69,8 @@
             "question": "What is the meaning of the term \"heteroscedasticity\"?\n\n(A) The variance of the errors is not constant\n(B) The variance of the dependent variable is not constant\n(C) The errors are not linearly independent of one another\n(D) The errors have non-zero mean",
             "correct_answer": 0,
             "model_answer": "The term \"heteroscedasticity\" refers to a situation where the variance of the errors is not constant. This means that the errors have different variances across the range of the independent variables. This can be problematic for statistical models that assume homoscedasticity (i.e., constant variance). Heteroscedasticity can make it difficult to interpret the standard errors of the model coefficients and can also make it difficult to compare models based on their goodness-of-fit measures.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 3
 }

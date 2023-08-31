@@ -1,5 +1,5 @@
 {
-    "score": 0.2,
+    "score": 0.20476190476190476,
     "model_outputs": [
         {
             "id": 34,
@@ -139,7 +139,7 @@
             "question": "The following paragraphs each describe a set of seven objects arranged in a fixed order. The statements are logically consistent within each paragraph. In an antique car show, there are seven vehicles: a limousine, a sedan, a tractor, a motorcyle, a minivan, a hatchback, and a truck. The minivan is newer than the limousine. The tractor is the second-newest. The truck is older than the sedan. The minivan is older than the truck. The hatchback is newer than the tractor. The motorcyle is the fourth-newest.\nOptions:\n(A) The limousine is the second-oldest\n(B) The sedan is the second-oldest\n(C) The tractor is the second-oldest\n(D) The motorcyle is the second-oldest\n(E) The minivan is the second-oldest\n(F) The hatchback is the second-oldest\n(G) The truck is the second-oldest",
             "correct_answer": "(E)",
             "model_answer": "The minivan is newer than the truck, so the truck must be the second-oldest.\nThe tractor is the second-newest, so it cannot be the second-oldest.\nThe sedan is older than the truck, so it cannot be the second-oldest.\nThe hatchback is newer than the tractor, so the tractor cannot be the second-oldest.\nThe motorcyle is the fourth-newest, so it cannot be the second-oldest.\nThe limousine is the second-oldest.",
-            "correct": false
+            "correct": 0.14285714285714285
         },
         {
             "id": 213,
@@ -211,5 +211,6 @@
             "model_answer": "Let's analyze the information given in the paragraph:\n\n1. The pears are more expensive than the oranges.\n2. The oranges are more expensive than the cantaloupes.\n3. The peaches are less expensive than the cantaloupes.\n4. The apples are the third-cheapest.\n5. The watermelons are the second-most expensive.\n6. The mangoes are the fourth-most expensive.\n\nBased on the information given, we can create a table to represent the prices of the fruits:\n\n| Fruit | Price |\n| --- | --- |\n| Apples | < price of pears, oranges, watermelons, peaches, cantaloupes, mangoes |\n| Pears | > price of oranges |\n| Oranges | > price of cantaloupes |\n| Watermelons | > price of peaches |\n| Peaches | < price of cantaloupes |\n| Cantaloupes | < price of mangoes |\n| Mangoes | < price of pears, apples, oranges, watermelons, peaches, cantaloupes |\n\nFrom the table, we can see that the apples are the third-cheapest, which means they are more expensive than the peaches and cantaloupes but less expensive than the pears, oranges, watermelons, and mangoes.\n\nTherefore, the answer is (D) The oranges are the cheapest.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.4,
     "model_outputs": [
         {
             "id": 17,
@@ -34,7 +34,7 @@
             "question": "Bob writes down a number between 1 and 1,000. Mary must identify that number by asking \"yes/no\" questions of Bob. Mary knows that Bob always tells the truth. If Mary uses an optimal strategy, then she will determine the answer at the end of exactly how many questions in the worst case?\n\n(A) 1,000\n(B) 999\n(C) 500\n(D) 10",
             "correct_answer": 3,
             "model_answer": "To determine the answer to this question, we need to consider the optimal strategy that Mary can use to identify Bob's number. One such strategy is the binary search strategy, which involves dividing the range of possible numbers in half with each question.\n\nHere's how the strategy works:\n\n1. Mary asks Bob if the number is less than or greater than 500.\n2. Based on Bob's answer, Mary eliminates half of the remaining numbers (either the numbers less than 500 or the numbers greater than 500).\n3. Mary repeats step 1 with the new range of numbers.\n4. This process continues until the range of possible numbers is reduced to one number.\n\nUsing this strategy, Mary will need to ask at most log(1000) = 10 questions to determine Bob's number in the worst case. Therefore, the answer is (D) 10.\n\nHowever, it's worth noting that in practice, Mary might be able to ask fewer than 10 questions if Bob's number happens to be near the middle of the range. But in the worst case, she will need to ask 10 questions.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 15,
@@ -71,5 +71,6 @@
             "model_answer": "To determine which job-scheduling policy is starvation-free, we need to understand the definition of a starvation-free policy and how each of the given policies works.\n\nA starvation-free job-scheduling policy is one in which no job waits indefinitely for service. This means that each job will eventually be allocated some CPU time, even if other jobs are executing concurrently.\n\nNow let's analyze each of the given job-scheduling policies:\n\n(A) Round-robin: In a round-robin policy, each job is allocated a fixed amount of CPU time (e.g., time slices) before being preempted and replaced by the next job in the queue. If a job is smaller than its allocated time slice, it will complete its execution before being preempted. However, if a job is larger than its allocated time slice, it will be interrupted before completion, and it may take longer for the job to complete due to preemption. Round-robin is not necessarily starvation-free because a large job can starve smaller jobs of CPU time.\n\n(B) Priority queuing: In priority queuing, jobs are assigned priorities, and the scheduler serves the job with the highest priority first. If two or more jobs have the same priority, the scheduler serves them in a fair manner (e.g., round-robin). Priority queuing can be starvation-free if the priority assignment is done correctly. For example, if all jobs have equal priority, the scheduler will serve each job in turn, making the policy starvation-free.\n\n(C) Shortest job first: In this policy, the scheduler selects the job with the shortest execution time and executes it until completion before selecting the next job. The shortest job first policy can be starvation-free if the estimated execution time of each job is accurate. If the estimated execution time is accurate, the shortest job will be completed quickly, making CPU time available for other jobs, and preventing starvation.\n\n(D) Youngest job first: In this policy, the scheduler selects the job that has been in the queue for the shortest time and executes it until completion before selecting the next job. The youngest job first policy can be starvation-free if the arrival rate of jobs is constant and the processing time of each job is proportional to its size. In this case, each job will be executed in the order it arrives, preventing starvation.\n\nBased on the above analysis, the only starvation-free job-scheduling policy among the given options is (D) youngest job first.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

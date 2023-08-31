@@ -1,5 +1,5 @@
 {
-    "score": 0.4,
+    "score": 0.5,
     "model_outputs": [
         {
             "id": 17,
@@ -13,7 +13,7 @@
             "question": "Which of the following pairs of 8-bit, two's-complement numbers will result in overflow when the members of the pairs are added?\n\n(A) 11111111, 00000001\n(B) 00000001, 10000000\n(C) 11111111, 10000001\n(D) 10000001, 10101010",
             "correct_answer": 3,
             "model_answer": "To determine which pair of 8-bit, two's-complement numbers will result in overflow when added, we need to understand how two's-complement representation works.\n\nIn two's-complement representation, negative numbers are represented by taking the bitwise complement of the positive number and adding 1. For example, the 8-bit two's-complement representation of -5 is 10111111.\n\nNow, let's analyze each pair:\n\n(A) 11111111, 00000001\nAdding these two numbers will result in:\n11111111 + 00000001 = 11111111 00000000\nThis is a valid 8-bit representation, so there is no overflow.\n\n(B) 00000001, 10000000\nAdding these two numbers will result in:\n00000001 + 10000000 = 10000000 00000000\nThis is a valid 8-bit representation, so there is no overflow.\n\n(C) 11111111, 10000001\nAdding these two numbers will result in:\n11111111 + 10000001 = 10000000 00000000\nThis is a valid 8-bit representation, so there is no overflow.\n\n(D) 10000001, 10101010\nAdding these two numbers will result in:\n10000001 + 10101010 = 10000000 00000000\nThis is a valid 8-bit representation, so there is no overflow.\n\nAfter analyzing all pairs, we can conclude that there is no overflow when adding any of the given pairs of 8-bit, two's-complement numbers.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 97,
@@ -71,5 +71,6 @@
             "model_answer": "To determine which job-scheduling policy is starvation-free, we need to understand the characteristics of each policy.\n\n(A) Round-robin: In this policy, jobs are served in a circular order, with each job being served for a fixed time slice or until it completes. This policy is not starvation-free, as a job can be preempted by another job and may never get a chance to complete if it takes longer than the time slice.\n\n(B) Priority queuing: In this policy, jobs are served based on their priority, with higher-priority jobs being served before lower-priority jobs. This policy is not starvation-free, as lower-priority jobs can be delayed indefinitely if there are always higher-priority jobs in the queue.\n\n(C) Shortest job first (SJF): In this policy, jobs are served in the order of their expected execution time, with the shortest job being served first. This policy is starvation-free, as it ensures that the shortest job will complete before any longer job starts.\n\n(D) Youngest job first (YJF): In this policy, jobs are served based on their arrival time, with the youngest job being served first. This policy is not starvation-free, as a job can be waiting indefinitely if newer jobs keep arriving and pushing it down in the queue.\n\nThe answer is:\n\n(C) Shortest job first",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

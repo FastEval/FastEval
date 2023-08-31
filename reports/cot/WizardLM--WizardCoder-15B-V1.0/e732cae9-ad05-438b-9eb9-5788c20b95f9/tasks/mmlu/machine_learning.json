@@ -1,5 +1,5 @@
 {
-    "score": 0.1,
+    "score": 0.175,
     "model_outputs": [
         {
             "id": 17,
@@ -13,7 +13,7 @@
             "question": "Statement 1| Industrial-scale neural networks are normally trained on CPUs, not GPUs. Statement 2| The ResNet-50 model has over 1 billion parameters.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
             "correct_answer": 1,
             "model_answer": "Statement 1: False, True\r\n\r\nReasoning: The statement is incorrect. Industrial-scale neural networks are normally trained on GPUs, not CPUs. GPUs are more efficient at processing large amounts of data than CPUs.\r\n\r\nStatement 2: True, False\r\n\r\nReasoning: The statement is incorrect. The ResNet-50 model has over 1 billion parameters, but it is not trained on CPUs. It is trained on GPUs, which are more efficient at processing large amounts of data than CPUs.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 108,
@@ -48,14 +48,14 @@
             "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
             "correct_answer": 1,
             "model_answer": "Explanation:\r\n\r\nStatement 1:\r\n\r\nAfter mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this).\r\n\r\nReasoning:\r\n\r\n- We can use a radial basis kernel function to map the data into a higher-dimensional feature space.\r\n- The 1-NN algorithm is a simple and effective way to classify data points.\r\n- The unweighted Euclidean distance is a commonly used distance metric for kernel functions.\r\n- If the data is mapped into a higher-dimensional feature space, then the distance metric used in the kernel function may not be the same as the distance metric used in the original space.\r\n- However, if the kernel function is chosen appropriately, then the classification performance may improve.\r\n\r\nTherefore, the answer is True.\r\n\r\nStatement 2:\r\n\r\nThe VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\r\n\r\nReasoning:\r\n\r\n- The VC dimension of a Perceptron is the largest possible value of the number of support vectors that can be used to separate the data.\r\n- The VC dimension of a simple linear SVM is the largest possible value of the number of support vectors that can be used to separate the data.\r\n- Therefore, the VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\r\n\r\nTherefore, the answer is False.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 15,
             "question": "Statement 1| Layer Normalization is used in the original ResNet paper, not Batch Normalization. Statement 2| DCGANs use self-attention to stabilize training.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
             "correct_answer": 1,
             "model_answer": "Explanation:\r\n\r\nStatement 1:\r\n\r\nLayer Normalization is used in the original ResNet paper, not Batch Normalization.\r\n\r\nReasoning:\r\n\r\nThe original ResNet paper used Batch Normalization instead of Layer Normalization. However, in the later papers, such as the ResNet-201 paper, the authors switched to Layer Normalization.\r\n\r\nStatement 2:\r\n\r\nDCGANs use self-attention to stabilize training.\r\n\r\nReasoning:\r\n\r\nDCGANs use self-attention to stabilize training. Self-attention is a mechanism that allows the model to focus on different parts of the input image at different times. This helps the model to learn more robust features and prevent it from overfitting.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 63,
@@ -71,5 +71,6 @@
             "model_answer": "Statement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\r\n\r\nReasoning: L2 regularization is a penalty term that adds a penalty proportional to the square of the magnitude of the weights. This means that the larger the weights, the more the penalty will be applied. Therefore, L2 regularization tends to make models more sparse because it encourages the weights to be small.\r\n\r\nStatement 2: Residual connections can be found in ResNets and Transformers.\r\n\r\nReasoning: Residual connections are a technique used in deep neural networks to improve the learning capacity of the model. In ResNets, residual connections are added to the output of each layer to allow the model to learn more complex functions. In Transformers, residual connections are used to allow the model to learn more complex functions by adding the output of each layer to the input of the next layer.\r\n\r\nAnswer: (A) True, True",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 3
 }

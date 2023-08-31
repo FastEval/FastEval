@@ -1,5 +1,5 @@
 {
-    "score": 0.2,
+    "score": 0.5,
     "model_outputs": [
         {
             "id": 17,
@@ -13,7 +13,7 @@
             "question": "Which of the following pairs of 8-bit, two's-complement numbers will result in overflow when the members of the pairs are added?\n\n(A) 11111111, 00000001\n(B) 00000001, 10000000\n(C) 11111111, 10000001\n(D) 10000001, 10101010",
             "correct_answer": 3,
             "model_answer": "To determine which pair will result in overflow, we need to first find the sum of the two numbers in each pair using two's-complement addition.\n\n(A) 11111111, 00000001\n1's complement of 00000001 is 11111110\nAdding 11111111 and 11111110 (by shifting the second number to the left by 1 bit)\n11111111\n11111110\n------\n00000000 (which is 0 in 8-bit representation)\n\nSince the sum is not a valid 8-bit number, there is no overflow in this case.\n\n(B) 00000001, 10000000\n1's complement of 10000000 is 01111111\nAdding 00000001 and 01111111 (by shifting the second number to the left by 1 bit)\n00000001\n01111111\n------\n11111110 (which is 11 in 8-bit representation)\n\nThere is no overflow in this case either.\n\n(C) 11111111, 10000001\n1's complement of 10000001 is 01111110\nAdding 11111111 and 01111110 (by shifting the second number to the left by 1 bit)\n11111111\n01111110\n------\n10000000 (which is 10 in 8-bit representation)\n\nThere is no overflow in this case either.\n\n(D) 10000001, 10101010\n1's complement of 10101010 is 01100101\nAdding 10000001 and 01100101 (by shifting the second number to the left by 1 bit)\n10000001\n01100101\n------\n11100100 (which is 11 in 8-bit representation)\n\nThere is no overflow in this case either.\n\nTherefore, none of the pairs will result in overflow when the members of the pairs are added. The answer is:\nD) None",
-            "correct": false
+            "correct": true
         },
         {
             "id": 97,
@@ -48,14 +48,14 @@
             "question": "Which of the following language features requires that stack-based storage allocation be used rather than static allocation?\n\n(A) Recursive procedures\n(B) Arbitrary goto's\n(C) Two-dimensional arrays\n(D) Integer-valued functions",
             "correct_answer": 0,
             "model_answer": "The correct answer is (A) Recursive procedures.\n\nStack-based storage allocation is required for recursive procedures because each time a function is called recursively, a new frame is pushed onto the stack. This frame contains the local variables and parameters for the current invocation of the function. When the function returns, the frame is popped off the stack. If static allocation were used, there would be no way to free up the memory used by the local variables and parameters when the function returns, leading to a memory leak.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 57,
             "question": "Which of the following instruction-set features is NOT generally considered an obstacle to aggressive pipelining of an integer unit?\n\n(A) Condition codes set by every instruction\n(B) Variable-length encoding of instructions\n(C) Instructions requiring widely varying numbers of cycles to execute\n(D) Several different classes (sets) of registers",
             "correct_answer": 3,
             "model_answer": "The answer is (D) Several different classes (sets) of registers.\n\nAggressive pipelining of an integer unit requires a simple and predictable instruction-set architecture that can be easily optimized for high performance. Among the given options, (D) Several different classes (sets) of registers is not generally considered an obstacle to aggressive pipelining of an integer unit.\n\nIn fact, having several different classes (sets) of registers can be beneficial for aggressive pipelining, as it allows for better separation of data and instructions, and can help reduce the complexity of the pipeline. This can lead to faster and more efficient execution of instructions.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 60,
@@ -71,5 +71,6 @@
             "model_answer": "A starvation-free job-scheduling policy guarantees that no job waits indefinitely for service. \n\n(A) Round-robin: In this policy, jobs are scheduled in a circular manner, and each job gets service for a fixed time slot. If a job is not completed in its time slot, it will be scheduled again in the next round. This policy is not starvation-free because a job can wait indefinitely if it always gets a small time slot.\n\n(B) Priority queuing: In this policy, jobs are assigned priority levels, and higher priority jobs are served before lower priority jobs. This policy is not starvation-free because a job with a low priority can wait indefinitely if all higher priority jobs are always served first.\n\n(C) Shortest job first (SJF): In this policy, the job with the shortest remaining processing time is served next. This policy is starvation-free because it guarantees that the job with the shortest remaining processing time will always be served, and no job will wait indefinitely.\n\n(D) Youngest job first: In this policy, jobs are scheduled based on their creation time. This policy is not starvation-free because a job can wait indefinitely if it is always scheduled after younger jobs.\n\nTherefore, the answer is (C) Shortest job first.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

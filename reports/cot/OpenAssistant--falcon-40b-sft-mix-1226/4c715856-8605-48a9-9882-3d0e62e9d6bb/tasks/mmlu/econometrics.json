@@ -1,5 +1,5 @@
 {
-    "score": 0.1,
+    "score": 0.175,
     "model_outputs": [
         {
             "id": 17,
@@ -34,7 +34,7 @@
             "question": "Suppose that a hypothesis test is conducted using a 5% significance level. Which of the following statements are correct?\n\n(i) The significance level is equal to the size of the test\n\n(ii) The significance level is equal to the power of the test\n\n(iii) 2.5% of the total distribution will be in each tail rejection region for a 2-sided test\n\n(iv) 5% of the total distribution will be in each tail rejection region for a 2-sided test.\n\n(A) (ii) and (iv) only\n(B) (i) and (iii) only\n(C) (i), (ii), and (iii) only\n(D) (i), (ii), (iii), and (iv)",
             "correct_answer": 1,
             "model_answer": "(i) The significance level is equal to the size of the test.\n\nFalse. The significance level is the probability of rejecting a null hypothesis when it is true. It is not the size of the test.\n\n(ii) The significance level is equal to the power of the test.\n\nFalse. The power of a test is the probability of rejecting a null hypothesis when it is false. It is not the same as the significance level.\n\n(iii) 2.5% of the total distribution will be in each tail rejection region for a 2-sided test.\n\nFalse. The significance level is 5%, not 2.5%.\n\n(iv) 5% of the total distribution will be in each tail rejection region for a 2-sided test.\n\nTrue. This statement is correct. The significance level is 5%, and 5% of the total distribution will be in each tail rejection region for a 2-sided test.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -62,14 +62,15 @@
             "question": "Which of the following is a disadvantage of the fixed effects approach to estimating a panel model?\n\n(A) The model is likely to be technical to estimate\n(B) The approach may not be valid if the composite error term is correlated with one or more of the explanatory variables\n(C) The number of parameters to estimate may be large, resulting in a loss of degrees of freedom\n(D) The fixed effects approach can only capture cross-sectional heterogeneity and not temporal variation in the dependent variable.",
             "correct_answer": 2,
             "model_answer": "The fixed effects approach to estimating a panel model is a method that includes fixed effects for each individual or unit in the panel. One disadvantage of this approach is that it may not be valid if the composite error term is correlated with one or more of the explanatory variables.\n\nThe composite error term is the error term that is used to capture any unobserved individual-specific effects that are not included in the fixed effects. If the composite error term is correlated with one or more of the explanatory variables, it can lead to biased estimates of the fixed effects. This is because the fixed effects are estimated by regressing the dependent variable on the explanatory variables and the composite error term, and if the composite error term is correlated with the explanatory variables, it can lead to an overestimation or underestimation of the fixed effects.\n\nTherefore, the fixed effects approach can be invalid if the composite error term is correlated with the explanatory variables, which can lead to biased estimates of the fixed effects.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 57,
             "question": "What is the meaning of the term \"heteroscedasticity\"?\n\n(A) The variance of the errors is not constant\n(B) The variance of the dependent variable is not constant\n(C) The errors are not linearly independent of one another\n(D) The errors have non-zero mean",
             "correct_answer": 0,
             "model_answer": "Heteroscedasticity refers to the situation where the variance of the errors is not constant.\n\nThe variance of the errors is the measure of how much the errors vary from their mean. In a homoscedastic model, the variance of the errors is constant, which means that the errors have the same amount of variation across all the observations. In contrast, in a heteroscedastic model, the variance of the errors varies across the observations, which means that some observations have larger errors than others.\n\nTo determine whether a model is heteroscedastic or homoscedastic, we can plot the residuals (the difference between the observed values and the predicted values) against the predicted values. If the residuals are constant, then the model is homoscedastic, and if the residuals vary, then the model is heteroscedastic.\n\nHeteroscedasticity can be caused by several factors, such as the presence of outliers, non-constant variance in the dependent variable, or non-linearity in the relationship between the independent and dependent variables. In any case, heteroscedasticity can lead to poor model performance and inaccurate predictions, so it is important to identify and address it when it occurs.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 3
 }

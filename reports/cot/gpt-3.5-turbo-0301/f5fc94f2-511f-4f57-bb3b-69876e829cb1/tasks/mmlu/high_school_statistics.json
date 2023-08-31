@@ -71,5 +71,6 @@
             "model_answer": "First, we need to find the probability of selecting a jury with exactly three women. We can use the binomial probability formula: P(X=k) = (n choose k) * p^k * (1-p)^(n-k), where n is the sample size, k is the number of successes, p is the probability of success, and (n choose k) is the binomial coefficient.\n\nIn this case, n = 12, k = 3, and p = 0.3. So, P(X=3) = (12 choose 3) * 0.3^3 * 0.7^9 = 0.2364.\n\nNext, we need to find the probability of selecting a jury with four or more women. We can use the complement rule and subtract the probability of selecting a jury with three or fewer women from 1: P(X>=4) = 1 - P(X<=3).\n\nTo calculate P(X<=3), we can use the cumulative binomial probability formula: P(X<=k) = sum((n choose i) * p^i * (1-p)^(n-i)) for i from 0 to k.\n\nSo, P(X<=3) = sum((12 choose i) * 0.3^i * 0.7^(12-i)) for i from 0 to 3 = 0.8317.\n\nTherefore, P(X>=4) = 1 - P(X<=3) = 1 - 0.8317 = 0.1683.\n\nThe answer is (A) 0.168.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

@@ -1,5 +1,5 @@
 {
-    "score": 0.6,
+    "score": 0.8,
     "model_outputs": [
         {
             "id": 17,
@@ -41,14 +41,14 @@
             "question": " Which of the following propositions is an immediate (one-step) consequence in PL of the given premises?\n~E \u2283 ~F\nG \u2283 F\nH \u2228 ~E\nH \u2283 I\n~I\n\n(A) E \u2283 F\n(B) F \u2283 G\n(C) H \u2283 ~E\n(D) ~H",
             "correct_answer": 3,
             "model_answer": "To find the immediate consequence in PL, we need to analyze the given premises and see which proposition can be derived from them in one step.\n\nPremises:\n1. ~E \u2283 ~F\n2. G \u2283 F\n3. H \u2228 ~E\n4. H \u2283 I\n5. ~I\n\nNow, let's analyze each proposition to see if it can be derived from the given premises:\n\n(A) E \u2283 F: This proposition is not an immediate consequence because it involves the variable E, which is not mentioned in the premises.\n\n(B) F \u2283 G: This proposition is not an immediate consequence because it involves the variable F, which is not mentioned in the premises.\n\n(C) H \u2283 ~E: This proposition is not an immediate consequence because it involves the variable H, which is not mentioned in the premises.\n\n(D) ~H: This proposition is not an immediate consequence because it involves the variable H, which is not mentioned in the premises.\n\n(E) H \u2283 I: This proposition is not an immediate consequence because it involves the variable H, which is not mentioned in the premises.\n\n(F) ~I: This proposition is not an immediate consequence because it involves the variable I, which is not mentioned in the premises.\n\nNone of the given propositions are immediate consequences in PL of the given premises.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 32,
             "question": " Which of the following propositions is an immediate (one-step) consequence in PL of the given premises?\nU \u2283 W\nW \u2283 (X \u2261 ~Y)\n(X \u2261 ~Y) \u2283 Z\n~Z\n\n(A) U \u2283 Z\n(B) U \u2228 W\n(C) ~W\n(D) ~(X \u2261 ~Y)",
             "correct_answer": 3,
             "model_answer": "To find the immediate consequence in PL, we need to analyze the given premises and see which one can be derived from the other premises in one step.\n\nPremise 1: U \u2283 W\nPremise 2: W \u2283 (X \u2261 ~Y)\nPremise 3: (X \u2261 ~Y) \u2283 Z\nPremise 4: ~Z\n\nNow, let's analyze the given options:\n\n(A) U \u2283 Z: This option is not an immediate consequence because it requires two steps to derive: first, we need to derive W from U (Premise 1), and then we need to derive Z from W (Premise 3).\n\n(B) U \u2228 W: This option is not an immediate consequence because it requires two steps to derive: first, we need to derive W from U (Premise 1), and then we need to derive U \u2228 W from W (Premise 2).\n\n(C) ~W: This option is not an immediate consequence because it requires two steps to derive: first, we need to derive W from U (Premise 1), and then we need to derive ~W from W (Premise 2).\n\n(D) ~(X \u2261 ~Y): This option is not an immediate consequence because it requires two steps to derive: first, we need to derive (X \u2261 ~Y) from W (Premise 2), and then we need to derive ~(X \u2261 ~Y) from (X \u2261 ~Y) (Premise 3).\n\nNone of the given options are immediate consequences in PL of the given premises.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 15,
@@ -71,5 +71,6 @@
             "model_answer": "To determine the consistency of the set of propositions, we will use indirect truth tables.\n\n1. (T \u2283 U) \u2283 (W \u2283 U)\n2. T \u2283 ~(U \u2283 X)\n3. (T \u2283 ~X) \u2283 W\n\nFirst, let's analyze each proposition:\n\n1. (T \u2283 U) \u2283 (W \u2283 U)\nThis proposition states that if T is true, then U is true (T \u2283 U). If U is true, then W is true (W \u2283 U).\n\n2. T \u2283 ~(U \u2283 X)\nThis proposition states that if T is true, then U is not true (T \u2283 ~U). If U is not true, then X is not true (~U \u2283 ~X).\n\n3. (T \u2283 ~X) \u2283 W\nThis proposition states that if T is true, then X is not true (T \u2283 ~X). If X is not true, then W is true (~X \u2283 W).\n\nNow, let's use indirect truth tables to determine the consistency of the set:\n\n1. (T \u2283 U) \u2283 (W \u2283 U)\n- T is true, U is true, W is true\n- T is true, U is true, W is false\n- T is true, U is false, W is false\n- T is false, U is true, W is false\n- T is false, U is false, W is false\n\n2. T \u2283 ~(U \u2283 X)\n- T is true, U is true, X is true\n- T is true, U is true, X is false\n- T is true, U is false, X is false\n- T is false, U is true, X is false\n- T is false, U is false, X is false\n\n3. (T \u2283 ~X) \u2283 W\n- T is true, X is true, W is true\n- T is true, X is true, W is false\n- T is true, X is false, W is false\n- T is false, X is true, W is false\n- T is false, X is false, W is false\n\nFrom the indirect truth tables, we can see that the set of propositions is consistent.\n\nAnswer: (B) Consistent. Consistent valuation when U, W, and X are true and T is false",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

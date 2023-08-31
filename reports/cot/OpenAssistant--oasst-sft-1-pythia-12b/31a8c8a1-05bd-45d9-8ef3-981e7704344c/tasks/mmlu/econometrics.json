@@ -1,5 +1,5 @@
 {
-    "score": 0.0,
+    "score": 0.1,
     "model_outputs": [
         {
             "id": 17,
@@ -13,7 +13,7 @@
             "question": "Which one of the following would be a plausible response to a finding of residual non-normality?\n\n(A) Use a logarithmic functional form instead of a linear one\n(B) Add lags of the variables on the right hand side of the regression model\n(C) Estimate the model in first differenced form\n(D) Remove any large outliers from the data.",
             "correct_answer": 3,
             "model_answer": "Based on my understanding of the question, I believe that the most plausible response to a finding of residual non-normality would be to use a logarithm functional form instead of a linear one.\n\nA logarithm functional form is a mathematical function that transforms a variable into a new variable with a more natural scale. In the case of residual non-normality, a logarithm functional form could be used to transform the variable of interest into a variable that is more normally distributed. This could help to reduce the impact of the non-normality and improve the accuracy of the regression analysis.\n\nOne way to use a logarithm functional form in a regression analysis is to add a logarithm of the variable of interest to the regression equation. For example, if the variable of interest is a measure of income, you could add a logarithm of income to the regression equation. This would transform the income variable into a variable that is more normally distributed, and could help to reduce the impact of the non-normality.\n\nAnother way to use a logarithm functional form in a regression analysis is to estimate the model in first-differenced form. This involves subtracting the first derivative of the regression equation from the original variable of interest. By doing this, you are removing any trends or fluctuations in the data that may be causing the non-normality.\n\nFinally, you could also remove any large outliers from the data. This could help to reduce the impact of any extreme values and improve the accuracy of the regression analysis.\n\nOverall, I believe that using a logarithm functional form instead of a linear one would be a plausible response to a finding of residual non-normality in a regression analysis.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 108,
@@ -41,7 +41,7 @@
             "question": "Which of the following features of financial asset return time-series could be captured using a standard GARCH(1,1) model?\n\ni) Fat tails in the return distribution\n\n\nii) Leverage effects\n\n\niii) Volatility clustering\n\n\niv) Volatility affecting returns\n\n(A) (ii) and (iv) only\n(B) (i) and (iii) only\n(C) (i), (ii), and (iii) only\n(D) (i), (ii), (iii), and (iv)",
             "correct_answer": 1,
             "model_answer": "Based on the information provided, the features of financial asset return time-series that could be captured using a standard GARCH(1,1) model are:\n\ni) Volatility clustering: The GARCH(1,1) model can be used to capture the presence of volatility clustering, which refers to the tendency for returns to be more volatile in the near term and less volatile in the long term.\n\nii) Leverage effects: The GARCH(1,1) model can be used to capture the presence of leverage effects, which refer to the relationship between returns and the amount of leverage used in an investment.\n\niii) Volatility affecting returns: The GARCH(1,1) model can be used to capture the relationship between volatility and returns, which suggests that returns are more volatile when volatility is high.\n\niv) All four features: The GARCH(1,1) model can be used to capture all four features of financial asset return time-series, including volatility clustering, leverage effects, volatility affecting returns, and volatility affecting returns across different time horizons.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 32,
@@ -62,14 +62,15 @@
             "question": "Which of the following is a disadvantage of the fixed effects approach to estimating a panel model?\n\n(A) The model is likely to be technical to estimate\n(B) The approach may not be valid if the composite error term is correlated with one or more of the explanatory variables\n(C) The number of parameters to estimate may be large, resulting in a loss of degrees of freedom\n(D) The fixed effects approach can only capture cross-sectional heterogeneity and not temporal variation in the dependent variable.",
             "correct_answer": 2,
             "model_answer": "The fixed effects approach to estimating a panel model is a popular method for estimating a dynamic panel model. However, it has some disadvantages, including the following:\n\n1. Technicality: The fixed effects approach can be technically challenging to estimate, especially if the model includes many explanatory variables or if the data are complex. The model may require specialized software and expertise in panel data analysis.\n\n2. Lack of validity: The fixed effects approach assumes that the error terms in the panel model are independent of each other and of the explanatory variables. However, this may not be the case in practice. If the error terms are correlated, the fixed effects approach may not be able to accurately capture the true relationship between the dependent and explanatory variables.\n\n3. Large number of parameters: The fixed effects approach estimates a separate model for each time period, which can result in a large number of parameters to estimate. This can lead to a loss of degrees of freedom and may make the model difficult to interpret.\n\n4. Can only capture cross-sectional variation: The fixed effects approach can only capture cross-sectional variation in the dependent variable, not temporal variation. If the dependent variable changes over time, the fixed effects approach may not be able to accurately capture the true relationship between the dependent and explanatory variables.\n\nOverall, the fixed effects approach can be a useful method for estimating a panel model, but it is important to consider the potential limitations and to use appropriate statistical techniques to ensure the model's validity and accuracy.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 57,
             "question": "What is the meaning of the term \"heteroscedasticity\"?\n\n(A) The variance of the errors is not constant\n(B) The variance of the dependent variable is not constant\n(C) The errors are not linearly independent of one another\n(D) The errors have non-zero mean",
             "correct_answer": 0,
             "model_answer": "The term \"heteroscedasticity\" refers to the fact that the variance of the errors (i.e., the deviations of the observed values from the predicted values) is not constant. This means that the relationship between the errors and the underlying variables is not linear, as it would be if the errors were independent and had a constant variance.\n\nTo understand the meaning of this term, consider the following example. Let's say we have a linear regression model where the dependent variable is the value of a stock, and the independent variables are the day of the week and the market index. If we plot the predicted values against the observed values, we would expect the relationship to be linear and the errors to be independent of one another. However, if we look at the variance of the errors, we would see that it is not constant. This means that the errors are not randomly distributed around the predicted values, but instead have a certain pattern.\n\nIn other words, the variance of the errors is not a constant that can be easily ignored, as it can have a significant impact on the accuracy of the regression model. Therefore, it is important to consider the heteroscedasticity of the errors when designing and analyzing the regression model.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 4
 }

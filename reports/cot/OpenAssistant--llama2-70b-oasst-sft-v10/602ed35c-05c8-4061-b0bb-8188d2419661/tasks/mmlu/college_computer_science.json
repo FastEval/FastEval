@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.4,
     "model_outputs": [
         {
             "id": 17,
@@ -13,7 +13,7 @@
             "question": "Which of the following pairs of 8-bit, two's-complement numbers will result in overflow when the members of the pairs are added?\n\n(A) 11111111, 00000001\n(B) 00000001, 10000000\n(C) 11111111, 10000001\n(D) 10000001, 10101010",
             "correct_answer": 3,
             "model_answer": "To determine which pair of 8-bit, two's-complement numbers will result in overflow when added, we need to check if the sum of the numbers exceeds the maximum value that can be represented in 8 bits.\n\nThe maximum value that can be represented in 8 bits is 2^8 - 1, which is equal to 255 in decimal.\n\nLet's examine each pair of numbers:\n\n(A) 11111111 + 00000001 = 11111111 + 1 = 11111112, which is within the range of 8-bit numbers.\n\n(B) 00000001 + 10000000 = 10000001 + 1 = 10000002, which is also within the range of 8-bit numbers.\n\n(C) 11111111 + 10000001 = 11111111 + 1 = 11111112, which is within the range of 8-bit numbers.\n\n(D) 10000001 + 10101010 = 10000001 + 1 = 10000002, which is within the range of 8-bit numbers.\n\nNone of the pairs of numbers result in an overflow when added. Therefore, the answer is:\n\n(E) None of the above",
-            "correct": false
+            "correct": true
         },
         {
             "id": 97,
@@ -71,5 +71,6 @@
             "model_answer": "To determine which job-scheduling policy is starvation-free, we need to analyze each option and see if it guarantees that no job waits indefinitely for service.\n\n(A) Round-robin: In this policy, jobs are executed in a circular fashion, with each job getting a fixed time slice. If the time slice is small enough, it is possible for a job to wait indefinitely if it keeps getting preempted by other jobs. Therefore, this policy is not starvation-free.\n\n(B) Priority queuing: In this policy, jobs are executed based on their priority level, with higher-priority jobs being executed first. If a low-priority job is continuously preempted by higher-priority jobs, it may wait indefinitely for service. Therefore, this policy is not starvation-free.\n\n(C) Shortest job first: In this policy, jobs are executed in the order of their expected execution time, with the shortest job being executed first. Since each job is executed as soon as it is the shortest, no job waits indefinitely for service. Therefore, this policy is starvation-free.\n\n(D) Youngest job first: In this policy, jobs are executed in the order they arrive, with the youngest job being executed first. If a job arrives and keeps getting preempted by newer jobs, it may wait indefinitely for service. Therefore, this policy is not starvation-free.\n\nBased on the analysis, the starvation-free job-scheduling policy is:\n\n(C) Shortest job first",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

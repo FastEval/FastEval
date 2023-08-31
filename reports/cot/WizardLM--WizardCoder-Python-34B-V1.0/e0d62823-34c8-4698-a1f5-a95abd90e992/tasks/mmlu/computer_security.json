@@ -1,26 +1,26 @@
 {
-    "score": 0.2,
+    "score": 0.375,
     "model_outputs": [
         {
             "id": 17,
             "question": "What is Nmap?\n\n(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n(B) It is a network fuzz testing tool\n(C) It is a map of the Internet\n(D) It is a suite of tools for scripting attacks: probe, construct, encode, inject, wait for response",
             "correct_answer": 0,
             "model_answer": "Nmap stands for Network Mapper. It is a free and open-source tool used for network discovery and security auditing. Nmap uses raw IP packets to determine what hosts are available on a network, what services are running on those hosts, what operating system they are running, and what type of packet filters/firewalls are in place. Nmap is often used for penetration testing, vulnerability scanning, and network administration tasks.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 72,
             "question": "What is the difference between a direct leak and a side channel?\n\n(A) A direct leak creates a denial of service by failing to free memory, while a channel frees memory as a side effect\n(B) A direct leak is one that is intentional, rather than by unintentional\n(C) A direct leak comes via the software system's intended interaction mechanism, where as a side channel leak comes from measurements of other system features, like timing, power usage, or space usage\n(D) There is no difference",
             "correct_answer": 2,
             "model_answer": "The difference between a direct leak and a side channel is that a direct leak is a type of vulnerability that exposes sensitive information by causing the system to leak data directly to an attacker, while a side channel attack exploits unintended information disclosures that occur as a side effect of the system's normal operation.\n\nIn a direct leak, the sensitive information is leaked directly to an attacker through the system's intended interaction mechanism, such as a network protocol or an API. For example, a direct leak could occur if a web application fails to properly sanitize user input and exposes sensitive data in an error message.\n\nOn the other hand, a side channel attack exploits unintended information disclosures that occur as a side effect of the system's normal operation. For example, a side channel attack could exploit differences in the timing or power consumption of the system when processing different inputs, or differences in the space usage of the system's memory when processing different inputs.\n\nIn summary, a direct leak occurs when sensitive information is leaked directly to an attacker through the system's intended interaction mechanism, while a side channel attack occurs when sensitive information is leaked indirectly as a side effect of the system's normal operation.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 97,
             "question": "What was the first buffer overflow attack?\n\n(A) Love Bug\n(B) SQL Slammer\n(C) Morris Worm\n(D) Code Red",
             "correct_answer": 2,
             "model_answer": "The first buffer overflow attack was the Morris Worm, which was launched in 1988. It was a computer worm that spread through the ARPANET and infected many computers running the Berkeley UNIX operating system. The worm exploited a buffer overflow vulnerability in the finger program, which allowed it to overwrite memory and execute arbitrary code. The attack caused significant damage to the ARPANET and led to the creation of the Computer Emergency Response Team (CERT).",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -41,7 +41,7 @@
             "question": "_______________ is the central node of 802.11 wireless operations.\n\n(A) WPA\n(B) Access Point\n(C) WAP\n(D) Access Port",
             "correct_answer": 1,
             "model_answer": "The correct answer is (B) Access Point. \r\n\r\nExplanation: \r\n\r\n802.11 is a wireless networking standard that defines the protocols and mechanisms used to connect wireless devices. The central node of 802.11 wireless operations is the Access Point (AP), which is a device that connects wireless clients to a wired network. The AP is responsible for managing the wireless network, authenticating clients, and distributing network traffic. \r\n\r\nWPA is a security protocol that is used to encrypt wireless data transmissions. WAP is a deprecated term that refers to a technology used to provide wireless access to the internet. Access Port is a physical port on a device that is used to connect to a network.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 63,
@@ -71,5 +71,6 @@
             "model_answer": "The correct answer is (B) WPA. \r\n\r\nExplanation: \r\n\r\n\"WPA began to show up few years back on wireless access points as a new way of adding or connecting new devices.\"\r\n\r\nThis sentence is referring to the WPA security protocol, which was introduced as a way to secure wireless networks. The sentence is not referring to any other security protocols such as WPA2, WPS, or WEP. Therefore, the correct answer is (B) WPA.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 3
 }

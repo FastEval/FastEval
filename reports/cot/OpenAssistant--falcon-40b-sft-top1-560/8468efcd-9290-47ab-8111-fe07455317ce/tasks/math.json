@@ -1,5 +1,5 @@
 {
-    "score": 0.049,
+    "score": 0.05,
     "model_outputs": [
         {
             "id": 1100,
@@ -1798,7 +1798,7 @@
             "question": "How many triangles are in this figure?\n\n[asy]size(50);\ndraw((0,0)--(1,0)--(0,0)--(0,1));\ndraw((1,1)--(0,1)--(1,0)--(1,1)--(0,0));[/asy]",
             "correct_answer": "There are four small triangles and four triangles composed of two smaller ones (comprising two sides and the diagonal of the square). Thus, there are $\\boxed{8}$ triangles.",
             "model_answer": "To answer this question, we can use the fact that any triangle can be represented as the intersection of three half-planes. In this figure, we can see that there are two such half-planes, which means there are two triangles.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 1922,
@@ -2344,7 +2344,7 @@
             "question": "A solid tetrahedron is sliced off a wooden unit cube by a plane passing through two nonadjacent vertices on one face and one vertex on the opposite face not adjacent to either of the first two vertices. The tetrahedron is discarded and the remaining portion of the cube is placed on a table with the cut surface face down. What is the height of this object?",
             "correct_answer": "Place the cube in coordinate space, so that the vertices are at $(x,y,z),$ where $x,$ $y,$ $z \\in \\{0,1\\}.$  We cut off the tetrahedron with vertices $(0,1,1),$ $(1,0,1),$ $(1,1,0),$ and $(1,1,1).$\n\n[asy]\nimport three;\n\nsize(200);\ncurrentprojection = perspective(6,3,2);\n\ndraw(surface((0,1,1)--(1,0,1)--(1,1,0)--cycle),gray(0.7),nolight);\ndraw((1,0,0)--(1,1,0)--(0,1,0)--(0,1,1)--(0,0,1)--(1,0,1)--cycle);\ndraw((0,1,1)--(1,0,1)--(1,1,0)--cycle);\n\ndraw((0,0,0)--(1,0,0),dashed);\ndraw((0,0,0)--(0,1,0),dashed);\ndraw((0,0,0)--(0,0,1),dashed);\ndraw((1,0,0)--(1.2,0,0),Arrow3(6));\ndraw((0,1,0)--(0,1.2,0),Arrow3(6));\ndraw((0,0,1)--(0,0,1.2),Arrow3(6));\ndraw((0,0,0)--(2/3,2/3,2/3),dashed);\n\nlabel(\"$x$\", (1.3,0,0));\nlabel(\"$y$\", (0,1.3,0));\nlabel(\"$z$\", (0,0,1.3));\nlabel(\"$(0,0,0)$\", (0,0,0), W, fontsize(10));\nlabel(\"$(1,0,0)$\", (1,0,0), NW, fontsize(10));\nlabel(\"$(0,1,0)$\", (0,1,0), NE, fontsize(10));\nlabel(\"$(0,0,1)$\", (0,0,1), NW, fontsize(10));\nlabel(\"$(1,1,0)$\", (1,1,0), S, fontsize(10));\nlabel(\"$(1,0,1)$\", (1,0,1), NW, fontsize(10));\nlabel(\"$(0,1,1)$\", (0,1,1), NE, fontsize(10));\n\ndot(\"$(\\frac{2}{3}, \\frac{2}{3}, \\frac{2}{3})$\", (2/3,2/3,2/3), NE, fontsize(10));\n[/asy]\n\nThe vertices $(0,1,1),$ $(1,0,1),$ and $(1,1,0)$ form an equilateral triangle.  The plane containing this triangle is\n\\[x + y + z = 2,\\]and the centroid of this triangle is $\\left( \\frac{2}{3}, \\frac{2}{3}, \\frac{2}{3} \\right).$\n\nThe vector pointing from $(0,0,0)$ to $\\left( \\frac{2}{3}, \\frac{2}{3}, \\frac{2}{3} \\right)$ is $\\left( \\frac{2}{3}, \\frac{2}{3}, \\frac{2}{3} \\right),$ which is orthogonal to the plane $x + y + z = 2.$  Therefore, the height of the object is the magnitude of the vector $\\left( \\frac{2}{3}, \\frac{2}{3}, \\frac{2}{3} \\right),$ which is\n\\[\\sqrt{\\left( \\frac{2}{3} \\right)^2 + \\left( \\frac{2}{3} \\right)^2 + \\left( \\frac{2}{3} \\right)^2} = \\boxed{\\frac{2}{3} \\sqrt{3}}.\\]",
             "model_answer": "To solve this problem, we can use the following steps:\n\nDraw a picture of the given solid tetrahedron and the wooden unit cube.\n\nIdentify the plane that slices off the tetrahedron from the cube.\n\nIdentify the two non-adjacent vertices on one face of the tetrahedron and the vertex on the opposite face that is not adjacent to either of the first two vertices.\n\nDraw the sliced portion of the cube on the table with the cut surface face down.\n\nCalculate the height of the sliced portion of the cube.\n\nBased on the given information, the sliced portion of the cube is a right triangular prism with a square base and a triangular top. The height of the prism is the distance between the two non-adjacent vertices on the face of the tetrahedron that is sliced off and the vertex on the opposite face that is not adjacent to either of the first two vertices.\n\nThe distance between the two non-adjacent vertices on the face of the tetrahedron that is sliced off can be calculated using the Pythagorean theorem. The distance between the vertex on the opposite face that is not adjacent to either of the first two vertices and the vertex that is adjacent to both of the first two vertices can be calculated using the fact that the tetrahedron is a regular tetrahedron.\n\nTherefore, the height of the sliced portion of the cube is the sum of these two distances.\n\nThe final answer is the height of the sliced portion of the cube.",
-            "correct": false
+            "correct": null
         },
         {
             "id": 2623,
@@ -5018,7 +5018,7 @@
             "question": "Roslyn has twenty boxes. Thirteen of the boxes contain pencils, nine of the boxes contain pens, and three of the boxes contain neither pens nor pencils. How many boxes contain both pens and pencils?",
             "correct_answer": "Since 3 of the 20 boxes have neither pens nor pencils, $20-3=17$ of them have pens, pencils, or both.  Let there be $x$ boxes with both.  As shown below, there are $13-x$ with pencils and $9-x$ with pens, so we must have $(13-x) + x + (9-x) = 17$.  Simplifying gives $22-x = 17$, so $x=\\boxed{5}$.\n\n\n[asy]\nunitsize(0.05cm);\nlabel(\"Pencils\", (2,74));\nlabel(\"Pens\", (80,74));\ndraw(Circle((30,45), 22));\ndraw(Circle((58, 45), 22));\nlabel(\"$x$\", (44, 45));\nlabel(scale(0.8)*\"$13-x$\",(28,58));\nlabel(scale(0.8)*\"$9-x$\",(63,58));\n[/asy]",
             "model_answer": "To solve this problem, we can use the following steps:\n\n1. Let P represent the number of boxes that contain pens, and let P represent the number of boxes that contain pencils.\n\n2. Since there are a total of 20 boxes, we can write the following equation:\n\nP + P + P' = 20\n\nwhere P' represents the number of boxes that contain neither pens nor pencils.\n\n3. Since there are 13 boxes that contain pencils and 9 boxes that contain pens, we can substitute these values into the equation above:\n\nP + P + P' = 20\n\nP + 9 + P' = 20\n\nP + 10P' = 20\n\n4. We can now solve for P' by dividing both sides of the equation by 10:\n\nP + 10P' / 10 = 20 / 10\n\nP + 1 = 2\n\nP = 2 - 1\n\nP = 1\n\n5. Therefore, there is only one box that contains both pens and pencils.\n\nFinal answer: There is only one box that contains both pens and pencils.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 3095,
@@ -7001,5 +7001,6 @@
             "model_answer": "To solve this recurrence relation, we can use the substitution method.\n\nLet $y = 1 + \\frac{x}{1 + \\frac{x}{1+ \\frac{x}{1 + \\cdots}}}$\n\nThen the recurrence relation becomes:\n\n$x = y - \\frac{y}{1 + \\frac{y}{1+ \\frac{y}{1 + \\cdots}}}$\n\nWe can simplify this equation as follows:\n\n$x = y - \\frac{y}{1 + \\frac{y}{1 + \\frac{y}{1 + \\cdots}}} = y - y + \\frac{y}{1 + \\frac{y}{1 + \\frac{y}{1 + \\cdots}}}$\n\nSimplifying further:\n\n$x = y + \\frac{1}{1 + \\frac{y}{1 + \\frac{y}{1 + \\cdots}}}$\n\nNow we can solve for $y$:\n\n$y = 1 + \\frac{x}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}}$\n$y - x = 1 + \\frac{x}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}}$\n$y - x - x = 1 + \\frac{x}{1 + \\frac{x}{1 + \\frac{x}{1 + \\cdots}}}$\n$2x - x^2 = 1$\n$x^2 - 2x + 1 = 0$\n$x = \\frac{1 \\pm \\sqrt{5 - 4 \\cdot 1}}{2}$\n$x = \\frac{1 \\pm \\sqrt{5}}{2}$\n$x = \\frac{1 \\pm \\sqrt{5}}{2} = \\frac{1 \\pm 2}{2} = \\frac{1}{2} \\pm 1 = \\frac{1}{2} + \\frac{1}{2} = 1$\n\nTherefore, $x = 1$.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 2
 }

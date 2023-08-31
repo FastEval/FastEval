@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.4,
     "model_outputs": [
         {
             "id": 17,
@@ -34,7 +34,7 @@
             "question": "Which one of the following is equal to P(A, B, C) given Boolean random variables A, B and C, and no independence or conditional independence assumptions between any of them?\n\n(A) P(A | B) * P(B | C) * P(C | A)\n(B) P(C | A, B) * P(A) * P(B)\n(C) P(A, B | C) * P(C)\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
             "correct_answer": 2,
             "model_answer": "To solve this problem, we need to find the probability of the joint occurrence of events A, B, and C. Since we have no independence or conditional independence assumptions between any of them, we cannot simplify the expression using these relationships. Therefore, we need to consider all possible combinations of the truth values of A, B, and C, and count the number of times they occur together.\n\nThere are 2^3 = 8 possible combinations of truth values for A, B, and C:\n\n1. A = False, B = False, C = False\n2. A = False, B = False, C = True\n3. A = False, B = True, C = False\n4. A = False, B = True, C = True\n5. A = True, B = False, C = False\n6. A = True, B = False, C = True\n7. A = True, B = True, C = False\n8. A = True, B = True, C = True\n\nThe probability of each combination occurring together is equal to 1/8. Therefore, the answer is:\n\n(E) 1/8",
-            "correct": false
+            "correct": true
         },
         {
             "id": 8,
@@ -71,5 +71,6 @@
             "model_answer": "Step 1: Let's break down each statement and understand them individually.\n\nStatement 1: L2 regularization of linear models tends to make models more sparse than L1 regularization.\n\nExplanation: L1 regularization (Lasso) and L2 regularization (Ridge) are two popular regularization techniques used in machine learning to prevent overfitting. L1 regularization adds a penalty term to the cost function that is proportional to the absolute value of the coefficients, while L2 regularization adds a penalty term that is proportional to the square of the coefficients. L2 regularization tends to result in smoother models with smaller coefficients, which can be seen as more sparse.\n\nStep 2: Let's move on to the second statement.\n\nStatement 2: Residual connections can be found in ResNets and Transformers.\n\nExplanation: Residual connections, also known as skip connections, are a type of connection in neural networks that allow the output of one layer to be added directly to the input of another layer. Residual connections were first introduced in Residual Networks (ResNets) to help train deeper neural networks, which tend to suffer from the vanishing gradient problem. Later, residual connections were also used in Transformers, a type of neural network used for natural language processing tasks.\n\nStep 3: Based on the explanations above, we can determine the correct answer.\n\n(A) True, True: Both statements are true. L2 regularization tends to make models more sparse than L1 regularization, and residual connections can be found in both ResNets and Transformers.\n\nAnswer: (A)",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

@@ -1,5 +1,5 @@
 {
-    "score": 0.4,
+    "score": 0.5,
     "model_outputs": [
         {
             "id": 17,
@@ -55,7 +55,7 @@
             "question": "Which of the following instruction-set features is NOT generally considered an obstacle to aggressive pipelining of an integer unit?\n\n(A) Condition codes set by every instruction\n(B) Variable-length encoding of instructions\n(C) Instructions requiring widely varying numbers of cycles to execute\n(D) Several different classes (sets) of registers",
             "correct_answer": 3,
             "model_answer": "(D) Several different classes (sets) of registers\n\nExplanation:\nThe given options are:\n(A) Condition codes set by every instruction\n(B) Variable-length encoding of instructions\n(C) Instructions requiring widely varying numbers of cycles to execute\n(D) Several different classes (sets) of registers\n\nOut of these options, (D) Several different classes (sets) of registers is NOT generally considered an obstacle to aggressive pipelining of an integer unit.\n\nThe reason is that having different classes of registers does not inherently hinder the ability to pipeline instructions. Pipelining can still be implemented by having separate stages for each class of registers, allowing instructions to be processed in parallel.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 60,
@@ -71,5 +71,6 @@
             "model_answer": "To determine which of the given job-scheduling policies is starvation-free, let's analyze each one:\n\n(A) Round-robin: In round-robin scheduling, each job gets a chance to be processed in a fixed order, and once a job is completed, the next job in the sequence gets processed. This policy ensures that no job waits indefinitely for service, as each job gets a chance to be processed.\n\n(B) Priority queuing: In priority queuing, jobs are sorted based on their priority levels, and the highest priority job is processed first. This policy also ensures that no job waits indefinitely for service, as high-priority jobs are given priority over lower-priority jobs.\n\n(C) Shortest job first: In shortest job first scheduling, jobs are sorted based on their execution time, and the shortest job is processed first. This policy also ensures that no job waits indefinitely for service, as short jobs are given priority over longer jobs.\n\n(D) Youngest job first: In youngest job first scheduling, jobs are sorted based on their creation time, and the youngest job is processed first. This policy also ensures that no job waits indefinitely for service, as young jobs are given priority over older jobs.\n\nSo, out of the given options, both (A) Round-robin and (C) Shortest job first are starvation-free job-scheduling policies.\n\nAnswer: (A) Round-robin and (C) Shortest job first",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

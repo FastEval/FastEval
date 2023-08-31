@@ -1,5 +1,5 @@
 {
-    "score": 0.4,
+    "score": 0.5,
     "model_outputs": [
         {
             "id": 17,
@@ -13,7 +13,7 @@
             "question": "Which of the following pairs of 8-bit, two's-complement numbers will result in overflow when the members of the pairs are added?\n\n(A) 11111111, 00000001\n(B) 00000001, 10000000\n(C) 11111111, 10000001\n(D) 10000001, 10101010",
             "correct_answer": 3,
             "model_answer": "To determine which of the given pairs of 8-bit, two's-complement numbers will result in overflow when the members of the pairs are added, we need to follow these steps:\n\n1. Convert the binary numbers to decimal.\n2. Add the decimal numbers.\n3. Check if the sum is within the range of 8-bit two's-complement numbers.\n\nLet's go through each pair and check if it will result in overflow:\n\n(A) 11111111 (decimal: -1) + 00000001 (decimal: 1) = 11111112 (decimal: -2)\nSince -2 is within the range of 8-bit two's-complement numbers, this pair will not result in overflow.\n\n(B) 00000001 (decimal: 1) + 10000000 (decimal: -128) = 10000001 (decimal: -127)\nSince -127 is within the range of 8-bit two's-complement numbers, this pair will not result in overflow.\n\n(C) 11111111 (decimal: -1) + 10000001 (decimal: -127) = 00000000 (decimal: 0)\nSince 0 is within the range of 8-bit two's-complement numbers, this pair will not result in overflow.\n\n(D) 10000001 (decimal: -127) + 10101010 (decimal: -122) = 01101011 (decimal: -115)\nSince -115 is within the range of 8-bit two's-complement numbers, this pair will not result in overflow.\n\nNone of the given pairs will result in overflow when the members of the pairs are added.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 97,
@@ -71,5 +71,6 @@
             "model_answer": "To determine which job-scheduling policy is starvation-free, we need to understand the concept of starvation and how it relates to the policies.\n\nStarvation occurs when a job is unable to access the resources it needs to complete its task, and it remains in a waiting state indefinitely. This can happen if the job is not scheduled in a timely manner or if the resources are not available.\n\nNow let's analyze each policy:\n\n(A) Round-robin: This policy assigns CPU time to each job in a round-robin fashion, meaning that each job gets a fixed amount of time to run. If a job takes longer than its allotted time, it will be preempted and placed back in the queue. This policy does not guarantee that a job will not wait indefinitely for service, as it can still be starved if the job takes longer than its allotted time.\n\n(B) Priority queuing: This policy assigns CPU time to jobs based on their priority. Jobs with higher priority are given more CPU time than jobs with lower priority. This policy can help prevent starvation by ensuring that high-priority jobs are given priority over lower-priority jobs. However, it is still possible for a job with a lower priority to wait indefinitely for service if there are no high-priority jobs available.\n\n(C) Shortest job first: This policy assigns CPU time to the shortest job in the queue. This policy can help prevent starvation by ensuring that shorter jobs are given priority over longer jobs. However, it is still possible for a longer job to wait indefinitely for service if there are no shorter jobs available.\n\n(D) Youngest job first: This policy assigns CPU time to the youngest job in the queue. This policy can help prevent starvation by ensuring that newer jobs are given priority over older jobs. However, it is still possible for an older job to wait indefinitely for service if there are no newer jobs available.\n\nBased on the analysis, none of the given policies are guaranteed to be starvation-free. However, (B) Priority queuing and (C) Shortest job first are the most likely to prevent starvation, as they prioritize jobs based on their priority or length, respectively.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

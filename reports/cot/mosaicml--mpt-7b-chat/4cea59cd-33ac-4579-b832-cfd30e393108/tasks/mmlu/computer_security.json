@@ -1,12 +1,12 @@
 {
-    "score": 0.1,
+    "score": 0.2,
     "model_outputs": [
         {
             "id": 17,
             "question": "What is Nmap?\n\n(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n(B) It is a network fuzz testing tool\n(C) It is a map of the Internet\n(D) It is a suite of tools for scripting attacks: probe, construct, encode, inject, wait for response",
             "correct_answer": 0,
             "model_answer": ": Nmap is a network exploration and security auditing tool. It is used to scan a network to discover hosts and services on that network. Nmap can also be used to scan a range of hosts to determine which ones are alive and responding to network traffic. Nmap works by sending packets to a range of IP addresses and analyzing the responses to infer the presence of hosts and services on those addresses. Nmap is a powerful tool for network security auditing and can be used to identify vulnerabilities in a network. It is also used for network exploration and troubleshooting.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 72,
@@ -20,7 +20,7 @@
             "question": "What was the first buffer overflow attack?\n\n(A) Love Bug\n(B) SQL Slammer\n(C) Morris Worm\n(D) Code Red",
             "correct_answer": 2,
             "model_answer": ": The first buffer overflow attack was the Morris Worm, which was a computer worm that spread through the Internet in 1988. The worm exploited a buffer overflow vulnerability in the Microsoft Windows operating system, and was able to spread by sending itself to other computers on the same network. The worm caused significant damage, and was one of the first examples of a worm that was able to spread through a network.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -34,7 +34,7 @@
             "question": "Suppose Unix did not provide a way of passing file descriptors between processes, but still allowed inheriting file descriptors from a parent on fork and exec. What aspects of the OKWS design would break without file descriptor passing?\n1. It would be impossible for services to get a TCP connection to the client web browser.\n2. It would be impossible for okd to run as a non-root user.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
             "correct_answer": 2,
             "model_answer": ": \n1. It would be impossible for services to get a TCP connection to the client web browser because the child process would not have the necessary file descriptor to access the network device. Without file descriptor passing, the child process would not be able to inherit the file descriptor for the network device from the parent process, and therefore would not be able to access the network.\n2. It would be impossible for okd to run as a non-root user because the child process would not have the necessary file descriptor to access the system resources. Without file descriptor passing, the child process would not be able to inherit the file descriptor for the system resources from the parent process, and therefore would not be able to access the system as a non-root user.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 15,
@@ -69,7 +69,8 @@
             "question": "___________________ began to show up few years back on wireless access points as a new way of adding or connecting new devices.\n\n(A) WPA2\n(B) WPA\n(C) WPS\n(D) WEP",
             "correct_answer": 2,
             "model_answer": ": WPA2 is the correct answer. \nExplanation: The question asks about a specific technology that has been used to add or connect new devices to wireless access points. The only technology mentioned in the question is WPA2, which stands for Wi-Fi Protected Access 2. WPA2 is a security protocol that was introduced in 2003 and is now the most widely used security protocol for Wi-Fi networks. It provides strong encryption and authentication for wireless devices, and is the recommended security protocol for modern Wi-Fi networks. WPA and WPS are other security protocols for Wi-Fi networks, but they are not mentioned in the question. WEP is an older security protocol that is no longer recommended due to its weak encryption and authentication. Therefore, the correct answer is WPA2.",
-            "correct": false
+            "correct": 0.25
         }
-    ]
+    ],
+    "num_unmatched": 4
 }

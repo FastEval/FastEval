@@ -1,5 +1,5 @@
 {
-    "score": 0.3,
+    "score": 0.3333333333333333,
     "model_outputs": [
         {
             "id": 34,
@@ -55,7 +55,7 @@
             "question": "The following translations from German to English contain a particular error. That error will be one of the following types: Named Entities: An entity (names, places, locations, etc.) is changed to a different entity. Numerical Values: Numerical values (ordinals or cardinals), dates, and/or units are changed. Modifiers or Adjectives: The modifiers and adjectives pertaining to a noun are changed. Negation or Antonyms: Introduce or remove a negation or change comparatives to their antonyms. Facts: Trivial factual errors not pertaining to the above classes are introduced in the translations. Dropped Content: A significant clause in the translation is removed. Please identify that error.  Source: Bry-sur-Marne ist eine franz\u00f6sische Gemeinde im Gro\u00dfraum Paris, etwa 12 km in \u00f6stlicher Richtung vom Zentrum der Metropole entfernt.\nTranslation: Bry-sur-Marne is a commune in the greater Paris area, about 12 mm east of the city centre.\nThe translation contains an error pertaining to\nOptions:\n(A) Modifiers or Adjectives\n(B) Numerical Values\n(C) Negation or Antonyms\n(D) Named Entities\n(E) Dropped Content\n(F) Facts",
             "correct_answer": "(B)",
             "model_answer": "First, let's break down the original German sentence and the English translation:\n\nGerman: Bry-sur-Marne ist eine franz\u00f6sische Gemeinde im Gro\u00dfraum Paris, etwa 12 km in \u00f6stlicher Richtung vom Zentrum der Metropole entfernt.\nEnglish: Bry-sur-Marne is a commune in the greater Paris area, about 12 mm east of the city centre.\n\nNow, let's analyze the translation step-by-step:\n\n1. \"Bry-sur-Marne\" is correctly translated to \"Bry-sur-Marne\".\n2. \"ist\" (is) is correctly translated to \"is\".\n3. \"eine franz\u00f6sische Gemeinde\" (a French commune) is correctly translated to \"a commune in the greater Paris area\".\n4. \"im Gro\u00dfraum Paris\" (in the greater Paris area) is correctly translated to \"in the greater Paris area\".\n5. \"ungef\u00e4hr 12 km\" (about 12 km) is translated to \"about 12 mm\". This is an error in numerical values.\n6. \"in \u00f6stlicher Richtung\" (in eastern direction) is translated to \"east of\". This is a correct translation.\n7. \"vom Zentrum der Metropole\" (from the center of the metropolis) is translated to \"of the city centre\". This is a correct translation.\n\nBased on the analysis, the error in the translation is:\n\n(B) Numerical Values\n\nThe correct translation should be:\n\nBry-sur-Marne is a commune in the greater Paris area, about 12 km east of the city centre.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 126,
@@ -211,5 +211,6 @@
             "model_answer": "First, let's identify the key elements in the source sentence:\n\n1. Wayne County\n2. County\n3. Indiana\n4. US-Bundesstaat\n5. Vereinigten Staaten\n\nNow, let's examine the translation:\n\n1. Wayne County (same)\n2. county (same)\n3. Indiana (missing)\n4. U.S. (same)\n5. the United States (same)\n\nThe translation is missing the information about Indiana being the U.S. state where Wayne County is located. This error falls under the category of:\n\n(D) Named Entities",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

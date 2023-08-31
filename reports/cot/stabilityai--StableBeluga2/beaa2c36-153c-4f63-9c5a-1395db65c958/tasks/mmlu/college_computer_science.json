@@ -1,5 +1,5 @@
 {
-    "score": 0.6,
+    "score": 0.725,
     "model_outputs": [
         {
             "id": 17,
@@ -13,7 +13,7 @@
             "question": "Which of the following pairs of 8-bit, two's-complement numbers will result in overflow when the members of the pairs are added?\n\n(A) 11111111, 00000001\n(B) 00000001, 10000000\n(C) 11111111, 10000001\n(D) 10000001, 10101010",
             "correct_answer": 3,
             "model_answer": "To determine which pair of numbers will result in overflow when added, we need to first understand how two's complement numbers work and then perform the addition step by step.\n\nIn two's complement, the most significant bit (MSB) represents the sign of the number. If the MSB is 0, the number is positive, and if it is 1, the number is negative. To add two's complement numbers, we perform the following steps:\n\n1. Add the numbers as if they were unsigned integers.\n2. If the result has the MSB set, the sum is negative.\n3. If the result has the MSB clear, the sum is positive.\n\nNow, let's analyze each pair of numbers:\n\n(A) 11111111, 00000001\n- The first number is all 1's, which means it's the largest negative number in two's complement.\n- The second number is 1, which is a small positive number.\n- When we add them, we get 11111111 + 00000001 = 11111110.\n- The MSB is set, so the result is negative.\n- No overflow occurred.\n\n(B) 00000001, 10000000\n- The first number is 1, which is a small positive number.\n- The second number is all 1's except for the MSB, which means it's the largest positive number in two's complement.\n- When we add them, we get 00000001 + 10000000 = 10000001.\n- The MSB is set, so the result is negative.\n- No overflow occurred.\n\n(C) 11111111, 10000001\n- The first number is the largest negative number in two's complement.\n- The second number is all 1's except for the MSB, which means it's the largest positive number in two's complement.\n- When we add them, we get 11111111 + 10000001 = 00000000.\n- The MSB is clear, so the result is positive.\n- No overflow occurred.\n\n(D) 10000001, 10101010\n- The first number is a small negative number in two's complement.\n- The second number is also a small negative number in two's complement.\n- When we add them, we get 10000001 + 10101010 = 01111111.\n- The MSB is clear, so the result is positive.\n- No overflow occurred.\n\nSince none of the pairs resulted in overflow, the answer is:\n\n()",
-            "correct": false
+            "correct": true
         },
         {
             "id": 97,
@@ -62,7 +62,7 @@
             "question": "Let T be a depth-first search tree of a connected undirected graph G. For each vertex v of T, let pre(v) be the number of nodes visited up to and including v during a preorder traversal of T, and post(v) be the number of nodes visited up to and including v during a postorder traversal of T. The lowest common ancestor of vertices u and v in T is a vertex w of T such that w is an ancestor of both u and v, and no child of w is an ancestor of both u and v. Let (u, v) be an edge in G that is not in T, such that pre(u) < pre(v). Which of the following statements about u and v must be true?\nI. post(u) < post(v)\nII. u is an ancestor of v in T.\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\n\n(A) I only\n(B) II only\n(C) III only\n(D) II and III",
             "correct_answer": 3,
             "model_answer": "Let's analyze each statement:\n\nI. post(u) < post(v)\nSince pre(u) < pre(v), it means that u is visited earlier than v during the preorder traversal. During the postorder traversal, the vertices are visited in reverse order of the preorder traversal. Therefore, it is possible that post(u) < post(v), but it is not a necessary condition.\n\nII. u is an ancestor of v in T.\nSince (u, v) is an edge in G that is not in T, it means that u and v are connected in G but not through an edge in T. Therefore, u cannot be an ancestor of v in T.\n\nIII. If w is the lowest common ancestor of u and v in T, then w = u.\nSince (u, v) is an edge in G that is not in T, and T is a depth-first search tree of G, it means that there is no path between u and v in T. Therefore, there is no lowest common ancestor w for u and v in T.\n\nBased on the analysis, none of the statements I, II, and III must be true. Therefore, the answer is:\n\n(E) None of the above",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 83,
@@ -71,5 +71,6 @@
             "model_answer": "Step 1: Understand the question\nThe question asks which of the given job-scheduling policies guarantees that no job waits indefinitely for service.\n\nStep 2: Analyze the options\n(A) Round-robin: Each job gets equal time slices, ensuring that every job gets some service.\n(B) Priority queuing: Jobs are served based on their priority, which may cause some jobs to wait longer.\n(C) Shortest job first: Jobs are served based on their length, which may cause some jobs to wait longer.\n(D) Youngest job first: Jobs are served based on their arrival time, which may cause some jobs to wait longer.\n\nStep 3: Determine which policy is starvation-free\nOption (A) Round-robin guarantees that every job gets some service, making it starvation-free.\n\nAnswer: (A) Round-robin",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 1
 }

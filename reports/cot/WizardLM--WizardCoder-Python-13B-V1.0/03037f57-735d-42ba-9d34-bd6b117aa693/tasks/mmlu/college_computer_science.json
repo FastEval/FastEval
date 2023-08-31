@@ -1,5 +1,5 @@
 {
-    "score": 0.4,
+    "score": 0.5,
     "model_outputs": [
         {
             "id": 17,
@@ -48,7 +48,7 @@
             "question": "Which of the following language features requires that stack-based storage allocation be used rather than static allocation?\n\n(A) Recursive procedures\n(B) Arbitrary goto's\n(C) Two-dimensional arrays\n(D) Integer-valued functions",
             "correct_answer": 0,
             "model_answer": "The correct answer is (A) Recursive procedures.\n\nExplanation:\n\nRecursive procedures are functions that call themselves. In order to implement a recursive procedure, the program must allocate memory on the stack for each recursive call. This is because the function call must be stored on the stack so that it can be executed when the function returns. Therefore, recursive procedures require stack-based storage allocation, which is not possible with static allocation.\n\nStatic allocation is when memory is allocated at compile time and does not change during program execution. Two-dimensional arrays and integer-valued functions do not require stack-based storage allocation, as they can be implemented using static allocation. Arbitrary goto's can also be implemented using static allocation, as they do not require the use of the stack.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 57,
@@ -71,5 +71,6 @@
             "model_answer": "Explanation:\n\nA starvation-free job-scheduling policy guarantees that no job waits indefinitely for service.\n\nRound-robin scheduling is a starvation-free policy because it assigns time slices to each job in a cyclical manner. If a job is waiting for its turn, it will eventually get its turn and be executed.\n\nPriority queuing is a starvation-free policy because it assigns jobs to a queue based on their priority. If a job is waiting for service, it will eventually be assigned to a processor and executed.\n\nShortest job first and youngest job first are not starvation-free policies because they assign jobs to a processor based on their length or age, respectively. If a job is waiting for service, it may have to wait indefinitely for a processor to become available.\n\nTherefore, the correct answer is (A) Round-robin.",
             "correct": true
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

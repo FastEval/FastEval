@@ -1,5 +1,5 @@
 {
-    "score": 0.5,
+    "score": 0.6,
     "model_outputs": [
         {
             "id": 34,
@@ -55,7 +55,7 @@
             "question": "The mean daily demand for bread at a popular bakery is 2,500 loaves, with a standard deviation of 225 loaves. Every morning the bakery bakes 3,000 loaves. What is the probability that today it will run out of bread? Assume that the mean daily demand for bread at this bakery is normally distributed.\n\n(A) 0.8333\n(B) 0.1667\n(C) 0.9869\n(D) 0.0132",
             "correct_answer": 3,
             "model_answer": "To find the probability that the bakery will run out of bread today, we need to calculate the area under the normal curve to the left of the demand of 2,500 loaves.\n\nFirst, we need to standardize the demand by subtracting the mean and dividing by the standard deviation. This gives us:\n\n(2,500 loaves - 2,500 loaves/sqrt(225^2) loaves) / (225 loaves/sqrt(225^2) loaves) = 0 loaves\n\nSince the demand is 0 loaves, the bakery will not run out of bread today. Therefore, the correct answer is (D) 0.0132.\n\nThe probability of the bakery running out of bread today is 0.0132 or 1.32%.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 194,
@@ -71,5 +71,6 @@
             "model_answer": "To solve this problem, we need to find the probability that a jury of 12 is selected from the pool of potential jurors, where at least three of them are women. We can do this by using the complement rule, which states that the probability of an event occurring is equal to 1 minus the probability of the event not occurring.\n\nStep 1: Find the probability that a jury of 12 is selected from the pool of potential jurors, where exactly three women are on the jury.\n\nLet's call the probability of selecting a jury of 12 with exactly three women \"P(A)\". We can set up an equation using the complement rule:\n\nP(A) = 1 - P(A')\n\nwhere P(A') is the probability of selecting a jury of 12 with fewer than three women.\n\nStep 2: Find the probability that a jury of 12 is selected from the pool of potential jurors, where fewer than three women are on the jury.\n\nLet's call the probability of selecting a jury of 12 with fewer than three women \"P(B)\". We can set up an equation using the complement rule:\n\nP(B) = 1 - P(B')\n\nwhere P(B') is the probability of selecting a jury of 12 with more than three women.\n\nStep 3: Find the probability that a jury of 12 is selected from the pool of potential jurors, where more than three women are on the jury.\n\nLet's call the probability of selecting a jury of 12 with more than three women \"P(C)\". We can set up an equation using the complement rule:\n\nP(C) = 1 - P(C')\n\nwhere P(C') is the probability of selecting a jury of 12 with fewer than three women.\n\nStep 4: Find the probability that a jury of 12 is selected from the pool of potential jurors, where exactly three women are on the jury.\n\nWe can use the probability of selecting a jury of 12 with fewer than three women (P(B)) and the probability of selecting a jury of 12 with more than three women (P(C)) to find the probability of selecting a jury of 12 with exactly three women:\n\nP(A) = P(B) \\* P(C)\n\nStep 5: Use the probabilities found in step 4 to find the probability that a jury of 12 is selected from the pool of potential jurors, where at least three women are on the jury.\n\nWe can use the complement rule to find the probability of selecting a jury of 12 with fewer than three women:\n\nP(B) = 1 - P(B')\n\nwhere P(B') is the probability of selecting a jury of 12 with more than three women.\n\nWe can use the complement rule to find the probability of selecting a jury of 12 with more than three women:\n\nP(C) = 1 - P(C')\n\nwhere P(C') is the probability of selecting a jury of 12 with fewer than three women.\n\nWe can use the complement rule to find the probability of selecting a jury of 12 with exactly three women:\n\nP(A) = P(B) \\* P(C)\n\nTherefore, the probability that a jury of 12 is selected from the pool of potential jurors, where at least three women are on the jury, is:\n\nP(A) = (1 - P(B')) \\* (1 - P(C')) \\* P(A)\n\nWe can simplify this equation by substituting the probabilities found in steps 4 and 5:\n\nP(A) = (1 - 0.30) \\* (1 - 0.843) \\* 0.168\n\nP(A) = 0.168\n\nTherefore, the answer is (A) 0.168.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 0
 }

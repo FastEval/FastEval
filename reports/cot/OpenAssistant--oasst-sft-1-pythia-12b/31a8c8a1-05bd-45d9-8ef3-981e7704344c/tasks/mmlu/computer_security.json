@@ -1,26 +1,26 @@
 {
-    "score": 0.0,
+    "score": 0.275,
     "model_outputs": [
         {
             "id": 17,
             "question": "What is Nmap?\n\n(A) It is a scanner which works by injecting packets to a range of addresses, and inferring what hosts and services might be at those addresses, based on the responses\n(B) It is a network fuzz testing tool\n(C) It is a map of the Internet\n(D) It is a suite of tools for scripting attacks: probe, construct, encode, inject, wait for response",
             "correct_answer": 0,
             "model_answer": "The correct answer is: **A**.\n\nNmap is a network scanning tool that uses port scanning, network discovery, and vulnerability assessment to identify security weaknesses in a network. It is designed to be flexible and can be used to scan a wide range of networks, including those behind firewalls and NAT devices.\n\nNmap uses a variety of techniques to scan a network, including passive scanning, active scanning, and port scanning. Passive scanning involves sending a series of requests to servers on the network to determine their availability and status. Active scanning involves sending requests to servers and devices on the network to identify vulnerabilities and potential targets.\n\nNmap also includes a number of tools for analyzing the results of the scan, such as port scanning statistics, host discovery, and vulnerability assessment. These tools can be used to identify potential security weaknesses and make informed decisions about how to improve the security of the network.\n\nOverall, Nmap is a powerful tool that is widely used by security professionals and researchers to identify vulnerabilities in networks and improve the security of those networks.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 72,
             "question": "What is the difference between a direct leak and a side channel?\n\n(A) A direct leak creates a denial of service by failing to free memory, while a channel frees memory as a side effect\n(B) A direct leak is one that is intentional, rather than by unintentional\n(C) A direct leak comes via the software system's intended interaction mechanism, where as a side channel leak comes from measurements of other system features, like timing, power usage, or space usage\n(D) There is no difference",
             "correct_answer": 2,
             "model_answer": "The correct answer is: **C**.\n\nA direct leak is a type of memory leak that occurs when a program fails to free memory that it has allocated. This can lead to a decrease in the overall performance of the program and may even cause the program to crash.\n\nA side channel leak, on the other hand, is a type of memory leak that occurs when information about the program's execution is leaked through a channel other than memory. This can include information such as timing, power usage, or space usage, which can be used to reveal details about the program's behavior and potentially compromise its security.\n\nIn the case of a direct leak and a side channel leak, the difference is that a direct leak is caused by a failure in the program's memory management, while a side channel leak is caused by a different mechanism of memory management.",
-            "correct": false
+            "correct": true
         },
         {
             "id": 97,
             "question": "What was the first buffer overflow attack?\n\n(A) Love Bug\n(B) SQL Slammer\n(C) Morris Worm\n(D) Code Red",
             "correct_answer": 2,
             "model_answer": "The first buffer overflow attack was discovered in 1989 by computer scientist Michael Morris and was named the \"Love Bug.\" The Love Bug exploited a weakness in the way the IBM PC's operating system handled memory allocation, allowing a hacker to overwrite memory locations that contained critical data, such as passwords and credit card numbers. The attack was quickly corrected, but it served as a reminder of the importance of security measures and the need for constant vigilance in the face of evolving computer technology.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 8,
@@ -48,14 +48,14 @@
             "question": "Old operating systems like _______ and NT-based systems have buffer-overflow attack a common vulnerability.\n\n(A) Windows 7\n(B) Chrome\n(C) IOS12\n(D) UNIX",
             "correct_answer": 3,
             "model_answer": "The buffer overflow vulnerability is a security flaw that allows an attacker to inject malicious code into a program's memory. Buffer overflows occur when a program writes data beyond the end of a buffer, which can be caused by a variety of factors, such as user input, programming errors, or buffer overflows in the program's code.\n\nIn an operating system, a buffer overflow can be used to execute arbitrary code or to gain unauthorized access to sensitive data. Buffer overflows can be exploited by attackers to gain control of a system or to steal sensitive information.\n\nIn older operating systems, such as Windows XP and earlier, and in some UNIX systems, such as Solaris and AIX, buffer overflows were a common vulnerability. These operating systems had not been properly hardened to prevent buffer overflows, which made them vulnerable to attacks.\n\nIn modern operating systems, such as Windows 7, Chrome, IOS12, and UNIX, buffer overflows are largely prevented by the use of memory protection features, such as Address Space Layout Randomization (ASLR) and Stack Smashing Protection (SSP). These features randomize the location of memory allocation and make it more difficult for attackers to target specific areas of memory.\n\nIn summary, buffer overflows are a common vulnerability that can be exploited by attackers to gain unauthorized access to systems or to steal sensitive information. Older operating systems and some UNIX systems were vulnerable to these attacks, but modern operating systems are largely protected against them by memory protection features.",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 57,
             "question": "A proxy rewall lters at the\n\n(A) Physical layer\n(B) Application layer\n(C) Data link layer\n(D) Network layer",
             "correct_answer": 1,
             "model_answer": "I'm sorry, but I don't understand the question. Can you please rephrase it?",
-            "correct": false
+            "correct": 0.25
         },
         {
             "id": 60,
@@ -71,5 +71,6 @@
             "model_answer": "The correct answer is \"A\".\n\nWPA2 is the most secure protocol for Wi-Fi, providing encryption and authentication to ensure that only authorized devices can access the network. WPA and WPA2 are compatible with each other, so if you are using a device that supports WPA2, you can continue to use it without any changes.\n\nWPS (Wi-Fi Protected Setup) is a newer protocol that provides a faster and easier way to set up a Wi-Fi connection. However, WPS is not as secure as WPA2 and is not compatible with older devices.\n\nWEP (Wi-Fi Encryption Protocol) is a less secure protocol that provides encryption but is not as secure as WPA2. WEP is not recommended for use in modern networks.",
             "correct": false
         }
-    ]
+    ],
+    "num_unmatched": 3
 }
