@@ -1,5 +1,5 @@
 {
-    "score": 0.125,
+    "score": 0.1,
     "model_outputs": [
         {
             "id": 17,
@@ -41,7 +41,7 @@
             "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
             "correct_answer": 2,
             "model_answer": "The number of independent parameters needed for a Bayesian Network H -> U <- P <- W depends on the structure of the network and the type of parameters being used. In this case, the number of independent parameters would depend on the number of parents each node has.\n\nIf we consider node H as the starting node, it has two parents U and P. Therefore, we would need two parameters for node H: its parent node U's parameter and its parent node P's parameter.\n\nSimilarly, for node U, we would need two parameters: its parent node H's parameter and its own parameter.\n\nFor node P, we would need four parameters: its parent node U's parameter, its parent node H's parameter, its parent node P's parameter, and its own parameter.\n\nFor node W, we would need eight parameters: its parent node U's parameter, its parent node H's parameter, its parent node P's parameter, its parent node W's parameter, its own parameter, its parent node H's parameter, and its parent node P's parameter.\n\nTherefore, the total number of independent parameters needed for this Bayesian Network would be 16.",
-            "correct": 0.25
+            "correct": false
         },
         {
             "id": 32,
@@ -72,5 +72,5 @@
             "correct": false
         }
     ],
-    "num_unmatched": 1
+    "num_unmatched": 0
 }

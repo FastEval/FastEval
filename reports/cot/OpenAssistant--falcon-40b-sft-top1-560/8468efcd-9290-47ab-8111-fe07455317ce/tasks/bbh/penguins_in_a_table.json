@@ -1,5 +1,5 @@
 {
-    "score": 0.26666666666666666,
+    "score": 0.3,
     "model_outputs": [
         {
             "id": 34,
@@ -41,7 +41,7 @@
             "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  What is the name of the second penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
             "correct_answer": "(B)",
             "model_answer": "To answer this question, we need to first read in the table data into a data structure that we can easily access and manipulate. In Python, we can use a dictionary to store the data, where each penguin's name is the key and their age, height, and weight are the corresponding values.\n\nHere's how we can read in the data and store it in a dictionary:\n```\npenguins = {}\nwith open(\"penguins.txt\", \"r\") as file:\n    for line in file:\n        name, age, height, weight = line.split(\", \")\n        penguins[name] = (age, height, weight)\n```\n\nNow that we have the data stored in a dictionary, we can access it easily. To find the name of the second penguin, we can simply iterate over the keys of the dictionary and retrieve the corresponding values.\n```\nsecond_penguin = penguins[list(penguins.keys())[1]]\n```\n\nFinally, we can print out the name of the second penguin:\n```\nprint(second_penguin[0])\n```\n\nThe name of the second penguin is \"Bernard\".",
-            "correct": 0.2
+            "correct": true
         },
         {
             "id": 120,
@@ -83,7 +83,7 @@
             "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last giraffe sorted by alphabetic order?\nOptions:\n(A) Jody\n(B) Gladys\n(C) Marian\n(D) Donna\n(E) Louise",
             "correct_answer": "(C)",
             "model_answer": "To answer this question, we need to first sort the giraffes by their names in alphabetic order.\n\n1. Marian\n2. Donna\n3. Gladys\n4. Jody\n\nTherefore, the name of the last giraffe sorted by alphabetic order is \"Jody\".",
-            "correct": 0.2
+            "correct": false
         },
         {
             "id": 99,
@@ -104,7 +104,7 @@
             "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhich is the oldest penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
             "correct_answer": "(E)",
             "model_answer": "The oldest penguin in the table is Bernard, as he has the highest age out of the penguins in the table.",
-            "correct": 0.2
+            "correct": false
         },
         {
             "id": 114,
@@ -125,14 +125,14 @@
             "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  What is the name of the penguin that is 9 years old?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
             "correct_answer": "(C)",
             "model_answer": "To solve this problem, we need to first read in the table of penguins and their attributes. We can do this using the `csv` library in Python:\n\n```python\nimport csv\n\nwith open(\"penguins.csv\", \"r\") as file:\n    reader = csv.reader(file)\n    penguins = list(reader)\n```\n\nNow that we have the list of penguins, we can use a loop to iterate through each one and check their age. We can use a dictionary to store the name and age of each penguin, and then check if any of the penguins have an age of 9:\n\n```python\npenguin_ages = {}\nfor penguin in penguins:\n    name, age, height, weight = penguin\n    penguin_ages[name] = age\n\nnine_year_old_penguin = None\nfor name, age in penguin_ages.items():\n    if age == 9:\n        nine_year_old_penguin = name\n```\n\nFinally, we can output the name of the 9-year-old penguin:\n\n```python\nprint(nine_year_old_penguin)\n```\n\nThe output of this code should be \"Vincent\".",
-            "correct": 0.2
+            "correct": true
         },
         {
             "id": 26,
             "question": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  We now add a penguin to the table:\nJames, 12, 90, 12\nAnd here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
             "correct_answer": "(E)",
             "model_answer": "The name of the last penguin in the table is **Gwen**.\n\nHere's my reasoning:\n\n1. We are given a table with the header \"name, age, height (cm), weight (kg)\" and several rows of data for both penguins and giraffes.\n2. We are told that a new penguin, named James, with the age of 12 and the weight of 12 kg has been added to the table.\n3. Since the table is for penguins, we can assume that the last name in the table is that of a penguin.\n4. We can see that there are four penguins in the table: Louis, Bernard, Vincent, and Gwen.\n5. We can eliminate Louis and Bernard as options since their ages are 7 and 5, respectively, and the last penguin's age is 12.\n6. We can eliminate Vincent since his weight is 11 kg, and the last penguin's weight is 12 kg.\n7. Therefore, the last penguin in the table must be Gwen.",
-            "correct": 0.2
+            "correct": false
         },
         {
             "id": 140,
@@ -212,5 +212,5 @@
             "correct": true
         }
     ],
-    "num_unmatched": 5
+    "num_unmatched": 0
 }

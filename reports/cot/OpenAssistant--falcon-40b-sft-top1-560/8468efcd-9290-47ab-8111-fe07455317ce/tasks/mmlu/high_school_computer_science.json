@@ -1,5 +1,5 @@
 {
-    "score": 0.725,
+    "score": 0.7,
     "model_outputs": [
         {
             "id": 17,
@@ -34,7 +34,7 @@
             "question": "A programmer wrote the code segment below to display the average of all the elements in a list called numbers. There is always at least one number in the list.\n Line 1: count \u2190 0\n Line 2: sum \u2190 0\n Line 3: FOR EACH value IN numbers\n Line 4: {\n Line 5: count \u2190 count + 1\n Line 6: sum \u2190 sum + value\n Line 7: average \u2190 sum / count\n Line 8: }\n Line 9: DISPLAY (average)\n\n The programmer wants to reduce the number of operations that are performed when the program is run. Which change will result in a correct program with a reduced number of operations performed?\n\n(A) Interchanging line 1 and line 2\n(B) Interchanging line 5 and line 6\n(C) Interchanging line 6 and line 7\n(D) Interchanging line 7 and line 8",
             "correct_answer": 3,
             "model_answer": "Interchanging line 5 and line 6 will result in a correct program with a reduced number of operations performed.\n\nExplanation:\n\nIn the original code, line 5 calculates the sum of all the elements in the list, and line 6 calculates the count of the elements. However, since there is always at least one number in the list, line 5 can be moved before line 6 without affecting the correctness of the program.\n\nBy interchanging line 5 and line 6, the sum is only calculated once instead of twice, reducing the number of operations performed. The final code would look like this:\n\nLine 1: count \u2190 0\nLine 2: sum \u2190 0\nLine 3: FOR EACH value IN numbers\nLine 4: {\nLine 5: sum \u2190 sum + value\nLine 6: count \u2190 count + 1\nLine 7: average \u2190 sum / count\nLine 8: }\nLine 9: DISPLAY (average)",
-            "correct": 0.25
+            "correct": false
         },
         {
             "id": 15,
@@ -72,5 +72,5 @@
             "correct": true
         }
     ],
-    "num_unmatched": 1
+    "num_unmatched": 0
 }

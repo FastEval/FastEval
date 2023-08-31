@@ -1,5 +1,5 @@
 {
-    "score": 0.425,
+    "score": 0.4,
     "model_outputs": [
         {
             "id": 17,
@@ -69,8 +69,8 @@
             "question": "A starvation-free job-scheduling policy guarantees that no job waits indefinitely for service. Which of the following job-scheduling policies is starvation-free?\n\n(A) Round-robin\n(B) Priority queuing\n(C) Shortest job first\n(D) Youngest job first",
             "correct_answer": 0,
             "model_answer": "To determine which job-scheduling policy is starvation-free, we need to analyze each policy and see if there are any scenarios where a job could wait indefinitely for service.\n\n1. Round-robin: In this policy, jobs are served in a circular order, with each job getting an equal share of the CPU time. This policy is starvation-free because every job gets a chance to be served, and no job is left waiting indefinitely.\n\n2. Priority queuing: In this policy, jobs are served based on their priority levels. Higher-priority jobs are served first, and lower-priority jobs may have to wait longer for service. However, this policy is not starvation-free because lower-priority jobs can potentially wait indefinitely if higher-priority jobs keep arriving and being served.\n\n3. Shortest job first: In this policy, jobs are served based on their estimated execution times, with the shortest jobs being served first. This policy is starvation-free because every job, regardless of its size, gets a chance to be served. No job will wait indefinitely, as the shortest jobs are always served first.\n\n4. Youngest job first: In this policy, jobs are served based on their arrival times, with the youngest jobs being served first. This policy is starvation-free because every job, regardless of its age, gets a chance to be served. No job will wait indefinitely, as the youngest jobs are always served first.\n\nBased on the analysis above, the job-scheduling policies that are starvation-free are Round-robin, Shortest job first, and Youngest job first.\n\nThe answer is: Shortest job first and Youngest job first are also starvation-free.",
-            "correct": 0.25
+            "correct": false
         }
     ],
-    "num_unmatched": 1
+    "num_unmatched": 0
 }

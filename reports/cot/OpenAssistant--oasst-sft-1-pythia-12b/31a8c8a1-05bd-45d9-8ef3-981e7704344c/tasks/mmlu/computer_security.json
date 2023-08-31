@@ -1,5 +1,5 @@
 {
-    "score": 0.275,
+    "score": 0.325,
     "model_outputs": [
         {
             "id": 17,
@@ -20,7 +20,7 @@
             "question": "What was the first buffer overflow attack?\n\n(A) Love Bug\n(B) SQL Slammer\n(C) Morris Worm\n(D) Code Red",
             "correct_answer": 2,
             "model_answer": "The first buffer overflow attack was discovered in 1989 by computer scientist Michael Morris and was named the \"Love Bug.\" The Love Bug exploited a weakness in the way the IBM PC's operating system handled memory allocation, allowing a hacker to overwrite memory locations that contained critical data, such as passwords and credit card numbers. The attack was quickly corrected, but it served as a reminder of the importance of security measures and the need for constant vigilance in the face of evolving computer technology.",
-            "correct": 0.25
+            "correct": false
         },
         {
             "id": 8,
@@ -48,7 +48,7 @@
             "question": "Old operating systems like _______ and NT-based systems have buffer-overflow attack a common vulnerability.\n\n(A) Windows 7\n(B) Chrome\n(C) IOS12\n(D) UNIX",
             "correct_answer": 3,
             "model_answer": "The buffer overflow vulnerability is a security flaw that allows an attacker to inject malicious code into a program's memory. Buffer overflows occur when a program writes data beyond the end of a buffer, which can be caused by a variety of factors, such as user input, programming errors, or buffer overflows in the program's code.\n\nIn an operating system, a buffer overflow can be used to execute arbitrary code or to gain unauthorized access to sensitive data. Buffer overflows can be exploited by attackers to gain control of a system or to steal sensitive information.\n\nIn older operating systems, such as Windows XP and earlier, and in some UNIX systems, such as Solaris and AIX, buffer overflows were a common vulnerability. These operating systems had not been properly hardened to prevent buffer overflows, which made them vulnerable to attacks.\n\nIn modern operating systems, such as Windows 7, Chrome, IOS12, and UNIX, buffer overflows are largely prevented by the use of memory protection features, such as Address Space Layout Randomization (ASLR) and Stack Smashing Protection (SSP). These features randomize the location of memory allocation and make it more difficult for attackers to target specific areas of memory.\n\nIn summary, buffer overflows are a common vulnerability that can be exploited by attackers to gain unauthorized access to systems or to steal sensitive information. Older operating systems and some UNIX systems were vulnerable to these attacks, but modern operating systems are largely protected against them by memory protection features.",
-            "correct": 0.25
+            "correct": true
         },
         {
             "id": 57,
@@ -72,5 +72,5 @@
             "correct": false
         }
     ],
-    "num_unmatched": 3
+    "num_unmatched": 1
 }

@@ -1,5 +1,5 @@
 {
-    "score": 0.33999999999999997,
+    "score": 0.3555555555555555,
     "model_outputs": [
         {
             "id": 34,
@@ -76,7 +76,7 @@
             "question": "Today is 3/5, and it is Jane's second time in the year 1973 to see a meteor shower. What is the date tomorrow in MM/DD/YYYY?\nOptions:\n(A) 03/08/1983\n(B) 03/06/1973\n(C) 03/02/1973\n(D) 04/05/1973\n(E) 03/05/2007\n(F) 01/02/1973",
             "correct_answer": "(B)",
             "model_answer": ": \nTo solve this problem, we need to use a system of equations. Let's assume that the first time Jane saw the meteor shower was on January 1, 1973. Then, the second time she saw it must have been on a date that is exactly 365 days after January 1, 1973. \nWe know that the date is in the format MM/DD/YYYY, so we can write the second time as \"01/01/1973 + 365 days\". \nNow, we need to find the date of the third time Jane saw the meteor shower. Since it is the third time, it must have been exactly 365 days after the second time. We can write this as \"01/01/1973 + 2*365 days\". \nNow, we have two equations: \n1. January 1, 1973 + 365 days = January 1, 1973 + 2*365 days \n2. January 1, 1973 + 2*365 days = January 1, 1973 + 365 days \nWe can solve for the third time by subtracting the second time from the first time: \nThird time = January 1, 1973 + 365 days - January 1, 1973 - 365 days \nThird time = January 1, 1973 + 365 days \nTherefore, the date of the third time Jane saw the meteor shower is January 1, 1973. \nThe date tomorrow in MM/DD/YYYY is 03/08/1983.",
-            "correct": 0.16666666666666666
+            "correct": false
         },
         {
             "id": 120,
@@ -104,7 +104,7 @@
             "question": "Today is 9/7. Jane is watching NFL 2003. What is the date 24 hours later in MM/DD/YYYY?\nOptions:\n(A) 09/08/2003\n(B) 09/10/2003\n(C) 09/08/1917\n(D) 09/07/2003\n(E) 08/29/2003",
             "correct_answer": "(A)",
             "model_answer": ": \nTo solve this problem, we need to use the fact that the day of the month is always the same length, regardless of whether it is a leap year or not. Therefore, we can simply subtract one from the day of the month to get the day of the week. \nIn this case, 9/7 is a Thursday. If we subtract one day, we get 9/8, which is a Friday. \nTherefore, the date 24 hours later in MM/DD/YYYY is 09/08/2003.",
-            "correct": 0.2
+            "correct": true
         },
         {
             "id": 53,
@@ -132,7 +132,7 @@
             "question": "Tomorrow is 11/12/2019. What is the date yesterday in MM/DD/YYYY?\nOptions:\n(A) 11/10/2076\n(B) 11/10/2019\n(C) 09/10/2019\n(D) 11/06/2019\n(E) 11/11/2019\n(F) 11/17/2019",
             "correct_answer": "(B)",
             "model_answer": ": \nTo determine the date yesterday in MM/DD/YYYY format, we need to subtract one day from the current date of 11/12/2019. \nStep 1: Write down the current date as 11/12/2019.\nStep 2: Subtract one day from the current date. \n11/12/2019 - 1 day = 11/11/2019.\nTherefore, the date yesterday in MM/DD/YYYY format was 11/11/2019.",
-            "correct": 0.16666666666666666
+            "correct": false
         },
         {
             "id": 228,
@@ -212,5 +212,5 @@
             "correct": true
         }
     ],
-    "num_unmatched": 7
+    "num_unmatched": 4
 }

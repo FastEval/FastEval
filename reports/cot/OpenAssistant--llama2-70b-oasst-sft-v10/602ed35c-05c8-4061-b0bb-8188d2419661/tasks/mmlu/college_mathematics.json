@@ -1,5 +1,5 @@
 {
-    "score": 0.425,
+    "score": 0.4,
     "model_outputs": [
         {
             "id": 17,
@@ -48,7 +48,7 @@
             "question": "In a game two players take turns tossing a fair coin; the winner is the first one to toss a head. The probability that the player who makes the first toss wins the game is\n\n(A) 1/4\n(B) 1/3\n(C) 1/2\n(D) 2/3",
             "correct_answer": 3,
             "model_answer": "To solve this problem, we can use the concept of conditional probability.\n\nLet's denote the events of tossing a head or a tail as H and T, respectively. We are interested in finding the probability of the first player winning, which we can denote as P(Player 1 wins).\n\nSince this is a two-player game, either Player 1 or Player 2 will win. Therefore, we can write the probability of Player 1 winning as the complement of Player 2 winning:\n\nP(Player 1 wins) = 1 - P(Player 2 wins)\n\nNow, we can use the definition of conditional probability to find the probability of Player 2 winning. We know that Player 2 will win if and only if Player 1 tosses a tail (T) and then Player 2 tosses a head (H). So, we can write:\n\nP(Player 2 wins) = P(Player 1 tosses T and Player 2 tosses H)\n\nSince the coin is fair, the probability of each toss being a head or a tail is independent of the previous toss. Therefore, we can calculate the probability of Player 2 winning as:\n\nP(Player 2 wins) = P(Player 1 tosses T) * P(Player 2 tosses H)\n                   = (1/2) * (1/2)\n                   = 1/4\n\nNow, we can plug this result back into our equation for P(Player 1 wins):\n\nP(Player 1 wins) = 1 - P(Player 2 wins)\n                   = 1 - 1/4\n                   = 3/4\n\nHowever, none of the given options match this answer. It's possible that there is an error in the question or the available options.",
-            "correct": 0.25
+            "correct": false
         },
         {
             "id": 57,
@@ -72,5 +72,5 @@
             "correct": false
         }
     ],
-    "num_unmatched": 1
+    "num_unmatched": 0
 }

@@ -1,5 +1,5 @@
 {
-    "score": 0.4444444444444445,
+    "score": 0.43333333333333335,
     "model_outputs": [
         {
             "id": 34,
@@ -62,7 +62,7 @@
             "question": "The following translations from German to English contain a particular error. That error will be one of the following types: Named Entities: An entity (names, places, locations, etc.) is changed to a different entity. Numerical Values: Numerical values (ordinals or cardinals), dates, and/or units are changed. Modifiers or Adjectives: The modifiers and adjectives pertaining to a noun are changed. Negation or Antonyms: Introduce or remove a negation or change comparatives to their antonyms. Facts: Trivial factual errors not pertaining to the above classes are introduced in the translations. Dropped Content: A significant clause in the translation is removed. Please identify that error.  Source: Otto Schenk ist ein \u00f6sterreichischer Schauspieler, Kabarettist, Regisseur und Intendant.\nTranslation: Otto Schenk is an Austrian actor and cabaret artist.\nThe translation contains an error pertaining to\nOptions:\n(A) Modifiers or Adjectives\n(B) Numerical Values\n(C) Negation or Antonyms\n(D) Named Entities\n(E) Dropped Content\n(F) Facts",
             "correct_answer": "(E)",
             "model_answer": "The translation contains an error pertaining to Modifiers or Adjectives.\n\nExplanation:\nIn the source text, the phrase \"\u00f6sterreichischer Schauspieler, Kabarettist, Regisseur und Intendant\" includes the adjectives \"\u00f6sterreichischer\" (Austrian) and \"Kabarettist\" (cabaret artist). However, in the translation, only \"actor\" and \"cabaret artist\" are used, omitting the adjectives that provide additional information about Otto Schenk's identity and profession. Therefore, the error is related to modifiers or adjectives.",
-            "correct": 0.16666666666666666
+            "correct": false
         },
         {
             "id": 194,
@@ -209,8 +209,8 @@
             "question": "The following translations from German to English contain a particular error. That error will be one of the following types: Named Entities: An entity (names, places, locations, etc.) is changed to a different entity. Numerical Values: Numerical values (ordinals or cardinals), dates, and/or units are changed. Modifiers or Adjectives: The modifiers and adjectives pertaining to a noun are changed. Negation or Antonyms: Introduce or remove a negation or change comparatives to their antonyms. Facts: Trivial factual errors not pertaining to the above classes are introduced in the translations. Dropped Content: A significant clause in the translation is removed. Please identify that error.  Source: Wayne County ist ein County im US-Bundesstaat Indiana der Vereinigten Staaten.\nTranslation: Wayne County is a county located in the U.S..\nThe translation contains an error pertaining to\nOptions:\n(A) Modifiers or Adjectives\n(B) Numerical Values\n(C) Negation or Antonyms\n(D) Named Entities\n(E) Dropped Content\n(F) Facts",
             "correct_answer": "(E)",
             "model_answer": "The error in the translation is that it is not specific enough. It simply states that Wayne County is a county located in the U.S., without specifying which state it is in. Therefore, the error is not related to named entities, numerical values, modifiers or adjectives, negation or antonyms, or dropped content. The correct answer is:\n\n(G) Facts",
-            "correct": 0.16666666666666666
+            "correct": false
         }
     ],
-    "num_unmatched": 2
+    "num_unmatched": 0
 }

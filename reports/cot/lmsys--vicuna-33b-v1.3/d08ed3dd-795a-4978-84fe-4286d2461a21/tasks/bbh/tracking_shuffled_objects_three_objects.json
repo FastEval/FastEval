@@ -1,5 +1,5 @@
 {
-    "score": 0.2777777777777778,
+    "score": 0.26666666666666666,
     "model_outputs": [
         {
             "id": 34,
@@ -97,7 +97,7 @@
             "question": "Alice, Bob, and Claire are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets The Fellowship of the Ring, Bob gets The Odyssey, and Claire gets The Great Gatsby.\nAs the semester proceeds, they start trading around the new books. First, Alice and Claire swap books. Then, Alice and Bob swap books. Finally, Claire and Alice swap books. At the end of the semester, Claire has\nOptions:\n(A) The Fellowship of the Ring\n(B) The Odyssey\n(C) The Great Gatsby",
             "correct_answer": "(B)",
             "model_answer": "To determine which book Claire has at the end of the semester, we need to trace the path of each book through the trades. Let's represent the books by their initials:\n\n1. Alice has F (The Fellowship of the Ring)\n2. Bob has O (The Odyssey)\n3. Claire has G (The Great Gatsby)\n\nFirst trade:\n\n* Alice gives F to Claire, so now Claire has both G and F.\n* Alice gets O from Bob, so now Alice has O and Claire has G and F.\n\nSecond trade:\n\n* Alice gives O to Claire, so now Claire has O, G, and F.\n* Alice gets F from Claire, so now Alice has F and Claire has O, G, and F.\n\nThird trade:\n\n* Claire gives F to Alice, so now Alice has F and G (from the first trade), and Claire has O and G.\n\nAt the end of the semester, Claire has G (The Great Gatsby).",
-            "correct": 0.3333333333333333
+            "correct": false
         },
         {
             "id": 201,
@@ -212,5 +212,5 @@
             "correct": false
         }
     ],
-    "num_unmatched": 1
+    "num_unmatched": 0
 }

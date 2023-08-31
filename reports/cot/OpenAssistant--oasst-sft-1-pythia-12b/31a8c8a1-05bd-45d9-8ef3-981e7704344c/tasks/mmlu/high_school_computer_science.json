@@ -1,5 +1,5 @@
 {
-    "score": 0.175,
+    "score": 0.225,
     "model_outputs": [
         {
             "id": 17,
@@ -62,15 +62,15 @@
             "question": "Let l = [1,2,3,4]. What is max(l) in Python3?\n\n(A) 1\n(B) 2\n(C) 3\n(D) 4",
             "correct_answer": 3,
             "model_answer": "The maximum value in the list [1, 2, 3, 4] is 4, because it is the only element in the list whose value is greater than or equal to the value of any other element in the list.\n\nTo find the maximum value in a list in Python, you can use the max() function. The max() function takes a list as an argument and returns the element in the list with the highest value. Here is an example of how to use the max() function to find the maximum value in the list [1, 2, 3, 4]:\n\n```python\nmax(l)\n# Output: 4\n```\n\nIt's important to note that the max() function can be time-consuming for large lists, so it's often more efficient to use a for loop to find the maximum value. For example:\n\n```python\nmax_value = 0\nfor element in l:\n    if element > max_value:\n        max_value = element\n```\n\nThis approach will be faster if the list is large, but it's still important to understand the difference between the max() function and a for loop when choosing which approach to use.",
-            "correct": 0.25
+            "correct": true
         },
         {
             "id": 83,
             "question": "In Python 3, what is ['a', 'Chemistry', 0, 1][1]?\n\n(A) a\n(B) Chemistry\n(C) 0\n(D) 1",
             "correct_answer": 1,
             "model_answer": "The list comprehension ['a', 'Chemistry', 0, 1][1] is equivalent to the following code:\n\na = ['a', 'Chemistry', 0, 1]\nprint(a[1])\n\nThe output of this code is '1'.",
-            "correct": 0.25
+            "correct": false
         }
     ],
-    "num_unmatched": 3
+    "num_unmatched": 1
 }

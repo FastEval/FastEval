@@ -183,36 +183,50 @@ def combine_evaluators(evaluators):
     yield scores
 
 def find_multiple_choice_answer(*, model_answer, options):
+    letter_options = ''.join([option[0] for option in options])
+
     regex_to_try = [
-        r'\([' + options + r']\)', # "The answer is (A)."
-        r' [' + options + r']\)', # "The answer is A)."
-        r' [' + options + r']$', # "The answer is A"
-        r' [' + options + r'][^a-zA-Z]', # "The answer is A."
-        r'[^a-zA-Z][' + options + r']$', # "The answer is:A"
-        r'[^a-zA-Z][' + options + r'][^a-zA-Z]', # "The answer is:A."
+        r'\([' + letter_options + r']\)', # "The answer is (A)."
+        r' [' + letter_options + r']\)', # "The answer is A)."
+        r' [' + letter_options + r']$', # "The answer is A"
+        r' [' + letter_options + r'][^a-zA-Z]', # "The answer is A."
+        r'[^a-zA-Z][' + letter_options + r']$', # "The answer is:A"
+        r'[^a-zA-Z][' + letter_options + r'][^a-zA-Z]', # "The answer is:A."
     ]
 
-    model_answer_lines = reversed(model_answer.split('\n'))
+    model_answer_lines = list(reversed(model_answer.split('\n')))
+
     for line in model_answer_lines:
         for regex in regex_to_try:
             model_answer_matches = re.findall(regex, line)
             if len(model_answer_matches) != 0:
-                return re.sub('[^' + options + ']', '', model_answer_matches[-1])
+                return re.sub('[^' + letter_options + ']', '', model_answer_matches[-1])
+
+    for line in model_answer_lines:
+        positions = {}
+        for letter_option, text_option in options:
+            positions[letter_option] = line.rfind(text_option)
+        positions = list(positions.items())
+        last_item = max(positions, key=lambda e: e[1])
+        last_item_letter, last_item_position = last_item
+        if last_item_position == -1:
+            continue
+        return last_item_letter
 
     return None
 
-def evaluate_model_on_bbh(output_path):
-    def is_correct(model_answer, correct_answer, question):
-        possible_answers = []
-        for line in question.split('\n'):
-            if line[0] == '(' and line[2] == ')':
-                possible_answers.append(line[1])
-        model_answer = find_multiple_choice_answer(model_answer=model_answer, options=''.join(possible_answers))
-        if model_answer is None:
-            return 1 / len(possible_answers)
-        correct_answer = correct_answer.replace('(', '').replace(')', '')
-        return model_answer == correct_answer
+def multiple_choice_is_correct(model_answer, correct_answer, question):
+    possible_answers = []
+    for line in question.split('\n'):
+        if len(line) >= 5 and line[0] == '(' and line[2] == ')' and line[1] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            possible_answers.append((line[1], line[4:]))
+    model_answer = find_multiple_choice_answer(model_answer=model_answer, options=possible_answers)
+    if model_answer is None:
+        return 1 / len(possible_answers)
+    correct_answer = correct_answer.replace('(', '').replace(')', '')
+    return model_answer == correct_answer
 
+def evaluate_model_on_bbh(output_path):
     tasks = [
         'date_understanding',
         'disambiguation_qa',
@@ -239,7 +253,7 @@ def evaluate_model_on_bbh(output_path):
         question_column='input',
         answer_column='target',
         answer_format='as a single letter with parenthesis ',
-        is_correct=is_correct,
+        is_correct=multiple_choice_is_correct,
         output_path=output_path,
         limit=BBH_LIMIT_PER_TASK,
     ) for task in tasks])
@@ -270,10 +284,7 @@ def evaluate_model_on_mmlu(output_path):
         return columns['question'] + '\n\n' + '\n'.join(['(' + name + ') ' + columns['choices'][index] for index, name in enumerate(['A', 'B', 'C', 'D'])])
 
     def is_correct(model_answer, correct_answer, question):
-        model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCD')
-        if model_answer is None:
-            return 0.25
-        return model_answer == ['A', 'B', 'C', 'D'][correct_answer]
+        return multiple_choice_is_correct(model_answer=model_answer, correct_answer=['A', 'B', 'C', 'D'][correct_answer], question=question)
 
     evaluators = combine_evaluators([evaluate_model_on_dataset(
         name='mmlu/' + task,

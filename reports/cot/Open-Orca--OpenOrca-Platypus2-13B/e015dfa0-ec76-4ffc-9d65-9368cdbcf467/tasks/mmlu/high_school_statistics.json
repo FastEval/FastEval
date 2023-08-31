@@ -1,5 +1,5 @@
 {
-    "score": 0.525,
+    "score": 0.5,
     "model_outputs": [
         {
             "id": 34,
@@ -69,8 +69,8 @@
             "question": "In the jury pool available for this week, 30 percent of potential jurors are women. A particular trial requires that, out of a jury of 12, at least three are women. If a jury of 12 is to be selected at random from the pool, what is the probability it meets the requirements of this trial?\n\n(A) 0.168\n(B) 0.843\n(C) 0.915\n(D) The answer cannot be determined without knowing the size of the jury pool.",
             "correct_answer": 3,
             "model_answer": "To find the probability that a jury of 12 is selected at random from the pool and meets the requirements of having at least three women, we first need to determine the number of ways to choose a jury of 12 from the pool.\n\nStep 1: Calculate the total number of ways to choose a jury of 12 from a pool of 30 percent women.\nSince 30 percent of the potential jurors are women, we can find the number of women by multiplying the total number of jurors by the percentage:\nNumber of women = Total jurors * Percentage of women\nNumber of women = 12 * 0.30\nNumber of women = 3.6\n\nStep 2: Calculate the number of ways to choose a jury of 12 from the pool.\nTo find the total number of ways to choose a jury of 12 from the pool, we use the combination formula:\nTotal ways = Number of jurors! (factorial)\nTotal ways = 12!\nTotal ways = 479,001\n\nStep 3: Calculate the number of ways to choose a jury of 12 with at least three women.\nNow we need to find the number of ways to choose a jury of 12 with at least three women. We can do this by finding the number of ways to choose three women and then multiply that by the total ways to choose a jury of 12:\nNumber of juries with at least three women = Number of ways to choose three women * Total ways to choose a jury of 12\nNumber of juries with at least three women = 3! * 12!\nNumber of juries with at least three women = 3! * 479,001\nNumber of juries with at least three women \u2248 1,437,000\n\nStep 4: Calculate the probability.\nNow we can find the probability of selecting a jury of 12 with at least three women by dividing the number of juries with at least three women by the total number of ways to choose a jury of 12:\nProbability = Number of juries with at least three women / Total ways to choose a jury of 12\nProbability \u2248 1,437,000 / 479,001\nProbability \u2248 0.30\n\nStep 5: Check the answer.\nThe given answer is 0.168, which is incorrect. The correct answer is 0.30.\n\nSo, the probability that a jury of 12 is selected at random from the pool and meets the requirements of having at least three women is 0.30.",
-            "correct": 0.25
+            "correct": false
         }
     ],
-    "num_unmatched": 1
+    "num_unmatched": 0
 }

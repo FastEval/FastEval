@@ -1,5 +1,5 @@
 {
-    "score": 0.3944444444444445,
+    "score": 0.4166666666666667,
     "model_outputs": [
         {
             "id": 34,
@@ -62,7 +62,7 @@
             "question": "Today is Apr 10, 1985. Jane's appointment will be 3 days later. What is the date yesterday in MM/DD/YYYY?\nOptions:\n(A) 03/10/1986\n(B) 04/10/1985\n(C) 04/09/1985\n(D) 04/07/1985\n(E) 04/11/1986\n(F) 05/13/1985",
             "correct_answer": "(C)",
             "model_answer": "To answer this question, we need to determine the date of Jane's appointment. Since it is stated that the appointment will be 3 days later than April 10, 1985, we can calculate the date of the appointment as follows:\n\nToday's date (Apr 10, 1985) + 3 days = Appointment date\n\nAppointment date = Apr 10, 1985 + 3 days\n\nSince there are 7 days in a week, we can add 3 days to Apr 10, 1985 by adding 3 to the day of the week (which is Monday) and then subtracting 1 from the date (since the first day of the week is considered as day 1).\n\nAppointment date = (Monday + 3) - 1\n\nAppointment date = (Monday + 4) - 1\n\nAppointment date = (Tuesday) - 1\n\nTherefore, the date of Jane's appointment is Tuesday, Apr 9, 1985.\n\nYesterday's date (Apr 9, 1985) in MM/DD/YYYY format is 04/09/1985.",
-            "correct": 0.16666666666666666
+            "correct": true
         },
         {
             "id": 194,
@@ -132,7 +132,7 @@
             "question": "Tomorrow is 11/12/2019. What is the date yesterday in MM/DD/YYYY?\nOptions:\n(A) 11/10/2076\n(B) 11/10/2019\n(C) 09/10/2019\n(D) 11/06/2019\n(E) 11/11/2019\n(F) 11/17/2019",
             "correct_answer": "(B)",
             "model_answer": "Yesterday was 11/11/2019.\n\nThe date format MM/DD/YYYY is ambiguous and can be interpreted in different ways. In the United States, it is commonly used in the format MM/DD/YY, which would make yesterday's date 11/10/19. However, in many other parts of the world, including much of Europe, the format DD/MM/YY is more common, which would make yesterday's date 11/11/19.\n\nTo avoid confusion, it is best to use the unambiguous YYYY-MM-DD format, which would make yesterday's date 2019-11-11.",
-            "correct": 0.16666666666666666
+            "correct": false
         },
         {
             "id": 228,
@@ -212,5 +212,5 @@
             "correct": false
         }
     ],
-    "num_unmatched": 5
+    "num_unmatched": 3
 }
