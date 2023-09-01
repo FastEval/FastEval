@@ -8,7 +8,7 @@ def conversation_item_to_openai_format(item_type, item):
     raise
 
 class OpenAIBase:
-    def __init__(self, model_name, *, max_new_tokens):
+    async def init(self, model_name, *, max_new_tokens):
         self.model_name = model_name
         self.max_new_tokens = max_new_tokens
 

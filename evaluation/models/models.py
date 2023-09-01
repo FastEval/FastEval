@@ -69,7 +69,7 @@ def get_inference_backend(model_path: str):
 
     raise Exception('No inference backend supported for model "' + model_path)
 
-def create_model(model_type: str, model_name: str, model_args: dict[str, str], **kwargs):
+async def create_model(model_type: str, model_name: str, model_args: dict[str, str], **kwargs):
     from evaluation.models.debug import Debug
     from evaluation.models.open_ai import OpenAI
     from evaluation.models.fastchat import Fastchat
@@ -108,8 +108,9 @@ def create_model(model_type: str, model_name: str, model_args: dict[str, str], *
         raise Exception('Unknown model type "' + model_type + '"')
 
     model_class = model_classes[model_type]
-
-    return model_class(model_name, **model_args, **kwargs)
+    model = model_class()
+    await model.init(model_name, **model_args, **kwargs)
+    return model
 
 def compute_model_replies(model, conversations, *, progress_bar_description=None):
     if len(conversations) == 0:

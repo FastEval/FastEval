@@ -9,8 +9,8 @@ last_rate_limit_errors = {}
 last_rate_limit_errors_lock = asyncio.Lock()
 
 class OpenAI(OpenAIBase):
-    def __init__(self, model_name, *, default_system_message=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
-        super().__init__(model_name, max_new_tokens=max_new_tokens)
+    async def init(self, model_name, *, default_system_message=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
+        await super().init(model_name, max_new_tokens=max_new_tokens)
 
         self.default_system_message = default_system_message
 

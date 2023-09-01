@@ -1,8 +1,8 @@
 from .huggingface import Huggingface
 
 class FalconInstruct(Huggingface):
-    def __init__(self, model_path, **kwargs):
-        super().__init__(
+    async def init(self, model_path, **kwargs):
+        await super().init(
             model_path,
 
             # https://huggingface.co/tiiuae/falcon-7b-instruct/discussions/1#64708b0a3df93fddece002a4

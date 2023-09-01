@@ -13,7 +13,7 @@ eos_tokens = {}
 eos_tokens_lock = threading.Lock()
 
 class Huggingface:
-    def __init__(
+    async def init(
         self,
         model_path: str,
         *,

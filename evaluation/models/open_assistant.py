@@ -1,7 +1,7 @@
 from .huggingface import Huggingface
 
 class OpenAssistant(Huggingface):
-    def __init__(self, model_path, *, default_system_message=None, **kwargs):
+    async def init(self, model_path, *, default_system_message=None, **kwargs):
         if 'llama' in model_path.lower():
             eos_token = '</s>'
         elif 'pythia' in model_path or 'falcon' in model_path or 'starcoder' in model_path:
@@ -14,7 +14,7 @@ class OpenAssistant(Huggingface):
         else:
             additional_args = { 'system': '<|system|>', 'default_system': default_system_message }
 
-        super().__init__(
+        await super().init(
             model_path,
             user='<|prompter|>',
             assistant='<|assistant|>',

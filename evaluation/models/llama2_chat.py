@@ -1,14 +1,14 @@
 from .huggingface import Huggingface
 
 class Llama2Chat(Huggingface):
-    def __init__(self, model_path, *, default_system_message=None, **kwargs):
+    async def init(self, model_path, *, default_system_message=None, **kwargs):
         import transformers
 
         if default_system_message is None:
             default_system_message = ('You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\n\n'
                 + "If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.")
 
-        super().__init__(model_path, user=None, assistant=None, end=None, default_system=default_system_message, **kwargs)
+        await super().init(model_path, user=None, assistant=None, end=None, default_system=default_system_message, **kwargs)
 
         self.tokenizer_with_eos = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path, add_bos_token=True, add_eos_token=True)
         self.tokenizer_without_eos = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path, add_bos_token=True, add_eos_token=False)

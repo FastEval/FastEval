@@ -143,11 +143,11 @@ def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
     server_lock.release()
 
 class Fastchat(OpenAIBase):
-    def __init__(self, model_name, *, tokenizer=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS, inference_backend):
+    async def init(self, model_name, *, tokenizer=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS, inference_backend):
         assert inference_backend in ['vllm', 'hf_transformers']
         self.use_vllm = inference_backend == 'vllm'
         self.tokenizer_path = tokenizer
-        super().__init__(model_name, max_new_tokens=max_new_tokens)
+        await super().init(model_name, max_new_tokens=max_new_tokens)
 
     async def reply(self, conversation, *, temperature=None, max_new_tokens=None):
         from openai.error import APIError

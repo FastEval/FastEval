@@ -1,5 +1,5 @@
 class Debug:
-    def __init__(self, model_name, *, max_new_tokens=None, dtype=None):
+    async def init(self, model_name, *, max_new_tokens=None, dtype=None):
         pass
 
     async def reply(self, conversation, *, temperature=None, max_new_tokens=None):
