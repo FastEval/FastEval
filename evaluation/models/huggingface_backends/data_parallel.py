@@ -8,7 +8,6 @@ import asyncio
 
 import evaluation.args
 import evaluation.models.models
-from evaluation.models.huggingface_backends.async_multiprocessing_queue import AsyncMultiprocessingQueue
 
 start_new_worker_lock = threading.Lock()
 
@@ -57,7 +56,7 @@ async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker
     remaining_futures = []
 
     while True:
-        item = await queue.get()
+        item = queue.get()
         if item == 'unload-model':
             break
 
