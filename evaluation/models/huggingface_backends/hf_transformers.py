@@ -1,6 +1,6 @@
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
-def create_model(*, tokenizer_path, model_path, dtype):
+async def create_model(*, tokenizer_path, model_path, dtype):
     import transformers
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)

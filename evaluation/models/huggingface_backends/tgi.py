@@ -17,7 +17,7 @@ def print_process_output(stdout):
         if not should_filter_process_output(line):
             print('[TGI]', line, end='')
 
-def start_server(*, model_path, tokenizer_path, dtype):
+async def create_model(*, model_path, tokenizer_path, dtype):
     # TODO: Actually use the tokenizer_path
 
     import torch
@@ -96,7 +96,7 @@ def unload_worker_model(model):
 backend = DataParallelBackend(
     backend_name='tgi',
     worker_functions={
-        'create_model': start_server,
+        'create_model': create_model,
         'compute_model_response': compute_model_response,
         'unload_worker_model': unload_worker_model,
     },

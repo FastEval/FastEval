@@ -42,7 +42,7 @@ async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker
         or (not worker_is_blocking and 'compute_model_response' in worker_functions))
 
     try:
-        model = worker_functions['create_model'](
+        model = await worker_functions['create_model'](
             tokenizer_path=tokenizer_path,
             model_path=model_path,
             dtype=dtype,

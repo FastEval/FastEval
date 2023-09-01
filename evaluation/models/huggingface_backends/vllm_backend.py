@@ -1,15 +1,12 @@
 import uuid
 import asyncio
-import threading
 import queue
 
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
-def create_model_in_separate_thread(*, model_path, tokenizer_path, dtype, resulting_model_queue):
+async def create_model(*, model_path, tokenizer_path, dtype):
     import torch
     import vllm
-
-    event_loop = asyncio.new_event_loop()
 
     engine = vllm.AsyncLLMEngine.from_engine_args(vllm.AsyncEngineArgs(
         model=model_path,
@@ -22,44 +19,19 @@ def create_model_in_separate_thread(*, model_path, tokenizer_path, dtype, result
         max_num_batched_tokens=4096,
     ))
 
-    model = {
+    return {
         'tokenizer_path': tokenizer_path,
         'model_path': model_path,
         'dtype': dtype,
         'engine': engine,
-        'event_loop': event_loop,
     }
 
-    resulting_model_queue.put(('model', model))
-
-    event_loop.run_forever()
-
-def try_create_model_in_separate_thread(*, resulting_model_queue, **kwargs):
-    try:
-        create_model_in_separate_thread(resulting_model_queue=resulting_model_queue, **kwargs)
-    except Exception as error:
-        resulting_model_queue.put(('error', error))
-
-def create_model(*, tokenizer_path, model_path, dtype):
-    resulting_model_queue = queue.Queue()
-
-    model_thread = threading.Thread(target=try_create_model_in_separate_thread, kwargs={
-        'model_path': model_path,
-        'tokenizer_path': tokenizer_path,
-        'dtype': dtype,
-        'resulting_model_queue': resulting_model_queue,
-    })
-
-    model_thread.start()
-
-    model_or_error = resulting_model_queue.get()
-    if model_or_error[0] == 'error':
-        raise model_or_error[1]
-    assert model_or_error[0] == 'model'
-    return model_or_error[1]
-
-async def respond_to_prompt(*, model, prompt, temperature, max_new_tokens):
+async def compute_model_response(*, model, item):
     import vllm
+
+    prompt = item['prompt']
+    temperature = item['temperature']
+    max_new_tokens = item['max_new_tokens']
 
     if temperature is None:
         temperature = 1.0
@@ -95,34 +67,11 @@ async def respond_to_prompt(*, model, prompt, temperature, max_new_tokens):
 
     return response
 
-async def compute_model_response(*, model, item):
-    future = asyncio.run_coroutine_threadsafe(respond_to_prompt(model=model, prompt=item['prompt'],
-        temperature=item['temperature'], max_new_tokens=item['max_new_tokens']), model['event_loop'])
-
-    # https://gist.github.com/lars-tiede/956206c8d97cbc3454cb
-    # I don't understand whether/why this complexity is needed though...
-
-    loop = asyncio.get_event_loop()
-
-    finished = threading.Event()
-    def future_finished_callback(_):
-        finished.set()
-    future.add_done_callback(future_finished_callback)
-
-    await loop.run_in_executor(None, finished.wait)
-
-    return future.result()
-
-def unload_worker_model(model):
-    loop = model['event_loop']
-    loop.call_soon_threadsafe(loop.stop)
-
 backend = DataParallelBackend(
     backend_name='vllm',
     worker_functions={
         'create_model': create_model,
         'compute_model_response': compute_model_response,
-        'unload_worker_model': unload_worker_model,
     },
     worker_is_blocking=False,
 )
