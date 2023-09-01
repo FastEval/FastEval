@@ -313,12 +313,14 @@ def load_datasets(model_name, dataset_requests):
         return []
 
     import datasets
+    import tqdm
 
     def load_dataset(dataset_request):
         dataset_name, subset, split = dataset_request
         return datasets.load_dataset(dataset_name, subset)[split]
 
-    return [load_dataset(dataset_request) for dataset_request in tqdm.tqdm(datasets, desc=' :: CoT :: Loading datasets')]
+    return [load_dataset(dataset_request) for dataset_request
+        in tqdm.tqdm(dataset_requests, desc=model_name + ' :: CoT :: Loading datasets')]
 
 async def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_level_benchmarks):
     if RECOMPUTE_SCORES:
@@ -349,7 +351,7 @@ async def evaluate_model(model_type, model_name, model_args, evaluation_id, lowe
     datasets = load_datasets(model_name, dataset_requests)
 
     model_requests = evaluators.send(datasets)
-    model_responses = compute_model_replies(model, model_requests, progress_bar_description=model_name + ' :: CoT :: Computing model replies')
+    model_responses = await compute_model_replies(model, model_requests, progress_bar_description=model_name + ' :: CoT :: Computing model replies')
 
     scores_list = evaluators.send(model_responses)
 
