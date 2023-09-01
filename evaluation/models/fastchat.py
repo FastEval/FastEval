@@ -3,6 +3,7 @@ import subprocess
 import os
 import re
 import json
+import asyncio
 
 from .open_ai_base import OpenAIBase
 
@@ -11,19 +12,21 @@ from evaluation.models.utils import put_system_message_in_user_message
 from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
 
 server = None
-server_lock = threading.RLock()
+server_lock = asyncio.Lock()
 
-async def unload_model():
+async def unload_model(already_aquired_server_lock=False):
     global server
 
-    server_lock.acquire()
+    if not already_aquired_server_lock:
+        await server_lock.acquire()
 
     if server is not None:
         for process in server['processes']:
             process.kill()
         server = None
 
-    server_lock.release()
+    if not already_aquired_server_lock:
+        server_lock.release()
 
 def should_filter_process_output(process_name, line):
     if process_name == 'model':
@@ -137,7 +140,7 @@ async def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
     if server is None:
         start_server(model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path)
     elif server['model_name'] != model_name or server['use_vllm'] != use_vllm:
-        await unload_model()
+        await unload_model(already_aquired_server_lock=True)
         start_server(model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path)
 
     server_lock.release()

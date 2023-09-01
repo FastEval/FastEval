@@ -3,7 +3,6 @@ import json
 import re
 import ast
 import statistics
-import threading
 import asyncio
 
 from evaluation.benchmarks.utils import model_name_to_filename
