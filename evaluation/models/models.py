@@ -116,6 +116,7 @@ def compute_model_replies(model, conversations, *, progress_bar_description=None
         return []
 
     async def compute_reply(conversation, *, stop_event):
+        print('HEI')
         if isinstance(conversation, list):
             return await model.reply(conversation, stop_event=stop_event)
         elif isinstance(conversation, dict):

@@ -34,7 +34,7 @@ class OpenAI(OpenAIBase):
                 last_rate_limit_error = last_rate_limit_errors.get(self.model_name, 0)
                 now = time.time()
                 if now - last_rate_limit_error < 10:
-                    time.sleep(10 - (now - last_rate_limit_error))
+                    asyncio.sleep(10 - (now - last_rate_limit_error))
                 else:
                     break
             try:
@@ -64,7 +64,7 @@ class OpenAI(OpenAIBase):
                     print('Encountered OpenAI rate limit for ' + self.model_name + '. Trying again in a few seconds...')
             except openai.error.ServiceUnavailableError:
                 print('OpenAI server is overloaded or not ready yet. Trying again...')
-                time.sleep(1)
+                asyncio.sleep(1)
             except openai.error.APIError:
                 print('Encountered OpenAI APIError. Trying again...')
             except openai.error.Timeout:
