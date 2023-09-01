@@ -318,9 +318,8 @@ def evaluate_model_on_agieval(output_path):
             return columns['question'] + '\n\n' + '\n'.join([columns['options'][index] for index in range(len(columns['options']))])    
         return  columns['passage'] + '\n\n' +columns['question'] + '\n\n' + '\n'.join([columns['options'][index] for index in range(len(columns['options']))])
 
-    def is_correct(model_answer, correct_answer):
-        model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCDE')
-        return model_answer == ['A', 'B', 'C', 'D', 'E'][correct_answer]
+    def is_correct(model_answer, correct_answer, question):
+        return multiple_choice_is_correct(model_answer=model_answer, correct_answer=['A', 'B', 'C', 'D', 'E'][correct_answer], question=question)
 
     evaluators = combine_evaluators([evaluate_model_on_dataset(
         name='agieval/' + task,
