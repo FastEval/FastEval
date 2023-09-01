@@ -125,9 +125,9 @@ class WorkerProcessManager:
         self.num_workers = torch.cuda.device_count() // num_devices_per_model
 
         if worker_is_blocking:
-            self.queue = AsyncMultiprocessingQueue()
+            self.queue = multiprocessing.Queue()
         else:
-            self.queues = [AsyncMultiprocessingQueue() for _ in range(self.num_workers)]
+            self.queues = [multiprocessing.Queue() for _ in range(self.num_workers)]
 
         for i in range(self.num_workers):
             if worker_is_blocking:
@@ -139,13 +139,12 @@ class WorkerProcessManager:
             start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
                 queue=queue, devices=devices, worker_functions=worker_functions, worker_is_blocking=worker_is_blocking)
 
-    async def wait_until_models_are_loaded(self):
         ack_pipes = []
         for i in range(self.num_workers):
             if self.worker_is_blocking:
-                model_creation_result = self.queue.get().result()
+                model_creation_result = self.queue.get()
             else:
-                model_creation_result = self.queues[i].get().result()
+                model_creation_result = self.queues[i].get()
 
             if model_creation_result[0] == 'model-created':
                 ack_pipes.append(model_creation_result[1])
