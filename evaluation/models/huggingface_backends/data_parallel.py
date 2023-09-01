@@ -255,7 +255,7 @@ class DataParallelBackend:
 
         result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
 
-        manager.add_item_to_next_batch({
+        await manager.add_item_to_next_batch({
             'prompt': prompt,
             'temperature': temperature,
             'max_new_tokens': max_new_tokens,
