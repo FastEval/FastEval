@@ -10,7 +10,7 @@ from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import HUMAN_EVAL_PLUS_TEMPERATURE
 
-N = 1
+N = 10
 
 def postprocess_model_reply(model_reply):
     for item in ['```Python', '```python', '```py', '```']:
