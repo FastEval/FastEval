@@ -7,7 +7,7 @@ import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
 from evaluation.models.utils import put_system_message_in_user_message
-from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
+from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
 
 eos_tokens = {}
 eos_tokens_lock = threading.Lock()
@@ -60,8 +60,6 @@ class Huggingface:
             self.dtype = dtypes[dtype]
 
         self.backend = inference_backend
-
-        self.num_threads = NUM_THREADS_LOCAL_MODEL
 
     def _get_eos_token(self):
         if hasattr(self, 'eos_token'):

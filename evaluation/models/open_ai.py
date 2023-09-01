@@ -15,9 +15,9 @@ class OpenAI(OpenAIBase):
         self.default_system_message = default_system_message
 
         if self.model_name.startswith('gpt-3.5-turbo'):
-            self.num_threads = NUM_THREADS_OPENAI_GPT3_5
+            self.semaphore = threading.Semaphore(NUM_THREADS_OPENAI_GPT3_5)
         elif self.model_name.startswith('gpt-4'):
-            self.num_threads = NUM_THREADS_OPENAI_GPT4
+            self.semaphore = threading.Semaphore(NUM_THREADS_OPENAI_GPT4)
         else:
             raise Exception('Unknown OpenAI model.')
 
@@ -26,6 +26,8 @@ class OpenAI(OpenAIBase):
 
         if self.default_system_message is not None and conversation[0][0] != 'system':
             conversation.insert(0, ('system', self.default_system_message))
+
+        self.semaphore.acquire()
 
         while True:
             while True:
@@ -36,7 +38,7 @@ class OpenAI(OpenAIBase):
                 else:
                     break
             try:
-                return await self.reply_single_try(
+                response = await self.reply_single_try(
                     conversation=conversation,
                     api_base='https://api.openai.com/v1',
                     api_key=os.environ['OPENAI_API_KEY'],
@@ -44,6 +46,10 @@ class OpenAI(OpenAIBase):
                     max_new_tokens=max_new_tokens,
                     stop_event=stop_event,
                 )
+
+                self.semaphore.release()
+
+                return response
             except openai.error.RateLimitError:
                 last_rate_limit_errors_lock.acquire()
 

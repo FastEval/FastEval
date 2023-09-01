@@ -4,7 +4,6 @@ import threading
 import queue
 
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
-from evaluation.constants import NUM_THREADS_LOCAL_MODEL
 
 def create_model_in_separate_thread(*, model_path, tokenizer_path, dtype, resulting_model_queue):
     import torch
@@ -19,7 +18,7 @@ def create_model_in_separate_thread(*, model_path, tokenizer_path, dtype, result
         dtype=str(dtype).replace('torch.', ''),
         disable_log_requests=True,
         trust_remote_code=True,
-        max_num_seqs=NUM_THREADS_LOCAL_MODEL,
+        max_num_seqs=1024,
         max_num_batched_tokens=4096,
     ))
 

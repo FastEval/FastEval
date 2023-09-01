@@ -8,7 +8,7 @@ from .open_ai_base import OpenAIBase
 
 import evaluation.models.models
 from evaluation.models.utils import put_system_message_in_user_message
-from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
+from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
 
 server = None
 server_lock = threading.RLock()
@@ -143,8 +143,6 @@ def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
     server_lock.release()
 
 class Fastchat(OpenAIBase):
-    num_threads = NUM_THREADS_LOCAL_MODEL
-
     def __init__(self, model_name, *, tokenizer=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS, inference_backend):
         assert inference_backend in ['vllm', 'hf_transformers']
         self.use_vllm = inference_backend == 'vllm'
