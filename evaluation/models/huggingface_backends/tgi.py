@@ -66,10 +66,10 @@ def start_server(*, model_path, tokenizer_path, dtype):
         'port': port,
     }
 
-def compute_model_response(*, model, item):
-    from text_generation import Client
+async def compute_model_response(*, model, item):
+    from text_generation import AsyncClient
 
-    client = Client('http://127.0.0.1:' + str(model['port']), timeout=1_000_000)
+    client = AsyncClient('http://127.0.0.1:' + str(model['port']), timeout=1_000_000)
 
     temperature = item['temperature']
     if temperature is None:
@@ -82,7 +82,7 @@ def compute_model_response(*, model, item):
     max_new_tokens = item['max_new_tokens']
     assert max_new_tokens is not None
 
-    return client.generate(item['prompt'],
+    return await client.generate(item['prompt'],
         max_new_tokens=max_new_tokens,
         repetition_penalty=1.0,
         return_full_text=False,

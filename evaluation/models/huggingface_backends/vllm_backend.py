@@ -96,10 +96,9 @@ async def respond_to_prompt(*, model, prompt, temperature, max_new_tokens):
 
     return response
 
-def compute_model_response(*, model, item):
-    future = asyncio.run_coroutine_threadsafe(respond_to_prompt(model=model, prompt=item['prompt'],
+async def compute_model_response(*, model, item):
+    return await asyncio.run_coroutine_threadsafe(respond_to_prompt(model=model, prompt=item['prompt'],
         temperature=item['temperature'], max_new_tokens=item['max_new_tokens']), model['event_loop'])
-    return future.result()
 
 def unload_worker_model(model):
     loop = model['event_loop']

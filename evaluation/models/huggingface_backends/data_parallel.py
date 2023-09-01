@@ -10,7 +10,45 @@ import evaluation.models.models
 
 start_new_worker_lock = threading.Lock()
 
-def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking):
+class AsyncMultiprocessingQueue:
+    def __init__(self, max_num_threads):
+        self.queue = multiprocessing.Queue()
+        self.executor = ThreadPoolExecutor(max_workers=max_num_threads)
+
+    def put(item):
+        self.queue.put(item)
+
+    async def get():
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(self.executor, self.queue.get)
+
+async def handle_item_async(compute_model_response, model, item):
+    result_queue = item[0]['result_queue']
+
+    try:
+        response = await compute_model_response(model=model, item=item)
+        result_queue.put(('response', response))
+    except:
+        import traceback
+        result_queue.put(('exception', traceback.format_exc()))
+
+def handle_item_sync(compute_model_responses, model, batch):
+    try:
+        compute_model_responses(model=model, batch=batch)
+    except:
+        import traceback
+        exception_stacktrace = traceback.format_exc()
+        for batch_item in batch:
+            result_queue = batch_item['result_queue']
+            try:
+                result_queue.put(('exception', exception_stacktrace))
+            except:
+                pass
+
+async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking):
+    assert (worker_is_blocking and 'compute_model_responses' in worker_functions)
+        or (not worker_is_blocking and 'compute_model_response' in worker_functions)
+
     try:
         model = worker_functions['create_model'](
             tokenizer_path=tokenizer_path,
@@ -22,52 +60,34 @@ def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_funct
         queue.put(('error-when-creating-model', traceback.format_exc()))
         return
 
-    ack_queue = multiprocessing.Queue()
+    ack_queue = AsyncMultiprocessingQueue(max_num_threads=1)
     queue.put(('model-created', ack_queue))
-    ack_queue.get()
+    await ack_queue.get()
+
+    remaining_futures = []
 
     while True:
-        item = queue.get()
+        item = await queue.get()
         if item == 'unload-model':
             break
 
-        batch = item
-
-        def process_item():
-            if 'compute_model_response' in worker_functions:
-                for batch_item in batch:
-                    result_queue = batch_item['result_queue']
-                    try:
-                        response = worker_functions['compute_model_response'](model=model, item=batch_item)
-                        result_queue.put(('response', response))
-                    except:
-                        import traceback
-                        result_queue.put(('exception', traceback.format_exc()))
-            elif 'compute_model_responses' in worker_functions:
-                try:
-                    worker_functions['compute_model_responses'](model=model, batch=batch)
-                except:
-                    import traceback
-                    exception_stacktrace = traceback.format_exc()
-                    for batch_item in batch:
-                        result_queue = batch_item['result_queue']
-                        try:
-                            result_queue.put(('exception', exception_stacktrace))
-                        except:
-                            pass
-            else:
-                raise
-
         if worker_is_blocking:
-            process_item()
+            handle_item_sync(worker_functions['compute_model_responses'], model, item)
         else:
-            threading.Thread(target=process_item).start()
+            assert len(item) == 1
+            remaining_futures.append(handle_item_async(worker_functions['compute_model_response'], model, item[0]))
+
+    for future in remaining_futures:
+        await future
 
     if 'unload_worker_model' in worker_functions:
         worker_functions['unload_worker_model'](model)
 
     model = None
     gc.collect()
+
+def run_worker_process_in_new_event_loop(**kwargs):
+    asyncio.run(run_worker_process(**kwargs))
 
 def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices, worker_functions, worker_is_blocking):
     # This lock is needed because we modify the `CUDA_VISIBLE_DEVICES` environment variable
@@ -112,14 +132,14 @@ class WorkerProcessManager:
         self.timestamp_when_last_batch_item_was_added = None
         self.lock = threading.Lock()
 
-        self.num_threads = torch.cuda.device_count() // num_devices_per_model
+        self.num_workers = torch.cuda.device_count() // num_devices_per_model
 
         if worker_is_blocking:
-            self.queue = multiprocessing.Queue()
+            self.queue = AsyncMultiprocessingQueue(max_num_threads=512)
         else:
-            self.queues = [multiprocessing.Queue() for _ in range(self.num_threads)]
+            self.queues = [AsyncMultiprocessingQueue(max_num_threads=256) for _ in range(self.num_workers)]
 
-        for i in range(self.num_threads):
+        for i in range(self.num_workers):
             if worker_is_blocking:
                 queue = self.queue
             else:
@@ -130,11 +150,11 @@ class WorkerProcessManager:
                 queue=queue, devices=devices, worker_functions=worker_functions, worker_is_blocking=worker_is_blocking)
 
         ack_queues = []
-        for i in range(self.num_threads):
+        for i in range(self.num_workers):
             if self.worker_is_blocking:
-                model_creation_result = self.queue.get()
+                model_creation_result = self.queue.get().result()
             else:
-                model_creation_result = self.queues[i].get()
+                model_creation_result = self.queues[i].get().result()
 
             if model_creation_result[0] == 'model-created':
                 ack_queues.append(model_creation_result[1])
@@ -151,7 +171,7 @@ class WorkerProcessManager:
 
         assert self.models_are_loaded
 
-        for i in range(self.num_threads):
+        for i in range(self.num_workers):
             if self.worker_is_blocking:
                 self.queue.put('unload-model')
             else:
@@ -237,7 +257,7 @@ class DataParallelBackend:
             'result_queue': result_queue,
         })
 
-        result = result_queue.get()
+        result = result_queue.get().result()
         if result[0] == 'response':
             return result[1]
         raise Exception('Error when running inference: ' + result[1])
