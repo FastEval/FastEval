@@ -1,20 +1,24 @@
 import multiprocessing.pool
 import threading
+import asyncio
 
-def process_with_thread_pool(*, num_threads, items, process_fn, progress_bar_description=None, use_stop_event=False):
-    import tqdm
+async def process_with_progress_bar_async(items, process_fn, progress_bar_description):
+    from tqdm.asyncio import tqdm_asyncio
 
-    if use_stop_event:
-        stop_event = threading.Event()
-    else:
-        stop_event = None
+    stop_event = threading.Event()
 
-    def process_with_index(item_with_index):
+    return await tqdm_asyncio.gather(
+        *[process_fn(item, stop_event=stop_event) for item in items],
+        desc=progress_bar_description
+    )
+
+def process_with_progress_bar(*, items, process_fn, progress_bar_description):
+    return asyncio.run(process_with_progress_bar_async(items, process_fn, progress_bar_description))
+
+
+    async def process_with_index(item_with_index):
         index, item = item_with_index
-        if stop_event is None:
-            result = process_fn(item)
-        else:
-            result = process_fn(item, stop_event=stop_event)
+        result = await process_fn(item, stop_event=stop_event)
         return index, result
 
     try:

@@ -21,7 +21,7 @@ class OpenAI(OpenAIBase):
         else:
             raise Exception('Unknown OpenAI model.')
 
-    def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
+    async def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
         import openai
 
         if self.default_system_message is not None and conversation[0][0] != 'system':
@@ -36,7 +36,7 @@ class OpenAI(OpenAIBase):
                 else:
                     break
             try:
-                return self.reply_single_try(
+                return await self.reply_single_try(
                     conversation=conversation,
                     api_base='https://api.openai.com/v1',
                     api_key=os.environ['OPENAI_API_KEY'],

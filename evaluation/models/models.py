@@ -115,19 +115,17 @@ def compute_model_replies(model, conversations, *, progress_bar_description=None
     if len(conversations) == 0:
         return []
 
-    def compute_reply(conversation, *, stop_event):
+    async def compute_reply(conversation, *, stop_event):
         if isinstance(conversation, list):
-            return model.reply(conversation, stop_event=stop_event)
+            return await model.reply(conversation, stop_event=stop_event)
         elif isinstance(conversation, dict):
-            return model.reply(**conversation, stop_event=stop_event)
+            return await model.reply(**conversation, stop_event=stop_event)
         raise
 
-    return evaluation.utils.process_with_thread_pool(
-        num_threads=model.num_threads,
+    return evaluation.utils.process_with_progress_bar(
         items=conversations,
         process_fn=compute_reply,
         progress_bar_description=progress_bar_description,
-        use_stop_event=True,
     )
 
 def switch_inference_backend(new_inference_backend):

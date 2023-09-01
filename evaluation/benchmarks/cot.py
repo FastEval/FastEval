@@ -4,7 +4,6 @@ import json
 import statistics
 import random
 
-from evaluation.utils import process_with_thread_pool
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
@@ -319,17 +318,7 @@ def load_datasets(model_name, dataset_requests):
         dataset_name, subset, split = dataset_request
         return datasets.load_dataset(dataset_name, subset)[split]
 
-    return process_with_thread_pool(
-        items=dataset_requests,
-        process_fn=load_dataset,
-        progress_bar_description=model_name + ' :: CoT :: Loading datasets',
-
-        # TODO: Using multiple threads doesn't actually help here for some reason.
-        # Ideally, we would like to use num_threads=len(dataset_requests),
-        # but it seems like it's either CPU bound and doesn't get faster due to the GIL
-        # or huggingface uses some lock internally.
-        num_threads=1,
-    )
+    return [load_dataset(dataset_request) for dataset_request in tqdm.tqdm(datasets, desc=' :: CoT :: Loading datasets')]
 
 def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_level_benchmarks):
     if RECOMPUTE_SCORES:

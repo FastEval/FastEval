@@ -151,7 +151,7 @@ class Fastchat(OpenAIBase):
         self.tokenizer_path = tokenizer
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
-    def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
+    async def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
         from openai.error import APIError
 
         conversation = put_system_message_in_user_message(conversation)
@@ -165,7 +165,7 @@ class Fastchat(OpenAIBase):
         model_name = self.model_name.split('/')[-1]
 
         try:
-            return super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key, temperature=temperature,
+            return await super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key, temperature=temperature,
                 model_name=model_name, max_new_tokens=max_new_tokens, stop_event=stop_event)
         except APIError as error:
             error_message = json.loads(error.http_body)['message']
@@ -180,5 +180,5 @@ class Fastchat(OpenAIBase):
             reduced_max_new_tokens = max_new_tokens - num_tokens_too_much
             if reduced_max_new_tokens <= 0:
                 return ''
-            return super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key,
+            return await super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key,
                 max_new_tokens=reduced_max_new_tokens, temperature=temperature, model_name=model_name, stop_event=stop_event)

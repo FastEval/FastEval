@@ -4,23 +4,13 @@ import time
 import gc
 import os
 import random
+import asyncio
 
 import evaluation.args
 import evaluation.models.models
+from evaluation.models.huggingface_backends.async_multiprocessing_queue import AsyncMultiprocessingQueue
 
 start_new_worker_lock = threading.Lock()
-
-class AsyncMultiprocessingQueue:
-    def __init__(self, max_num_threads):
-        self.queue = multiprocessing.Queue()
-        self.executor = ThreadPoolExecutor(max_workers=max_num_threads)
-
-    def put(item):
-        self.queue.put(item)
-
-    async def get():
-        loop = asyncio.get_running_loop()
-        return await loop.run_in_executor(self.executor, self.queue.get)
 
 async def handle_item_async(compute_model_response, model, item):
     result_queue = item[0]['result_queue']
@@ -46,8 +36,8 @@ def handle_item_sync(compute_model_responses, model, batch):
                 pass
 
 async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking):
-    assert (worker_is_blocking and 'compute_model_responses' in worker_functions)
-        or (not worker_is_blocking and 'compute_model_response' in worker_functions)
+    assert ((worker_is_blocking and 'compute_model_responses' in worker_functions)
+        or (not worker_is_blocking and 'compute_model_response' in worker_functions))
 
     try:
         model = worker_functions['create_model'](
@@ -60,7 +50,7 @@ async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker
         queue.put(('error-when-creating-model', traceback.format_exc()))
         return
 
-    ack_queue = AsyncMultiprocessingQueue(max_num_threads=1)
+    ack_queue = AsyncMultiprocessingQueue()
     queue.put(('model-created', ack_queue))
     await ack_queue.get()
 
@@ -102,7 +92,7 @@ def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, device
 
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(device_id) for device_id in devices])
 
-    multiprocessing.Process(target=run_worker_process, kwargs={
+    multiprocessing.Process(target=run_worker_process_in_new_event_loop, kwargs={
         'tokenizer_path': tokenizer_path,
         'model_path': model_path,
         'dtype': dtype,
@@ -135,9 +125,9 @@ class WorkerProcessManager:
         self.num_workers = torch.cuda.device_count() // num_devices_per_model
 
         if worker_is_blocking:
-            self.queue = AsyncMultiprocessingQueue(max_num_threads=512)
+            self.queue = AsyncMultiprocessingQueue()
         else:
-            self.queues = [AsyncMultiprocessingQueue(max_num_threads=256) for _ in range(self.num_workers)]
+            self.queues = [AsyncMultiprocessingQueue() for _ in range(self.num_workers)]
 
         for i in range(self.num_workers):
             if worker_is_blocking:
@@ -149,6 +139,7 @@ class WorkerProcessManager:
             start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
                 queue=queue, devices=devices, worker_functions=worker_functions, worker_is_blocking=worker_is_blocking)
 
+    async def wait_until_models_are_loaded(self):
         ack_queues = []
         for i in range(self.num_workers):
             if self.worker_is_blocking:
@@ -212,7 +203,7 @@ class DataParallelBackend:
         self.lock = threading.Lock()
         self.current_worker_process_manager = None
 
-    def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size, stop_event):
+    async def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size, stop_event):
         import torch
 
         self.lock.acquire()
@@ -240,6 +231,7 @@ class DataParallelBackend:
                     worker_functions=self.worker_functions,
                     worker_is_blocking=self.worker_is_blocking,
                 )
+                await self.current_worker_process_manager.wait_until_models_are_loaded()
             except Exception as error:
                 self.lock.release()
                 raise error
@@ -248,7 +240,7 @@ class DataParallelBackend:
 
         self.lock.release()
 
-        result_queue = multiprocessing.Queue()
+        result_queue = AsyncMultiprocessingQueue()
 
         manager.add_item_to_next_batch({
             'prompt': prompt,
@@ -257,7 +249,7 @@ class DataParallelBackend:
             'result_queue': result_queue,
         })
 
-        result = result_queue.get().result()
+        result = await result_queue.get()
         if result[0] == 'response':
             return result[1]
         raise Exception('Error when running inference: ' + result[1])

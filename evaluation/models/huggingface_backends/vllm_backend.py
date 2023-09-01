@@ -114,8 +114,8 @@ backend = DataParallelBackend(
     worker_is_blocking=False,
 )
 
-def run_inference(**kwargs):
-    return backend.run_inference(**kwargs, max_batch_size=1)
+async def run_inference(**kwargs):
+    return await backend.run_inference(**kwargs, max_batch_size=1)
 
 def unload_model():
     return backend.unload_model()

@@ -94,7 +94,7 @@ class Huggingface:
         prompt += self.assistant
         return prompt.strip()
 
-    def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
+    async def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
 
@@ -112,12 +112,12 @@ class Huggingface:
             raise Exception('Only the HF transformers & vLLM backends currently support using tokens instead of text.')
 
         if self.backend == 'vllm':
-            response = evaluation.models.huggingface_backends.vllm_backend.run_inference(**common_kwargs)
+            response = await evaluation.models.huggingface_backends.vllm_backend.run_inference(**common_kwargs)
         elif self.backend == 'tgi':
-            response = evaluation.models.huggingface_backends.tgi.run_inference(**common_kwargs)
+            response = await evaluation.models.huggingface_backends.tgi.run_inference(**common_kwargs)
         elif self.backend == 'hf_transformers':
             # The batch size can be increased (should work), but batching doesn't seem to increase performance
-            response = evaluation.models.huggingface_backends.hf_transformers.run_inference(**common_kwargs, max_batch_size=1)
+            response = await evaluation.models.huggingface_backends.hf_transformers.run_inference(**common_kwargs, max_batch_size=1)
         else:
             raise
 

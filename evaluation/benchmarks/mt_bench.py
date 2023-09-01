@@ -6,7 +6,7 @@ import statistics
 import threading
 from evaluation.benchmarks.utils import model_name_to_filename
 
-from evaluation.utils import process_with_thread_pool
+from evaluation.utils import process_with_progress_bar
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import MT_BENCH_JUDGE_MAX_NEW_TOKENS, MT_BENCH_JUDGE
 
@@ -22,11 +22,11 @@ def get_temperature(category):
         'humanities': 0.1,
     })[category]
 
-def generate_single_conversation_assistant_replies(model_and_question, *, stop_event):
+async def generate_single_conversation_assistant_replies(model_and_question, *, stop_event):
     model, question = model_and_question
 
     first_turn_conversation = [('user', question['turns'][0])]
-    first_turn_reply = model.reply(first_turn_conversation, temperature=question['temperature'], stop_event=stop_event)
+    first_turn_reply = await model.reply(first_turn_conversation, temperature=question['temperature'], stop_event=stop_event)
 
     second_turn_conversation = [
         ('user', question['turns'][0]),
@@ -34,7 +34,7 @@ def generate_single_conversation_assistant_replies(model_and_question, *, stop_e
         ('user', question['turns'][1]),
     ]
 
-    second_turn_reply = model.reply(second_turn_conversation, temperature=question['temperature'], stop_event=stop_event)
+    second_turn_reply = await model.reply(second_turn_conversation, temperature=question['temperature'], stop_event=stop_event)
 
     return [first_turn_reply, second_turn_reply]
 
@@ -53,12 +53,10 @@ def generate_assistant_replies(model_type, model_name, model_args, evaluation_id
 
     questions_items = list(questions.items())
 
-    model_replies = process_with_thread_pool(
-        num_threads=model.num_threads,
+    model_replies = process_with_progress_bar(
         items=[(model, question) for question_id, question in questions_items],
         process_fn=generate_single_conversation_assistant_replies,
         progress_bar_description=model_name + ' :: MT-Bench :: Computing model replies',
-        use_stop_event=True,
     )
 
     all_replies = { question_id: model_replies[i] for i, (question_id, question) in enumerate(questions_items) }
