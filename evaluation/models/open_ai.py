@@ -21,7 +21,7 @@ class OpenAI(OpenAIBase):
         else:
             raise Exception('Unknown OpenAI model.')
 
-    async def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
+    async def reply(self, conversation, *, temperature=None, max_new_tokens=None):
         import openai
 
         if self.default_system_message is not None and conversation[0][0] != 'system':
@@ -44,7 +44,6 @@ class OpenAI(OpenAIBase):
                     api_key=os.environ['OPENAI_API_KEY'],
                     temperature=temperature,
                     max_new_tokens=max_new_tokens,
-                    stop_event=stop_event,
                 )
 
                 self.semaphore.release()

@@ -4,17 +4,7 @@ import asyncio
 
 async def process_with_progress_bar_async(items, process_fn, progress_bar_description):
     from tqdm.asyncio import tqdm_asyncio
-
-    stop_event = asyncio.Event()
-
-    try:
-        return await tqdm_asyncio.gather(
-            *[process_fn(item, stop_event=stop_event) for item in items],
-            desc=progress_bar_description
-        )
-    except Exception as exception:
-        stop_event.set()
-        raise exception
+    return await tqdm_asyncio.gather(*[process_fn(item) for item in items], desc=progress_bar_description)
 
 def process_with_progress_bar(*, items, process_fn, progress_bar_description):
     return asyncio.run(process_with_progress_bar_async(items, process_fn, progress_bar_description))

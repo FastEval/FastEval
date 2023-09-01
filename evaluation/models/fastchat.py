@@ -149,7 +149,7 @@ class Fastchat(OpenAIBase):
         self.tokenizer_path = tokenizer
         super().__init__(model_name, max_new_tokens=max_new_tokens)
 
-    async def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
+    async def reply(self, conversation, *, temperature=None, max_new_tokens=None):
         from openai.error import APIError
 
         conversation = put_system_message_in_user_message(conversation)
@@ -164,7 +164,7 @@ class Fastchat(OpenAIBase):
 
         try:
             return await super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key, temperature=temperature,
-                model_name=model_name, max_new_tokens=max_new_tokens, stop_event=stop_event)
+                model_name=model_name, max_new_tokens=max_new_tokens)
         except APIError as error:
             error_message = json.loads(error.http_body)['message']
             error_information = re.search("This model's maximum context length is ([0-9]+) tokens\. "
@@ -179,4 +179,4 @@ class Fastchat(OpenAIBase):
             if reduced_max_new_tokens <= 0:
                 return ''
             return await super().reply_single_try(conversation=conversation, api_base=api_base, api_key=api_key,
-                max_new_tokens=reduced_max_new_tokens, temperature=temperature, model_name=model_name, stop_event=stop_event)
+                max_new_tokens=reduced_max_new_tokens, temperature=temperature, model_name=model_name)

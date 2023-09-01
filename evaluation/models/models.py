@@ -115,11 +115,11 @@ def compute_model_replies(model, conversations, *, progress_bar_description=None
     if len(conversations) == 0:
         return []
 
-    async def compute_reply(conversation, *, stop_event):
+    async def compute_reply(conversation, *):
         if isinstance(conversation, list):
-            return await model.reply(conversation, stop_event=stop_event)
+            return await model.reply(conversation)
         elif isinstance(conversation, dict):
-            return await model.reply(**conversation, stop_event=stop_event)
+            return await model.reply(**conversation)
         raise
 
     return evaluation.utils.process_with_progress_bar(

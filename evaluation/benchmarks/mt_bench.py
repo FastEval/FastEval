@@ -22,11 +22,11 @@ def get_temperature(category):
         'humanities': 0.1,
     })[category]
 
-async def generate_single_conversation_assistant_replies(model_and_question, *, stop_event):
+async def generate_single_conversation_assistant_replies(model_and_question, *):
     model, question = model_and_question
 
     first_turn_conversation = [('user', question['turns'][0])]
-    first_turn_reply = await model.reply(first_turn_conversation, temperature=question['temperature'], stop_event=stop_event)
+    first_turn_reply = await model.reply(first_turn_conversation, temperature=question['temperature'])
 
     second_turn_conversation = [
         ('user', question['turns'][0]),
@@ -34,7 +34,7 @@ async def generate_single_conversation_assistant_replies(model_and_question, *, 
         ('user', question['turns'][1]),
     ]
 
-    second_turn_reply = await model.reply(second_turn_conversation, temperature=question['temperature'], stop_event=stop_event)
+    second_turn_reply = await model.reply(second_turn_conversation, temperature=question['temperature'])
 
     return [first_turn_reply, second_turn_reply]
 

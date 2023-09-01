@@ -221,14 +221,10 @@ class DataParallelBackend:
         self.lock = threading.Lock()
         self.current_worker_process_manager = None
 
-    async def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size, stop_event):
+    async def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size):
         import torch
 
         self.lock.acquire()
-
-        if stop_event.is_set():
-            self.lock.release()
-            raise Exception('Stop event is set.')
 
         evaluation.models.models.switch_inference_backend(self.backend_name)
 
