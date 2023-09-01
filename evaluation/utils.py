@@ -5,7 +5,7 @@ import asyncio
 async def process_with_progress_bar_async(items, process_fn, progress_bar_description):
     from tqdm.asyncio import tqdm_asyncio
 
-    stop_event = threading.Event()
+    stop_event = asyncio.Event()
 
     return await tqdm_asyncio.gather(
         *[process_fn(item, stop_event=stop_event) for item in items],
