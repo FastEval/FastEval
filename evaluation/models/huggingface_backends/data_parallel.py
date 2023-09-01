@@ -36,14 +36,13 @@ def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_funct
         def process_item():
             if 'compute_model_response' in worker_functions:
                 for batch_item in batch:
-                    result_pipe = batch_item['result_pipe']
+                    result_queue = batch_item['result_queue']
                     try:
                         response = worker_functions['compute_model_response'](model=model, item=batch_item)
-                        result_pipe.send(('response', response))
+                        result_queue.put(('response', response))
                     except:
                         import traceback
-                        result_pipe.send(('exception', traceback.format_exc()))
-                    result_pipe.close()
+                        result_queue.put(('exception', traceback.format_exc()))
             elif 'compute_model_responses' in worker_functions:
                 try:
                     worker_functions['compute_model_responses'](model=model, batch=batch)
@@ -51,10 +50,9 @@ def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_funct
                     import traceback
                     exception_stacktrace = traceback.format_exc()
                     for batch_item in batch:
-                        result_pipe = batch_item['result_pipe']
+                        result_queue = batch_item['result_queue']
                         try:
-                            result_pipe.send(('exception', exception_stacktrace))
-                            result_pipe.close()
+                            result_queue.put(('exception', exception_stacktrace))
                         except:
                             pass
             else:
@@ -230,16 +228,16 @@ class DataParallelBackend:
 
         self.lock.release()
 
-        result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
+        result_queue = multiprocessing.Queue()
 
         manager.add_item_to_next_batch({
             'prompt': prompt,
             'temperature': temperature,
             'max_new_tokens': max_new_tokens,
-            'result_pipe': result_pipe_child_conn,
+            'result_queue': result_queue,
         })
 
-        result = result_pipe_parent_conn.recv()
+        result = result_queue.get()
         if result[0] == 'response':
             return result[1]
         raise Exception('Error when running inference: ' + result[1])
