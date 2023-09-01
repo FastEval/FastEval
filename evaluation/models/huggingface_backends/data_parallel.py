@@ -50,9 +50,9 @@ async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker
         queue.put(('error-when-creating-model', traceback.format_exc()))
         return
 
-    ack_queue = AsyncMultiprocessingQueue()
-    queue.put(('model-created', ack_queue))
-    await ack_queue.get()
+    ack_pipe_parent_conn, ack_pipe_child_conn = multiprocessing.Pipe()
+    queue.put(('model-created', ack_pipe_child_conn))
+    ack_pipe_parent_conn.recv()
 
     remaining_futures = []
 
@@ -140,7 +140,7 @@ class WorkerProcessManager:
                 queue=queue, devices=devices, worker_functions=worker_functions, worker_is_blocking=worker_is_blocking)
 
     async def wait_until_models_are_loaded(self):
-        ack_queues = []
+        ack_pipes = []
         for i in range(self.num_workers):
             if self.worker_is_blocking:
                 model_creation_result = self.queue.get().result()
@@ -148,12 +148,12 @@ class WorkerProcessManager:
                 model_creation_result = self.queues[i].get().result()
 
             if model_creation_result[0] == 'model-created':
-                ack_queues.append(model_creation_result[1])
+                ack_pipes.append(model_creation_result[1])
             else:
                 raise Exception('Model creation in worker failed: ' + model_creation_result[1])
 
-        for queue in ack_queues:
-            queue.put('ack')
+        for pipe in ack_pipes:
+            pipe.send('ack')
 
         self.models_are_loaded = True
 
