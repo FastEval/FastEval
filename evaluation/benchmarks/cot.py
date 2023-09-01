@@ -16,7 +16,7 @@ GSM8K_LIMIT = 500
 MATH_LIMIT = 1000
 BBH_LIMIT_PER_TASK = 30
 MMLU_LIMIT_PER_TASK = 10
-
+AGIEVAL_LIMIT_PER_TASK = 20
 def create_conversation(answer_format, question):
     return [
         ('user',
@@ -309,6 +309,42 @@ def evaluate_model_on_mmlu(output_path):
         'average': statistics.mean(scores),
     }
 
+def evaluate_model_on_agieval(output_path):
+    tasks = ['sat_en', 'sat_en_without_passage', 'sat_math', 'lsat_ar', 'lsat_lr', 'lsat_rc', 'logiqa_en',
+        'logiqa_zh', 'aqua_rat', 'gaokao_biology', 'gaokao_chemistry', 'gaokao_chinese',
+        'gaokao_chemistry', 'gaokao_english', 'gaokao_geography', 'gaokao_history', 'gaokao_mathqa']
+    def create_question(columns):
+        if columns['passage']==None or columns['passage']=="":
+            return columns['question'] + '\n\n' + '\n'.join([columns['options'][index] for index in range(len(columns['options']))])    
+        return  columns['passage'] + '\n\n' +columns['question'] + '\n\n' + '\n'.join([columns['options'][index] for index in range(len(columns['options']))])
+
+    def is_correct(model_answer, correct_answer):
+        model_answer = find_multiple_choice_answer(model_answer=model_answer, options='ABCDE')
+        return model_answer == ['A', 'B', 'C', 'D', 'E'][correct_answer]
+
+    evaluators = combine_evaluators([evaluate_model_on_dataset(
+        name='agieval/' + task,
+        data=('kimvu/agieval', task, 'test'),
+        question_column=["passage", 'question', 'options'],
+        create_question=create_question,
+        answer_column='label',
+        answer_format='as a single letter with parenthesis ',
+        is_correct=is_correct,
+        output_path=output_path,
+        limit=AGIEVAL_LIMIT_PER_TASK,
+    ) for task in tasks])
+
+    datasets = yield next(evaluators)
+    model_responses = yield evaluators.send(datasets)
+    scores = evaluators.send(model_responses)
+
+    yield {
+        'tasks': {
+            task: scores[i] for i, task in enumerate(tasks)
+        },
+        'average': statistics.mean(scores),
+    }
+
 def load_datasets(model_name, dataset_requests):
     if len(dataset_requests) == 0:
         return []
@@ -349,6 +385,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_leve
         ('math', evaluate_model_on_math),
         ('bbh', evaluate_model_on_bbh),
         ('mmlu', evaluate_model_on_mmlu),
+        ('agieval', evaluate_model_on_agieval),
     ]
 
     tasks = [e.split('/')[1] for e in lower_level_benchmarks]
@@ -367,7 +404,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_leve
     scores = { task_name: scores_list[i] for i, (task_name, _) in enumerate(evaluation_functions_to_use) }
 
     if 'gsm8k' in scores and 'math' in scores and 'bbh' in scores and 'mmlu' in scores:
-        scores['total'] = 0.2 * scores['gsm8k'] + 0.4 * scores['math'] + 0.2 * scores['bbh']['average'] + 0.2 * scores['mmlu']['average']
+        scores['total'] = 0.2 * scores['gsm8k'] + 0.4 * scores['math'] + 0.2 * scores['bbh']['average'] + 0.2 * scores['mmlu']['average'] + 0.2*scores['agieval']['average']
 
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
     with open(final_scores_file, 'w') as f:

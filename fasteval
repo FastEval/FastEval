@@ -44,7 +44,7 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     custom_test_data_file_hash = compute_custom_test_data_file_hash(custom_test_data_file)
 
     benchmarks_to_replace_with_subtasks = {
-        'cot': ['cot/gsm8k', 'cot/math', 'cot/bbh', 'cot/mmlu']
+        'cot': ['cot/gsm8k', 'cot/math', 'cot/bbh', 'cot/mmlu', 'cot/agieval']
     }
 
     for k, v in benchmarks_to_replace_with_subtasks.items():
@@ -134,7 +134,7 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--benchmarks',
-        choices=['all', 'mt-bench', 'cot', 'cot/gsm8k', 'cot/math', 'cot/bbh', 'cot/mmlu', 'human-eval-plus', 'ds1000', 'lm-evaluation-harness', 'custom-test-data'],
+        choices=['all', 'mt-bench', 'cot', 'cot/gsm8k', 'cot/math', 'cot/bbh', 'cot/mmlu', 'cot/agieval', 'human-eval-plus', 'ds1000', 'lm-evaluation-harness', 'custom-test-data'],
         nargs='*', default='all',
         help='Benchmark(s) that the model will be evaluated on')
     parser.add_argument('-t', '--model-type',
