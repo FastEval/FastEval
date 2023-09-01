@@ -225,7 +225,7 @@ class DataParallelBackend:
 
         await self.lock.acquire()
 
-        evaluation.models.models.switch_inference_backend(self.backend_name)
+        await evaluation.models.models.switch_inference_backend(self.backend_name)
 
         if (self.current_worker_process_manager is None
                 or self.current_worker_process_manager.tokenizer_path != tokenizer_path
@@ -271,6 +271,6 @@ class DataParallelBackend:
     async def unload_model(self):
         await self.lock.acquire()
         if self.current_worker_process_manager is not None:
-            self.current_worker_process_manager.unload_model()
+            await self.current_worker_process_manager.unload_model()
         self.current_worker_process_manager = None
         self.lock.release()

@@ -28,16 +28,16 @@ async def run_inference_backend_correctness_check(model_type, model_name, model_
         'temperature': 0,
     } for conversation in conversations]
 
-    def get_outputs(model_args, conversation, n):
+    async def get_outputs(model_args, conversation, n):
         return compute_model_replies(
-            create_model(model_type, model_name, model_args, max_new_tokens=1024),
+            await create_model(model_type, model_name, model_args, max_new_tokens=1024),
             [conversation] * n,
             progress_bar_description=model_name + ' :: Computing replies with ' + model_args['inference_backend'] + ' backend',
         )
 
     model_args_with_hf_transformers_backend = copy.deepcopy(model_args)
     model_args_with_hf_transformers_backend['inference_backend'] = 'hf_transformers'
-    hf_transformers_model_outputs = [get_outputs(model_args_with_hf_transformers_backend, conversation, 1)[0] for conversation in conversations]
+    hf_transformers_model_outputs = [await get_outputs(model_args_with_hf_transformers_backend, conversation, 1)[0] for conversation in conversations]
 
     # Both vLLM as well as TGI may actually not give deterministic outputs when processing multiple outputs
     # in parallel even if temperature = 0 is used. The reason for this seems floating point accuracy.

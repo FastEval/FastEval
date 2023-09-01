@@ -15,7 +15,7 @@ async def run_evaluation(*, model_name, model_args, output_path):
     if 'tokenizer' in model_args:
         kwargs['tokenizer'] = model_args['tokenizer']
 
-    def build_lm_eval_command(*, parallelize):
+    async def build_lm_eval_command(*, parallelize):
         lm_eval_model_args = ','.join([k + '=' + str(v) for k, v in ({
             'pretrained': model_name,
             'dtype': str(await get_dtype(model_name)).replace('torch.', ''),
@@ -36,15 +36,15 @@ async def run_evaluation(*, model_name, model_args, output_path):
         return cmd
 
     if evaluation.args.cmd_arguments.num_gpus_per_model == 1:
-        cmd = ['accelerate', 'launch'] + build_lm_eval_command(parallelize=False)
+        cmd = ['accelerate', 'launch'] + await build_lm_eval_command(parallelize=False)
     else:
-        cmd = build_lm_eval_command(parallelize=True)
+        cmd = await build_lm_eval_command(parallelize=True)
 
     print(model_name + ' :: LM-Eval :: Evaluating')
 
     subprocess.run(cmd)
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
+async def evaluate_model(model_type, model_name, model_args, evaluation_id):
     if model_type == 'openai':
         return
 
@@ -53,7 +53,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
 
     gpt4all_output_filepath = os.path.join(output_folder, 'gpt4all.json')
     if not os.path.exists(gpt4all_output_filepath):
-        run_evaluation(model_name=model_name, model_args=model_args, output_path=gpt4all_output_filepath)
+        await run_evaluation(model_name=model_name, model_args=model_args, output_path=gpt4all_output_filepath)
 
     with open(gpt4all_output_filepath) as f:
         results = json.load(f)

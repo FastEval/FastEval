@@ -219,11 +219,11 @@ def compute_prompts(data):
 
     return prompts
 
-def compute_ds1000_model_replies(*, model_type, model_name, model_args, prompts, data, output_path):
+async def compute_ds1000_model_replies(*, model_type, model_name, model_args, prompts, data, output_path):
     if os.path.exists(output_path):
         return
 
-    model = create_model(model_type, model_name, model_args)
+    model = await create_model(model_type, model_name, model_args)
 
     conversations = [{
         'conversation': [('user', prompt['prompt'])],
@@ -393,7 +393,7 @@ def assert_reference_code_works(*, tmpdir, data):
     if scores['average'] != 1:
         raise Exception('DS-1000: Execution of reference code failed: ' + json.dumps(scores))
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
+async def evaluate_model(model_type, model_name, model_args, evaluation_id):
     tmpdir = os.path.join(os.getcwd(), '.tmp/ds1000')
     os.makedirs(tmpdir, exist_ok=True)
 

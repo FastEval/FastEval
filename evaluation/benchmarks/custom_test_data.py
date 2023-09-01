@@ -11,12 +11,12 @@ from evaluation.models.models import create_model, compute_model_replies
 
 JUDGE_MODEL_MAX_NEW_TOKENS = 2048
 
-def generate_assistant_replies(*, model_type, model_name, model_args, evaluation_id, conversations_with_references, data_hash):
+async def generate_assistant_replies(*, model_type, model_name, model_args, evaluation_id, conversations_with_references, data_hash):
     answers_filepath = os.path.join('reports', 'custom-test-data', model_name_to_filename(model_name), evaluation_id, data_hash, 'answers.json')
     if os.path.exists(answers_filepath):
         return
 
-    model = create_model(model_type, model_name, model_args)
+    model = await create_model(model_type, model_name, model_args)
 
     conversations_with_ids = [(conversation_id, conversation['conversation'])
         for conversation_id, conversation in conversations_with_references.items()]
@@ -85,7 +85,7 @@ def create_judge_conversation(*, conversations_with_references, model_replies, c
         ('user', judge_prompt),
     ]
 
-def compute_judge_replies(*, model_name, evaluation_id, conversations_with_references, judge_model_type, judge_model_name, judge_model_args, data_hash):
+async def compute_judge_replies(*, model_name, evaluation_id, conversations_with_references, judge_model_type, judge_model_name, judge_model_args, data_hash):
     judge_replies_filepath = os.path.join('reports', 'custom-test-data', model_name_to_filename(model_name), evaluation_id, data_hash, 'judge-replies.json')
     if os.path.exists(judge_replies_filepath):
         return
@@ -98,7 +98,7 @@ def compute_judge_replies(*, model_name, evaluation_id, conversations_with_refer
         'conversation': create_judge_conversation(conversations_with_references=conversations_with_references, model_replies=answers, conversation_id=conversation_id),
     } for conversation_id in conversations_with_references.keys()]
 
-    judge_model = create_model(judge_model_type, judge_model_name, judge_model_args, max_new_tokens=JUDGE_MODEL_MAX_NEW_TOKENS)
+    judge_model = await create_model(judge_model_type, judge_model_name, judge_model_args, max_new_tokens=JUDGE_MODEL_MAX_NEW_TOKENS)
 
     judge_replies = compute_model_replies(judge_model, [{
         'conversation': item['conversation'],
@@ -179,6 +179,6 @@ def evaluate_model_on_single_data_file(model_type, model_name, model_args, evalu
         data_hash=data_hash,
     )
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id, *, data_hashes):
+async def evaluate_model(model_type, model_name, model_args, evaluation_id, *, data_hashes):
     for data_hash in data_hashes:
         evaluate_model_on_single_data_file(model_type, model_name, model_args, evaluation_id, data_hash=data_hash)

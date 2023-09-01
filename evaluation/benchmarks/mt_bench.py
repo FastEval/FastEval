@@ -4,8 +4,9 @@ import re
 import ast
 import statistics
 import threading
-from evaluation.benchmarks.utils import model_name_to_filename
+import asyncio
 
+from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.utils import process_with_progress_bar
 from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import MT_BENCH_JUDGE_MAX_NEW_TOKENS, MT_BENCH_JUDGE
@@ -22,7 +23,7 @@ def get_temperature(category):
         'humanities': 0.1,
     })[category]
 
-async def generate_single_conversation_assistant_replies(model_and_question, *):
+async def generate_single_conversation_assistant_replies(model_and_question):
     model, question = model_and_question
 
     first_turn_conversation = [('user', question['turns'][0])]
@@ -38,12 +39,12 @@ async def generate_single_conversation_assistant_replies(model_and_question, *):
 
     return [first_turn_reply, second_turn_reply]
 
-def generate_assistant_replies(model_type, model_name, model_args, evaluation_id):
+async def generate_assistant_replies(model_type, model_name, model_args, evaluation_id):
     answers_filepath = os.path.join('reports', 'mt-bench', model_name_to_filename(model_name), evaluation_id, 'answers.json')
     if os.path.exists(answers_filepath):
         return
 
-    model = create_model(model_type, model_name, model_args)
+    model = await create_model(model_type, model_name, model_args)
 
     with open('data/mt-bench/questions.json') as f:
         questions = json.load(f)
@@ -106,7 +107,7 @@ def create_judge_conversation(questions, answers, judge_prompt_templates, turn_n
         ('user', prompt),
     ]
 
-def compute_judge_replies(model_name, evaluation_id):
+async def compute_judge_replies(model_name, evaluation_id):
     judge_replies_filepath = os.path.join('reports', 'mt-bench', model_name_to_filename(model_name), evaluation_id, 'judge-replies.json')
     if os.path.exists(judge_replies_filepath):
         return
@@ -124,7 +125,7 @@ def compute_judge_replies(model_name, evaluation_id):
         'conversation': create_judge_conversation(questions, answers, judge_prompt_templates, turn_number, question_id),
     } for turn_number in [0, 1] for question_id in questions.keys()]
 
-    judge_model = create_model(*MT_BENCH_JUDGE, {}, max_new_tokens=MT_BENCH_JUDGE_MAX_NEW_TOKENS)
+    judge_model = await create_model(*MT_BENCH_JUDGE, {}, max_new_tokens=MT_BENCH_JUDGE_MAX_NEW_TOKENS)
 
     judge_replies = compute_model_replies(judge_model, [{
         'conversation': item['conversation'],
@@ -197,10 +198,10 @@ def compute_model_score(model_name, evaluation_id):
     with open(scores_filepath, 'w') as f:
         json.dump(scores, f, indent=4)
 
-def judge(model_name, evaluation_id):
-    compute_judge_replies(model_name, evaluation_id)
+async def judge(model_name, evaluation_id):
+    await compute_judge_replies(model_name, evaluation_id)
     compute_model_score(model_name, evaluation_id)
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
-    generate_assistant_replies(model_type, model_name, model_args, evaluation_id)
-    threading.Thread(target=judge, args=(model_name, evaluation_id)).start()
+async def evaluate_model(model_type, model_name, model_args, evaluation_id):
+    await generate_assistant_replies(model_type, model_name, model_args, evaluation_id)
+    asyncio.create_task(judge(model_name, evaluation_id))

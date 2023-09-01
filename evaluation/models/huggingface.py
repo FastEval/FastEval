@@ -61,7 +61,7 @@ class Huggingface:
 
         self.backend = inference_backend
 
-    def _get_eos_token(self):
+    async def _get_eos_token(self):
         if hasattr(self, 'eos_token'):
             return self.eos_token
 
@@ -125,8 +125,10 @@ class Huggingface:
         special_tokens = []
         if self.end2 is not None:
             special_tokens.append(self.end2)
-        if self._get_eos_token() is not None:
-            special_tokens.append(self._get_eos_token())
+
+        eos_token = await self._get_eos_token()
+        if eos_token is not None:
+            special_tokens.append(eos_token)
 
         final_substrings_to_remove = []
         for special_token in special_tokens:

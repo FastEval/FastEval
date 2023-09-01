@@ -320,7 +320,7 @@ def load_datasets(model_name, dataset_requests):
 
     return [load_dataset(dataset_request) for dataset_request in tqdm.tqdm(datasets, desc=' :: CoT :: Loading datasets')]
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_level_benchmarks):
+async def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_level_benchmarks):
     if RECOMPUTE_SCORES:
         print(model_name)
 
@@ -329,7 +329,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id, lower_leve
     if os.path.exists(final_scores_file) and not RECOMPUTE_SCORES:
         return
 
-    model = create_model(model_type, model_name, model_args, max_new_tokens=COT_MAX_NEW_TOKENS)
+    model = await create_model(model_type, model_name, model_args, max_new_tokens=COT_MAX_NEW_TOKENS)
 
     tasks_path = os.path.join(output_folder, 'tasks')
 

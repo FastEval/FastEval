@@ -49,17 +49,17 @@ def create_conversation(prompt):
             + prompt),
     ]
 
-def compute_model_answers(*, model_type, model_name, model_args, output_folder):
+async def compute_model_answers(*, model_type, model_name, model_args, output_folder):
     output_file = os.path.join(output_folder, 'answers.json')
     if os.path.exists(output_file):
         return
 
-    model = create_model(model_type, model_name, model_args)
+    model = await create_model(model_type, model_name, model_args)
 
     dataset = get_human_eval_plus()
     task_ids = list(dataset.keys()) * N
     prompts = [dataset[task_id]['prompt'] for task_id in task_ids]
-    raw_replies = compute_model_replies(model, [{
+    raw_replies = await compute_model_replies(model, [{
         'conversation': create_conversation(prompt),
         'temperature': HUMAN_EVAL_PLUS_TEMPERATURE,
     } for prompt in prompts], progress_bar_description=model_name + ' :: HumanEval+ :: Computing model replies')
@@ -155,8 +155,8 @@ def compute_scores(*, output_folder):
     with open(output_file, 'w') as f:
         json.dump(output, f, indent=4)
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
+async def evaluate_model(model_type, model_name, model_args, evaluation_id):
     output_folder = os.path.join('reports/human-eval-plus', model_name_to_filename(model_name), evaluation_id)
     os.makedirs(output_folder, exist_ok=True)
-    compute_model_answers(model_type=model_type, model_name=model_name, model_args=model_args, output_folder=output_folder)
+    await compute_model_answers(model_type=model_type, model_name=model_name, model_args=model_args, output_folder=output_folder)
     compute_scores(output_folder=output_folder)

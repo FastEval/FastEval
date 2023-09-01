@@ -24,7 +24,7 @@ async def fetch_model_config(model_name: str):
     return model_config
 
 async def get_dtype(model_name: str):
-    return await fetch_model_config(model_name).torch_dtype
+    return (await fetch_model_config(model_name)).torch_dtype
 
 async def get_supported_inference_backends(model_name: str):
     if 'starchat' in model_name:
@@ -116,7 +116,7 @@ def compute_model_replies(model, conversations, *, progress_bar_description=None
     if len(conversations) == 0:
         return []
 
-    async def compute_reply(conversation, *):
+    async def compute_reply(conversation):
         if isinstance(conversation, list):
             return await model.reply(conversation)
         elif isinstance(conversation, dict):
