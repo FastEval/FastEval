@@ -12,14 +12,16 @@ import evaluation.models.models
 start_new_worker_lock = threading.Lock()
 
 async def handle_item_async(compute_model_response, model, item):
-    result_queue = item[0]['result_queue']
+    result_pipe = item[0]['result_pipe']
 
     try:
         response = await compute_model_response(model=model, item=item)
-        result_queue.put(('response', response))
+        result_pipe.put(('response', response))
     except:
         import traceback
-        result_queue.put(('exception', traceback.format_exc()))
+        result_pipe.put(('exception', traceback.format_exc()))
+
+    result_pipe.close()
 
 def handle_item_sync(compute_model_responses, model, batch):
     try:
@@ -28,9 +30,10 @@ def handle_item_sync(compute_model_responses, model, batch):
         import traceback
         exception_stacktrace = traceback.format_exc()
         for batch_item in batch:
-            result_queue = batch_item['result_queue']
+            result_pipe = batch_item['result_pipe']
             try:
-                result_queue.put(('exception', exception_stacktrace))
+                result_pipe.send(('exception', exception_stacktrace))
+                result_pipe.close()
             except:
                 pass
 
@@ -192,6 +195,16 @@ class WorkerProcessManager:
 
         self.lock.release()
 
+async def pipe_receive_async(pipe):
+    event = asyncio.Event()
+    loop = asyncio.get_event_loop()
+    loop.add_reader(pipe.fileno(), event.set)
+    if not pipe.poll():
+        event.wait()
+    result = pipe.recv()
+    event.clear()
+    return result
+
 class DataParallelBackend:
     def __init__(self, *, backend_name, worker_functions, worker_is_blocking):
         self.backend_name = backend_name
@@ -238,16 +251,18 @@ class DataParallelBackend:
 
         self.lock.release()
 
-        result_queue = AsyncMultiprocessingQueue()
+        result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
 
         manager.add_item_to_next_batch({
             'prompt': prompt,
             'temperature': temperature,
             'max_new_tokens': max_new_tokens,
-            'result_queue': result_queue,
+            'result_pipe': result_pipe_child_conn,
         })
 
-        result = await result_queue.get()
+
+        result = await pipe_receive_async(result_pipe_parent_conn)
+
         if result[0] == 'response':
             return result[1]
         raise Exception('Error when running inference: ' + result[1])

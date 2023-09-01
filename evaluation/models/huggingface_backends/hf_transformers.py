@@ -114,8 +114,9 @@ def compute_model_responses(*, model, batch):
             response = output_tokens[i]
             response = response[len(input_ids[i]):]
             response = tokenizer.decode(response)
-            result_queue = batch_items_with_specific_sampling_parameters[i]['result_queue']
-            result_queue.put(('response', response))
+            result_pipe = batch_items_with_specific_sampling_parameters[i]['result_pipe']
+            result_pipe.send(('response', response))
+            result_pipe.close()
 
 backend = DataParallelBackend(
     backend_name='hf_transformers',
