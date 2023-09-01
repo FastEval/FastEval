@@ -5,6 +5,7 @@ import gc
 import os
 import random
 import asyncio
+import concurrent.futures
 
 import evaluation.args
 import evaluation.models.models
@@ -12,14 +13,14 @@ import evaluation.models.models
 start_new_worker_lock = threading.Lock()
 
 async def handle_item_async(compute_model_response, model, item):
-    result_pipe = item[0]['result_pipe']
+    result_pipe = item['result_pipe']
 
     try:
         response = await compute_model_response(model=model, item=item)
-        result_pipe.put(('response', response))
+        result_pipe.send(('response', response))
     except:
         import traceback
-        result_pipe.put(('exception', traceback.format_exc()))
+        result_pipe.send(('exception', traceback.format_exc()))
 
     result_pipe.close()
 
@@ -56,10 +57,14 @@ async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker
     queue.put(('model-created', ack_pipe_child_conn))
     ack_pipe_parent_conn.recv()
 
-    remaining_futures = []
+    queue_wait_executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+    loop = asyncio.get_event_loop()
+
+    remaining_tasks = set()
 
     while True:
-        item = queue.get()
+        item = await loop.run_in_executor(queue_wait_executor, queue.get)
+
         if item == 'unload-model':
             break
 
@@ -67,10 +72,12 @@ async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker
             handle_item_sync(worker_functions['compute_model_responses'], model, item)
         else:
             assert len(item) == 1
-            remaining_futures.append(handle_item_async(worker_functions['compute_model_response'], model, item[0]))
+            task = asyncio.create_task(handle_item_async(worker_functions['compute_model_response'], model, item[0]))
+            remaining_tasks.add(task)
+            task.add_done_callback(remaining_tasks.discard)
 
-    for future in remaining_futures:
-        await future
+    for task in remaining_tasks:
+        await task
 
     if 'unload_worker_model' in worker_functions:
         worker_functions['unload_worker_model'](model)
@@ -200,7 +207,7 @@ async def pipe_receive_async(pipe):
     loop = asyncio.get_event_loop()
     loop.add_reader(pipe.fileno(), event.set)
     if not pipe.poll():
-        event.wait()
+        await event.wait()
     result = pipe.recv()
     event.clear()
     return result
@@ -242,7 +249,6 @@ class DataParallelBackend:
                     worker_functions=self.worker_functions,
                     worker_is_blocking=self.worker_is_blocking,
                 )
-                await self.current_worker_process_manager.wait_until_models_are_loaded()
             except Exception as error:
                 self.lock.release()
                 raise error
@@ -259,7 +265,6 @@ class DataParallelBackend:
             'max_new_tokens': max_new_tokens,
             'result_pipe': result_pipe_child_conn,
         })
-
 
         result = await pipe_receive_async(result_pipe_parent_conn)
 

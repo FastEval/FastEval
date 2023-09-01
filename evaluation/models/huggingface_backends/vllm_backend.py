@@ -97,8 +97,22 @@ async def respond_to_prompt(*, model, prompt, temperature, max_new_tokens):
     return response
 
 async def compute_model_response(*, model, item):
-    return await asyncio.run_coroutine_threadsafe(respond_to_prompt(model=model, prompt=item['prompt'],
+    future = asyncio.run_coroutine_threadsafe(respond_to_prompt(model=model, prompt=item['prompt'],
         temperature=item['temperature'], max_new_tokens=item['max_new_tokens']), model['event_loop'])
+
+    # https://gist.github.com/lars-tiede/956206c8d97cbc3454cb
+    # I don't understand whether/why this complexity is needed though...
+
+    loop = asyncio.get_event_loop()
+
+    finished = threading.Event()
+    def future_finished_callback(_):
+        finished.set()
+    future.add_done_callback(future_finished_callback)
+
+    await loop.run_in_executor(None, finished.wait)
+
+    return future.result()
 
 def unload_worker_model(model):
     loop = model['event_loop']
