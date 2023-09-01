@@ -3,7 +3,7 @@ import copy
 from evaluation.models.models import unload_model, create_model, compute_model_replies
 from evaluation.utils import join_threads
 
-def run_inference_backend_correctness_check(model_type, model_name, model_args):
+async def run_inference_backend_correctness_check(model_type, model_name, model_args):
     assert model_type is not None and model_name is not None
 
     # Idk. Just some conversations. Can be absolutely changed to better reflect what would be good tests
@@ -103,5 +103,5 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
 
     print('@@@@@@@@@@@@@@ END CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@')
 
-    unload_model()
+    await unload_model()
     join_threads()

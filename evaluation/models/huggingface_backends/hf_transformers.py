@@ -130,5 +130,5 @@ backend = DataParallelBackend(
 async def run_inference(**kwargs):
     return await backend.run_inference(**kwargs)
 
-def unload_model():
-    return backend.unload_model()
+async def unload_model():
+    return await backend.unload_model()

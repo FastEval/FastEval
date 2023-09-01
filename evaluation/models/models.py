@@ -129,7 +129,7 @@ def compute_model_replies(model, conversations, *, progress_bar_description=None
         progress_bar_description=progress_bar_description,
     )
 
-def switch_inference_backend(new_inference_backend):
+async def switch_inference_backend(new_inference_backend):
     import evaluation.models.fastchat
     import evaluation.models.huggingface_backends.hf_transformers
     import evaluation.models.huggingface_backends.vllm_backend
@@ -145,7 +145,7 @@ def switch_inference_backend(new_inference_backend):
     for inference_backend_name, unload_backend_fn in unload_backend_fns.items():
         if inference_backend_name == new_inference_backend:
             continue
-        unload_backend_fn()
+        await unload_backend_fn()
 
-def unload_model():
-    switch_inference_backend(None)
+async def unload_model():
+    await switch_inference_backend(None)

@@ -13,7 +13,7 @@ from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
 server = None
 server_lock = threading.RLock()
 
-def unload_model():
+async def unload_model():
     global server
 
     server_lock.acquire()
@@ -129,7 +129,7 @@ def start_server(*, model_name, tokenizer_path=None, use_vllm):
         'use_vllm': use_vllm,
     }
 
-def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
+async def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
     server_lock.acquire()
 
     evaluation.models.models.switch_inference_backend('fastchat')
@@ -137,7 +137,7 @@ def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
     if server is None:
         start_server(model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path)
     elif server['model_name'] != model_name or server['use_vllm'] != use_vllm:
-        unload_model()
+        await unload_model()
         start_server(model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path)
 
     server_lock.release()

@@ -1,4 +1,3 @@
-import threading
 import multiprocessing
 import time
 import gc
@@ -10,7 +9,7 @@ import concurrent.futures
 import evaluation.args
 import evaluation.models.models
 
-start_new_worker_lock = threading.Lock()
+start_new_worker_lock = asyncio.Lock()
 
 async def handle_item_async(compute_model_response, model, item):
     result_pipe = item['result_pipe']
@@ -88,11 +87,11 @@ async def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker
 def run_worker_process_in_new_event_loop(**kwargs):
     asyncio.run(run_worker_process(**kwargs))
 
-def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices, worker_functions, worker_is_blocking):
+async def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices, worker_functions, worker_is_blocking):
     # This lock is needed because we modify the `CUDA_VISIBLE_DEVICES` environment variable
     # before starting the new child process. This environment variable is global for our whole process,
     # so we need to start the child processes sequentially
-    start_new_worker_lock.acquire()
+    await start_new_worker_lock.acquire()
 
     if 'CUDA_VISIBLE_DEVICES' in os.environ:
         previous_cuda_visible_devices = os.environ['CUDA_VISIBLE_DEVICES']
@@ -118,7 +117,7 @@ def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, device
     start_new_worker_lock.release()
 
 class WorkerProcessManager:
-    def __init__(self, *, tokenizer_path, model_path, dtype, maximum_batch_size, num_devices_per_model, worker_functions, worker_is_blocking):
+    async def init(self, *, tokenizer_path, model_path, dtype, maximum_batch_size, num_devices_per_model, worker_functions, worker_is_blocking):
         import torch
 
         self.tokenizer_path = tokenizer_path
@@ -129,7 +128,7 @@ class WorkerProcessManager:
 
         self.next_batch = []
         self.timestamp_when_last_batch_item_was_added = None
-        self.lock = threading.Lock()
+        self.lock = asyncio.Lock()
 
         self.num_workers = torch.cuda.device_count() // num_devices_per_model
 
@@ -145,7 +144,7 @@ class WorkerProcessManager:
                 queue = self.queues[i]
 
             devices = list(range(i * num_devices_per_model, (i + 1) * num_devices_per_model))
-            start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
+            await start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
                 queue=queue, devices=devices, worker_functions=worker_functions, worker_is_blocking=worker_is_blocking)
 
         ack_pipes = []
@@ -165,8 +164,8 @@ class WorkerProcessManager:
 
         self.models_are_loaded = True
 
-    def unload_model(self):
-        self.lock.acquire()
+    async def unload_model(self):
+        await self.lock.acquire()
 
         assert self.models_are_loaded
 
@@ -180,14 +179,14 @@ class WorkerProcessManager:
 
         self.lock.release()
 
-    def add_item_to_next_batch(self, item):
-        self.lock.acquire()
+    async def add_item_to_next_batch(self, item):
+        await self.lock.acquire()
         self.next_batch.append(item)
         self.lock.release()
 
         time.sleep(0.05)
 
-        self.lock.acquire()
+        await self.lock.acquire()
 
         if self.worker_is_blocking:
             queue = self.queue
@@ -218,13 +217,13 @@ class DataParallelBackend:
         self.worker_functions = worker_functions
         self.worker_is_blocking = worker_is_blocking
 
-        self.lock = threading.Lock()
+        self.lock = asyncio.Lock()
         self.current_worker_process_manager = None
 
     async def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size):
         import torch
 
-        self.lock.acquire()
+        await self.lock.acquire()
 
         evaluation.models.models.switch_inference_backend(self.backend_name)
 
@@ -234,9 +233,10 @@ class DataParallelBackend:
                 or self.current_worker_process_manager.dtype != dtype
                 or self.current_worker_process_manager.maximum_batch_size != max_batch_size):
             if self.current_worker_process_manager is not None:
-                self.current_worker_process_manager.unload_model()
+                await self.current_worker_process_manager.unload_model()
             try:
-                self.current_worker_process_manager = WorkerProcessManager(
+                self.current_worker_process_manager = WorkerProcessManager()
+                await self.current_worker_process_manager.init(
                     tokenizer_path=tokenizer_path,
                     model_path=model_path,
                     dtype=dtype,
@@ -268,8 +268,8 @@ class DataParallelBackend:
             return result[1]
         raise Exception('Error when running inference: ' + result[1])
 
-    def unload_model(self):
-        self.lock.acquire()
+    async def unload_model(self):
+        await self.lock.acquire()
         if self.current_worker_process_manager is not None:
             self.current_worker_process_manager.unload_model()
         self.current_worker_process_manager = None

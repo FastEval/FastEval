@@ -1,5 +1,5 @@
 import os
-import threading
+import asyncio
 
 import evaluation.args
 import evaluation.models.models
@@ -10,7 +10,7 @@ from evaluation.models.utils import put_system_message_in_user_message
 from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
 
 eos_tokens = {}
-eos_tokens_lock = threading.Lock()
+eos_tokens_lock = asyncio.Lock()
 
 class Huggingface:
     async def init(
@@ -67,7 +67,7 @@ class Huggingface:
 
         import transformers
 
-        eos_tokens_lock.acquire()
+        await eos_tokens_lock.acquire()
         eos_tokens[self.tokenizer_path] = transformers.AutoTokenizer.from_pretrained(self.tokenizer_path).eos_token
         self.eos_token = eos_tokens[self.tokenizer_path]
         eos_tokens_lock.release()
