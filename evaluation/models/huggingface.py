@@ -49,7 +49,7 @@ class Huggingface:
         self.max_new_tokens = max_new_tokens
 
         if dtype is None:
-            self.dtype = evaluation.models.models.get_dtype(model_path)
+            self.dtype = await evaluation.models.models.get_dtype(model_path)
         else:
             dtypes = {
                 'float16': torch.float16,

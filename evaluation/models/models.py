@@ -1,13 +1,13 @@
 import os
-import threading
+import asyncio
 
 import evaluation.utils
 
 fetched_model_configs = {}
-fetched_model_configs_lock = threading.Lock()
+fetched_model_configs_lock = asyncio.Lock()
 
-def fetch_model_config(model_name: str):
-    fetched_model_configs_lock.acquire()
+async def fetch_model_config(model_name: str):
+    await fetched_model_configs_lock.acquire()
 
     if model_name in fetched_model_configs:
         model_config = fetched_model_configs[model_name]
@@ -23,10 +23,10 @@ def fetch_model_config(model_name: str):
 
     return model_config
 
-def get_dtype(model_name: str):
-    return fetch_model_config(model_name).torch_dtype
+async def get_dtype(model_name: str):
+    return await fetch_model_config(model_name).torch_dtype
 
-def get_supported_inference_backends(model_name: str):
+async def get_supported_inference_backends(model_name: str):
     if 'starchat' in model_name:
         # vLLM currently does not support starchat.
         # See https://github.com/vllm-project/vllm/issues/380
@@ -44,7 +44,7 @@ def get_supported_inference_backends(model_name: str):
         'falcon',
     ]
 
-    model_type = fetch_model_config(model_name).model_type
+    model_type = await fetch_model_config(model_name).model_type
     if model_type in generally_supported_model_types:
         return ['vllm', 'tgi', 'hf_transformers']
 
@@ -53,8 +53,8 @@ def get_supported_inference_backends(model_name: str):
 def is_tgi_installed():
     return os.path.exists('text-generation-inference')
 
-def get_inference_backend(model_path: str):
-    supported_backends = get_supported_inference_backends(model_path)
+async def get_inference_backend(model_path: str):
+    supported_backends = await get_supported_inference_backends(model_path)
 
     if 'vllm' in supported_backends:
         return 'vllm'

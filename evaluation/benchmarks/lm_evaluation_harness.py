@@ -8,7 +8,7 @@ import evaluation.args
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import get_dtype
 
-def run_evaluation(*, model_name, model_args, output_path):
+async def run_evaluation(*, model_name, model_args, output_path):
     tasks = ['openbookqa', 'arc_easy', 'winogrande', 'hellaswag', 'arc_challenge', 'piqa', 'boolq']
 
     kwargs = {}
@@ -18,7 +18,7 @@ def run_evaluation(*, model_name, model_args, output_path):
     def build_lm_eval_command(*, parallelize):
         lm_eval_model_args = ','.join([k + '=' + str(v) for k, v in ({
             'pretrained': model_name,
-            'dtype': str(get_dtype(model_name)).replace('torch.', ''),
+            'dtype': str(await get_dtype(model_name)).replace('torch.', ''),
             'trust_remote_code': True,
             'parallelize': parallelize,
             **kwargs,
