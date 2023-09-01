@@ -1,12 +1,12 @@
 import os
 import time
-import threading
+import asyncio
 
 from evaluation.constants import NUM_THREADS_OPENAI_GPT3_5, NUM_THREADS_OPENAI_GPT4, DEFAULT_MAX_NEW_TOKENS
 from evaluation.models.open_ai_base import OpenAIBase
 
 last_rate_limit_errors = {}
-last_rate_limit_errors_lock = threading.Lock()
+last_rate_limit_errors_lock = asyncio.Lock()
 
 class OpenAI(OpenAIBase):
     def __init__(self, model_name, *, default_system_message=None, max_new_tokens=DEFAULT_MAX_NEW_TOKENS):
@@ -15,9 +15,9 @@ class OpenAI(OpenAIBase):
         self.default_system_message = default_system_message
 
         if self.model_name.startswith('gpt-3.5-turbo'):
-            self.semaphore = threading.Semaphore(NUM_THREADS_OPENAI_GPT3_5)
+            self.semaphore = asyncio.Semaphore(NUM_THREADS_OPENAI_GPT3_5)
         elif self.model_name.startswith('gpt-4'):
-            self.semaphore = threading.Semaphore(NUM_THREADS_OPENAI_GPT4)
+            self.semaphore = asyncio.Semaphore(NUM_THREADS_OPENAI_GPT4)
         else:
             raise Exception('Unknown OpenAI model.')
 
@@ -27,14 +27,14 @@ class OpenAI(OpenAIBase):
         if self.default_system_message is not None and conversation[0][0] != 'system':
             conversation.insert(0, ('system', self.default_system_message))
 
-        self.semaphore.acquire()
+        await self.semaphore.acquire()
 
         while True:
             while True:
                 last_rate_limit_error = last_rate_limit_errors.get(self.model_name, 0)
                 now = time.time()
                 if now - last_rate_limit_error < 10:
-                    asyncio.sleep(10 - (now - last_rate_limit_error))
+                    await asyncio.sleep(10 - (now - last_rate_limit_error))
                 else:
                     break
             try:
@@ -51,7 +51,7 @@ class OpenAI(OpenAIBase):
 
                 return response
             except openai.error.RateLimitError:
-                last_rate_limit_errors_lock.acquire()
+                await last_rate_limit_errors_lock.acquire()
 
                 last_rate_limit_error = last_rate_limit_errors.get(self.model_name, 0)
                 now = time.time()

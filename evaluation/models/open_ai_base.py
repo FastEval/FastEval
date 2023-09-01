@@ -27,7 +27,7 @@ class OpenAIBase:
         if stop_event.is_set():
             raise Exception('Stop event is set')
 
-        return await openai.ChatCompletion.acreate(
+        return (await openai.ChatCompletion.acreate(
             api_base=api_base,
             api_key=api_key,
 
@@ -41,4 +41,4 @@ class OpenAIBase:
             top_p=1.0,
             presence_penalty=0,
             frequency_penalty=0,
-        )['choices'][0]['message']['content']
+        ))['choices'][0]['message']['content']
