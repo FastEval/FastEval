@@ -302,15 +302,25 @@ async def main_async():
         for benchmark_name, evaluation_function in evaluation_functions:
             if benchmark_name not in top_level_benchmarks:
                 continue
-            if benchmark_name == 'lm-evaluation-harness':
+            if benchmark_name == "lm-evaluation-harness":
                 await unload_model()
             try:
                 kwargs = {}
-                if benchmark_name == 'custom-test-data':
-                    kwargs['data_hashes'] = item['benchmarks_custom_test_data']
-                if benchmark_name == 'cot':
-                    kwargs['lower_level_benchmarks'] = [e for e in item['benchmarks'] if e.startswith(benchmark_name + '/')]
-                await evaluation_function(item['model_type'], item['model_name'], item['model_args'], item['id'], **kwargs)
+                if benchmark_name == "custom-test-data":
+                    kwargs["data_hashes"] = item["benchmarks_custom_test_data"]
+                if benchmark_name == "cot":
+                    kwargs["lower_level_benchmarks"] = [
+                        e
+                        for e in item["benchmarks"]
+                        if e.startswith(benchmark_name + "/")
+                    ]
+                await evaluation_function(
+                    item["model_type"],
+                    item["model_name"],
+                    item["model_args"],
+                    item["id"],
+                    **kwargs
+                )
             except:
                 import traceback
 
@@ -323,7 +333,7 @@ async def main_async():
                 print_stack_trace(**exception)
                 exceptions.append(exception)
                 await unload_model()
-        benchmarks.total.compute_total_scores(item['model_name'], item['id'])
+        benchmarks.total.compute_total_scores(item["model_name"], item["id"])
 
     print_final_stack_traces(exceptions)
 
@@ -332,6 +342,7 @@ async def main_async():
         print(json.dumps(scores, indent=4))
 
     join_threads()
+
 
 def main():
     import asyncio
@@ -344,5 +355,6 @@ def main():
         traceback.print_exc()
         stop()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
