@@ -1,10 +1,11 @@
 import os
-import time
 import random
-import threading
 import subprocess
+import threading
+import time
 
-from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
+from evaluation.models.huggingface_backends.data_parallel import \
+    DataParallelBackend
 
 
 def should_filter_process_output(line):

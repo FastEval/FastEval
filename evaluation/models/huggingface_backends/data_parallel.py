@@ -1,9 +1,9 @@
-import threading
-import multiprocessing
-import time
 import gc
+import multiprocessing
 import os
 import random
+import threading
+import time
 
 import evaluation.args
 import evaluation.models.models

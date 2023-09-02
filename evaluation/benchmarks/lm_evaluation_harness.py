@@ -1,8 +1,8 @@
-import os
 import json
+import os
+import shutil
 import statistics
 import subprocess
-import shutil
 
 import evaluation.args
 from evaluation.benchmarks.utils import model_name_to_filename

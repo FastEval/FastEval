@@ -1,14 +1,14 @@
-import os
-import json
-import subprocess
 import ast
+import json
+import os
+import subprocess
 import uuid
 
 from evalplus.data import get_human_eval_plus, write_jsonl
 
 from evaluation.benchmarks.utils import model_name_to_filename
-from evaluation.models.models import create_model, compute_model_replies
 from evaluation.constants import HUMAN_EVAL_PLUS_TEMPERATURE
+from evaluation.models.models import compute_model_replies, create_model
 
 N = 10
 

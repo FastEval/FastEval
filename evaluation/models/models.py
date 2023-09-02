@@ -83,20 +83,20 @@ def get_inference_backend(model_path: str):
 def create_model(
     model_type: str, model_name: str, model_args: dict[str, str], **kwargs
 ):
-    from evaluation.models.debug import Debug
-    from evaluation.models.open_ai import OpenAI
-    from evaluation.models.fastchat import Fastchat
-    from evaluation.models.open_assistant import OpenAssistant
-    from evaluation.models.guanaco import Guanaco
-    from evaluation.models.falcon_instruct import FalconInstruct
-    from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
     from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
+    from evaluation.models.alpaca_without_prefix import AlpacaWithoutPrefix
     from evaluation.models.chatml import ChatML
-    from evaluation.models.starchat import Starchat
-    from evaluation.models.llama2_chat import Llama2Chat
-    from evaluation.models.stable_beluga import StableBeluga
+    from evaluation.models.debug import Debug
     from evaluation.models.dolphin import Dolphin
+    from evaluation.models.falcon_instruct import FalconInstruct
+    from evaluation.models.fastchat import Fastchat
+    from evaluation.models.guanaco import Guanaco
+    from evaluation.models.llama2_chat import Llama2Chat
+    from evaluation.models.open_ai import OpenAI
+    from evaluation.models.open_assistant import OpenAssistant
     from evaluation.models.openchat_llama2_v1 import OpenchatLlama2V1
+    from evaluation.models.stable_beluga import StableBeluga
+    from evaluation.models.starchat import Starchat
     from evaluation.models.wizard_lm import WizardLM
 
     model_classes = {
@@ -148,8 +148,8 @@ def compute_model_replies(model, conversations, *, progress_bar_description=None
 def switch_inference_backend(new_inference_backend):
     import evaluation.models.fastchat
     import evaluation.models.huggingface_backends.hf_transformers
-    import evaluation.models.huggingface_backends.vllm_backend
     import evaluation.models.huggingface_backends.tgi
+    import evaluation.models.huggingface_backends.vllm_backend
 
     unload_backend_fns = {
         "hf_transformers": evaluation.models.huggingface_backends.hf_transformers.unload_model,

@@ -1,13 +1,12 @@
-import os
-import json
-import re
 import ast
+import json
+import os
+import re
 import statistics
 import textwrap
 
 from evaluation.benchmarks.utils import model_name_to_filename
-
-from evaluation.models.models import create_model, compute_model_replies
+from evaluation.models.models import compute_model_replies, create_model
 
 JUDGE_MODEL_MAX_NEW_TOKENS = 2048
 

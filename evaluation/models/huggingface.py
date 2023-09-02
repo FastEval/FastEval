@@ -2,12 +2,13 @@ import os
 import threading
 
 import evaluation.args
-import evaluation.models.models
 import evaluation.models.huggingface_backends.hf_transformers
-import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.huggingface_backends.tgi
+import evaluation.models.huggingface_backends.vllm_backend
+import evaluation.models.models
+from evaluation.constants import (DEFAULT_MAX_NEW_TOKENS,
+                                  NUM_THREADS_LOCAL_MODEL)
 from evaluation.models.utils import put_system_message_in_user_message
-from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
 
 eos_tokens = {}
 eos_tokens_lock = threading.Lock()

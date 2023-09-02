@@ -1,14 +1,15 @@
-import threading
-import subprocess
+import json
 import os
 import re
-import json
-
-from .open_ai_base import OpenAIBase
+import subprocess
+import threading
 
 import evaluation.models.models
+from evaluation.constants import (DEFAULT_MAX_NEW_TOKENS,
+                                  NUM_THREADS_LOCAL_MODEL)
 from evaluation.models.utils import put_system_message_in_user_message
-from evaluation.constants import NUM_THREADS_LOCAL_MODEL, DEFAULT_MAX_NEW_TOKENS
+
+from .open_ai_base import OpenAIBase
 
 server = None
 server_lock = threading.RLock()

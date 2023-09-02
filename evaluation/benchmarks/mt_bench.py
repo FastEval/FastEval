@@ -1,14 +1,14 @@
-import os
-import json
-import re
 import ast
+import json
+import os
+import re
 import statistics
 import threading
-from evaluation.benchmarks.utils import model_name_to_filename
 
+from evaluation.benchmarks.utils import model_name_to_filename
+from evaluation.constants import MT_BENCH_JUDGE, MT_BENCH_JUDGE_MAX_NEW_TOKENS
+from evaluation.models.models import compute_model_replies, create_model
 from evaluation.utils import process_with_thread_pool
-from evaluation.models.models import create_model, compute_model_replies
-from evaluation.constants import MT_BENCH_JUDGE_MAX_NEW_TOKENS, MT_BENCH_JUDGE
 
 
 def get_temperature(category):

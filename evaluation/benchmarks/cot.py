@@ -1,14 +1,14 @@
-import re
-import os
 import json
-import statistics
+import os
 import random
+import re
+import statistics
 
-from evaluation.utils import process_with_thread_pool
-from evaluation.benchmarks.utils import model_name_to_filename
-from evaluation.models.models import create_model, compute_model_replies
-from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
 from evaluation.benchmarks.cot_math_equivalence import is_math_correct
+from evaluation.benchmarks.utils import model_name_to_filename
+from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
+from evaluation.models.models import compute_model_replies, create_model
+from evaluation.utils import process_with_thread_pool
 
 RECOMPUTE_SCORES = False
 

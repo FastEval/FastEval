@@ -14,13 +14,13 @@ def test_individual(args):
 
 
 def main():
-    import os
-    import multiprocessing
-    import sys
     import json
+    import multiprocessing
+    import os
+    import sys
 
-    import tqdm
     import ds1000
+    import tqdm
 
     with open(sys.argv[1]) as f:
         model_outputs = json.load(f)

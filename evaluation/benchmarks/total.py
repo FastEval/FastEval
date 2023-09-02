@@ -1,5 +1,5 @@
-import os
 import json
+import os
 
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.constants import WEIGHTS

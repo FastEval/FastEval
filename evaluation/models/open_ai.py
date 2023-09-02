@@ -1,12 +1,10 @@
 import os
-import time
 import threading
+import time
 
-from evaluation.constants import (
-    NUM_THREADS_OPENAI_GPT3_5,
-    NUM_THREADS_OPENAI_GPT4,
-    DEFAULT_MAX_NEW_TOKENS,
-)
+from evaluation.constants import (DEFAULT_MAX_NEW_TOKENS,
+                                  NUM_THREADS_OPENAI_GPT3_5,
+                                  NUM_THREADS_OPENAI_GPT4)
 from evaluation.models.open_ai_base import OpenAIBase
 
 last_rate_limit_errors = {}
