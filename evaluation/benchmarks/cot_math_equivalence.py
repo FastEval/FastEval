@@ -4,6 +4,7 @@
 
 import re
 
+
 def last_boxed_only_string(string):
     idx = string.rfind("\\boxed")
     if idx < 0:
@@ -27,18 +28,20 @@ def last_boxed_only_string(string):
     if right_brace_idx == None:
         retval = None
     else:
-        retval = string[idx:right_brace_idx + 1]
+        retval = string[idx : right_brace_idx + 1]
 
     return retval
+
 
 def remove_boxed(s):
     left = "\\boxed{"
     try:
-        assert s[:len(left)] == left
+        assert s[: len(left)] == left
         assert s[-1] == "}"
-        return s[len(left):-1]
+        return s[len(left) : -1]
     except:
         return None
+
 
 def fix_fracs(string):
     substrs = string.split("\\frac")
@@ -71,6 +74,7 @@ def fix_fracs(string):
     string = new_str
     return string
 
+
 def fix_a_slash_b(string):
     if len(string.split("/")) != 2:
         return string
@@ -85,6 +89,7 @@ def fix_a_slash_b(string):
     except AssertionError:
         return string
 
+
 def remove_right_units(string):
     # "\\text{ " only ever occurs (at least in the val set) when describing units
     if "\\text{ " in string:
@@ -93,6 +98,7 @@ def remove_right_units(string):
         return splits[0]
     else:
         return string
+
 
 def fix_sqrt(string):
     if "\\sqrt" not in string:
@@ -107,6 +113,7 @@ def fix_sqrt(string):
             new_substr = "\\sqrt" + split
         new_string += new_substr
     return new_string
+
 
 def strip_string(string):
     # linebreaks
@@ -172,15 +179,16 @@ def strip_string(string):
 
     return string
 
+
 def extract_model_answer(model_answer):
     things_to_open_and_close = {
-        '\\frac{': '}',
-        '\\boxed{': '}',
-        '\\[': '\\]',
-        '$$': '$$',
-        '$': '$',
-        '{': '}',
-        '(': ')',
+        "\\frac{": "}",
+        "\\boxed{": "}",
+        "\\[": "\\]",
+        "$$": "$$",
+        "$": "$",
+        "{": "}",
+        "(": ")",
     }
 
     position = 0
@@ -209,11 +217,11 @@ def extract_model_answer(model_answer):
         if next:
             continue
         if len(things_to_close) == 0:
-            if remaining.startswith(' '):
+            if remaining.startswith(" "):
                 position += 1
                 continue
-            part_until_next_space = remaining.split(' ')[0]
-            if len(part_until_next_space) != 1 and part_until_next_space.endswith('.'):
+            part_until_next_space = remaining.split(" ")[0]
+            if len(part_until_next_space) != 1 and part_until_next_space.endswith("."):
                 part_until_next_space = part_until_next_space[:-1]
             try:
                 math_parts.append(str(int(part_until_next_space)))
@@ -221,7 +229,7 @@ def extract_model_answer(model_answer):
                 try:
                     math_parts.append(str(float(part_until_next_space)))
                 except:
-                    if re.match('^[0-9]', part_until_next_space):
+                    if re.match("^[0-9]", part_until_next_space):
                         math_parts.append(part_until_next_space)
                     pass
             position += len(part_until_next_space)
@@ -231,32 +239,33 @@ def extract_model_answer(model_answer):
             position += 1
 
     if len(math_parts) == 0:
-        return ''
+        return ""
     else:
         answer = math_parts[-1]
 
-    if answer.endswith('.'):
+    if answer.endswith("."):
         answer = answer[:-1]
 
-    if answer.startswith('$$') and answer.endswith('$$'):
+    if answer.startswith("$$") and answer.endswith("$$"):
         answer = answer[2:-2]
-    if answer.startswith('$') and answer.endswith('$'):
+    if answer.startswith("$") and answer.endswith("$"):
         answer = answer[1:-1]
-    if answer.startswith('\\[') and answer.endswith('\\]'):
+    if answer.startswith("\\[") and answer.endswith("\\]"):
         answer = answer[2:-2]
 
-    if answer.startswith('\\boxed{'):
+    if answer.startswith("\\boxed{"):
         answer = answer[7:-1]
 
-    if '=' in answer:
-        answer = answer.split('=')[1]
+    if "=" in answer:
+        answer = answer.split("=")[1]
 
-    answer = answer.replace('∞', '\\infty')
+    answer = answer.replace("∞", "\\infty")
 
     return answer
 
+
 def is_math_correct(model_answer, correct_answer, question):
-    model_answer_lines = reversed(model_answer.split('\n'))
+    model_answer_lines = reversed(model_answer.split("\n"))
     for line in model_answer_lines:
         model_answer_extracted = extract_model_answer(line)
         if len(model_answer_extracted.strip()) == 0:
@@ -267,7 +276,9 @@ def is_math_correct(model_answer, correct_answer, question):
         except:
             pass
 
-        correct_answer = strip_string(remove_boxed(last_boxed_only_string(correct_answer)))
+        correct_answer = strip_string(
+            remove_boxed(last_boxed_only_string(correct_answer))
+        )
         return model_answer_extracted == correct_answer
 
     return None

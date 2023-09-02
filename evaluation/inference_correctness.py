@@ -3,41 +3,59 @@ import copy
 from evaluation.models.models import unload_model, create_model, compute_model_replies
 from evaluation.utils import join_threads
 
+
 def run_inference_backend_correctness_check(model_type, model_name, model_args):
     assert model_type is not None and model_name is not None
 
     # Idk. Just some conversations. Can be absolutely changed to better reflect what would be good tests
     # to confirm that different inference backends output the same text.
     conversations = [
-        [('user', 'Please tell me a joke.')],
-        [('user', "What's 46912984610 + 5610927469123 * 64127401823 / 123?")],
+        [("user", "Please tell me a joke.")],
+        [("user", "What's 46912984610 + 5610927469123 * 64127401823 / 123?")],
         [
-            ('user', 'Why did the chicken cross the road?'),
-            ('assistant', 'The classic joke answer to "Why did the chicken cross the road?" is simply, "To get to the other side." '
-                'The humor lies in the fact that the listener expects a more elaborate or clever answer, '
-                'but the punchline is straightforward and unexpected, resulting in a lighthearted and silly joke. '
-                'The joke has become a well-known and often-used example of anti-humor, '
-                'where the humor comes from the lack of a complex or unexpected punchline.'),
-            ('user', 'Can you write a long essay about this topic?'),
+            ("user", "Why did the chicken cross the road?"),
+            (
+                "assistant",
+                'The classic joke answer to "Why did the chicken cross the road?" is simply, "To get to the other side." '
+                "The humor lies in the fact that the listener expects a more elaborate or clever answer, "
+                "but the punchline is straightforward and unexpected, resulting in a lighthearted and silly joke. "
+                "The joke has become a well-known and often-used example of anti-humor, "
+                "where the humor comes from the lack of a complex or unexpected punchline.",
+            ),
+            ("user", "Can you write a long essay about this topic?"),
         ],
-        [('user', '^_^ </s> <|endoftext|> [PAD] [PAD][PAD] What do you think? Please answer only in emojis. ^_^')],
+        [
+            (
+                "user",
+                "^_^ </s> <|endoftext|> [PAD] [PAD][PAD] What do you think? Please answer only in emojis. ^_^",
+            )
+        ],
     ]
 
-    conversations = [{
-        'conversation': conversation,
-        'temperature': 0,
-    } for conversation in conversations]
+    conversations = [
+        {
+            "conversation": conversation,
+            "temperature": 0,
+        }
+        for conversation in conversations
+    ]
 
     def get_outputs(model_args, conversation, n):
         return compute_model_replies(
             create_model(model_type, model_name, model_args, max_new_tokens=1024),
             [conversation] * n,
-            progress_bar_description=model_name + ' :: Computing replies with ' + model_args['inference_backend'] + ' backend',
+            progress_bar_description=model_name
+            + " :: Computing replies with "
+            + model_args["inference_backend"]
+            + " backend",
         )
 
     model_args_with_hf_transformers_backend = copy.deepcopy(model_args)
-    model_args_with_hf_transformers_backend['inference_backend'] = 'hf_transformers'
-    hf_transformers_model_outputs = [get_outputs(model_args_with_hf_transformers_backend, conversation, 1)[0] for conversation in conversations]
+    model_args_with_hf_transformers_backend["inference_backend"] = "hf_transformers"
+    hf_transformers_model_outputs = [
+        get_outputs(model_args_with_hf_transformers_backend, conversation, 1)[0]
+        for conversation in conversations
+    ]
 
     # Both vLLM as well as TGI may actually not give deterministic outputs when processing multiple outputs
     # in parallel even if temperature = 0 is used. The reason for this seems floating point accuracy.
@@ -71,37 +89,55 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
             if hf_transformers_model_outputs[i] in default_backend_model_outputs[i]:
                 break
 
-    print('@@@@@@@@@@@@@@ START CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@')
+    print("@@@@@@@@@@@@@@ START CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@")
 
     got_error = False
     for i in range(len(conversations)):
-        hf_transformers_model_output = hf_transformers_model_outputs[i].replace('\n', '\\n').replace('\r', '\\r')
-        default_backend_model_outputs_on_conversation = [output.replace('\n', '\\n').replace('\r', '\\r') for output in default_backend_model_outputs[i]]
+        hf_transformers_model_output = (
+            hf_transformers_model_outputs[i].replace("\n", "\\n").replace("\r", "\\r")
+        )
+        default_backend_model_outputs_on_conversation = [
+            output.replace("\n", "\\n").replace("\r", "\\r")
+            for output in default_backend_model_outputs[i]
+        ]
 
-        if hf_transformers_model_output in default_backend_model_outputs_on_conversation:
-            print('OK')
+        if (
+            hf_transformers_model_output
+            in default_backend_model_outputs_on_conversation
+        ):
+            print("OK")
         else:
-            print('ERROR')
+            print("ERROR")
             got_error = True
 
-        print('- HF TRANSFORMERS: ' + hf_transformers_model_output)
+        print("- HF TRANSFORMERS: " + hf_transformers_model_output)
         default_backend_model_output_counts = {}
-        for default_backend_model_output in default_backend_model_outputs_on_conversation:
+        for (
+            default_backend_model_output
+        ) in default_backend_model_outputs_on_conversation:
             if default_backend_model_output not in default_backend_model_output_counts:
                 default_backend_model_output_counts[default_backend_model_output] = 0
             default_backend_model_output_counts[default_backend_model_output] += 1
 
-        for default_backend_model_output, count in default_backend_model_output_counts.items():
-            print('- DEFAULT BACKEND [' + str(count) + 'x]: ' + default_backend_model_output)
+        for (
+            default_backend_model_output,
+            count,
+        ) in default_backend_model_output_counts.items():
+            print(
+                "- DEFAULT BACKEND ["
+                + str(count)
+                + "x]: "
+                + default_backend_model_output
+            )
 
         print()
 
     if got_error:
-        print('ERROR: Correctness check failed!')
+        print("ERROR: Correctness check failed!")
     else:
-        print('Correctness check successful!')
+        print("Correctness check successful!")
 
-    print('@@@@@@@@@@@@@@ END CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@')
+    print("@@@@@@@@@@@@@@ END CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@")
 
     unload_model()
     join_threads()

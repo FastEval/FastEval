@@ -1,5 +1,6 @@
 from .huggingface import Huggingface
 
+
 class StableBeluga(Huggingface):
     def __init__(self, model_path, *, default_system_message=None, **kwargs):
         if default_system_message is None:
@@ -7,10 +8,10 @@ class StableBeluga(Huggingface):
 
         super().__init__(
             model_path,
-            user='### User:\n',
-            assistant='### Assistant:\n',
-            system='### System:\n',
+            user="### User:\n",
+            assistant="### Assistant:\n",
+            system="### System:\n",
             default_system=default_system_message,
-            end='\n\n',
+            end="\n\n",
             **kwargs,
         )
