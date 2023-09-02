@@ -13,7 +13,6 @@ last_rate_limit_errors = {}
 last_rate_limit_errors_lock = asyncio.Lock()
 
 
-
 class OpenAI(OpenAIBase):
     async def init(
         self,

@@ -13,7 +13,6 @@ eos_tokens = {}
 eos_tokens_lock = asyncio.Lock()
 
 
-
 class Huggingface:
     async def init(
         self,

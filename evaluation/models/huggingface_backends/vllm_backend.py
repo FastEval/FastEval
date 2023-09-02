@@ -75,7 +75,6 @@ async def compute_model_response(*, model, item):
     return response
 
 
-
 backend = DataParallelBackend(
     backend_name="vllm",
     worker_functions={

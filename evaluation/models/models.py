@@ -126,7 +126,6 @@ async def create_model(
     return model
 
 
-
 def compute_model_replies(model, conversations, *, progress_bar_description=None):
     if len(conversations) == 0:
         return []

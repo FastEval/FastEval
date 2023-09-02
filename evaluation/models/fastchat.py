@@ -30,7 +30,6 @@ async def unload_model(already_aquired_server_lock=False):
         server_lock.release()
 
 
-
 def should_filter_process_output(process_name, line):
     if process_name == "model":
         if "POST /worker_generate" in line and "200 OK" in line:
