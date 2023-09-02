@@ -1,5 +1,4 @@
-from evaluation.models.huggingface_backends.data_parallel import \
-    DataParallelBackend
+from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
 
 def create_model(*, tokenizer_path, model_path, dtype):

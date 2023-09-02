@@ -4,8 +4,7 @@ import threading
 import uuid
 
 from evaluation.constants import NUM_THREADS_LOCAL_MODEL
-from evaluation.models.huggingface_backends.data_parallel import \
-    DataParallelBackend
+from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
 
 def create_model_in_separate_thread(
