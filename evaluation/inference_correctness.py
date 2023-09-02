@@ -1,7 +1,6 @@
 import copy
 
-from evaluation.models.models import (compute_model_replies, create_model,
-                                      unload_model)
+from evaluation.models.models import compute_model_replies, create_model, unload_model
 from evaluation.utils import join_threads
 
 
