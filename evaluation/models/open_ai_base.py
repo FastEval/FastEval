@@ -25,6 +25,7 @@ class OpenAIBase:
         stop_event
     ):
         import openai
+        from litellm import completion
 
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
@@ -38,7 +39,7 @@ class OpenAIBase:
         if stop_event.is_set():
             raise Exception("Stop event is set")
 
-        return openai.ChatCompletion.create(
+        return completion(
             api_base=api_base,
             api_key=api_key,
             model=model_name,
