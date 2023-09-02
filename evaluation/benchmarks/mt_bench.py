@@ -69,7 +69,7 @@ async def generate_assistant_replies(model_type, model_name, model_args, evaluat
 
     questions_items = list(questions.items())
 
-    model_replies = process_with_progress_bar(
+    model_replies = await process_with_progress_bar(
         items=[(model, question) for question_id, question in questions_items],
         process_fn=generate_single_conversation_assistant_replies,
         progress_bar_description=model_name + " :: MT-Bench :: Computing model replies",

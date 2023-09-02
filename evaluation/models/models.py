@@ -126,7 +126,7 @@ async def create_model(
     return model
 
 
-def compute_model_replies(model, conversations, *, progress_bar_description=None):
+async def compute_model_replies(model, conversations, *, progress_bar_description=None):
     if len(conversations) == 0:
         return []
 
@@ -137,7 +137,7 @@ def compute_model_replies(model, conversations, *, progress_bar_description=None
             return await model.reply(**conversation)
         raise
 
-    return evaluation.utils.process_with_progress_bar(
+    return await evaluation.utils.process_with_progress_bar(
         items=conversations,
         process_fn=compute_reply,
         progress_bar_description=progress_bar_description,
