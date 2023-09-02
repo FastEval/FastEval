@@ -315,8 +315,8 @@ def evaluate_model_on_agieval(output_path):
         'gaokao_chemistry', 'gaokao_english', 'gaokao_geography', 'gaokao_history', 'gaokao_mathqa']
     def create_question(columns):
         if columns['passage']==None or columns['passage']=="":
-            return columns['question'] + '\n\n' + '\n'.join([columns['options'][index] for index in range(len(columns['options']))])    
-        return  columns['passage'] + '\n\n' +columns['question'] + '\n\n' + '\n'.join([columns['options'][index] for index in range(len(columns['options']))])
+            return columns['question'] + '\n\n' + '\n'.join([columns['options'][index] if columns['options'][index][3]==" " else " ".join([columns['options'][index][:3],columns['options'][index][3:]])for index in range(len(columns['options']))])    
+        return  columns['passage'] + '\n\n' + columns['question'] + '\n\n' + '\n'.join([columns['options'][index] if columns['options'][index][3]==" " else " ".join([columns['options'][index][:3],columns['options'][index][3:]])for index in range(len(columns['options']))])
 
     def is_correct(model_answer, correct_answer, question):
         return multiple_choice_is_correct(model_answer=model_answer, correct_answer=['A', 'B', 'C', 'D', 'E'][correct_answer], question=question)
