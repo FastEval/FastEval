@@ -4,6 +4,7 @@ import json
 import os
 import re
 import statistics
+import threading
 
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.constants import MT_BENCH_JUDGE, MT_BENCH_JUDGE_MAX_NEW_TOKENS
@@ -264,11 +265,13 @@ def compute_model_score(model_name, evaluation_id):
         json.dump(scores, f, indent=4)
 
 
-async def judge(model_name, evaluation_id):
+async def judge_async(model_name, evaluation_id):
     await compute_judge_replies(model_name, evaluation_id)
     compute_model_score(model_name, evaluation_id)
 
+def judge(model_name, evaluation_id):
+    asyncio.run(judge_async(model_name, evaluation_id))
 
 async def evaluate_model(model_type, model_name, model_args, evaluation_id):
     await generate_assistant_replies(model_type, model_name, model_args, evaluation_id)
-    asyncio.create_task(judge(model_name, evaluation_id))
+    threading.Thread(target=judge, args=(model_name, evaluation_id)).start()
