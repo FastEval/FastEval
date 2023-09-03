@@ -1,59 +1,69 @@
-import threading
-import multiprocessing
-import time
 import gc
+import multiprocessing
 import os
 import random
+import threading
+import time
 
 import evaluation.args
 import evaluation.models.models
 
 start_new_worker_lock = threading.Lock()
 
-def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking):
+
+def run_worker_process(
+    *, tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking
+):
     try:
-        model = worker_functions['create_model'](
+        model = worker_functions["create_model"](
             tokenizer_path=tokenizer_path,
             model_path=model_path,
             dtype=dtype,
         )
     except:
         import traceback
-        queue.put(('error-when-creating-model', traceback.format_exc()))
+
+        queue.put(("error-when-creating-model", traceback.format_exc()))
         return
 
     ack_pipe_parent_conn, ack_pipe_child_conn = multiprocessing.Pipe()
-    queue.put(('model-created', ack_pipe_child_conn))
+    queue.put(("model-created", ack_pipe_child_conn))
     ack_pipe_parent_conn.recv()
 
     while True:
         item = queue.get()
-        if item == 'unload-model':
+        if item == "unload-model":
             break
 
         batch = item
 
         def process_item():
-            if 'compute_model_response' in worker_functions:
+            if "compute_model_response" in worker_functions:
                 for batch_item in batch:
-                    result_pipe = batch_item['result_pipe']
+                    result_pipe = batch_item["result_pipe"]
                     try:
-                        response = worker_functions['compute_model_response'](model=model, item=batch_item)
-                        result_pipe.send(('response', response))
+                        response = worker_functions["compute_model_response"](
+                            model=model, item=batch_item
+                        )
+                        result_pipe.send(("response", response))
                     except:
                         import traceback
-                        result_pipe.send(('exception', traceback.format_exc()))
+
+                        result_pipe.send(("exception", traceback.format_exc()))
                     result_pipe.close()
-            elif 'compute_model_responses' in worker_functions:
+            elif "compute_model_responses" in worker_functions:
                 try:
-                    worker_functions['compute_model_responses'](model=model, batch=batch)
+                    worker_functions["compute_model_responses"](
+                        model=model, batch=batch
+                    )
                 except:
                     import traceback
+
                     exception_stacktrace = traceback.format_exc()
                     for batch_item in batch:
-                        result_pipe = batch_item['result_pipe']
+                        result_pipe = batch_item["result_pipe"]
                         try:
-                            result_pipe.send(('exception', exception_stacktrace))
+                            result_pipe.send(("exception", exception_stacktrace))
                             result_pipe.close()
                         except:
                             pass
@@ -65,43 +75,69 @@ def run_worker_process(*, tokenizer_path, model_path, dtype, queue, worker_funct
         else:
             threading.Thread(target=process_item).start()
 
-    if 'unload_worker_model' in worker_functions:
-        worker_functions['unload_worker_model'](model)
+    if "unload_worker_model" in worker_functions:
+        worker_functions["unload_worker_model"](model)
 
     model = None
     gc.collect()
 
-def start_new_worker_process(*, tokenizer_path, model_path, dtype, queue, devices, worker_functions, worker_is_blocking):
+
+def start_new_worker_process(
+    *,
+    tokenizer_path,
+    model_path,
+    dtype,
+    queue,
+    devices,
+    worker_functions,
+    worker_is_blocking
+):
     # This lock is needed because we modify the `CUDA_VISIBLE_DEVICES` environment variable
     # before starting the new child process. This environment variable is global for our whole process,
     # so we need to start the child processes sequentially
     start_new_worker_lock.acquire()
 
-    if 'CUDA_VISIBLE_DEVICES' in os.environ:
-        previous_cuda_visible_devices = os.environ['CUDA_VISIBLE_DEVICES']
+    if "CUDA_VISIBLE_DEVICES" in os.environ:
+        previous_cuda_visible_devices = os.environ["CUDA_VISIBLE_DEVICES"]
     else:
         previous_cuda_visible_devices = None
 
-    os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(device_id) for device_id in devices])
+    os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(
+        [str(device_id) for device_id in devices]
+    )
 
-    multiprocessing.Process(target=run_worker_process, kwargs={
-        'tokenizer_path': tokenizer_path,
-        'model_path': model_path,
-        'dtype': dtype,
-        'queue': queue,
-        'worker_functions': worker_functions,
-        'worker_is_blocking': worker_is_blocking,
-    }).start()
+    multiprocessing.Process(
+        target=run_worker_process,
+        kwargs={
+            "tokenizer_path": tokenizer_path,
+            "model_path": model_path,
+            "dtype": dtype,
+            "queue": queue,
+            "worker_functions": worker_functions,
+            "worker_is_blocking": worker_is_blocking,
+        },
+    ).start()
 
     if previous_cuda_visible_devices is None:
-        del os.environ['CUDA_VISIBLE_DEVICES']
+        del os.environ["CUDA_VISIBLE_DEVICES"]
     else:
-        os.environ['CUDA_VISIBLE_DEVICES'] = previous_cuda_visible_devices
+        os.environ["CUDA_VISIBLE_DEVICES"] = previous_cuda_visible_devices
 
     start_new_worker_lock.release()
 
+
 class WorkerProcessManager:
-    def __init__(self, *, tokenizer_path, model_path, dtype, maximum_batch_size, num_devices_per_model, worker_functions, worker_is_blocking):
+    def __init__(
+        self,
+        *,
+        tokenizer_path,
+        model_path,
+        dtype,
+        maximum_batch_size,
+        num_devices_per_model,
+        worker_functions,
+        worker_is_blocking
+    ):
         import torch
 
         self.tokenizer_path = tokenizer_path
@@ -127,9 +163,18 @@ class WorkerProcessManager:
             else:
                 queue = self.queues[i]
 
-            devices = list(range(i * num_devices_per_model, (i + 1) * num_devices_per_model))
-            start_new_worker_process(tokenizer_path=self.tokenizer_path, model_path=self.model_path, dtype=self.dtype,
-                queue=queue, devices=devices, worker_functions=worker_functions, worker_is_blocking=worker_is_blocking)
+            devices = list(
+                range(i * num_devices_per_model, (i + 1) * num_devices_per_model)
+            )
+            start_new_worker_process(
+                tokenizer_path=self.tokenizer_path,
+                model_path=self.model_path,
+                dtype=self.dtype,
+                queue=queue,
+                devices=devices,
+                worker_functions=worker_functions,
+                worker_is_blocking=worker_is_blocking,
+            )
 
         ack_pipes = []
         for i in range(self.num_threads):
@@ -138,13 +183,15 @@ class WorkerProcessManager:
             else:
                 model_creation_result = self.queues[i].get()
 
-            if model_creation_result[0] == 'model-created':
+            if model_creation_result[0] == "model-created":
                 ack_pipes.append(model_creation_result[1])
             else:
-                raise Exception('Model creation in worker failed: ' + model_creation_result[1])
+                raise Exception(
+                    "Model creation in worker failed: " + model_creation_result[1]
+                )
 
         for pipe in ack_pipes:
-            pipe.send('ack')
+            pipe.send("ack")
 
         self.models_are_loaded = True
 
@@ -155,9 +202,9 @@ class WorkerProcessManager:
 
         for i in range(self.num_threads):
             if self.worker_is_blocking:
-                self.queue.put('unload-model')
+                self.queue.put("unload-model")
             else:
-                self.queues[i].put('unload-model')
+                self.queues[i].put("unload-model")
 
         self.models_are_loaded = False
 
@@ -180,10 +227,11 @@ class WorkerProcessManager:
             # items. Distribute new workload based on that.
             queue = random.choice(self.queues)
 
-        queue.put(self.next_batch[:self.maximum_batch_size])
-        self.next_batch = self.next_batch[self.maximum_batch_size:]
+        queue.put(self.next_batch[: self.maximum_batch_size])
+        self.next_batch = self.next_batch[self.maximum_batch_size :]
 
         self.lock.release()
+
 
 class DataParallelBackend:
     def __init__(self, *, backend_name, worker_functions, worker_is_blocking):
@@ -194,22 +242,35 @@ class DataParallelBackend:
         self.lock = threading.Lock()
         self.current_worker_process_manager = None
 
-    def run_inference(self, *, prompt, tokenizer_path, model_path, dtype, max_new_tokens, temperature, max_batch_size, stop_event):
+    def run_inference(
+        self,
+        *,
+        prompt,
+        tokenizer_path,
+        model_path,
+        dtype,
+        max_new_tokens,
+        temperature,
+        max_batch_size,
+        stop_event
+    ):
         import torch
 
         self.lock.acquire()
 
         if stop_event.is_set():
             self.lock.release()
-            raise Exception('Stop event is set.')
+            raise Exception("Stop event is set.")
 
         evaluation.models.models.switch_inference_backend(self.backend_name)
 
-        if (self.current_worker_process_manager is None
-                or self.current_worker_process_manager.tokenizer_path != tokenizer_path
-                or self.current_worker_process_manager.model_path != model_path
-                or self.current_worker_process_manager.dtype != dtype
-                or self.current_worker_process_manager.maximum_batch_size != max_batch_size):
+        if (
+            self.current_worker_process_manager is None
+            or self.current_worker_process_manager.tokenizer_path != tokenizer_path
+            or self.current_worker_process_manager.model_path != model_path
+            or self.current_worker_process_manager.dtype != dtype
+            or self.current_worker_process_manager.maximum_batch_size != max_batch_size
+        ):
             if self.current_worker_process_manager is not None:
                 self.current_worker_process_manager.unload_model()
             try:
@@ -218,7 +279,8 @@ class DataParallelBackend:
                     model_path=model_path,
                     dtype=dtype,
                     maximum_batch_size=max_batch_size,
-                    num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model or torch.cuda.device_count(),
+                    num_devices_per_model=evaluation.args.cmd_arguments.num_gpus_per_model
+                    or torch.cuda.device_count(),
                     worker_functions=self.worker_functions,
                     worker_is_blocking=self.worker_is_blocking,
                 )
@@ -232,17 +294,19 @@ class DataParallelBackend:
 
         result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
 
-        manager.add_item_to_next_batch({
-            'prompt': prompt,
-            'temperature': temperature,
-            'max_new_tokens': max_new_tokens,
-            'result_pipe': result_pipe_child_conn,
-        })
+        manager.add_item_to_next_batch(
+            {
+                "prompt": prompt,
+                "temperature": temperature,
+                "max_new_tokens": max_new_tokens,
+                "result_pipe": result_pipe_child_conn,
+            }
+        )
 
         result = result_pipe_parent_conn.recv()
-        if result[0] == 'response':
+        if result[0] == "response":
             return result[1]
-        raise Exception('Error when running inference: ' + result[1])
+        raise Exception("Error when running inference: " + result[1])
 
     def unload_model(self):
         self.lock.acquire()

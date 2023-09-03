@@ -5,4 +5,4 @@ def model_name_to_filename(model_name: str) -> str:
     but paths can't include '/', so we need to replace that.
     """
 
-    return model_name.replace('/', '--')
+    return model_name.replace("/", "--")

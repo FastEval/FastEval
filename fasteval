@@ -10,15 +10,16 @@ signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 import multiprocessing
 
-if multiprocessing.get_start_method(allow_none=True) != 'spawn':
-    multiprocessing.set_start_method('spawn')
+if multiprocessing.get_start_method(allow_none=True) != "spawn":
+    multiprocessing.set_start_method("spawn")
+
 
 def compute_custom_test_data_file_hash(custom_test_data_file):
     if custom_test_data_file is None:
         return None
 
-    import json
     import hashlib
+    import json
     import os
 
     with open(custom_test_data_file) as f:
@@ -26,25 +27,39 @@ def compute_custom_test_data_file_hash(custom_test_data_file):
 
     custom_test_data_string = json.dumps(custom_test_data, sort_keys=True)
 
-    custom_test_data_hash = hashlib.sha256(custom_test_data_string.encode('utf-8')).hexdigest()
+    custom_test_data_hash = hashlib.sha256(
+        custom_test_data_string.encode("utf-8")
+    ).hexdigest()
 
-    data_storage_file = os.path.join('data', 'custom-test-data', custom_test_data_hash + '.json')
+    data_storage_file = os.path.join(
+        "data", "custom-test-data", custom_test_data_hash + ".json"
+    )
     os.makedirs(os.path.dirname(data_storage_file), exist_ok=True)
-    with open(data_storage_file, 'w') as f:
+    with open(data_storage_file, "w") as f:
         json.dump(custom_test_data, f, indent=4)
 
     return custom_test_data_hash
 
-def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_model_type, new_model_name, new_benchmarks, model_args, custom_test_data_file):
+
+def merge_models_and_benchmarks_to_evaluate(
+    existing_models_and_benchmarks,
+    new_model_type,
+    new_model_name,
+    new_benchmarks,
+    model_args,
+    custom_test_data_file,
+):
     import uuid
 
     if new_model_name is None:
         return (None, existing_models_and_benchmarks)
 
-    custom_test_data_file_hash = compute_custom_test_data_file_hash(custom_test_data_file)
+    custom_test_data_file_hash = compute_custom_test_data_file_hash(
+        custom_test_data_file
+    )
 
     benchmarks_to_replace_with_subtasks = {
-        'cot': ['cot/gsm8k', 'cot/math', 'cot/bbh', 'cot/mmlu', 'cot/agieval']
+        'cot': ["cot/gsm8k", "cot/math", "cot/bbh", "cot/mmlu", "cot/agieval"]
     }
 
     for k, v in benchmarks_to_replace_with_subtasks.items():
@@ -54,22 +69,22 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     inserted_into_existing_entry = False
     existing_entry_id = None
     for item in existing_models_and_benchmarks:
-        if item['model_name'] != new_model_name:
+        if item["model_name"] != new_model_name:
             continue
-        if item['model_type'] != new_model_type:
+        if item["model_type"] != new_model_type:
             continue
-        if item['model_args'] != model_args:
+        if item["model_args"] != model_args:
             continue
         for benchmark in new_benchmarks:
-            if benchmark not in item['benchmarks']:
-                item['benchmarks'].insert(0, benchmark)
+            if benchmark not in item["benchmarks"]:
+                item["benchmarks"].insert(0, benchmark)
         if custom_test_data_file is not None:
-            if 'benchmarks_custom_test_data' not in item:
-                item['benchmarks_custom_test_data'] = [custom_test_data_file_hash]
-            elif custom_test_data_file_hash not in item['benchmarks_custom_test_data']:
-                item['benchmarks_custom_test_data'].append(custom_test_data_file_hash)
+            if "benchmarks_custom_test_data" not in item:
+                item["benchmarks_custom_test_data"] = [custom_test_data_file_hash]
+            elif custom_test_data_file_hash not in item["benchmarks_custom_test_data"]:
+                item["benchmarks_custom_test_data"].append(custom_test_data_file_hash)
         inserted_into_existing_entry = True
-        existing_entry_id = item['id']
+        existing_entry_id = item["id"]
 
     if inserted_into_existing_entry:
         return (existing_entry_id, existing_models_and_benchmarks)
@@ -77,42 +92,53 @@ def merge_models_and_benchmarks_to_evaluate(existing_models_and_benchmarks, new_
     evaluation_id = str(uuid.uuid4())
 
     new_entry = {
-        'id': evaluation_id,
-        'model_type': new_model_type,
-        'model_name': new_model_name,
-        'benchmarks': new_benchmarks,
-        'model_args': model_args,
+        "id": evaluation_id,
+        "model_type": new_model_type,
+        "model_name": new_model_name,
+        "benchmarks": new_benchmarks,
+        "model_args": model_args,
     }
 
     if custom_test_data_file is not None:
-        new_entry['benchmarks_custom_test_data'] = [custom_test_data_file_hash]
+        new_entry["benchmarks_custom_test_data"] = [custom_test_data_file_hash]
 
     existing_models_and_benchmarks.insert(0, new_entry)
 
     return (evaluation_id, existing_models_and_benchmarks)
+
 
 def stop(*args):
     import os
 
     os.killpg(0, signal.SIGKILL)
 
+
 def print_stack_trace(*, stack_trace, model_name, benchmark_name):
-    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    print('EXCEPTION WHEN EVALUATING', model_name, 'ON', benchmark_name)
-    print('DESPITE THIS EXCEPTION, EVALUATION WILL BE CONTINUED ON THE REMAINING BENCHMARKS & MODELS')
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("EXCEPTION WHEN EVALUATING", model_name, "ON", benchmark_name)
+    print(
+        "DESPITE THIS EXCEPTION, EVALUATION WILL BE CONTINUED ON THE REMAINING BENCHMARKS & MODELS"
+    )
     print(stack_trace)
-    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+
 
 def print_final_stack_traces(exceptions):
     if len(exceptions) == 0:
         return
 
-    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    print('THE FOLLOWING EXCEPTIONS WERE ENCOUNTERED WHILE EVALUATING THE MODELS:')
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("THE FOLLOWING EXCEPTIONS WERE ENCOUNTERED WHILE EVALUATING THE MODELS:")
     for exception in exceptions:
-        print('ON BENCHMARK', exception['benchmark_name'], 'WITH MODEL', exception['model_name'])
-        print(exception['stack_trace'])
-        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        print(
+            "ON BENCHMARK",
+            exception["benchmark_name"],
+            "WITH MODEL",
+            exception["model_name"],
+        )
+        print(exception["stack_trace"])
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+
 
 def main():
     import os
@@ -128,107 +154,187 @@ def main():
 
     import evaluation.args
     from evaluation import benchmarks
-    from evaluation.utils import join_threads
-    from evaluation.models.models import unload_model, get_inference_backend
     from evaluation.inference_correctness import run_inference_backend_correctness_check
+    from evaluation.models.models import get_inference_backend, unload_model
+    from evaluation.utils import join_threads
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-b', '--benchmarks',
-        choices=['all', 'mt-bench', 'cot', 'cot/gsm8k', 'cot/math', 'cot/bbh', 'cot/mmlu', 'cot/agieval', 'human-eval-plus', 'ds1000', 'lm-evaluation-harness', 'custom-test-data'],
-        nargs='*', default='all',
-        help='Benchmark(s) that the model will be evaluated on')
-    parser.add_argument('-t', '--model-type',
-        help='Type of the model that will be evaluated. Can be an API client name (openai), a prompt template (e.g. chatml) or `fastchat` for the fastchat backend.')
-    parser.add_argument('-m', '--model-name',
-        help='Name of the model that will be evaluated. Depending on the type, it can be an OpenAI model name or a path to a huggingface model.')
-    parser.add_argument('--model-tokenizer',
-        help='By default, the tokenizer will be the same as the model, but it can also be overwritten with this argument.')
-    parser.add_argument('--model-default-system-message',
-        help='The default system message of the model. Only applicable for models that use a system message and only if no other system message has been specified.')
-    parser.add_argument('--model-force-inference-backend', choices=['vllm', 'tgi', 'hf_transformers'], required=False,
-        help='Force a specific backend for model inference. By default, the backend will be selected automatically depending on model support, '
-            + 'but if you encounter bugs with this you can overwrite the backend with this argument.')
-    parser.add_argument('--model-force-dtype', choices=['float16', 'bfloat16', 'float32'], required=False,
-        help='By default, the dtype of the model will be taken from the model config.json. However, you can overwrite it with this argument.')
-    parser.add_argument('--num-gpus-per-model', type=int, default=0,
-        help='This argument controls data parallelism. By default, the model will only be instantiated a single time distributed across all GPUs. '
-            + 'This works fine if you have one GPU or if you have a big model and two GPUs, but it is not a fast approach if you e.g. have 8 GPUs. '
-            + 'In these cases, it is recommended to instantiate the model multiple times on different GPUs and do data parallel evaluation. '
-            + 'It is recommended to set --num-gpus-per-model to the number of GPUs that your model will require. '
-            + 'For example, if your model requires 2 GPUs and you have 8 GPUs, setting "--num-gpus-per-model 2" will create the model 4 times on 2 GPUs each.')
-    parser.add_argument('--run-correctness-check', action='store_true',
-        help='Runs a check to make sure that the outputs of the chosen fast inference backend (vLLM or TGI) are equal to those that HF transformers outputs. '
-            + 'This is needed because vLLM & TGI sometimes have incorrect implementations or haven\'t implemented a new feature yet but don\'t even warn about that. ')
-    parser.add_argument('--custom-test-data-file')
-    parser.add_argument('--continue', help='Continue with evaluating previously stopped or failed evaluations', action='store_true')
+    parser.add_argument(
+        "-b",
+        "--benchmarks",
+        choices=[
+            "all",
+            "mt-bench",
+            "cot",
+            "cot/gsm8k",
+            "cot/math",
+            "cot/bbh",
+            "cot/mmlu",
+            "cot/agieval",
+            "human-eval-plus",
+            "ds1000",
+            "lm-evaluation-harness",
+            "custom-test-data",
+        ],
+        nargs="*",
+        default="all",
+        help="Benchmark(s) that the model will be evaluated on",
+    )
+    parser.add_argument(
+        "-t",
+        "--model-type",
+        help="Type of the model that will be evaluated. Can be an API client name (openai), a prompt template (e.g. chatml) or `fastchat` for the fastchat backend.",
+    )
+    parser.add_argument(
+        "-m",
+        "--model-name",
+        help="Name of the model that will be evaluated. Depending on the type, it can be an OpenAI model name or a path to a huggingface model.",
+    )
+    parser.add_argument(
+        "--model-tokenizer",
+        help="By default, the tokenizer will be the same as the model, but it can also be overwritten with this argument.",
+    )
+    parser.add_argument(
+        "--model-default-system-message",
+        help="The default system message of the model. Only applicable for models that use a system message and only if no other system message has been specified.",
+    )
+    parser.add_argument(
+        "--model-force-inference-backend",
+        choices=["vllm", "tgi", "hf_transformers"],
+        required=False,
+        help="Force a specific backend for model inference. By default, the backend will be selected automatically depending on model support, "
+        + "but if you encounter bugs with this you can overwrite the backend with this argument.",
+    )
+    parser.add_argument(
+        "--model-force-dtype",
+        choices=["float16", "bfloat16", "float32"],
+        required=False,
+        help="By default, the dtype of the model will be taken from the model config.json. However, you can overwrite it with this argument.",
+    )
+    parser.add_argument(
+        "--num-gpus-per-model",
+        type=int,
+        default=0,
+        help="This argument controls data parallelism. By default, the model will only be instantiated a single time distributed across all GPUs. "
+        + "This works fine if you have one GPU or if you have a big model and two GPUs, but it is not a fast approach if you e.g. have 8 GPUs. "
+        + "In these cases, it is recommended to instantiate the model multiple times on different GPUs and do data parallel evaluation. "
+        + "It is recommended to set --num-gpus-per-model to the number of GPUs that your model will require. "
+        + 'For example, if your model requires 2 GPUs and you have 8 GPUs, setting "--num-gpus-per-model 2" will create the model 4 times on 2 GPUs each.',
+    )
+    parser.add_argument(
+        "--run-correctness-check",
+        action="store_true",
+        help="Runs a check to make sure that the outputs of the chosen fast inference backend (vLLM or TGI) are equal to those that HF transformers outputs. "
+        + "This is needed because vLLM & TGI sometimes have incorrect implementations or haven't implemented a new feature yet but don't even warn about that. ",
+    )
+    parser.add_argument("--custom-test-data-file")
+    parser.add_argument(
+        "--continue",
+        help="Continue with evaluating previously stopped or failed evaluations",
+        action="store_true",
+    )
     args = parser.parse_args()
 
     evaluation.args.cmd_arguments = args
 
     model_args = {
-        'tokenizer': args.model_tokenizer,
-        'default_system_message': args.model_default_system_message,
-        'dtype': args.model_force_dtype,
-        'inference_backend': args.model_force_inference_backend,
+        "tokenizer": args.model_tokenizer,
+        "default_system_message": args.model_default_system_message,
+        "dtype": args.model_force_dtype,
+        "inference_backend": args.model_force_inference_backend,
     }
 
-    model_args = { k: v for k, v in model_args.items() if v is not None }
+    model_args = {k: v for k, v in model_args.items() if v is not None}
 
-    if 'inference_backend' not in model_args and args.model_name is not None and args.model_type not in ['openai', 'debug']:
-        model_args['inference_backend'] = get_inference_backend(args.model_name)
+    if (
+        "inference_backend" not in model_args
+        and args.model_name is not None
+        and args.model_type not in ["openai", "debug"]
+    ):
+        model_args["inference_backend"] = get_inference_backend(args.model_name)
 
     if args.run_correctness_check:
-        run_inference_backend_correctness_check(args.model_type, args.model_name, model_args)
+        run_inference_backend_correctness_check(
+            args.model_type, args.model_name, model_args
+        )
         return
 
-    if 'all' in args.benchmarks:
-        args.benchmarks = ['mt-bench', 'cot', 'human-eval-plus', 'ds1000']
+    if "all" in args.benchmarks:
+        args.benchmarks = ["mt-bench", "cot", "human-eval-plus", "ds1000"]
 
-    if os.path.exists('reports/__index__.json'):
-        with open('reports/__index__.json') as f:
-            evaluation_id, models_and_benchmarks = merge_models_and_benchmarks_to_evaluate(
-                json.load(f), args.model_type, args.model_name, args.benchmarks, model_args, args.custom_test_data_file)
+    if os.path.exists("reports/__index__.json"):
+        with open("reports/__index__.json") as f:
+            (
+                evaluation_id,
+                models_and_benchmarks,
+            ) = merge_models_and_benchmarks_to_evaluate(
+                json.load(f),
+                args.model_type,
+                args.model_name,
+                args.benchmarks,
+                model_args,
+                args.custom_test_data_file,
+            )
 
-    with open(os.path.join('reports', '__index__.json'), 'w') as f:
-        new_content = ',\n    '.join([json.dumps(entry) for entry in models_and_benchmarks])
-        new_content = '[\n    ' + new_content + '\n]\n'
+    with open(os.path.join("reports", "__index__.json"), "w") as f:
+        new_content = ",\n    ".join(
+            [json.dumps(entry) for entry in models_and_benchmarks]
+        )
+        new_content = "[\n    " + new_content + "\n]\n"
         f.write(new_content)
 
     evaluation_functions = [
-        ('mt-bench', benchmarks.mt_bench.evaluate_model),
-        ('human-eval-plus', benchmarks.human_eval_plus.evaluate_model),
-        ('ds1000', benchmarks.ds_1000.evaluate_model),
-        ('cot', benchmarks.cot.evaluate_model),
-        ('custom-test-data', benchmarks.custom_test_data.evaluate_model),
-        ('lm-evaluation-harness', benchmarks.lm_evaluation_harness.evaluate_model),
+        ("mt-bench", benchmarks.mt_bench.evaluate_model),
+        ("human-eval-plus", benchmarks.human_eval_plus.evaluate_model),
+        ("ds1000", benchmarks.ds_1000.evaluate_model),
+        ("cot", benchmarks.cot.evaluate_model),
+        ("custom-test-data", benchmarks.custom_test_data.evaluate_model),
+        ("lm-evaluation-harness", benchmarks.lm_evaluation_harness.evaluate_model),
     ]
 
     exceptions = []
     for item in models_and_benchmarks:
-        if evaluation_id != item['id'] and not getattr(args, 'continue'):
-            benchmarks.total.compute_total_scores(item['model_name'], item['id'])
+        if evaluation_id != item["id"] and not getattr(args, "continue"):
+            benchmarks.total.compute_total_scores(item["model_name"], item["id"])
             continue
-        top_level_benchmarks = [benchmark_name.split('/')[0] for benchmark_name in item['benchmarks']]
+        top_level_benchmarks = [
+            benchmark_name.split("/")[0] for benchmark_name in item["benchmarks"]
+        ]
         for benchmark_name, evaluation_function in evaluation_functions:
             if benchmark_name not in top_level_benchmarks:
                 continue
-            if benchmark_name == 'lm-evaluation-harness':
+            if benchmark_name == "lm-evaluation-harness":
                 unload_model()
             try:
                 kwargs = {}
-                if benchmark_name == 'custom-test-data':
-                    kwargs['data_hashes'] = item['benchmarks_custom_test_data']
-                if benchmark_name == 'cot':
-                    kwargs['lower_level_benchmarks'] = [e for e in item['benchmarks'] if e.startswith(benchmark_name + '/')]
-                evaluation_function(item['model_type'], item['model_name'], item['model_args'], item['id'], **kwargs)
+                if benchmark_name == "custom-test-data":
+                    kwargs["data_hashes"] = item["benchmarks_custom_test_data"]
+                if benchmark_name == "cot":
+                    kwargs["lower_level_benchmarks"] = [
+                        e
+                        for e in item["benchmarks"]
+                        if e.startswith(benchmark_name + "/")
+                    ]
+                evaluation_function(
+                    item["model_type"],
+                    item["model_name"],
+                    item["model_args"],
+                    item["id"],
+                    **kwargs
+                )
             except:
                 import traceback
+
                 exception_stack_trace = traceback.format_exc()
-                exception = { 'stack_trace': exception_stack_trace, 'model_name': item['model_name'], 'benchmark_name': benchmark_name }
+                exception = {
+                    "stack_trace": exception_stack_trace,
+                    "model_name": item["model_name"],
+                    "benchmark_name": benchmark_name,
+                }
                 print_stack_trace(**exception)
                 exceptions.append(exception)
                 unload_model()
-        benchmarks.total.compute_total_scores(item['model_name'], item['id'])
+        benchmarks.total.compute_total_scores(item["model_name"], item["id"])
 
     print_final_stack_traces(exceptions)
 
@@ -238,10 +344,12 @@ def main():
 
     join_threads()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     try:
         main()
     except Exception as error:
         import traceback
+
         traceback.print_exc()
         stop()

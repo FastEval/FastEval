@@ -64,3 +64,9 @@ More details are available through the web UI where you can view performance on 
 To access the web UI, use `python3 -m http.server` in the root folder of this repository.
 This will start a simple webserver for static files.
 The server usually runs on port `8000` in which case you can view the detailed results at [localhost:8000](http://localhost:8000).
+
+## Help & Contributing
+
+For questions, problems and contributions, join the [Alignment Lab AI discord server](https://discord.gg/ad27GQgc7K) or create a github issue.
+Contributions are **greatly welcome**.
+Please read the [contributing guide](.github/CONTRIBUTING.md) for more information.
