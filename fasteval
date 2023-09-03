@@ -149,8 +149,8 @@ async def main_async():
     signal.signal(signal.SIGINT, stop)
 
     import argparse
+    import asyncio
     import json
-    import os
 
     import evaluation.args
     from evaluation import benchmarks
@@ -341,7 +341,12 @@ async def main_async():
         scores = benchmarks.total.get_total_scores(args.model_name, evaluation_id)
         print(json.dumps(scores, indent=4))
 
-    join_threads()
+    while True:
+        remaining_tasks = asyncio.all_tasks()
+        remaining_tasks.remove(asyncio.current_task())
+        if len(remaining_tasks) == 0:
+            break
+        await asyncio.wait(remaining_tasks)
 
 
 def main():
