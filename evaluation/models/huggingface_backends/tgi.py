@@ -2,7 +2,6 @@ import asyncio
 import os
 import random
 import subprocess
-import threading
 
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
@@ -18,8 +17,9 @@ def should_filter_process_output(line):
     return False
 
 
-def print_process_output(stdout):
-    for line in stdout:
+async def print_process_output(stdout):
+    while True:
+        line = (await stdout.readline()).decode("utf-8")
         if not should_filter_process_output(line):
             print("[TGI]", line, end="")
 
@@ -50,38 +50,36 @@ async def create_model(*, model_path, tokenizer_path, dtype):
     else:
         raise Exception("This dtype is not supported by text-generation-inference")
 
-    process = subprocess.Popen(
-        [
-            "text-generation-launcher",
-            "--model-id",
-            model_path,
-            "--max-total-tokens",
-            "4096",
-            "--max-input-length",
-            "2048",
-            "--hostname",
-            "127.0.0.1",
-            "--port",
-            str(port),
-            "--dtype",
-            dtype_arg,
-            "--max-concurrent-requests",
-            "8192",
-            "--num-shard",
-            str(torch.cuda.device_count()),
-        ],
+    process = await asyncio.create_subprocess_exec(
+        "text-generation-launcher",
+        "--model-id",
+        model_path,
+        "--max-total-tokens",
+        "4096",
+        "--max-input-length",
+        "2048",
+        "--hostname",
+        "127.0.0.1",
+        "--port",
+        str(port),
+        "--dtype",
+        dtype_arg,
+        "--max-concurrent-requests",
+        "8192",
+        "--num-shard",
+        str(torch.cuda.device_count()),
         env=new_environment,
-        stdout=subprocess.PIPE,
-        text=True,
+        stdout=asyncio.subprocess.PIPE,
     )
 
-    for line in process.stdout:
+    while True:
+        line = (await process.stdout.readline()).decode("utf-8")
         if not should_filter_process_output(line):
             print("[TGI]", line, end="")
         if "text_generation_router" in line and "Connected" in line:
             break
 
-    threading.Thread(target=print_process_output, args=(process.stdout,)).start()
+    asyncio.create_task(print_process_output(process.stdout))
 
     await asyncio.sleep(5)
 
