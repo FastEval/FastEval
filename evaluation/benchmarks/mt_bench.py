@@ -170,7 +170,7 @@ async def compute_judge_replies(model_name, evaluation_id):
         *MT_BENCH_JUDGE, {}, max_new_tokens=MT_BENCH_JUDGE_MAX_NEW_TOKENS
     )
 
-    judge_replies = compute_model_replies(
+    judge_replies = await compute_model_replies(
         judge_model,
         [
             {
