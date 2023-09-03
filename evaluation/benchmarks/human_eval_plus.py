@@ -1,7 +1,7 @@
 import ast
+import asyncio
 import json
 import os
-import subprocess
 import uuid
 
 from evalplus.data import get_human_eval_plus, write_jsonl
@@ -90,7 +90,7 @@ async def compute_model_answers(*, model_type, model_name, model_args, output_fo
         json.dump(processed_replies, f, indent=4)
 
 
-def compute_scores(*, output_folder):
+async def compute_scores(*, output_folder):
     output_file = os.path.join(output_folder, "scores.json")
     if os.path.exists(output_file):
         return
@@ -114,23 +114,24 @@ def compute_scores(*, output_folder):
     tmp_file_input = os.path.join(tmp_folder, tmp_uuid + ".jsonl")
     write_jsonl(tmp_file_input, human_eval_plus_input)
 
-    process_output = subprocess.run(
-        [
-            "evalplus.evaluate",
-            "--parallel",
-            str(os.cpu_count()),
-            "--min-time-limit",
-            "10",
-            "--gt-time-limit-factor",
-            "10",
-            "--dataset",
-            "humaneval",
-            "--samples",
-            tmp_file_input,
-        ],
-        capture_output=True,
-        text=True,
-    ).stdout
+    process_output = (
+        await (
+            await asyncio.create_subprocess_exec(
+                "evalplus.evaluate",
+                "--parallel",
+                str(os.cpu_count()),
+                "--min-time-limit",
+                "10",
+                "--gt-time-limit-factor",
+                "10",
+                "--dataset",
+                "humaneval",
+                "--samples",
+                tmp_file_input,
+                stdout=asyncio.subprocess.PIPE,
+            )
+        ).communicate()
+    )[0].decode("utf-8")
 
     os.remove(tmp_file_input)
 
@@ -194,4 +195,4 @@ async def evaluate_model(model_type, model_name, model_args, evaluation_id):
         model_args=model_args,
         output_folder=output_folder,
     )
-    compute_scores(output_folder=output_folder)
+    await compute_scores(output_folder=output_folder)
