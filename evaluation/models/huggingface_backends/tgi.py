@@ -1,8 +1,8 @@
+import asyncio
 import os
 import random
 import subprocess
 import threading
-import time
 
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
@@ -66,7 +66,7 @@ async def create_model(*, model_path, tokenizer_path, dtype):
             "--dtype",
             dtype_arg,
             "--max-concurrent-requests",
-            "1024",
+            "8192",
             "--num-shard",
             str(torch.cuda.device_count()),
         ],
@@ -83,7 +83,7 @@ async def create_model(*, model_path, tokenizer_path, dtype):
 
     threading.Thread(target=print_process_output, args=(process.stdout,)).start()
 
-    time.sleep(5)
+    await asyncio.sleep(5)
 
     return {
         "process": process,
@@ -107,13 +107,15 @@ async def compute_model_response(*, model, item):
     max_new_tokens = item["max_new_tokens"]
     assert max_new_tokens is not None
 
-    return await client.generate(
-        item["prompt"],
-        max_new_tokens=max_new_tokens,
-        repetition_penalty=1.0,
-        return_full_text=False,
-        best_of=1,
-        **kwargs,
+    return (
+        await client.generate(
+            item["prompt"],
+            max_new_tokens=max_new_tokens,
+            repetition_penalty=1.0,
+            return_full_text=False,
+            best_of=1,
+            **kwargs,
+        )
     ).generated_text
 
 
