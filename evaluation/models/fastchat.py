@@ -184,9 +184,9 @@ def start_server(*, model_name, tokenizer_path=None, use_vllm):
 
 
 async def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
-    server_lock.acquire()
+    await server_lock.acquire()
 
-    evaluation.models.models.switch_inference_backend("fastchat")
+    await evaluation.models.models.switch_inference_backend("fastchat")
 
     if server is None:
         start_server(
@@ -219,7 +219,7 @@ class Fastchat(OpenAIBase):
         from openai.error import APIError
 
         conversation = put_system_message_in_user_message(conversation)
-        ensure_model_is_loaded(
+        await ensure_model_is_loaded(
             model_name=self.model_name,
             use_vllm=self.use_vllm,
             tokenizer_path=self.tokenizer_path,
