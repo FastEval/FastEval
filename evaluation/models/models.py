@@ -48,7 +48,7 @@ async def get_supported_inference_backends(model_name: str):
         "falcon",
     ]
 
-    model_type = await fetch_model_config(model_name).model_type
+    model_type = (await fetch_model_config(model_name)).model_type
     if model_type in generally_supported_model_types:
         return ["vllm", "tgi", "hf_transformers"]
 
