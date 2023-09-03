@@ -2,8 +2,6 @@ import asyncio
 import json
 import os
 import re
-import subprocess
-import threading
 
 import evaluation.models.models
 from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
@@ -91,23 +89,29 @@ def print_process_output_line(process_name, line):
     print("[fastchat " + process_name + "]", line, end="")
 
 
-def print_process_output(process_name, process):
-    for line in process.stderr:
+async def print_process_output(process_name, process):
+    while True:
+        line = (await process.stderr.readline()).decode("utf-8")
         print_process_output_line(process_name, line)
 
 
-def start_server(*, model_name, tokenizer_path=None, use_vllm):
+async def start_server(*, model_name, tokenizer_path=None, use_vllm):
     global server
 
     os.environ["FASTCHAT_WORKER_API_TIMEOUT"] = "1000000000"
 
-    controller_process = subprocess.Popen(
-        ["python3", "-m", "fastchat.serve.controller", "--host", "127.0.0.1"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.PIPE,
-        text=True,
+    controller_process = await asyncio.create_subprocess_exec(
+        "python3",
+        "-m",
+        "fastchat.serve.controller",
+        "--host",
+        "127.0.0.1",
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=asyncio.subprocess.PIPE,
     )
-    for line in controller_process.stderr:
+
+    while True:
+        line = (await controller_process.stderr.readline()).decode("utf-8")
         print_process_output_line("controller", line)
         if "Uvicorn running on" in line:
             break
@@ -127,54 +131,53 @@ def start_server(*, model_name, tokenizer_path=None, use_vllm):
             )
         additional_worker_args = []
 
-    model_process = subprocess.Popen(
-        [
-            "python3",
-            "-m",
-            worker_name,
-            "--host",
-            "127.0.0.1",
-            "--model-path",
-            model_name,
-            "--controller-address",
-            "http://127.0.0.1:21001",
-            *additional_worker_args,
-        ],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.PIPE,
-        text=True,
-    )
-    api_process = subprocess.Popen(
-        [
-            "python3",
-            "-m",
-            "fastchat.serve.openai_api_server",
-            "--host",
-            "127.0.0.1",
-            "--port",
-            "8000",
-            "--controller-address",
-            "http://127.0.0.1:21001",
-        ],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.PIPE,
-        text=True,
+    model_process = await asyncio.create_subprocess_exec(
+        "python3",
+        "-m",
+        worker_name,
+        "--host",
+        "127.0.0.1",
+        "--model-path",
+        model_name,
+        "--controller-address",
+        "http://127.0.0.1:21001",
+        *additional_worker_args,
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=asyncio.subprocess.PIPE,
     )
 
-    for process_name, process in [("model", model_process), ("api", api_process)]:
-        for line in process.stderr:
+    api_process = await asyncio.create_subprocess_exec(
+        "python3",
+        "-m",
+        "fastchat.serve.openai_api_server",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--controller-address",
+        "http://127.0.0.1:21001",
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=asyncio.subprocess.PIPE,
+    )
+
+    async def read_until_uvicorn_running(process_name, process):
+        while True:
+            line = (await process.stderr.readline()).decode("utf-8")
             print_process_output_line(process_name, line)
             if "Uvicorn running on" in line:
-                break
+                return
+
+    await asyncio.gather(
+        read_until_uvicorn_running("model", model_process),
+        read_until_uvicorn_running("api", api_process),
+    )
 
     for process_name, process in [
         ("controller", controller_process),
         ("model", model_process),
         ("api", api_process),
     ]:
-        threading.Thread(
-            target=print_process_output, args=(process_name, process)
-        ).start()
+        asyncio.create_task(print_process_output(process_name, process))
 
     server = {
         "model_name": model_name,
@@ -189,12 +192,12 @@ async def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
     await evaluation.models.models.switch_inference_backend("fastchat")
 
     if server is None:
-        start_server(
+        await start_server(
             model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path
         )
     elif server["model_name"] != model_name or server["use_vllm"] != use_vllm:
         await unload_model(already_aquired_server_lock=True)
-        start_server(
+        await start_server(
             model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path
         )
 
