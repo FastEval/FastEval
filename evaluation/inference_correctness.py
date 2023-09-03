@@ -41,7 +41,7 @@ async def run_inference_backend_correctness_check(model_type, model_name, model_
     ]
 
     async def get_outputs(model_args, conversation, n):
-        return compute_model_replies(
+        return await compute_model_replies(
             await create_model(model_type, model_name, model_args, max_new_tokens=1024),
             [conversation] * n,
             progress_bar_description=model_name
@@ -53,7 +53,7 @@ async def run_inference_backend_correctness_check(model_type, model_name, model_
     model_args_with_hf_transformers_backend = copy.deepcopy(model_args)
     model_args_with_hf_transformers_backend["inference_backend"] = "hf_transformers"
     hf_transformers_model_outputs = [
-        await get_outputs(model_args_with_hf_transformers_backend, conversation, 1)[0]
+        (await get_outputs(model_args_with_hf_transformers_backend, conversation, 1))[0]
         for conversation in conversations
     ]
 
@@ -85,7 +85,9 @@ async def run_inference_backend_correctness_check(model_type, model_name, model_
     ns = list(range(1, 18)) + [19, 20, 21, 25, 31, 32]
     for i, conversation in enumerate(conversations):
         for n in ns:
-            default_backend_model_outputs[i] += get_outputs(model_args, conversation, n)
+            default_backend_model_outputs[i] += await get_outputs(
+                model_args, conversation, n
+            )
             if hf_transformers_model_outputs[i] in default_backend_model_outputs[i]:
                 break
 

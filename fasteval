@@ -253,7 +253,7 @@ async def main_async():
         model_args["inference_backend"] = await get_inference_backend(args.model_name)
 
     if args.run_correctness_check:
-        run_inference_backend_correctness_check(
+        await run_inference_backend_correctness_check(
             args.model_type, args.model_name, model_args
         )
         return
