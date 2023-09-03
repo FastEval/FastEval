@@ -322,7 +322,9 @@ class DataParallelBackend:
 
         self.lock.release()
 
-        result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe(duplex=False)
+        result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe(
+            duplex=False
+        )
 
         await manager.add_item_to_next_batch(
             {
