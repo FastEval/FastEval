@@ -61,9 +61,10 @@ async def run_worker_process(
         queue.put(("error-when-creating-model", traceback.format_exc()))
         return
 
-    ack_pipe_parent_conn, ack_pipe_child_conn = multiprocessing.Pipe()
+    ack_pipe_parent_conn, ack_pipe_child_conn = multiprocessing.Pipe(duplex=False)
     queue.put(("model-created", ack_pipe_child_conn))
     ack_pipe_parent_conn.recv()
+    ack_pipe_parent_conn.close()
 
     queue_wait_executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
     loop = asyncio.get_event_loop()
@@ -212,6 +213,7 @@ class WorkerProcessManager:
 
         for pipe in ack_pipes:
             pipe.send("ack")
+            pipe.close()
 
         self.models_are_loaded = True
 
@@ -320,7 +322,7 @@ class DataParallelBackend:
 
         self.lock.release()
 
-        result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
+        result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe(duplex=False)
 
         await manager.add_item_to_next_batch(
             {
@@ -332,6 +334,7 @@ class DataParallelBackend:
         )
 
         result = await pipe_receive_async(result_pipe_parent_conn)
+        result_pipe_parent_conn.close()
 
         if result[0] == "response":
             return result[1]
