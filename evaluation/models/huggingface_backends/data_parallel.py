@@ -259,6 +259,7 @@ async def pipe_receive_async(pipe):
     loop.add_reader(pipe.fileno(), event.set)
     if not pipe.poll():
         await event.wait()
+    loop.remove_reader(pipe.fileno())
     result = pipe.recv()
     event.clear()
     return result
