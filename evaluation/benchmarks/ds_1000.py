@@ -1,9 +1,9 @@
 import ast
+import asyncio
 import json
 import os
 import re
 import shutil
-import subprocess
 import tarfile
 import textwrap
 import urllib.request
@@ -13,7 +13,7 @@ from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.models.models import compute_model_replies, create_model
 
 
-def install_ds1000(cwd):
+async def install_ds1000(cwd):
     installation_done_file = os.path.join(cwd, "install-ds1000-done")
     if os.path.exists(installation_done_file):
         return
@@ -31,13 +31,23 @@ def install_ds1000(cwd):
     python_path = os.path.join(python_output_directory, "python", "bin", "python3.9")
 
     if not os.path.exists(os.path.join(cwd, "venv")):
-        subprocess.run([python_path, "-m", "venv", "venv"], cwd=cwd)
+        await (
+            await asyncio.create_subprocess_exec(
+                python_path, "-m", "venv", "venv", cwd=cwd
+            )
+        ).wait()
 
     if not os.path.exists(os.path.join(cwd, "DS-1000")):
-        subprocess.run(
-            ["git", "clone", "--depth", "1", "https://github.com/HKUNLP/DS-1000.git"],
-            cwd=cwd,
-        )
+        await (
+            await asyncio.create_subprocess_exec(
+                "git",
+                "clone",
+                "--depth",
+                "1",
+                "https://github.com/HKUNLP/DS-1000.git",
+                cwd=cwd,
+            )
+        ).wait()
 
     new_environment = os.environ.copy()
     new_environment["PATH"] = os.path.join(cwd, "venv/bin") + ":" + os.environ["PATH"]
@@ -49,9 +59,11 @@ def install_ds1000(cwd):
     new_environment["CUDA_VISIBLE_DEVICES"] = "-1"
 
     cwd = os.path.join(cwd, "DS-1000")
-    subprocess.run(
-        ["pip", "install", "-r", "requirements.txt"], cwd=cwd, env=new_environment
-    )
+    await (
+        await asyncio.create_subprocess_exec(
+            "pip", "install", "-r", "requirements.txt", cwd=cwd, env=new_environment
+        )
+    ).wait()
 
     os.close(os.open(installation_done_file, os.O_CREAT))
 
@@ -68,7 +80,7 @@ def download_ds1000_data(tmpdir):
             zip_ref.extractall(output_dir)
 
 
-def execute_in_environment(tmpdir, file, *args):
+async def execute_in_environment(tmpdir, file, *args):
     new_environment = os.environ.copy()
     new_environment["PATH"] = (
         os.path.join(tmpdir, "venv/bin") + ":" + os.environ["PATH"]
@@ -82,13 +94,18 @@ def execute_in_environment(tmpdir, file, *args):
         os.path.join("evaluation/benchmarks", file), os.path.join(cwd, file)
     )
 
-    process_output = subprocess.run(
-        ["python3.9", os.path.join(cwd, file), *args],
-        env=new_environment,
-        cwd=cwd,
-        stdout=subprocess.PIPE,
-        text=True,
-    ).stdout
+    process_output = (
+        await (
+            await asyncio.create_subprocess_exec(
+                "python3.9",
+                os.path.join(cwd, file),
+                *args,
+                env=new_environment,
+                cwd=cwd,
+                stdout=asyncio.subprocess.PIPE,
+            )
+        ).communicate()
+    )[0].decode("utf-8")
 
     return json.loads(process_output)
 
@@ -371,7 +388,7 @@ def postprocess_model_replies(
         json.dump(postprocessed_model_replies, f, indent=4)
 
 
-def execute_model_replies(
+async def execute_model_replies(
     *,
     tmpdir,
     postprocessed_model_replies_output_path,
@@ -381,7 +398,7 @@ def execute_model_replies(
     if os.path.exists(execution_results_output_path):
         return
 
-    execution_results = execute_in_environment(
+    execution_results = await execute_in_environment(
         tmpdir,
         "ds_1000_test_correctness.py",
         os.path.abspath(postprocessed_model_replies_output_path),
@@ -415,7 +432,7 @@ def compute_scores(*, execution_results_output_path, scores_output_path):
         json.dump(scores, f, indent=4)
 
 
-def assert_reference_code_works(*, tmpdir, data):
+async def assert_reference_code_works(*, tmpdir, data):
     execution_tmpfile = os.path.join(tmpdir, "references.json")
     if not os.path.exists(execution_tmpfile):
         references = {}
@@ -430,7 +447,7 @@ def assert_reference_code_works(*, tmpdir, data):
         tmpdir, "references-execution-results.json"
     )
     if not os.path.exists(execution_results_output_path):
-        execute_model_replies(
+        await execute_model_replies(
             tmpdir=tmpdir,
             postprocessed_model_replies_output_path=execution_tmpfile,
             execution_results_output_path=execution_results_output_path,
@@ -465,10 +482,10 @@ async def evaluate_model(model_type, model_name, model_args, evaluation_id):
         return
     os.makedirs(output_folder, exist_ok=True)
 
-    install_ds1000(tmpdir)
+    await install_ds1000(tmpdir)
     download_ds1000_data(tmpdir)
 
-    data = execute_in_environment(tmpdir, "ds_1000_load_data.py")
+    data = await execute_in_environment(tmpdir, "ds_1000_load_data.py")
     prompts = compute_prompts(data)
 
     model_replies_output_path = os.path.join(output_folder, "answers.json")
@@ -481,7 +498,7 @@ async def evaluate_model(model_type, model_name, model_args, evaluation_id):
         output_path=model_replies_output_path,
     )
 
-    assert_reference_code_works(tmpdir=tmpdir, data=data)
+    await assert_reference_code_works(tmpdir=tmpdir, data=data)
 
     postprocessed_model_replies_output_path = os.path.join(
         output_folder, "answers-postprocessed.json"
@@ -494,7 +511,7 @@ async def evaluate_model(model_type, model_name, model_args, evaluation_id):
     execution_results_output_path = os.path.join(
         output_folder, "execution-results.json"
     )
-    execute_model_replies(
+    await execute_model_replies(
         tmpdir=tmpdir,
         postprocessed_model_replies_output_path=postprocessed_model_replies_output_path,
         execution_results_output_path=execution_results_output_path,
