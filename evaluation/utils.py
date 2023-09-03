@@ -1,6 +1,5 @@
 import asyncio
 import multiprocessing.pool
-import threading
 
 
 async def process_with_progress_bar(*, items, process_fn, progress_bar_description):
@@ -11,15 +10,10 @@ async def process_with_progress_bar(*, items, process_fn, progress_bar_descripti
     )
 
 
-def join_threads():
-    for thread in threading.enumerate():
-        if thread.daemon:
-            continue
-
-        try:
-            thread.join()
-        except RuntimeError as error:
-            if "cannot join current thread" in error.args[0]:  # main thread
-                pass
-            else:
-                raise
+async def join_tasks():
+    while True:
+        remaining_tasks = asyncio.all_tasks()
+        remaining_tasks.remove(asyncio.current_task())
+        if len(remaining_tasks) == 0:
+            break
+        await asyncio.wait(remaining_tasks)

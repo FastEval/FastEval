@@ -156,7 +156,7 @@ async def main_async():
     from evaluation import benchmarks
     from evaluation.inference_correctness import run_inference_backend_correctness_check
     from evaluation.models.models import get_inference_backend, unload_model
-    from evaluation.utils import join_threads
+    from evaluation.utils import join_tasks
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -341,12 +341,7 @@ async def main_async():
         scores = benchmarks.total.get_total_scores(args.model_name, evaluation_id)
         print(json.dumps(scores, indent=4))
 
-    while True:
-        remaining_tasks = asyncio.all_tasks()
-        remaining_tasks.remove(asyncio.current_task())
-        if len(remaining_tasks) == 0:
-            break
-        await asyncio.wait(remaining_tasks)
+    await join_tasks()
 
 
 def main():

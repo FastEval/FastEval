@@ -1,7 +1,7 @@
 import copy
 
 from evaluation.models.models import compute_model_replies, create_model, unload_model
-from evaluation.utils import join_threads
+from evaluation.utils import join_tasks
 
 
 async def run_inference_backend_correctness_check(model_type, model_name, model_args):
@@ -140,4 +140,4 @@ async def run_inference_backend_correctness_check(model_type, model_name, model_
     print("@@@@@@@@@@@@@@ END CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@")
 
     await unload_model()
-    join_threads()
+    await join_tasks()

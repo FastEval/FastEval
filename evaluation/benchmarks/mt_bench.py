@@ -4,7 +4,6 @@ import json
 import os
 import re
 import statistics
-import threading
 
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.constants import MT_BENCH_JUDGE, MT_BENCH_JUDGE_MAX_NEW_TOKENS
