@@ -63,7 +63,7 @@ async def run_evaluation(*, model_name, model_args, output_path):
 
     print(model_name + " :: LM-Eval :: Evaluating")
 
-    await (await asyncio.create_subprocess_exec(cmd)).wait()
+    await (await asyncio.create_subprocess_exec(*cmd)).wait()
 
 
 async def evaluate_model(model_type, model_name, model_args, evaluation_id):
