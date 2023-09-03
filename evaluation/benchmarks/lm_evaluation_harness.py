@@ -2,7 +2,6 @@ import json
 import os
 import shutil
 import statistics
-import subprocess
 
 import evaluation.args
 from evaluation.benchmarks.utils import model_name_to_filename
@@ -63,7 +62,7 @@ async def run_evaluation(*, model_name, model_args, output_path):
 
     print(model_name + " :: LM-Eval :: Evaluating")
 
-    subprocess.run(cmd)
+    await (await asyncio.create_subprocess_exec(cmd)).wait()
 
 
 async def evaluate_model(model_type, model_name, model_args, evaluation_id):
