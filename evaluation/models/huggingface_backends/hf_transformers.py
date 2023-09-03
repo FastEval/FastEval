@@ -1,7 +1,7 @@
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
 
-def create_model(*, tokenizer_path, model_path, dtype):
+async def create_model(*, tokenizer_path, model_path, dtype):
     import transformers
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_path)
@@ -157,9 +157,9 @@ backend = DataParallelBackend(
 )
 
 
-def run_inference(**kwargs):
-    return backend.run_inference(**kwargs)
+async def run_inference(**kwargs):
+    return await backend.run_inference(**kwargs)
 
 
-def unload_model():
-    return backend.unload_model()
+async def unload_model():
+    return await backend.unload_model()

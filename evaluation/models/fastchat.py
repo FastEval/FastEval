@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 import re
@@ -5,26 +6,28 @@ import subprocess
 import threading
 
 import evaluation.models.models
-from evaluation.constants import DEFAULT_MAX_NEW_TOKENS, NUM_THREADS_LOCAL_MODEL
+from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
 from evaluation.models.utils import put_system_message_in_user_message
 
 from .open_ai_base import OpenAIBase
 
 server = None
-server_lock = threading.RLock()
+server_lock = asyncio.Lock()
 
 
-def unload_model():
+async def unload_model(already_aquired_server_lock=False):
     global server
 
-    server_lock.acquire()
+    if not already_aquired_server_lock:
+        await server_lock.acquire()
 
     if server is not None:
         for process in server["processes"]:
             process.kill()
         server = None
 
-    server_lock.release()
+    if not already_aquired_server_lock:
+        server_lock.release()
 
 
 def should_filter_process_output(process_name, line):
@@ -180,17 +183,17 @@ def start_server(*, model_name, tokenizer_path=None, use_vllm):
     }
 
 
-def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
-    server_lock.acquire()
+async def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
+    await server_lock.acquire()
 
-    evaluation.models.models.switch_inference_backend("fastchat")
+    await evaluation.models.models.switch_inference_backend("fastchat")
 
     if server is None:
         start_server(
             model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path
         )
     elif server["model_name"] != model_name or server["use_vllm"] != use_vllm:
-        unload_model()
+        await unload_model(already_aquired_server_lock=True)
         start_server(
             model_name=model_name, use_vllm=use_vllm, tokenizer_path=tokenizer_path
         )
@@ -199,9 +202,7 @@ def ensure_model_is_loaded(*, model_name, use_vllm, tokenizer_path):
 
 
 class Fastchat(OpenAIBase):
-    num_threads = NUM_THREADS_LOCAL_MODEL
-
-    def __init__(
+    async def init(
         self,
         model_name,
         *,
@@ -212,13 +213,13 @@ class Fastchat(OpenAIBase):
         assert inference_backend in ["vllm", "hf_transformers"]
         self.use_vllm = inference_backend == "vllm"
         self.tokenizer_path = tokenizer
-        super().__init__(model_name, max_new_tokens=max_new_tokens)
+        await super().init(model_name, max_new_tokens=max_new_tokens)
 
-    def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
+    async def reply(self, conversation, *, temperature=None, max_new_tokens=None):
         from openai.error import APIError
 
         conversation = put_system_message_in_user_message(conversation)
-        ensure_model_is_loaded(
+        await ensure_model_is_loaded(
             model_name=self.model_name,
             use_vllm=self.use_vllm,
             tokenizer_path=self.tokenizer_path,
@@ -232,14 +233,13 @@ class Fastchat(OpenAIBase):
         model_name = self.model_name.split("/")[-1]
 
         try:
-            return super().reply_single_try(
+            return await super().reply_single_try(
                 conversation=conversation,
                 api_base=api_base,
                 api_key=api_key,
                 temperature=temperature,
                 model_name=model_name,
                 max_new_tokens=max_new_tokens,
-                stop_event=stop_event,
             )
         except APIError as error:
             error_message = json.loads(error.http_body)["message"]
@@ -257,12 +257,11 @@ class Fastchat(OpenAIBase):
             reduced_max_new_tokens = max_new_tokens - num_tokens_too_much
             if reduced_max_new_tokens <= 0:
                 return ""
-            return super().reply_single_try(
+            return await super().reply_single_try(
                 conversation=conversation,
                 api_base=api_base,
                 api_key=api_key,
                 max_new_tokens=reduced_max_new_tokens,
                 temperature=temperature,
                 model_name=model_name,
-                stop_event=stop_event,
             )

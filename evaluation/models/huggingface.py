@@ -1,20 +1,20 @@
+import asyncio
 import os
-import threading
 
 import evaluation.args
 import evaluation.models.huggingface_backends.hf_transformers
 import evaluation.models.huggingface_backends.tgi
 import evaluation.models.huggingface_backends.vllm_backend
 import evaluation.models.models
-from evaluation.constants import DEFAULT_MAX_NEW_TOKENS, NUM_THREADS_LOCAL_MODEL
+from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
 from evaluation.models.utils import put_system_message_in_user_message
 
 eos_tokens = {}
-eos_tokens_lock = threading.Lock()
+eos_tokens_lock = asyncio.Lock()
 
 
 class Huggingface:
-    def __init__(
+    async def init(
         self,
         model_path: str,
         *,
@@ -50,7 +50,7 @@ class Huggingface:
         self.max_new_tokens = max_new_tokens
 
         if dtype is None:
-            self.dtype = evaluation.models.models.get_dtype(model_path)
+            self.dtype = await evaluation.models.models.get_dtype(model_path)
         else:
             dtypes = {
                 "float16": torch.float16,
@@ -62,15 +62,13 @@ class Huggingface:
 
         self.backend = inference_backend
 
-        self.num_threads = NUM_THREADS_LOCAL_MODEL
-
-    def _get_eos_token(self):
+    async def _get_eos_token(self):
         if hasattr(self, "eos_token"):
             return self.eos_token
 
         import transformers
 
-        eos_tokens_lock.acquire()
+        await eos_tokens_lock.acquire()
         eos_tokens[self.tokenizer_path] = transformers.AutoTokenizer.from_pretrained(
             self.tokenizer_path
         ).eos_token
@@ -101,7 +99,7 @@ class Huggingface:
         prompt += self.assistant
         return prompt.strip()
 
-    def reply(self, conversation, *, temperature=None, max_new_tokens=None, stop_event):
+    async def reply(self, conversation, *, temperature=None, max_new_tokens=None):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
 
@@ -112,7 +110,6 @@ class Huggingface:
             "dtype": self.dtype,
             "max_new_tokens": max_new_tokens,
             "temperature": temperature,
-            "stop_event": stop_event,
         }
 
         if isinstance(common_kwargs["prompt"], tuple) and self.backend not in [
@@ -125,20 +122,18 @@ class Huggingface:
 
         if self.backend == "vllm":
             response = (
-                evaluation.models.huggingface_backends.vllm_backend.run_inference(
+                await evaluation.models.huggingface_backends.vllm_backend.run_inference(
                     **common_kwargs
                 )
             )
         elif self.backend == "tgi":
-            response = evaluation.models.huggingface_backends.tgi.run_inference(
+            response = await evaluation.models.huggingface_backends.tgi.run_inference(
                 **common_kwargs
             )
         elif self.backend == "hf_transformers":
             # The batch size can be increased (should work), but batching doesn't seem to increase performance
-            response = (
-                evaluation.models.huggingface_backends.hf_transformers.run_inference(
-                    **common_kwargs, max_batch_size=1
-                )
+            response = await evaluation.models.huggingface_backends.hf_transformers.run_inference(
+                **common_kwargs, max_batch_size=1
             )
         else:
             raise
@@ -150,8 +145,10 @@ class Huggingface:
         special_tokens = []
         if self.end2 is not None:
             special_tokens.append(self.end2)
-        if self._get_eos_token() is not None:
-            special_tokens.append(self._get_eos_token())
+
+        eos_token = await self._get_eos_token()
+        if eos_token is not None:
+            special_tokens.append(eos_token)
 
         final_substrings_to_remove = []
         for special_token in special_tokens:

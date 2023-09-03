@@ -2,7 +2,7 @@ from .huggingface import Huggingface
 
 
 class ChatML(Huggingface):
-    def __init__(self, model_path, *, default_system_message=None, **kwargs):
+    async def init(self, model_path, *, default_system_message=None, **kwargs):
         if default_system_message is None:
             if model_path == "mosaicml/mpt-7b-chat":
                 # https://github.com/mosaicml/llm-foundry/blob/a936df02bb65cdac2279c84bc17465cc6cbd196a/scripts/inference/hf_chat.py#L52
@@ -17,7 +17,7 @@ class ChatML(Huggingface):
                 default_system_message = "A conversation between a user and an LLM-based AI assistant. The assistant gives helpful and honest answers."
 
         # https://github.com/openai/openai-python/blob/main/chatml.md
-        super().__init__(
+        await super().init(
             model_path,
             user="<|im_start|>user\n",
             assistant="<|im_start|>assistant\n",

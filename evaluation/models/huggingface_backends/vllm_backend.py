@@ -1,19 +1,13 @@
 import asyncio
 import queue
-import threading
 import uuid
 
-from evaluation.constants import NUM_THREADS_LOCAL_MODEL
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
 
-def create_model_in_separate_thread(
-    *, model_path, tokenizer_path, dtype, resulting_model_queue
-):
+async def create_model(*, model_path, tokenizer_path, dtype):
     import torch
     import vllm
-
-    event_loop = asyncio.new_event_loop()
 
     engine = vllm.AsyncLLMEngine.from_engine_args(
         vllm.AsyncEngineArgs(
@@ -23,57 +17,25 @@ def create_model_in_separate_thread(
             dtype=str(dtype).replace("torch.", ""),
             disable_log_requests=True,
             trust_remote_code=True,
-            max_num_seqs=NUM_THREADS_LOCAL_MODEL,
+            max_num_seqs=1024,
             max_num_batched_tokens=4096,
         )
     )
 
-    model = {
+    return {
         "tokenizer_path": tokenizer_path,
         "model_path": model_path,
         "dtype": dtype,
         "engine": engine,
-        "event_loop": event_loop,
     }
 
-    resulting_model_queue.put(("model", model))
 
-    event_loop.run_forever()
-
-
-def try_create_model_in_separate_thread(*, resulting_model_queue, **kwargs):
-    try:
-        create_model_in_separate_thread(
-            resulting_model_queue=resulting_model_queue, **kwargs
-        )
-    except Exception as error:
-        resulting_model_queue.put(("error", error))
-
-
-def create_model(*, tokenizer_path, model_path, dtype):
-    resulting_model_queue = queue.Queue()
-
-    model_thread = threading.Thread(
-        target=try_create_model_in_separate_thread,
-        kwargs={
-            "model_path": model_path,
-            "tokenizer_path": tokenizer_path,
-            "dtype": dtype,
-            "resulting_model_queue": resulting_model_queue,
-        },
-    )
-
-    model_thread.start()
-
-    model_or_error = resulting_model_queue.get()
-    if model_or_error[0] == "error":
-        raise model_or_error[1]
-    assert model_or_error[0] == "model"
-    return model_or_error[1]
-
-
-async def respond_to_prompt(*, model, prompt, temperature, max_new_tokens):
+async def compute_model_response(*, model, item):
     import vllm
+
+    prompt = item["prompt"]
+    temperature = item["temperature"]
+    max_new_tokens = item["max_new_tokens"]
 
     if temperature is None:
         temperature = 1.0
@@ -113,38 +75,19 @@ async def respond_to_prompt(*, model, prompt, temperature, max_new_tokens):
     return response
 
 
-def compute_model_response(*, model, item):
-    future = asyncio.run_coroutine_threadsafe(
-        respond_to_prompt(
-            model=model,
-            prompt=item["prompt"],
-            temperature=item["temperature"],
-            max_new_tokens=item["max_new_tokens"],
-        ),
-        model["event_loop"],
-    )
-    return future.result()
-
-
-def unload_worker_model(model):
-    loop = model["event_loop"]
-    loop.call_soon_threadsafe(loop.stop)
-
-
 backend = DataParallelBackend(
     backend_name="vllm",
     worker_functions={
         "create_model": create_model,
         "compute_model_response": compute_model_response,
-        "unload_worker_model": unload_worker_model,
     },
     worker_is_blocking=False,
 )
 
 
-def run_inference(**kwargs):
-    return backend.run_inference(**kwargs, max_batch_size=1)
+async def run_inference(**kwargs):
+    return await backend.run_inference(**kwargs, max_batch_size=1)
 
 
-def unload_model():
-    return backend.unload_model()
+async def unload_model():
+    return await backend.unload_model()

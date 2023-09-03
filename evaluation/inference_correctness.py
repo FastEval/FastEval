@@ -4,7 +4,7 @@ from evaluation.models.models import compute_model_replies, create_model, unload
 from evaluation.utils import join_threads
 
 
-def run_inference_backend_correctness_check(model_type, model_name, model_args):
+async def run_inference_backend_correctness_check(model_type, model_name, model_args):
     assert model_type is not None and model_name is not None
 
     # Idk. Just some conversations. Can be absolutely changed to better reflect what would be good tests
@@ -40,9 +40,9 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
         for conversation in conversations
     ]
 
-    def get_outputs(model_args, conversation, n):
+    async def get_outputs(model_args, conversation, n):
         return compute_model_replies(
-            create_model(model_type, model_name, model_args, max_new_tokens=1024),
+            await create_model(model_type, model_name, model_args, max_new_tokens=1024),
             [conversation] * n,
             progress_bar_description=model_name
             + " :: Computing replies with "
@@ -53,7 +53,7 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
     model_args_with_hf_transformers_backend = copy.deepcopy(model_args)
     model_args_with_hf_transformers_backend["inference_backend"] = "hf_transformers"
     hf_transformers_model_outputs = [
-        get_outputs(model_args_with_hf_transformers_backend, conversation, 1)[0]
+        await get_outputs(model_args_with_hf_transformers_backend, conversation, 1)[0]
         for conversation in conversations
     ]
 
@@ -139,5 +139,5 @@ def run_inference_backend_correctness_check(model_type, model_name, model_args):
 
     print("@@@@@@@@@@@@@@ END CORRECTNESS CHECK RESULTS @@@@@@@@@@@@@@")
 
-    unload_model()
+    await unload_model()
     join_threads()

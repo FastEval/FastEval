@@ -140,7 +140,7 @@ def print_final_stack_traces(exceptions):
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
 
-def main():
+async def main_async():
     import os
 
     os.setpgrp()
@@ -303,7 +303,7 @@ def main():
             if benchmark_name not in top_level_benchmarks:
                 continue
             if benchmark_name == "lm-evaluation-harness":
-                unload_model()
+                await unload_model()
             try:
                 kwargs = {}
                 if benchmark_name == "custom-test-data":
@@ -314,7 +314,7 @@ def main():
                         for e in item["benchmarks"]
                         if e.startswith(benchmark_name + "/")
                     ]
-                evaluation_function(
+                await evaluation_function(
                     item["model_type"],
                     item["model_name"],
                     item["model_args"],
@@ -332,7 +332,7 @@ def main():
                 }
                 print_stack_trace(**exception)
                 exceptions.append(exception)
-                unload_model()
+                await unload_model()
         benchmarks.total.compute_total_scores(item["model_name"], item["id"])
 
     print_final_stack_traces(exceptions)
@@ -344,11 +344,17 @@ def main():
     join_threads()
 
 
-if __name__ == "__main__":
+def main():
+    import asyncio
+
     try:
-        main()
+        asyncio.run(main_async())
     except Exception as error:
         import traceback
 
         traceback.print_exc()
         stop()
+
+
+if __name__ == "__main__":
+    main()

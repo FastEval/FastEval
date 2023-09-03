@@ -1,8 +1,8 @@
+import asyncio
 import os
 import random
 import subprocess
 import threading
-import time
 
 from evaluation.models.huggingface_backends.data_parallel import DataParallelBackend
 
@@ -24,7 +24,7 @@ def print_process_output(stdout):
             print("[TGI]", line, end="")
 
 
-def start_server(*, model_path, tokenizer_path, dtype):
+async def create_model(*, model_path, tokenizer_path, dtype):
     # TODO: Actually use the tokenizer_path
 
     import torch
@@ -66,7 +66,7 @@ def start_server(*, model_path, tokenizer_path, dtype):
             "--dtype",
             dtype_arg,
             "--max-concurrent-requests",
-            "1024",
+            "8192",
             "--num-shard",
             str(torch.cuda.device_count()),
         ],
@@ -83,7 +83,7 @@ def start_server(*, model_path, tokenizer_path, dtype):
 
     threading.Thread(target=print_process_output, args=(process.stdout,)).start()
 
-    time.sleep(5)
+    await asyncio.sleep(5)
 
     return {
         "process": process,
@@ -91,10 +91,10 @@ def start_server(*, model_path, tokenizer_path, dtype):
     }
 
 
-def compute_model_response(*, model, item):
-    from text_generation import Client
+async def compute_model_response(*, model, item):
+    from text_generation import AsyncClient
 
-    client = Client("http://127.0.0.1:" + str(model["port"]), timeout=1_000_000)
+    client = AsyncClient("http://127.0.0.1:" + str(model["port"]), timeout=1_000_000)
 
     temperature = item["temperature"]
     if temperature is None:
@@ -107,13 +107,15 @@ def compute_model_response(*, model, item):
     max_new_tokens = item["max_new_tokens"]
     assert max_new_tokens is not None
 
-    return client.generate(
-        item["prompt"],
-        max_new_tokens=max_new_tokens,
-        repetition_penalty=1.0,
-        return_full_text=False,
-        best_of=1,
-        **kwargs,
+    return (
+        await client.generate(
+            item["prompt"],
+            max_new_tokens=max_new_tokens,
+            repetition_penalty=1.0,
+            return_full_text=False,
+            best_of=1,
+            **kwargs,
+        )
     ).generated_text
 
 
@@ -124,7 +126,7 @@ def unload_worker_model(model):
 backend = DataParallelBackend(
     backend_name="tgi",
     worker_functions={
-        "create_model": start_server,
+        "create_model": create_model,
         "compute_model_response": compute_model_response,
         "unload_worker_model": unload_worker_model,
     },
@@ -132,9 +134,9 @@ backend = DataParallelBackend(
 )
 
 
-def run_inference(**kwargs):
-    return backend.run_inference(**kwargs, max_batch_size=1)
+async def run_inference(**kwargs):
+    return await backend.run_inference(**kwargs, max_batch_size=1)
 
 
-def unload_model():
-    return backend.unload_model()
+async def unload_model():
+    return await backend.unload_model()

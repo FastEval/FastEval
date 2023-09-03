@@ -8,7 +8,6 @@ from evaluation.benchmarks.cot_math_equivalence import is_math_correct
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
 from evaluation.models.models import compute_model_replies, create_model
-from evaluation.utils import process_with_thread_pool
 
 RECOMPUTE_SCORES = False
 
@@ -451,24 +450,21 @@ def load_datasets(model_name, dataset_requests):
         return []
 
     import datasets
+    import tqdm
 
     def load_dataset(dataset_request):
         dataset_name, subset, split = dataset_request
         return datasets.load_dataset(dataset_name, subset)[split]
 
-    return process_with_thread_pool(
-        items=dataset_requests,
-        process_fn=load_dataset,
-        progress_bar_description=model_name + " :: CoT :: Loading datasets",
-        # TODO: Using multiple threads doesn't actually help here for some reason.
-        # Ideally, we would like to use num_threads=len(dataset_requests),
-        # but it seems like it's either CPU bound and doesn't get faster due to the GIL
-        # or huggingface uses some lock internally.
-        num_threads=1,
-    )
+    return [
+        load_dataset(dataset_request)
+        for dataset_request in tqdm.tqdm(
+            dataset_requests, desc=model_name + " :: CoT :: Loading datasets"
+        )
+    ]
 
 
-def evaluate_model(
+async def evaluate_model(
     model_type, model_name, model_args, evaluation_id, lower_level_benchmarks
 ):
     if RECOMPUTE_SCORES:
@@ -481,7 +477,7 @@ def evaluate_model(
     if os.path.exists(final_scores_file) and not RECOMPUTE_SCORES:
         return
 
-    model = create_model(
+    model = await create_model(
         model_type, model_name, model_args, max_new_tokens=COT_MAX_NEW_TOKENS
     )
 
@@ -508,7 +504,7 @@ def evaluate_model(
     datasets = load_datasets(model_name, dataset_requests)
 
     model_requests = evaluators.send(datasets)
-    model_responses = compute_model_replies(
+    model_responses = await compute_model_replies(
         model,
         model_requests,
         progress_bar_description=model_name + " :: CoT :: Computing model replies",

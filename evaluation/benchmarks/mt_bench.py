@@ -1,4 +1,5 @@
 import ast
+import asyncio
 import json
 import os
 import re
@@ -8,7 +9,7 @@ import threading
 from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.constants import MT_BENCH_JUDGE, MT_BENCH_JUDGE_MAX_NEW_TOKENS
 from evaluation.models.models import compute_model_replies, create_model
-from evaluation.utils import process_with_thread_pool
+from evaluation.utils import process_with_progress_bar
 
 
 def get_temperature(category):
@@ -26,14 +27,12 @@ def get_temperature(category):
     )[category]
 
 
-def generate_single_conversation_assistant_replies(model_and_question, *, stop_event):
+async def generate_single_conversation_assistant_replies(model_and_question):
     model, question = model_and_question
 
     first_turn_conversation = [("user", question["turns"][0])]
-    first_turn_reply = model.reply(
-        first_turn_conversation,
-        temperature=question["temperature"],
-        stop_event=stop_event,
+    first_turn_reply = await model.reply(
+        first_turn_conversation, temperature=question["temperature"]
     )
 
     second_turn_conversation = [
@@ -42,16 +41,14 @@ def generate_single_conversation_assistant_replies(model_and_question, *, stop_e
         ("user", question["turns"][1]),
     ]
 
-    second_turn_reply = model.reply(
-        second_turn_conversation,
-        temperature=question["temperature"],
-        stop_event=stop_event,
+    second_turn_reply = await model.reply(
+        second_turn_conversation, temperature=question["temperature"]
     )
 
     return [first_turn_reply, second_turn_reply]
 
 
-def generate_assistant_replies(model_type, model_name, model_args, evaluation_id):
+async def generate_assistant_replies(model_type, model_name, model_args, evaluation_id):
     answers_filepath = os.path.join(
         "reports",
         "mt-bench",
@@ -62,7 +59,7 @@ def generate_assistant_replies(model_type, model_name, model_args, evaluation_id
     if os.path.exists(answers_filepath):
         return
 
-    model = create_model(model_type, model_name, model_args)
+    model = await create_model(model_type, model_name, model_args)
 
     with open("data/mt-bench/questions.json") as f:
         questions = json.load(f)
@@ -72,12 +69,10 @@ def generate_assistant_replies(model_type, model_name, model_args, evaluation_id
 
     questions_items = list(questions.items())
 
-    model_replies = process_with_thread_pool(
-        num_threads=model.num_threads,
+    model_replies = await process_with_progress_bar(
         items=[(model, question) for question_id, question in questions_items],
         process_fn=generate_single_conversation_assistant_replies,
         progress_bar_description=model_name + " :: MT-Bench :: Computing model replies",
-        use_stop_event=True,
     )
 
     all_replies = {
@@ -134,7 +129,7 @@ def create_judge_conversation(
     ]
 
 
-def compute_judge_replies(model_name, evaluation_id):
+async def compute_judge_replies(model_name, evaluation_id):
     judge_replies_filepath = os.path.join(
         "reports",
         "mt-bench",
@@ -171,11 +166,11 @@ def compute_judge_replies(model_name, evaluation_id):
         for question_id in questions.keys()
     ]
 
-    judge_model = create_model(
+    judge_model = await create_model(
         *MT_BENCH_JUDGE, {}, max_new_tokens=MT_BENCH_JUDGE_MAX_NEW_TOKENS
     )
 
-    judge_replies = compute_model_replies(
+    judge_replies = await compute_model_replies(
         judge_model,
         [
             {
@@ -270,11 +265,15 @@ def compute_model_score(model_name, evaluation_id):
         json.dump(scores, f, indent=4)
 
 
-def judge(model_name, evaluation_id):
-    compute_judge_replies(model_name, evaluation_id)
+async def judge_async(model_name, evaluation_id):
+    await compute_judge_replies(model_name, evaluation_id)
     compute_model_score(model_name, evaluation_id)
 
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
-    generate_assistant_replies(model_type, model_name, model_args, evaluation_id)
+def judge(model_name, evaluation_id):
+    asyncio.run(judge_async(model_name, evaluation_id))
+
+
+async def evaluate_model(model_type, model_name, model_args, evaluation_id):
+    await generate_assistant_replies(model_type, model_name, model_args, evaluation_id)
     threading.Thread(target=judge, args=(model_name, evaluation_id)).start()

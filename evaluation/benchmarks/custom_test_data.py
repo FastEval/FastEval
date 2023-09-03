@@ -11,7 +11,7 @@ from evaluation.models.models import compute_model_replies, create_model
 JUDGE_MODEL_MAX_NEW_TOKENS = 2048
 
 
-def generate_assistant_replies(
+async def generate_assistant_replies(
     *,
     model_type,
     model_name,
@@ -31,7 +31,7 @@ def generate_assistant_replies(
     if os.path.exists(answers_filepath):
         return
 
-    model = create_model(model_type, model_name, model_args)
+    model = await create_model(model_type, model_name, model_args)
 
     conversations_with_ids = [
         (conversation_id, conversation["conversation"])
@@ -119,7 +119,7 @@ def create_judge_conversation(
     ]
 
 
-def compute_judge_replies(
+async def compute_judge_replies(
     *,
     model_name,
     evaluation_id,
@@ -163,7 +163,7 @@ def compute_judge_replies(
         for conversation_id in conversations_with_references.keys()
     ]
 
-    judge_model = create_model(
+    judge_model = await create_model(
         judge_model_type,
         judge_model_name,
         judge_model_args,
@@ -280,7 +280,9 @@ def evaluate_model_on_single_data_file(
     )
 
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id, *, data_hashes):
+async def evaluate_model(
+    model_type, model_name, model_args, evaluation_id, *, data_hashes
+):
     for data_hash in data_hashes:
         evaluate_model_on_single_data_file(
             model_type, model_name, model_args, evaluation_id, data_hash=data_hash

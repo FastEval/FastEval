@@ -2,8 +2,8 @@ from .huggingface import Huggingface
 
 
 class Starchat(Huggingface):
-    def __init__(self, model_path, *, default_system_message="", **kwargs):
-        super().__init__(
+    async def init(self, model_path, *, default_system_message="", **kwargs):
+        await super().init(
             model_path,
             user="<|user|>\n",
             assistant="<|assistant|>",

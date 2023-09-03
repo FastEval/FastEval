@@ -248,13 +248,13 @@ def compute_prompts(data):
     return prompts
 
 
-def compute_ds1000_model_replies(
+async def compute_ds1000_model_replies(
     *, model_type, model_name, model_args, prompts, data, output_path
 ):
     if os.path.exists(output_path):
         return
 
-    model = create_model(model_type, model_name, model_args)
+    model = await create_model(model_type, model_name, model_args)
 
     conversations = [
         {
@@ -264,7 +264,7 @@ def compute_ds1000_model_replies(
         for prompt in prompts
     ]
 
-    model_replies_raw = compute_model_replies(
+    model_replies_raw = await compute_model_replies(
         model,
         conversations,
         progress_bar_description=model_name + " :: DS-1000 :: Computing model replies",
@@ -453,7 +453,7 @@ def assert_reference_code_works(*, tmpdir, data):
         )
 
 
-def evaluate_model(model_type, model_name, model_args, evaluation_id):
+async def evaluate_model(model_type, model_name, model_args, evaluation_id):
     tmpdir = os.path.join(os.getcwd(), ".tmp/ds1000")
     os.makedirs(tmpdir, exist_ok=True)
 
@@ -472,7 +472,7 @@ def evaluate_model(model_type, model_name, model_args, evaluation_id):
     prompts = compute_prompts(data)
 
     model_replies_output_path = os.path.join(output_folder, "answers.json")
-    compute_ds1000_model_replies(
+    await compute_ds1000_model_replies(
         model_type=model_type,
         model_name=model_name,
         model_args=model_args,

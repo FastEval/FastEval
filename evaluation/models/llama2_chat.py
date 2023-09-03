@@ -2,7 +2,7 @@ from .huggingface import Huggingface
 
 
 class Llama2Chat(Huggingface):
-    def __init__(self, model_path, *, default_system_message=None, **kwargs):
+    async def init(self, model_path, *, default_system_message=None, **kwargs):
         import transformers
 
         if default_system_message is None:
@@ -11,7 +11,7 @@ class Llama2Chat(Huggingface):
                 + "If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information."
             )
 
-        super().__init__(
+        await super().init(
             model_path,
             user=None,
             assistant=None,

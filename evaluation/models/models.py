@@ -1,14 +1,14 @@
+import asyncio
 import os
-import threading
 
 import evaluation.utils
 
 fetched_model_configs = {}
-fetched_model_configs_lock = threading.Lock()
+fetched_model_configs_lock = asyncio.Lock()
 
 
-def fetch_model_config(model_name: str):
-    fetched_model_configs_lock.acquire()
+async def fetch_model_config(model_name: str):
+    await fetched_model_configs_lock.acquire()
 
     if model_name in fetched_model_configs:
         model_config = fetched_model_configs[model_name]
@@ -27,11 +27,11 @@ def fetch_model_config(model_name: str):
     return model_config
 
 
-def get_dtype(model_name: str):
-    return fetch_model_config(model_name).torch_dtype
+async def get_dtype(model_name: str):
+    return (await fetch_model_config(model_name)).torch_dtype
 
 
-def get_supported_inference_backends(model_name: str):
+async def get_supported_inference_backends(model_name: str):
     if "starchat" in model_name:
         # vLLM currently does not support starchat.
         # See https://github.com/vllm-project/vllm/issues/380
@@ -48,7 +48,7 @@ def get_supported_inference_backends(model_name: str):
         "falcon",
     ]
 
-    model_type = fetch_model_config(model_name).model_type
+    model_type = await fetch_model_config(model_name).model_type
     if model_type in generally_supported_model_types:
         return ["vllm", "tgi", "hf_transformers"]
 
@@ -59,8 +59,8 @@ def is_tgi_installed():
     return os.path.exists("text-generation-inference")
 
 
-def get_inference_backend(model_path: str):
-    supported_backends = get_supported_inference_backends(model_path)
+async def get_inference_backend(model_path: str):
+    supported_backends = await get_supported_inference_backends(model_path)
 
     if "vllm" in supported_backends:
         return "vllm"
@@ -80,7 +80,7 @@ def get_inference_backend(model_path: str):
     raise Exception('No inference backend supported for model "' + model_path)
 
 
-def create_model(
+async def create_model(
     model_type: str, model_name: str, model_args: dict[str, str], **kwargs
 ):
     from evaluation.models.alpaca_with_prefix import AlpacaWithPrefix
@@ -121,31 +121,30 @@ def create_model(
         raise Exception('Unknown model type "' + model_type + '"')
 
     model_class = model_classes[model_type]
+    model = model_class()
+    await model.init(model_name, **model_args, **kwargs)
+    return model
 
-    return model_class(model_name, **model_args, **kwargs)
 
-
-def compute_model_replies(model, conversations, *, progress_bar_description=None):
+async def compute_model_replies(model, conversations, *, progress_bar_description=None):
     if len(conversations) == 0:
         return []
 
-    def compute_reply(conversation, *, stop_event):
+    async def compute_reply(conversation):
         if isinstance(conversation, list):
-            return model.reply(conversation, stop_event=stop_event)
+            return await model.reply(conversation)
         elif isinstance(conversation, dict):
-            return model.reply(**conversation, stop_event=stop_event)
+            return await model.reply(**conversation)
         raise
 
-    return evaluation.utils.process_with_thread_pool(
-        num_threads=model.num_threads,
+    return await evaluation.utils.process_with_progress_bar(
         items=conversations,
         process_fn=compute_reply,
         progress_bar_description=progress_bar_description,
-        use_stop_event=True,
     )
 
 
-def switch_inference_backend(new_inference_backend):
+async def switch_inference_backend(new_inference_backend):
     import evaluation.models.fastchat
     import evaluation.models.huggingface_backends.hf_transformers
     import evaluation.models.huggingface_backends.tgi
@@ -161,8 +160,8 @@ def switch_inference_backend(new_inference_backend):
     for inference_backend_name, unload_backend_fn in unload_backend_fns.items():
         if inference_backend_name == new_inference_backend:
             continue
-        unload_backend_fn()
+        await unload_backend_fn()
 
 
-def unload_model():
-    switch_inference_backend(None)
+async def unload_model():
+    await switch_inference_backend(None)

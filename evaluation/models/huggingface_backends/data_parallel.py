@@ -1,21 +1,56 @@
+import asyncio
+import concurrent.futures
 import gc
 import multiprocessing
 import os
 import random
-import threading
 import time
 
 import evaluation.args
 import evaluation.models.models
 
-start_new_worker_lock = threading.Lock()
+start_new_worker_lock = asyncio.Lock()
 
 
-def run_worker_process(
+async def handle_item_async(compute_model_response, model, item):
+    result_pipe = item["result_pipe"]
+
+    try:
+        response = await compute_model_response(model=model, item=item)
+        result_pipe.send(("response", response))
+    except:
+        import traceback
+
+        result_pipe.send(("exception", traceback.format_exc()))
+
+    result_pipe.close()
+
+
+def handle_item_sync(compute_model_responses, model, batch):
+    try:
+        compute_model_responses(model=model, batch=batch)
+    except:
+        import traceback
+
+        exception_stacktrace = traceback.format_exc()
+        for batch_item in batch:
+            result_pipe = batch_item["result_pipe"]
+            try:
+                result_pipe.send(("exception", exception_stacktrace))
+                result_pipe.close()
+            except:
+                pass
+
+
+async def run_worker_process(
     *, tokenizer_path, model_path, dtype, queue, worker_functions, worker_is_blocking
 ):
+    assert (worker_is_blocking and "compute_model_responses" in worker_functions) or (
+        not worker_is_blocking and "compute_model_response" in worker_functions
+    )
+
     try:
-        model = worker_functions["create_model"](
+        model = await worker_functions["create_model"](
             tokenizer_path=tokenizer_path,
             model_path=model_path,
             dtype=dtype,
@@ -26,54 +61,36 @@ def run_worker_process(
         queue.put(("error-when-creating-model", traceback.format_exc()))
         return
 
-    ack_pipe_parent_conn, ack_pipe_child_conn = multiprocessing.Pipe()
+    ack_pipe_parent_conn, ack_pipe_child_conn = multiprocessing.Pipe(duplex=False)
     queue.put(("model-created", ack_pipe_child_conn))
     ack_pipe_parent_conn.recv()
+    ack_pipe_parent_conn.close()
+
+    queue_wait_executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+    loop = asyncio.get_event_loop()
+
+    remaining_tasks = set()
 
     while True:
-        item = queue.get()
+        item = await loop.run_in_executor(queue_wait_executor, queue.get)
+
         if item == "unload-model":
             break
 
-        batch = item
-
-        def process_item():
-            if "compute_model_response" in worker_functions:
-                for batch_item in batch:
-                    result_pipe = batch_item["result_pipe"]
-                    try:
-                        response = worker_functions["compute_model_response"](
-                            model=model, item=batch_item
-                        )
-                        result_pipe.send(("response", response))
-                    except:
-                        import traceback
-
-                        result_pipe.send(("exception", traceback.format_exc()))
-                    result_pipe.close()
-            elif "compute_model_responses" in worker_functions:
-                try:
-                    worker_functions["compute_model_responses"](
-                        model=model, batch=batch
-                    )
-                except:
-                    import traceback
-
-                    exception_stacktrace = traceback.format_exc()
-                    for batch_item in batch:
-                        result_pipe = batch_item["result_pipe"]
-                        try:
-                            result_pipe.send(("exception", exception_stacktrace))
-                            result_pipe.close()
-                        except:
-                            pass
-            else:
-                raise
-
         if worker_is_blocking:
-            process_item()
+            handle_item_sync(worker_functions["compute_model_responses"], model, item)
         else:
-            threading.Thread(target=process_item).start()
+            assert len(item) == 1
+            task = asyncio.create_task(
+                handle_item_async(
+                    worker_functions["compute_model_response"], model, item[0]
+                )
+            )
+            remaining_tasks.add(task)
+            task.add_done_callback(remaining_tasks.discard)
+
+    for task in remaining_tasks:
+        await task
 
     if "unload_worker_model" in worker_functions:
         worker_functions["unload_worker_model"](model)
@@ -82,7 +99,11 @@ def run_worker_process(
     gc.collect()
 
 
-def start_new_worker_process(
+def run_worker_process_in_new_event_loop(**kwargs):
+    asyncio.run(run_worker_process(**kwargs))
+
+
+async def start_new_worker_process(
     *,
     tokenizer_path,
     model_path,
@@ -95,7 +116,7 @@ def start_new_worker_process(
     # This lock is needed because we modify the `CUDA_VISIBLE_DEVICES` environment variable
     # before starting the new child process. This environment variable is global for our whole process,
     # so we need to start the child processes sequentially
-    start_new_worker_lock.acquire()
+    await start_new_worker_lock.acquire()
 
     if "CUDA_VISIBLE_DEVICES" in os.environ:
         previous_cuda_visible_devices = os.environ["CUDA_VISIBLE_DEVICES"]
@@ -107,7 +128,7 @@ def start_new_worker_process(
     )
 
     multiprocessing.Process(
-        target=run_worker_process,
+        target=run_worker_process_in_new_event_loop,
         kwargs={
             "tokenizer_path": tokenizer_path,
             "model_path": model_path,
@@ -127,7 +148,7 @@ def start_new_worker_process(
 
 
 class WorkerProcessManager:
-    def __init__(
+    async def init(
         self,
         *,
         tokenizer_path,
@@ -148,16 +169,16 @@ class WorkerProcessManager:
 
         self.next_batch = []
         self.timestamp_when_last_batch_item_was_added = None
-        self.lock = threading.Lock()
+        self.lock = asyncio.Lock()
 
-        self.num_threads = torch.cuda.device_count() // num_devices_per_model
+        self.num_workers = torch.cuda.device_count() // num_devices_per_model
 
         if worker_is_blocking:
             self.queue = multiprocessing.Queue()
         else:
-            self.queues = [multiprocessing.Queue() for _ in range(self.num_threads)]
+            self.queues = [multiprocessing.Queue() for _ in range(self.num_workers)]
 
-        for i in range(self.num_threads):
+        for i in range(self.num_workers):
             if worker_is_blocking:
                 queue = self.queue
             else:
@@ -166,7 +187,7 @@ class WorkerProcessManager:
             devices = list(
                 range(i * num_devices_per_model, (i + 1) * num_devices_per_model)
             )
-            start_new_worker_process(
+            await start_new_worker_process(
                 tokenizer_path=self.tokenizer_path,
                 model_path=self.model_path,
                 dtype=self.dtype,
@@ -177,7 +198,7 @@ class WorkerProcessManager:
             )
 
         ack_pipes = []
-        for i in range(self.num_threads):
+        for i in range(self.num_workers):
             if self.worker_is_blocking:
                 model_creation_result = self.queue.get()
             else:
@@ -192,15 +213,16 @@ class WorkerProcessManager:
 
         for pipe in ack_pipes:
             pipe.send("ack")
+            pipe.close()
 
         self.models_are_loaded = True
 
-    def unload_model(self):
-        self.lock.acquire()
+    async def unload_model(self):
+        await self.lock.acquire()
 
         assert self.models_are_loaded
 
-        for i in range(self.num_threads):
+        for i in range(self.num_workers):
             if self.worker_is_blocking:
                 self.queue.put("unload-model")
             else:
@@ -210,14 +232,14 @@ class WorkerProcessManager:
 
         self.lock.release()
 
-    def add_item_to_next_batch(self, item):
-        self.lock.acquire()
+    async def add_item_to_next_batch(self, item):
+        await self.lock.acquire()
         self.next_batch.append(item)
         self.lock.release()
 
         time.sleep(0.05)
 
-        self.lock.acquire()
+        await self.lock.acquire()
 
         if self.worker_is_blocking:
             queue = self.queue
@@ -233,16 +255,28 @@ class WorkerProcessManager:
         self.lock.release()
 
 
+async def pipe_receive_async(pipe):
+    event = asyncio.Event()
+    loop = asyncio.get_event_loop()
+    loop.add_reader(pipe.fileno(), event.set)
+    if not pipe.poll():
+        await event.wait()
+    loop.remove_reader(pipe.fileno())
+    result = pipe.recv()
+    event.clear()
+    return result
+
+
 class DataParallelBackend:
     def __init__(self, *, backend_name, worker_functions, worker_is_blocking):
         self.backend_name = backend_name
         self.worker_functions = worker_functions
         self.worker_is_blocking = worker_is_blocking
 
-        self.lock = threading.Lock()
+        self.lock = asyncio.Lock()
         self.current_worker_process_manager = None
 
-    def run_inference(
+    async def run_inference(
         self,
         *,
         prompt,
@@ -251,18 +285,13 @@ class DataParallelBackend:
         dtype,
         max_new_tokens,
         temperature,
-        max_batch_size,
-        stop_event
+        max_batch_size
     ):
         import torch
 
-        self.lock.acquire()
+        await self.lock.acquire()
 
-        if stop_event.is_set():
-            self.lock.release()
-            raise Exception("Stop event is set.")
-
-        evaluation.models.models.switch_inference_backend(self.backend_name)
+        await evaluation.models.models.switch_inference_backend(self.backend_name)
 
         if (
             self.current_worker_process_manager is None
@@ -272,9 +301,10 @@ class DataParallelBackend:
             or self.current_worker_process_manager.maximum_batch_size != max_batch_size
         ):
             if self.current_worker_process_manager is not None:
-                self.current_worker_process_manager.unload_model()
+                await self.current_worker_process_manager.unload_model()
             try:
-                self.current_worker_process_manager = WorkerProcessManager(
+                self.current_worker_process_manager = WorkerProcessManager()
+                await self.current_worker_process_manager.init(
                     tokenizer_path=tokenizer_path,
                     model_path=model_path,
                     dtype=dtype,
@@ -292,9 +322,11 @@ class DataParallelBackend:
 
         self.lock.release()
 
-        result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe()
+        result_pipe_parent_conn, result_pipe_child_conn = multiprocessing.Pipe(
+            duplex=False
+        )
 
-        manager.add_item_to_next_batch(
+        await manager.add_item_to_next_batch(
             {
                 "prompt": prompt,
                 "temperature": temperature,
@@ -303,14 +335,16 @@ class DataParallelBackend:
             }
         )
 
-        result = result_pipe_parent_conn.recv()
+        result = await pipe_receive_async(result_pipe_parent_conn)
+        result_pipe_parent_conn.close()
+
         if result[0] == "response":
             return result[1]
         raise Exception("Error when running inference: " + result[1])
 
-    def unload_model(self):
-        self.lock.acquire()
+    async def unload_model(self):
+        await self.lock.acquire()
         if self.current_worker_process_manager is not None:
-            self.current_worker_process_manager.unload_model()
+            await self.current_worker_process_manager.unload_model()
         self.current_worker_process_manager = None
         self.lock.release()
