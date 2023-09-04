@@ -54,7 +54,7 @@ For example, this command will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-s
 ./fasteval -b human-eval-plus -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps
 ```
 
-There are also flags available for enabling & configuring data parallel evaluation, setting model arguments and changing the inference backend. Please use `./fasteval -h` or see [here](docs/cmdline-flags.md) for more information.
+There are also flags available for enabling & configuring data parallel evaluation, setting model arguments and changing the inference backend. Please use `./fasteval -h` for more information.
 
 ## Viewing the results
 
