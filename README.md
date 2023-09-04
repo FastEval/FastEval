@@ -1,7 +1,7 @@
 # FastEval
 
-This project allows you to quickly evaluate language models on a number of benchmarks.
-It focuses on instruction-following and chat language models. See the [comparison to lm-evaluation-harness](docs/comparison-to-lm-eval.md) for more information.
+This project allows you to quickly evaluate instruction-following and chat language models on a number of benchmarks.
+See the [comparison to lm-evaluation-harness](docs/comparison-to-lm-eval.md) for more information.
 There is also a [leaderboard](https://fasteval.github.io/FastEval/).
 
 ## Features
@@ -9,7 +9,7 @@ There is also a [leaderboard](https://fasteval.github.io/FastEval/).
 - **Evaluation on various benchmarks with a single command.** Supported benchmarks are [MT‑Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) and [DS-1000](https://ds1000-code-gen.github.io/) for Python coding performance, Chain of Thought (GSM8K + MATH + BBH + MMLU) for reasoning capabilities as well as [custom test data](docs/custom-test-data.md).
 - **High performance.** FastEval uses [vLLM](https://github.com/vllm-project/vllm) for fast inference by default and can also optionally make use of [text-generation-inference](https://github.com/huggingface/text-generation-inference). Both methods are ~20x faster than using huggingface transformers.
 - **Detailed information about model performance.** FastEval saves the outputs of the language model and other intermediate results to disk. This makes it possible to get deeper insight into model performance. You can look at the [performance on different categories](https://fasteval.github.io/FastEval/#?benchmark=mt-bench) and even inspect [individual model outputs](https://fasteval.github.io/FastEval/#?benchmark=cot&task=bbh/date_understanding&id=eb74c9e1-8836-4c3a-8f50-a25808d20eee).
-- **Use of model-specific prompt templates**: FastEval uses the right prompt template depending on the evaluated model. Many prompt templates are supported and the use of [Fastchat](https://github.com/lm-sys/FastChat) expands this even further.
+- **Use of model-specific prompt templates**: FastEval uses the right prompt template depending on the evaluated model. Many prompt templates are supported and the use of [FastChat](https://github.com/lm-sys/FastChat) expands this even further.
 
 ## Installation
 
@@ -54,7 +54,7 @@ For example, this command will evaluate [`OpenAssistant/pythia-12b-sft-v8-2.5k-s
 ./fasteval -b human-eval-plus -t open-assistant -m OpenAssistant/pythia-12b-sft-v8-2.5k-steps
 ```
 
-There are also flags available for enabling & configuring data parallel evaluation, setting model arguments and changing the inference backend. Please use `./fasteval -h` or see [here](docs/cmdline-flags.md) for more information.
+There are also flags available for enabling & configuring data parallel evaluation, setting model arguments and changing the inference backend. Please use `./fasteval -h` for more information.
 
 ## Viewing the results
 

@@ -26,7 +26,7 @@ Every method tells us whether the model is able to use its knowledge in specific
 To measure the programming abilities of a language model, simple matching against a ground truth is insufficient.
 Instead, the common approach is to make the model work with code and then _execute_ the resulting code against a number of tests.
 
-FastEval currently includes [HumanEval+](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus) for evaluating simple python coding abilities.
+FastEval currently includes [HumanEval+](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus) and [DS-1000](https://fasteval.github.io/FastEval/#?benchmark=ds1000) for evaluating simple python coding abilities.
 However, we plan to expand it with additional benchmarks with a focus on code editing, multiple programming languages and more complex problems.
 
 ### Conversational abilities
