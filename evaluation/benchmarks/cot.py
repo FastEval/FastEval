@@ -9,7 +9,7 @@ from evaluation.benchmarks.utils import model_name_to_filename
 from evaluation.constants import COT_MAX_NEW_TOKENS, COT_TEMPERATURE
 from evaluation.models.models import compute_model_replies, create_model
 
-RECOMPUTE_SCORES = False
+RECOMPUTE_SCORES = True
 
 GSM8K_LIMIT = 500
 MATH_LIMIT = 1000
