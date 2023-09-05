@@ -55,6 +55,9 @@ class OpenAIBase:
         )["choices"][0]["message"]["content"]
 
     async def reply_two_attempts_with_different_max_new_tokens(self, *, too_many_tokens_error, get_error_message, max_new_tokens, **kwargs):
+        if max_new_tokens is None:
+            max_new_tokens = self.max_new_tokens
+
         try:
             return await self.reply_single_try(**kwargs, max_new_tokens=max_new_tokens)
         except too_many_tokens_error as error:
