@@ -1,7 +1,6 @@
 import asyncio
 import json
 import os
-import re
 
 import evaluation.models.models
 from evaluation.constants import DEFAULT_MAX_NEW_TOKENS
@@ -231,40 +230,13 @@ class Fastchat(OpenAIBase):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
 
-        api_base = "http://127.0.0.1:8000/v1"
-        api_key = "EMPTY"
-        model_name = self.model_name.split("/")[-1]
-
-        try:
-            return await super().reply_single_try(
-                conversation=conversation,
-                api_base=api_base,
-                api_key=api_key,
-                temperature=temperature,
-                model_name=model_name,
-                max_new_tokens=max_new_tokens,
-            )
-        except APIError as error:
-            error_message = json.loads(error.http_body)["message"]
-            error_information = re.search(
-                "This model's maximum context length is ([0-9]+) tokens\. "
-                + "However, you requested ([0-9]+) tokens \([0-9]+ in the messages, [0-9]+ in the completion\)\. "
-                + "Please reduce the length of the messages or completion\.",
-                error_message,
-            )
-            if error_information is None:
-                raise Exception("Fastchat Error: " + error_message)
-            maximum_context_length = int(error_information.group(1))
-            request_total_length = int(error_information.group(2))
-            num_tokens_too_much = request_total_length - maximum_context_length
-            reduced_max_new_tokens = max_new_tokens - num_tokens_too_much
-            if reduced_max_new_tokens <= 0:
-                return ""
-            return await super().reply_single_try(
-                conversation=conversation,
-                api_base=api_base,
-                api_key=api_key,
-                max_new_tokens=reduced_max_new_tokens,
-                temperature=temperature,
-                model_name=model_name,
-            )
+        return await self.reply_two_attempts_with_different_max_new_tokens(
+            conversation=conversation,
+            api_base="http://127.0.0.1:8000/v1",
+            api_key="EMPTY",
+            temperature=temperature,
+            model_name=self.model_name.split("/")[-1],
+            max_new_tokens=max_new_tokens,
+            too_many_tokens_error=APIError,
+            get_error_message=lambda error: json.loads(error.http_body)["message"],
+        )

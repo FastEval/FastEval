@@ -49,18 +49,21 @@ class OpenAI(OpenAIBase):
                 else:
                     break
             try:
-                response = await self.reply_single_try(
+                response = await self.reply_two_attempts_with_different_max_new_tokens(
                     conversation=conversation,
                     api_base="https://api.openai.com/v1",
                     api_key=os.environ["OPENAI_API_KEY"],
                     temperature=temperature,
                     max_new_tokens=max_new_tokens,
+                    too_many_tokens_error=openai.error.InvalidRequestError,
+                    get_error_message=lambda error: str(error),
                 )
 
                 self.semaphore.release()
 
                 return response
             except openai.error.RateLimitError:
+                self.semaphore.release()
                 await last_rate_limit_errors_lock.acquire()
 
                 last_rate_limit_error = last_rate_limit_errors.get(self.model_name, 0)
@@ -77,9 +80,12 @@ class OpenAI(OpenAIBase):
                         + ". Trying again in a few seconds..."
                     )
             except openai.error.ServiceUnavailableError:
+                self.semaphore.release()
                 print("OpenAI server is overloaded or not ready yet. Trying again...")
-                asyncio.sleep(1)
+                await asyncio.sleep(1)
             except openai.error.APIError:
+                self.semaphore.release()
                 print("Encountered OpenAI APIError. Trying again...")
             except openai.error.Timeout:
+                self.semaphore.release()
                 print("OpenAI request timeout. Trying again...")
