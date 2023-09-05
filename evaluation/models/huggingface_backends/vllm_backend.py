@@ -19,7 +19,8 @@ async def create_model(*, model_path, tokenizer_path, dtype):
             trust_remote_code=True,
             max_num_seqs=1024,
             max_num_batched_tokens=4096,
-        )
+        ),
+        start_engine_loop=False,
     )
 
     return {
@@ -46,6 +47,9 @@ async def compute_model_response(*, model, item):
         args = {"prompt_token_ids": prompt[1], "prompt": None}
     else:
         args = {"prompt": prompt}
+
+    if not model['engine'].is_running:
+        model['engine'].start_background_loop()
 
     response_generator = model["engine"].generate(
         **args,
