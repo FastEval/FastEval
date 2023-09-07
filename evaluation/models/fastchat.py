@@ -28,6 +28,9 @@ async def unload_model(already_aquired_server_lock=False):
 
 
 def should_filter_process_output(process_name, line):
+    if len(line.strip()) == 0:
+        return True
+
     if process_name == "model":
         if "POST /worker_generate" in line and "200 OK" in line:
             return True
