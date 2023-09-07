@@ -44,7 +44,7 @@ def evaluate_model_on_dataset(
     output_path,
     limit=float("inf"),
     create_question=None,
-    create_conversation=create_conversation,
+    create_conversation2=create_conversation,
 ):
     output_file_path = os.path.join(output_path, name + ".json")
     if os.path.exists(output_file_path):
@@ -98,7 +98,7 @@ def evaluate_model_on_dataset(
                 {column: item[column] for column in question_column}
             )
         correct_answer = item[answer_column]
-        conversation = create_conversation(answer_format, question)
+        conversation = create_conversation2(answer_format, question)
         requests.append(
             {
                 "id": selected_samples[i],
@@ -109,7 +109,7 @@ def evaluate_model_on_dataset(
         )
 
     model_requests = [
-        {"conversation": request["conversation"], "temperature": COT_TEMPERATURE}
+        {"conversation": request["conversation"], "temperature": COT_TEMPERATURE, "max_new_tokens": 1}
         for request in requests
     ]
     model_answers = yield model_requests
@@ -249,6 +249,7 @@ def find_multiple_choice_answer(*, model_answer, options):
         r" [" + letter_options + r"][^a-zA-Z]",  # "The answer is A."
         r"[^a-zA-Z][" + letter_options + r"]$",  # "The answer is:A"
         r"[^a-zA-Z][" + letter_options + r"][^a-zA-Z]",  # "The answer is:A."
+        r"^[" + letter_options + r"]$",  # "A"
     ]
 
     model_answer_lines = list(reversed(model_answer.split("\n")))
@@ -415,8 +416,9 @@ def evaluate_model_on_mmlu(output_path):
     with open('data/mmlu-prompt-structured.json') as f:
         few_shot_prompts = json.load(f)
 
-    def create_conversation(task):
+    def create_conversation3(task):
         def create(answer_format, question):
+            print('foo')
             conversation = [
                 ('system', 'Please answer the following questions with only the letter (A, B, C, D) of the correct answer.'
                     + 'Do not answer with anything else except that one letter.'),
@@ -436,7 +438,7 @@ def evaluate_model_on_mmlu(output_path):
 
                 conversation += [
                     ('user', few_shot_question),
-                    ('assistant', item['answer'].strip()),
+                    ('assistant', find_multiple_choice_answer(model_answer=item['answer'].strip(), options='ABCDE')),
                 ]
 
             conversation += [
@@ -469,7 +471,7 @@ def evaluate_model_on_mmlu(output_path):
                 is_correct=is_correct,
                 output_path=output_path,
                 limit=MMLU_LIMIT_PER_TASK,
-                create_conversation=create_conversation(task),
+                create_conversation2=create_conversation3(task),
             )
             for task in tasks
         ]

@@ -26,9 +26,9 @@ class OpenAI(OpenAIBase):
         self.default_system_message = default_system_message
 
         if self.model_name.startswith("gpt-3.5-turbo"):
-            self.semaphore = asyncio.Semaphore(NUM_THREADS_OPENAI_GPT3_5)
+            self.semaphore = asyncio.BoundedSemaphore(NUM_THREADS_OPENAI_GPT3_5)
         elif self.model_name.startswith("gpt-4"):
-            self.semaphore = asyncio.Semaphore(NUM_THREADS_OPENAI_GPT4)
+            self.semaphore = asyncio.BoundedSemaphore(NUM_THREADS_OPENAI_GPT4)
         else:
             raise Exception("Unknown OpenAI model.")
 

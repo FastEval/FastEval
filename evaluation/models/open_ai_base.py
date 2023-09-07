@@ -36,6 +36,7 @@ class OpenAIBase:
         if model_name is None:
             model_name = self.model_name
 
+        print('REQUEST')
         return (
             await openai.ChatCompletion.acreate(
                 api_base=api_base,
@@ -57,6 +58,8 @@ class OpenAIBase:
     async def reply_two_attempts_with_different_max_new_tokens(self, *, too_many_tokens_error, get_error_message, max_new_tokens, **kwargs):
         if max_new_tokens is None:
             max_new_tokens = self.max_new_tokens
+
+        print('reply_two_attempts_with_different_max_new_tokens')
 
         try:
             return await self.reply_single_try(**kwargs, max_new_tokens=max_new_tokens)
