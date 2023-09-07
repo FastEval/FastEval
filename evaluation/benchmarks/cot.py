@@ -417,7 +417,10 @@ def evaluate_model_on_mmlu(output_path):
 
     def create_conversation(task):
         def create(answer_format, question):
-            conversation = []
+            conversation = [
+                ('system', 'Please answer the following questions with only the letter (A, B, C, D) of the correct answer.'
+                    + 'Do not answer with anything else except that one letter.'),
+            ]
 
             few_shot_prompt = few_shot_prompts[task]
             for item in few_shot_prompt:
