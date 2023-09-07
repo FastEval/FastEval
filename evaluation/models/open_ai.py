@@ -38,9 +38,9 @@ class OpenAI(OpenAIBase):
         if self.default_system_message is not None and conversation[0][0] != "system":
             conversation.insert(0, ("system", self.default_system_message))
 
-        await self.semaphore.acquire()
-
         while True:
+            await self.semaphore.acquire()
+
             while True:
                 last_rate_limit_error = last_rate_limit_errors.get(self.model_name, 0)
                 now = time.time()
