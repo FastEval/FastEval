@@ -43,7 +43,7 @@ To evaluate a new model, call `fasteval` in the following way:
 ./fasteval [-b <benchmark_name_1>...] -t model_type -m model_name
 ````
 
-The `-b` flag specifies the benchmarks that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://fasteval.github.io/FastEval/#?benchmark=mt-bench), [`human-eval-plus`](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus), [`ds1000`](https://fasteval.github.io/FastEval/#?benchmark=ds1000), [`cot`](https://fasteval.github.io/FastEval/#?benchmark=cot) and [`custom-test-data`](docs/custom-test-data.md).
+The `-b` flag specifies the benchmarks that you want to evaluate your model on. The default is `all`, but you can also specify one or multiple individual benchmarks. Possible values are [`mt-bench`](https://fasteval.github.io/FastEval/#?benchmark=mt-bench), [`human-eval-plus`](https://fasteval.github.io/FastEval/#?benchmark=human-eval-plus), [`ds1000`](https://fasteval.github.io/FastEval/#?benchmark=ds1000), [`cot`](https://fasteval.github.io/FastEval/#?benchmark=cot), `cot/gsm8k`, `cot/math`, `cot/bbh`, `cot/mmlu` and [`custom-test-data`](docs/custom-test-data.md).
 
 The `-t` flag specifies the type of the model which is either the prompt template or the API client that will be used. [Please see here](docs/model-type.md) for information on which model type to select for your model.
 
