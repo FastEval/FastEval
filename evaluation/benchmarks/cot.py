@@ -474,12 +474,6 @@ async def evaluate_model(
         "reports", "cot", model_name_to_filename(model_name), evaluation_id
     )
     final_scores_file = os.path.join(output_folder, "scores.json")
-    if os.path.exists(final_scores_file) and not RECOMPUTE_SCORES:
-        return
-
-    model = await create_model(
-        model_type, model_name, model_args, max_new_tokens=COT_MAX_NEW_TOKENS
-    )
 
     tasks_path = os.path.join(output_folder, "tasks")
 
@@ -504,6 +498,14 @@ async def evaluate_model(
     datasets = load_datasets(model_name, dataset_requests)
 
     model_requests = evaluators.send(datasets)
+
+    if len(model_requests) == 0:
+        return
+
+    model = await create_model(
+        model_type, model_name, model_args, max_new_tokens=COT_MAX_NEW_TOKENS
+    )
+
     model_responses = await compute_model_replies(
         model,
         model_requests,
