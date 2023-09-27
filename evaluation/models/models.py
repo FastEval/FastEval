@@ -51,6 +51,8 @@ async def get_supported_inference_backends(model_name: str):
     model_type = (await fetch_model_config(model_name)).model_type
     if model_type in generally_supported_model_types:
         return ["vllm", "tgi", "hf_transformers"]
+    if model_type in ["mistral"]:
+        return ["vllm", "hf_transformers"]
 
     return []
 
@@ -98,6 +100,7 @@ async def create_model(
     from evaluation.models.stable_beluga import StableBeluga
     from evaluation.models.starchat import Starchat
     from evaluation.models.wizard_lm import WizardLM
+    from evaluation.models.mistral_instruct import MistralInstruct
 
     model_classes = {
         "debug": Debug,
@@ -115,6 +118,7 @@ async def create_model(
         "dolphin": Dolphin,
         "openchat-llama2-v1": OpenchatLlama2V1,
         "wizard-lm": WizardLM,
+        "mistral-instruct": MistralInstruct,
     }
 
     if model_type not in model_classes:
