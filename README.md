@@ -4,6 +4,10 @@ This project allows you to quickly evaluate instruction-following and chat langu
 See the [comparison to lm-evaluation-harness](docs/comparison-to-lm-eval.md) for more information.
 There is also a [leaderboard](https://fasteval.github.io/FastEval/).
 
+**Project status**: I plan to add the improvements from FastEval to [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness).
+Having a single framework has many benefits, but it will take some time.
+My work on FastEval will mostly be limited to fixing bugs.
+
 ## Features
 
 - **Evaluation on various benchmarks with a single command.** Supported benchmarks are [MT‑Bench](https://arxiv.org/abs/2306.05685) for conversational capabilities, [HumanEval+](https://github.com/evalplus/evalplus) and [DS-1000](https://ds1000-code-gen.github.io/) for Python coding performance, Chain of Thought (GSM8K + MATH + BBH + MMLU) for reasoning capabilities as well as [custom test data](docs/custom-test-data.md).
