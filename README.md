@@ -1,4 +1,4 @@
-**Project status: Archived**. I will not add significant new features and mostly fix bugs.
+**Project status: I will not add significant new features and mostly fix bugs.**
 
 # FastEval
 
