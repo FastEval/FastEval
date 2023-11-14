@@ -1,12 +1,10 @@
+**Project status: Archived**. I will not add significant new features and mostly fix bugs.
+
 # FastEval
 
 This project allows you to quickly evaluate instruction-following and chat language models on a number of benchmarks.
 See the [comparison to lm-evaluation-harness](docs/comparison-to-lm-eval.md) for more information.
 There is also a [leaderboard](https://fasteval.github.io/FastEval/).
-
-**Project status**: I plan to add the improvements from FastEval to [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness).
-Having a single framework has many benefits, but it will take some time.
-My work on FastEval will mostly be limited to fixing bugs.
 
 ## Features
 
