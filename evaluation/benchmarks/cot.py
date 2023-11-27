@@ -15,6 +15,7 @@ GSM8K_LIMIT = 500
 MATH_LIMIT = 1000
 BBH_LIMIT_PER_TASK = 30
 MMLU_LIMIT_PER_TASK = 10
+AGIEVAL_LIMIT_PER_TASK = 20
 
 
 def create_conversation(answer_format, question):
@@ -445,6 +446,97 @@ def evaluate_model_on_mmlu(output_path):
     }
 
 
+def evaluate_model_on_agieval(output_path):
+    tasks = [
+        "sat_en",
+        "sat_en_without_passage",
+        "sat_math",
+        "lsat_ar",
+        "lsat_lr",
+        "lsat_rc",
+        "logiqa_en",
+        "logiqa_zh",
+        "aqua_rat",
+        "gaokao_biology",
+        "gaokao_chemistry",
+        "gaokao_chinese",
+        "gaokao_chemistry",
+        "gaokao_english",
+        "gaokao_geography",
+        "gaokao_history",
+        "gaokao_mathqa",
+    ]
+
+    def create_question(columns):
+        if columns["passage"] == None or columns["passage"] == "":
+            return (
+                columns["question"]
+                + "\n\n"
+                + "\n".join(
+                    [
+                        columns["options"][index]
+                        if columns["options"][index][3] == " "
+                        else " ".join(
+                            [
+                                columns["options"][index][:3],
+                                columns["options"][index][3:],
+                            ]
+                        )
+                        for index in range(len(columns["options"]))
+                    ]
+                )
+            )
+        return (
+            columns["passage"]
+            + "\n\n"
+            + columns["question"]
+            + "\n\n"
+            + "\n".join(
+                [
+                    columns["options"][index]
+                    if columns["options"][index][3] == " "
+                    else " ".join(
+                        [columns["options"][index][:3], columns["options"][index][3:]]
+                    )
+                    for index in range(len(columns["options"]))
+                ]
+            )
+        )
+
+    def is_correct(model_answer, correct_answer, question):
+        return multiple_choice_is_correct(
+            model_answer=model_answer,
+            correct_answer=["A", "B", "C", "D", "E"][correct_answer],
+            question=question,
+        )
+
+    evaluators = combine_evaluators(
+        [
+            evaluate_model_on_dataset(
+                name="agieval/" + task,
+                data=("kimvu/agieval", task, "test"),
+                question_column=["passage", "question", "options"],
+                create_question=create_question,
+                answer_column="label",
+                answer_format="as a single letter with parenthesis ",
+                is_correct=is_correct,
+                output_path=output_path,
+                limit=AGIEVAL_LIMIT_PER_TASK,
+            )
+            for task in tasks
+        ]
+    )
+
+    datasets = yield next(evaluators)
+    model_responses = yield evaluators.send(datasets)
+    scores = evaluators.send(model_responses)
+
+    yield {
+        "tasks": {task: scores[i] for i, task in enumerate(tasks)},
+        "average": statistics.mean(scores),
+    }
+
+
 def load_datasets(model_name, dataset_requests):
     if len(dataset_requests) == 0:
         return []
@@ -482,6 +574,7 @@ async def evaluate_model(
         ("math", evaluate_model_on_math),
         ("bbh", evaluate_model_on_bbh),
         ("mmlu", evaluate_model_on_mmlu),
+        ("agieval", evaluate_model_on_agieval),
     ]
 
     tasks = [e.split("/")[1] for e in lower_level_benchmarks]
@@ -525,6 +618,7 @@ async def evaluate_model(
             + 0.4 * scores["math"]
             + 0.2 * scores["bbh"]["average"]
             + 0.2 * scores["mmlu"]["average"]
+            + 0.2 * scores["agieval"]["average"]
         )
 
     os.makedirs(os.path.dirname(final_scores_file), exist_ok=True)
