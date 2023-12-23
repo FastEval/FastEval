@@ -1,0 +1,76 @@
+{
+    "score": 0.2,
+    "num_unmatched": 0,
+    "model_outputs": [
+        {
+            "id": 17,
+            "question": "For a neural network, which one of these structural assumptions is the one that most affects the trade-off between underfitting (i.e. a high bias model) and overfitting (i.e. a high variance model):\n\n(A) The number of hidden nodes\n(B) The learning rate\n(C) The initial choice of weights\n(D) The use of a constant-term unit input",
+            "correct_answer": 0,
+            "model_answer": "(A) The number of hidden nodes",
+            "correct": true
+        },
+        {
+            "id": 72,
+            "question": "Statement 1| Industrial-scale neural networks are normally trained on CPUs, not GPUs. Statement 2| The ResNet-50 model has over 1 billion parameters.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "(A) True, True",
+            "correct": false
+        },
+        {
+            "id": 108,
+            "question": "Which of the following is false?\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.",
+            "correct_answer": 3,
+            "model_answer": "To answer this question, let's analyze each statement:\n\n(A) Semantic segmentation models predict the class of each pixel, while multiclass image classifiers predict the class of entire image.\n- Semantic segmentation models do predict the class of each pixel, but they also predict the class of the entire image. So this statement is false.\n\n(B) A bounding box with an IoU (intersection over union) equal to $96\\%$ would likely be considered at true positive.\n- IoU is a measure of how much the predicted bounding box overlaps with the actual bounding box. A higher IoU value indicates a better match. $96\\%$ is a very high IoU value, so it's likely to be considered a true positive. This statement is true.\n\n(C) When a predicted bounding box does not correspond to any object in the scene, it is considered a false positive.\n- A false positive would occur when the predicted bounding box does not match the actual bounding box, but it still corresponds to an object in the scene. This statement is false.\n\n(D) A bounding box with an IoU (intersection over union) equal to $3\\%$ would likely be considered at false negative.\n- A false negative would occur when the predicted bounding box does not match the actual bounding box, and it corresponds to an object in the scene. A low IoU value of $3\\%$ indicates a poor match, so it's likely to be considered a false negative. This statement is true.\n\nAnswer: C",
+            "correct": false
+        },
+        {
+            "id": 102,
+            "question": "You are training a linear regression model for a simple estimation task, and notice that the model is overfitting to the data. You decide to add in $\\ell_2$ regularization to penalize the weights. As you increase the $\\ell_2$ regularization coefficient, what will happen to the bias and variance of the model?\n\n(A) Bias increase ; Variance increase\n(B) Bias increase ; Variance decrease\n(C) Bias decrease ; Variance increase\n(D) Bias decrease ; Variance decrease",
+            "correct_answer": 1,
+            "model_answer": "To answer this question, we need to understand the impact of $\\ell_2$ regularization on the bias and variance of the model.\n\nBias and variance are properties of a model, and they are often at odds with each other. A model with high bias has poor generalization capabilities, while a model with high variance fits the training data poorly and has poor performance on unseen data.\n\n$\\ell_2$ regularization is a technique used to prevent overfitting. It adds a term to the model's objective function that penalizes large weights. This has the effect of reducing the model's complexity, which in turn reduces its variance.\n\nNow let's answer the question:\n\n(A) Bias increase ; Variance increase\n(B) Bias increase ; Variance decrease\n(C) Bias decrease ; Variance increase\n(D) Bias decrease ; Variance decrease\n\nRecall that $\\ell_2$ regularization reduces the model's complexity and thus its variance. When the regularization coefficient is increased, the model's weights are reduced, which in turn reduces the bias.\n\nTherefore, the correct answer is:\n\n(D) Bias decrease ; Variance decrease",
+            "correct": false
+        },
+        {
+            "id": 97,
+            "question": "Which one of the following is equal to P(A, B, C) given Boolean random variables A, B and C, and no independence or conditional independence assumptions between any of them?\n\n(A) P(A | B) * P(B | C) * P(C | A)\n(B) P(C | A, B) * P(A) * P(B)\n(C) P(A, B | C) * P(C)\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)",
+            "correct_answer": 2,
+            "model_answer": "To determine which of the given options is equal to P(A, B, C), we will analyze each option step by step.\n\n(A) P(A | B) * P(B | C) * P(C | A)\n\nThis expression is equal to P(A, B, C) when all three variables are independent, i.e., P(A | B) * P(B | C) * P(C | A) = P(A) * P(B) * P(C). However, since we are given Boolean random variables and no independence or conditional independence assumptions, this expression is not equal to P(A, B, C) in our case.\n\n(B) P(C | A, B) * P(A) * P(B)\n\nThis expression is not equal to P(A, B, C) because it assumes conditional independence between A and B, which is not given in the problem.\n\n(C) P(A, B | C) * P(C)\n\nThis expression is equal to P(A, B, C) when A and B are conditionally independent given C, i.e., P(A, B | C) * P(C) = P(A) * P(B | C) * P(C). However, since we are given Boolean random variables and no independence or conditional independence assumptions, this expression is not equal to P(A, B, C) in our case.\n\n(D) P(A | B, C) * P(B | A, C) * P(C | A, B)\n\nThis expression is equal to P(A, B, C) when A and B are conditionally independent given C, and C is independent of A and B, i.e., P(A | B, C) * P(B | A, C) * P(C | A, B) = P(A) * P(B | C) * P(C | A, B). However, since we are given Boolean random variables and no independence or conditional independence assumptions, this expression is not equal to P(A, B, C) in our case.\n\nTherefore, none of the given options are equal to P(A, B, C) in our case.",
+            "correct": true
+        },
+        {
+            "id": 8,
+            "question": "Consider the Bayesian network given below. How many independent parameters are needed for this Bayesian Network H -> U <- P <- W?\n\n(A) 2\n(B) 4\n(C) 8\n(D) 16",
+            "correct_answer": 2,
+            "model_answer": "To determine the number of independent parameters needed for this Bayesian network, we need to look at the number of variables and the relationships between them.\n\nThe Bayesian network has four variables: H, U, P, and W. The relationships are as follows:\n\n1. H -> U (U is a function of H)\n2. U -> P (P is a function of U)\n3. P -> W (W is a function of P)\n\nNow, let's analyze the dependencies. Since U is a function of H, P is a function of U, and W is a function of P, all variables are interconnected. This means that we cannot find a set of independent parameters for this network.\n\nTherefore, the answer is (D) 16, as there are 16 possible combinations of H, U, P, and W. However, it should be noted that in practice, some of these combinations might not be physically meaningful or relevant to the problem at hand. In such cases, we can reduce the number of independent parameters by introducing additional assumptions or constraints.",
+            "correct": false
+        },
+        {
+            "id": 32,
+            "question": "Statement 1| After mapped into feature space Q through a radial basis kernel function, 1-NN using unweighted Euclidean distance may be able to achieve better classification performance than in original space (though we can\u2019t guarantee this). Statement 2| The VC dimension of a Perceptron is smaller than the VC dimension of a simple linear SVM.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "(D) False, True",
+            "correct": false
+        },
+        {
+            "id": 15,
+            "question": "Statement 1| Layer Normalization is used in the original ResNet paper, not Batch Normalization. Statement 2| DCGANs use self-attention to stabilize training.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 1,
+            "model_answer": "(A) True, True",
+            "correct": false
+        },
+        {
+            "id": 63,
+            "question": "What are support vectors?\n\n(A) The examples farthest from the decision boundary.\n(B) The only examples necessary to compute f(x) in an SVM.\n(C) The data centroid.\n(D) All the examples that have a non-zero weight \u03b1k in a SVM.",
+            "correct_answer": 1,
+            "model_answer": "(D) All the examples that have a non-zero weight \u03b1k in a SVM.\n\nExplanation:\n\n1. Support vectors are an important concept in the design of support vector machines (SVM).\n2. An SVM is a machine learning model that can be used for classification or regression analysis.\n3. In an SVM, support vectors are the examples that have a non-zero weight (\u03b1k) in the decision function, f(x).\n4. The decision function is used to determine which class or category an example belongs to.\n5. Support vectors are the examples that \"support\" the decision function by having a non-zero weight in the function.\n6. Therefore, the correct answer is (D) All the examples that have a non-zero weight \u03b1k in a SVM.",
+            "correct": false
+        },
+        {
+            "id": 57,
+            "question": "Statement 1| L2 regularization of linear models tends to make models more sparse than L1 regularization. Statement 2| Residual connections can be found in ResNets and Transformers.\n\n(A) True, True\n(B) False, False\n(C) True, False\n(D) False, True",
+            "correct_answer": 3,
+            "model_answer": "(A) True, True",
+            "correct": false
+        }
+    ]
+}
