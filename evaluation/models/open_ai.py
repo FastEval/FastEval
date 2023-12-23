@@ -51,7 +51,7 @@ class OpenAI(OpenAIBase):
             try:
                 response = await self.reply_two_attempts_with_different_max_new_tokens(
                     conversation=conversation,
-                    api_base="https://api.openai.com/v1",
+                    api_base=os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1"),
                     api_key=os.environ["OPENAI_API_KEY"],
                     temperature=temperature,
                     max_new_tokens=max_new_tokens,
